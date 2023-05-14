@@ -1,0 +1,6 @@
+\\ \frac{E_{s}}{N_{0}} = \frac{E_{b}}{N_{0}} \cdot log_{2}M = \frac{E_{b}}{N_{0}} \cdot \frac{R_{b}}{R_{s}}
+\\
+\\ \frac{S}{N} =  \frac{E_{s}}{N_{0}} \cdot \frac{R_{s}}{BW} = \frac{E_{s}}{N_{0}} \cdot \frac{R_{s}}{F_{s}} = \frac{E_{s}}{N_{0}} \cdot \frac{1}{sps}  \Leftrightarrow \left( \mathbb{C} \right)
+\\
+\\ \frac{S}{N} =  \frac{E_{s}}{N_{0}} \cdot \frac{R_{s}}{BW} = \frac{E_{s}}{N_{0}} \cdot \frac{R_{s}}{F_{s}/2
+} = \frac{E_{s}}{N_{0}} \cdot \frac{2}{sps} \Leftrightarrow \left( \mathbb{R} \right)

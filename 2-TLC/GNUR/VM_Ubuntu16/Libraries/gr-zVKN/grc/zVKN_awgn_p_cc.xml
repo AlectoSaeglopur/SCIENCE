@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<block>
+  <name>AWGN Channel</name>
+  <key>zVKN_awgn_p_cc</key>
+  <category>zVKN</category>
+  <import>import zVKN</import>
+  <make>zVKN.awgn_p_cc($Gain, $N0, $Dly)</make>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type -->
+  <param>
+    <name>Gain [dB]</name>
+    <key>Gain</key>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Noise power [dBW]</name>
+    <key>N0</key>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Delay [Sa]</name>
+    <key>Dly</key>
+    <type>int</type>
+  </param>
+
+  <!-- Make one 'sink' node per input. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+  </sink>
+
+  <!-- Make one 'source' node per output. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <source>
+    <name>out</name>
+    <type>complex</type>
+  </source>
+</block>

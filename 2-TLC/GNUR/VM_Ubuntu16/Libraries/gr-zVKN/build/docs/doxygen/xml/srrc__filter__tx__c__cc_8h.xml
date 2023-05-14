@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.11">
+  <compounddef id="srrc__filter__tx__c__cc_8h" kind="file" language="C++">
+    <compoundname>srrc_filter_tx_c_cc.h</compoundname>
+    <includes refid="api_8h" local="no">zVKN/api.h</includes>
+    <includes local="no">gnuradio/block.h</includes>
+    <includedby refid="srrc__filter__tx__c__cc__impl_8h" local="no">srrc_filter_tx_c_cc_impl.h</includedby>
+    <incdepgraph>
+      <node id="67">
+        <label>gnuradio/attributes.h</label>
+      </node>
+      <node id="65">
+        <label>srrc_filter_tx_c_cc.h</label>
+        <link refid="srrc_filter_tx_c_cc.h"/>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+      </node>
+      <node id="68">
+        <label>gnuradio/block.h</label>
+      </node>
+      <node id="66">
+        <label>zVKN/api.h</label>
+        <link refid="api_8h"/>
+        <childnode refid="67" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="70">
+        <label>srrc_filter_tx_c_cc_impl.h</label>
+        <link refid="srrc__filter__tx__c__cc__impl_8h"/>
+      </node>
+      <node id="69">
+        <label>srrc_filter_tx_c_cc.h</label>
+        <link refid="srrc_filter_tx_c_cc.h"/>
+        <childnode refid="70" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc" prot="public">gr::zVKN::srrc_filter_tx_c_cc</innerclass>
+    <innernamespace refid="namespacegr">gr</innernamespace>
+    <innernamespace refid="namespacegr_1_1zVKN">gr::zVKN</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/include/zVKN/srrc_filter_tx_c_cc.h"/>
+  </compounddef>
+</doxygen>

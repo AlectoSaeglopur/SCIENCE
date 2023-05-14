@@ -1,0 +1,136 @@
+
+Solver started at: 12:02 AM Sunday, 24. May 2020
+
+  Module:  Time Domain: S-Parameter (Win 64)
+  Version: 2014.0 Release from 2014-02-24 (change 292355)
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+======================================================================
+ Solver cycle: 1
+======================================================================
+
+Stimulation at discrete port 1 
+
+
+--------------------------------------------------------------------------------
+Units settings: 
+
+  Dimensions: mm
+  Frequency:  GHz
+  Time:       ns
+
+--------------------------------------------------------------------------------
+Mesh statistics:
+
+   Hexahedral mesh type: FPBA [accuracy enhancement is enabled]
+
+   Parallelization type: domain decomposition
+      Number of parallel working threads: 2
+      Number of calculation domains used: 4
+
+
+--------------------------------------------------------------------------------
+Boundary conditions: 
+
+  YZsymmetry: none
+  XZsymmetry: none
+  XYsymmetry: none
+
+  Xmin: expanded open, 4 Layer, depth 76.629 mm
+  Xmax: expanded open, 4 Layer, depth 76.629 mm
+
+  Ymin: expanded open, 4 Layer, depth 76.629 mm
+  Ymax: expanded open, 4 Layer, depth 76.629 mm
+
+  Zmin: expanded open, 4 Layer, depth 77.1954 mm
+  Zmax: expanded open, 4 Layer, depth 77.1954 mm
+
+  PML-Type: Convolution PML
+
+--------------------------------------------------------------------------------
+Frequency settings: 
+
+  Fmin:    0
+  Fmax:    1.5
+  Nfsteps: 1001
+
+--------------------------------------------------------------------------------
+Port: 1
+
+  Discrete element, reference impedance = 37 ohms
+
+--------------------------------------------------------------------------------
+Field update statistics:
+
+  Number of components in total: 	1658972
+  Number of lossy metal components:	27624
+
+Subcycling state:      Automatically deactivated
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Steady state energy criterion met, solver finished successfully.
+
+--------------------------------------------------------------------------------
+Frequency domain results normalized to default signal.
+
+--------------------------------------------------------------------------------
+
+  ----------------------------------------------------------------------------
+                      Peak memory used (kB)         Free physical memory (kB) 
+                                                    At begin     Minimum      
+  ----------------------------------------------------------------------------
+  CAD preparation     17736                         3355564      3355564      
+  Matrices calc.      131516                        3340732      3223384      
+  Solver run total    82644                         3380680      3226996      
+  ----------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Solver Statistics:
+
+  Hardware:
+     Computer name:                 	DESKTOP-I1KH1BB 
+
+     Number of CPU threads:             2
+     GPU info:                  	GPU computing not activated
+
+  Number of mesh cells:             	268912
+  Excitation duration:              	2.36969917e+000 ns 
+  Calculation time for excitation:  	7      	s
+  Number of calculated pulse widths:	3.58394 
+  Steady state accuracy limit:      	-30	dB 
+  Simulated number of time steps:   	2257   
+  Maximum number of time steps:     	12595  
+  Time step width:
+     without subcycles:             	3.76289851e-003 ns
+     used:                          	3.76289851e-003 ns
+
+  CAD preparation time:          	1      	s
+  Matrix calculation time:          	9      	s
+  Solver setup time:                	2      	s
+  Solver loop time:                 	22     	s
+  Solver post processing time:      	0      	s
+                                    	------------
+  Total solver time:                	34     	s
+
+--------------------------------------------------------------------------------
+
+  Adaptive port meshing time:       	0      	s
+  Total solver time (all cycles):   	35     	s
+                                    	------------
+  Total simulation time:            	35     	s
+
+--------------------------------------------------------------------------------
+Solver finished at: 12:03 AM Sunday, 24. May 2020
+
+
+--------------------------------------------------------------------------------
+Creating parametric 1D results.
+
+--------------------------------------------------------------------------------

@@ -1,0 +1,1 @@
+/usr/bin/c++   -O3 -DNDEBUG   CMakeFiles/test-zVKN.dir/test_zVKN.cc.o CMakeFiles/test-zVKN.dir/qa_zVKN.cc.o  -o test-zVKN -rdynamic -lgnuradio-runtime -lgnuradio-pmt -lboost_filesystem -lboost_system -lcppunit -ldl libgnuradio-zVKN.so -lgnuradio-runtime -lgnuradio-pmt -lboost_filesystem -lboost_system -Wl,-rpath,/home/vkn/Documents/GNUR/Libraries/gr-zVKN/build/lib 

@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.11">
+  <compounddef id="flag__appender__c__mm_8h" kind="file" language="C++">
+    <compoundname>flag_appender_c_mm.h</compoundname>
+    <includes refid="api_8h" local="no">zVKN/api.h</includes>
+    <includes local="no">gnuradio/block.h</includes>
+    <includedby refid="flag__appender__c__mm__impl_8h" local="no">flag_appender_c_mm_impl.h</includedby>
+    <incdepgraph>
+      <node id="15">
+        <label>gnuradio/attributes.h</label>
+      </node>
+      <node id="16">
+        <label>gnuradio/block.h</label>
+      </node>
+      <node id="14">
+        <label>zVKN/api.h</label>
+        <link refid="api_8h"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>flag_appender_c_mm.h</label>
+        <link refid="flag_appender_c_mm.h"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="18">
+        <label>flag_appender_c_mm_impl.h</label>
+        <link refid="flag__appender__c__mm__impl_8h"/>
+      </node>
+      <node id="17">
+        <label>flag_appender_c_mm.h</label>
+        <link refid="flag_appender_c_mm.h"/>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classgr_1_1zVKN_1_1flag__appender__c__mm" prot="public">gr::zVKN::flag_appender_c_mm</innerclass>
+    <innernamespace refid="namespacegr">gr</innernamespace>
+    <innernamespace refid="namespacegr_1_1zVKN">gr::zVKN</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/include/zVKN/flag_appender_c_mm.h"/>
+  </compounddef>
+</doxygen>

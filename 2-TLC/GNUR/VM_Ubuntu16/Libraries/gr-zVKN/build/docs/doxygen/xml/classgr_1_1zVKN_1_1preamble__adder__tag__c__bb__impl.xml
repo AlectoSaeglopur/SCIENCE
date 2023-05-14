@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.11">
+  <compounddef id="classgr_1_1zVKN_1_1preamble__adder__tag__c__bb__impl" kind="class" language="C++" prot="public">
+    <compoundname>gr::zVKN::preamble_adder_tag_c_bb_impl</compoundname>
+    <basecompoundref refid="classgr_1_1zVKN_1_1preamble__adder__tag__c__bb" prot="public" virt="non-virtual">gr::zVKN::preamble_adder_tag_c_bb</basecompoundref>
+    <includes refid="preamble__adder__tag__c__bb__impl_8h" local="no">preamble_adder_tag_c_bb_impl.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classgr_1_1zVKN_1_1preamble__adder__tag__c__bb__impl_1abc3087a121f5dcff37310f29759492fe" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int gr::zVKN::preamble_adder_tag_c_bb_impl::d_prb_val</definition>
+        <argsstring></argsstring>
+        <name>d_prb_val</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/preamble_adder_tag_c_bb_impl.h" line="32" column="1" bodyfile="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/preamble_adder_tag_c_bb_impl.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1zVKN_1_1preamble__adder__tag__c__bb__impl_1a1e59035e321f7de5a23b88b37e307beb" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int gr::zVKN::preamble_adder_tag_c_bb_impl::d_prb_len</definition>
+        <argsstring></argsstring>
+        <name>d_prb_len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/preamble_adder_tag_c_bb_impl.h" line="33" column="1" bodyfile="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/preamble_adder_tag_c_bb_impl.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classgr_1_1zVKN_1_1preamble__adder__tag__c__bb__impl_1a8480a318ff2a14280751a400497804a2" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int gr::zVKN::preamble_adder_tag_c_bb_impl::calculate_output_stream_length</definition>
+        <argsstring>(const gr_vector_int &amp;ninput_items)</argsstring>
+        <name>calculate_output_stream_length</name>
+        <param>
+          <type>const gr_vector_int &amp;</type>
+          <declname>ninput_items</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/preamble_adder_tag_c_bb_impl.h" line="36" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classgr_1_1zVKN_1_1preamble__adder__tag__c__bb__impl_1ad87a16e719446811cc9bbe1d127ff070" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>gr::zVKN::preamble_adder_tag_c_bb_impl::preamble_adder_tag_c_bb_impl</definition>
+        <argsstring>(int prb_val, int prb_len, const std::string &amp;len_tag_key)</argsstring>
+        <name>preamble_adder_tag_c_bb_impl</name>
+        <param>
+          <type>int</type>
+          <declname>prb_val</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>prb_len</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>len_tag_key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/preamble_adder_tag_c_bb_impl.h" line="39" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1zVKN_1_1preamble__adder__tag__c__bb__impl_1a1deb301b6663faa4184663db76f564ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>gr::zVKN::preamble_adder_tag_c_bb_impl::~preamble_adder_tag_c_bb_impl</definition>
+        <argsstring>()</argsstring>
+        <name>~preamble_adder_tag_c_bb_impl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/preamble_adder_tag_c_bb_impl.h" line="40" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1zVKN_1_1preamble__adder__tag__c__bb__impl_1a16e83e73960a3d3b9d3e840bc3e80368" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int gr::zVKN::preamble_adder_tag_c_bb_impl::work</definition>
+        <argsstring>(int noutput_items, gr_vector_int &amp;ninput_items, gr_vector_const_void_star &amp;input_items, gr_vector_void_star &amp;output_items)</argsstring>
+        <name>work</name>
+        <param>
+          <type>int</type>
+          <declname>noutput_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_int &amp;</type>
+          <declname>ninput_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_const_void_star &amp;</type>
+          <declname>input_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_void_star &amp;</type>
+          <declname>output_items</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/preamble_adder_tag_c_bb_impl.h" line="43" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="28">
+        <label>gr::zVKN::preamble_adder_tag_c_bb</label>
+        <link refid="classgr_1_1zVKN_1_1preamble__adder__tag__c__bb"/>
+        <childnode refid="29" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>gr::tagged_stream_block</label>
+      </node>
+      <node id="27">
+        <label>gr::zVKN::preamble_adder_tag_c_bb_impl</label>
+        <link refid="classgr_1_1zVKN_1_1preamble__adder__tag__c__bb__impl"/>
+        <childnode refid="28" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="31">
+        <label>gr::zVKN::preamble_adder_tag_c_bb</label>
+        <link refid="classgr_1_1zVKN_1_1preamble__adder__tag__c__bb"/>
+        <childnode refid="32" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>gr::tagged_stream_block</label>
+      </node>
+      <node id="30">
+        <label>gr::zVKN::preamble_adder_tag_c_bb_impl</label>
+        <link refid="classgr_1_1zVKN_1_1preamble__adder__tag__c__bb__impl"/>
+        <childnode refid="31" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/preamble_adder_tag_c_bb_impl.h" line="30" column="1" bodyfile="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/preamble_adder_tag_c_bb_impl.h" bodystart="29" bodyend="47"/>
+    <listofallmembers>
+      <member refid="classgr_1_1zVKN_1_1preamble__adder__tag__c__bb__impl_1a8480a318ff2a14280751a400497804a2" prot="protected" virt="non-virtual"><scope>gr::zVKN::preamble_adder_tag_c_bb_impl</scope><name>calculate_output_stream_length</name></member>
+      <member refid="classgr_1_1zVKN_1_1preamble__adder__tag__c__bb__impl_1a1e59035e321f7de5a23b88b37e307beb" prot="private" virt="non-virtual"><scope>gr::zVKN::preamble_adder_tag_c_bb_impl</scope><name>d_prb_len</name></member>
+      <member refid="classgr_1_1zVKN_1_1preamble__adder__tag__c__bb__impl_1abc3087a121f5dcff37310f29759492fe" prot="private" virt="non-virtual"><scope>gr::zVKN::preamble_adder_tag_c_bb_impl</scope><name>d_prb_val</name></member>
+      <member refid="classgr_1_1zVKN_1_1preamble__adder__tag__c__bb_1ac9a83aa58703dad6e919a609e915fe99" prot="public" virt="non-virtual"><scope>gr::zVKN::preamble_adder_tag_c_bb_impl</scope><name>make</name></member>
+      <member refid="classgr_1_1zVKN_1_1preamble__adder__tag__c__bb__impl_1ad87a16e719446811cc9bbe1d127ff070" prot="public" virt="non-virtual"><scope>gr::zVKN::preamble_adder_tag_c_bb_impl</scope><name>preamble_adder_tag_c_bb_impl</name></member>
+      <member refid="classgr_1_1zVKN_1_1preamble__adder__tag__c__bb_1a07bcceeb5e357e818dad2b5a0bbf791e" prot="public" virt="non-virtual"><scope>gr::zVKN::preamble_adder_tag_c_bb_impl</scope><name>sptr</name></member>
+      <member refid="classgr_1_1zVKN_1_1preamble__adder__tag__c__bb__impl_1a16e83e73960a3d3b9d3e840bc3e80368" prot="public" virt="non-virtual"><scope>gr::zVKN::preamble_adder_tag_c_bb_impl</scope><name>work</name></member>
+      <member refid="classgr_1_1zVKN_1_1preamble__adder__tag__c__bb__impl_1a1deb301b6663faa4184663db76f564ca" prot="public" virt="non-virtual"><scope>gr::zVKN::preamble_adder_tag_c_bb_impl</scope><name>~preamble_adder_tag_c_bb_impl</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

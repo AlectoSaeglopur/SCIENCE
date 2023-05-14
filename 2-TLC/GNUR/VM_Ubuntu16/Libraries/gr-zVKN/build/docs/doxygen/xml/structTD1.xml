@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.11">
+  <compounddef id="structTD1" kind="struct" language="C++" prot="public">
+    <compoundname>TD1</compoundname>
+    <includes refid="psk__mapper__c__bc__impl_8h" local="no">psk_mapper_c_bc_impl.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structTD1_1a8908d82e3e64adeb86f77d044b93b4bb" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t TD1::Bits[MAX_M]</definition>
+        <argsstring>[MAX_M]</argsstring>
+        <name>Bits</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" line="29" column="1" bodyfile="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTD1_1a42eaa5a13db60e32132d7d0ec395f755" prot="public" static="no" mutable="no">
+        <type>gr_complex</type>
+        <definition>gr_complex TD1::Symbs[MAX_M]</definition>
+        <argsstring>[MAX_M]</argsstring>
+        <name>Symbs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" line="30" column="1" bodyfile="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" line="28" column="1" bodyfile="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" bodystart="28" bodyend="31"/>
+    <listofallmembers>
+      <member refid="structTD1_1a8908d82e3e64adeb86f77d044b93b4bb" prot="public" virt="non-virtual"><scope>TD1</scope><name>Bits</name></member>
+      <member refid="structTD1_1a42eaa5a13db60e32132d7d0ec395f755" prot="public" virt="non-virtual"><scope>TD1</scope><name>Symbs</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

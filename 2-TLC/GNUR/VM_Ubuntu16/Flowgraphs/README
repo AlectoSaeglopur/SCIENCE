@@ -1,0 +1,17 @@
+
+1. test_srrc_filter.grc :
+
+* To display the behavior of a short (thus not continuous/endless) symbol stream (in particular at its beginning and end), disable "Repeat" in Random Source, reduce the symbol rate (so to make the graphic update rate slower, e.g. setting Rs = 400 S/s in order to get Fs = 3.2 kSa/s assuming sps = 8) and after running the flowgraph just click "Stop" to check the waveform.
+
+* The Throttle block shall be placed after the SRRC filter if it's value represents the actual sample rate. Otherwise, it could have been placed
+after the PSK mapper, but using as value symb_rate (and not samp_rate).
+
+* Expectedbandwidth = Rs*(1+beta) : e.g. for Rs = 500 S/s and beta = 0.5, BW = 750 Hz (i.e. between +/- 375 Hz).
+
+
+
+2. test_epy_block.grc :
+
+* To test the print-to-bin mode, set "No GUI / Run to completion" option, disable "Repeat" field in Vector Source, disable GUI Time Sink and enable Fuile Sink.
+
+* To enable the graphic mode, set "QT GUI" option, enable "Repeat" field in Vector Source, enable GUI Time Sink, and disable File Sink.

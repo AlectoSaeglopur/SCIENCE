@@ -1,0 +1,26 @@
+
+>>> 1. FPGA <<<
+
+* debug VHDL code read/write external EEPROM with mobile oscilloscope.
+
+* 
+
+* write VHDL code to handle DE-10 board ADC and DAC units (use mobile signal generator for input signal).
+
+------------------------
+
+>>> 2. ARDUINO <<<
+
+* write C code to handle other external chips included in the box.
+
+------------------------
+
+>>> 3. LTSPICE <<<
+
+* try to simulate circuits studiedin Sedra's eletronics book.
+
+------------------------
+
+>>> 4. ALTIUM <<<
+
+* retrieve a schematic for a guitar pedal and try to create the layout for that board.

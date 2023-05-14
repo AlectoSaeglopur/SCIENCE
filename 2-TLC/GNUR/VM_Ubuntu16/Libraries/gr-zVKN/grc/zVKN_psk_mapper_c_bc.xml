@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<block>
+  <name>PSK Mapper [C-BC]</name>
+  <key>zVKN_psk_mapper_c_bc</key>
+  <category>zVKN</category>
+  <import>import zVKN</import>
+  <make>zVKN.psk_mapper_c_bc($M, $PO, $R)</make>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type -->
+  <param>
+    <name>Order</name>
+    <key>M</key>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>Offset</name>
+    <key>PO</key>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Rotation</name>
+    <key>R</key>
+    <type>bool</type>
+    <option>
+      <name>clockwise</name>
+      <key>False</key>
+    </option>
+    <option>
+      <name>counterclockwise</name>
+      <key>True</key>
+    </option>
+  </param>
+
+  <!-- Make one 'sink' node per input. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <sink>
+    <name>in</name>
+    <type>byte</type>
+  </sink>
+
+ <!-- Make one 'sink' node per input. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <sink>
+    <name>port_in</name>
+    <type>message</type>
+    <optional>1</optional>                        <!-- to make "port_in" connection optional (default is "0" usually) -->
+  </sink>
+
+
+  <!-- Make one 'source' node per output. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <source>
+    <name>out</name>
+    <type>complex</type>
+  </source>
+</block>

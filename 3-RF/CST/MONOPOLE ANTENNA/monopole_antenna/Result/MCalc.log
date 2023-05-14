@@ -1,0 +1,129 @@
+DESKTOP-I1KH1BB: <<<<<<<<<<<<<<<<<<<<<<<<<<<
+                 2020 May 24 (Sun): 00:02:38
+                 <<<<<<<<<<<<<<<<<<<<<<<<<<<
+                 
+DESKTOP-I1KH1BB: ============================================================================
+                 Mesher selection: automatic: FPBA [support advanced surface impedance setup]
+                 ============================================================================
+                 
+DESKTOP-I1KH1BB: ===============================
+                 Processing CAD model
+                 Version 2014.0 (build 20140224)
+                 2020 May 24 (Sun): 00:02:38
+                 ===============================
+                 
+==================================================================================================
+== CST Matrix Calculation Priority Log                                                          ==
+==================================================================================================
+ 
+Priorities are sorted in ascending order beginning with the lowest priority
+ 
+Priority:   2, shape   2: component1:gap, material: Vacuum
+Priority:   4, shape   4: discrete_face_port:1, material: PEC
+Priority:   6, shape   1: component1:cylinder, material: Copper (annealed)
+Priority:   6, shape   3: component1:ground, material: Copper (annealed)
+ 
+==================================================================================================
+ 
+DESKTOP-I1KH1BB: =======================
+                 Finished CAD processing
+                 =======================
+                 
+DESKTOP-I1KH1BB: ===============================
+                 Processing CAD model
+                 Version 2014.0 (build 20140224)
+                 2020 May 24 (Sun): 00:02:39
+                 ===============================
+                 
+DESKTOP-I1KH1BB: =======================
+                 Finished CAD processing
+                 =======================
+                 
+DESKTOP-I1KH1BB: 1xN000: <<<<<<<<<<<<<<<<<<<<<<<<<<<
+                         2020 May 24 (Sun): 00:02:44
+                         <<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+DESKTOP-I1KH1BB: 1xN000: =======================================
+                         Matrix computation (FPBA)
+                         	[FPBA accuracy enhancement is enabled]
+                         Version 2014.0 (build 20140224)
+                         2020 May 24 (Sun): 00:02:44
+                         =======================================
+
+DESKTOP-I1KH1BB: 1xN000: ==================================
+                         Finished matrix computation (FPBA)
+                         ==================================
+
+DESKTOP-I1KH1BB: 1xN000: >>>>>>>>>>>>>>>>>>>>>>>>>>>
+                         2020 May 24 (Sun): 00:02:47
+                         >>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
+DESKTOP-I1KH1BB: 1xN001: <<<<<<<<<<<<<<<<<<<<<<<<<<<
+                         2020 May 24 (Sun): 00:02:43
+                         <<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+DESKTOP-I1KH1BB: 1xN001: =======================================
+                         Matrix computation (FPBA)
+                         	[FPBA accuracy enhancement is enabled]
+                         Version 2014.0 (build 20140224)
+                         2020 May 24 (Sun): 00:02:43
+                         =======================================
+
+DESKTOP-I1KH1BB: 1xN001: ==================================
+                         Finished matrix computation (FPBA)
+                         ==================================
+
+DESKTOP-I1KH1BB: 1xN001: >>>>>>>>>>>>>>>>>>>>>>>>>>>
+                         2020 May 24 (Sun): 00:02:46
+                         >>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
+DESKTOP-I1KH1BB: 1xN002: <<<<<<<<<<<<<<<<<<<<<<<<<<<
+                         2020 May 24 (Sun): 00:02:39
+                         <<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+DESKTOP-I1KH1BB: 1xN002: =======================================
+                         Matrix computation (FPBA)
+                         	[FPBA accuracy enhancement is enabled]
+                         Version 2014.0 (build 20140224)
+                         2020 May 24 (Sun): 00:02:39
+                         =======================================
+
+DESKTOP-I1KH1BB: 1xN002: ==================================
+                         Finished matrix computation (FPBA)
+                         ==================================
+
+DESKTOP-I1KH1BB: 1xN002: >>>>>>>>>>>>>>>>>>>>>>>>>>>
+                         2020 May 24 (Sun): 00:02:43
+                         >>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
+DESKTOP-I1KH1BB: 1xN003: <<<<<<<<<<<<<<<<<<<<<<<<<<<
+                         2020 May 24 (Sun): 00:02:39
+                         <<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+DESKTOP-I1KH1BB: 1xN003: =======================================
+                         Matrix computation (FPBA)
+                         	[FPBA accuracy enhancement is enabled]
+                         Version 2014.0 (build 20140224)
+                         2020 May 24 (Sun): 00:02:39
+                         =======================================
+
+DESKTOP-I1KH1BB: 1xN003: ==================================
+                         Finished matrix computation (FPBA)
+                         ==================================
+
+DESKTOP-I1KH1BB: 1xN003: >>>>>>>>>>>>>>>>>>>>>>>>>>>
+                         2020 May 24 (Sun): 00:02:44
+                         >>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
+DESKTOP-I1KH1BB: >>>>>>>>>>>>>>>>>>>>>>>>>>>
+                 2020 May 24 (Sun): 00:02:48
+                 >>>>>>>>>>>>>>>>>>>>>>>>>>>
+                 

@@ -1,0 +1,2 @@
+
+* study Linux embedded programming to create a custom OS to handle Arduino board

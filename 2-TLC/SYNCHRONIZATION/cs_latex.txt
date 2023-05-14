@@ -1,0 +1,6 @@
+\begin{align*} 
+I_R &= I_Tcos(\alpha)+Q_Tsin(\alpha) \\
+Q_R &= -I_Tsin(\alpha)+Q_Tcos(\alpha) \\ \\
+I_T &= I_Rcos(\alpha)-Q_Rsin(\alpha) \\
+Q_T &= I_Rsin(\alpha)+Q_Rcos(\alpha)
+\end{align*}

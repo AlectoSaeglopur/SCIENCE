@@ -1,0 +1,58 @@
+
+>>> 1. MATLAB <<<
+
+* add reception to FH-FSK (and compare BER performance with standard FSK)
+
+* test DSSS-PSK with channel delay and synchronization
+
+* compare BER performance between FSK, CPFSK and GFSK.
+
+* develop DPSK encoding and non-coherent decoding (see PskChain.m)
+
+* IIR filtering
+
+* Butterworth & Chebyshev filters
+
+* blind equalizer
+
+* development and BER estimation for ASK (and overall review of AM/ASK script)
+
+* FFT algorithm (for every signal length, not just power of 2)
+
+* implement LDPC and Golay coding
+
+---------------------------------------------
+
+>>> 2. PYTHON <<<
+
+* create overall Tx/Rx DVB-S communication chain in Python
+
+* test libraries for AES 256 crittography
+
+---------------------------------------------
+
+>>> 3. GNU RADIO <<<
+
+* convert Python DVB-S chain into GNUR
+
+---------------------------------------------
+
+>>> 4. C++ <<<
+
+* add RS + QAM in C++ chain
+
+---------------------------------------------
+
+>>> 5. EXTRA <<<
+
+* write a LaTeX text for digital filtering (FIR, IIR, Gaussian, SRRC), ASK + PSK and demodulation
+
+---------------------------------------------
+
+>>> 6. NOTES <<<
+
+- to type "~" (tilde) : enable "blocknum" and click "alt"+"126"
+- to type "È" : enable "blocknum" and click "alt"+"0200"
+- to type "ó" : enable "blocknum" and click "alt"+"162"
+
+

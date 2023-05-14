@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.11">
+  <compounddef id="dir_97aefd0d527b934f1d99a682da8fe6a9" kind="dir">
+    <compoundname>lib</compoundname>
+    <innerfile refid="flag__appender__c__mm__impl_8h">flag_appender_c_mm_impl.h</innerfile>
+    <innerfile refid="preamble__adder__c__bb__impl_8h">preamble_adder_c_bb_impl.h</innerfile>
+    <innerfile refid="preamble__adder__tag__c__bb__impl_8h">preamble_adder_tag_c_bb_impl.h</innerfile>
+    <innerfile refid="psk__mapper__c__bc__impl_8h">psk_mapper_c_bc_impl.h</innerfile>
+    <innerfile refid="srrc__filter__tx__c__cc__impl_8h">srrc_filter_tx_c_cc_impl.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/"/>
+  </compounddef>
+</doxygen>

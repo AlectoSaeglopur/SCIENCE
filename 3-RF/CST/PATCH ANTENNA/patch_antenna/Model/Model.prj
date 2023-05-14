@@ -1,0 +1,17 @@
+[Author]
+Filippo
+[Mesh Cells]
+62,100
+[Mesh Type]
+Hexahedral
+[Last Problem Type]
+High Frequency
+[Last Solver Type]
+HF Time Domain
+[Last Solver Type Abb]
+t
+[Results]
+Time Domain: S-Parameter
+[Modeler Unique ID]
+5:patch_antenna.cst?64ac8139416c3ad12c6265ab322c84fb?13880:numberofparameters=8:port=1>mode=1>zre=50>zim=0:::fi?gpf?l?lf?mt?w?wf?h
+[Comment]

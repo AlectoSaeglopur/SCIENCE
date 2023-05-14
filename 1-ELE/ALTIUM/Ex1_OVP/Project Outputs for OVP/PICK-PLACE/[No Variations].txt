@@ -1,0 +1,27 @@
+Altium Designer Pick and Place Locations
+H:\SCIENCE\1-ELE\ALTIUM\Ex1_OVP\Project Outputs for OVP\PICK-PLACE\[No Variations].txt
+
+========================================================================================================================
+File Design Information:
+
+Date:       21/03/20
+Time:       00:29
+Revision:   Not in VersionControl
+Variant:    No variations
+Units used: mil
+
+Designator Comment  Layer       Footprint    Center-X(mil) Center-Y(mil) Rotation Description                                                                 
+Q1         MOSFET-N TopLayer    NMOS-SOT23   990.157       830.709       360      "Trans MOSFET N-CH 60V 0.115A 3-Pin SOT-23 T/R"                             
+Q4         BJT-P    TopLayer    BJT-SOT23    535.433       959.646       360      "MMBT2907AL Series 60 V 600 mA SMT PNP General Purpose Transistor - SOT-23" 
+J1         DB9-M    TopLayer    DB9          831.496       467.323       360      "D-Sub Standard Connectors DSUB SV ML SSDP ANG73-254 09P AU3"               
+R5         33k      TopLayer    RES-0805     764.764       971.457       180      "RES SMD 33.2K OHM 1% 1/4W 0805"                                            
+R4         3k       BottomLayer RES-0805     1026.575      893.701       180      "RES SMD 3.01K OHM 1% 1/4W 0805"                                            
+R3         3k       BottomLayer RES-0805     1025.591      728.346       360      "RES SMD 3.01K OHM 1% 1/4W 0805"                                            
+R2         750      BottomLayer RES-0805     529.528       1051.181      180      "RES SMD 750 OHM 1% 1/4W 0805"                                              
+R1         3k       BottomLayer RES-0805     746.063       1008.858      270      "RES SMD 3.01K OHM 1% 1/4W 0805"                                            
+Q3         MOSFET-P TopLayer    PMOS-SOT23   986.220       1108.268      0        "MOSFET P-CH 60V 185MA SOT23-3"                                             
+Q2         BJT-P    TopLayer    BJT-SOT23    764.764       758.858       270      "MMBT2907AL Series 60 V 600 mA SMT PNP General Purpose Transistor - SOT-23" 
+D3         ZENER    BottomLayer ZENER-SOD523 568.898       911.417       90       "DIODE ZENER 10V 350MW SOD523"                                              
+D2         RED      TopLayer    LED-0603     1166.339      1118.110      270      "DIALIGHT   5988020107F   LED, RED ORANGE, 150MCD, 630NM"                   
+D1         GREEN    TopLayer    LED-0603     1168.307      918.307       270      "DIALIGHT - 5988070107F - LED, Green, SMD, 0603, 20 mA, 2 V, 570 nm"        
+C1         100n     TopLayer    CAP-0603     572.835       762.795       270      "Multilayer Ceramic Capacitors MLCC - SMD/SMT 25volts 0.1uF X7R 20%"        

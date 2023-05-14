@@ -1,0 +1,57 @@
+*** File Version: 11.00
+
+Number of ports: 1
+Portnames: 1
+Modenumbers: 1
+Portlabels: ""
+StaticSources:
+FloquetPortNames:
+FloquetPortModes:
+Number of frequency-points: 1
+Fmin: 0.000000e+000
+Fmax: 1.500000e+009
+Fscale: 1.000000e+009
+
+
+
+*** newset
+
+*** newmode
+SetType: 100
+Portname: 1
+Modenumber: 1
+Modetype: 6
+Zline: 3.700000e+001 0.000000e+000
+Fdev: 7.500000e+008
+Fmin: 0.000000e+000
+Fmax: 1.500000e+009
+PortModeConsState: 0
+*** endmode
+
+*** endset
+
+
+
+
+*** newmonitor
+monname: "farfield (f=0.8)"
+nmonfrequencies: 1
+monfrequencies: "0.8" 
+montype: 18
+mondomain: 1
+mon_fmin: ""
+mon_fmax: ""
+mon_nfSteps: ""
+*** endmonitor
+
+*** newmonitor
+monname: "h-field (f=0.8)"
+nmonfrequencies: 1
+monfrequencies: "0.8" 
+montype: 1
+mondomain: 1
+mon_fmin: ""
+mon_fmax: ""
+mon_nfSteps: ""
+*** endmonitor
+

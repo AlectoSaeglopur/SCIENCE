@@ -1,0 +1,349 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.11">
+  <compounddef id="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl" kind="class" language="C++" prot="public">
+    <compoundname>gr::zVKN::psk_mapper_c_bc_impl</compoundname>
+    <basecompoundref refid="classgr_1_1zVKN_1_1psk__mapper__c__bc" prot="public" virt="non-virtual">gr::zVKN::psk_mapper_c_bc</basecompoundref>
+    <includes refid="psk__mapper__c__bc__impl_8h" local="no">psk_mapper_c_bc_impl.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1ac8e4de607172de695e0200d8b2ebf62a" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int gr::zVKN::psk_mapper_c_bc_impl::ModOrd</definition>
+        <argsstring></argsstring>
+        <name>ModOrd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" line="39" column="1" bodyfile="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1af97788a8287e422958520171a4fe4fdd" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float gr::zVKN::psk_mapper_c_bc_impl::PhOfst</definition>
+        <argsstring></argsstring>
+        <name>PhOfst</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" line="40" column="1" bodyfile="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1a97f61f3fa70af701cfaa3be9179f17ff" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool gr::zVKN::psk_mapper_c_bc_impl::Rotat</definition>
+        <argsstring></argsstring>
+        <name>Rotat</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" line="41" column="1" bodyfile="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1a845601c50d353582681f6250607bd870" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int gr::zVKN::psk_mapper_c_bc_impl::L</definition>
+        <argsstring></argsstring>
+        <name>L</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" line="42" column="1" bodyfile="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1ac0a47e6d2b6a8431030faced32c1f4fa" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int gr::zVKN::psk_mapper_c_bc_impl::Nfcast</definition>
+        <argsstring></argsstring>
+        <name>Nfcast</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" line="43" column="1" bodyfile="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1a293f2aea16384fd9263842949e213a86" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int gr::zVKN::psk_mapper_c_bc_impl::Nsom</definition>
+        <argsstring></argsstring>
+        <name>Nsom</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" line="44" column="1" bodyfile="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1aadcc2a8f3d0daffa426c29372c5cdc95" prot="private" static="no" mutable="no">
+        <type><ref refid="psk__mapper__c__bc__impl_8h_1a404498c20b46f06ba3c60908951c1c81" kindref="member">phasemap</ref></type>
+        <definition>phasemap gr::zVKN::psk_mapper_c_bc_impl::PskTable</definition>
+        <argsstring></argsstring>
+        <name>PskTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" line="45" column="1" bodyfile="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1af6d3c0402b878d6d9367d68db14c8195" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gr::zVKN::psk_mapper_c_bc_impl::GetGray</definition>
+        <argsstring>(uint8_t *IoArray)</argsstring>
+        <name>GetGray</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>IoArray</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" line="47" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1a8c73e8bec56ffee8b1bd3951eba98283" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gr::zVKN::psk_mapper_c_bc_impl::GetPskTable</definition>
+        <argsstring>(phasemap *IoTable)</argsstring>
+        <name>GetPskTable</name>
+        <param>
+          <type><ref refid="psk__mapper__c__bc__impl_8h_1a404498c20b46f06ba3c60908951c1c81" kindref="member">phasemap</ref> *</type>
+          <declname>IoTable</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" line="48" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1a726903ecdd2a55084ea4021ade2b4553" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gr::zVKN::psk_mapper_c_bc_impl::Mapper</definition>
+        <argsstring>(uint8_t *InBytes, size_t ByteLen, gr_complex *OutSymbs, phasemap *Table)</argsstring>
+        <name>Mapper</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>InBytes</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ByteLen</declname>
+        </param>
+        <param>
+          <type>gr_complex *</type>
+          <declname>OutSymbs</declname>
+        </param>
+        <param>
+          <type><ref refid="psk__mapper__c__bc__impl_8h_1a404498c20b46f06ba3c60908951c1c81" kindref="member">phasemap</ref> *</type>
+          <declname>Table</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" line="49" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1aec236db1cb2cfa87533d2b9f34b60821" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gr::zVKN::psk_mapper_c_bc_impl::UpdateParamM</definition>
+        <argsstring>(int M)</argsstring>
+        <name>UpdateParamM</name>
+        <param>
+          <type>int</type>
+          <declname>M</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" line="50" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1a57b6498597756df0c08dd44d880da9de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>gr::zVKN::psk_mapper_c_bc_impl::psk_mapper_c_bc_impl</definition>
+        <argsstring>(int M, float PO, bool R)</argsstring>
+        <name>psk_mapper_c_bc_impl</name>
+        <param>
+          <type>int</type>
+          <declname>M</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>PO</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>R</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" line="53" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1af93fbe0da6eb3661db57792a62d51896" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>gr::zVKN::psk_mapper_c_bc_impl::~psk_mapper_c_bc_impl</definition>
+        <argsstring>()</argsstring>
+        <name>~psk_mapper_c_bc_impl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" line="54" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1adcc97b02a08be373d18db12fdba3a172" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gr::zVKN::psk_mapper_c_bc_impl::change_param_handler</definition>
+        <argsstring>(pmt::pmt_t msg_in)</argsstring>
+        <name>change_param_handler</name>
+        <param>
+          <type>pmt::pmt_t</type>
+          <declname>msg_in</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" line="55" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1ab0afc9643756e7cde77a5daedac11897" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gr::zVKN::psk_mapper_c_bc_impl::forecast</definition>
+        <argsstring>(int noutput_items, gr_vector_int &amp;ninput_items_required)</argsstring>
+        <name>forecast</name>
+        <param>
+          <type>int</type>
+          <declname>noutput_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_int &amp;</type>
+          <declname>ninput_items_required</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" line="58" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1acb48e1ee762985a1c588bd1b186671ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int gr::zVKN::psk_mapper_c_bc_impl::general_work</definition>
+        <argsstring>(int noutput_items, gr_vector_int &amp;ninput_items, gr_vector_const_void_star &amp;input_items, gr_vector_void_star &amp;output_items)</argsstring>
+        <name>general_work</name>
+        <param>
+          <type>int</type>
+          <declname>noutput_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_int &amp;</type>
+          <declname>ninput_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_const_void_star &amp;</type>
+          <declname>input_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_void_star &amp;</type>
+          <declname>output_items</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" line="60" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="38">
+        <label>gr::zVKN::psk_mapper_c_bc_impl</label>
+        <link refid="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl"/>
+        <childnode refid="39" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>gr::zVKN::psk_mapper_c_bc</label>
+        <link refid="classgr_1_1zVKN_1_1psk__mapper__c__bc"/>
+        <childnode refid="40" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>block</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="41">
+        <label>gr::zVKN::psk_mapper_c_bc_impl</label>
+        <link refid="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl"/>
+        <childnode refid="42" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>gr::zVKN::psk_mapper_c_bc</label>
+        <link refid="classgr_1_1zVKN_1_1psk__mapper__c__bc"/>
+        <childnode refid="43" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>block</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" line="36" column="1" bodyfile="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/psk_mapper_c_bc_impl.h" bodystart="36" bodyend="64"/>
+    <listofallmembers>
+      <member refid="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1adcc97b02a08be373d18db12fdba3a172" prot="public" virt="non-virtual"><scope>gr::zVKN::psk_mapper_c_bc_impl</scope><name>change_param_handler</name></member>
+      <member refid="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1ab0afc9643756e7cde77a5daedac11897" prot="public" virt="non-virtual"><scope>gr::zVKN::psk_mapper_c_bc_impl</scope><name>forecast</name></member>
+      <member refid="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1acb48e1ee762985a1c588bd1b186671ab" prot="public" virt="non-virtual"><scope>gr::zVKN::psk_mapper_c_bc_impl</scope><name>general_work</name></member>
+      <member refid="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1af6d3c0402b878d6d9367d68db14c8195" prot="private" virt="non-virtual"><scope>gr::zVKN::psk_mapper_c_bc_impl</scope><name>GetGray</name></member>
+      <member refid="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1a8c73e8bec56ffee8b1bd3951eba98283" prot="private" virt="non-virtual"><scope>gr::zVKN::psk_mapper_c_bc_impl</scope><name>GetPskTable</name></member>
+      <member refid="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1a845601c50d353582681f6250607bd870" prot="private" virt="non-virtual"><scope>gr::zVKN::psk_mapper_c_bc_impl</scope><name>L</name></member>
+      <member refid="classgr_1_1zVKN_1_1psk__mapper__c__bc_1a8018c6251330ff59b5cecd992c1c4e08" prot="public" virt="non-virtual"><scope>gr::zVKN::psk_mapper_c_bc_impl</scope><name>make</name></member>
+      <member refid="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1a726903ecdd2a55084ea4021ade2b4553" prot="private" virt="non-virtual"><scope>gr::zVKN::psk_mapper_c_bc_impl</scope><name>Mapper</name></member>
+      <member refid="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1ac8e4de607172de695e0200d8b2ebf62a" prot="private" virt="non-virtual"><scope>gr::zVKN::psk_mapper_c_bc_impl</scope><name>ModOrd</name></member>
+      <member refid="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1ac0a47e6d2b6a8431030faced32c1f4fa" prot="private" virt="non-virtual"><scope>gr::zVKN::psk_mapper_c_bc_impl</scope><name>Nfcast</name></member>
+      <member refid="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1a293f2aea16384fd9263842949e213a86" prot="private" virt="non-virtual"><scope>gr::zVKN::psk_mapper_c_bc_impl</scope><name>Nsom</name></member>
+      <member refid="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1af97788a8287e422958520171a4fe4fdd" prot="private" virt="non-virtual"><scope>gr::zVKN::psk_mapper_c_bc_impl</scope><name>PhOfst</name></member>
+      <member refid="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1a57b6498597756df0c08dd44d880da9de" prot="public" virt="non-virtual"><scope>gr::zVKN::psk_mapper_c_bc_impl</scope><name>psk_mapper_c_bc_impl</name></member>
+      <member refid="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1aadcc2a8f3d0daffa426c29372c5cdc95" prot="private" virt="non-virtual"><scope>gr::zVKN::psk_mapper_c_bc_impl</scope><name>PskTable</name></member>
+      <member refid="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1a97f61f3fa70af701cfaa3be9179f17ff" prot="private" virt="non-virtual"><scope>gr::zVKN::psk_mapper_c_bc_impl</scope><name>Rotat</name></member>
+      <member refid="classgr_1_1zVKN_1_1psk__mapper__c__bc_1ae5e50fa38edcf2737d19ebc57bc19c17" prot="public" virt="non-virtual"><scope>gr::zVKN::psk_mapper_c_bc_impl</scope><name>sptr</name></member>
+      <member refid="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1aec236db1cb2cfa87533d2b9f34b60821" prot="private" virt="non-virtual"><scope>gr::zVKN::psk_mapper_c_bc_impl</scope><name>UpdateParamM</name></member>
+      <member refid="classgr_1_1zVKN_1_1psk__mapper__c__bc__impl_1af93fbe0da6eb3661db57792a62d51896" prot="public" virt="non-virtual"><scope>gr::zVKN::psk_mapper_c_bc_impl</scope><name>~psk_mapper_c_bc_impl</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

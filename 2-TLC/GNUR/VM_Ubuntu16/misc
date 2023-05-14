@@ -1,0 +1,7 @@
+
+1. To mount the WIN-LNX shared folder, open a terminal and type: "sudo mount -t vboxsf VM_SHARED ~/Desktop/VM_SHARED"
+
+2. To build GNUR library, open a terminal inside the "build" folder and type "cmake ../ && make && sudo make install && sudo ldconfig"
+
+3. Concerning the "QT GUI Time Sink" built-in block, x3 trigger modes are possible: Free, Auto, Normal, and Tag (see gr::qtgui::trigger_mode). The first three are like a normal oscope trigger function. Free means free running with no trigger, auto will trigger if the trigger event is seen, but will still plot otherwise, and normal will hold until the trigger event is observed. The Tag trigger mode allows us to trigger off a specific stream tag. The tag trigger is based only on the name of the tag, so when a tag of the given name is seen, the trigger is activated. NB: the graphic updates each time a new trigger is detected!
+

@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<block>
+  <name>GFSK Modulator [P-BC]</name>
+  <key>zVKN_gfsk_modulator</key>
+  <category>zVKN</category>
+  <import>import zVKN</import>
+  <make>zVKN.gfsk_modulator($M, $h, $osf, $span, $sps, $BT, $Rb)</make>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type -->
+  <param>
+    <name>Order</name>
+    <key>M</key>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>Index</name>
+    <key>h</key>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>osf</name>
+    <key>osf</key>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>span</name>
+    <key>span</key>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>sps</name>
+    <key>sps</key>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>BT</name>
+    <key>BT</key>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Bit-rate</name>
+    <key>Rb</key>
+    <type>int</type>
+  </param>
+
+  <!-- Make one 'sink' node per input. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <sink>
+    <name>in</name>
+    <type>byte</type>
+  </sink>
+
+  <!-- Make one 'source' node per output. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <source>
+    <name>out</name>
+    <type>complex</type>
+  </source>
+</block>

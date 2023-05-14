@@ -1,0 +1,13 @@
+
+
+* MODEL : NI USRP 2900 / Ettus B200
+
+* OS : Ubuntu 16.4
+
+* REFERENCES : 
+
+https://files.ettus.com/manual/page_install.html
+
+https://kb.ettus.com/Building_and_Installing_the_USRP_Open-Source_Toolchain_(UHD_and_GNU_Radio)_on_Linux
+
+https://kb.ettus.com/B200/B210/B200mini/B205mini

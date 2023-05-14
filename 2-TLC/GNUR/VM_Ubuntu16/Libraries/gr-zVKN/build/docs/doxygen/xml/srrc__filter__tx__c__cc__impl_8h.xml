@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.11">
+  <compounddef id="srrc__filter__tx__c__cc__impl_8h" kind="file" language="C++">
+    <compoundname>srrc_filter_tx_c_cc_impl.h</compoundname>
+    <includes refid="srrc__filter__tx__c__cc_8h" local="no">zVKN/srrc_filter_tx_c_cc.h</includes>
+    <incdepgraph>
+      <node id="71">
+        <label>srrc_filter_tx_c_cc_impl.h</label>
+        <link refid="srrc_filter_tx_c_cc_impl.h"/>
+        <childnode refid="72" relation="include">
+        </childnode>
+      </node>
+      <node id="74">
+        <label>gnuradio/attributes.h</label>
+      </node>
+      <node id="72">
+        <label>zVKN/srrc_filter_tx_c_cc.h</label>
+        <link refid="srrc__filter__tx__c__cc_8h"/>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+      </node>
+      <node id="75">
+        <label>gnuradio/block.h</label>
+      </node>
+      <node id="73">
+        <label>zVKN/api.h</label>
+        <link refid="api_8h"/>
+        <childnode refid="74" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innerclass refid="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl" prot="public">gr::zVKN::srrc_filter_tx_c_cc_impl</innerclass>
+    <innernamespace refid="namespacegr">gr</innernamespace>
+    <innernamespace refid="namespacegr_1_1zVKN">gr::zVKN</innernamespace>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="srrc__filter__tx__c__cc__impl_8h_1ad00f2b40bfffb65bca94d703a26537c1" prot="public" static="no" mutable="no">
+        <type>const uint16_t</type>
+        <definition>const uint16_t MAX_NTAPS</definition>
+        <argsstring></argsstring>
+        <name>MAX_NTAPS</name>
+        <initializer>= 1024</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h" line="26" column="1" bodyfile="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="srrc__filter__tx__c__cc__impl_8h_1a274ad1cedafd75e1c4279bfef9e5ee16" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Taps[MAX_NTAPS]</definition>
+        <argsstring>[MAX_NTAPS]</argsstring>
+        <name>Taps</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h" line="27" column="1" bodyfile="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="srrc__filter__tx__c__cc__impl_8h_1a807bef3c7ac033156408b36939f95eb8" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float FirRegRe[MAX_NTAPS]</definition>
+        <argsstring>[MAX_NTAPS]</argsstring>
+        <name>FirRegRe</name>
+        <initializer>= {0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h" line="28" column="1" bodyfile="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="srrc__filter__tx__c__cc__impl_8h_1a3b190348cbfb129fd539d8cdb1aba4b6" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float FirRegIm[MAX_NTAPS]</definition>
+        <argsstring>[MAX_NTAPS]</argsstring>
+        <name>FirRegIm</name>
+        <initializer>= {0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h" line="29" column="1" bodyfile="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h"/>
+  </compounddef>
+</doxygen>

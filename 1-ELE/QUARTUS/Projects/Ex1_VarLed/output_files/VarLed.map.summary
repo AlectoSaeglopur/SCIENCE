@@ -1,0 +1,16 @@
+Analysis & Synthesis Status : Successful - Wed Jan 08 20:11:38 2020
+Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+Revision Name : VarLed
+Top-level Entity Name : VarLed
+Family : MAX 10
+Total logic elements : 278
+    Total combinational functions : 278
+    Dedicated logic registers : 49
+Total registers : 49
+Total pins : 72
+Total virtual pins : 0
+Total memory bits : 0
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0
+UFM blocks : 0
+ADC blocks : 0

@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<block>
+  <name>Squelch+AGC [P-CC]</name>
+  <key>zVKN_squelch_agc_p_cc</key>
+  <category>zVKN</category>
+  <import>import zVKN</import>
+  <make>zVKN.squelch_agc_p_cc($WinSz, $SqEnab, $SqLev, $AgcMode, $OfsRef, $AmpRef, $PwrRef, $OfsGain, $AmpGain, $PwrGain, $VoutMax)</make>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type -->
+  <param>
+    <name>Window size [Sa]</name>
+    <key>WinSz</key>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>Squelch gating</name>
+    <key>SqEnab</key>
+    <type>bool</type>
+    <option>
+      <name>On</name>
+      <key>True</key>
+    </option>
+    <option>
+      <name>Off</name>
+      <key>False</key>
+    </option>
+  </param>
+
+  <param>
+    <name>Squelch level [W]</name>
+    <key>SqLev</key>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>AGC mode</name>
+    <key>AgcMode</key>
+    <type>bool</type>
+    <option>
+      <name>AMP-OFS</name>
+      <key>True</key>
+    </option>
+    <option>
+      <name>POWER</name>
+      <key>False</key>
+    </option>
+  </param>
+
+  <param>
+    <name>DC offset reference [V]</name>
+    <key>OfsRef</key>
+    <type>complex</type>
+  </param>
+
+  <param>
+    <name>Amplitude reference [V]</name>
+    <key>AmpRef</key>
+    <type>complex</type>
+  </param>
+
+  <param>
+    <name>Power reference [W]</name>
+    <key>PwrRef</key>
+    <type>complex</type>
+  </param>
+
+  <param>
+    <name>DC-offset loop gain</name>
+    <key>OfsGain</key>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Amplitude loop gain</name>
+    <key>AmpGain</key>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Power loop gain</name>
+    <key>PwrGain</key>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Max output level [V]</name>
+    <key>VoutMax</key>
+    <type>float</type>
+  </param>
+
+  
+
+  <!-- Make one 'sink' node per input. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+  </sink>
+
+  <!-- Make one 'source' node per output. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <source>
+    <name>out</name>
+    <type>complex</type>
+  </source>
+</block>

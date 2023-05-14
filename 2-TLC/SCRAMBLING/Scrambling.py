@@ -1,0 +1,121 @@
+
+"""
+" Title: Title: ADDITIVE AND MULTIPLICATIVE SCRAMBLING
+" Author: Filippo Valmori
+" Date: 16/11/2018
+" Reference: [1] Wikipedia - https://en.wikipedia.org/wiki/Scrambler	
+"""
+
+
+### PARAMETERS ###
+
+NcA = 15                                                    # Number of additive LFSR cells
+ConVectA = (0,0,0,0,0,0,0,0,0,0,0,0,0,1,1)                  # Connection vector of additive LFSRs, i.e. (1+)z^-14+z^-15 - DVB standard
+InitStA = [1,0,0,1,0,1,0,1,0,0,0,0,0,0,0]					# Initial state of additive LFSRs
+
+NcM = 17												    # Number of multiplicative LFSR cells
+ConVectM = (0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1) 			    # Connection vector of multiplicative LFSRs, i.e. (1+)z^-12+z^-17
+InitStM = [0,0,1,0,1,1,0,0,0,0,1,1,0,1,0,1,0]				# Initial state of multiplicative LFSRs
+
+
+
+### FUNCTIONS ###
+
+"""
+" Function for implementing an additive scrambler (aka synchronous or
+" linear-feedback shift register scrambler) and descrambler.
+"""
+def AddScramb( InBytes, ConVect, InitState ) :
+    InBits = Byte2BitConv(InBytes)
+    BitLen = len(InBits)
+    RegState = InitState[:]
+    OutBits = [0]*BitLen
+    for j in range(BitLen) :
+        RegBit = (sum([v1*v2 for v1,v2 in zip(RegState,ConVect)])%2)
+        OutBits[j] = InBits[j]^RegBit
+        RegState[1:] = RegState[:-1]
+        RegState[0] = RegBit
+    return Bit2ByteConv(OutBits)
+
+
+"""
+" Function for implementing a multiplicative (aka self-synchronizing) scrambler.
+"""
+def MultScramb( InBytes, ConVect, InitState ) :
+    InBits = Byte2BitConv(InBytes)
+    BitLen = len(InBits)
+    RegState = InitState[:]
+    OutBits = [0]*BitLen
+    for j in range(BitLen) :
+        RegBit = (sum([v1*v2 for v1,v2 in zip(RegState,ConVect)])%2)
+        OutBits[j] = InBits[j]^RegBit
+        RegState[1:] = RegState[:-1]
+        RegState[0] = OutBits[j]
+    return Bit2ByteConv(OutBits)
+
+
+"""
+" Function for implementing a multiplicative (aka self-synchronizing) descrambler.
+"""
+def MultDescramb( InBytes, ConVect, InitState ) :
+    InBits = Byte2BitConv(InBytes)
+    BitLen = len(InBits)
+    RegState = InitState[:]
+    OutBits = [0]*BitLen
+    for j in range(BitLen) :
+        RegBit = (sum([v1*v2 for v1,v2 in zip(RegState,ConVect)])%2)
+        OutBits[j] = InBits[j]^RegBit
+        RegState[1:] = RegState[:-1]
+        RegState[0] = InBits[j]
+    return Bit2ByteConv(OutBits)
+
+
+"""
+" Function for converting a byte stream into the corresponding bit stream.
+"""
+def Byte2BitConv( InBytes ) :
+    InLen = len(InBytes)
+    OutLen = (InLen<<3)
+    OutBits = [0]*OutLen
+    for j in range(OutLen) :
+        ByteIdx = (j>>3)
+        BitIdx = 7-(j%8)
+        if (InBytes[ByteIdx] >>BitIdx)%2 :
+            OutBits[j] = 1
+    return OutBits
+
+
+"""
+" Function for converting a bit stream into the corresponding byte stream.
+"""
+def Bit2ByteConv( InBits ) :
+    InLen = len(InBits)
+    OutLen = (InLen>>3)
+    OutBytes = [0]*OutLen
+    for j in range(InLen) :
+        if InBits[j] :
+            ByteIdx = (j>>3)
+            BitIdx = 7-(j%8)
+            OutBytes[ByteIdx] += (1<<BitIdx)
+    return OutBytes
+
+
+
+### MAIN FUNCTION ###
+
+InfoLen = 10                                                # Info stream length (in bytes)
+InfoBytes = [0]*InfoLen                                     # All-zero info stream generation
+
+ScrambBytesA = AddScramb(InfoBytes,ConVectA,InitStA)        # Apply additive scrambling
+DescrambBytesA = AddScramb(ScrambBytesA,ConVectA,InitStA)   # Apply additive descrambling 
+print("\n * Additive Scrambling")
+print("INF = ",InfoBytes)
+print("SCR = ",ScrambBytesA)
+print("DES = ",DescrambBytesA)
+
+ScrambBytesM = AddScramb(InfoBytes,ConVectM,InitStM)        # Apply multiplicative scrambling
+DescrambBytesM = AddScramb(ScrambBytesM,ConVectM,InitStM)   # Apply multiplicative descrambling
+print("\n * Multiplicative Scrambling")
+print("INF = ",InfoBytes)
+print("SCR = ",ScrambBytesM)
+print("DES = ",DescrambBytesM)

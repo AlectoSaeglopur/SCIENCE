@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.11">
+  <compounddef id="namespacegr_1_1zVKN" kind="namespace" language="C++">
+    <compoundname>gr::zVKN</compoundname>
+    <innerclass refid="classgr_1_1zVKN_1_1flag__appender__c__mm" prot="public">gr::zVKN::flag_appender_c_mm</innerclass>
+    <innerclass refid="classgr_1_1zVKN_1_1preamble__adder__c__bb" prot="public">gr::zVKN::preamble_adder_c_bb</innerclass>
+    <innerclass refid="classgr_1_1zVKN_1_1preamble__adder__tag__c__bb" prot="public">gr::zVKN::preamble_adder_tag_c_bb</innerclass>
+    <innerclass refid="classgr_1_1zVKN_1_1psk__mapper__c__bc" prot="public">gr::zVKN::psk_mapper_c_bc</innerclass>
+    <innerclass refid="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc" prot="public">gr::zVKN::srrc_filter_tx_c_cc</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/include/zVKN/flag_appender_c_mm.h" line="31" column="1"/>
+  </compounddef>
+</doxygen>

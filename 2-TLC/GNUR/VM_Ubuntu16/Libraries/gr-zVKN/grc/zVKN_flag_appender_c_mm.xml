@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<block>
+  <name>Flag Appender [C-MM]</name>
+  <key>zVKN_flag_appender_c_mm</key>
+  <category>zVKN</category>
+  <import>import zVKN</import>
+  <make>zVKN.flag_appender_c_mm($flag_pos, $flag_val)</make>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type -->
+  <param>
+    <name>Position</name>
+    <key>flag_pos</key>
+    <type>bool</type>
+    <option>
+      <name>Start</name>
+      <key>True</key>
+    </option>
+    <option>
+      <name>End</name>
+      <key>False</key>
+    </option>
+  </param>
+
+  <param>
+    <name>Value</name>
+    <key>flag_val</key>
+    <type>int</type>
+  </param>
+
+  <!-- Make one 'sink' node per input. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <sink>
+    <name>port_in</name>
+    <type>message</type>
+  </sink>
+
+  <!-- Make one 'source' node per output. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <source>
+    <name>port_out</name>
+    <type>message</type>
+  </source>
+</block>

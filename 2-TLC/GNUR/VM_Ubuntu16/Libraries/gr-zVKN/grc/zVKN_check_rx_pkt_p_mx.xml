@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<block>
+  <name>Check RX Packet</name>
+  <key>zVKN_check_rx_pkt_p_mx</key>
+  <category>zVKN</category>
+  <import>import zVKN</import>
+  <make>zVKN.check_rx_pkt_p_mx()</make>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type -->
+
+  <!-- Make one 'sink' node per input. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <sink>
+    <name>port_in</name>
+    <type>message</type>
+  </sink>
+
+  <!-- Make one 'source' node per output. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+</block>

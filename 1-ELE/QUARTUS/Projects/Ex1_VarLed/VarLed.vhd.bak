@@ -1,0 +1,154 @@
+
+-- BTN#1 and BTN#2 (serigraphy KEY0 and KEY1) allow to move up and down with the FSM modes: 
+-- [0] DirSwt : Leds driven directly by respective switches (SWT=1->LED=1)
+-- [1] InvSwt : Leds driven inversely by respective switches (SWT=0->LED=1)
+-- [2] FrwBlk : Leds driven for forward blinking autonomously
+-- [3] BckBlk : Leds driven for backward blinking autonomously
+-- [4] BncBlk : Leds driven for blicking back and forth autonomously
+	
+	
+library IEEE;
+  use IEEE.std_logic_1164.all;
+  use IEEE.std_logic_arith.all;
+  use IEEE.std_logic_unsigned.all;
+
+
+ 
+entity SwLed is port (
+	CLK : in std_logic;
+	BTN : in std_logic_vector(1 downto 0);
+	SWT : in std_logic_vector(9 downto 0);
+	LED : out std_logic_vector(9 downto 0));
+end SwLed;
+
+
+
+architecture Architecture1 of SwLed is
+
+	constant Nstates : natural := 5;
+	constant THR10HZ : natural := 5000000;										-- i.e. CLK/BLKFREQ = 50 MHz / 10 Hz
+--	signal Cnt10Hz : natural range 0 to THR10HZ;
+	signal Cnt10Hz : integer := 0;						-- to be reset when entering modes 3,4,5 ?
+	signal LedOn : integer := 0;
+	
+	signal State : natural range 0 to Nstates-1 := 0;
+	signal NextState : natural range 0 to Nstates-1 := 0;
+	
+--	type FSM is (DirSwt, InvSwt, FrwBlk, BckBlk, BncBlk);
+--	signal State, NextState : FSM;
+	signal Pushed : std_logic_vector(1 downto 0) := (others => '0');						-- Variables acting as debouncer for buttons #0 and #1 [alternative for initialization: "00"]	
+	
+begin
+
+-- SEQUENTIAL SECTION -- 
+
+	FlipFlop : process (CLK,BTN,Pushed,State,NextState) begin
+	
+		if (CLK'event and CLK='1') then												-- BTN = '0' means button pushed
+			
+			State <= NextState;										-- try moving this line after the if statement
+		
+			if (BTN(0) ='0' and Pushed(0) = '0') then
+			
+				if ( State = Nstates-1 ) then
+					NextState <= 0;
+				else
+					NextState <= State+1;
+				end if;
+				Pushed(0) <= '1';
+
+			elsif (BTN(1) ='0' and Pushed(1) = '0') then
+				
+				if ( State = 0 ) then
+					NextState <= Nstates-1;
+				else
+					NextState <= State-1;
+				end if;
+				Pushed(1) <= '1';
+				
+			else
+				NextState <= State;
+				Pushed(0) <= '0';
+				Pushed(1) <= '0';
+			end if;
+		end if;
+		
+	end process;
+	
+	
+	Clock10Hz : process ( CLK, State, LedOn ) begin				-- to be "executed" only in modes 3,4,5 ?
+	
+		if (CLK'event and CLK='1') then
+			if (Cnt10Hz = THR10HZ) then
+				Cnt10Hz <= 0;
+				if ( State = 2 ) then
+					if ( LedOn = 9 ) then
+						LedOn <= 0;
+					else
+						LedOn <= LedOn+1;
+					end if;
+				elsif ( State = 3 ) then
+					if ( LedOn = 0 ) then
+						LedOn <= 9;
+					else
+						LedOn <= LedOn-1;
+					end if;
+				elsif ( State = 4 ) then
+					LedOn <= 5;										-- TO BE MODIFIED
+				end if;				
+			else
+				Cnt10Hz <= Cnt10Hz+1;
+			end if;
+		end if;
+	
+	end process;
+	
+	
+-- COMBINATORY SECTION --
+
+	process ( SWT, State, LedOn ) begin
+	
+		if ( State = 0 ) then
+			LED(9 downto 0) <= SWT(9 downto 0);
+		elsif ( State = 1 ) then
+			LED(9 downto 0) <= not(SWT(9 downto 0));
+		else
+			for I in 0 to 9 loop
+				if ( I = LedOn ) then
+					LED(I) <= '1';
+				else
+					LED(I) <= '0';
+				end if;
+			end loop;
+		end if;
+
+	end process;
+	
+--	LED(9) <= SWT(9);				-- In case the final led is required to be always handled by the switch regardless the FSM
+
+end Architecture1;
+
+
+-- split State into Cu and Next?
+-- review comments
+-- check dei warning
+-- prova rete combinatoria senza process
+-- usa nomi custom per CK poi fai erte di mapping
+-- gestisci led come vettori, non singolarmente
+-- Crea file di assegnazione pin
+-- fai progetto dall'inizio e scrivi readme (assegnazdevice+codicevhd+pinplanner+rtlview)
+-- risolvi warning
+-- vedi risultato circuitale
+-- fai simulazione waveform
+-- https://www.intel.com/content/www/us/en/programmable/documentation/aym1499789502823.html#hnd1499792370110
+-- think comb + seq
+-- be careful with for loops
+-- type boolean needs ''
+-- := for initialization | <= for changing during execution
+-- keep in mind FPGA have a HW parallel implementation (and not serial as MCU with CPU)
+-- try using keyword "rising_edge(CLK)"
+-- choose and uniform programming style
+-- print mode + timer on 7S
+-- gestione di caso con entrambi i pulsanti premuti contempor. (do nothing!)
+-- FSM update is combinatory!
+-- try using buil-in clock scaling (Time Analyzer)

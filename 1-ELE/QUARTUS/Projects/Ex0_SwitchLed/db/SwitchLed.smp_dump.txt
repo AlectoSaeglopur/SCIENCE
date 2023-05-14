@@ -1,0 +1,16 @@
+
+State Machine - |SwLed|NextState
+Name NextState.BncBlk NextState.BckBlk NextState.FrwBlk NextState.InvSwt NextState.DirSwt 
+NextState.DirSwt 0 0 0 0 0 
+NextState.InvSwt 0 0 0 1 1 
+NextState.FrwBlk 0 0 1 0 1 
+NextState.BckBlk 0 1 0 0 1 
+NextState.BncBlk 1 0 0 0 1 
+
+State Machine - |SwLed|State
+Name State.BncBlk State.BckBlk State.FrwBlk State.InvSwt State.DirSwt 
+State.DirSwt 0 0 0 0 0 
+State.InvSwt 0 0 0 1 1 
+State.FrwBlk 0 0 1 0 1 
+State.BckBlk 0 1 0 0 1 
+State.BncBlk 1 0 0 0 1 

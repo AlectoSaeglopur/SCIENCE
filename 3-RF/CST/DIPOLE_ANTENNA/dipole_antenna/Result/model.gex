@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MetaGeometryFile creator="MatrixCalc" version="20140129">
+  <Components>
+    <Component name="component1:dip_branch_1">
+      <Shape name="Components\component1:dip_branch_1" id="1" visible="1" material="Copper (annealed)">
+        <MeshGroup3D list=""/>
+        <Face>
+          <MeshGroup0D list=""/>
+          <MeshGroup1D list=""/>
+          <MeshGroup2D>
+            <Pos list="1 2 3"/>
+            <Neg list=""/>
+            <DS list=""/>
+          </MeshGroup2D>
+        </Face>
+      </Shape>
+    </Component>
+    <Component name="component1:dip_branch_2">
+      <Shape name="Components\component1:dip_branch_2" id="2" visible="1" material="Copper (annealed)">
+        <MeshGroup3D list=""/>
+        <Face>
+          <MeshGroup0D list=""/>
+          <MeshGroup1D list=""/>
+          <MeshGroup2D>
+            <Pos list="4 5 6"/>
+            <Neg list=""/>
+            <DS list=""/>
+          </MeshGroup2D>
+        </Face>
+      </Shape>
+    </Component>
+    <Component name="component1:gap">
+      <Shape name="Components\component1:gap" id="3" visible="1" material="Vacuum">
+        <MeshGroup3D list=""/>
+        <Face>
+          <MeshGroup0D list=""/>
+          <MeshGroup1D list=""/>
+          <MeshGroup2D>
+            <Pos list=""/>
+            <Neg list=""/>
+            <DS list="7"/>
+          </MeshGroup2D>
+        </Face>
+      </Shape>
+    </Component>
+    <Component name="discrete_face_port:1">
+      <Shape name="Components\discrete_face_port:1" id="4" visible="1" material="PEC">
+        <MeshGroup3D list=""/>
+        <Face>
+          <MeshGroup0D list=""/>
+          <MeshGroup1D list=""/>
+          <MeshGroup2D>
+            <Pos list=""/>
+            <Neg list=""/>
+            <DS list="8 9 10 11 12 13 14"/>
+          </MeshGroup2D>
+        </Face>
+      </Shape>
+    </Component>
+  </Components>
+  <SimulationDomain min="-150.4658355713 -150.4658355713 -292.2976379395" max="150.4658355713 150.4658355713 292.2976379395"/>
+  <Materials>
+    <Material name="air_0" priority="1">
+      <Color value="0 0 0"/>
+      <Transparency value="0"/>
+      <Wireframe value="0"/>
+      <Reflective value="1"/>
+      <Outline value="1"/>
+      <OutlineIfTransparent value="0"/>
+    </Material>
+    <Material name="Copper (annealed)" priority="1">
+      <Color value="0.111111111939 0.111111111939 0.111111111939"/>
+      <Transparency value="0"/>
+      <Wireframe value="0"/>
+      <Reflective value="1"/>
+      <Outline value="1"/>
+      <OutlineIfTransparent value="0"/>
+    </Material>
+    <Material name="Vacuum" priority="1">
+      <Color value="0.3333333432674 0.3333333432674 0.3333333432674"/>
+      <Transparency value="0"/>
+      <Wireframe value="0"/>
+      <Reflective value="1"/>
+      <Outline value="1"/>
+      <OutlineIfTransparent value="0"/>
+    </Material>
+    <Material name="PEC" priority="1">
+      <Color value="0.4444444477558 0.4444444477558 0.4444444477558"/>
+      <Transparency value="0"/>
+      <Wireframe value="0"/>
+      <Reflective value="1"/>
+      <Outline value="1"/>
+      <OutlineIfTransparent value="0"/>
+    </Material>
+  </Materials>
+  <GeometryFile filename="3d.slm" type="slim"/>
+  <MeshType type="HEX"/>
+  <HexMesh>
+    <Dimensions nx="19" ny="19" nz="40"/>
+    <MeshPlanesX values="-150.4658346702 -124.9608393442 -99.45584401823 -74.58666574686 -50.16560521882 -25.74454469077 -8.469917290456 -5.646611526971 -2.823305763485 0 2.823305763485 5.64661152697 8.469917290456 25.74454469077 50.16560521882 74.58666574686 99.45584401823 124.9608393442 150.4658346702"/>
+    <MeshPlanesY values="-150.4658346702 -125.4037836678 -100.3417326653 -75.84881093517 -51.83309754989 -27.81738416462 -8.746022201864 -5.925615746276 -3.105209290688 -0.2848028351 2.541402236789 5.367607308679 8.193812380568 23.60500535869 48.44445629587 73.28390723305 98.53999440021 124.5029145352 150.4658346702"/>
+    <MeshPlanesZ values="-292.29764655 -262.6436585618 -232.9896705735 -204.691226177 -176.5038841394 -150.9408272737 -148.0943573658 -145.2478874579 -142.40141755 -139.5684526822 -136.7354878145 -133.9025229467 -110.7166073049 -84.84734634347 -58.97808538203 -33.10882442059 -9.92290877876 -7.089943911006 -4.256979043253 -1.4240141755 1.4240141755 4.256979043253 7.089943911006 9.922908778759 33.10882442059 58.97808538203 84.84734634347 110.7166073049 133.9025229467 136.7354878145 139.5684526822 142.40141755 145.2478874579 148.0943573658 150.9408272737 176.5038841394 204.691226177 232.9896705735 262.6436585618 292.29764655"/>
+  </HexMesh>
+</MetaGeometryFile>

@@ -1,0 +1,17 @@
+
+library IEEE;
+  use IEEE.std_logic_1164.all;
+  use IEEE.std_logic_arith.all;
+  use IEEE.std_logic_unsigned.all;
+ 
+entity SwLed is
+	port (
+		Switch0 : in std_logic;
+		Switch1 : in std_logic;
+		Switch2 : in std_logic;
+		Led0 : out std_logic;
+		Led1 : out std_logic;
+		Led2 : out std_logic;
+	);
+end SwLed;
+	

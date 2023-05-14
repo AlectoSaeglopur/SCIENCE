@@ -1,0 +1,32 @@
+
+1. Info source [B] >> [MM]
+2. Scrambler [B] >> [MM]
+-. RS encoder [B] >> [MM]
+-. Convolutional interleaver [B] >> [MM]
+-. Convolutional encoder [B] >> [MM]
+-. Preamble, SyncWord and final dummy bytes padding [B] >> [MM]
+7. PSK mapper [Sy] >> [MM]
+X. PDU to Tagged Stream >> [MC]
+8 TX SRRC filter (with upsampling) [Sa] >> [MC] (CO)
+----
+9. AWGN channel with attenuation [Sa] >> [CC]
+10. RX SRRC filter [Sa] >> [CC]
+11. Power gate (?)
+12. AGC [Sa] >> [CC]
+
+....
+
+
+
+[X] = output data type
+- B : Bytes
+- Sa : Complex samples
+- Sy : Complex symbols
+
+[XX] = GNUR block I/O types
+- B : Byte
+- C : Complex
+- M : Message
+
+(CO) = block providing continuous output (even with no input)
+

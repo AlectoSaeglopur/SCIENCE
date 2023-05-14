@@ -1,0 +1,6 @@
+
+- create ASK mapper in Python,
+- create FSK modulator in Python (so to handle work in Python as well),
+- create SRRC filter,
+- create CRC block,
+- create scrambler block,

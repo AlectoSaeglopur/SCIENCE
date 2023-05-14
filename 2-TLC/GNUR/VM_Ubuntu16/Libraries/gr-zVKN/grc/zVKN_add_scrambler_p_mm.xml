@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<block>
+  <name>Additive Scrambler [P-MM]</name>
+  <key>zVKN_add_scrambler_p_mm</key>
+  <category>zVKN</category>
+  <import>import zVKN</import>
+  <make>zVKN.add_scrambler_p_mm($Ncel, $ConVect, $InitSt)</make>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type -->
+  <param>
+    <name>Order</name>
+    <key>Ncel</key>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>Connection vector</name>
+    <key>ConVect</key>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>Initial state</name>
+    <key>InitSt</key>
+    <type>int</type>
+  </param>
+
+  <!-- Make one 'sink' node per input. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <sink>
+    <name>port_in</name>
+    <type>message</type>
+  </sink>
+
+  <!-- Make one 'source' node per output. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <source>
+    <name>port_out</name>
+    <type>message</type>
+  </source>
+</block>

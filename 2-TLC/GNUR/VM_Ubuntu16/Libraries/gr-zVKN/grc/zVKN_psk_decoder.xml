@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<block>
+  <name> PSK Decoder</name>
+  <key>zVKN_psk_decoder</key>
+  <category>zVKN</category>
+  <import>import zVKN</import>
+  <make>zVKN.psk_decoder($Order, $PhOfs, $Rotat, $SwVal, $SwCorTlr, $WinSp, $LenSz, $beta, $span, $osf)</make>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type -->
+  <param>
+    <name>PSK order</name>
+    <key>Order</key>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>PSK offset [deg]</name>
+    <key>PhOfs</key>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>PSK rotation</name>
+    <key>Rotat</key>
+    <type>bool</type>
+    <option>
+      <name>clockwise</name>
+      <key>False</key>
+    </option>
+    <option>
+      <name>counterclockwise</name>
+      <key>True</key>
+    </option>
+  </param>
+
+  <param>
+    <name>Sync Word</name>
+    <key>SwVal</key>
+    <type>int_vector</type>
+  </param>
+
+  <param>
+    <name>SW tolerance [%]</name>
+    <key>SwCorTlr</key>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Correlation-window step</name>
+    <key>WinSp</key>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>Length-field size [B]</name>
+    <key>LenSz</key>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>SRRC roll-off factor</name>
+    <key>beta</key>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>SRRC span [Sy]</name>
+    <key>span</key>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>SRRC sps [Sa/Sy]</name>
+    <key>osf</key>
+    <type>int</type>
+  </param>
+
+
+  <!-- Make one 'sink' node per input. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+  </sink>
+
+  <!-- Make one 'source' node per output. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+
+  <!--
+  <source>
+    <name>out</name>
+    <type>complex</type>
+  </source>
+  -->
+
+  <source>
+    <name>port_out</name>
+    <type>message</type>
+  </source>
+</block>

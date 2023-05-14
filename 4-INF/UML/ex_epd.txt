@@ -1,0 +1,75 @@
+@startuml
+
+' 0. SETTINGS
+
+skinparam backgroundColor transparent
+skinparam activity {
+  StartColor #black
+  EndColor #black
+  BackgroundColor #white
+  BorderColor #black
+  FontSize 14
+  arrowFontSize 14
+  NoteBackgroundColor red
+  NoteShadowing true
+}
+
+
+
+' 1. TITLE '
+
+title <size:20>E-PAPER DISPLAY\n<size:20>STATE MACHINE\n
+
+
+
+' 2. UPDATE SECTION'
+
+partition #paleturquoise/white <size:15><b>UPDATE {
+start
+if (Initialization) then ( yes)
+  :Config GPIOs, T, \n      SPI, DMA;
+  :Hard reset SEQ;
+else ( no)
+endif
+:Soft reset CMD;
+#business/white:Wait 5 ms;
+note right #dodgerblue:<color:white><size:14> <i>see WAIT section
+:Temperature CMD\n           (SPI);
+#business/white:Wait 10 ms;
+:Image#1 CMD\n  (SPI+DMA);
+#business/white:Wait 500 ms;
+:Image#2 CMD\n  (SPI+DMA);
+#business/white:Wait 500 ms;
+:DC/DC on CMD\n        (SPI);
+#business/white:Wait 5 ms;
+:Refresh display CMD\n              (SPI);
+#business/white:Wait 3 s;
+:DC/DC off CMD\n         (SPI);
+#business/white:Wait 5 ms;
+#lime:<color:black><b>SUCCESS;
+stop
+}
+
+
+
+' 3. WAIT SECTION'
+
+partition #business/white <size:15><b>WAIT {
+start
+:Cnt = 0;
+:Reconfig TO;
+repeat
+:Start T;
+:Delay;
+:Stop T;
+if (\n State == IDLE\n           &&\n  Busy != LOW \n) then ( yes )
+  stop
+else ( no)
+endif
+  backward:Cnt += 1;
+repeat while (Cnt < 1) is ( yes) not  ( no);
+#red:<color:white><b>FAILURE;
+end
+}
+
+@enduml

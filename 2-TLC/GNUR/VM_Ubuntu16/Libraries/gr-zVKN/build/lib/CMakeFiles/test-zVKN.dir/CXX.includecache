@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/qa_zVKN.cc
+qa_zVKN.h
+/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/qa_zVKN.h
+
+/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/qa_zVKN.h
+gnuradio/attributes.h
+-
+cppunit/TestSuite.h
+-
+
+/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/test_zVKN.cc
+config.h
+/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/config.h
+cppunit/TextTestRunner.h
+-
+cppunit/XmlOutputter.h
+-
+gnuradio/unittests.h
+-
+qa_zVKN.h
+/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/qa_zVKN.h
+iostream
+-
+fstream
+-
+

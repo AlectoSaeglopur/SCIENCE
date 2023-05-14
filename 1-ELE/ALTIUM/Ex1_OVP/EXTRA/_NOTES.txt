@@ -1,0 +1,28 @@
+
+* RES-750 | RNCP0805FTD750R | 0805 | 0.25W | +/-1% | CT | https://www.digikey.com/products/en/resistors/chip-resistor-surface-mount/52?k=resistor&k=&pkeyword=resistor&sv=1&pv2085=u750+Ohms&sf=0&FV=-1|738%2C2|16543%2C7|2%2C1291|39328%2C1989|0%2C-8|52%2C3|1131&quantity=&ColumnSort=0&page=1&stock=1&pageSize=25
+
+* RES-3k | RNCP0805FTD3K01 | 0805 | 0.25W | +/-1% | CT | https://www.digikey.com/products/en/resistors/chip-resistor-surface-mount/52?k=resistor&k=&pkeyword=resistor&sv=1&pv2085=u3.01+kOhms&sf=0&FV=-1|738%2C2|16543%2C7|2%2C1291|39328%2C1989|0%2C-8|52%2C3|1131&quantity=&ColumnSort=0&page=1&stock=1&pageSize=25
+
+* RES-33k | RNCP0805FTD33K2 | 0805 | 0.25W | +/-1% | CT | https://www.digikey.com/products/en/resistors/chip-resistor-surface-mount/52?k=resistor&k=&pkeyword=resistor&sv=1&pv2085=u33.2+kOhms&sf=0&FV=-1|738%2C2|16543%2C7|2%2C1291|39328%2C1989|0%2C-8|52%2C3|1131&quantity=&ColumnSort=0&page=1&stock=1&pageSize=25
+
+* BJT-P | MMBT2907ALT1G | 60V/600mA | https://www.digikey.com/product-detail/en/on-semiconductor/MMBT2907ALT1G/MMBT2907ALT1GOSCT-ND/1139812
+
+* ZENER-10V | BZT585B10T-7 | +/-2% | 350mW | CT | https://www.digikey.com/product-detail/en/diodes-incorporated/BZT585B10T-7/BZT585B10T-7DICT-ND/4810956
+
+* MOSFET-N | 2N7002LT1G | 225mW | CT | https://www.digikey.com/product-detail/en/on-semiconductor/2N7002LT1G/2N7002LT1GOSCT-ND/917791
+
+* MOSFET-P | TP0610K-T1-E3 | 350mW | CT | https://www.digikey.com/product-detail/en/vishay-siliconix/TP0610K-T1-E3/TP0610K-T1-E3CT-ND/1657228
+
+* LED-G | 5988070107F | 0603 | 2V/20mA | CT | https://www.digikey.com/product-detail/en/dialight/5988070107F/350-2035-1-ND/1291339
+
+* LED-R | 5988020107F | 0603 | 2V/20mA | CT | https://www.digikey.com/product-detail/en/dialight/5988020107F/350-2030-1-ND/1291334
+
+* DB9 | 09661227801 | Male Plug | Through Hole | https://www.digikey.com/product-detail/en/harting/09661227801/1195-4989-ND/4339668
+
+* C-100N | C0603C104M3RACTU | Ceramic | +/-20% | 25V | CT | https://www.digikey.com/product-detail/en/kemet/C0603C104M3RACTU/399-1283-1-ND/416059
+
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+
+DIGIKEY -> peleni_donx@floridarains.com || ciao1234 
+ULTRA LIBRARIAN -> peleni_donx@floridarains.com || Ciao1234

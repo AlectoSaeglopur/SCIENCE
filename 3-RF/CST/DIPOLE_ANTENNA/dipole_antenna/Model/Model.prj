@@ -1,0 +1,17 @@
+[Author]
+Filippo
+[Mesh Cells]
+12,636
+[Mesh Type]
+Hexahedral
+[Last Problem Type]
+High Frequency
+[Last Solver Type]
+HF Time Domain
+[Last Solver Type Abb]
+t
+[Results]
+Time Domain: S-Parameter
+[Modeler Unique ID]
+5:dipole_antenna.cst?c4f211035a63378ad4e7432f5eb67b85?20342:numberofparameters=7:port=1>mode=1>zre=0>zim=0:::fc?g?l?r?vf?c?lambda
+[Comment]

@@ -1,0 +1,25 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "TXL",
+					"strict" : false
+				},
+				{
+					"name" : "SWT",
+					"strict" : false
+				},
+				{
+					"name" : "BTN",
+					"strict" : false
+				},
+				{
+					"name" : "CLK",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

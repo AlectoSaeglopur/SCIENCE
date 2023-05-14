@@ -1,0 +1,6 @@
+
+************ BLOCK CODING ************
+
+NB#1: Higher values of n, EbN0 or ReqErr cause the simulation time to increase very rapidly.
+
+NB#2: The advantages in terms of BER of using the erasure decoding can be better seen for high values of n-k

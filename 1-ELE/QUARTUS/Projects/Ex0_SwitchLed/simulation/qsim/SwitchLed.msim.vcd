@@ -1,0 +1,386 @@
+$comment
+	File created using the following command:
+		vcd file SwitchLed.msim.vcd -direction
+$end
+$date
+	Fri Dec 27 19:02:20 2019
+$end
+$version
+	ModelSim Version 10.5b
+$end
+$timescale
+	1ps
+$end
+
+$scope module swled_vhd_vec_tst $end
+$var wire 1 ! BTN $end
+$var wire 1 " CLK $end
+$var wire 1 # LED [9] $end
+$var wire 1 $ LED [8] $end
+$var wire 1 % LED [7] $end
+$var wire 1 & LED [6] $end
+$var wire 1 ' LED [5] $end
+$var wire 1 ( LED [4] $end
+$var wire 1 ) LED [3] $end
+$var wire 1 * LED [2] $end
+$var wire 1 + LED [1] $end
+$var wire 1 , LED [0] $end
+$var wire 1 - SWT [9] $end
+$var wire 1 . SWT [8] $end
+$var wire 1 / SWT [7] $end
+$var wire 1 0 SWT [6] $end
+$var wire 1 1 SWT [5] $end
+$var wire 1 2 SWT [4] $end
+$var wire 1 3 SWT [3] $end
+$var wire 1 4 SWT [2] $end
+$var wire 1 5 SWT [1] $end
+$var wire 1 6 SWT [0] $end
+
+$scope module i1 $end
+$var wire 1 7 gnd $end
+$var wire 1 8 vcc $end
+$var wire 1 9 unknown $end
+$var wire 1 : devoe $end
+$var wire 1 ; devclrn $end
+$var wire 1 < devpor $end
+$var wire 1 = ww_devoe $end
+$var wire 1 > ww_devclrn $end
+$var wire 1 ? ww_devpor $end
+$var wire 1 @ ww_CLK $end
+$var wire 1 A ww_BTN $end
+$var wire 1 B ww_SWT [9] $end
+$var wire 1 C ww_SWT [8] $end
+$var wire 1 D ww_SWT [7] $end
+$var wire 1 E ww_SWT [6] $end
+$var wire 1 F ww_SWT [5] $end
+$var wire 1 G ww_SWT [4] $end
+$var wire 1 H ww_SWT [3] $end
+$var wire 1 I ww_SWT [2] $end
+$var wire 1 J ww_SWT [1] $end
+$var wire 1 K ww_SWT [0] $end
+$var wire 1 L ww_LED [9] $end
+$var wire 1 M ww_LED [8] $end
+$var wire 1 N ww_LED [7] $end
+$var wire 1 O ww_LED [6] $end
+$var wire 1 P ww_LED [5] $end
+$var wire 1 Q ww_LED [4] $end
+$var wire 1 R ww_LED [3] $end
+$var wire 1 S ww_LED [2] $end
+$var wire 1 T ww_LED [1] $end
+$var wire 1 U ww_LED [0] $end
+$var wire 1 V \~QUARTUS_CREATED_ADC1~_CHSEL_bus\ [4] $end
+$var wire 1 W \~QUARTUS_CREATED_ADC1~_CHSEL_bus\ [3] $end
+$var wire 1 X \~QUARTUS_CREATED_ADC1~_CHSEL_bus\ [2] $end
+$var wire 1 Y \~QUARTUS_CREATED_ADC1~_CHSEL_bus\ [1] $end
+$var wire 1 Z \~QUARTUS_CREATED_ADC1~_CHSEL_bus\ [0] $end
+$var wire 1 [ \~QUARTUS_CREATED_ADC2~_CHSEL_bus\ [4] $end
+$var wire 1 \ \~QUARTUS_CREATED_ADC2~_CHSEL_bus\ [3] $end
+$var wire 1 ] \~QUARTUS_CREATED_ADC2~_CHSEL_bus\ [2] $end
+$var wire 1 ^ \~QUARTUS_CREATED_ADC2~_CHSEL_bus\ [1] $end
+$var wire 1 _ \~QUARTUS_CREATED_ADC2~_CHSEL_bus\ [0] $end
+$var wire 1 ` \CLK~inputclkctrl_INCLK_bus\ [3] $end
+$var wire 1 a \CLK~inputclkctrl_INCLK_bus\ [2] $end
+$var wire 1 b \CLK~inputclkctrl_INCLK_bus\ [1] $end
+$var wire 1 c \CLK~inputclkctrl_INCLK_bus\ [0] $end
+$var wire 1 d \~QUARTUS_CREATED_GND~I_combout\ $end
+$var wire 1 e \~QUARTUS_CREATED_UNVM~~busy\ $end
+$var wire 1 f \~QUARTUS_CREATED_ADC1~~eoc\ $end
+$var wire 1 g \~QUARTUS_CREATED_ADC2~~eoc\ $end
+$var wire 1 h \LED[0]~output_o\ $end
+$var wire 1 i \LED[1]~output_o\ $end
+$var wire 1 j \LED[2]~output_o\ $end
+$var wire 1 k \LED[3]~output_o\ $end
+$var wire 1 l \LED[4]~output_o\ $end
+$var wire 1 m \LED[5]~output_o\ $end
+$var wire 1 n \LED[6]~output_o\ $end
+$var wire 1 o \LED[7]~output_o\ $end
+$var wire 1 p \LED[8]~output_o\ $end
+$var wire 1 q \LED[9]~output_o\ $end
+$var wire 1 r \SWT[0]~input_o\ $end
+$var wire 1 s \CLK~input_o\ $end
+$var wire 1 t \CLK~inputclkctrl_outclk\ $end
+$var wire 1 u \BTN~input_o\ $end
+$var wire 1 v \Pushed~0_combout\ $end
+$var wire 1 w \Pushed~q\ $end
+$var wire 1 x \State~0_combout\ $end
+$var wire 1 y \State~q\ $end
+$var wire 1 z \LED~0_combout\ $end
+$var wire 1 { \SWT[1]~input_o\ $end
+$var wire 1 | \LED~1_combout\ $end
+$var wire 1 } \SWT[2]~input_o\ $end
+$var wire 1 ~ \LED~2_combout\ $end
+$var wire 1 !! \SWT[3]~input_o\ $end
+$var wire 1 "! \LED~3_combout\ $end
+$var wire 1 #! \SWT[4]~input_o\ $end
+$var wire 1 $! \LED~4_combout\ $end
+$var wire 1 %! \SWT[5]~input_o\ $end
+$var wire 1 &! \LED~5_combout\ $end
+$var wire 1 '! \SWT[6]~input_o\ $end
+$var wire 1 (! \LED~6_combout\ $end
+$var wire 1 )! \SWT[7]~input_o\ $end
+$var wire 1 *! \LED~7_combout\ $end
+$var wire 1 +! \SWT[8]~input_o\ $end
+$var wire 1 ,! \LED~8_combout\ $end
+$var wire 1 -! \SWT[9]~input_o\ $end
+$var wire 1 .! \LED~9_combout\ $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+1!
+0"
+07
+18
+x9
+1:
+1;
+1<
+1=
+1>
+1?
+0@
+1A
+0d
+ze
+zf
+zg
+0h
+xi
+xj
+xk
+xl
+xm
+xn
+xo
+xp
+xq
+0r
+0s
+0t
+1u
+0v
+0w
+0x
+0y
+0z
+x{
+x|
+x}
+x~
+x!!
+x"!
+x#!
+x$!
+x%!
+x&!
+x'!
+x(!
+x)!
+x*!
+x+!
+x,!
+x-!
+x.!
+x-
+x.
+x/
+x0
+x1
+x2
+x3
+x4
+x5
+06
+x#
+x$
+x%
+x&
+x'
+x(
+x)
+x*
+x+
+0,
+xB
+xC
+xD
+xE
+xF
+xG
+xH
+xI
+xJ
+0K
+xL
+xM
+xN
+xO
+xP
+xQ
+xR
+xS
+xT
+0U
+1`
+1a
+1b
+0c
+0V
+0W
+0X
+0Y
+0Z
+0[
+0\
+0]
+0^
+0_
+$end
+#10000
+1"
+1@
+1s
+1c
+1t
+#15000
+16
+1K
+1r
+1z
+1h
+1U
+1,
+#20000
+0"
+0@
+0s
+0c
+0t
+#30000
+1"
+1@
+1s
+1c
+1t
+#40000
+0"
+0!
+0@
+0A
+0u
+0s
+0c
+1v
+1x
+0t
+#50000
+1"
+1@
+1s
+1c
+1t
+1w
+1y
+0z
+0h
+0U
+0,
+#60000
+0"
+0@
+0s
+0c
+0t
+#65000
+06
+0K
+0r
+1z
+1h
+1U
+1,
+#70000
+1"
+1@
+1s
+1c
+1t
+#80000
+0"
+0@
+0s
+0c
+0t
+#90000
+1"
+1@
+1s
+1c
+1t
+#100000
+0"
+1!
+0@
+1A
+1u
+0s
+0c
+0v
+0t
+#110000
+1"
+1@
+1s
+1c
+1t
+0w
+#120000
+0"
+0@
+0s
+0c
+0t
+#130000
+1"
+1@
+1s
+1c
+1t
+#140000
+0"
+0@
+0s
+0c
+0t
+#150000
+1"
+1@
+1s
+1c
+1t
+#160000
+0"
+0@
+0s
+0c
+0t
+#170000
+1"
+1@
+1s
+1c
+1t
+#180000
+0"
+0@
+0s
+0c
+0t
+#190000
+1"
+1@
+1s
+1c
+1t
+#200000

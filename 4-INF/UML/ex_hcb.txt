@@ -1,0 +1,128 @@
+
+' 0. SETTINGS '
+
+'colors'
+skinparam BackgroundColor white
+skinparam NodeBackgroundColor lavender
+skinparam CloudBackgroundColor lightskyblue
+skinparam UsecaseBackgroundColor palegreen
+skinparam DatabaseBackgroundColor lavender
+skinparam ComponentBackgroundColor palegreen
+skinparam NoteBackgroundColor business
+'shadowing'
+skinparam shadowing false
+' inter/intra-clock spacing'
+skinparam nodesep 10
+skinparam ranksep 10
+
+
+
+' 1. TITLE '
+
+title <size:20> MCU FIRMWARE ARCHITECTURE \n <size:18> (HCB - SMALL SERIES)
+
+
+
+' 2. MODULES '
+
+node "<color:black> <i>MCU BSP" as mcu_bsp #orange {
+ [ADC] as adc
+ [GPIO] as gpio
+ [Timer] as timer
+ [SPI] as spi
+ [UART] as uart
+ [I2C] as i2c
+ [DMA] as dma
+ [CRC] as crc
+ [WDT] as wdt
+}
+
+node "<color:black> <i>MCU ASW" as mcu_app #orangered {
+ (Fault detection\nalgorithms) as fda
+ (Cyber-security &\nsafety mechanisms) as sss
+
+}
+
+node "<i>CPLD" as cpld {
+ [<color:black>GPIO] as cpld_gpio #palegreen
+}
+
+node "<i>Measuring section" as meas {
+ component "* Current \n* Voltage \n* Temperature" as cvt
+}
+
+cloud "<i>User interface" as hmi {
+ component "Buttons" as butt
+ component "E-paper\n display" as epd
+ component "MODBUS \ninterface" as modbus
+}
+
+node "<i>RCM" as rcm {
+ component "PWM" as pwm
+}
+
+database "<i>Data storage" as memory {
+ component "EEPROM" as eeprom
+}
+
+node "<i>Potentiometers" as digpot {
+ component "* PC thresholds \n* UV/OV thresholds" as pcuov
+}
+
+node "<i>Auxiliary Supply" as aux {
+ component "GPIO" as aux_gpio
+}
+
+
+
+'3. CONNECTIONS'
+
+i2c <-right-> eeprom
+i2c <-up-> pcuov
+uart <-up[#black,dashed,thickness=1]-> modbus: <color:black> <u>RS-485
+spi .up.> epd
+gpio <.up. butt
+dma .up.> spi
+gpio <-up-> cpld_gpio
+timer -[#black,dashed]down-> adc
+timer -[#black,dashed]down-> fda
+pwm -[dotted]-> timer
+cvt -down-> adc
+adc -down-> fda
+fda  <-up- aux_gpio
+crc --> sss
+wdt --> sss
+gpio --> sss
+
+
+
+' 4. NOTES '
+
+note bottom of cvt
+  * I<sub>A</sub> , I<sub>B</sub>
+  * V<sub>A</sub> , V<sub>B</sub> , V<sub>earth</sub>
+  * T<sub>A</sub> , T<sub>B</sub>
+end note
+
+note bottom of eeprom
+  * Breaker settings
+  * Fault events counters
+  * MODBUS parameters
+end note
+
+note bottom of fda
+  * Short-circuit
+  * Over-load
+  * Over-voltage
+  * Under-voltage
+  * Over-temperature
+  * Residual current
+  * Auxiliary voltage
+end note
+
+note right of sss
+  * PM read/write protection
+  * PM periodic CRC check
+  * Watchdog monitoring
+  * System traps handling
+end note

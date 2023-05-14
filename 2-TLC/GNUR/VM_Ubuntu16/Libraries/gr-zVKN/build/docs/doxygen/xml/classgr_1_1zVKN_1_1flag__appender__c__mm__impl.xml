@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.11">
+  <compounddef id="classgr_1_1zVKN_1_1flag__appender__c__mm__impl" kind="class" language="C++" prot="public">
+    <compoundname>gr::zVKN::flag_appender_c_mm_impl</compoundname>
+    <basecompoundref refid="classgr_1_1zVKN_1_1flag__appender__c__mm" prot="public" virt="non-virtual">gr::zVKN::flag_appender_c_mm</basecompoundref>
+    <includes refid="flag__appender__c__mm__impl_8h" local="no">flag_appender_c_mm_impl.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classgr_1_1zVKN_1_1flag__appender__c__mm__impl_1a6955b937edcc9c327ea0c5bba57094b2" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool gr::zVKN::flag_appender_c_mm_impl::d_flag_pos</definition>
+        <argsstring></argsstring>
+        <name>d_flag_pos</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/flag_appender_c_mm_impl.h" line="32" column="1" bodyfile="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/flag_appender_c_mm_impl.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1zVKN_1_1flag__appender__c__mm__impl_1ae631531113b05b11addfb88b3599a9f2" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int gr::zVKN::flag_appender_c_mm_impl::d_flag_val</definition>
+        <argsstring></argsstring>
+        <name>d_flag_val</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/flag_appender_c_mm_impl.h" line="33" column="1" bodyfile="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/flag_appender_c_mm_impl.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classgr_1_1zVKN_1_1flag__appender__c__mm__impl_1a23d8ceb0c93dc75d02f831c61f81dabc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>gr::zVKN::flag_appender_c_mm_impl::flag_appender_c_mm_impl</definition>
+        <argsstring>(bool flag_pos, int flag_val)</argsstring>
+        <name>flag_appender_c_mm_impl</name>
+        <param>
+          <type>bool</type>
+          <declname>flag_pos</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flag_val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/flag_appender_c_mm_impl.h" line="36" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1zVKN_1_1flag__appender__c__mm__impl_1a9c8e59099caac4f1b78915e04b43b92b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>gr::zVKN::flag_appender_c_mm_impl::~flag_appender_c_mm_impl</definition>
+        <argsstring>()</argsstring>
+        <name>~flag_appender_c_mm_impl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/flag_appender_c_mm_impl.h" line="37" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1zVKN_1_1flag__appender__c__mm__impl_1a7468a7e38b12d5d538cc94bbbfdf4708" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gr::zVKN::flag_appender_c_mm_impl::appender_handler</definition>
+        <argsstring>(pmt::pmt_t msg_in)</argsstring>
+        <name>appender_handler</name>
+        <param>
+          <type>pmt::pmt_t</type>
+          <declname>msg_in</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/flag_appender_c_mm_impl.h" line="38" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1zVKN_1_1flag__appender__c__mm__impl_1a39e71068ea9709b2ee7a3e69532b48fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gr::zVKN::flag_appender_c_mm_impl::forecast</definition>
+        <argsstring>(int noutput_items, gr_vector_int &amp;ninput_items_required)</argsstring>
+        <name>forecast</name>
+        <param>
+          <type>int</type>
+          <declname>noutput_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_int &amp;</type>
+          <declname>ninput_items_required</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/flag_appender_c_mm_impl.h" line="41" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1zVKN_1_1flag__appender__c__mm__impl_1ab50b005b951ab16d794e6a6d45bcf3c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int gr::zVKN::flag_appender_c_mm_impl::general_work</definition>
+        <argsstring>(int noutput_items, gr_vector_int &amp;ninput_items, gr_vector_const_void_star &amp;input_items, gr_vector_void_star &amp;output_items)</argsstring>
+        <name>general_work</name>
+        <param>
+          <type>int</type>
+          <declname>noutput_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_int &amp;</type>
+          <declname>ninput_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_const_void_star &amp;</type>
+          <declname>input_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_void_star &amp;</type>
+          <declname>output_items</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/flag_appender_c_mm_impl.h" line="43" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="6">
+        <label>gr::zVKN::flag_appender_c_mm</label>
+        <link refid="classgr_1_1zVKN_1_1flag__appender__c__mm"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>gr::zVKN::flag_appender_c_mm_impl</label>
+        <link refid="classgr_1_1zVKN_1_1flag__appender__c__mm__impl"/>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>gr::block</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="9">
+        <label>gr::zVKN::flag_appender_c_mm</label>
+        <link refid="classgr_1_1zVKN_1_1flag__appender__c__mm"/>
+        <childnode refid="10" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>gr::zVKN::flag_appender_c_mm_impl</label>
+        <link refid="classgr_1_1zVKN_1_1flag__appender__c__mm__impl"/>
+        <childnode refid="9" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>gr::block</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/flag_appender_c_mm_impl.h" line="30" column="1" bodyfile="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/flag_appender_c_mm_impl.h" bodystart="29" bodyend="47"/>
+    <listofallmembers>
+      <member refid="classgr_1_1zVKN_1_1flag__appender__c__mm__impl_1a7468a7e38b12d5d538cc94bbbfdf4708" prot="public" virt="non-virtual"><scope>gr::zVKN::flag_appender_c_mm_impl</scope><name>appender_handler</name></member>
+      <member refid="classgr_1_1zVKN_1_1flag__appender__c__mm__impl_1a6955b937edcc9c327ea0c5bba57094b2" prot="private" virt="non-virtual"><scope>gr::zVKN::flag_appender_c_mm_impl</scope><name>d_flag_pos</name></member>
+      <member refid="classgr_1_1zVKN_1_1flag__appender__c__mm__impl_1ae631531113b05b11addfb88b3599a9f2" prot="private" virt="non-virtual"><scope>gr::zVKN::flag_appender_c_mm_impl</scope><name>d_flag_val</name></member>
+      <member refid="classgr_1_1zVKN_1_1flag__appender__c__mm__impl_1a23d8ceb0c93dc75d02f831c61f81dabc" prot="public" virt="non-virtual"><scope>gr::zVKN::flag_appender_c_mm_impl</scope><name>flag_appender_c_mm_impl</name></member>
+      <member refid="classgr_1_1zVKN_1_1flag__appender__c__mm__impl_1a39e71068ea9709b2ee7a3e69532b48fc" prot="public" virt="non-virtual"><scope>gr::zVKN::flag_appender_c_mm_impl</scope><name>forecast</name></member>
+      <member refid="classgr_1_1zVKN_1_1flag__appender__c__mm__impl_1ab50b005b951ab16d794e6a6d45bcf3c3" prot="public" virt="non-virtual"><scope>gr::zVKN::flag_appender_c_mm_impl</scope><name>general_work</name></member>
+      <member refid="classgr_1_1zVKN_1_1flag__appender__c__mm_1a2f8ad2daac8950bd5b4ca7126bf02276" prot="public" virt="non-virtual"><scope>gr::zVKN::flag_appender_c_mm_impl</scope><name>make</name></member>
+      <member refid="classgr_1_1zVKN_1_1flag__appender__c__mm_1a25b59e244de0f281e6b8931a1ccf393b" prot="public" virt="non-virtual"><scope>gr::zVKN::flag_appender_c_mm_impl</scope><name>sptr</name></member>
+      <member refid="classgr_1_1zVKN_1_1flag__appender__c__mm__impl_1a9c8e59099caac4f1b78915e04b43b92b" prot="public" virt="non-virtual"><scope>gr::zVKN::flag_appender_c_mm_impl</scope><name>~flag_appender_c_mm_impl</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

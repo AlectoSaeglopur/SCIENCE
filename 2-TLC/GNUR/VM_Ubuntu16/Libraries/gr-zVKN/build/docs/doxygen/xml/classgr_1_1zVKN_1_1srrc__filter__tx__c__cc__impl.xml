@@ -1,0 +1,293 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.11">
+  <compounddef id="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl" kind="class" language="C++" prot="public">
+    <compoundname>gr::zVKN::srrc_filter_tx_c_cc_impl</compoundname>
+    <basecompoundref refid="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc" prot="public" virt="non-virtual">gr::zVKN::srrc_filter_tx_c_cc</basecompoundref>
+    <includes refid="srrc__filter__tx__c__cc__impl_8h" local="no">srrc_filter_tx_c_cc_impl.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl_1a7f474b7e78585765250811f712a7c9db" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int gr::zVKN::srrc_filter_tx_c_cc_impl::d_sps</definition>
+        <argsstring></argsstring>
+        <name>d_sps</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h" line="37" column="1" bodyfile="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl_1a70bca0880fab4d5af2a050ee6ea373d5" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int gr::zVKN::srrc_filter_tx_c_cc_impl::d_span</definition>
+        <argsstring></argsstring>
+        <name>d_span</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h" line="38" column="1" bodyfile="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl_1a49ebdd5cc550366dca8b26304ce820a1" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float gr::zVKN::srrc_filter_tx_c_cc_impl::d_beta</definition>
+        <argsstring></argsstring>
+        <name>d_beta</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h" line="39" column="1" bodyfile="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl_1aa7c22dab20654577902675361f78bd9e" prot="private" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t gr::zVKN::srrc_filter_tx_c_cc_impl::Ntaps</definition>
+        <argsstring></argsstring>
+        <name>Ntaps</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h" line="40" column="1" bodyfile="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl_1a335853169f9a972f12746b768ffe2425" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gr::zVKN::srrc_filter_tx_c_cc_impl::ScaleSrrcTaps</definition>
+        <argsstring>(float *Taps)</argsstring>
+        <name>ScaleSrrcTaps</name>
+        <param>
+          <type>float *</type>
+          <declname>Taps</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h" line="42" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl_1adbd37f3b6a0c43a8903e762ffa4e82bc" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gr::zVKN::srrc_filter_tx_c_cc_impl::GetSrrcTaps</definition>
+        <argsstring>(float *Taps)</argsstring>
+        <name>GetSrrcTaps</name>
+        <param>
+          <type>float *</type>
+          <declname>Taps</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h" line="43" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl_1a6e9ef9aee8cee8dc0c4657fbf39f9f23" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gr::zVKN::srrc_filter_tx_c_cc_impl::UpsampleC</definition>
+        <argsstring>(gr_complex *SymbStream, size_t SymbLen, gr_complex *SampStream)</argsstring>
+        <name>UpsampleC</name>
+        <param>
+          <type>gr_complex *</type>
+          <declname>SymbStream</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>SymbLen</declname>
+        </param>
+        <param>
+          <type>gr_complex *</type>
+          <declname>SampStream</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h" line="44" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl_1a2dbda2d6eed2fc7f9b1a46aa703ce263" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gr::zVKN::srrc_filter_tx_c_cc_impl::FirFilterC</definition>
+        <argsstring>(gr_complex *IoSamps, size_t SampLen, float *Taps)</argsstring>
+        <name>FirFilterC</name>
+        <param>
+          <type>gr_complex *</type>
+          <declname>IoSamps</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>SampLen</declname>
+        </param>
+        <param>
+          <type>float *</type>
+          <declname>Taps</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h" line="45" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl_1a0307e0ac6e33ee529569a31fb3cc007b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>gr::zVKN::srrc_filter_tx_c_cc_impl::srrc_filter_tx_c_cc_impl</definition>
+        <argsstring>(int sps, int span, float beta)</argsstring>
+        <name>srrc_filter_tx_c_cc_impl</name>
+        <param>
+          <type>int</type>
+          <declname>sps</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>span</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>beta</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h" line="48" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl_1aafeb3d1cfb98bc17db9f273b9afe5394" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>gr::zVKN::srrc_filter_tx_c_cc_impl::~srrc_filter_tx_c_cc_impl</definition>
+        <argsstring>()</argsstring>
+        <name>~srrc_filter_tx_c_cc_impl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h" line="49" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl_1a35569a084a8c78549e13b0e6b8f55dd9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gr::zVKN::srrc_filter_tx_c_cc_impl::forecast</definition>
+        <argsstring>(int noutput_items, gr_vector_int &amp;ninput_items_required)</argsstring>
+        <name>forecast</name>
+        <param>
+          <type>int</type>
+          <declname>noutput_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_int &amp;</type>
+          <declname>ninput_items_required</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h" line="52" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl_1a2e791b03d7cb785abba7847546f13470" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int gr::zVKN::srrc_filter_tx_c_cc_impl::general_work</definition>
+        <argsstring>(int noutput_items, gr_vector_int &amp;ninput_items, gr_vector_const_void_star &amp;input_items, gr_vector_void_star &amp;output_items)</argsstring>
+        <name>general_work</name>
+        <param>
+          <type>int</type>
+          <declname>noutput_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_int &amp;</type>
+          <declname>ninput_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_const_void_star &amp;</type>
+          <declname>input_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_void_star &amp;</type>
+          <declname>output_items</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h" line="54" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="51">
+        <label>block</label>
+      </node>
+      <node id="49">
+        <label>gr::zVKN::srrc_filter_tx_c_cc_impl</label>
+        <link refid="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl"/>
+        <childnode refid="50" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>gr::zVKN::srrc_filter_tx_c_cc</label>
+        <link refid="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc"/>
+        <childnode refid="51" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="54">
+        <label>block</label>
+      </node>
+      <node id="52">
+        <label>gr::zVKN::srrc_filter_tx_c_cc_impl</label>
+        <link refid="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl"/>
+        <childnode refid="53" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="53">
+        <label>gr::zVKN::srrc_filter_tx_c_cc</label>
+        <link refid="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc"/>
+        <childnode refid="54" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h" line="35" column="1" bodyfile="/home/vkn/Documents/GNUR/Libraries/gr-zVKN/lib/srrc_filter_tx_c_cc_impl.h" bodystart="34" bodyend="58"/>
+    <listofallmembers>
+      <member refid="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl_1a49ebdd5cc550366dca8b26304ce820a1" prot="private" virt="non-virtual"><scope>gr::zVKN::srrc_filter_tx_c_cc_impl</scope><name>d_beta</name></member>
+      <member refid="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl_1a70bca0880fab4d5af2a050ee6ea373d5" prot="private" virt="non-virtual"><scope>gr::zVKN::srrc_filter_tx_c_cc_impl</scope><name>d_span</name></member>
+      <member refid="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl_1a7f474b7e78585765250811f712a7c9db" prot="private" virt="non-virtual"><scope>gr::zVKN::srrc_filter_tx_c_cc_impl</scope><name>d_sps</name></member>
+      <member refid="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl_1a2dbda2d6eed2fc7f9b1a46aa703ce263" prot="private" virt="non-virtual"><scope>gr::zVKN::srrc_filter_tx_c_cc_impl</scope><name>FirFilterC</name></member>
+      <member refid="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl_1a35569a084a8c78549e13b0e6b8f55dd9" prot="public" virt="non-virtual"><scope>gr::zVKN::srrc_filter_tx_c_cc_impl</scope><name>forecast</name></member>
+      <member refid="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl_1a2e791b03d7cb785abba7847546f13470" prot="public" virt="non-virtual"><scope>gr::zVKN::srrc_filter_tx_c_cc_impl</scope><name>general_work</name></member>
+      <member refid="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl_1adbd37f3b6a0c43a8903e762ffa4e82bc" prot="private" virt="non-virtual"><scope>gr::zVKN::srrc_filter_tx_c_cc_impl</scope><name>GetSrrcTaps</name></member>
+      <member refid="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc_1a5dd29480c33861b9ede82c87a8aa9c3e" prot="public" virt="non-virtual"><scope>gr::zVKN::srrc_filter_tx_c_cc_impl</scope><name>make</name></member>
+      <member refid="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl_1aa7c22dab20654577902675361f78bd9e" prot="private" virt="non-virtual"><scope>gr::zVKN::srrc_filter_tx_c_cc_impl</scope><name>Ntaps</name></member>
+      <member refid="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl_1a335853169f9a972f12746b768ffe2425" prot="private" virt="non-virtual"><scope>gr::zVKN::srrc_filter_tx_c_cc_impl</scope><name>ScaleSrrcTaps</name></member>
+      <member refid="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc_1a8b91b40c983a5029314b57ec80db9c54" prot="public" virt="non-virtual"><scope>gr::zVKN::srrc_filter_tx_c_cc_impl</scope><name>sptr</name></member>
+      <member refid="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl_1a0307e0ac6e33ee529569a31fb3cc007b" prot="public" virt="non-virtual"><scope>gr::zVKN::srrc_filter_tx_c_cc_impl</scope><name>srrc_filter_tx_c_cc_impl</name></member>
+      <member refid="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl_1a6e9ef9aee8cee8dc0c4657fbf39f9f23" prot="private" virt="non-virtual"><scope>gr::zVKN::srrc_filter_tx_c_cc_impl</scope><name>UpsampleC</name></member>
+      <member refid="classgr_1_1zVKN_1_1srrc__filter__tx__c__cc__impl_1aafeb3d1cfb98bc17db9f273b9afe5394" prot="public" virt="non-virtual"><scope>gr::zVKN::srrc_filter_tx_c_cc_impl</scope><name>~srrc_filter_tx_c_cc_impl</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

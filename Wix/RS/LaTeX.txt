@@ -1,0 +1,37 @@
+PRIMPOLYS
+\\
+GF(2^{3}) \rightarrow f(x) = 1+x+x^{3}
+\\
+GF(2^{4}) \rightarrow f(x) = 1+x+x^{4}
+\\
+GF(2^{5}) \rightarrow f(x) = 1+x^{2}+x^{5}
+\\
+GF(2^{6}) \rightarrow f(x) = 1+x+x^{6}
+\\
+GF(2^{7}) \rightarrow f(x) = 1+x^{3}+x^{7}
+\\
+GF(2^{8}) \rightarrow f(x) = 1+x^{2}+x^{3}+x^{4}+x^{8}
+
+BASIC RELATION
+(n,k) = (2^{m}-1,\; 2^{m}-1-2t)
+
+GENPOLY
+g(x) = \prod_{i=1}^{2t}(x-\alpha^{i})
+
+SYNDROMES
+S_{i} = r(x) \mid\,_{x=\alpha^{i}}
+
+DISCREPANCY
+\Delta^{j} = \sum_{i}^{E}\sigma_{i}S_{j-i}
+
+CHIEN
+\sigma(x) = \prod_{i=1}^{t}(1-L_{i}x)
+
+KEY
+\left[1+S(x)\right]\sigma(x) \,\, mod \,\, x^{2t+1} = \omega(x)
+
+FORNEY
+M_{i} = \frac{\omega(L_{i}^{-1})}{\prod_{j=1\neq i}^{t}(1-L_{j}L_{i}^{-1})}
+
+ERROR
+e(x) = \sum_{i=1}^{t}\: M_{i}x^{L_{i

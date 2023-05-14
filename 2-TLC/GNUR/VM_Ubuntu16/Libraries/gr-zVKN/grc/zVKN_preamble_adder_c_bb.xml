@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<block>
+  <name>zz Preamble Adder [C-BB]</name>
+  <key>zVKN_preamble_adder_c_bb</key>
+  <category>zVKN</category>
+  <import>import zVKN</import>
+  <make>zVKN.preamble_adder_c_bb($prb_val, $prb_len)</make>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type -->
+  <param>
+    <name>Value</name>
+    <key>prb_val</key>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>Length</name>
+    <key>prb_len</key>
+    <type>int</type>
+  </param>
+
+  <!-- Make one 'sink' node per input. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <sink>
+    <name>in</name>
+    <type>byte</type>
+  </sink>
+
+  <!-- Make one 'source' node per output. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <source>
+    <name>out</name>
+    <type>byte</type>
+  </source>
+</block>
