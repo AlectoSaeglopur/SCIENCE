@@ -1,129 +1,152 @@
 
 """
-" Script for remotely control instrumentation through Python.
+" SCPI (aka Standard Commands for Programmable Instruments) script for remotely controlling instrumentation through Python.
 " Filippo Valmori
 " 16/05/2022
 """
 
 ### LIBRARIES ###
 
-import pyvisa                                                   # pip install pyvisa
+import pyvisa                                                       # pip install pyvisa
 from time import sleep
 
 
 
 ### PARAMETERS ###
 
-Adr = 'ASRL9::INSTR'                                            # address used for RS-232 communication (check with "list_resources() results)
-# Adr = 'USB0::0x2A8D::0x1766::MY61264924::0::INSTR'              # address used for USB communication (check with "list_resources() results)
-TerChar = '\n'                                                  # Termination character (NB: use '\n' or '\r')
-CmdDly = 2.0                                                    # delay between each command [s] (NB: just for testing purpose!)
+# Adr = 'ASRL9::INSTR'                                                # address used for RS-232 communication with Keysight's E3634A power supply (check "list_resources() results)
+# Adr = 'USB0::0x2A8D::0x1766::MY61264924::0::INSTR'                  # address used for USB communication with Keysight's DSOX3024T oscilloscope (check "list_resources() results)
+Adr = 'USB0::0x0957::0x2B07::MY52700600::0::INSTR'                  # address for USB communication with Agilent's 33521B signal generator (check "list_resources() results)
+
+TerChar = '\n'                                                      # Termination character (NB: use '\n' or '\r')
+CmdDly = 2.0                                                        # delay between each command [s] (NB: just for testing purpose!)
 
 
 
 ### PROCESING ###
 
-RM = pyvisa.ResourceManager()                                   # get resource manager (RM) info
-List = RM.list_resources()                                      # get list of available interfaces (see NB#2 below)
+RM = pyvisa.ResourceManager()                                       # get resource manager (RM) info
+List = RM.list_resources()                                          # get list of available interfaces (see NB#2 below)
 print('\n * RESOURCE LIST >>',str(List))
-# print('\n * EXTRA INFO >>',RM.list_resources_info())            # retrieve additional info
+# print('\n * EXTRA INFO >>',RM.list_resources_info())                # retrieve additional info
 if Adr not in List :
     print('\n * ERROR : INTERFACE NOT CONFIGURED!')
     exit()
-Dev = RM.open_resource(Adr)                                     # access to instrument specified by input address
+Dev = RM.open_resource(Adr)                                         # access to instrument specified by input address
 
-Dev.read_termination = TerChar                                  # set reading termination character
-Dev.write_termination = TerChar                                 # set writing termination character
+Dev.read_termination = TerChar                                      # set reading termination character
+Dev.write_termination = TerChar                                     # set writing termination character
 ID = Dev.query('*IDN?')
 print('\n * DEVICE ID >>',str(ID))
 
 
-if '33120A' in ID :                                             # >>> HP's 33120A signal generator <<<
+if '33120A' in ID :                                                 # >>> HP's 33120A signal generator <<<
 
-    Dev.write('SYST:REM')                                       # set the device in remote mode
-    Dev.write('*RST')                                           # reset device to default state
-    sleep(CmdDly)                                               # wait some second before executing next command
-    Dev.write('APPL:SQU 50,2.0,0.5')                            # set square wave at 50 Hz with 2 V amplitude and 500 mV DC-offset
+    Dev.write('SYST:REM')                                           # set the device in remote mode
+    Dev.write('*RST')                                               # reset device to default state
+    sleep(CmdDly)                                                   # wait some second before executing next command
+    Dev.write('APPL:SQU 50,2.0,0.5')                                # set square wave at 50 Hz with 2 V amplitude and 500 mV DC-offset
     sleep(CmdDly)
-    Dev.write('VOLT 1.5')                                       # set voltage level to 1.5 V
+    Dev.write('VOLT 1.5')                                           # set voltage level to 1.5 V
     sleep(CmdDly)
-    RdVal = Dev.query_ascii_values('VOLT?')                     # read back voltage level from instrument [V]
+    RdVal = Dev.query_ascii_values('VOLT?')                         # read back voltage level from instrument [V]
     print('\n >> Voltage readback :',str(RdVal[0]),'V')
     sleep(CmdDly)
-    RdVal = Dev.query_ascii_values('FREQ?')                     # read back frequency value from instrument [Hz]
+    RdVal = Dev.query_ascii_values('FREQ?')                         # read back frequency value from instrument [Hz]
     print('\n >> Frequency readback :',str(RdVal[0]),'Hz')
     sleep(CmdDly)
-    Dev.write('SWE:TIME 4')                                     # set sweep time (4 s)
-    sleep(0.1)                                                  # 100 ms delay to allow previous command execution [NOT NEEDED]
-    Dev.write('FREQ:START 10; STOP 500; MODE SWEEP')            # multiple command to set starting/final frequency (10 and 500 Hz) and launch sweep mode
+    Dev.write('SWE:TIME 4')                                         # set sweep time (4 s)
+    sleep(0.1)                                                      # 100 ms delay to allow previous command execution [NOT NEEDED]
+    Dev.write('FREQ:START 10; STOP 500; MODE SWEEP')                # multiple command to set starting/final frequency (10 and 500 Hz) and launch sweep mode
     sleep(CmdDly)
-    Dev.write('SYST:LOC')                                       # reset the device in local mode
+    Dev.write('SYST:LOC')                                           # reset the device in local mode
 
-elif 'E3634A' in ID :                                           # >>> Keysight's E3634A power supply <<<
 
-    Dev.write('OUTP OFF')                                       # switch off channel
-    Dev.write('SYST:REM')                                       # set the device in remote mode
+elif '33521B' in ID :                                               # >>> Agilent's 33521B signal generator (33500B series) <<<
+
+    Dev.write('SYST:COMM:ENAB ON,USB')                              # enable remote mode
     sleep(CmdDly)
-    Dev.write('VOLT 7')                                         # set voltage to 7 V
+    Dev.write('*RST')                                               # reset device to default state
     sleep(CmdDly)
-    Dev.write('OUTP ON')                                        # switch on channel
+    Dev.write('*CLS')                                               # clear status
     sleep(CmdDly)
-    Dev.write('*RCL 1')                                         # set voltage to 7 V
+    Dev.write('FUNC SIN')                                           # set waveform type to sinusoid
     sleep(CmdDly)
-    RdVal = Dev.query_ascii_values('VOLT?')                     # read back voltage level from instrument [V]
+    Dev.write('FREQ +50')                                           # set frequency to 50 Hz
+    sleep(CmdDly)
+    Dev.write('VOLT +1')                                            # set amplitude to 1 V
+    sleep(CmdDly)
+    Dev.write('OUTP ON')                                            # enable output
+    sleep(CmdDly)
+    Dev.write('SYST:COMM:ENAB OFF,USB')                             # disable remote mode (press LOCAL in device front panel to go back to local mode)
+    
+
+elif 'E3634A' in ID :                                               # >>> Keysight's E3634A power supply <<<
+
+    Dev.write('OUTP OFF')                                           # switch off channel
+    Dev.write('SYST:REM')                                           # set the device in remote mode
+    sleep(CmdDly)
+    Dev.write('VOLT 7')                                             # set voltage to 7 V
+    sleep(CmdDly)
+    Dev.write('OUTP ON')                                            # switch on channel
+    sleep(CmdDly)
+    Dev.write('*RCL 1')                                             # set voltage to 7 V
+    sleep(CmdDly)
+    RdVal = Dev.query_ascii_values('VOLT?')                         # read back voltage level from instrument [V]
     print('\n >> Voltage readback :',str(RdVal[0]),'V')
     sleep(CmdDly)
-    RdVal = Dev.query_ascii_values('MEAS:VOLT?')                # read voltage measure from instrument [V]
+    RdVal = Dev.query_ascii_values('MEAS:VOLT?')                    # read voltage measure from instrument [V]
     print('\n >> Voltage measure :',str(RdVal[0]),'V')
     sleep(CmdDly)
-    RdVal = Dev.query_ascii_values('MEAS:CURR?')                # read current measure from instrument [A]
+    RdVal = Dev.query_ascii_values('MEAS:CURR?')                    # read current measure from instrument [A]
     print('\n >> Current measure :',str(RdVal[0]),'A')
     sleep(CmdDly)
-    Dev.write('SYST:LOC')                                       # reset the device in local mode
+    Dev.write('SYST:LOC')                                           # reset the device in local mode
     sleep(CmdDly)
-    Dev.write('*RST')                                           # reset device settings
+    Dev.write('*RST')                                               # reset device settings
     sleep(CmdDly)
 
-elif 'DSO-X 3024T' in ID :                                      # >>> Keysight's DSOX3024T oscilloscope <<<
 
-    Dev.write('*RST')                                           # perform reset to factory default setup
+elif 'DSO-X 3024T' in ID :                                          # >>> Keysight's DSOX3024T oscilloscope <<<
+
+    Dev.write('*RST')                                               # perform reset to factory default setup
     sleep(CmdDly)
-    OrigTO = Dev.timeout                                        # read and store current default timeout value [ms]
+    OrigTO = Dev.timeout                                            # read and store current default timeout value [ms]
     print('\n >> Default timeout =',str(OrigTO),'ms')
-    Dev.timeout = 60e3                                          # set new timeout to 60 s
-    RdVal = Dev.query('*TST?')                                  # execute self-test (NB: it takes about 40 s)
-    if str(RdVal) == '0' :                                      # 0-outcome means test completed successfully
+    Dev.timeout = 60e3                                              # set new timeout to 60 s
+    RdVal = Dev.query('*TST?')                                      # execute self-test (NB: it takes about 40 s)
+    if str(RdVal) == '0' :                                          # 0-outcome means test completed successfully
         print('\n >> Self-test PASSED!')
     else :
         print('\n >> Self-test FAILED!')
     sleep(CmdDly)
-    Dev.timeout = OrigTO                                        # restore original timeout
-    Dev.write(':AUT')                                           # autoscale the device
+    Dev.timeout = OrigTO                                            # restore original timeout
+    Dev.write(':AUT')                                               # autoscale the device
     sleep(CmdDly)
-    Dev.write(':VIEW CHAN3')                                    # enable channel #3
+    Dev.write(':VIEW CHAN3')                                        # enable channel #3
     sleep(CmdDly)
-    Dev.write(':BLAN CHAN3')                                    # disable channel #3
+    Dev.write(':BLAN CHAN3')                                        # disable channel #3
     sleep(CmdDly)
-    Dev.write(':STOP')                                          # stop acquisition
+    Dev.write(':STOP')                                              # stop acquisition
     sleep(CmdDly)
-    Dev.write(':RUN')                                           # run/resume acquisition
-    Dev.write(':CHAN1:INV ON')                                  # set channel #1 input as inverted (i.e. signal displayed with opposite sign)
+    Dev.write(':RUN')                                               # run/resume acquisition
+    Dev.write(':CHAN1:INV ON')                                      # set channel #1 input as inverted (i.e. signal displayed with opposite sign)
     sleep(CmdDly)
-    Dev.write(':CHAN1:INV OFF')                                 # reset channel #1 input as not-inverted
+    Dev.write(':CHAN1:INV OFF')                                     # reset channel #1 input as not-inverted
     sleep(CmdDly)
-    Dev.write(':CHAN1:OFFS -200 mV')                            # set channel #1 vertical offset to -200 mV
+    Dev.write(':CHAN1:OFFS -200 mV')                                # set channel #1 vertical offset to -200 mV
     sleep(CmdDly)
-    Dev.write(':CHAN1:OFFS 0 V')                                # reset channel #1 vertical offset to 0 V
+    Dev.write(':CHAN1:OFFS 0 V')                                    # reset channel #1 vertical offset to 0 V
     sleep(CmdDly)
-    RdVal = Dev.query_ascii_values(':CHAN1:SCAL?')              # read current channel #1 vertical scale [V]
+    RdVal = Dev.query_ascii_values(':CHAN1:SCAL?')                  # read current channel #1 vertical scale [V]
     print('\n >> Ch#1 vertical scale readback =',str(RdVal[0]),'V/div')
     sleep(CmdDly)
-    Dev.write(':CHAN1:SCAL 100 mV')                             # set channel #1 vertical scale to 100 mV/division
+    Dev.write(':CHAN1:SCAL 100 mV')                                 # set channel #1 vertical scale to 100 mV/division
     sleep(CmdDly)
-    Dev.write(':CHAN1:SCAL '+str(RdVal[0])+' V')                # reset channel #1 vertical scale to original value
+    Dev.write(':CHAN1:SCAL '+str(RdVal[0])+' V')                    # reset channel #1 vertical scale to original value
 
-Dev.close()                                                     # release instrument
-RM.close()                                                      # close RM session
+Dev.close()                                                         # release instrument
+RM.close()                                                          # close RM session
 
 
 
