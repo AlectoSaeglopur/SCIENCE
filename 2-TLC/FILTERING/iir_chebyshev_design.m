@@ -9,7 +9,7 @@ clearvars
 clc
 
 
-%% PARAMETERS %%
+%% PARAMETERS
 
 Fs = 8e3;                                                           % Sample rate [Sa/s]
 Ftype = 'BPF';                                                      % Filter type (choose 'LPF', 'HPF', 'BPF' or 'SBF')
