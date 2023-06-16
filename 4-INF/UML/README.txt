@@ -12,3 +12,10 @@ Image conversion >> python -m plantuml XYZ (XYZ = ex_hcb.txt, where actual code 
 
 DOCUMENTATION : 
 Plant UML >> https://plantuml.com
+
+-----------------------------------------------------
+
+ALTERNATIVES : 
+- lucidchart
+- gleek
+- draw.io

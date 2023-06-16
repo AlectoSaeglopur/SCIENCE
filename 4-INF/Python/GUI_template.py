@@ -123,7 +123,7 @@ class Toplevel1:
         self.Menu_1['values'] = ( ' 1. Read Temperature',
                                   ' 2. Read current',
                                   ' 3. Read voltage')                                           # list of all menu entries
-        self.Menu_1.current(1)                                                                  # initialize menu to 2nd value [NOT ESSENTIAL]
+        self.Menu_1.current(1)                                                                  # initialize menu to 2nd value in list [NOT ESSENTIAL]
         self.Menu_1.bind('<<ComboboxSelected>>', Menu_Callback)                                 # link menu value update to callback [NOT ESSENTIAL]
 
         # 2. BUTTON #
