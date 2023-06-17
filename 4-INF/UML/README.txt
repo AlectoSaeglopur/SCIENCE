@@ -17,5 +17,6 @@ Plant UML >> https://plantuml.com
 
 ALTERNATIVES : 
 - lucidchart
-- gleek
+- gleek uml
 - draw.io
+- astah uml
