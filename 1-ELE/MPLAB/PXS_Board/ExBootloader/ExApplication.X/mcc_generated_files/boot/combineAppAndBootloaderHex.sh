@@ -1,0 +1,1 @@
+hexmate r0-3FFF,../../../ExBootloader.X/dist/default/production/ExBootloader.X.production.hex r4000-AEFFF,../../dist/default/production/ExApplication.X.production.hex rAF000-FFFFFFFF,../../../ExBootloader.X/dist/default/production/ExBootloader.X.production.hex -O../../dist/default/production/combined.production.hex
