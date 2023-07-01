@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "global.h": "c",
+        "vfi_custom.h": "c"
+    }
+}
