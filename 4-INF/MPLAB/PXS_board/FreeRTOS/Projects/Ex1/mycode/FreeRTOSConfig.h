@@ -1,76 +1,9 @@
-/*
-    FreeRTOS V9.0.0 - Copyright (C) 2016 Real Time Engineers Ltd.
-    All rights reserved
-
-    VISIT http://www.FreeRTOS.org TO ENSURE YOU ARE USING THE LATEST VERSION.
-
-    This file is part of the FreeRTOS distribution.
-
-    FreeRTOS is free software; you can redistribute it and/or modify it under
-    the terms of the GNU General Public License (version 2) as published by the
-    Free Software Foundation >>>> AND MODIFIED BY <<<< the FreeRTOS exception.
-
-    ***************************************************************************
-    >>!   NOTE: The modification to the GPL is included to allow you to     !<<
-    >>!   distribute a combined work that includes FreeRTOS without being   !<<
-    >>!   obliged to provide the source code for proprietary components     !<<
-    >>!   outside of the FreeRTOS kernel.                                   !<<
-    ***************************************************************************
-
-    FreeRTOS is distributed in the hope that it will be useful, but WITHOUT ANY
-    WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-    FOR A PARTICULAR PURPOSE.  Full license text is available on the following
-    link: http://www.freertos.org/a00114.html
-
-    ***************************************************************************
-     *                                                                       *
-     *    FreeRTOS provides completely free yet professionally developed,    *
-     *    robust, strictly quality controlled, supported, and cross          *
-     *    platform software that is more than just the market leader, it     *
-     *    is the industry's de facto standard.                               *
-     *                                                                       *
-     *    Help yourself get started quickly while simultaneously helping     *
-     *    to support the FreeRTOS project by purchasing a FreeRTOS           *
-     *    tutorial book, reference manual, or both:                          *
-     *    http://www.FreeRTOS.org/Documentation                              *
-     *                                                                       *
-    ***************************************************************************
-
-    http://www.FreeRTOS.org/FAQHelp.html - Having a problem?  Start by reading
-    the FAQ page "My application does not run, what could be wrong?".  Have you
-    defined configASSERT()?
-
-    http://www.FreeRTOS.org/support - In return for receiving this top quality
-    embedded software for free we request you assist our global community by
-    participating in the support forum.
-
-    http://www.FreeRTOS.org/training - Investing in training allows your team to
-    be as productive as possible as early as possible.  Now you can receive
-    FreeRTOS training directly from Richard Barry, CEO of Real Time Engineers
-    Ltd, and the world's leading authority on the world's leading RTOS.
-
-    http://www.FreeRTOS.org/plus - A selection of FreeRTOS ecosystem products,
-    including FreeRTOS+Trace - an indispensable productivity tool, a DOS
-    compatible FAT file system, and our tiny thread aware UDP/IP stack.
-
-    http://www.FreeRTOS.org/labs - Where new FreeRTOS products go to incubate.
-    Come and try FreeRTOS+TCP, our new open source TCP/IP stack for FreeRTOS.
-
-    http://www.OpenRTOS.com - Real Time Engineers ltd. license FreeRTOS to High
-    Integrity Systems ltd. to sell under the OpenRTOS brand.  Low cost OpenRTOS
-    licenses offer ticketed support, indemnification and commercial middleware.
-
-    http://www.SafeRTOS.com - High Integrity Systems also provide a safety
-    engineered and independently SIL3 certified version for use in safety and
-    mission critical applications that require provable dependability.
-
-    1 tab == 4 spaces!
-*/
 
 #ifndef FREERTOS_CONFIG_H
 #define FREERTOS_CONFIG_H
 
 #include "xc.h"
+#include "system.h"                                                             /** @vkn: needed to link Config_CCT8() and Get_CCT8() */
 
 /*-----------------------------------------------------------
  * Application specific definitions.
@@ -85,21 +18,24 @@
  *----------------------------------------------------------*/
 
 #define configUSE_PREEMPTION			1                                       /** @vkn: To enable preemption, thus scheduler runs the available task with highest priority */
-#define configUSE_IDLE_HOOK				1                                       /** @VKN: To allow theexecution of function "vApplicationIdleHook" while within the idle task */
+#define configUSE_IDLE_HOOK				1                                       /** @vkn: To allow execution of "vApplicationIdleHook()" while within the idle task */
 #define configUSE_TICK_HOOK				0
-#define configTICK_RATE_HZ				( ( TickType_t ) 1000 )
-//#define configCPU_CLOCK_HZ				( ( unsigned long ) 60000000 )  /* Fosc / 2 */
-#define configMAX_PRIORITIES			( 4 )
-#define configMINIMAL_STACK_SIZE		( 105 )                     // @vfi: can be optimized (i.e. reduced) for new task creation
-#define configTOTAL_HEAP_SIZE			( ( size_t ) 5120 )
-#define configMAX_TASK_NAME_LEN			( 4 )
-#define configUSE_TRACE_FACILITY		0
+#define configTICK_RATE_HZ				( ( TickType_t ) 1000 )                 /** @vkn: To specify the tick rate [Hz] (here related to T1, i.e. 1 ms) */
+
+#define configMAX_PRIORITIES			( 10 )                                  /** @vkn: To set maximum task priority allowed */
+#define configTOTAL_HEAP_SIZE			( ( size_t ) 5120 )                     /** @vkn: To set overall heap memory size in bytes allocated by FreeRTOS for tasks, queues, semaphores, etc */
+#define MIN_STACK_SZ                    ( uint16_t ) 20                         /** @vkn: Minimum stack size in words for task allocation (e.g. word = here 16-bit for dsPIC33CH) */
+#define configMINIMAL_STACK_SIZE		( 6*MIN_STACK_SZ )                                 /** @vkn: To specify stack space (in words) allocated for the idle-task */
+
+#define configMAX_TASK_NAME_LEN			( 8 )                                   /** @vkn: To modify number of characters for task naming in vTaskGetRunTimeStats() */
+#define configUSE_TRACE_FACILITY		1                                       /** @vkn: To enable usage of "uxTaskGetSystemState()" */
 #define configUSE_16_BIT_TICKS			1
 #define configIDLE_SHOULD_YIELD			1
+//#define configCPU_CLOCK_HZ              ((unsigned long) 60000000)
 
 /* Co-routine definitions. */
-#define configUSE_CO_ROUTINES 		1
-#define configMAX_CO_ROUTINE_PRIORITIES ( 2 )
+#define configUSE_CO_ROUTINES           1                                       /** @vkn: To enable usage of co-routines */
+#define configMAX_CO_ROUTINE_PRIORITIES ( 2 )                                   /** @vkn: To set maximum co-routines priority allowed */
 
 /* Set the following definitions to 1 to include the API function, or zero
 to exclude the API function. */
@@ -112,15 +48,13 @@ to exclude the API function. */
 #define INCLUDE_vTaskDelayUntil			1
 #define INCLUDE_vTaskDelay				1
 
+#define configKERNEL_INTERRUPT_PRIORITY     1                                   /** @vkn: FreeRTOS kernel (i.e. related to scheduler as well) interrupt priority -> NB: shall be always set to lowest priosity! */
+#define pdMS_TO_TICKS(xTimeInMs) ((TickType_t)(((TickType_t)(xTimeInMs)))*(((TickType_t)configTICK_RATE_HZ)/( TickType_t)1000))     /** @vkn: Macro function to convert milliseconds into tick cycles */
 
-#define configKERNEL_INTERRUPT_PRIORITY     1
-#define pdMS_TO_TICKS( xTimeInMs ) ( ( TickType_t) ( ( ( TickType_t) ( xTimeInMs ) )) * ((( TickType_t) configTICK_RATE_HZ ) / ( TickType_t) 1000 ))
+/* @vkn: MACROS NEEDED TO RETRIEVE STATISTICS (see "run_time_stats.pdf") */
+#define configUSE_STATS_FORMATTING_FUNCTIONS            1                       /** @vkn: To enable usage of "vTaskGetRunTimeStats()" */
+#define configGENERATE_RUN_TIME_STATS                   1                       /** @vkn: To enable collection of run-time statistics */
+#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS()        Config_CCT8()           /** @vkn: To provide timer configuration function for statistics gathering */
+#define portGET_RUN_TIME_COUNTER_VALUE()                Get_CCT8()              /** @vkn: To provide timer counter read function for statistics gathering */
 
-
-
-/* @vkn: To enable function "vTaskGetRunTimeStats" (see "run_time_stats.pdf") */
-//#define configGENERATE_RUN_TIME_STATS                                           /** @vkn: To enable collection of run-time statistics */
-//#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS()
-
-
-#endif /* FREERTOS_CONFIG_H */
+#endif

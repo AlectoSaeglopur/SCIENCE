@@ -1,5 +1,5 @@
 # 1 "../../source/croutine.c"
-# 1 "C:\\Users\\Filippo\\Desktop\\FreeRTOS\\Projects\\Ex1\\mycode\\Ex1"
+# 1 "C:\\Users\\Filippo\\Desktop\\Projects\\Ex1\\mycode\\Ex1"
 # 1 "<built-in>"
 # 1 "<command-line>"
 # 1 "../../source/croutine.c"
@@ -260,7 +260,10 @@ typedef unsigned long long int uintmax_t;
 
 
 # 1 "../FreeRTOSConfig.h" 1
-# 73 "../FreeRTOSConfig.h"
+
+
+
+
 # 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\generic\\h/xc.h" 1 3 4
 # 43 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\generic\\h/xc.h" 3 4
 # 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/builtins.h" 1 3 4
@@ -21399,7 +21402,691 @@ extern __attribute__((space(prog))) __prog__ uint16_t _FS1DMT;
 # 77188 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\dsPIC33C\\h/p33CH512MP508.h" 3 4
 extern __attribute__((space(prog))) __prog__ uint16_t _FBTSEQ;
 # 225 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\generic\\h/xc.h" 2 3 4
-# 74 "../FreeRTOSConfig.h" 2
+# 6 "../FreeRTOSConfig.h" 2
+# 1 "../system.h" 1
+# 24 "../system.h"
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdio.h" 1 3 4
+
+
+
+
+
+
+
+
+# 53 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdio.h" 3 4
+typedef _Fpost fpos_t;
+
+
+
+
+
+typedef struct FILE
+ {
+ unsigned short _Mode;
+ unsigned char _Lockno;
+ signed char _Handle;
+
+ unsigned char *_Buf, *_Bend, *_Next;
+ unsigned char *_Rend, *_Wend, *_Rback;
+
+ _Wchart *_WRback, _WBack[2];
+ unsigned char *_Rsave, *_WRend, *_WWend;
+
+ struct _Mbstatet _Wstate;
+ char *_Tmpnam;
+ unsigned char _Back[1 * 2], _Cbuf;
+ } FILE;
+
+
+
+extern FILE _Stdin, _Stdout, _Stderr;
+
+void clearerr(FILE *);
+int fclose(FILE *);
+int feof(FILE *);
+int ferror(FILE *);
+int _DNKfflush(FILE *);
+int fgetc(FILE *);
+int fgetpos(FILE *, fpos_t *);
+char * fgets(char *, int, FILE *);
+FILE * fopen(const char *, const char *);
+int fprintf(FILE *, const char *, ...);
+int fputc(int, FILE *);
+int fputs(const char *, FILE *);
+size_t fread(void *, size_t, size_t, FILE *);
+FILE * freopen(const char *, const char *,
+ FILE *);
+int fscanf(FILE *, const char *, ...);
+int fseek(FILE *, long, int);
+int fsetpos(FILE *, const fpos_t *);
+long ftell(FILE *);
+size_t fwrite(const void *, size_t, size_t, FILE *);
+char * gets(char *);
+void perror(const char *);
+int printf(const char *, ...);
+int puts(const char *);
+int remove(const char *);
+int rename(const char *, const char *);
+void rewind(FILE *);
+int scanf(const char *, ...);
+void setbuf(FILE *, char *);
+int setvbuf(FILE *, char *, int, size_t);
+int sprintf(char *, const char *, ...);
+int sscanf(const char *, const char *, ...);
+FILE * tmpfile(void); char * tmpnam(char *);
+int ungetc(int, FILE *);
+int vfprintf(FILE *, const char *, _Va_list);
+int vprintf(const char *, _Va_list);
+int vsprintf(char *, const char *, _Va_list);
+
+
+
+
+
+
+long _Fgpos(FILE *, fpos_t *);
+int _Flocale(FILE *, const char *, int);
+void _Fsetlocale(FILE *, int);
+int _Fspos(FILE *, const fpos_t *, long, int);
+
+
+
+
+
+
+extern FILE *_Files[8];
+
+
+
+
+
+# 174 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdio.h" 3 4
+
+int getc(FILE *);
+int getchar(void);
+int putc(int, FILE *);
+int putchar(int);
+
+# 191 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdio.h" 3 4
+
+# 25 "../system.h" 2
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdlib.h" 1 3 4
+
+
+
+
+
+
+
+# 44 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdlib.h" 3 4
+typedef struct
+ {
+ int quot;
+ int rem;
+ } div_t;
+
+typedef struct
+ {
+ long quot;
+ long rem;
+ } ldiv_t;
+
+
+typedef struct
+ {
+ _Longlong quot;
+ _Longlong rem;
+ } _Lldiv_t;
+
+
+
+
+void _Exit(int) ;
+void exit(int) ;
+char * getenv(const char *);
+int system(const char *);
+
+
+
+void abort(void) ;
+int abs(int);
+void * calloc(size_t, size_t);
+div_t div(int, int);
+void free(void *);
+long labs(long);
+ldiv_t ldiv(long, long);
+void * malloc(size_t);
+int mblen(const char *, size_t);
+size_t mbstowcs(wchar_t *, const char *, size_t);
+int mbtowc(wchar_t *, const char *, size_t);
+int rand(void);
+void srand(unsigned int);
+void * realloc(void *, size_t);
+long strtol(const char *, char **, int);
+size_t wcstombs(char *, const wchar_t *, size_t);
+int wctomb(char *, wchar_t);
+# 102 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdlib.h" 3 4
+unsigned long _Stoul(const char *, char **, int);
+float _Stof(const char *, char **, long);
+
+
+
+
+
+
+long double _Stold(const char *, char **, long);
+_Longlong _Stoll(const char *, char **, int);
+unsigned long long _Stoull(const char *, char **, int);
+
+extern size_t _Getmbcurmax(void);
+
+# 191 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdlib.h" 3 4
+
+
+typedef int _Cmpfun(const void *, const void *);
+
+int atexit(void (*)(void));
+void * bsearch(const void *, const void *, size_t, size_t, _Cmpfun *);
+void qsort(void *, size_t, size_t, _Cmpfun *);
+
+double atof(const char *);
+double strtod(const char *, char **);
+int atoi(const char *);
+long atol(const char *);
+unsigned long strtoul(const char *, char **, int);
+long long atoll(const char *);
+unsigned long long strtoull(const char *, char **, int);
+# 219 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdlib.h" 3 4
+
+
+
+
+
+
+
+
+# 26 "../system.h" 2
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/string.h" 1 3 4
+
+
+
+
+
+
+
+# 25 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/string.h" 3 4
+
+int memcmp(const void *, const void *, size_t);
+void * memcpy(void *, const void *, size_t);
+void * memmove(void *, const void *, size_t);
+void * memset(void *, int, size_t);
+char * strcat(char *, const char *);
+int strcmp(const char *, const char *);
+int strcoll(const char *, const char *);
+char * strcpy(char *, const char *);
+size_t strcspn(const char *, const char *);
+char * strerror(int);
+size_t strlen(const char *);
+char * strncat(char *, const char *, size_t);
+int strncmp(const char *, const char *, size_t);
+char * strncpy(char *, const char *, size_t);
+size_t strspn(const char *, const char *);
+char * strtok(char *, const char *);
+size_t strxfrm(char *, const char *, size_t);
+# 53 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/string.h" 3 4
+
+# 88 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/string.h" 3 4
+
+
+
+void * memchr(const void *, int, size_t);
+char * strchr(const char *, int);
+char * strpbrk(const char *, const char *);
+char * strrchr(const char *, int);
+char * strstr(const char *, const char *);
+
+
+
+# 27 "../system.h" 2
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdbool.h" 1 3 4
+# 28 "../system.h" 2
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdint.h" 1 3 4
+# 29 "../system.h" 2
+
+# 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\generic\\h/xc.h" 1 3 4
+# 43 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\generic\\h/xc.h" 3 4
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/builtins.h" 1 3 4
+# 42 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/builtins.h" 3 4
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdint.h" 1 3 4
+# 43 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/builtins.h" 2 3 4
+
+void __builtin_write_OSCCONL(
+        uint16_t);
+void __builtin_write_OSCCONH(
+        uint16_t);
+void __builtin_write_DISICNT(
+        uint16_t);
+void __builtin_write_NVM(
+        void);
+void __builtin_write_CRYOTP(
+        void);
+void __builtin_write_DATAFLASH(
+        void);
+void __builtin_write_NVM_secure(
+        uint16_t,
+        uint16_t);
+void __builtin_write_DATAFLASH_secure(
+        uint16_t,
+        uint16_t);
+void __builtin_write_RTCWEN(
+        void);
+void __builtin_write_RTCC_WRLOCK(
+        void);
+void __builtin_write_PWMSFR(
+        volatile uint16_t *,
+        uint16_t,
+        volatile uint16_t *);
+void __builtin_write_RPCON(
+        uint16_t);
+uint16_t __builtin_readsfr(
+        volatile void *);
+void __builtin_writesfr(
+        volatile void *,
+        uint16_t);
+
+uint16_t __builtin_edspage();
+uint16_t __builtin_tblpage();
+uint16_t __builtin_edsoffset();
+uint16_t __builtin_dataflashoffset();
+uint16_t __builtin_tbloffset();
+uint16_t __builtin_psvpage();
+uint16_t __builtin_psvoffset();
+uint16_t __builtin_dmaoffset();
+uint16_t __builtin_dmapage();
+uint32_t __builtin_tbladdress();
+
+void __builtin_nop(
+        void);
+int16_t __builtin_divsd(
+        const int32_t,
+        const int16_t);
+int16_t __builtin_modsd(
+        const int32_t,
+        const int16_t);
+int16_t __builtin_divmodsd(
+        const int32_t,
+        const int16_t,
+        int16_t *);
+uint16_t __builtin_divud(
+        const uint32_t,
+        const uint16_t);
+uint16_t __builtin_modud(
+        const uint32_t,
+        const uint16_t);
+uint16_t __builtin_divmodud(
+        const uint32_t,
+        const uint16_t,
+        uint16_t *);
+uint16_t __builtin_divf(
+        uint16_t,
+        uint16_t);
+int32_t __builtin_mulss(
+        const int16_t,
+        const int16_t);
+uint32_t __builtin_muluu(
+        const uint16_t,
+        const uint16_t);
+int32_t __builtin_mulsu(
+        const int16_t,
+        const uint16_t);
+int32_t __builtin_mulus(
+        const uint16_t,
+        const int16_t);
+void __builtin_btg(
+        uint16_t *,
+        const uint16_t);
+int16_t __builtin_addab(
+        int16_t,
+        int16_t);
+int16_t __builtin_add(
+        int16_t,
+        int16_t,
+        int16_t);
+int16_t __builtin_clr(
+        void);
+int16_t __builtin_clr_prefetch(
+        int16_t * *,
+        int16_t *,
+        int16_t,
+        int16_t * *,
+        int16_t *,
+        int16_t,
+        int16_t *,
+        int16_t);
+int16_t __builtin_ed(
+        int16_t,
+        int16_t * *,
+        int16_t,
+        int16_t * *,
+        int16_t,
+        int16_t *);
+int16_t __builtin_edac(
+        int16_t,
+        int16_t,
+        int16_t * *,
+        int16_t,
+        int16_t * *,
+        int16_t,
+        int16_t *);
+int16_t __builtin_fbcl(
+        int16_t);
+int16_t __builtin_lac(
+        int16_t,
+        int16_t);
+int16_t __builtin_lacd(
+        int32_t,
+        int16_t);
+int16_t __builtin_mac(
+        int16_t,
+        int16_t,
+        int16_t,
+        int16_t * *,
+        int16_t *,
+        int16_t,
+        int16_t * *,
+        int16_t *,
+        int16_t,
+        int16_t *,
+        int16_t);
+void __builtin_movsac(
+        int16_t * *,
+        int16_t *,
+        int16_t,
+        int16_t * *,
+        int16_t *,
+        int16_t,
+        int16_t *,
+        int16_t);
+int16_t __builtin_mpy(
+        int16_t,
+        int16_t,
+        int16_t * *,
+        int16_t *,
+        int16_t,
+        int16_t * *,
+        int16_t *,
+        int16_t);
+int16_t __builtin_mpyn(
+        int16_t,
+        int16_t,
+        int16_t * *,
+        int16_t *,
+        int16_t,
+        int16_t * *,
+        int16_t *,
+        int16_t);
+int16_t __builtin_msc(
+        int16_t,
+        int16_t,
+        int16_t,
+        int16_t * *,
+        int16_t *,
+        int16_t,
+        int16_t * *,
+        int16_t *,
+        int16_t,
+        int16_t *,
+        int16_t);
+int16_t __builtin_sac(
+        int16_t,
+        int16_t);
+int32_t __builtin_sacd(
+        int16_t,
+        int16_t);
+int16_t __builtin_sacr(
+        int16_t,
+        int16_t);
+int16_t __builtin_sftac(
+        int16_t,
+        int16_t);
+int16_t __builtin_subab(
+        int16_t,
+        int16_t);
+int16_t __builtin_ACCL(
+        int16_t);
+int16_t __builtin_ACCH(
+        int16_t);
+int16_t __builtin_ACCU(
+        int16_t);
+uint16_t __builtin_tblrdl(
+        uint16_t);
+uint16_t __builtin_tblrdh(
+        uint16_t);
+unsigned char __builtin_tblrdhb(
+        uint16_t);
+unsigned char __builtin_tblrdlb(
+        uint16_t);
+void __builtin_tblwtl(
+        uint16_t,
+        uint16_t);
+void __builtin_tblwth(
+        uint16_t,
+        uint16_t);
+void __builtin_tblwtlb(
+        uint16_t,
+        unsigned char);
+void __builtin_tblwthb(
+        uint16_t,
+        unsigned char);
+void __builtin_disi(
+        int16_t);
+uint32_t __builtin_section_begin(
+        const char *);
+uint32_t __builtin_section_size(
+        const char *);
+uint32_t __builtin_section_end(
+        const char *);
+uint16_t __builtin_get_isr_state(
+        void);
+void __builtin_set_isr_state(
+        uint16_t);
+void __builtin_disable_interrupts(
+        void);
+void __builtin_enable_interrupts(
+        void);
+void __builtin_software_breakpoint(
+        void);
+
+uint16_t __builtin_addr_low();
+uint16_t __builtin_addr_high();
+uint32_t __builtin_addr();
+
+void __builtin_pwrsav(
+        uint16_t);
+void __builtin_clrwdt(
+        void);
+void _Static_assert(
+        uint16_t,
+        const char *);
+uint16_t __builtin_ff1l(
+        uint16_t);
+uint16_t __builtin_ff1r(
+        uint16_t);
+uint16_t __builtin_swap(
+        uint16_t);
+unsigned char __builtin_swap_byte(
+        unsigned char);
+int16_t __builtin_flim(
+        int16_t,
+        int16_t,
+        int16_t);
+int16_t __builtin_flim_excess(
+        int16_t,
+        int16_t,
+        int16_t,
+        int16_t *);
+int16_t __builtin_flimv_excess(
+        int16_t,
+        int16_t,
+        int16_t,
+        int16_t *);
+int16_t __builtin_min(
+        int16_t,
+        int16_t);
+int16_t __builtin_max(
+        int16_t,
+        int16_t);
+int16_t __builtin_min_excess(
+        int16_t,
+        int16_t,
+        int16_t *);
+int16_t __builtin_minv_excess(
+        int16_t,
+        int16_t,
+        int16_t *);
+int16_t __builtin_max_excess(
+        int16_t,
+        int16_t,
+        int16_t *);
+int16_t __builtin_maxv_excess(
+        int16_t,
+        int16_t,
+        int16_t *);
+# 44 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\generic\\h/xc.h" 2 3 4
+# 224 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\generic\\h/xc.h" 3 4
+# 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\dsPIC33C\\h/p33CH512MP508.h" 1 3 4
+# 42 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\dsPIC33C\\h/p33CH512MP508.h" 3 4
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdint.h" 1 3 4
+# 43 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\dsPIC33C\\h/p33CH512MP508.h" 2 3 4
+# 225 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\generic\\h/xc.h" 2 3 4
+# 31 "../system.h" 2
+# 41 "../system.h"
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 1 3 4
+# 12 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/subordinate_errors.h" 1 3 4
+# 13 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 2 3 4
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stddef.h" 1 3 4
+# 14 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 2 3 4
+# 25 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern int __attach_input_file(const char *f);
+void __close_input_file(void);
+# 36 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern int __C30_UART;
+# 46 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern void __delay32(unsigned long cycles);
+# 84 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern __attribute__((space(prog))) int _PROGRAM_END;
+# 97 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern void _dump_heap_info(void);
+# 116 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+typedef unsigned long _prog_addressT;
+
+extern _prog_addressT _memcpy_helper(_prog_addressT src, void *dst,
+                                     unsigned int len, int flags);
+# 129 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern void *_memcpy_df(__pack_upper_byte void *src,void *dst,unsigned int len);
+# 148 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+_prog_addressT _memcpy_p2d16(void *dest, _prog_addressT src,
+                             unsigned int len);
+# 160 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+_prog_addressT _memcpy_p2d24(void *dest, _prog_addressT src,
+                             unsigned int len);
+# 173 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+_prog_addressT _strncpy_p2d16(char *dest, _prog_addressT src,
+                              unsigned int len);
+# 186 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+_prog_addressT _strncpy_p2d24(char *dest, _prog_addressT src,
+                              unsigned int len);
+
+
+
+
+
+
+
+void *_memcpy_packed(char *dest, const __pack_upper_byte void *src,
+                     unsigned int len);
+
+
+
+extern char *_strcpy_packed(char *dest, const __pack_upper_byte void *src);
+extern char *_strncpy_packed(char *dest, const __pack_upper_byte void *src,
+                             unsigned int len);
+
+
+
+
+
+
+extern __eds__ void *_memcpy_eds_3(const __eds__ void *src, __eds__ void *dst,
+                                   int len);
+# 224 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern __eds__ char *_strcpy_eds(const __eds__ void *src, __eds__ void *dst);
+extern __eds__ char *_strncpy_eds(const __eds__ void *src, __eds__ void *dst,
+                                  int len);
+# 235 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern __eds__ void *_memchr_eds(__eds__ void *s, int c, size_t n);
+# 371 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern void _eedata_helper1 (_prog_addressT dst, int len);
+extern void _eedata_helper2 (void);
+extern void _eedata_helper3 (_prog_addressT dst, int dat);
+extern void _eedata_helper4 (_prog_addressT dst, int *src);
+extern void _eedata_helper5 (_prog_addressT dst, int len);
+extern void _eedata_helper6 (void);
+extern void _eedata_helper7 (_prog_addressT dst, int dat);
+# 393 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern void _flash_helper1 (_prog_addressT dst, int code)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper2 (_prog_addressT dst, int *src, int len)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper3 (_prog_addressT dst, long *src, int len)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper4 (_prog_addressT dst, int dat)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper5 (_prog_addressT dst, long dat)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper6 (int code)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper7 (_prog_addressT dst, int len)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper8 (_prog_addressT dst, int *src, int len)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper9 (_prog_addressT dst, long *src, int len)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper10 (_prog_addressT dst, int dat1, int empty, int dat2)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper11 (_prog_addressT dst, long dat1, long dat2)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+# 704 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern int _program_slave(int slave_number, int verify,
+                           __eds__ unsigned char *image);
+
+extern int _program_inactive_slave(int slave_number, int verify,
+                                    __eds__ unsigned char *image);
+
+extern void _start_slave(void);
+extern void _stop_slave(void);
+# 42 "../system.h" 2
+# 59 "../system.h"
+void Init_Clock( void );
+void Init_GI( void );
+void Soft_Reset( void );
+
+void Init_U1( void );
+void Add_Printf_udec8( uint8_t WordIn );
+void Add_Printf_udec16( uint16_t WordIn );
+void Add_Printf_udec32( uint32_t WordIn );
+void Add_Printf_str( const char * Str, uint16_t Len );
+void Start_Printf( void );
+
+void Config_CCT8( void );
+uint32_t Get_CCT8( void );
+
+void Init_ADC( void );
+void Disable_SELF_TEST( void );
+void Init_DAC( void );
+# 7 "../FreeRTOSConfig.h" 2
 # 99 "../../source/include/FreeRTOS.h" 2
 
 
@@ -21504,12 +22191,25 @@ typedef struct xSTATIC_TCB
  StaticListItem_t xDummy3[ 2 ];
  UBaseType_t uxDummy5;
  void *pxDummy6;
- uint8_t ucDummy7[ ( 4 ) ];
+ uint8_t ucDummy7[ ( 8 ) ];
 
   void *pxDummy8;
-# 936 "../../source/include/FreeRTOS.h"
+
+
+
+
+
+  UBaseType_t uxDummy10[ 2 ];
+
+
   UBaseType_t uxDummy12[ 2 ];
-# 951 "../../source/include/FreeRTOS.h"
+# 945 "../../source/include/FreeRTOS.h"
+  uint32_t ulDummy16;
+
+
+
+
+
   uint32_t ulDummy18;
   uint8_t ucDummy19;
 
@@ -21532,7 +22232,11 @@ typedef struct xSTATIC_QUEUE
  StaticList_t xDummy3[ 2 ];
  UBaseType_t uxDummy4[ 3 ];
  uint8_t ucDummy5[ 2 ];
-# 1001 "../../source/include/FreeRTOS.h"
+# 997 "../../source/include/FreeRTOS.h"
+  UBaseType_t uxDummy8;
+  uint8_t ucDummy9;
+
+
 } StaticQueue_t;
 typedef StaticQueue_t StaticSemaphore_t;
 # 1018 "../../source/include/FreeRTOS.h"
@@ -21540,7 +22244,15 @@ typedef struct xSTATIC_EVENT_GROUP
 {
  TickType_t xDummy1;
  StaticList_t xDummy2;
-# 1031 "../../source/include/FreeRTOS.h"
+
+
+  UBaseType_t uxDummy3;
+
+
+
+
+
+
 } StaticEventGroup_t;
 # 1047 "../../source/include/FreeRTOS.h"
 typedef struct xSTATIC_TIMER
@@ -21550,7 +22262,14 @@ typedef struct xSTATIC_TIMER
  TickType_t xDummy3;
  UBaseType_t uxDummy4;
  void *pvDummy5[ 2 ];
-# 1062 "../../source/include/FreeRTOS.h"
+
+  UBaseType_t uxDummy6;
+
+
+
+
+
+
 } StaticTimer_t;
 # 71 "../../source/croutine.c" 2
 # 1 "../../source/include/task.h" 1

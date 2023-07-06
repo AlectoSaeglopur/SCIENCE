@@ -1,4 +1,4 @@
-	.file "C:\\Users\\Filippo\\Desktop\\FreeRTOS\\Projects\\Ex1\\mycode\\Ex1\\..\\..\\source\\list.c"
+	.file "C:\\Users\\Filippo\\Desktop\\Projects\\Ex1\\mycode\\Ex1\\..\\..\\source\\list.c"
 	.section	.debug_abbrev,info
 .Ldebug_abbrev0:
 	.section	.debug_info,info
@@ -16,19 +16,37 @@ _vListInitialise:
 	.file 1 "../../source/list.c"
 	.loc 1 80 0
 	.set ___PA___,1
+	lnk	#2
+.LCFI0:
+	mov	w0,[w14]
 	.loc 1 84 0
-	add	w0,#4,w1
+	mov	[w14],w1
+	add	w1,#4,w0
+	mov	w0,w1
+	mov	[w14],w0
 	mov	w1,[w0+2]
 	.loc 1 88 0
-	setm	w2
-	mov	w2,[w0+4]
+	mov	[w14],w0
+	setm	w1
+	mov	w1,[w0+4]
 	.loc 1 92 0
+	mov	[w14],w1
+	add	w1,#4,w0
+	mov	w0,w1
+	mov	[w14],w0
 	mov	w1,[w0+6]
 	.loc 1 93 0
+	mov	[w14],w1
+	add	w1,#4,w0
+	mov	w0,w1
+	mov	[w14],w0
 	mov	w1,[w0+8]
 	.loc 1 95 0
-	clr	[w0]
+	mov	[w14],w0
+	clr	w1
+	mov	w1,[w0]
 	.loc 1 101 0
+	ulnk	
 	return	
 	.set ___PA___,0
 .LFE0:
@@ -40,10 +58,15 @@ _vListInitialiseItem:
 .LFB1:
 	.loc 1 105 0
 	.set ___PA___,1
+	lnk	#2
+.LCFI1:
+	mov	w0,[w14]
 	.loc 1 107 0
+	mov	[w14],w0
 	clr	w1
 	mov	w1,[w0+8]
 	.loc 1 113 0
+	ulnk	
 	return	
 	.set ___PA___,0
 .LFE1:
@@ -55,23 +78,44 @@ _vListInsertEnd:
 .LFB2:
 	.loc 1 117 0
 	.set ___PA___,1
+	lnk	#6
+.LCFI2:
+	mov	w0,[w14+2]
+	mov	w1,[w14+4]
 	.loc 1 118 0
-	mov	[w0+2],w2
+	mov	[w14+2],w0
+	mov	[w0+2],w1
+	mov	w1,[w14]
 	.loc 1 129 0
-	mov	w2,[w1+2]
+	mov	[w14+4],w0
+	mov	[w14],w1
+	mov	w1,[w0+2]
 	.loc 1 130 0
-	mov	[w2+4],w3
-	mov	w3,[w1+4]
+	mov	[w14],w0
+	mov	[w0+4],w1
+	mov	[w14+4],w0
+	mov	w1,[w0+4]
 	.loc 1 135 0
-	mov	[w2+4],w3
-	mov	w1,[w3+2]
+	mov	[w14],w0
+	mov	[w0+4],w0
+	mov	[w14+4],w1
+	mov	w1,[w0+2]
 	.loc 1 136 0
-	mov	w1,[w2+4]
+	mov	[w14],w0
+	mov	[w14+4],w1
+	mov	w1,[w0+4]
 	.loc 1 139 0
-	mov	w0,[w1+8]
+	mov	[w14+4],w0
+	mov	[w14+2],w1
+	mov	w1,[w0+8]
 	.loc 1 141 0
-	inc	[w0],[w0]
+	mov	[w14+2],w0
+	mov	[w0],w0
+	inc	w0,w1
+	mov	[w14+2],w0
+	mov	w1,[w0]
 	.loc 1 142 0
+	ulnk	
 	return	
 	.set ___PA___,0
 .LFE2:
@@ -83,60 +127,75 @@ _vListInsert:
 .LFB3:
 	.loc 1 146 0
 	.set ___PA___,1
+	lnk	#8
+.LCFI3:
+	mov	w0,[w14+4]
+	mov	w1,[w14+6]
 	.loc 1 148 0
-	mov	[w1],w4
+	mov	[w14+6],w0
+	mov	[w0],w1
+	mov	w1,[w14+2]
 	.loc 1 164 0
-	add	w4,#1,[w15]
-	.set ___BP___,19
-	bra	z,.L16
-	.loc 1 192 0
-	add	w0,#4,w3
-	mov	[w3+2],w2
-	sub	w4,[w2],[w15]
-	.set ___BP___,9
-	bra	ltu,.L12
-.L14:
-	mov	w2,w3
-	mov	[w3+2],w2
-	sub	w4,[w2],[w15]
-	.set ___BP___,91
-	bra	geu,.L14
-.L12:
-	.loc 1 199 0
-	mov	w2,[w1+2]
-	.loc 1 200 0
-	mov	w1,[w2+4]
-	.loc 1 201 0
-	mov	w3,[w1+4]
-	.loc 1 202 0
-	mov	w1,[w3+2]
-	.loc 1 206 0
-	mov	w0,[w1+8]
-	.loc 1 208 0
-	inc	[w0],[w0]
-	.loc 1 209 0
-	return	
-.L17:
-	.set ___PA___,0
-.L16:
+	mov	[w14+2],w0
+	add	w0,#1,[w15]
+	.set ___BP___,0
+	bra	nz,.L5
 	.loc 1 166 0
-	mov	[w0+8],w3
-	mov	[w3+2],w2
+	mov	[w14+4],w0
+	mov	[w0+8],w1
+	mov	w1,[w14]
+	bra	.L6
+.L5:
+	.loc 1 192 0
+	mov	[w14+4],w0
+	add	w0,#4,w0
+	mov	w0,[w14]
+	bra	.L7
+.L8:
+	mov	[w14],w0
+	mov	[w0+2],w1
+	mov	w1,[w14]
+.L7:
+	mov	[w14],w0
+	mov	[w0+2],w0
+	mov	[w0],w1
+	mov	[w14+2],w0
+	sub	w1,w0,[w15]
+	.set ___BP___,0
+	bra	leu,.L8
+.L6:
 	.loc 1 199 0
-	mov	w2,[w1+2]
+	mov	[w14],w0
+	mov	[w0+2],w1
+	mov	[w14+6],w0
+	mov	w1,[w0+2]
 	.loc 1 200 0
-	mov	w1,[w2+4]
+	mov	[w14+6],w0
+	mov	[w0+2],w0
+	mov	[w14+6],w1
+	mov	w1,[w0+4]
 	.loc 1 201 0
-	mov	w3,[w1+4]
+	mov	[w14+6],w0
+	mov	[w14],w1
+	mov	w1,[w0+4]
 	.loc 1 202 0
-	mov	w1,[w3+2]
+	mov	[w14],w0
+	mov	[w14+6],w1
+	mov	w1,[w0+2]
 	.loc 1 206 0
-	mov	w0,[w1+8]
+	mov	[w14+6],w0
+	mov	[w14+4],w1
+	mov	w1,[w0+8]
 	.loc 1 208 0
-	inc	[w0],[w0]
+	mov	[w14+4],w0
+	mov	[w0],w0
+	inc	w0,w1
+	mov	[w14+4],w0
+	mov	w1,[w0]
 	.loc 1 209 0
+	ulnk	
 	return	
-	bra	.L17
+	.set ___PA___,0
 .LFE3:
 	.size	_vListInsert, .-_vListInsert
 	.align	2
@@ -146,42 +205,55 @@ _uxListRemove:
 .LFB4:
 	.loc 1 213 0
 	.set ___PA___,1
+	lnk	#4
+.LCFI4:
+	mov	w0,[w14+2]
 	.loc 1 216 0
-	mov	[w0+8],w1
+	mov	[w14+2],w0
+	mov	[w0+8],w0
+	mov	w0,[w14]
 	.loc 1 218 0
-	mov	[w0+2],w2
-	mov	[w0+4],w3
-	mov	w3,[w2+4]
+	mov	[w14+2],w0
+	mov	[w0+2],w0
+	mov	[w14+2],w1
+	mov	[w1+4],w1
+	mov	w1,[w0+4]
 	.loc 1 219 0
-	mov	[w0+4],w3
-	mov	w2,[w3+2]
+	mov	[w14+2],w0
+	mov	[w0+4],w0
+	mov	[w14+2],w1
+	mov	[w1+2],w1
+	mov	w1,[w0+2]
 	.loc 1 225 0
-	mov	[w1+2],w2
-	sub	w2,w0,[w15]
-	.set ___BP___,21
-	bra	z,.L22
-	.loc 1 234 0
-	clr	w2
-	mov	w2,[w0+8]
-	.loc 1 235 0
-	dec	[w1],w0
-	mov	w0,[w1]
-	.loc 1 238 0
-	return	
-.L23:
-	.set ___PA___,0
-.L22:
+	mov	[w14],w0
+	mov	[w0+2],w1
+	mov	[w14+2],w0
+	sub	w1,w0,[w15]
+	.set ___BP___,0
+	bra	nz,.L10
 	.loc 1 227 0
-	mov	w3,[w1+2]
+	mov	[w14+2],w0
+	mov	[w0+4],w1
+	mov	[w14],w0
+	mov	w1,[w0+2]
+.L10:
 	.loc 1 234 0
-	clr	w2
-	mov	w2,[w0+8]
+	mov	[w14+2],w0
+	clr	w1
+	mov	w1,[w0+8]
 	.loc 1 235 0
-	dec	[w1],w0
-	mov	w0,[w1]
+	mov	[w14],w0
+	mov	[w0],w0
+	dec	w0,w1
+	mov	[w14],w0
+	mov	w1,[w0]
+	.loc 1 237 0
+	mov	[w14],w0
+	mov	[w0],w0
 	.loc 1 238 0
+	ulnk	
 	return	
-	bra	.L23
+	.set ___PA___,0
 .LFE4:
 	.size	_uxListRemove, .-_uxListRemove
 	.section	.debug_frame,info
@@ -208,6 +280,13 @@ _uxListRemove:
 	.4byte	.Lframe0
 	.4byte	.LFB0
 	.4byte	.LFE0-.LFB0
+	.byte	0x4
+	.4byte	.LCFI0-.LFB0
+	.byte	0x12
+	.uleb128 0xe
+	.sleb128 -3
+	.byte	0x8e
+	.uleb128 0x2
 	.align	4
 .LEFDE0:
 .LSFDE2:
@@ -216,6 +295,13 @@ _uxListRemove:
 	.4byte	.Lframe0
 	.4byte	.LFB1
 	.4byte	.LFE1-.LFB1
+	.byte	0x4
+	.4byte	.LCFI1-.LFB1
+	.byte	0x12
+	.uleb128 0xe
+	.sleb128 -3
+	.byte	0x8e
+	.uleb128 0x2
 	.align	4
 .LEFDE2:
 .LSFDE4:
@@ -224,6 +310,13 @@ _uxListRemove:
 	.4byte	.Lframe0
 	.4byte	.LFB2
 	.4byte	.LFE2-.LFB2
+	.byte	0x4
+	.4byte	.LCFI2-.LFB2
+	.byte	0x12
+	.uleb128 0xe
+	.sleb128 -3
+	.byte	0x8e
+	.uleb128 0x2
 	.align	4
 .LEFDE4:
 .LSFDE6:
@@ -232,6 +325,13 @@ _uxListRemove:
 	.4byte	.Lframe0
 	.4byte	.LFB3
 	.4byte	.LFE3-.LFB3
+	.byte	0x4
+	.4byte	.LCFI3-.LFB3
+	.byte	0x12
+	.uleb128 0xe
+	.sleb128 -3
+	.byte	0x8e
+	.uleb128 0x2
 	.align	4
 .LEFDE6:
 .LSFDE8:
@@ -240,6 +340,13 @@ _uxListRemove:
 	.4byte	.Lframe0
 	.4byte	.LFB4
 	.4byte	.LFE4-.LFB4
+	.byte	0x4
+	.4byte	.LCFI4-.LFB4
+	.byte	0x12
+	.uleb128 0xe
+	.sleb128 -3
+	.byte	0x8e
+	.uleb128 0x2
 	.align	4
 .LEFDE8:
 	.section	.text,code
@@ -248,7 +355,7 @@ _uxListRemove:
 	.file 3 "../../source/include/../../Source/portable/MPLAB/PIC24_dsPIC/portmacro.h"
 	.file 4 "../../source/include/list.h"
 	.section	.debug_info,info
-	.4byte	0x439
+	.4byte	0x445
 	.2byte	0x2
 	.4byte	.Ldebug_abbrev0
 	.byte	0x4
@@ -256,7 +363,7 @@ _uxListRemove:
 	.asciz	"GNU C 4.5.1 (XC16, Microchip v1.61) (B) Build date: Oct 23 2020"
 	.byte	0x1
 	.asciz	"../../source/list.c"
-	.asciz	"C:\\Users\\Filippo\\Desktop\\FreeRTOS\\Projects\\Ex1\\mycode\\Ex1"
+	.asciz	"C:\\Users\\Filippo\\Desktop\\Projects\\Ex1\\mycode\\Ex1"
 	.4byte	.Ltext0
 	.4byte	.Letext0
 	.4byte	.Ldebug_line0
@@ -298,11 +405,15 @@ _uxListRemove:
 	.asciz	"uint16_t"
 	.byte	0x2
 	.byte	0x31
-	.4byte	0xea
+	.4byte	0xe1
 	.uleb128 0x3
 	.byte	0x4
 	.byte	0x7
 	.asciz	"long unsigned int"
+	.uleb128 0x3
+	.byte	0x1
+	.byte	0x6
+	.asciz	"char"
 	.uleb128 0x3
 	.byte	0x2
 	.byte	0x5
@@ -311,23 +422,23 @@ _uxListRemove:
 	.asciz	"UBaseType_t"
 	.byte	0x3
 	.byte	0x62
-	.4byte	0xd4
+	.4byte	0xcb
 	.uleb128 0x4
 	.asciz	"TickType_t"
 	.byte	0x3
 	.byte	0x65
-	.4byte	0x12d
+	.4byte	0x124
 	.uleb128 0x5
 	.asciz	"xLIST_ITEM"
 	.byte	0xa
 	.byte	0x4
 	.byte	0xb5
-	.4byte	0x1ed
+	.4byte	0x1ec
 	.uleb128 0x6
 	.4byte	.LASF0
 	.byte	0x4
 	.byte	0xb8
-	.4byte	0x172
+	.4byte	0x171
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -335,7 +446,7 @@ _uxListRemove:
 	.asciz	"pxNext"
 	.byte	0x4
 	.byte	0xb9
-	.4byte	0x1ed
+	.4byte	0x1ec
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x2
@@ -343,7 +454,7 @@ _uxListRemove:
 	.4byte	.LASF1
 	.byte	0x4
 	.byte	0xba
-	.4byte	0x1ed
+	.4byte	0x1ec
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x4
@@ -351,7 +462,7 @@ _uxListRemove:
 	.asciz	"pvOwner"
 	.byte	0x4
 	.byte	0xbb
-	.4byte	0xa7
+	.4byte	0x9e
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x6
@@ -359,30 +470,30 @@ _uxListRemove:
 	.asciz	"pvContainer"
 	.byte	0x4
 	.byte	0xbc
-	.4byte	0xa7
+	.4byte	0x9e
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x8
 	.byte	0x0
 	.uleb128 0x8
 	.byte	0x2
-	.4byte	0x184
+	.4byte	0x183
 	.uleb128 0x4
 	.asciz	"ListItem_t"
 	.byte	0x4
 	.byte	0xbf
-	.4byte	0x184
+	.4byte	0x183
 	.uleb128 0x5
 	.asciz	"xMINI_LIST_ITEM"
 	.byte	0x6
 	.byte	0x4
 	.byte	0xc1
-	.4byte	0x24b
+	.4byte	0x24a
 	.uleb128 0x6
 	.4byte	.LASF0
 	.byte	0x4
 	.byte	0xc4
-	.4byte	0x172
+	.4byte	0x171
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -390,7 +501,7 @@ _uxListRemove:
 	.asciz	"pxNext"
 	.byte	0x4
 	.byte	0xc5
-	.4byte	0x1ed
+	.4byte	0x1ec
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x2
@@ -398,7 +509,7 @@ _uxListRemove:
 	.4byte	.LASF1
 	.byte	0x4
 	.byte	0xc6
-	.4byte	0x1ed
+	.4byte	0x1ec
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x4
@@ -407,18 +518,18 @@ _uxListRemove:
 	.asciz	"MiniListItem_t"
 	.byte	0x4
 	.byte	0xc8
-	.4byte	0x205
+	.4byte	0x204
 	.uleb128 0x5
 	.asciz	"xLIST"
 	.byte	0xa
 	.byte	0x4
 	.byte	0xcd
-	.4byte	0x2af
+	.4byte	0x2ae
 	.uleb128 0x7
 	.asciz	"uxNumberOfItems"
 	.byte	0x4
 	.byte	0xd0
-	.4byte	0x15f
+	.4byte	0x15e
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -426,7 +537,7 @@ _uxListRemove:
 	.asciz	"pxIndex"
 	.byte	0x4
 	.byte	0xd1
-	.4byte	0x2af
+	.4byte	0x2ae
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x2
@@ -434,19 +545,19 @@ _uxListRemove:
 	.asciz	"xListEnd"
 	.byte	0x4
 	.byte	0xd2
-	.4byte	0x24b
+	.4byte	0x24a
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x4
 	.byte	0x0
 	.uleb128 0x8
 	.byte	0x2
-	.4byte	0x1f3
+	.4byte	0x1f2
 	.uleb128 0x4
 	.asciz	"List_t"
 	.byte	0x4
 	.byte	0xd4
-	.4byte	0x261
+	.4byte	0x260
 	.uleb128 0x9
 	.byte	0x1
 	.asciz	"vListInitialise"
@@ -456,21 +567,22 @@ _uxListRemove:
 	.4byte	.LFB0
 	.4byte	.LFE0
 	.byte	0x1
-	.byte	0x5f
+	.byte	0x5e
 	.4byte	0x2f4
 	.uleb128 0xa
 	.4byte	.LASF2
 	.byte	0x1
 	.byte	0x4f
 	.4byte	0x2f4
-	.byte	0x1
-	.byte	0x50
+	.byte	0x2
+	.byte	0x7e
+	.sleb128 0
 	.byte	0x0
 	.uleb128 0xb
 	.4byte	0x2f9
 	.uleb128 0x8
 	.byte	0x2
-	.4byte	0x2b5
+	.4byte	0x2b4
 	.uleb128 0x9
 	.byte	0x1
 	.asciz	"vListInitialiseItem"
@@ -480,18 +592,19 @@ _uxListRemove:
 	.4byte	.LFB1
 	.4byte	.LFE1
 	.byte	0x1
-	.byte	0x5f
-	.4byte	0x337
+	.byte	0x5e
+	.4byte	0x338
 	.uleb128 0xc
 	.asciz	"pxItem"
 	.byte	0x1
 	.byte	0x68
-	.4byte	0x337
-	.byte	0x1
-	.byte	0x50
+	.4byte	0x338
+	.byte	0x2
+	.byte	0x7e
+	.sleb128 0
 	.byte	0x0
 	.uleb128 0xb
-	.4byte	0x2af
+	.4byte	0x2ae
 	.uleb128 0x9
 	.byte	0x1
 	.asciz	"vListInsertEnd"
@@ -501,29 +614,32 @@ _uxListRemove:
 	.4byte	.LFB2
 	.4byte	.LFE2
 	.byte	0x1
-	.byte	0x5f
-	.4byte	0x38a
+	.byte	0x5e
+	.4byte	0x38e
 	.uleb128 0xa
 	.4byte	.LASF2
 	.byte	0x1
 	.byte	0x74
 	.4byte	0x2f4
-	.byte	0x1
-	.byte	0x50
+	.byte	0x2
+	.byte	0x7e
+	.sleb128 2
 	.uleb128 0xa
 	.4byte	.LASF3
 	.byte	0x1
 	.byte	0x74
-	.4byte	0x337
-	.byte	0x1
-	.byte	0x51
+	.4byte	0x338
+	.byte	0x2
+	.byte	0x7e
+	.sleb128 4
 	.uleb128 0xd
 	.asciz	"pxIndex"
 	.byte	0x1
 	.byte	0x76
-	.4byte	0x337
-	.byte	0x1
-	.byte	0x52
+	.4byte	0x338
+	.byte	0x2
+	.byte	0x7e
+	.sleb128 0
 	.byte	0x0
 	.uleb128 0x9
 	.byte	0x1
@@ -534,62 +650,70 @@ _uxListRemove:
 	.4byte	.LFB3
 	.4byte	.LFE3
 	.byte	0x1
-	.byte	0x5f
-	.4byte	0x3f1
+	.byte	0x5e
+	.4byte	0x3fb
 	.uleb128 0xa
 	.4byte	.LASF2
 	.byte	0x1
 	.byte	0x91
 	.4byte	0x2f4
-	.byte	0x1
-	.byte	0x50
+	.byte	0x2
+	.byte	0x7e
+	.sleb128 4
 	.uleb128 0xa
 	.4byte	.LASF3
 	.byte	0x1
 	.byte	0x91
-	.4byte	0x337
-	.byte	0x1
-	.byte	0x51
-	.uleb128 0xe
+	.4byte	0x338
+	.byte	0x2
+	.byte	0x7e
+	.sleb128 6
+	.uleb128 0xd
 	.asciz	"pxIterator"
 	.byte	0x1
 	.byte	0x93
-	.4byte	0x2af
+	.4byte	0x2ae
+	.byte	0x2
+	.byte	0x7e
+	.sleb128 0
 	.uleb128 0xd
 	.asciz	"xValueOfInsertion"
 	.byte	0x1
 	.byte	0x94
-	.4byte	0x3f1
-	.byte	0x1
-	.byte	0x54
+	.4byte	0x3fb
+	.byte	0x2
+	.byte	0x7e
+	.sleb128 2
 	.byte	0x0
 	.uleb128 0xb
-	.4byte	0x172
-	.uleb128 0xf
+	.4byte	0x171
+	.uleb128 0xe
 	.byte	0x1
 	.asciz	"uxListRemove"
 	.byte	0x1
 	.byte	0xd4
 	.byte	0x1
-	.4byte	0x15f
+	.4byte	0x15e
 	.4byte	.LFB4
 	.4byte	.LFE4
 	.byte	0x1
-	.byte	0x5f
+	.byte	0x5e
 	.uleb128 0xc
 	.asciz	"pxItemToRemove"
 	.byte	0x1
 	.byte	0xd4
-	.4byte	0x337
-	.byte	0x1
-	.byte	0x50
-	.uleb128 0x10
+	.4byte	0x338
+	.byte	0x2
+	.byte	0x7e
+	.sleb128 2
+	.uleb128 0xf
 	.4byte	.LASF2
 	.byte	0x1
 	.byte	0xd8
 	.4byte	0x2f4
-	.byte	0x1
-	.byte	0x51
+	.byte	0x2
+	.byte	0x7e
+	.sleb128 0
 	.byte	0x0
 	.byte	0x0
 	.section	.debug_abbrev,info
@@ -773,19 +897,6 @@ _uxListRemove:
 	.byte	0x0
 	.byte	0x0
 	.uleb128 0xe
-	.uleb128 0x34
-	.byte	0x0
-	.uleb128 0x3
-	.uleb128 0x8
-	.uleb128 0x3a
-	.uleb128 0xb
-	.uleb128 0x3b
-	.uleb128 0xb
-	.uleb128 0x49
-	.uleb128 0x13
-	.byte	0x0
-	.byte	0x0
-	.uleb128 0xf
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3f
@@ -808,7 +919,7 @@ _uxListRemove:
 	.uleb128 0xa
 	.byte	0x0
 	.byte	0x0
-	.uleb128 0x10
+	.uleb128 0xf
 	.uleb128 0x34
 	.byte	0x0
 	.uleb128 0x3
@@ -828,40 +939,40 @@ _uxListRemove:
 	.4byte	0x6e
 	.2byte	0x2
 	.4byte	.Ldebug_info0
-	.4byte	0x43d
-	.4byte	0x2c3
+	.4byte	0x449
+	.4byte	0x2c2
 	.asciz	"vListInitialise"
 	.4byte	0x2ff
 	.asciz	"vListInitialiseItem"
-	.4byte	0x33c
+	.4byte	0x33d
 	.asciz	"vListInsertEnd"
-	.4byte	0x38a
+	.4byte	0x38e
 	.asciz	"vListInsert"
-	.4byte	0x3f6
+	.4byte	0x400
 	.asciz	"uxListRemove"
 	.4byte	0x0
 	.section	.debug_pubtypes,info
 	.4byte	0x94
 	.2byte	0x2
 	.4byte	.Ldebug_info0
-	.4byte	0x43d
-	.4byte	0x12d
+	.4byte	0x449
+	.4byte	0x124
 	.asciz	"uint16_t"
-	.4byte	0x15f
+	.4byte	0x15e
 	.asciz	"UBaseType_t"
-	.4byte	0x172
+	.4byte	0x171
 	.asciz	"TickType_t"
-	.4byte	0x184
+	.4byte	0x183
 	.asciz	"xLIST_ITEM"
-	.4byte	0x1f3
+	.4byte	0x1f2
 	.asciz	"ListItem_t"
-	.4byte	0x205
+	.4byte	0x204
 	.asciz	"xMINI_LIST_ITEM"
-	.4byte	0x24b
+	.4byte	0x24a
 	.asciz	"MiniListItem_t"
-	.4byte	0x261
+	.4byte	0x260
 	.asciz	"xLIST"
-	.4byte	0x2b5
+	.4byte	0x2b4
 	.asciz	"List_t"
 	.4byte	0x0
 	.section	.debug_aranges,info

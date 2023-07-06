@@ -1,5 +1,5 @@
 build/default/production/_ext/870914629/timers.o: ../../source/timers.c \
- ../../source/include/FreeRTOS.h ../FreeRTOSConfig.h \
+ ../../source/include/FreeRTOS.h ../FreeRTOSConfig.h ../system.h \
  ../../source/include/projdefs.h ../../source/include/portable.h \
  ../../source/include/deprecated_definitions.h \
  ../../source/include/../../Source/portable/MPLAB/PIC24_dsPIC/portmacro.h \
@@ -10,6 +10,8 @@ build/default/production/_ext/870914629/timers.o: ../../source/timers.c \
 ../../source/include/FreeRTOS.h:
 
 ../FreeRTOSConfig.h:
+
+../system.h:
 
 ../../source/include/projdefs.h:
 

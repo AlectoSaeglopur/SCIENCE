@@ -28,14 +28,7 @@
 #include <stdint.h>
 /** Hardware-specific libraries */
 #include <xc.h>
-/** FreeRTOS libraries */
-#include "FreeRTOS.h"
-#include "croutine.h"
-#include "queue.h"
-#include "task.h"
-#include "timers.h"
-#include "blocktim.h"
-#include "semphr.h"
+
 
 
 
@@ -44,16 +37,18 @@
 /***************/
 
 /** Clock */
-#define FCY                     (uint32_t) 60000000                             //!< PLL-boosted clock frequency [Hz] (actual value is 59,904,000 Hz, from original 7,372,800 Hz)
+#define FCY                     (uint32_t) 90000000                             //!< PLL-boosted clock frequency [Hz] (actual value is 59,904,000 Hz, from original 7,372,800 Hz)
 #include <libpic30.h>                                                           //!< Add library for built-in functions "__delay_ms" and "__delay_us" (NB: requires FCY to be already defined)
-
 
 /** ISR */
 #define XISR                    __attribute__((interrupt, auto_psv))            //!< Standard ISR redefinition (needed for Doxygen documentation)
 
+/** Statistics */
+#define U1B_SIZE                (uint8_t) 50                                    //!< UART1 TX buffer size [B] (NB: shall contain all characters of each statistics line to be printed)
+#define STATS_DELAY             (uint8_t) 2                                     //!< Delay in ms (NB: shall give enough time to print single statistics line, e.g. U1@450 kb/s and SZ=50B -> 50*(8+3)/450k = 1.2 ms
 
-
-#define MIN_STACK_SZ            (uint16_t) 64
+/** Queue */
+#define QUEUE_FILTER_LEN        (uint8_t) 5                                     //!< ADC-DAC filtering queue length
 
 
 
@@ -64,6 +59,21 @@
 void Init_Clock( void );
 void Init_GI( void );
 void Soft_Reset( void );
+
+void Init_U1( void );
+void Add_Printf_udec8( uint8_t WordIn );
+void Add_Printf_udec16( uint16_t WordIn );
+void Add_Printf_udec32( uint32_t WordIn );
+void Add_Printf_str( const char * Str, uint16_t Len );
+void Start_Printf( void );
+
+void Config_CCT8( void );
+uint32_t Get_CCT8( void );
+
+void Init_ADC( void );
+void Disable_SELF_TEST( void );
+void Init_DAC( void );
+
 
 
 #endif

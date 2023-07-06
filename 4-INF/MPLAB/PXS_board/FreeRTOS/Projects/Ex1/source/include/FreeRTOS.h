@@ -241,15 +241,15 @@ extern "C" {
 #endif
 
 #ifndef configUSE_MUTEXES
-	#define configUSE_MUTEXES 1                                         // @vfi: enabled!
+	#define configUSE_MUTEXES 1                                                 // @vfi: enabled! (1)
 #endif
 
 #ifndef configUSE_TIMERS
-	#define configUSE_TIMERS 1                                          // @vfi: enabled!
+	#define configUSE_TIMERS 1                                                  // @vfi: enabled! (1)
   #ifndef configTIMER_TASK_PRIORITY
-    #define configTIMER_TASK_PRIORITY       4                           // @vfi: added these x3 macros
+    #define configTIMER_TASK_PRIORITY       4                                   // @vfi: added these x3 macros
     #define configTIMER_QUEUE_LENGTH        20
-    #define configTIMER_TASK_STACK_DEPTH    64
+    #define configTIMER_TASK_STACK_DEPTH    (9*MIN_STACK_SZ)
   #endif
     
 #endif
@@ -780,7 +780,7 @@ extern "C" {
 
 #ifndef configSUPPORT_STATIC_ALLOCATION
 	/* Defaults to 0 for backward compatibility. */
-	#define configSUPPORT_STATIC_ALLOCATION 0                   // @vfi: enabled! (1)
+	#define configSUPPORT_STATIC_ALLOCATION 0                                   // @vfi: enabled! (1)
 #endif
 
 #ifndef configSUPPORT_DYNAMIC_ALLOCATION

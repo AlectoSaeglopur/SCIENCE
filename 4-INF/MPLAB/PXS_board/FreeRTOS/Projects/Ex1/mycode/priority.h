@@ -19,12 +19,20 @@
 /*** DEFINES ***/
 /***************/
 
-/** ISR priorities (HW) */
-#define PRT_CCT8                configKERNEL_INTERRUPT_PRIORITY                 //!< Interrupt priority of CCT8, related to FreeRTOS tick-timing
+/** Hardware ISR priorities */
 
-/** Task priorities (SW) */
-#define PRT_LED0                (uint16_t) 2
-#define PRT_LED1                (uint16_t) 3
+#define PRT_HW_ADC3             (uint8_t) 6                                     //!< Interrupt priority of ADC AN3 channel
+#define PRT_HW_U1TX             (uint8_t) 4                                     //!< Interrupt priority of UART1 TX
+#define PRT_HW_U1ER             (uint8_t) 7                                     //!< Interrupt priority of UART1 errors
+#define PRT_HW_CCT8             configKERNEL_INTERRUPT_PRIORITY                 //!< Interrupt priority of CCT8
+
+/** Software ISR priorities */
+#define PRT_SW_ADC3             (uint8_t) 6                                     //!< Interrupt priority of ADC3 task
+#define PRT_SW_LED0             (uint8_t) 2                                     //!< Interrupt priority of LED0 task
+#define PRT_SW_LED1             (uint8_t) 3                                     //!< Interrupt priority of LED1 task
+#define PRT_SW_QTX3             (uint8_t) 6                                     //!< Interrupt priority of TX queue task
+#define PRT_SW_QRX3             (uint8_t) 5                                     //!< Interrupt priority of RX queue task
+#define PRT_SW_WDT4             (uint8_t) 4                                     //!< Interrupt priority of WDT task
 
 
 #endif

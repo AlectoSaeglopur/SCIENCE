@@ -168,6 +168,11 @@ typedef struct {
 #define oTDT                    (uint8_t[2]) {xB,7}                             //!< #58
 #define oFEEL_G                 (uint8_t[2]) {xB,8}                             //!< #60
 #define oFEEL_B                 (uint8_t[2]) {xE,11}                            //!< #59
+#define oU1TX                   (uint8_t[2]) {xB,6}                             //!< #56
+#define oU1RX                   (uint8_t[2]) {xB,5}                             //!< #55
+#define oADC3_VI1               (uint8_t[2]) {xA,3}                             //!< #21
+#define oDAC                    (uint8_t[2]) {xB,2}                             //!< #41
+#define oSELF_TEST              (uint8_t[2]) {xD,4}                             //!< #68
 
 
 

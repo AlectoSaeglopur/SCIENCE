@@ -1,9 +1,11 @@
 # 1 "../system.c"
-# 1 "C:\\Users\\Filippo\\Desktop\\FreeRTOS\\Projects\\Ex1\\mycode\\Ex1"
+# 1 "C:\\Users\\Filippo\\Desktop\\Projects\\Ex1\\mycode\\Ex1"
 # 1 "<built-in>"
 # 1 "<command-line>"
 # 1 "../system.c"
 # 18 "../system.c"
+# 1 "../gpio.h" 1
+# 20 "../gpio.h"
 # 1 "../system.h" 1
 # 24 "../system.h"
 # 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdio.h" 1 3 4
@@ -21624,9 +21626,11 @@ extern __attribute__((space(prog))) __prog__ uint16_t _FS1DMT;
 extern __attribute__((space(prog))) __prog__ uint16_t _FBTSEQ;
 # 225 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\generic\\h/xc.h" 2 3 4
 # 31 "../system.h" 2
-
-# 1 "../../source/include/FreeRTOS.h" 1
-# 76 "../../source/include/FreeRTOS.h"
+# 41 "../system.h"
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 1 3 4
+# 12 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/subordinate_errors.h" 1 3 4
+# 13 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 2 3 4
 # 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stddef.h" 1 3 4
 
 
@@ -21639,960 +21643,6 @@ extern __attribute__((space(prog))) __prog__ uint16_t _FBTSEQ;
 typedef _Ptrdifft ptrdiff_t;
 # 39 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stddef.h" 3 4
 
-# 77 "../../source/include/FreeRTOS.h" 2
-# 91 "../../source/include/FreeRTOS.h"
-# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdint.h" 1 3 4
-# 92 "../../source/include/FreeRTOS.h" 2
-
-
-
-
-
-
-# 1 "../FreeRTOSConfig.h" 1
-# 73 "../FreeRTOSConfig.h"
-# 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\generic\\h/xc.h" 1 3 4
-# 43 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\generic\\h/xc.h" 3 4
-# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/builtins.h" 1 3 4
-# 42 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/builtins.h" 3 4
-# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdint.h" 1 3 4
-# 43 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/builtins.h" 2 3 4
-
-void __builtin_write_OSCCONL(
-        uint16_t);
-void __builtin_write_OSCCONH(
-        uint16_t);
-void __builtin_write_DISICNT(
-        uint16_t);
-void __builtin_write_NVM(
-        void);
-void __builtin_write_CRYOTP(
-        void);
-void __builtin_write_DATAFLASH(
-        void);
-void __builtin_write_NVM_secure(
-        uint16_t,
-        uint16_t);
-void __builtin_write_DATAFLASH_secure(
-        uint16_t,
-        uint16_t);
-void __builtin_write_RTCWEN(
-        void);
-void __builtin_write_RTCC_WRLOCK(
-        void);
-void __builtin_write_PWMSFR(
-        volatile uint16_t *,
-        uint16_t,
-        volatile uint16_t *);
-void __builtin_write_RPCON(
-        uint16_t);
-uint16_t __builtin_readsfr(
-        volatile void *);
-void __builtin_writesfr(
-        volatile void *,
-        uint16_t);
-
-uint16_t __builtin_edspage();
-uint16_t __builtin_tblpage();
-uint16_t __builtin_edsoffset();
-uint16_t __builtin_dataflashoffset();
-uint16_t __builtin_tbloffset();
-uint16_t __builtin_psvpage();
-uint16_t __builtin_psvoffset();
-uint16_t __builtin_dmaoffset();
-uint16_t __builtin_dmapage();
-uint32_t __builtin_tbladdress();
-
-void __builtin_nop(
-        void);
-int16_t __builtin_divsd(
-        const int32_t,
-        const int16_t);
-int16_t __builtin_modsd(
-        const int32_t,
-        const int16_t);
-int16_t __builtin_divmodsd(
-        const int32_t,
-        const int16_t,
-        int16_t *);
-uint16_t __builtin_divud(
-        const uint32_t,
-        const uint16_t);
-uint16_t __builtin_modud(
-        const uint32_t,
-        const uint16_t);
-uint16_t __builtin_divmodud(
-        const uint32_t,
-        const uint16_t,
-        uint16_t *);
-uint16_t __builtin_divf(
-        uint16_t,
-        uint16_t);
-int32_t __builtin_mulss(
-        const int16_t,
-        const int16_t);
-uint32_t __builtin_muluu(
-        const uint16_t,
-        const uint16_t);
-int32_t __builtin_mulsu(
-        const int16_t,
-        const uint16_t);
-int32_t __builtin_mulus(
-        const uint16_t,
-        const int16_t);
-void __builtin_btg(
-        uint16_t *,
-        const uint16_t);
-int16_t __builtin_addab(
-        int16_t,
-        int16_t);
-int16_t __builtin_add(
-        int16_t,
-        int16_t,
-        int16_t);
-int16_t __builtin_clr(
-        void);
-int16_t __builtin_clr_prefetch(
-        int16_t * *,
-        int16_t *,
-        int16_t,
-        int16_t * *,
-        int16_t *,
-        int16_t,
-        int16_t *,
-        int16_t);
-int16_t __builtin_ed(
-        int16_t,
-        int16_t * *,
-        int16_t,
-        int16_t * *,
-        int16_t,
-        int16_t *);
-int16_t __builtin_edac(
-        int16_t,
-        int16_t,
-        int16_t * *,
-        int16_t,
-        int16_t * *,
-        int16_t,
-        int16_t *);
-int16_t __builtin_fbcl(
-        int16_t);
-int16_t __builtin_lac(
-        int16_t,
-        int16_t);
-int16_t __builtin_lacd(
-        int32_t,
-        int16_t);
-int16_t __builtin_mac(
-        int16_t,
-        int16_t,
-        int16_t,
-        int16_t * *,
-        int16_t *,
-        int16_t,
-        int16_t * *,
-        int16_t *,
-        int16_t,
-        int16_t *,
-        int16_t);
-void __builtin_movsac(
-        int16_t * *,
-        int16_t *,
-        int16_t,
-        int16_t * *,
-        int16_t *,
-        int16_t,
-        int16_t *,
-        int16_t);
-int16_t __builtin_mpy(
-        int16_t,
-        int16_t,
-        int16_t * *,
-        int16_t *,
-        int16_t,
-        int16_t * *,
-        int16_t *,
-        int16_t);
-int16_t __builtin_mpyn(
-        int16_t,
-        int16_t,
-        int16_t * *,
-        int16_t *,
-        int16_t,
-        int16_t * *,
-        int16_t *,
-        int16_t);
-int16_t __builtin_msc(
-        int16_t,
-        int16_t,
-        int16_t,
-        int16_t * *,
-        int16_t *,
-        int16_t,
-        int16_t * *,
-        int16_t *,
-        int16_t,
-        int16_t *,
-        int16_t);
-int16_t __builtin_sac(
-        int16_t,
-        int16_t);
-int32_t __builtin_sacd(
-        int16_t,
-        int16_t);
-int16_t __builtin_sacr(
-        int16_t,
-        int16_t);
-int16_t __builtin_sftac(
-        int16_t,
-        int16_t);
-int16_t __builtin_subab(
-        int16_t,
-        int16_t);
-int16_t __builtin_ACCL(
-        int16_t);
-int16_t __builtin_ACCH(
-        int16_t);
-int16_t __builtin_ACCU(
-        int16_t);
-uint16_t __builtin_tblrdl(
-        uint16_t);
-uint16_t __builtin_tblrdh(
-        uint16_t);
-unsigned char __builtin_tblrdhb(
-        uint16_t);
-unsigned char __builtin_tblrdlb(
-        uint16_t);
-void __builtin_tblwtl(
-        uint16_t,
-        uint16_t);
-void __builtin_tblwth(
-        uint16_t,
-        uint16_t);
-void __builtin_tblwtlb(
-        uint16_t,
-        unsigned char);
-void __builtin_tblwthb(
-        uint16_t,
-        unsigned char);
-void __builtin_disi(
-        int16_t);
-uint32_t __builtin_section_begin(
-        const char *);
-uint32_t __builtin_section_size(
-        const char *);
-uint32_t __builtin_section_end(
-        const char *);
-uint16_t __builtin_get_isr_state(
-        void);
-void __builtin_set_isr_state(
-        uint16_t);
-void __builtin_disable_interrupts(
-        void);
-void __builtin_enable_interrupts(
-        void);
-void __builtin_software_breakpoint(
-        void);
-
-uint16_t __builtin_addr_low();
-uint16_t __builtin_addr_high();
-uint32_t __builtin_addr();
-
-void __builtin_pwrsav(
-        uint16_t);
-void __builtin_clrwdt(
-        void);
-void _Static_assert(
-        uint16_t,
-        const char *);
-uint16_t __builtin_ff1l(
-        uint16_t);
-uint16_t __builtin_ff1r(
-        uint16_t);
-uint16_t __builtin_swap(
-        uint16_t);
-unsigned char __builtin_swap_byte(
-        unsigned char);
-int16_t __builtin_flim(
-        int16_t,
-        int16_t,
-        int16_t);
-int16_t __builtin_flim_excess(
-        int16_t,
-        int16_t,
-        int16_t,
-        int16_t *);
-int16_t __builtin_flimv_excess(
-        int16_t,
-        int16_t,
-        int16_t,
-        int16_t *);
-int16_t __builtin_min(
-        int16_t,
-        int16_t);
-int16_t __builtin_max(
-        int16_t,
-        int16_t);
-int16_t __builtin_min_excess(
-        int16_t,
-        int16_t,
-        int16_t *);
-int16_t __builtin_minv_excess(
-        int16_t,
-        int16_t,
-        int16_t *);
-int16_t __builtin_max_excess(
-        int16_t,
-        int16_t,
-        int16_t *);
-int16_t __builtin_maxv_excess(
-        int16_t,
-        int16_t,
-        int16_t *);
-# 44 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\generic\\h/xc.h" 2 3 4
-# 224 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\generic\\h/xc.h" 3 4
-# 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\dsPIC33C\\h/p33CH512MP508.h" 1 3 4
-# 42 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\dsPIC33C\\h/p33CH512MP508.h" 3 4
-# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdint.h" 1 3 4
-# 43 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\dsPIC33C\\h/p33CH512MP508.h" 2 3 4
-# 225 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\generic\\h/xc.h" 2 3 4
-# 74 "../FreeRTOSConfig.h" 2
-# 99 "../../source/include/FreeRTOS.h" 2
-
-
-# 1 "../../source/include/projdefs.h" 1
-# 77 "../../source/include/projdefs.h"
-typedef void (*TaskFunction_t)( void * );
-# 102 "../../source/include/FreeRTOS.h" 2
-
-
-# 1 "../../source/include/portable.h" 1
-# 87 "../../source/include/portable.h"
-# 1 "../../source/include/deprecated_definitions.h" 1
-# 106 "../../source/include/deprecated_definitions.h"
-# 1 "../../source/include/../../Source/portable/MPLAB/PIC24_dsPIC/portmacro.h" 1
-# 96 "../../source/include/../../Source/portable/MPLAB/PIC24_dsPIC/portmacro.h"
-typedef uint16_t StackType_t;
-typedef short BaseType_t;
-typedef unsigned short UBaseType_t;
-
-
- typedef uint16_t TickType_t;
-# 121 "../../source/include/../../Source/portable/MPLAB/PIC24_dsPIC/portmacro.h"
-extern void vPortEnterCritical( void );
-extern void vPortExitCritical( void );
-
-
-
-
-
-extern void vPortYield( void );
-# 107 "../../source/include/deprecated_definitions.h" 2
-# 88 "../../source/include/portable.h" 2
-# 133 "../../source/include/portable.h"
-# 1 "../../source/include/mpu_wrappers.h" 1
-# 134 "../../source/include/portable.h" 2
-# 144 "../../source/include/portable.h"
- StackType_t *pxPortInitialiseStack( StackType_t *pxTopOfStack, TaskFunction_t pxCode, void *pvParameters ) ;
-
-
-
-typedef struct HeapRegion
-{
- uint8_t *pucStartAddress;
- size_t xSizeInBytes;
-} HeapRegion_t;
-# 165 "../../source/include/portable.h"
-void vPortDefineHeapRegions( const HeapRegion_t * const pxHeapRegions ) ;
-
-
-
-
-
-void *pvPortMalloc( size_t xSize ) ;
-void vPortFree( void *pv ) ;
-void vPortInitialiseBlocks( void ) ;
-size_t xPortGetFreeHeapSize( void ) ;
-size_t xPortGetMinimumEverFreeHeapSize( void ) ;
-
-
-
-
-
-BaseType_t xPortStartScheduler( void ) ;
-
-
-
-
-
-
-void vPortEndScheduler( void ) ;
-# 105 "../../source/include/FreeRTOS.h" 2
-# 880 "../../source/include/FreeRTOS.h"
-struct xSTATIC_LIST_ITEM
-{
- TickType_t xDummy1;
- void *pvDummy2[ 4 ];
-};
-typedef struct xSTATIC_LIST_ITEM StaticListItem_t;
-
-
-struct xSTATIC_MINI_LIST_ITEM
-{
- TickType_t xDummy1;
- void *pvDummy2[ 2 ];
-};
-typedef struct xSTATIC_MINI_LIST_ITEM StaticMiniListItem_t;
-
-
-typedef struct xSTATIC_LIST
-{
- UBaseType_t uxDummy1;
- void *pvDummy2;
- StaticMiniListItem_t xDummy3;
-} StaticList_t;
-# 916 "../../source/include/FreeRTOS.h"
-typedef struct xSTATIC_TCB
-{
- void *pxDummy1;
-
-
-
- StaticListItem_t xDummy3[ 2 ];
- UBaseType_t uxDummy5;
- void *pxDummy6;
- uint8_t ucDummy7[ ( 4 ) ];
-
-  void *pxDummy8;
-# 936 "../../source/include/FreeRTOS.h"
-  UBaseType_t uxDummy12[ 2 ];
-# 951 "../../source/include/FreeRTOS.h"
-  uint32_t ulDummy18;
-  uint8_t ucDummy19;
-
-
-
-
-
-} StaticTask_t;
-# 974 "../../source/include/FreeRTOS.h"
-typedef struct xSTATIC_QUEUE
-{
- void *pvDummy1[ 3 ];
-
- union
- {
-  void *pvDummy2;
-  UBaseType_t uxDummy2;
- } u;
-
- StaticList_t xDummy3[ 2 ];
- UBaseType_t uxDummy4[ 3 ];
- uint8_t ucDummy5[ 2 ];
-# 1001 "../../source/include/FreeRTOS.h"
-} StaticQueue_t;
-typedef StaticQueue_t StaticSemaphore_t;
-# 1018 "../../source/include/FreeRTOS.h"
-typedef struct xSTATIC_EVENT_GROUP
-{
- TickType_t xDummy1;
- StaticList_t xDummy2;
-# 1031 "../../source/include/FreeRTOS.h"
-} StaticEventGroup_t;
-# 1047 "../../source/include/FreeRTOS.h"
-typedef struct xSTATIC_TIMER
-{
- void *pvDummy1;
- StaticListItem_t xDummy2;
- TickType_t xDummy3;
- UBaseType_t uxDummy4;
- void *pvDummy5[ 2 ];
-# 1062 "../../source/include/FreeRTOS.h"
-} StaticTimer_t;
-# 33 "../system.h" 2
-# 1 "../../source/include/croutine.h" 1
-# 77 "../../source/include/croutine.h"
-# 1 "../../source/include/list.h" 1
-# 181 "../../source/include/list.h"
-struct xLIST_ITEM
-{
-
- TickType_t xItemValue;
- struct xLIST_ITEM * pxNext;
- struct xLIST_ITEM * pxPrevious;
- void * pvOwner;
- void * pvContainer;
-
-};
-typedef struct xLIST_ITEM ListItem_t;
-
-struct xMINI_LIST_ITEM
-{
-
- TickType_t xItemValue;
- struct xLIST_ITEM * pxNext;
- struct xLIST_ITEM * pxPrevious;
-};
-typedef struct xMINI_LIST_ITEM MiniListItem_t;
-
-
-
-
-typedef struct xLIST
-{
-
- UBaseType_t uxNumberOfItems;
- ListItem_t * pxIndex;
- MiniListItem_t xListEnd;
-
-} List_t;
-# 386 "../../source/include/list.h"
-void vListInitialise( List_t * const pxList ) ;
-# 397 "../../source/include/list.h"
-void vListInitialiseItem( ListItem_t * const pxItem ) ;
-# 410 "../../source/include/list.h"
-void vListInsert( List_t * const pxList, ListItem_t * const pxNewListItem ) ;
-# 431 "../../source/include/list.h"
-void vListInsertEnd( List_t * const pxList, ListItem_t * const pxNewListItem ) ;
-# 446 "../../source/include/list.h"
-UBaseType_t uxListRemove( ListItem_t * const pxItemToRemove ) ;
-# 78 "../../source/include/croutine.h" 2
-# 86 "../../source/include/croutine.h"
-typedef void * CoRoutineHandle_t;
-
-
-typedef void (*crCOROUTINE_CODE)( CoRoutineHandle_t, UBaseType_t );
-
-typedef struct corCoRoutineControlBlock
-{
- crCOROUTINE_CODE pxCoRoutineFunction;
- ListItem_t xGenericListItem;
- ListItem_t xEventListItem;
- UBaseType_t uxPriority;
- UBaseType_t uxIndex;
- uint16_t uxState;
-} CRCB_t;
-# 173 "../../source/include/croutine.h"
-BaseType_t xCoRoutineCreate( crCOROUTINE_CODE pxCoRoutineCode, UBaseType_t uxPriority, UBaseType_t uxIndex );
-# 215 "../../source/include/croutine.h"
-void vCoRoutineSchedule( void );
-# 747 "../../source/include/croutine.h"
-void vCoRoutineAddToDelayedList( TickType_t xTicksToDelay, List_t *pxEventList );
-# 756 "../../source/include/croutine.h"
-BaseType_t xCoRoutineRemoveFromEventList( const List_t *pxEventList );
-# 34 "../system.h" 2
-# 1 "../../source/include/queue.h" 1
-# 88 "../../source/include/queue.h"
-typedef void * QueueHandle_t;
-
-
-
-
-
-
-typedef void * QueueSetHandle_t;
-
-
-
-
-
-
-typedef void * QueueSetMemberHandle_t;
-# 692 "../../source/include/queue.h"
-BaseType_t xQueueGenericSend( QueueHandle_t xQueue, const void * const pvItemToQueue, TickType_t xTicksToWait, const BaseType_t xCopyPosition ) ;
-# 821 "../../source/include/queue.h"
-BaseType_t xQueuePeekFromISR( QueueHandle_t xQueue, void * const pvBuffer ) ;
-# 1013 "../../source/include/queue.h"
-BaseType_t xQueueGenericReceive( QueueHandle_t xQueue, void * const pvBuffer, TickType_t xTicksToWait, const BaseType_t xJustPeek ) ;
-# 1028 "../../source/include/queue.h"
-UBaseType_t uxQueueMessagesWaiting( const QueueHandle_t xQueue ) ;
-# 1045 "../../source/include/queue.h"
-UBaseType_t uxQueueSpacesAvailable( const QueueHandle_t xQueue ) ;
-# 1059 "../../source/include/queue.h"
-void vQueueDelete( QueueHandle_t xQueue ) ;
-# 1440 "../../source/include/queue.h"
-BaseType_t xQueueGenericSendFromISR( QueueHandle_t xQueue, const void * const pvItemToQueue, BaseType_t * const pxHigherPriorityTaskWoken, const BaseType_t xCopyPosition ) ;
-BaseType_t xQueueGiveFromISR( QueueHandle_t xQueue, BaseType_t * const pxHigherPriorityTaskWoken ) ;
-# 1530 "../../source/include/queue.h"
-BaseType_t xQueueReceiveFromISR( QueueHandle_t xQueue, void * const pvBuffer, BaseType_t * const pxHigherPriorityTaskWoken ) ;
-
-
-
-
-
-BaseType_t xQueueIsQueueEmptyFromISR( const QueueHandle_t xQueue ) ;
-BaseType_t xQueueIsQueueFullFromISR( const QueueHandle_t xQueue ) ;
-UBaseType_t uxQueueMessagesWaitingFromISR( const QueueHandle_t xQueue ) ;
-# 1549 "../../source/include/queue.h"
-BaseType_t xQueueCRSendFromISR( QueueHandle_t xQueue, const void *pvItemToQueue, BaseType_t xCoRoutinePreviouslyWoken );
-BaseType_t xQueueCRReceiveFromISR( QueueHandle_t xQueue, void *pvBuffer, BaseType_t *pxTaskWoken );
-BaseType_t xQueueCRSend( QueueHandle_t xQueue, const void *pvItemToQueue, TickType_t xTicksToWait );
-BaseType_t xQueueCRReceive( QueueHandle_t xQueue, void *pvBuffer, TickType_t xTicksToWait );
-
-
-
-
-
-
-QueueHandle_t xQueueCreateMutex( const uint8_t ucQueueType ) ;
-QueueHandle_t xQueueCreateMutexStatic( const uint8_t ucQueueType, StaticQueue_t *pxStaticQueue ) ;
-QueueHandle_t xQueueCreateCountingSemaphore( const UBaseType_t uxMaxCount, const UBaseType_t uxInitialCount ) ;
-QueueHandle_t xQueueCreateCountingSemaphoreStatic( const UBaseType_t uxMaxCount, const UBaseType_t uxInitialCount, StaticQueue_t *pxStaticQueue ) ;
-void* xQueueGetMutexHolder( QueueHandle_t xSemaphore ) ;
-
-
-
-
-
-BaseType_t xQueueTakeMutexRecursive( QueueHandle_t xMutex, TickType_t xTicksToWait ) ;
-BaseType_t xQueueGiveMutexRecursive( QueueHandle_t pxMutex ) ;
-# 1639 "../../source/include/queue.h"
- QueueHandle_t xQueueGenericCreate( const UBaseType_t uxQueueLength, const UBaseType_t uxItemSize, const uint8_t ucQueueType ) ;
-# 1699 "../../source/include/queue.h"
-QueueSetHandle_t xQueueCreateSet( const UBaseType_t uxEventQueueLength ) ;
-# 1723 "../../source/include/queue.h"
-BaseType_t xQueueAddToSet( QueueSetMemberHandle_t xQueueOrSemaphore, QueueSetHandle_t xQueueSet ) ;
-# 1742 "../../source/include/queue.h"
-BaseType_t xQueueRemoveFromSet( QueueSetMemberHandle_t xQueueOrSemaphore, QueueSetHandle_t xQueueSet ) ;
-# 1778 "../../source/include/queue.h"
-QueueSetMemberHandle_t xQueueSelectFromSet( QueueSetHandle_t xQueueSet, const TickType_t xTicksToWait ) ;
-
-
-
-
-QueueSetMemberHandle_t xQueueSelectFromSetFromISR( QueueSetHandle_t xQueueSet ) ;
-
-
-void vQueueWaitForMessageRestricted( QueueHandle_t xQueue, TickType_t xTicksToWait, const BaseType_t xWaitIndefinitely ) ;
-BaseType_t xQueueGenericReset( QueueHandle_t xQueue, BaseType_t xNewQueue ) ;
-void vQueueSetQueueNumber( QueueHandle_t xQueue, UBaseType_t uxQueueNumber ) ;
-UBaseType_t uxQueueGetQueueNumber( QueueHandle_t xQueue ) ;
-uint8_t ucQueueGetQueueType( QueueHandle_t xQueue ) ;
-# 35 "../system.h" 2
-# 1 "../../source/include/task.h" 1
-# 78 "../../source/include/task.h"
-# 1 "../../source/include/list.h" 1
-# 79 "../../source/include/task.h" 2
-# 103 "../../source/include/task.h"
-typedef void * TaskHandle_t;
-
-
-
-
-
-typedef BaseType_t (*TaskHookFunction_t)( void * );
-
-
-typedef enum
-{
- eRunning = 0,
- eReady,
- eBlocked,
- eSuspended,
- eDeleted,
- eInvalid
-} eTaskState;
-
-
-typedef enum
-{
- eNoAction = 0,
- eSetBits,
- eIncrement,
- eSetValueWithOverwrite,
- eSetValueWithoutOverwrite
-} eNotifyAction;
-
-
-
-
-typedef struct xTIME_OUT
-{
- BaseType_t xOverflowCount;
- TickType_t xTimeOnEntering;
-} TimeOut_t;
-
-
-
-
-typedef struct xMEMORY_REGION
-{
- void *pvBaseAddress;
- uint32_t ulLengthInBytes;
- uint32_t ulParameters;
-} MemoryRegion_t;
-
-
-
-
-typedef struct xTASK_PARAMETERS
-{
- TaskFunction_t pvTaskCode;
- const char * const pcName;
- uint16_t usStackDepth;
- void *pvParameters;
- UBaseType_t uxPriority;
- StackType_t *puxStackBuffer;
- MemoryRegion_t xRegions[ 1 ];
-} TaskParameters_t;
-
-
-
-typedef struct xTASK_STATUS
-{
- TaskHandle_t xHandle;
- const char *pcTaskName;
- UBaseType_t xTaskNumber;
- eTaskState eCurrentState;
- UBaseType_t uxCurrentPriority;
- UBaseType_t uxBasePriority;
- uint32_t ulRunTimeCounter;
- StackType_t *pxStackBase;
- uint16_t usStackHighWaterMark;
-} TaskStatus_t;
-
-
-typedef enum
-{
- eAbortSleep = 0,
- eStandardSleep,
- eNoTasksWaitingTimeout
-} eSleepModeStatus;
-# 360 "../../source/include/task.h"
- BaseType_t xTaskCreate( TaskFunction_t pxTaskCode,
-       const char * const pcName,
-       const uint16_t usStackDepth,
-       void * const pvParameters,
-       UBaseType_t uxPriority,
-       TaskHandle_t * const pxCreatedTask ) ;
-# 602 "../../source/include/task.h"
-void vTaskAllocateMPURegions( TaskHandle_t xTask, const MemoryRegion_t * const pxRegions ) ;
-# 643 "../../source/include/task.h"
-void vTaskDelete( TaskHandle_t xTaskToDelete ) ;
-# 695 "../../source/include/task.h"
-void vTaskDelay( const TickType_t xTicksToDelay ) ;
-# 754 "../../source/include/task.h"
-void vTaskDelayUntil( TickType_t * const pxPreviousWakeTime, const TickType_t xTimeIncrement ) ;
-# 779 "../../source/include/task.h"
-BaseType_t xTaskAbortDelay( TaskHandle_t xTask ) ;
-# 826 "../../source/include/task.h"
-UBaseType_t uxTaskPriorityGet( TaskHandle_t xTask ) ;
-
-
-
-
-
-
-
-UBaseType_t uxTaskPriorityGetFromISR( TaskHandle_t xTask ) ;
-# 852 "../../source/include/task.h"
-eTaskState eTaskGetState( TaskHandle_t xTask ) ;
-# 908 "../../source/include/task.h"
-void vTaskGetInfo( TaskHandle_t xTask, TaskStatus_t *pxTaskStatus, BaseType_t xGetFreeStackSpace, eTaskState eState ) ;
-# 950 "../../source/include/task.h"
-void vTaskPrioritySet( TaskHandle_t xTask, UBaseType_t uxNewPriority ) ;
-# 1001 "../../source/include/task.h"
-void vTaskSuspend( TaskHandle_t xTaskToSuspend ) ;
-# 1050 "../../source/include/task.h"
-void vTaskResume( TaskHandle_t xTaskToResume ) ;
-# 1079 "../../source/include/task.h"
-BaseType_t xTaskResumeFromISR( TaskHandle_t xTaskToResume ) ;
-# 1112 "../../source/include/task.h"
-void vTaskStartScheduler( void ) ;
-# 1168 "../../source/include/task.h"
-void vTaskEndScheduler( void ) ;
-# 1219 "../../source/include/task.h"
-void vTaskSuspendAll( void ) ;
-# 1273 "../../source/include/task.h"
-BaseType_t xTaskResumeAll( void ) ;
-# 1288 "../../source/include/task.h"
-TickType_t xTaskGetTickCount( void ) ;
-# 1304 "../../source/include/task.h"
-TickType_t xTaskGetTickCountFromISR( void ) ;
-# 1318 "../../source/include/task.h"
-UBaseType_t uxTaskGetNumberOfTasks( void ) ;
-# 1331 "../../source/include/task.h"
-char *pcTaskGetName( TaskHandle_t xTaskToQuery ) ;
-# 1347 "../../source/include/task.h"
-TaskHandle_t xTaskGetHandle( const char *pcNameToQuery ) ;
-# 1368 "../../source/include/task.h"
-UBaseType_t uxTaskGetStackHighWaterMark( TaskHandle_t xTask ) ;
-# 1421 "../../source/include/task.h"
-BaseType_t xTaskCallApplicationTaskHook( TaskHandle_t xTask, void *pvParameter ) ;
-# 1430 "../../source/include/task.h"
-TaskHandle_t xTaskGetIdleTaskHandle( void ) ;
-# 1529 "../../source/include/task.h"
-UBaseType_t uxTaskGetSystemState( TaskStatus_t * const pxTaskStatusArray, const UBaseType_t uxArraySize, uint32_t * const pulTotalRunTime ) ;
-# 1576 "../../source/include/task.h"
-void vTaskList( char * pcWriteBuffer ) ;
-# 1630 "../../source/include/task.h"
-void vTaskGetRunTimeStats( char *pcWriteBuffer ) ;
-# 1711 "../../source/include/task.h"
-BaseType_t xTaskGenericNotify( TaskHandle_t xTaskToNotify, uint32_t ulValue, eNotifyAction eAction, uint32_t *pulPreviousNotificationValue ) ;
-# 1802 "../../source/include/task.h"
-BaseType_t xTaskGenericNotifyFromISR( TaskHandle_t xTaskToNotify, uint32_t ulValue, eNotifyAction eAction, uint32_t *pulPreviousNotificationValue, BaseType_t *pxHigherPriorityTaskWoken ) ;
-# 1879 "../../source/include/task.h"
-BaseType_t xTaskNotifyWait( uint32_t ulBitsToClearOnEntry, uint32_t ulBitsToClearOnExit, uint32_t *pulNotificationValue, TickType_t xTicksToWait ) ;
-# 1980 "../../source/include/task.h"
-void vTaskNotifyGiveFromISR( TaskHandle_t xTaskToNotify, BaseType_t *pxHigherPriorityTaskWoken ) ;
-# 2049 "../../source/include/task.h"
-uint32_t ulTaskNotifyTake( BaseType_t xClearCountOnExit, TickType_t xTicksToWait ) ;
-# 2065 "../../source/include/task.h"
-BaseType_t xTaskNotifyStateClear( TaskHandle_t xTask );
-# 2086 "../../source/include/task.h"
-BaseType_t xTaskIncrementTick( void ) ;
-# 2119 "../../source/include/task.h"
-void vTaskPlaceOnEventList( List_t * const pxEventList, const TickType_t xTicksToWait ) ;
-void vTaskPlaceOnUnorderedEventList( List_t * pxEventList, const TickType_t xItemValue, const TickType_t xTicksToWait ) ;
-# 2133 "../../source/include/task.h"
-void vTaskPlaceOnEventListRestricted( List_t * const pxEventList, TickType_t xTicksToWait, const BaseType_t xWaitIndefinitely ) ;
-# 2159 "../../source/include/task.h"
-BaseType_t xTaskRemoveFromEventList( const List_t * const pxEventList ) ;
-BaseType_t xTaskRemoveFromUnorderedEventList( ListItem_t * pxEventListItem, const TickType_t xItemValue ) ;
-# 2170 "../../source/include/task.h"
-void vTaskSwitchContext( void ) ;
-
-
-
-
-
-TickType_t uxTaskResetEventItemValue( void ) ;
-
-
-
-
-TaskHandle_t xTaskGetCurrentTaskHandle( void ) ;
-
-
-
-
-void vTaskSetTimeOutState( TimeOut_t * const pxTimeOut ) ;
-
-
-
-
-
-BaseType_t xTaskCheckForTimeOut( TimeOut_t * const pxTimeOut, TickType_t * const pxTicksToWait ) ;
-
-
-
-
-
-void vTaskMissedYield( void ) ;
-
-
-
-
-
-BaseType_t xTaskGetSchedulerState( void ) ;
-
-
-
-
-
-void vTaskPriorityInherit( TaskHandle_t const pxMutexHolder ) ;
-
-
-
-
-
-BaseType_t xTaskPriorityDisinherit( TaskHandle_t const pxMutexHolder ) ;
-
-
-
-
-UBaseType_t uxTaskGetTaskNumber( TaskHandle_t xTask ) ;
-
-
-
-
-
-void vTaskSetTaskNumber( TaskHandle_t xTask, const UBaseType_t uxHandle ) ;
-# 2237 "../../source/include/task.h"
-void vTaskStepTick( const TickType_t xTicksToJump ) ;
-# 2253 "../../source/include/task.h"
-eSleepModeStatus eTaskConfirmSleepModeStatus( void ) ;
-
-
-
-
-
-void *pvTaskIncrementMutexHeldCount( void ) ;
-# 36 "../system.h" 2
-# 1 "../../source/include/timers.h" 1
-# 80 "../../source/include/timers.h"
-# 1 "../../source/include/task.h" 1
-# 81 "../../source/include/timers.h" 2
-# 118 "../../source/include/timers.h"
-typedef void * TimerHandle_t;
-
-
-
-
-typedef void (*TimerCallbackFunction_t)( TimerHandle_t xTimer );
-
-
-
-
-
-typedef void (*PendedFunction_t)( void *, uint32_t );
-# 269 "../../source/include/timers.h"
- TimerHandle_t xTimerCreate( const char * const pcTimerName,
-        const TickType_t xTimerPeriodInTicks,
-        const UBaseType_t uxAutoReload,
-        void * const pvTimerID,
-        TimerCallbackFunction_t pxCallbackFunction ) ;
-# 427 "../../source/include/timers.h"
-void *pvTimerGetTimerID( const TimerHandle_t xTimer ) ;
-# 448 "../../source/include/timers.h"
-void vTimerSetTimerID( TimerHandle_t xTimer, void *pvNewID ) ;
-# 485 "../../source/include/timers.h"
-BaseType_t xTimerIsTimerActive( TimerHandle_t xTimer ) ;
-
-
-
-
-
-
-
-TaskHandle_t xTimerGetTimerDaemonTaskHandle( void ) ;
-# 1228 "../../source/include/timers.h"
-BaseType_t xTimerPendFunctionCallFromISR( PendedFunction_t xFunctionToPend, void *pvParameter1, uint32_t ulParameter2, BaseType_t *pxHigherPriorityTaskWoken ) ;
-# 1262 "../../source/include/timers.h"
-BaseType_t xTimerPendFunctionCall( PendedFunction_t xFunctionToPend, void *pvParameter1, uint32_t ulParameter2, TickType_t xTicksToWait ) ;
-# 1273 "../../source/include/timers.h"
-const char * pcTimerGetName( TimerHandle_t xTimer ) ;
-# 1284 "../../source/include/timers.h"
-TickType_t xTimerGetPeriod( TimerHandle_t xTimer ) ;
-# 1299 "../../source/include/timers.h"
-TickType_t xTimerGetExpiryTime( TimerHandle_t xTimer ) ;
-
-
-
-
-
-BaseType_t xTimerCreateTimerTask( void ) ;
-BaseType_t xTimerGenericCommand( TimerHandle_t xTimer, const BaseType_t xCommandID, const TickType_t xOptionalValue, BaseType_t * const pxHigherPriorityTaskWoken, const TickType_t xTicksToWait ) ;
-# 37 "../system.h" 2
-# 1 "../../common/include/blocktim.h" 1
-# 73 "../../common/include/blocktim.h"
-void vCreateBlockTimeTasks( void );
-BaseType_t xAreBlockTimeTestTasksStillRunning( void );
-# 38 "../system.h" 2
-# 1 "../../source/include/semphr.h" 1
-# 77 "../../source/include/semphr.h"
-# 1 "../../source/include/queue.h" 1
-# 78 "../../source/include/semphr.h" 2
-
-typedef QueueHandle_t SemaphoreHandle_t;
-# 39 "../system.h" 2
-# 48 "../system.h"
-# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 1 3 4
-# 12 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
-# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/subordinate_errors.h" 1 3 4
-# 13 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 2 3 4
-# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stddef.h" 1 3 4
 # 14 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 2 3 4
 # 25 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
 extern int __attach_input_file(const char *f);
@@ -22693,13 +21743,66 @@ extern int _program_inactive_slave(int slave_number, int verify,
 
 extern void _start_slave(void);
 extern void _stop_slave(void);
-# 49 "../system.h" 2
-# 64 "../system.h"
+# 42 "../system.h" 2
+# 59 "../system.h"
 void Init_Clock( void );
 void Init_GI( void );
 void Soft_Reset( void );
+
+void Init_U1( void );
+void Add_Printf_udec8( uint8_t WordIn );
+void Add_Printf_udec16( uint16_t WordIn );
+void Add_Printf_udec32( uint32_t WordIn );
+void Add_Printf_str( const char * Str, uint16_t Len );
+void Start_Printf( void );
+
+void Config_CCT8( void );
+uint32_t Get_CCT8( void );
+
+void Init_ADC( void );
+void Disable_SELF_TEST( void );
+void Init_DAC( void );
+# 21 "../gpio.h" 2
+
+
+
+
+
+
+
+typedef struct {
+    uint8_t AnaDig;
+    uint8_t InOut;
+    uint8_t PullUp;
+    uint8_t PullDw;
+    uint8_t OpenDr;
+    uint8_t CnEn0;
+    uint8_t CnEn1;
+} gpio_t;
+# 183 "../gpio.h"
+void Config_GPIO( uint8_t *PinId, gpio_t Param );
+void Unlock_GPIOs( void );
+void Lock_GPIOs( void );
+void Config_GPIO( uint8_t *PinId, gpio_t Param );
+void Set_GPIO( uint8_t *PinId, uint8_t State );
+void Toggle_GPIO( uint8_t *PinId );
+uint8_t Get_GPIO( uint8_t *PinId );
 # 19 "../system.c" 2
-# 29 "../system.c"
+# 1 "../priority.h" 1
+# 20 "../system.c" 2
+# 28 "../system.c"
+static uint8_t TxU1Buf[(uint8_t) 50] = {0};
+static uint16_t TxU1Len = 0;
+static uint16_t TxU1Idx = 0;
+
+
+
+
+
+
+
+static void Trig_U1_TX( uint8_t Byte );
+# 49 "../system.c"
 void Init_Clock( void ){
     CLKDIV = 0x3001;
     PLLFBDbits.PLLFBDIV = 135;
@@ -22738,7 +21841,6 @@ void Init_Clock( void ){
 
 
 
-
 void Init_GI( void ){
     INTCON1bits.NSTDIS = 0;
     INTCON2bits.GIE = 1;
@@ -22747,9 +21849,89 @@ void Init_GI( void ){
 
 
 
-
 void Soft_Reset( void ){
-    asm("RESET");
+    __asm__ volatile ("RESET");
+}
+
+
+
+
+void Init_U1( void ){
+    U1MODEbits.UARTEN = 0;
+    U1MODEbits.UTXEN = 0;
+    U1MODEbits.URXEN = 0;
+    Unlock_GPIOs();
+    gpio_t Par;
+    Par.AnaDig = (uint8_t) 0;
+    Par.InOut = (uint8_t) 0;
+    Par.OpenDr = (uint8_t) 0;
+    Config_GPIO((uint8_t[2]) {(uint8_t) 1,6},Par);
+    RPOR3bits.RP38R = 1;
+    Par.AnaDig = (uint8_t) 0;
+    Par.InOut = (uint8_t) 1;
+    Config_GPIO((uint8_t[2]) {(uint8_t) 1,5},Par);
+    RPINR18bits.U1RXR = 37;
+    Lock_GPIOs();
+    U1MODEHbits.BCLKSEL = 0;
+    U1MODEHbits.BCLKMOD = 1;
+    U1BRG = 200;
+    U1BRGH = 0;
+    U1MODEbits.MOD = 3;
+    U1MODEHbits.STSEL = 0;
+    U1MODEHbits.UTXINV = 0;
+    U1MODEHbits.URXINV = 0;
+    U1MODEHbits.FLO = 0;
+    U1STAHbits.UTXISEL = 0;
+    U1STAHbits.URXISEL = 0;
+    U1STAHbits.STPMD = 0;
+    U1MODEHbits.RUNOVF = 1;
+    U1STAbits.OERIE = 1;
+    U1STAbits.FERIE = 1;
+    U1STAbits.PERIE = 1;
+    IPC12bits.U1EIP = (uint8_t) 7;
+    IFS3bits.U1EIF = 0;
+    IEC3bits.U1EIE = 1;
+    IPC3bits.U1TXIP = (uint8_t) 4;
+    IFS0bits.U1TXIF = 0;
+    IEC0bits.U1TXIE = 1;
+    IFS0bits.U1RXIF = 0;
+    IEC0bits.U1RXIE = 0;
+    U1MODEbits.UARTEN = 1;
+    U1MODEbits.UTXEN = 1;
+    U1MODEbits.URXEN = 0;
+}
+
+
+
+
+
+static void Trig_U1_TX( uint8_t Byte ){
+    TxU1Idx++;
+    U1TXREG = (uint16_t)Byte;
+}
+
+
+
+
+void __attribute__((interrupt, auto_psv)) _U1TXInterrupt( void ){
+    IFS0bits.U1TXIF = 0;
+    if( TxU1Idx < TxU1Len ){
+        Trig_U1_TX(TxU1Buf[TxU1Idx]);
+    } else {
+        TxU1Len = 0;
+    }
+}
+
+
+
+
+void Start_Printf( void ){
+    TxU1Buf[TxU1Len] = '\r';
+    TxU1Buf[TxU1Len+1] = '\n';
+    TxU1Len += 2;
+    TxU1Idx = 0;
+    Trig_U1_TX(TxU1Buf[0]);
+
 }
 
 
@@ -22757,15 +21939,196 @@ void Soft_Reset( void ){
 
 
 
+void Add_Printf_str( const char * Str, uint16_t Len ){
+    uint16_t j;
+    for( j=0; j<Len; j++ ){
+        if( Str[j] == 0 ){
+            TxU1Buf[TxU1Len+j] = ' ';
+        } else {
+            TxU1Buf[TxU1Len+j] = Str[j];
+        }
+    }
+    TxU1Len += Len;
+}
 
-#pragma config BWRP = 1
-#pragma config BSS = 2
-#pragma config BSEN = 1
-#pragma config GWRP = 1
-#pragma config GSS = 3
-#pragma config CWRP = 1
-#pragma config CSS = 7
+
+
+
+
+void Add_Printf_udec8( uint8_t WordIn ){
+    uint8_t j;
+    uint8_t Len = 3;
+    uint8_t Digit;
+    uint16_t Div = 1;
+    for( j=0; j<Len; j++ ){
+        if( j == Len-1){
+            Digit = WordIn;
+        } else {
+            Digit = WordIn%(10*Div);
+        }
+        TxU1Buf[TxU1Len+Len-1-j] = (uint8_t)(Digit/Div+48);
+        Div *= 10;
+    }
+    for( j=0; j<Len-1; j++ ){
+        if( TxU1Buf[TxU1Len+j] == '0' ){
+            TxU1Buf[TxU1Len+j] = ' ';
+        } else{
+            break;
+        }
+    }
+    TxU1Len += Len;
+}
+
+
+
+
+
+void Add_Printf_udec16( uint16_t WordIn ){
+    uint8_t j;
+    uint8_t Len = 5;
+    uint16_t Digit;
+    uint16_t Div = 1;
+    for( j=0; j<Len; j++ ){
+        if( j == Len-1){
+            Digit = WordIn;
+        } else {
+            Digit = WordIn%(10*Div);
+        }
+        TxU1Buf[TxU1Len+Len-1-j] = (uint8_t)(Digit/Div+48);
+        Div *= 10;
+    }
+    for( j=0; j<Len-1; j++ ){
+        if( TxU1Buf[TxU1Len+j] == '0' ){
+            TxU1Buf[TxU1Len+j] = ' ';
+        } else{
+            break;
+        }
+    }
+    TxU1Len += Len;
+}
+
+
+
+
+
+void Add_Printf_udec32( uint32_t WordIn ){
+    uint8_t j;
+    uint8_t Len = 10;
+    uint32_t Digit;
+    uint16_t Div = 1;
+    for( j=0; j<Len; j++ ){
+        if( j == Len-1){
+            Digit = WordIn;
+        } else {
+            Digit = WordIn%(10*Div);
+        }
+        TxU1Buf[TxU1Len+9-j] = (uint8_t)(Digit/Div+48);
+        Div *= 10;
+    }
+    for( j=0; j<Len-1; j++ ){
+        if( TxU1Buf[TxU1Len+j] == '0' ){
+            TxU1Buf[TxU1Len+j] = ' ';
+        } else{
+            break;
+        }
+    }
+    TxU1Len += Len;
+}
+# 289 "../system.c"
+void Config_CCT8( void ){
+    CCP8CON1Lbits.CCPON = 0;
+    CCP8CON1Lbits.CLKSEL = 0;
+    CCP8CON1Lbits.TMRPS = 3;
+    CCP8CON1Lbits.TMRSYNC = 0;
+    CCP8CON2Lbits.SSDG = 0;
+    CCP8CON1Lbits.CCSEL = 0;
+    CCP8CON1Lbits.T32 = 1;
+    CCP8CON1Lbits.MOD = 0;
+    CCP8CON1Hbits.SYNC = 0;
+    CCP8PRL = 0xFFFF;
+    CCP8PRH = 0xFFFF;
+    CCP8TMRL = 0;
+    CCP8TMRH = 0;
+    IFS9bits.CCT8IF = 0;
+    IEC9bits.CCT8IE = 0;
+    CCP8CON1Lbits.CCPON = 1;
+}
+
+
+
+
+
+uint32_t Get_CCT8( void ){
+    return ((((uint32_t)CCP8TMRH)<<16)|CCP8TMRL);
+}
+
+
+
+
+void Init_ADC( void ){
+    Unlock_GPIOs();
+    gpio_t Par;
+    Par.AnaDig = (uint8_t) 1;
+    Par.InOut = (uint8_t) 1;
+    Config_GPIO((uint8_t[2]) {(uint8_t) 0,3},Par);
+    Lock_GPIOs();
+    ADCON1Lbits.ADON = 0;
+    ADCON1Hbits.FORM = 0;
+    ADCON1Hbits.SHRRES = 3;
+    ADCON2Lbits.SHRADCS = 2;
+    ADCON2Hbits.SHRSAMC = 3;
+    ADCON3Lbits.REFSEL = 0;
+    ADCON3Hbits.CLKSEL = 0;
+    ADCON3Hbits.CLKDIV = 0;
+    ADMOD0Lbits.SIGN3 = 0;
+    ADIELbits.IE3 = 1;
+    IPC23bits.ADCAN3IP = (uint8_t) 6;
+    IFS5bits.ADCAN3IF = 0;
+    IEC5bits.ADCAN3IE = 1;
+    ADCON1Lbits.ADON = 1;
+    ADCON5Hbits.WARMTIME = 7;
+    ADCON5Lbits.SHRPWR = 1;
+    while( ADCON5Lbits.SHRRDY != 1 );
+    ADCON3Hbits.SHREN = 1;
+    ADTRIG0Hbits.TRGSRC3 = 1;
+}
+
+
+
+
+void Init_DAC( void ){
+    DACCTRL1Lbits.DACON = 0;
+    DACCTRL1Lbits.CLKSEL = 3;
+    DACCTRL1Lbits.CLKDIV = 3;
+    DAC1DATHbits.DACDATH = 0;
+    DAC1CONLbits.DACOEN = 1;
+    DAC1CONLbits.DACEN = 1;
+    DACCTRL1Lbits.DACON = 1;
+}
+
+
+
+
+void Disable_SELF_TEST( void ){
+    Unlock_GPIOs();
+    gpio_t Par;
+    Par.AnaDig = (uint8_t) 0;
+    Par.InOut = (uint8_t) 0;
+    Par.OpenDr = (uint8_t) 0;
+    Config_GPIO((uint8_t[2]) {(uint8_t) 3,4},Par);
+    Lock_GPIOs();
+    Set_GPIO((uint8_t[2]) {(uint8_t) 3,4},(uint8_t) 1);
+}
+# 381 "../system.c"
 #pragma config AIVTDIS = 1
+#pragma config CSS = 7
+#pragma config CWRP = 1
+#pragma config GSS = 3
+#pragma config GWRP = 1
+#pragma config BSEN = 1
+#pragma config BSS = 3
+#pragma config BWRP = 1
+
 
 #pragma config BSLIM = 8191
 
@@ -22775,20 +22138,20 @@ void Soft_Reset( void ){
 #pragma config POSCMD = 3
 #pragma config OSCIOFNC = 0
 #pragma config FCKSM = 0
-#pragma config PLLKEN = 1
+#pragma config PLLKEN = 0
 #pragma config XTCFG = 3
 #pragma config XTBST = 1
 
-#pragma config RWDTPS = 0
+#pragma config RWDTPS = 12
 #pragma config RCLKSEL = 3
-#pragma config WINDIS = 1
+#pragma config WINDIS = 0
 #pragma config WDTWIN = 3
-#pragma config SWDTPS = 10
+#pragma config SWDTPS = 16
 #pragma config FWDTEN = 0
 
 #pragma config ICS = 2
-#pragma config JTAGEN = 0
-#pragma config NOBTSWP = 0
+#pragma config JTAGEN = 1
+#pragma config NOBTSWP = 1
 
 #pragma config DMTIVTL = 0x0010
 
@@ -22860,7 +22223,7 @@ void Soft_Reset( void ){
 #pragma config CPRD7 = MSTR
 #pragma config CPRD8 = MSTR
 #pragma config CPRD9 = MSTR
-#pragma config CPRD10 = SLV1
+#pragma config CPRD10 = MSTR
 #pragma config CPRD11 = MSTR
 #pragma config CPRD12 = MSTR
 #pragma config CPRD13 = MSTR

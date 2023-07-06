@@ -16,12 +16,13 @@
         <itemPath>../../source/include/StackMacros.h</itemPath>
         <itemPath>../../source/include/portable.h</itemPath>
         <itemPath>../../source/portable/MPLAB/PIC24_dsPIC/portmacro.h</itemPath>
+        <itemPath>../FreeRTOSConfig.h</itemPath>
       </logicalFolder>
       <itemPath>../system.h</itemPath>
       <itemPath>../gpio.h</itemPath>
       <itemPath>../error.h</itemPath>
-      <itemPath>../led.h</itemPath>
       <itemPath>../priority.h</itemPath>
+      <itemPath>../misc.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -37,15 +38,15 @@
         <itemPath>../../source/queue.c</itemPath>
         <itemPath>../../source/tasks.c</itemPath>
         <itemPath>../../source/timers.c</itemPath>
-        <itemPath>../../source/portable/MemMang/heap_1.c</itemPath>
         <itemPath>../../source/portable/MPLAB/PIC24_dsPIC/port.c</itemPath>
         <itemPath>../../source/portable/MPLAB/PIC24_dsPIC/portasm_dsPIC.S</itemPath>
+        <itemPath>../../source/portable/MemMang/heap_4.c</itemPath>
       </logicalFolder>
       <itemPath>../main.c</itemPath>
       <itemPath>../system.c</itemPath>
       <itemPath>../gpio.c</itemPath>
       <itemPath>../error.c</itemPath>
-      <itemPath>../led.c</itemPath>
+      <itemPath>../misc.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -54,9 +55,9 @@
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
-    <Elem>.</Elem>
     <Elem>../../source</Elem>
     <Elem>../../common</Elem>
+    <Elem>..</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -138,7 +139,7 @@
         <property key="oXC16gcc-sfr-warn" value="false"/>
         <property key="oXC16gcc-smar-io-lvl" value="1"/>
         <property key="oXC16gcc-smart-io-fmt" value=""/>
-        <property key="optimization-level" value="2"/>
+        <property key="optimization-level" value="0"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
         <property key="preprocessor-macros" value="MPLAB_DSPIC_PORT"/>

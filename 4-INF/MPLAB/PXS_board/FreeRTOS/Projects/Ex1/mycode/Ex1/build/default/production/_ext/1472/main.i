@@ -1,5 +1,5 @@
 # 1 "../main.c"
-# 1 "C:\\Users\\Filippo\\Desktop\\FreeRTOS\\Projects\\Ex1\\mycode\\Ex1"
+# 1 "C:\\Users\\Filippo\\Desktop\\Projects\\Ex1\\mycode\\Ex1"
 # 1 "<built-in>"
 # 1 "<command-line>"
 # 1 "../main.c"
@@ -21624,9 +21624,11 @@ extern __attribute__((space(prog))) __prog__ uint16_t _FS1DMT;
 extern __attribute__((space(prog))) __prog__ uint16_t _FBTSEQ;
 # 225 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\generic\\h/xc.h" 2 3 4
 # 31 "../system.h" 2
-
-# 1 "../../source/include/FreeRTOS.h" 1
-# 76 "../../source/include/FreeRTOS.h"
+# 41 "../system.h"
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 1 3 4
+# 12 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/subordinate_errors.h" 1 3 4
+# 13 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 2 3 4
 # 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stddef.h" 1 3 4
 
 
@@ -21639,6 +21641,153 @@ extern __attribute__((space(prog))) __prog__ uint16_t _FBTSEQ;
 typedef _Ptrdifft ptrdiff_t;
 # 39 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stddef.h" 3 4
 
+# 14 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 2 3 4
+# 25 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern int __attach_input_file(const char *f);
+void __close_input_file(void);
+# 36 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern int __C30_UART;
+# 46 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern void __delay32(unsigned long cycles);
+# 84 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern __attribute__((space(prog))) int _PROGRAM_END;
+# 97 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern void _dump_heap_info(void);
+# 116 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+typedef unsigned long _prog_addressT;
+
+extern _prog_addressT _memcpy_helper(_prog_addressT src, void *dst,
+                                     unsigned int len, int flags);
+# 129 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern void *_memcpy_df(__pack_upper_byte void *src,void *dst,unsigned int len);
+# 148 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+_prog_addressT _memcpy_p2d16(void *dest, _prog_addressT src,
+                             unsigned int len);
+# 160 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+_prog_addressT _memcpy_p2d24(void *dest, _prog_addressT src,
+                             unsigned int len);
+# 173 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+_prog_addressT _strncpy_p2d16(char *dest, _prog_addressT src,
+                              unsigned int len);
+# 186 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+_prog_addressT _strncpy_p2d24(char *dest, _prog_addressT src,
+                              unsigned int len);
+
+
+
+
+
+
+
+void *_memcpy_packed(char *dest, const __pack_upper_byte void *src,
+                     unsigned int len);
+
+
+
+extern char *_strcpy_packed(char *dest, const __pack_upper_byte void *src);
+extern char *_strncpy_packed(char *dest, const __pack_upper_byte void *src,
+                             unsigned int len);
+
+
+
+
+
+
+extern __eds__ void *_memcpy_eds_3(const __eds__ void *src, __eds__ void *dst,
+                                   int len);
+# 224 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern __eds__ char *_strcpy_eds(const __eds__ void *src, __eds__ void *dst);
+extern __eds__ char *_strncpy_eds(const __eds__ void *src, __eds__ void *dst,
+                                  int len);
+# 235 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern __eds__ void *_memchr_eds(__eds__ void *s, int c, size_t n);
+# 371 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern void _eedata_helper1 (_prog_addressT dst, int len);
+extern void _eedata_helper2 (void);
+extern void _eedata_helper3 (_prog_addressT dst, int dat);
+extern void _eedata_helper4 (_prog_addressT dst, int *src);
+extern void _eedata_helper5 (_prog_addressT dst, int len);
+extern void _eedata_helper6 (void);
+extern void _eedata_helper7 (_prog_addressT dst, int dat);
+# 393 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern void _flash_helper1 (_prog_addressT dst, int code)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper2 (_prog_addressT dst, int *src, int len)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper3 (_prog_addressT dst, long *src, int len)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper4 (_prog_addressT dst, int dat)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper5 (_prog_addressT dst, long dat)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper6 (int code)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper7 (_prog_addressT dst, int len)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper8 (_prog_addressT dst, int *src, int len)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper9 (_prog_addressT dst, long *src, int len)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper10 (_prog_addressT dst, int dat1, int empty, int dat2)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper11 (_prog_addressT dst, long dat1, long dat2)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+# 704 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern int _program_slave(int slave_number, int verify,
+                           __eds__ unsigned char *image);
+
+extern int _program_inactive_slave(int slave_number, int verify,
+                                    __eds__ unsigned char *image);
+
+extern void _start_slave(void);
+extern void _stop_slave(void);
+# 42 "../system.h" 2
+# 59 "../system.h"
+void Init_Clock( void );
+void Init_GI( void );
+void Soft_Reset( void );
+
+void Init_U1( void );
+void Add_Printf_udec8( uint8_t WordIn );
+void Add_Printf_udec16( uint16_t WordIn );
+void Add_Printf_udec32( uint32_t WordIn );
+void Add_Printf_str( const char * Str, uint16_t Len );
+void Start_Printf( void );
+
+void Config_CCT8( void );
+uint32_t Get_CCT8( void );
+
+void Init_ADC( void );
+void Disable_SELF_TEST( void );
+void Init_DAC( void );
+# 21 "../main.c" 2
+# 1 "../priority.h" 1
+# 22 "../main.c" 2
+# 1 "../gpio.h" 1
+# 28 "../gpio.h"
+typedef struct {
+    uint8_t AnaDig;
+    uint8_t InOut;
+    uint8_t PullUp;
+    uint8_t PullDw;
+    uint8_t OpenDr;
+    uint8_t CnEn0;
+    uint8_t CnEn1;
+} gpio_t;
+# 183 "../gpio.h"
+void Config_GPIO( uint8_t *PinId, gpio_t Param );
+void Unlock_GPIOs( void );
+void Lock_GPIOs( void );
+void Config_GPIO( uint8_t *PinId, gpio_t Param );
+void Set_GPIO( uint8_t *PinId, uint8_t State );
+void Toggle_GPIO( uint8_t *PinId );
+uint8_t Get_GPIO( uint8_t *PinId );
+# 23 "../main.c" 2
+# 1 "../misc.h" 1
+# 23 "../misc.h"
+# 1 "../../source/include/FreeRTOS.h" 1
+# 76 "../../source/include/FreeRTOS.h"
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stddef.h" 1 3 4
 # 77 "../../source/include/FreeRTOS.h" 2
 # 91 "../../source/include/FreeRTOS.h"
 # 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdint.h" 1 3 4
@@ -21650,7 +21799,10 @@ typedef _Ptrdifft ptrdiff_t;
 
 
 # 1 "../FreeRTOSConfig.h" 1
-# 73 "../FreeRTOSConfig.h"
+
+
+
+
 # 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\generic\\h/xc.h" 1 3 4
 # 43 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\generic\\h/xc.h" 3 4
 # 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/builtins.h" 1 3 4
@@ -21957,7 +22109,7 @@ int16_t __builtin_maxv_excess(
 # 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdint.h" 1 3 4
 # 43 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\dsPIC33C\\h/p33CH512MP508.h" 2 3 4
 # 225 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\generic\\h/xc.h" 2 3 4
-# 74 "../FreeRTOSConfig.h" 2
+# 6 "../FreeRTOSConfig.h" 2
 # 99 "../../source/include/FreeRTOS.h" 2
 
 
@@ -22062,12 +22214,25 @@ typedef struct xSTATIC_TCB
  StaticListItem_t xDummy3[ 2 ];
  UBaseType_t uxDummy5;
  void *pxDummy6;
- uint8_t ucDummy7[ ( 4 ) ];
+ uint8_t ucDummy7[ ( 8 ) ];
 
   void *pxDummy8;
-# 936 "../../source/include/FreeRTOS.h"
+
+
+
+
+
+  UBaseType_t uxDummy10[ 2 ];
+
+
   UBaseType_t uxDummy12[ 2 ];
-# 951 "../../source/include/FreeRTOS.h"
+# 945 "../../source/include/FreeRTOS.h"
+  uint32_t ulDummy16;
+
+
+
+
+
   uint32_t ulDummy18;
   uint8_t ucDummy19;
 
@@ -22090,7 +22255,11 @@ typedef struct xSTATIC_QUEUE
  StaticList_t xDummy3[ 2 ];
  UBaseType_t uxDummy4[ 3 ];
  uint8_t ucDummy5[ 2 ];
-# 1001 "../../source/include/FreeRTOS.h"
+# 997 "../../source/include/FreeRTOS.h"
+  UBaseType_t uxDummy8;
+  uint8_t ucDummy9;
+
+
 } StaticQueue_t;
 typedef StaticQueue_t StaticSemaphore_t;
 # 1018 "../../source/include/FreeRTOS.h"
@@ -22098,7 +22267,15 @@ typedef struct xSTATIC_EVENT_GROUP
 {
  TickType_t xDummy1;
  StaticList_t xDummy2;
-# 1031 "../../source/include/FreeRTOS.h"
+
+
+  UBaseType_t uxDummy3;
+
+
+
+
+
+
 } StaticEventGroup_t;
 # 1047 "../../source/include/FreeRTOS.h"
 typedef struct xSTATIC_TIMER
@@ -22108,9 +22285,16 @@ typedef struct xSTATIC_TIMER
  TickType_t xDummy3;
  UBaseType_t uxDummy4;
  void *pvDummy5[ 2 ];
-# 1062 "../../source/include/FreeRTOS.h"
+
+  UBaseType_t uxDummy6;
+
+
+
+
+
+
 } StaticTimer_t;
-# 33 "../system.h" 2
+# 24 "../misc.h" 2
 # 1 "../../source/include/croutine.h" 1
 # 77 "../../source/include/croutine.h"
 # 1 "../../source/include/list.h" 1
@@ -22181,7 +22365,7 @@ void vCoRoutineSchedule( void );
 void vCoRoutineAddToDelayedList( TickType_t xTicksToDelay, List_t *pxEventList );
 # 756 "../../source/include/croutine.h"
 BaseType_t xCoRoutineRemoveFromEventList( const List_t *pxEventList );
-# 34 "../system.h" 2
+# 25 "../misc.h" 2
 # 1 "../../source/include/queue.h" 1
 # 88 "../../source/include/queue.h"
 typedef void * QueueHandle_t;
@@ -22269,7 +22453,7 @@ BaseType_t xQueueGenericReset( QueueHandle_t xQueue, BaseType_t xNewQueue ) ;
 void vQueueSetQueueNumber( QueueHandle_t xQueue, UBaseType_t uxQueueNumber ) ;
 UBaseType_t uxQueueGetQueueNumber( QueueHandle_t xQueue ) ;
 uint8_t ucQueueGetQueueType( QueueHandle_t xQueue ) ;
-# 35 "../system.h" 2
+# 26 "../misc.h" 2
 # 1 "../../source/include/task.h" 1
 # 78 "../../source/include/task.h"
 # 1 "../../source/include/list.h" 1
@@ -22519,7 +22703,7 @@ eSleepModeStatus eTaskConfirmSleepModeStatus( void ) ;
 
 
 void *pvTaskIncrementMutexHeldCount( void ) ;
-# 36 "../system.h" 2
+# 27 "../misc.h" 2
 # 1 "../../source/include/timers.h" 1
 # 80 "../../source/include/timers.h"
 # 1 "../../source/include/task.h" 1
@@ -22574,187 +22758,52 @@ TickType_t xTimerGetExpiryTime( TimerHandle_t xTimer ) ;
 
 BaseType_t xTimerCreateTimerTask( void ) ;
 BaseType_t xTimerGenericCommand( TimerHandle_t xTimer, const BaseType_t xCommandID, const TickType_t xOptionalValue, BaseType_t * const pxHigherPriorityTaskWoken, const TickType_t xTicksToWait ) ;
-# 37 "../system.h" 2
+# 28 "../misc.h" 2
 # 1 "../../common/include/blocktim.h" 1
 # 73 "../../common/include/blocktim.h"
 void vCreateBlockTimeTasks( void );
 BaseType_t xAreBlockTimeTestTasksStillRunning( void );
-# 38 "../system.h" 2
+# 29 "../misc.h" 2
 # 1 "../../source/include/semphr.h" 1
 # 77 "../../source/include/semphr.h"
 # 1 "../../source/include/queue.h" 1
 # 78 "../../source/include/semphr.h" 2
 
 typedef QueueHandle_t SemaphoreHandle_t;
-# 39 "../system.h" 2
-# 48 "../system.h"
-# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 1 3 4
-# 12 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
-# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/subordinate_errors.h" 1 3 4
-# 13 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 2 3 4
-# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stddef.h" 1 3 4
-# 14 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 2 3 4
-# 25 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
-extern int __attach_input_file(const char *f);
-void __close_input_file(void);
-# 36 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
-extern int __C30_UART;
-# 46 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
-extern void __delay32(unsigned long cycles);
-# 84 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
-extern __attribute__((space(prog))) int _PROGRAM_END;
-# 97 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
-extern void _dump_heap_info(void);
-# 116 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
-typedef unsigned long _prog_addressT;
-
-extern _prog_addressT _memcpy_helper(_prog_addressT src, void *dst,
-                                     unsigned int len, int flags);
-# 129 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
-extern void *_memcpy_df(__pack_upper_byte void *src,void *dst,unsigned int len);
-# 148 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
-_prog_addressT _memcpy_p2d16(void *dest, _prog_addressT src,
-                             unsigned int len);
-# 160 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
-_prog_addressT _memcpy_p2d24(void *dest, _prog_addressT src,
-                             unsigned int len);
-# 173 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
-_prog_addressT _strncpy_p2d16(char *dest, _prog_addressT src,
-                              unsigned int len);
-# 186 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
-_prog_addressT _strncpy_p2d24(char *dest, _prog_addressT src,
-                              unsigned int len);
-
-
-
-
-
-
-
-void *_memcpy_packed(char *dest, const __pack_upper_byte void *src,
-                     unsigned int len);
-
-
-
-extern char *_strcpy_packed(char *dest, const __pack_upper_byte void *src);
-extern char *_strncpy_packed(char *dest, const __pack_upper_byte void *src,
-                             unsigned int len);
-
-
-
-
-
-
-extern __eds__ void *_memcpy_eds_3(const __eds__ void *src, __eds__ void *dst,
-                                   int len);
-# 224 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
-extern __eds__ char *_strcpy_eds(const __eds__ void *src, __eds__ void *dst);
-extern __eds__ char *_strncpy_eds(const __eds__ void *src, __eds__ void *dst,
-                                  int len);
-# 235 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
-extern __eds__ void *_memchr_eds(__eds__ void *s, int c, size_t n);
-# 371 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
-extern void _eedata_helper1 (_prog_addressT dst, int len);
-extern void _eedata_helper2 (void);
-extern void _eedata_helper3 (_prog_addressT dst, int dat);
-extern void _eedata_helper4 (_prog_addressT dst, int *src);
-extern void _eedata_helper5 (_prog_addressT dst, int len);
-extern void _eedata_helper6 (void);
-extern void _eedata_helper7 (_prog_addressT dst, int dat);
-# 393 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
-extern void _flash_helper1 (_prog_addressT dst, int code)
-            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
-extern void _flash_helper2 (_prog_addressT dst, int *src, int len)
-            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
-extern void _flash_helper3 (_prog_addressT dst, long *src, int len)
-            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
-extern void _flash_helper4 (_prog_addressT dst, int dat)
-            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
-extern void _flash_helper5 (_prog_addressT dst, long dat)
-            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
-extern void _flash_helper6 (int code)
-            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
-extern void _flash_helper7 (_prog_addressT dst, int len)
-            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
-extern void _flash_helper8 (_prog_addressT dst, int *src, int len)
-            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
-extern void _flash_helper9 (_prog_addressT dst, long *src, int len)
-            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
-extern void _flash_helper10 (_prog_addressT dst, int dat1, int empty, int dat2)
-            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
-extern void _flash_helper11 (_prog_addressT dst, long dat1, long dat2)
-            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
-# 704 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
-extern int _program_slave(int slave_number, int verify,
-                           __eds__ unsigned char *image);
-
-extern int _program_inactive_slave(int slave_number, int verify,
-                                    __eds__ unsigned char *image);
-
-extern void _start_slave(void);
-extern void _stop_slave(void);
-# 49 "../system.h" 2
-# 64 "../system.h"
-void Init_Clock( void );
-void Init_GI( void );
-void Soft_Reset( void );
-# 21 "../main.c" 2
-# 1 "../priority.h" 1
-# 22 "../main.c" 2
-# 1 "../gpio.h" 1
-# 28 "../gpio.h"
-typedef struct {
-    uint8_t AnaDig;
-    uint8_t InOut;
-    uint8_t PullUp;
-    uint8_t PullDw;
-    uint8_t OpenDr;
-    uint8_t CnEn0;
-    uint8_t CnEn1;
-} gpio_t;
-# 178 "../gpio.h"
-void Config_GPIO( uint8_t *PinId, gpio_t Param );
-void Unlock_GPIOs( void );
-void Lock_GPIOs( void );
-void Config_GPIO( uint8_t *PinId, gpio_t Param );
-void Set_GPIO( uint8_t *PinId, uint8_t State );
-void Toggle_GPIO( uint8_t *PinId );
-uint8_t Get_GPIO( uint8_t *PinId );
-# 23 "../main.c" 2
-# 1 "../led.h" 1
-# 28 "../led.h"
-void Blink_LED0( void *pvParameters );
-void Blink_LED1( void *pvParameters );
+# 30 "../misc.h" 2
+# 52 "../misc.h"
+void ConfigMod_LEDs( void );
+void ConfigMod_Stats( void);
+void ConfigMod_Filter( void );
+void ConfigMod_Watchdog( void );
 # 24 "../main.c" 2
-
-
-
-
-
-
-
-uint8_t LogBuf[50] = {0};
-# 41 "../main.c"
+# 43 "../main.c"
 int main( void ){
 
 
     Init_Clock();
     Init_GI();
+    Init_U1();
 
 
-    xTaskCreate( Blink_LED0, "LED0", 4*(uint16_t) 64,
-            0, (uint16_t) 2, 0 );
-    xTaskCreate( Blink_LED1, "LED1", 4*(uint16_t) 64,
-            (void *)(uint8_t[2]) {(uint8_t) 1,14}, (uint16_t) 3, 0 );
+    ConfigMod_LEDs();
+
+
+    ConfigMod_Stats();
+
+
+    ConfigMod_Filter();
+
+
+    ConfigMod_Watchdog();
 
 
     vTaskStartScheduler();
-
  return 0;
+
 }
-# 68 "../main.c"
+# 77 "../main.c"
 void vApplicationIdleHook( void ){
  vCoRoutineSchedule();
-    Toggle_GPIO((uint8_t[2]) {(uint8_t) 4,0});
 
 }

@@ -1,5 +1,5 @@
 # 1 "../../source/tasks.c"
-# 1 "C:\\Users\\Filippo\\Desktop\\FreeRTOS\\Projects\\Ex1\\mycode\\Ex1"
+# 1 "C:\\Users\\Filippo\\Desktop\\Projects\\Ex1\\mycode\\Ex1"
 # 1 "<built-in>"
 # 1 "<command-line>"
 # 1 "../../source/tasks.c"
@@ -406,7 +406,10 @@ typedef unsigned long long int uintmax_t;
 
 
 # 1 "../FreeRTOSConfig.h" 1
-# 73 "../FreeRTOSConfig.h"
+
+
+
+
 # 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\generic\\h/xc.h" 1 3 4
 # 43 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\generic\\h/xc.h" 3 4
 # 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/builtins.h" 1 3 4
@@ -21545,7 +21548,557 @@ extern __attribute__((space(prog))) __prog__ uint16_t _FS1DMT;
 # 77188 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\dsPIC33C\\h/p33CH512MP508.h" 3 4
 extern __attribute__((space(prog))) __prog__ uint16_t _FBTSEQ;
 # 225 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\generic\\h/xc.h" 2 3 4
-# 74 "../FreeRTOSConfig.h" 2
+# 6 "../FreeRTOSConfig.h" 2
+# 1 "../system.h" 1
+# 24 "../system.h"
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdio.h" 1 3 4
+
+
+
+
+
+
+
+
+# 53 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdio.h" 3 4
+typedef _Fpost fpos_t;
+
+
+
+
+
+typedef struct FILE
+ {
+ unsigned short _Mode;
+ unsigned char _Lockno;
+ signed char _Handle;
+
+ unsigned char *_Buf, *_Bend, *_Next;
+ unsigned char *_Rend, *_Wend, *_Rback;
+
+ _Wchart *_WRback, _WBack[2];
+ unsigned char *_Rsave, *_WRend, *_WWend;
+
+ struct _Mbstatet _Wstate;
+ char *_Tmpnam;
+ unsigned char _Back[1 * 2], _Cbuf;
+ } FILE;
+
+
+
+extern FILE _Stdin, _Stdout, _Stderr;
+
+void clearerr(FILE *);
+int fclose(FILE *);
+int feof(FILE *);
+int ferror(FILE *);
+int _DNKfflush(FILE *);
+int fgetc(FILE *);
+int fgetpos(FILE *, fpos_t *);
+char * fgets(char *, int, FILE *);
+FILE * fopen(const char *, const char *);
+int fprintf(FILE *, const char *, ...);
+int fputc(int, FILE *);
+int fputs(const char *, FILE *);
+size_t fread(void *, size_t, size_t, FILE *);
+FILE * freopen(const char *, const char *,
+ FILE *);
+int fscanf(FILE *, const char *, ...);
+int fseek(FILE *, long, int);
+int fsetpos(FILE *, const fpos_t *);
+long ftell(FILE *);
+size_t fwrite(const void *, size_t, size_t, FILE *);
+char * gets(char *);
+void perror(const char *);
+int printf(const char *, ...);
+int puts(const char *);
+int remove(const char *);
+int rename(const char *, const char *);
+void rewind(FILE *);
+int scanf(const char *, ...);
+void setbuf(FILE *, char *);
+int setvbuf(FILE *, char *, int, size_t);
+int sprintf(char *, const char *, ...);
+int sscanf(const char *, const char *, ...);
+FILE * tmpfile(void); char * tmpnam(char *);
+int ungetc(int, FILE *);
+int vfprintf(FILE *, const char *, _Va_list);
+int vprintf(const char *, _Va_list);
+int vsprintf(char *, const char *, _Va_list);
+
+
+
+
+
+
+long _Fgpos(FILE *, fpos_t *);
+int _Flocale(FILE *, const char *, int);
+void _Fsetlocale(FILE *, int);
+int _Fspos(FILE *, const fpos_t *, long, int);
+
+
+
+
+
+
+extern FILE *_Files[8];
+
+
+
+
+
+# 174 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdio.h" 3 4
+
+int getc(FILE *);
+int getchar(void);
+int putc(int, FILE *);
+int putchar(int);
+
+# 191 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdio.h" 3 4
+
+# 25 "../system.h" 2
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdlib.h" 1 3 4
+# 26 "../system.h" 2
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/string.h" 1 3 4
+# 27 "../system.h" 2
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdbool.h" 1 3 4
+# 28 "../system.h" 2
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdint.h" 1 3 4
+# 29 "../system.h" 2
+
+# 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\generic\\h/xc.h" 1 3 4
+# 43 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\generic\\h/xc.h" 3 4
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/builtins.h" 1 3 4
+# 42 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/builtins.h" 3 4
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdint.h" 1 3 4
+# 43 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/builtins.h" 2 3 4
+
+void __builtin_write_OSCCONL(
+        uint16_t);
+void __builtin_write_OSCCONH(
+        uint16_t);
+void __builtin_write_DISICNT(
+        uint16_t);
+void __builtin_write_NVM(
+        void);
+void __builtin_write_CRYOTP(
+        void);
+void __builtin_write_DATAFLASH(
+        void);
+void __builtin_write_NVM_secure(
+        uint16_t,
+        uint16_t);
+void __builtin_write_DATAFLASH_secure(
+        uint16_t,
+        uint16_t);
+void __builtin_write_RTCWEN(
+        void);
+void __builtin_write_RTCC_WRLOCK(
+        void);
+void __builtin_write_PWMSFR(
+        volatile uint16_t *,
+        uint16_t,
+        volatile uint16_t *);
+void __builtin_write_RPCON(
+        uint16_t);
+uint16_t __builtin_readsfr(
+        volatile void *);
+void __builtin_writesfr(
+        volatile void *,
+        uint16_t);
+
+uint16_t __builtin_edspage();
+uint16_t __builtin_tblpage();
+uint16_t __builtin_edsoffset();
+uint16_t __builtin_dataflashoffset();
+uint16_t __builtin_tbloffset();
+uint16_t __builtin_psvpage();
+uint16_t __builtin_psvoffset();
+uint16_t __builtin_dmaoffset();
+uint16_t __builtin_dmapage();
+uint32_t __builtin_tbladdress();
+
+void __builtin_nop(
+        void);
+int16_t __builtin_divsd(
+        const int32_t,
+        const int16_t);
+int16_t __builtin_modsd(
+        const int32_t,
+        const int16_t);
+int16_t __builtin_divmodsd(
+        const int32_t,
+        const int16_t,
+        int16_t *);
+uint16_t __builtin_divud(
+        const uint32_t,
+        const uint16_t);
+uint16_t __builtin_modud(
+        const uint32_t,
+        const uint16_t);
+uint16_t __builtin_divmodud(
+        const uint32_t,
+        const uint16_t,
+        uint16_t *);
+uint16_t __builtin_divf(
+        uint16_t,
+        uint16_t);
+int32_t __builtin_mulss(
+        const int16_t,
+        const int16_t);
+uint32_t __builtin_muluu(
+        const uint16_t,
+        const uint16_t);
+int32_t __builtin_mulsu(
+        const int16_t,
+        const uint16_t);
+int32_t __builtin_mulus(
+        const uint16_t,
+        const int16_t);
+void __builtin_btg(
+        uint16_t *,
+        const uint16_t);
+int16_t __builtin_addab(
+        int16_t,
+        int16_t);
+int16_t __builtin_add(
+        int16_t,
+        int16_t,
+        int16_t);
+int16_t __builtin_clr(
+        void);
+int16_t __builtin_clr_prefetch(
+        int16_t * *,
+        int16_t *,
+        int16_t,
+        int16_t * *,
+        int16_t *,
+        int16_t,
+        int16_t *,
+        int16_t);
+int16_t __builtin_ed(
+        int16_t,
+        int16_t * *,
+        int16_t,
+        int16_t * *,
+        int16_t,
+        int16_t *);
+int16_t __builtin_edac(
+        int16_t,
+        int16_t,
+        int16_t * *,
+        int16_t,
+        int16_t * *,
+        int16_t,
+        int16_t *);
+int16_t __builtin_fbcl(
+        int16_t);
+int16_t __builtin_lac(
+        int16_t,
+        int16_t);
+int16_t __builtin_lacd(
+        int32_t,
+        int16_t);
+int16_t __builtin_mac(
+        int16_t,
+        int16_t,
+        int16_t,
+        int16_t * *,
+        int16_t *,
+        int16_t,
+        int16_t * *,
+        int16_t *,
+        int16_t,
+        int16_t *,
+        int16_t);
+void __builtin_movsac(
+        int16_t * *,
+        int16_t *,
+        int16_t,
+        int16_t * *,
+        int16_t *,
+        int16_t,
+        int16_t *,
+        int16_t);
+int16_t __builtin_mpy(
+        int16_t,
+        int16_t,
+        int16_t * *,
+        int16_t *,
+        int16_t,
+        int16_t * *,
+        int16_t *,
+        int16_t);
+int16_t __builtin_mpyn(
+        int16_t,
+        int16_t,
+        int16_t * *,
+        int16_t *,
+        int16_t,
+        int16_t * *,
+        int16_t *,
+        int16_t);
+int16_t __builtin_msc(
+        int16_t,
+        int16_t,
+        int16_t,
+        int16_t * *,
+        int16_t *,
+        int16_t,
+        int16_t * *,
+        int16_t *,
+        int16_t,
+        int16_t *,
+        int16_t);
+int16_t __builtin_sac(
+        int16_t,
+        int16_t);
+int32_t __builtin_sacd(
+        int16_t,
+        int16_t);
+int16_t __builtin_sacr(
+        int16_t,
+        int16_t);
+int16_t __builtin_sftac(
+        int16_t,
+        int16_t);
+int16_t __builtin_subab(
+        int16_t,
+        int16_t);
+int16_t __builtin_ACCL(
+        int16_t);
+int16_t __builtin_ACCH(
+        int16_t);
+int16_t __builtin_ACCU(
+        int16_t);
+uint16_t __builtin_tblrdl(
+        uint16_t);
+uint16_t __builtin_tblrdh(
+        uint16_t);
+unsigned char __builtin_tblrdhb(
+        uint16_t);
+unsigned char __builtin_tblrdlb(
+        uint16_t);
+void __builtin_tblwtl(
+        uint16_t,
+        uint16_t);
+void __builtin_tblwth(
+        uint16_t,
+        uint16_t);
+void __builtin_tblwtlb(
+        uint16_t,
+        unsigned char);
+void __builtin_tblwthb(
+        uint16_t,
+        unsigned char);
+void __builtin_disi(
+        int16_t);
+uint32_t __builtin_section_begin(
+        const char *);
+uint32_t __builtin_section_size(
+        const char *);
+uint32_t __builtin_section_end(
+        const char *);
+uint16_t __builtin_get_isr_state(
+        void);
+void __builtin_set_isr_state(
+        uint16_t);
+void __builtin_disable_interrupts(
+        void);
+void __builtin_enable_interrupts(
+        void);
+void __builtin_software_breakpoint(
+        void);
+
+uint16_t __builtin_addr_low();
+uint16_t __builtin_addr_high();
+uint32_t __builtin_addr();
+
+void __builtin_pwrsav(
+        uint16_t);
+void __builtin_clrwdt(
+        void);
+void _Static_assert(
+        uint16_t,
+        const char *);
+uint16_t __builtin_ff1l(
+        uint16_t);
+uint16_t __builtin_ff1r(
+        uint16_t);
+uint16_t __builtin_swap(
+        uint16_t);
+unsigned char __builtin_swap_byte(
+        unsigned char);
+int16_t __builtin_flim(
+        int16_t,
+        int16_t,
+        int16_t);
+int16_t __builtin_flim_excess(
+        int16_t,
+        int16_t,
+        int16_t,
+        int16_t *);
+int16_t __builtin_flimv_excess(
+        int16_t,
+        int16_t,
+        int16_t,
+        int16_t *);
+int16_t __builtin_min(
+        int16_t,
+        int16_t);
+int16_t __builtin_max(
+        int16_t,
+        int16_t);
+int16_t __builtin_min_excess(
+        int16_t,
+        int16_t,
+        int16_t *);
+int16_t __builtin_minv_excess(
+        int16_t,
+        int16_t,
+        int16_t *);
+int16_t __builtin_max_excess(
+        int16_t,
+        int16_t,
+        int16_t *);
+int16_t __builtin_maxv_excess(
+        int16_t,
+        int16_t,
+        int16_t *);
+# 44 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\generic\\h/xc.h" 2 3 4
+# 224 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\generic\\h/xc.h" 3 4
+# 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\dsPIC33C\\h/p33CH512MP508.h" 1 3 4
+# 42 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\dsPIC33C\\h/p33CH512MP508.h" 3 4
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdint.h" 1 3 4
+# 43 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\dsPIC33C\\h/p33CH512MP508.h" 2 3 4
+# 225 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\generic\\h/xc.h" 2 3 4
+# 31 "../system.h" 2
+# 41 "../system.h"
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 1 3 4
+# 12 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/subordinate_errors.h" 1 3 4
+# 13 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 2 3 4
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stddef.h" 1 3 4
+# 14 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 2 3 4
+# 25 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern int __attach_input_file(const char *f);
+void __close_input_file(void);
+# 36 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern int __C30_UART;
+# 46 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern void __delay32(unsigned long cycles);
+# 84 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern __attribute__((space(prog))) int _PROGRAM_END;
+# 97 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern void _dump_heap_info(void);
+# 116 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+typedef unsigned long _prog_addressT;
+
+extern _prog_addressT _memcpy_helper(_prog_addressT src, void *dst,
+                                     unsigned int len, int flags);
+# 129 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern void *_memcpy_df(__pack_upper_byte void *src,void *dst,unsigned int len);
+# 148 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+_prog_addressT _memcpy_p2d16(void *dest, _prog_addressT src,
+                             unsigned int len);
+# 160 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+_prog_addressT _memcpy_p2d24(void *dest, _prog_addressT src,
+                             unsigned int len);
+# 173 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+_prog_addressT _strncpy_p2d16(char *dest, _prog_addressT src,
+                              unsigned int len);
+# 186 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+_prog_addressT _strncpy_p2d24(char *dest, _prog_addressT src,
+                              unsigned int len);
+
+
+
+
+
+
+
+void *_memcpy_packed(char *dest, const __pack_upper_byte void *src,
+                     unsigned int len);
+
+
+
+extern char *_strcpy_packed(char *dest, const __pack_upper_byte void *src);
+extern char *_strncpy_packed(char *dest, const __pack_upper_byte void *src,
+                             unsigned int len);
+
+
+
+
+
+
+extern __eds__ void *_memcpy_eds_3(const __eds__ void *src, __eds__ void *dst,
+                                   int len);
+# 224 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern __eds__ char *_strcpy_eds(const __eds__ void *src, __eds__ void *dst);
+extern __eds__ char *_strncpy_eds(const __eds__ void *src, __eds__ void *dst,
+                                  int len);
+# 235 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern __eds__ void *_memchr_eds(__eds__ void *s, int c, size_t n);
+# 371 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern void _eedata_helper1 (_prog_addressT dst, int len);
+extern void _eedata_helper2 (void);
+extern void _eedata_helper3 (_prog_addressT dst, int dat);
+extern void _eedata_helper4 (_prog_addressT dst, int *src);
+extern void _eedata_helper5 (_prog_addressT dst, int len);
+extern void _eedata_helper6 (void);
+extern void _eedata_helper7 (_prog_addressT dst, int dat);
+# 393 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern void _flash_helper1 (_prog_addressT dst, int code)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper2 (_prog_addressT dst, int *src, int len)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper3 (_prog_addressT dst, long *src, int len)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper4 (_prog_addressT dst, int dat)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper5 (_prog_addressT dst, long dat)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper6 (int code)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper7 (_prog_addressT dst, int len)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper8 (_prog_addressT dst, int *src, int len)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper9 (_prog_addressT dst, long *src, int len)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper10 (_prog_addressT dst, int dat1, int empty, int dat2)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+extern void _flash_helper11 (_prog_addressT dst, long dat1, long dat2)
+            __attribute__((deprecated("consider migrating to Microchip Code Configurator https://www.microchip.com/mcc")));
+# 704 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\support\\generic\\h/libpic30.h" 3 4
+extern int _program_slave(int slave_number, int verify,
+                           __eds__ unsigned char *image);
+
+extern int _program_inactive_slave(int slave_number, int verify,
+                                    __eds__ unsigned char *image);
+
+extern void _start_slave(void);
+extern void _stop_slave(void);
+# 42 "../system.h" 2
+# 59 "../system.h"
+void Init_Clock( void );
+void Init_GI( void );
+void Soft_Reset( void );
+
+void Init_U1( void );
+void Add_Printf_udec8( uint8_t WordIn );
+void Add_Printf_udec16( uint16_t WordIn );
+void Add_Printf_udec32( uint32_t WordIn );
+void Add_Printf_str( const char * Str, uint16_t Len );
+void Start_Printf( void );
+
+void Config_CCT8( void );
+uint32_t Get_CCT8( void );
+
+void Init_ADC( void );
+void Disable_SELF_TEST( void );
+void Init_DAC( void );
+# 7 "../FreeRTOSConfig.h" 2
 # 99 "../../source/include/FreeRTOS.h" 2
 
 
@@ -21650,12 +22203,25 @@ typedef struct xSTATIC_TCB
  StaticListItem_t xDummy3[ 2 ];
  UBaseType_t uxDummy5;
  void *pxDummy6;
- uint8_t ucDummy7[ ( 4 ) ];
+ uint8_t ucDummy7[ ( 8 ) ];
 
   void *pxDummy8;
-# 936 "../../source/include/FreeRTOS.h"
+
+
+
+
+
+  UBaseType_t uxDummy10[ 2 ];
+
+
   UBaseType_t uxDummy12[ 2 ];
-# 951 "../../source/include/FreeRTOS.h"
+# 945 "../../source/include/FreeRTOS.h"
+  uint32_t ulDummy16;
+
+
+
+
+
   uint32_t ulDummy18;
   uint8_t ucDummy19;
 
@@ -21678,7 +22244,11 @@ typedef struct xSTATIC_QUEUE
  StaticList_t xDummy3[ 2 ];
  UBaseType_t uxDummy4[ 3 ];
  uint8_t ucDummy5[ 2 ];
-# 1001 "../../source/include/FreeRTOS.h"
+# 997 "../../source/include/FreeRTOS.h"
+  UBaseType_t uxDummy8;
+  uint8_t ucDummy9;
+
+
 } StaticQueue_t;
 typedef StaticQueue_t StaticSemaphore_t;
 # 1018 "../../source/include/FreeRTOS.h"
@@ -21686,7 +22256,15 @@ typedef struct xSTATIC_EVENT_GROUP
 {
  TickType_t xDummy1;
  StaticList_t xDummy2;
-# 1031 "../../source/include/FreeRTOS.h"
+
+
+  UBaseType_t uxDummy3;
+
+
+
+
+
+
 } StaticEventGroup_t;
 # 1047 "../../source/include/FreeRTOS.h"
 typedef struct xSTATIC_TIMER
@@ -21696,7 +22274,14 @@ typedef struct xSTATIC_TIMER
  TickType_t xDummy3;
  UBaseType_t uxDummy4;
  void *pvDummy5[ 2 ];
-# 1062 "../../source/include/FreeRTOS.h"
+
+  UBaseType_t uxDummy6;
+
+
+
+
+
+
 } StaticTimer_t;
 # 81 "../../source/tasks.c" 2
 # 1 "../../source/include/task.h" 1
@@ -22049,6 +22634,9 @@ BaseType_t xTimerGenericCommand( TimerHandle_t xTimer, const BaseType_t xCommand
 # 83 "../../source/tasks.c" 2
 # 1 "../../source/include/StackMacros.h" 1
 # 84 "../../source/tasks.c" 2
+# 98 "../../source/tasks.c"
+# 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdio.h" 1 3 4
+# 99 "../../source/tasks.c" 2
 # 293 "../../source/tasks.c"
 typedef struct tskTaskControlBlock
 {
@@ -22062,13 +22650,26 @@ typedef struct tskTaskControlBlock
  ListItem_t xEventListItem;
  UBaseType_t uxPriority;
  StackType_t *pxStack;
- char pcTaskName[ ( 4 ) ];
+ char pcTaskName[ ( 8 ) ];
 
 
   StackType_t *pxEndOfStack;
-# 321 "../../source/tasks.c"
+
+
+
+
+
+
+
+  UBaseType_t uxTCBNumber;
+  UBaseType_t uxTaskNumber;
+
+
+
   UBaseType_t uxBasePriority;
   UBaseType_t uxMutexesHeld;
+# 334 "../../source/tasks.c"
+  uint32_t ulRunTimeCounter;
 # 349 "../../source/tasks.c"
   volatile uint32_t ulNotifiedValue;
   volatile uint8_t ucNotifyState;
@@ -22085,7 +22686,7 @@ typedef tskTCB TCB_t;
  TCB_t * volatile pxCurrentTCB = 0;
 
 
- static List_t pxReadyTasksLists[ ( 4 ) ];
+ static List_t pxReadyTasksLists[ ( 10 ) ];
  static List_t xDelayedTaskList1;
  static List_t xDelayedTaskList2;
  static List_t * volatile pxDelayedTaskList;
@@ -22109,6 +22710,11 @@ typedef tskTCB TCB_t;
  static TaskHandle_t xIdleTaskHandle = 0;
 # 415 "../../source/tasks.c"
  static volatile UBaseType_t uxSchedulerSuspended = ( UBaseType_t ) ( ( BaseType_t ) 0 );
+
+
+
+ static uint32_t ulTaskSwitchedInTime = 0UL;
+ static uint32_t ulTotalRunTime = 0UL;
 # 449 "../../source/tasks.c"
  static BaseType_t prvTaskIsTaskSuspended( const TaskHandle_t xTask ) ;
 
@@ -22128,9 +22734,27 @@ static void prvCheckTasksWaitingTermination( void ) ;
 
 
 static void prvAddCurrentTaskToDelayedList( TickType_t xTicksToWait, const BaseType_t xCanBlockIndefinitely ) ;
+# 507 "../../source/tasks.c"
+ static UBaseType_t prvListTasksWithinSingleList( TaskStatus_t *pxTaskStatusArray, List_t *pxList, eTaskState eState ) ;
+# 528 "../../source/tasks.c"
+ static uint16_t prvTaskCheckFreeStackSpace( const uint8_t * pucStackByte ) ;
 # 551 "../../source/tasks.c"
 static void prvResetNextTaskUnblockTime( void );
-# 567 "../../source/tasks.c"
+
+
+
+
+
+
+
+ static char *prvWriteNameToBuffer( char *pcBuffer, const char *pcTaskName ) ;
+
+
+
+
+
+
+
 static void prvInitialiseNewTask( TaskFunction_t pxTaskCode,
          const char * const pcName,
          const uint32_t ulStackDepth,
@@ -22211,6 +22835,11 @@ static void prvInitialiseNewTask( TaskFunction_t pxTaskCode,
 {
 StackType_t *pxTopOfStack;
 UBaseType_t x;
+# 795 "../../source/tasks.c"
+ {
+
+  ( void ) memset( pxNewTCB->pxStack, ( int ) ( 0xa5U ), ( size_t ) ulStackDepth * sizeof( StackType_t ) );
+ }
 # 814 "../../source/tasks.c"
  {
   pxTopOfStack = pxNewTCB->pxStack;
@@ -22225,7 +22854,7 @@ UBaseType_t x;
 
 
 
- for( x = ( UBaseType_t ) 0; x < ( UBaseType_t ) ( 4 ); x++ )
+ for( x = ( UBaseType_t ) 0; x < ( UBaseType_t ) ( 8 ); x++ )
  {
   pxNewTCB->pcTaskName[ x ] = pcName[ x ];
 
@@ -22244,13 +22873,13 @@ UBaseType_t x;
 
 
 
- pxNewTCB->pcTaskName[ ( 4 ) - 1 ] = '\0';
+ pxNewTCB->pcTaskName[ ( 8 ) - 1 ] = '\0';
 
 
 
- if( uxPriority >= ( UBaseType_t ) ( 4 ) )
+ if( uxPriority >= ( UBaseType_t ) ( 10 ) )
  {
-  uxPriority = ( UBaseType_t ) ( 4 ) - ( UBaseType_t ) 1U;
+  uxPriority = ( UBaseType_t ) ( 10 ) - ( UBaseType_t ) 1U;
  }
  else
  {
@@ -22273,9 +22902,19 @@ UBaseType_t x;
  ( ( &( pxNewTCB->xStateListItem ) )->pvOwner = ( void * ) ( pxNewTCB ) );
 
 
- ( ( &( pxNewTCB->xEventListItem ) )->xItemValue = ( ( TickType_t ) ( 4 ) - ( TickType_t ) uxPriority ) );
+ ( ( &( pxNewTCB->xEventListItem ) )->xItemValue = ( ( TickType_t ) ( 10 ) - ( TickType_t ) uxPriority ) );
  ( ( &( pxNewTCB->xEventListItem ) )->pvOwner = ( void * ) ( pxNewTCB ) );
-# 901 "../../source/tasks.c"
+# 891 "../../source/tasks.c"
+ {
+  pxNewTCB->ulRunTimeCounter = 0UL;
+ }
+
+
+
+
+
+
+
  {
 
   ( void ) xRegions;
@@ -22354,10 +22993,10 @@ static void prvAddNewTaskToReadyList( TCB_t *pxNewTCB )
   uxTaskNumber++;
 
 
+  {
 
-
-
-
+   pxNewTCB->uxTCBNumber = uxTaskNumber;
+  }
 
   ;
 
@@ -22502,6 +23141,66 @@ static void prvAddNewTaskToReadyList( TCB_t *pxNewTCB )
    ;
   }
  }
+
+
+
+
+
+
+ eTaskState eTaskGetState( TaskHandle_t xTask )
+ {
+ eTaskState eReturn;
+ List_t *pxStateList;
+ const TCB_t * const pxTCB = ( TCB_t * ) xTask;
+
+  ;
+
+  if( pxTCB == pxCurrentTCB )
+  {
+
+   eReturn = eRunning;
+  }
+  else
+  {
+   vPortEnterCritical();
+   {
+    pxStateList = ( List_t * ) ( ( &( pxTCB->xStateListItem ) )->pvContainer );
+   }
+   vPortExitCritical();
+
+   if( ( pxStateList == pxDelayedTaskList ) || ( pxStateList == pxOverflowDelayedTaskList ) )
+   {
+
+
+    eReturn = eBlocked;
+   }
+
+
+    else if( pxStateList == &xSuspendedTaskList )
+    {
+
+
+
+     if( ( ( &( pxTCB->xEventListItem ) )->pvContainer ) == 0 )
+     {
+      eReturn = eSuspended;
+     }
+     else
+     {
+      eReturn = eBlocked;
+     }
+    }
+# 1324 "../../source/tasks.c"
+   else
+   {
+
+
+    eReturn = eReady;
+   }
+  }
+
+  return eReturn;
+ }
 # 1402 "../../source/tasks.c"
  void vTaskPrioritySet( TaskHandle_t xTask, UBaseType_t uxNewPriority )
  {
@@ -22512,9 +23211,9 @@ static void prvAddNewTaskToReadyList( TCB_t *pxNewTCB )
   ;
 
 
-  if( uxNewPriority >= ( UBaseType_t ) ( 4 ) )
+  if( uxNewPriority >= ( UBaseType_t ) ( 10 ) )
   {
-   uxNewPriority = ( UBaseType_t ) ( 4 ) - ( UBaseType_t ) 1U;
+   uxNewPriority = ( UBaseType_t ) ( 10 ) - ( UBaseType_t ) 1U;
   }
   else
   {
@@ -22604,7 +23303,7 @@ static void prvAddNewTaskToReadyList( TCB_t *pxNewTCB )
 # 1508 "../../source/tasks.c"
     if( ( ( ( &( pxTCB->xEventListItem ) )->xItemValue ) & 0x8000U ) == 0UL )
     {
-     ( ( &( pxTCB->xEventListItem ) )->xItemValue = ( ( ( TickType_t ) ( 4 ) - ( TickType_t ) uxNewPriority ) ) );
+     ( ( &( pxTCB->xEventListItem ) )->xItemValue = ( ( ( TickType_t ) ( 10 ) - ( TickType_t ) uxNewPriority ) ) );
     }
     else
     {
@@ -22911,7 +23610,7 @@ BaseType_t xReturn;
  {
 
   xReturn = xTaskCreate( prvIdleTask,
-        "IDLE", ( 105 ),
+        "IDLE", ( 6*( uint16_t ) 20 ),
         ( void * ) 0,
         ( ( ( UBaseType_t ) 0U ) | ( ( UBaseType_t ) 0x00 ) ),
         &xIdleTaskHandle );
@@ -22947,7 +23646,7 @@ BaseType_t xReturn;
 
 
 
-  ;
+  Config_CCT8();
 
 
 
@@ -23155,6 +23854,59 @@ TCB_t *pxTCB;
  ;
  return &( pxTCB->pcTaskName[ 0 ] );
 }
+# 2321 "../../source/tasks.c"
+ UBaseType_t uxTaskGetSystemState( TaskStatus_t * const pxTaskStatusArray, const UBaseType_t uxArraySize, uint32_t * const pulTotalRunTime )
+ {
+ UBaseType_t uxTask = 0, uxQueue = ( 10 );
+
+  vTaskSuspendAll();
+  {
+
+   if( uxArraySize >= uxCurrentNumberOfTasks )
+   {
+
+
+    do
+    {
+     uxQueue--;
+     uxTask += prvListTasksWithinSingleList( &( pxTaskStatusArray[ uxTask ] ), &( pxReadyTasksLists[ uxQueue ] ), eReady );
+
+    } while( uxQueue > ( UBaseType_t ) ( ( UBaseType_t ) 0U ) );
+
+
+
+    uxTask += prvListTasksWithinSingleList( &( pxTaskStatusArray[ uxTask ] ), ( List_t * ) pxDelayedTaskList, eBlocked );
+    uxTask += prvListTasksWithinSingleList( &( pxTaskStatusArray[ uxTask ] ), ( List_t * ) pxOverflowDelayedTaskList, eBlocked );
+# 2353 "../../source/tasks.c"
+    {
+
+
+     uxTask += prvListTasksWithinSingleList( &( pxTaskStatusArray[ uxTask ] ), &xSuspendedTaskList, eSuspended );
+    }
+
+
+
+    {
+     if( pulTotalRunTime != 0 )
+     {
+
+
+
+       *pulTotalRunTime = Get_CCT8();
+
+     }
+    }
+# 2379 "../../source/tasks.c"
+   }
+   else
+   {
+    ;
+   }
+  }
+  ( void ) xTaskResumeAll();
+
+  return uxTask;
+ }
 # 2501 "../../source/tasks.c"
 BaseType_t xTaskIncrementTick( void ){
 
@@ -23317,7 +24069,27 @@ void vTaskSwitchContext( void )
  {
   xYieldPending = ( ( BaseType_t ) 0 );
   ;
-# 2806 "../../source/tasks.c"
+
+
+  {
+
+
+
+     ulTotalRunTime = Get_CCT8();
+# 2793 "../../source/tasks.c"
+    if( ulTotalRunTime > ulTaskSwitchedInTime )
+    {
+     pxCurrentTCB->ulRunTimeCounter += ( ulTotalRunTime - ulTaskSwitchedInTime );
+    }
+    else
+    {
+     ;
+    }
+    ulTaskSwitchedInTime = ulTotalRunTime;
+  }
+
+
+
   ;
 
 
@@ -23533,6 +24305,43 @@ void vTaskMissedYield( void )
 {
  xYieldPending = ( ( BaseType_t ) 1 );
 }
+
+
+
+
+ UBaseType_t uxTaskGetTaskNumber( TaskHandle_t xTask )
+ {
+ UBaseType_t uxReturn;
+ TCB_t *pxTCB;
+
+  if( xTask != 0 )
+  {
+   pxTCB = ( TCB_t * ) xTask;
+   uxReturn = pxTCB->uxTaskNumber;
+  }
+  else
+  {
+   uxReturn = 0U;
+  }
+
+  return uxReturn;
+ }
+
+
+
+
+
+
+ void vTaskSetTaskNumber( TaskHandle_t xTask, const UBaseType_t uxHandle )
+ {
+ TCB_t *pxTCB;
+
+  if( xTask != 0 )
+  {
+   pxTCB = ( TCB_t * ) xTask;
+   pxTCB->uxTaskNumber = uxHandle;
+  }
+ }
 # 3135 "../../source/tasks.c"
 static void prvIdleTask( void *pvParameters )
 {
@@ -23580,7 +24389,7 @@ static void prvInitialiseTaskLists( void )
 {
 UBaseType_t uxPriority;
 
- for( uxPriority = ( UBaseType_t ) 0U; uxPriority < ( UBaseType_t ) ( 4 ); uxPriority++ )
+ for( uxPriority = ( UBaseType_t ) 0U; uxPriority < ( UBaseType_t ) ( 10 ); uxPriority++ )
  {
   vListInitialise( &( pxReadyTasksLists[ uxPriority ] ) );
  }
@@ -23605,6 +24414,138 @@ static void prvCheckTasksWaitingTermination( void )
 {
 # 3410 "../../source/tasks.c"
 }
+
+
+
+
+ void vTaskGetInfo( TaskHandle_t xTask, TaskStatus_t *pxTaskStatus, BaseType_t xGetFreeStackSpace, eTaskState eState )
+ {
+ TCB_t *pxTCB;
+
+
+  pxTCB = ( ( ( xTask ) == 0 ) ? ( TCB_t * ) pxCurrentTCB : ( TCB_t * ) ( xTask ) );
+
+  pxTaskStatus->xHandle = ( TaskHandle_t ) pxTCB;
+  pxTaskStatus->pcTaskName = ( const char * ) &( pxTCB->pcTaskName [ 0 ] );
+  pxTaskStatus->uxCurrentPriority = pxTCB->uxPriority;
+  pxTaskStatus->pxStackBase = pxTCB->pxStack;
+  pxTaskStatus->xTaskNumber = pxTCB->uxTCBNumber;
+
+
+  {
+
+
+
+   if( pxTaskStatus->eCurrentState == eSuspended )
+   {
+    vTaskSuspendAll();
+    {
+     if( ( ( &( pxTCB->xEventListItem ) )->pvContainer ) != 0 )
+     {
+      pxTaskStatus->eCurrentState = eBlocked;
+     }
+    }
+    xTaskResumeAll();
+   }
+  }
+
+
+
+  {
+   pxTaskStatus->uxBasePriority = pxTCB->uxBasePriority;
+  }
+
+
+
+
+
+
+
+  {
+   pxTaskStatus->ulRunTimeCounter = pxTCB->ulRunTimeCounter;
+  }
+# 3470 "../../source/tasks.c"
+  if( eState != eInvalid )
+  {
+   pxTaskStatus->eCurrentState = eState;
+  }
+  else
+  {
+   pxTaskStatus->eCurrentState = eTaskGetState( xTask );
+  }
+
+
+
+  if( xGetFreeStackSpace != ( ( BaseType_t ) 0 ) )
+  {
+
+   {
+    pxTaskStatus->usStackHighWaterMark = prvTaskCheckFreeStackSpace( ( uint8_t * ) pxTCB->pxEndOfStack );
+   }
+
+
+
+
+
+  }
+  else
+  {
+   pxTaskStatus->usStackHighWaterMark = 0;
+  }
+ }
+
+
+
+
+
+
+ static UBaseType_t prvListTasksWithinSingleList( TaskStatus_t *pxTaskStatusArray, List_t *pxList, eTaskState eState )
+ {
+ volatile TCB_t *pxNextTCB, *pxFirstTCB;
+ UBaseType_t uxTask = 0;
+
+  if( ( ( pxList )->uxNumberOfItems ) > ( UBaseType_t ) 0 )
+  {
+   { List_t * const pxConstList = ( pxList ); ( pxConstList )->pxIndex = ( pxConstList )->pxIndex->pxNext; if( ( void * ) ( pxConstList )->pxIndex == ( void * ) &( ( pxConstList )->xListEnd ) ) { ( pxConstList )->pxIndex = ( pxConstList )->pxIndex->pxNext; } ( pxFirstTCB ) = ( pxConstList )->pxIndex->pvOwner; };
+
+
+
+
+
+   do
+   {
+    { List_t * const pxConstList = ( pxList ); ( pxConstList )->pxIndex = ( pxConstList )->pxIndex->pxNext; if( ( void * ) ( pxConstList )->pxIndex == ( void * ) &( ( pxConstList )->xListEnd ) ) { ( pxConstList )->pxIndex = ( pxConstList )->pxIndex->pxNext; } ( pxNextTCB ) = ( pxConstList )->pxIndex->pvOwner; };
+    vTaskGetInfo( ( TaskHandle_t ) pxNextTCB, &( pxTaskStatusArray[ uxTask ] ), ( ( BaseType_t ) 1 ), eState );
+    uxTask++;
+   } while( pxNextTCB != pxFirstTCB );
+  }
+  else
+  {
+   ;
+  }
+
+  return uxTask;
+ }
+
+
+
+
+
+
+ static uint16_t prvTaskCheckFreeStackSpace( const uint8_t * pucStackByte )
+ {
+ uint32_t ulCount = 0U;
+
+  while( *pucStackByte == ( uint8_t ) ( 0xa5U ) )
+  {
+   pucStackByte -= 1;
+   ulCount++;
+  }
+
+  ulCount /= ( uint32_t ) sizeof( StackType_t );
+
+  return ( uint16_t ) ulCount;
+ }
 # 3639 "../../source/tasks.c"
 static void prvResetNextTaskUnblockTime( void )
 {
@@ -23695,7 +24636,7 @@ TCB_t *pxTCB;
 
     if( ( ( ( &( pxTCB->xEventListItem ) )->xItemValue ) & 0x8000U ) == 0UL )
     {
-     ( ( &( pxTCB->xEventListItem ) )->xItemValue = ( ( TickType_t ) ( 4 ) - ( TickType_t ) pxCurrentTCB->uxPriority ) );
+     ( ( &( pxTCB->xEventListItem ) )->xItemValue = ( ( TickType_t ) ( 10 ) - ( TickType_t ) pxCurrentTCB->uxPriority ) );
     }
     else
     {
@@ -23788,7 +24729,7 @@ TCB_t *pxTCB;
 
 
 
-     ( ( &( pxTCB->xEventListItem ) )->xItemValue = ( ( TickType_t ) ( 4 ) - ( TickType_t ) pxTCB->uxPriority ) );
+     ( ( &( pxTCB->xEventListItem ) )->xItemValue = ( ( TickType_t ) ( 10 ) - ( TickType_t ) pxTCB->uxPriority ) );
      ; { if( ( ( pxTCB )->uxPriority ) > uxTopReadyPriority ) { uxTopReadyPriority = ( ( pxTCB )->uxPriority ); } }; vListInsertEnd( &( pxReadyTasksLists[ ( pxTCB )->uxPriority ] ), &( ( pxTCB )->xStateListItem ) ); ;
 # 3832 "../../source/tasks.c"
      xReturn = ( ( BaseType_t ) 1 );
@@ -23810,7 +24751,195 @@ TCB_t *pxTCB;
 
   return xReturn;
  }
-# 4166 "../../source/tasks.c"
+# 3920 "../../source/tasks.c"
+ static char *prvWriteNameToBuffer( char *pcBuffer, const char *pcTaskName )
+ {
+ size_t x;
+
+
+  strcpy( pcBuffer, pcTaskName );
+
+
+
+  for( x = strlen( pcBuffer ); x < ( size_t ) ( ( 8 ) - 1 ); x++ )
+  {
+   pcBuffer[ x ] = ' ';
+  }
+
+
+  pcBuffer[ x ] = 0x00;
+
+
+  return &( pcBuffer[ x ] );
+ }
+
+
+
+
+
+
+ void vTaskList( char * pcWriteBuffer )
+ {
+ TaskStatus_t *pxTaskStatusArray;
+ volatile UBaseType_t uxArraySize, x;
+ char cStatus;
+# 3978 "../../source/tasks.c"
+  *pcWriteBuffer = 0x00;
+
+
+
+  uxArraySize = uxCurrentNumberOfTasks;
+
+
+
+
+  pxTaskStatusArray = pvPortMalloc( uxCurrentNumberOfTasks * sizeof( TaskStatus_t ) );
+
+  if( pxTaskStatusArray != 0 )
+  {
+
+   uxArraySize = uxTaskGetSystemState( pxTaskStatusArray, uxArraySize, 0 );
+
+
+   for( x = 0; x < uxArraySize; x++ )
+   {
+    switch( pxTaskStatusArray[ x ].eCurrentState )
+    {
+     case eReady: cStatus = ( 'R' );
+          break;
+
+     case eBlocked: cStatus = ( 'B' );
+          break;
+
+     case eSuspended: cStatus = ( 'S' );
+          break;
+
+     case eDeleted: cStatus = ( 'D' );
+          break;
+
+     default:
+
+          cStatus = 0x00;
+          break;
+    }
+
+
+
+    pcWriteBuffer = prvWriteNameToBuffer( pcWriteBuffer, pxTaskStatusArray[ x ].pcTaskName );
+
+
+    sprintf( pcWriteBuffer, "\t%c\t%u\t%u\t%u\r\n", cStatus, ( unsigned int ) pxTaskStatusArray[ x ].uxCurrentPriority, ( unsigned int ) pxTaskStatusArray[ x ].usStackHighWaterMark, ( unsigned int ) pxTaskStatusArray[ x ].xTaskNumber );
+    pcWriteBuffer += strlen( pcWriteBuffer );
+   }
+
+
+
+   vPortFree( pxTaskStatusArray );
+  }
+  else
+  {
+   ;
+  }
+ }
+
+
+
+
+
+
+ void vTaskGetRunTimeStats( char *pcWriteBuffer )
+ {
+ TaskStatus_t *pxTaskStatusArray;
+ volatile UBaseType_t uxArraySize, x;
+ uint32_t ulTotalTime, ulStatsAsPercentage;
+# 4079 "../../source/tasks.c"
+  *pcWriteBuffer = 0x00;
+
+
+
+  uxArraySize = uxCurrentNumberOfTasks;
+
+
+
+
+  pxTaskStatusArray = pvPortMalloc( uxCurrentNumberOfTasks * sizeof( TaskStatus_t ) );
+
+  if( pxTaskStatusArray != 0 )
+  {
+
+   uxArraySize = uxTaskGetSystemState( pxTaskStatusArray, uxArraySize, &ulTotalTime );
+
+
+   ulTotalTime /= 100UL;
+
+
+   if( ulTotalTime > 0 )
+   {
+
+    for( x = 0; x < uxArraySize; x++ )
+    {
+
+
+
+     ulStatsAsPercentage = pxTaskStatusArray[ x ].ulRunTimeCounter / ulTotalTime;
+
+
+
+
+     pcWriteBuffer = prvWriteNameToBuffer( pcWriteBuffer, pxTaskStatusArray[ x ].pcTaskName );
+
+     if( ulStatsAsPercentage > 0UL )
+     {
+
+
+
+
+
+      {
+
+
+       sprintf( pcWriteBuffer, "\t%u\t\t%u%%\r\n", ( unsigned int ) pxTaskStatusArray[ x ].ulRunTimeCounter, ( unsigned int ) ulStatsAsPercentage );
+      }
+
+     }
+     else
+     {
+
+
+
+
+
+
+
+      {
+
+
+       sprintf( pcWriteBuffer, "\t%u\t\t<1%%\r\n", ( unsigned int ) pxTaskStatusArray[ x ].ulRunTimeCounter );
+      }
+
+     }
+
+     pcWriteBuffer += strlen( pcWriteBuffer );
+    }
+   }
+   else
+   {
+    ;
+   }
+
+
+
+   vPortFree( pxTaskStatusArray );
+  }
+  else
+  {
+   ;
+  }
+ }
+
+
+
+
 TickType_t uxTaskResetEventItemValue( void )
 {
 TickType_t uxReturn;
@@ -23819,7 +24948,7 @@ TickType_t uxReturn;
 
 
 
- ( ( &( pxCurrentTCB->xEventListItem ) )->xItemValue = ( ( ( TickType_t ) ( 4 ) - ( TickType_t ) pxCurrentTCB->uxPriority ) ) );
+ ( ( &( pxCurrentTCB->xEventListItem ) )->xItemValue = ( ( ( TickType_t ) ( 10 ) - ( TickType_t ) pxCurrentTCB->uxPriority ) ) );
 
  return uxReturn;
 }
@@ -24365,7 +25494,7 @@ void vApplicationGetTimerTaskMemory( StaticTask_t ** ppxTimerTaskTCBBuffer,
 
 
     static StaticTask_t xTimerTaskTCB;
-    static StackType_t uxTimerTaskStack[ 64 ];
+    static StackType_t uxTimerTaskStack[ (9*( uint16_t ) 20) ];
 
 
 
@@ -24377,7 +25506,7 @@ void vApplicationGetTimerTaskMemory( StaticTask_t ** ppxTimerTaskTCBBuffer,
 
 
 
-    *pulTimerTaskStackSize = 64;
+    *pulTimerTaskStackSize = (9*( uint16_t ) 20);
 }
 
 
@@ -24391,7 +25520,7 @@ void vApplicationGetIdleTaskMemory( StaticTask_t ** ppxIdleTaskTCBBuffer,
 
 
     static StaticTask_t xIdleTaskTCB;
-    static StackType_t uxIdleTaskStack[ ( 105 ) ];
+    static StackType_t uxIdleTaskStack[ ( 6*( uint16_t ) 20 ) ];
 
 
 
@@ -24403,5 +25532,5 @@ void vApplicationGetIdleTaskMemory( StaticTask_t ** ppxIdleTaskTCBBuffer,
 
 
 
-    *pulIdleTaskStackSize = ( 105 );
+    *pulIdleTaskStackSize = ( 6*( uint16_t ) 20 );
 }

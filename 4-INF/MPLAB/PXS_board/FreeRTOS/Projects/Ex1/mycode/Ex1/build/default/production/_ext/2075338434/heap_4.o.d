@@ -1,0 +1,28 @@
+build/default/production/_ext/2075338434/heap_4.o: \
+ ../../source/portable/MemMang/heap_4.c ../../source/include/FreeRTOS.h \
+ ../FreeRTOSConfig.h ../system.h ../../source/include/projdefs.h \
+ ../../source/include/portable.h \
+ ../../source/include/deprecated_definitions.h \
+ ../../source/include/../../Source/portable/MPLAB/PIC24_dsPIC/portmacro.h \
+ ../../source/include/mpu_wrappers.h ../../source/include/task.h \
+ ../../source/include/list.h
+
+../../source/include/FreeRTOS.h:
+
+../FreeRTOSConfig.h:
+
+../system.h:
+
+../../source/include/projdefs.h:
+
+../../source/include/portable.h:
+
+../../source/include/deprecated_definitions.h:
+
+../../source/include/../../Source/portable/MPLAB/PIC24_dsPIC/portmacro.h:
+
+../../source/include/mpu_wrappers.h:
+
+../../source/include/task.h:
+
+../../source/include/list.h:

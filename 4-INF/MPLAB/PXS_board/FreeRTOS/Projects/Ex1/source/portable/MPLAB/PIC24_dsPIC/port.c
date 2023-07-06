@@ -81,7 +81,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
-//#include "vfi_custom.h"
+#include "../system.h"
 
 /* Hardware specifics. */
 #define portBIT_SET 1
@@ -97,7 +97,7 @@ FreeRTOS.org V4.3.0. */
 /* Use _T1Interrupt as the interrupt handler name if the application writer has
 not provided their own. */
 #ifndef configTICK_INTERRUPT_HANDLER
-	#define configTICK_INTERRUPT_HANDLER _CCT8Interrupt
+	#define configTICK_INTERRUPT_HANDLER _T1Interrupt
 #endif /* configTICK_INTERRUPT_HANDLER */
 
 /* The program counter is only 23 bits. */
@@ -347,27 +347,30 @@ void vPortEndScheduler( void )
 /*-----------------------------------------------------------*/
 
 /**
+ * @brief <i> Function to configure T1 timer (as tick time base). </i>
+ */
+void Config_T1( void ){
+    T1CONbits.TON = 0;                                                          /** - Disable module before configuring */
+    T1CONbits.TCS = 1;                                                          /** - Use external clock source (selected by TECS) */
+    T1CONbits.TECS = 3;                                                         /** - Use FRC as clock (8 MHz) */
+    T1CONbits.TGATE = 0;                                                        /** - Disable gate mode */
+    T1CONbits.TCKPS = 0;                                                        /** - Set prescaler to 1:1 */
+    PR1 = 8000;                                                                 /** - Set timeout threshold (1*8k/80MHz = 1 ms) */
+    TMR1 = 0;                                                                   /** - Reset counter */
+    IPC0bits.T1IP = configKERNEL_INTERRUPT_PRIORITY;                            /** - Set interrupt priority */
+    IFS0bits.T1IF = 0;                                                          /** - Clear interrupt flag */ 
+    IEC0bits.T1IE = 1;                                                          /** - Enable interrupt */
+    T1CONbits.TON = 1;                                                          /** - Start module */    
+}
+
+/**
  * @brief <i> Function to setup the tick timer. </i>
  * NB#1: The related ISR is remapped above as "configTICK_INTERRUPT_HANDLER".
  * NB#2: The timeout set here shall match the constant "configTICK_RATE_HZ".
  */
-__attribute__(( weak )) void vApplicationSetupTickTimerInterrupt( void ){
-    CCP8CON1Lbits.CCPON = 0;                                                    /** - Disable module before configuring */
-    CCP8CON1Lbits.CLKSEL = 0;                                                   /** - Use FP as clock source (assuming FP = 90 MHz) */
-    CCP8CON1Lbits.TMRPS = 2;                                                    /** - Set clock pre-scaler to 1:16 */
-    CCP8CON1Lbits.TMRSYNC = 0;                                                  /** - Use synchronous mode */
-    CCP8CON2Lbits.SSDG = 0;                                                     /** - Disable gating feature */
-    CCP8CON1Lbits.CCSEL = 0;                                                    /** - Select OC/PWM/T operation */
-    CCP8CON1Lbits.T32 = 0;                                                      /** - Use 16-bit time operation */
-    CCP8CON1Lbits.MOD = 0;                                                      /** - Select Timer mode */
-    CCP8CON1Hbits.SYNC = 0;                                                     /** - Use only CCPxPR period match as synchronization source */
-    CCP8PRL = 5625;                                                             /** - Set period for primary timer (16/90M*5625 = 875 us) */
-    CCP8PRH = 0;                                                                /** - Disable secondary timer (not used) */
-    CCP8TMRL = 0;                                                               /** - Reset primary counter */
-    IPC38bits.CCT8IP = configKERNEL_INTERRUPT_PRIORITY;                         /** - Set interrupt priority */
-    IFS9bits.CCT8IF = 0;                                                        /** - Clear interrupt flag */
-    IEC9bits.CCT8IE = 1;                                                        /** - Enable CCP8 interrupt */
-    CCP8CON1Lbits.CCPON = 1;                                                    /** - Enable module */
+//////__attribute__(( weak )) void vApplicationSetupTickTimerInterrupt( void ){
+void vApplicationSetupTickTimerInterrupt( void ){
+    Config_T1();
 }
 
 /*-----------------------------------------------------------*/
@@ -390,12 +393,13 @@ void vPortExitCritical( void )
 }
 /*-----------------------------------------------------------*/
 
+
 /**
  * @brief <i> ISR related to tick timer. </i>
  */
-void __attribute__((__interrupt__, auto_psv)) configTICK_INTERRUPT_HANDLER( void ){
+void XISR configTICK_INTERRUPT_HANDLER( void ){
+    IFS0bits.T1IF = 0;                                                          /** - Clear interrupt flag [NB: ESSENTIAL TO PLACE THIS LINE AT THE BEGINNING OF ISR, OTHERWISE DOES NOT WORK */
 	if( xTaskIncrementTick() != pdFALSE ){
 		portYIELD();
 	}
-	IFS9bits.CCT8IF = 0;                                                        /** - Clear interrupt flag */
 }
