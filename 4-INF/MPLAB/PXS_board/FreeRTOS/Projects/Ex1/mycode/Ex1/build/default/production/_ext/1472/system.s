@@ -1,4 +1,4 @@
-	.file "C:\\Users\\Filippo\\Desktop\\Projects\\Ex1\\mycode\\Ex1\\..\\system.c"
+	.file "C:\\Users\\Filippo\\Downloads\\FreeRTOS\\Projects\\Ex1\\mycode\\Ex1\\..\\system.c"
 	.section	.debug_abbrev,info
 .Ldebug_abbrev0:
 	.section	.debug_info,info
@@ -302,8 +302,9 @@ _Init_U1:
 	bset.b	_U1STAbits+1,#6
 	.loc 1 134 0
 	mov	_IPC12bits,w1
-	mov	#112,w0
-	ior	w0,w1,w0
+	mov	#-113,w0
+	and	w1,w0,w0
+	bset	w0,#6
 	mov	w0,_IPC12bits
 	.loc 1 135 0
 	bclr.b	_IFS3bits,#1
@@ -313,7 +314,7 @@ _Init_U1:
 	mov	_IPC3bits,w1
 	mov	#-8,w0
 	and	w1,w0,w0
-	bset	w0,#2
+	ior	#3,w0
 	mov	w0,_IPC3bits
 	.loc 1 138 0
 	bclr.b	_IFS0bits+1,#4
@@ -1072,7 +1073,7 @@ _Init_ADC:
 	mov	_IPC23bits,w1
 	mov	#-1793,w0
 	and	w1,w0,w1
-	mov	#1536,w0
+	mov	#1280,w0
 	ior	w0,w1,w0
 	mov	w0,_IPC23bits
 	.loc 1 337 0
@@ -1196,6 +1197,61 @@ _Disable_SELF_TEST:
 	.set ___PA___,0
 .LFE15:
 	.size	_Disable_SELF_TEST, .-_Disable_SELF_TEST
+	.align	2
+	.global	_Init_INT1	; export
+	.type	_Init_INT1,@function
+_Init_INT1:
+.LFB16:
+	.loc 1 377 0
+	.set ___PA___,1
+	lnk	#10
+.LCFI24:
+	.loc 1 378 0
+	rcall	_Unlock_GPIOs
+	.loc 1 380 0
+	clr.b	w0
+	mov.b	w0,[w14+2]
+	.loc 1 381 0
+	mov.b	#1,w0
+	mov.b	w0,[w14+3]
+	.loc 1 382 0
+	mov.b	#1,w0
+	mov.b	w0,[w14+4]
+	.loc 1 383 0
+	mov.b	#1,w0
+	mov.b	w0,[w14]
+	mov.b	#12,w0
+	mov.b	w0,[w14+1]
+	mov	[w14+2],w1
+	mov	[w14+4],w2
+	mov	[w14+6],w3
+	mov	[w14+8],w4
+	mov	w14,w0
+	rcall	_Config_GPIO
+	.loc 1 384 0
+	mov.b	#44,w0
+	mov.b	WREG,_RPINR0bits+1
+	.loc 1 385 0
+	rcall	_Lock_GPIOs
+	.loc 1 386 0
+	bset.b	_INTCON2bits,#1
+	.loc 1 387 0
+	bclr.b	_IFS0bits+1,#7
+	.loc 1 388 0
+	mov	_IPC3bits,w1
+	mov	#-28673,w0
+	and	w1,w0,w1
+	mov	#24576,w0
+	ior	w0,w1,w0
+	mov	w0,_IPC3bits
+	.loc 1 389 0
+	bset.b	_IEC0bits+1,#7
+	.loc 1 390 0
+	ulnk	
+	return	
+	.set ___PA___,0
+.LFE16:
+	.size	_Init_INT1, .-_Init_INT1
 	.section	.debug_frame,info
 .Lframe0:
 	.4byte	.LECIE0-.LSCIE0
@@ -1486,13 +1542,28 @@ _Disable_SELF_TEST:
 	.uleb128 0x2
 	.align	4
 .LEFDE30:
+.LSFDE32:
+	.4byte	.LEFDE32-.LASFDE32
+.LASFDE32:
+	.4byte	.Lframe0
+	.4byte	.LFB16
+	.4byte	.LFE16-.LFB16
+	.byte	0x4
+	.4byte	.LCFI24-.LFB16
+	.byte	0x12
+	.uleb128 0xe
+	.sleb128 -3
+	.byte	0x8e
+	.uleb128 0x2
+	.align	4
+.LEFDE32:
 	.section	.text,code
 .Letext0:
 	.file 2 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdint.h"
 	.file 3 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\dsPIC33C\\h/p33CH512MP508.h"
 	.file 4 "../gpio.h"
 	.section	.debug_info,info
-	.4byte	0x3e57
+	.4byte	0x3ef0
 	.2byte	0x2
 	.4byte	.Ldebug_abbrev0
 	.byte	0x4
@@ -1500,7 +1571,7 @@ _Disable_SELF_TEST:
 	.asciz	"GNU C 4.5.1 (XC16, Microchip v1.61) (B) Build date: Oct 23 2020"
 	.byte	0x1
 	.asciz	"../system.c"
-	.asciz	"C:\\Users\\Filippo\\Desktop\\Projects\\Ex1\\mycode\\Ex1"
+	.asciz	"C:\\Users\\Filippo\\Downloads\\FreeRTOS\\Projects\\Ex1\\mycode\\Ex1"
 	.4byte	.Ltext0
 	.4byte	.Letext0
 	.4byte	.Ldebug_line0
@@ -1544,17 +1615,17 @@ _Disable_SELF_TEST:
 	.asciz	"uint8_t"
 	.byte	0x2
 	.byte	0x2b
-	.4byte	0xfa
+	.4byte	0x105
 	.uleb128 0x3
 	.asciz	"uint16_t"
 	.byte	0x2
 	.byte	0x31
-	.4byte	0xd7
+	.4byte	0xe2
 	.uleb128 0x3
 	.asciz	"uint32_t"
 	.byte	0x2
 	.byte	0x37
-	.4byte	0x151
+	.4byte	0x15c
 	.uleb128 0x2
 	.byte	0x4
 	.byte	0x7
@@ -1563,12 +1634,12 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x934
-	.4byte	0x24c
+	.4byte	0x257
 	.uleb128 0x5
 	.asciz	"MOD"
 	.byte	0x3
 	.2byte	0x935
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x4
 	.byte	0xc
@@ -1579,7 +1650,7 @@ _Disable_SELF_TEST:
 	.asciz	"URXEN"
 	.byte	0x3
 	.2byte	0x936
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -1590,7 +1661,7 @@ _Disable_SELF_TEST:
 	.asciz	"UTXEN"
 	.byte	0x3
 	.2byte	0x937
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -1601,7 +1672,7 @@ _Disable_SELF_TEST:
 	.asciz	"ABAUD"
 	.byte	0x3
 	.2byte	0x938
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -1612,7 +1683,7 @@ _Disable_SELF_TEST:
 	.asciz	"BRGH"
 	.byte	0x3
 	.2byte	0x939
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -1623,7 +1694,7 @@ _Disable_SELF_TEST:
 	.asciz	"UTXBRK"
 	.byte	0x3
 	.2byte	0x93a
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -1634,7 +1705,7 @@ _Disable_SELF_TEST:
 	.asciz	"BRKOVR"
 	.byte	0x3
 	.2byte	0x93b
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -1645,7 +1716,7 @@ _Disable_SELF_TEST:
 	.asciz	"RXBIMD"
 	.byte	0x3
 	.2byte	0x93d
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -1656,7 +1727,7 @@ _Disable_SELF_TEST:
 	.asciz	"WAKE"
 	.byte	0x3
 	.2byte	0x93e
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x3
@@ -1667,7 +1738,7 @@ _Disable_SELF_TEST:
 	.asciz	"USIDL"
 	.byte	0x3
 	.2byte	0x93f
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x2
@@ -1678,7 +1749,7 @@ _Disable_SELF_TEST:
 	.asciz	"UARTEN"
 	.byte	0x3
 	.2byte	0x941
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -1690,12 +1761,12 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x943
-	.4byte	0x2a2
+	.4byte	0x2ad
 	.uleb128 0x5
 	.asciz	"MOD0"
 	.byte	0x3
 	.2byte	0x944
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -1706,7 +1777,7 @@ _Disable_SELF_TEST:
 	.asciz	"MOD1"
 	.byte	0x3
 	.2byte	0x945
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -1717,7 +1788,7 @@ _Disable_SELF_TEST:
 	.asciz	"MOD2"
 	.byte	0x3
 	.2byte	0x946
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -1728,7 +1799,7 @@ _Disable_SELF_TEST:
 	.asciz	"MOD3"
 	.byte	0x3
 	.2byte	0x947
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -1740,20 +1811,20 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x933
-	.4byte	0x2b6
+	.4byte	0x2c1
 	.uleb128 0x7
-	.4byte	0x166
+	.4byte	0x171
 	.uleb128 0x7
-	.4byte	0x24c
+	.4byte	0x257
 	.byte	0x0
 	.uleb128 0x8
 	.asciz	"tagU1MODEBITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x932
-	.4byte	0x2d6
+	.4byte	0x2e1
 	.uleb128 0x9
-	.4byte	0x2a2
+	.4byte	0x2ad
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -1762,17 +1833,17 @@ _Disable_SELF_TEST:
 	.asciz	"U1MODEBITS"
 	.byte	0x3
 	.2byte	0x94a
-	.4byte	0x2b6
+	.4byte	0x2c1
 	.uleb128 0x4
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x951
-	.4byte	0x3d7
+	.4byte	0x3e2
 	.uleb128 0x5
 	.asciz	"FLO"
 	.byte	0x3
 	.2byte	0x952
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x2
 	.byte	0xe
@@ -1783,7 +1854,7 @@ _Disable_SELF_TEST:
 	.asciz	"UTXINV"
 	.byte	0x3
 	.2byte	0x953
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -1794,7 +1865,7 @@ _Disable_SELF_TEST:
 	.asciz	"C0EN"
 	.byte	0x3
 	.2byte	0x954
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -1805,7 +1876,7 @@ _Disable_SELF_TEST:
 	.asciz	"STSEL"
 	.byte	0x3
 	.2byte	0x955
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x2
 	.byte	0xa
@@ -1816,7 +1887,7 @@ _Disable_SELF_TEST:
 	.asciz	"URXINV"
 	.byte	0x3
 	.2byte	0x956
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -1827,7 +1898,7 @@ _Disable_SELF_TEST:
 	.asciz	"RUNOVF"
 	.byte	0x3
 	.2byte	0x957
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -1838,7 +1909,7 @@ _Disable_SELF_TEST:
 	.asciz	"HALFDPLX"
 	.byte	0x3
 	.2byte	0x958
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -1849,7 +1920,7 @@ _Disable_SELF_TEST:
 	.asciz	"BCLKSEL"
 	.byte	0x3
 	.2byte	0x959
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x2
 	.byte	0x5
@@ -1860,7 +1931,7 @@ _Disable_SELF_TEST:
 	.asciz	"BCLKMOD"
 	.byte	0x3
 	.2byte	0x95a
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -1871,7 +1942,7 @@ _Disable_SELF_TEST:
 	.asciz	"ACTIVE"
 	.byte	0x3
 	.2byte	0x95c
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -1882,7 +1953,7 @@ _Disable_SELF_TEST:
 	.asciz	"SLPEN"
 	.byte	0x3
 	.2byte	0x95d
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -1894,12 +1965,12 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x95f
-	.4byte	0x45f
+	.4byte	0x46a
 	.uleb128 0x5
 	.asciz	"FLO0"
 	.byte	0x3
 	.2byte	0x960
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -1910,7 +1981,7 @@ _Disable_SELF_TEST:
 	.asciz	"FLO1"
 	.byte	0x3
 	.2byte	0x961
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -1921,7 +1992,7 @@ _Disable_SELF_TEST:
 	.asciz	"STSEL0"
 	.byte	0x3
 	.2byte	0x963
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -1932,7 +2003,7 @@ _Disable_SELF_TEST:
 	.asciz	"STSEL1"
 	.byte	0x3
 	.2byte	0x964
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -1943,7 +2014,7 @@ _Disable_SELF_TEST:
 	.asciz	"BCLKSEL0"
 	.byte	0x3
 	.2byte	0x966
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -1954,7 +2025,7 @@ _Disable_SELF_TEST:
 	.asciz	"BCLKSEL1"
 	.byte	0x3
 	.2byte	0x967
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -1966,20 +2037,20 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x950
-	.4byte	0x473
+	.4byte	0x47e
 	.uleb128 0x7
-	.4byte	0x2e9
+	.4byte	0x2f4
 	.uleb128 0x7
-	.4byte	0x3d7
+	.4byte	0x3e2
 	.byte	0x0
 	.uleb128 0x8
 	.asciz	"tagU1MODEHBITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x94f
-	.4byte	0x494
+	.4byte	0x49f
 	.uleb128 0x9
-	.4byte	0x45f
+	.4byte	0x46a
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -1988,18 +2059,18 @@ _Disable_SELF_TEST:
 	.asciz	"U1MODEHBITS"
 	.byte	0x3
 	.2byte	0x96a
-	.4byte	0x473
+	.4byte	0x47e
 	.uleb128 0x8
 	.asciz	"tagU1STABITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x96f
-	.4byte	0x600
+	.4byte	0x60b
 	.uleb128 0x5
 	.asciz	"TXCIF"
 	.byte	0x3
 	.2byte	0x970
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -2010,7 +2081,7 @@ _Disable_SELF_TEST:
 	.asciz	"OERR"
 	.byte	0x3
 	.2byte	0x971
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -2021,7 +2092,7 @@ _Disable_SELF_TEST:
 	.asciz	"RXBKIF"
 	.byte	0x3
 	.2byte	0x972
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -2032,7 +2103,7 @@ _Disable_SELF_TEST:
 	.asciz	"FERR"
 	.byte	0x3
 	.2byte	0x973
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -2043,7 +2114,7 @@ _Disable_SELF_TEST:
 	.asciz	"CERIF"
 	.byte	0x3
 	.2byte	0x974
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -2054,7 +2125,7 @@ _Disable_SELF_TEST:
 	.asciz	"ABDOVF"
 	.byte	0x3
 	.2byte	0x975
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -2065,7 +2136,7 @@ _Disable_SELF_TEST:
 	.asciz	"PERR"
 	.byte	0x3
 	.2byte	0x976
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -2076,7 +2147,7 @@ _Disable_SELF_TEST:
 	.asciz	"TRMT"
 	.byte	0x3
 	.2byte	0x977
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -2087,7 +2158,7 @@ _Disable_SELF_TEST:
 	.asciz	"TXCIE"
 	.byte	0x3
 	.2byte	0x978
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -2098,7 +2169,7 @@ _Disable_SELF_TEST:
 	.asciz	"OERIE"
 	.byte	0x3
 	.2byte	0x979
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -2109,7 +2180,7 @@ _Disable_SELF_TEST:
 	.asciz	"RXBKIE"
 	.byte	0x3
 	.2byte	0x97a
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -2120,7 +2191,7 @@ _Disable_SELF_TEST:
 	.asciz	"FERIE"
 	.byte	0x3
 	.2byte	0x97b
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -2131,7 +2202,7 @@ _Disable_SELF_TEST:
 	.asciz	"CERIE"
 	.byte	0x3
 	.2byte	0x97c
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x3
@@ -2142,7 +2213,7 @@ _Disable_SELF_TEST:
 	.asciz	"ABDOVE"
 	.byte	0x3
 	.2byte	0x97d
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x2
@@ -2153,7 +2224,7 @@ _Disable_SELF_TEST:
 	.asciz	"PERIE"
 	.byte	0x3
 	.2byte	0x97e
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -2164,7 +2235,7 @@ _Disable_SELF_TEST:
 	.asciz	"TXMTIE"
 	.byte	0x3
 	.2byte	0x97f
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -2176,17 +2247,17 @@ _Disable_SELF_TEST:
 	.asciz	"U1STABITS"
 	.byte	0x3
 	.2byte	0x980
-	.4byte	0x4a8
+	.4byte	0x4b3
 	.uleb128 0x4
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x987
-	.4byte	0x6e6
+	.4byte	0x6f1
 	.uleb128 0x5
 	.asciz	"URXBF"
 	.byte	0x3
 	.2byte	0x988
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -2197,7 +2268,7 @@ _Disable_SELF_TEST:
 	.asciz	"URXBE"
 	.byte	0x3
 	.2byte	0x989
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -2208,7 +2279,7 @@ _Disable_SELF_TEST:
 	.asciz	"XON"
 	.byte	0x3
 	.2byte	0x98a
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -2219,7 +2290,7 @@ _Disable_SELF_TEST:
 	.asciz	"RIDLE"
 	.byte	0x3
 	.2byte	0x98b
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -2230,7 +2301,7 @@ _Disable_SELF_TEST:
 	.asciz	"UTXBF"
 	.byte	0x3
 	.2byte	0x98c
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -2241,7 +2312,7 @@ _Disable_SELF_TEST:
 	.asciz	"UTXBE"
 	.byte	0x3
 	.2byte	0x98d
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -2252,7 +2323,7 @@ _Disable_SELF_TEST:
 	.asciz	"STPMD"
 	.byte	0x3
 	.2byte	0x98e
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -2263,7 +2334,7 @@ _Disable_SELF_TEST:
 	.asciz	"TXWRE"
 	.byte	0x3
 	.2byte	0x98f
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -2274,7 +2345,7 @@ _Disable_SELF_TEST:
 	.asciz	"URXISEL"
 	.byte	0x3
 	.2byte	0x990
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x3
 	.byte	0x5
@@ -2285,7 +2356,7 @@ _Disable_SELF_TEST:
 	.asciz	"UTXISEL"
 	.byte	0x3
 	.2byte	0x992
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x3
 	.byte	0x1
@@ -2297,12 +2368,12 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x994
-	.4byte	0x77a
+	.4byte	0x785
 	.uleb128 0x5
 	.asciz	"URXISEL0"
 	.byte	0x3
 	.2byte	0x996
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -2313,7 +2384,7 @@ _Disable_SELF_TEST:
 	.asciz	"URXISEL1"
 	.byte	0x3
 	.2byte	0x997
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -2324,7 +2395,7 @@ _Disable_SELF_TEST:
 	.asciz	"URXISEL2"
 	.byte	0x3
 	.2byte	0x998
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -2335,7 +2406,7 @@ _Disable_SELF_TEST:
 	.asciz	"UTXISEL0"
 	.byte	0x3
 	.2byte	0x99a
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x3
@@ -2346,7 +2417,7 @@ _Disable_SELF_TEST:
 	.asciz	"UTXISEL1"
 	.byte	0x3
 	.2byte	0x99b
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x2
@@ -2357,7 +2428,7 @@ _Disable_SELF_TEST:
 	.asciz	"UTXISEL2"
 	.byte	0x3
 	.2byte	0x99c
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -2369,20 +2440,20 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x986
-	.4byte	0x78e
+	.4byte	0x799
 	.uleb128 0x7
-	.4byte	0x612
+	.4byte	0x61d
 	.uleb128 0x7
-	.4byte	0x6e6
+	.4byte	0x6f1
 	.byte	0x0
 	.uleb128 0x8
 	.asciz	"tagU1STAHBITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x985
-	.4byte	0x7ae
+	.4byte	0x7b9
 	.uleb128 0x9
-	.4byte	0x77a
+	.4byte	0x785
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -2391,18 +2462,18 @@ _Disable_SELF_TEST:
 	.asciz	"U1STAHBITS"
 	.byte	0x3
 	.2byte	0x99f
-	.4byte	0x78e
+	.4byte	0x799
 	.uleb128 0x8
 	.asciz	"tagIFS0BITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x3435
-	.4byte	0x913
+	.4byte	0x91e
 	.uleb128 0x5
 	.asciz	"INT0IF"
 	.byte	0x3
 	.2byte	0x3436
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -2413,7 +2484,7 @@ _Disable_SELF_TEST:
 	.asciz	"T1IF"
 	.byte	0x3
 	.2byte	0x3437
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -2424,7 +2495,7 @@ _Disable_SELF_TEST:
 	.asciz	"CNAIF"
 	.byte	0x3
 	.2byte	0x3438
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -2435,7 +2506,7 @@ _Disable_SELF_TEST:
 	.asciz	"CNBIF"
 	.byte	0x3
 	.2byte	0x3439
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -2446,7 +2517,7 @@ _Disable_SELF_TEST:
 	.asciz	"DMA0IF"
 	.byte	0x3
 	.2byte	0x343a
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -2457,7 +2528,7 @@ _Disable_SELF_TEST:
 	.asciz	"CCP1IF"
 	.byte	0x3
 	.2byte	0x343c
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -2468,7 +2539,7 @@ _Disable_SELF_TEST:
 	.asciz	"CCT1IF"
 	.byte	0x3
 	.2byte	0x343d
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -2479,7 +2550,7 @@ _Disable_SELF_TEST:
 	.asciz	"DMA1IF"
 	.byte	0x3
 	.2byte	0x343e
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -2490,7 +2561,7 @@ _Disable_SELF_TEST:
 	.asciz	"SPI1RXIF"
 	.byte	0x3
 	.2byte	0x343f
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -2501,7 +2572,7 @@ _Disable_SELF_TEST:
 	.asciz	"SPI1TXIF"
 	.byte	0x3
 	.2byte	0x3440
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -2512,7 +2583,7 @@ _Disable_SELF_TEST:
 	.asciz	"U1RXIF"
 	.byte	0x3
 	.2byte	0x3441
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -2523,7 +2594,7 @@ _Disable_SELF_TEST:
 	.asciz	"U1TXIF"
 	.byte	0x3
 	.2byte	0x3442
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x3
@@ -2534,7 +2605,7 @@ _Disable_SELF_TEST:
 	.asciz	"ECCSBEIF"
 	.byte	0x3
 	.2byte	0x3443
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x2
@@ -2545,7 +2616,7 @@ _Disable_SELF_TEST:
 	.asciz	"NVMIF"
 	.byte	0x3
 	.2byte	0x3444
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -2556,7 +2627,7 @@ _Disable_SELF_TEST:
 	.asciz	"INT1IF"
 	.byte	0x3
 	.2byte	0x3445
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -2568,18 +2639,18 @@ _Disable_SELF_TEST:
 	.asciz	"IFS0BITS"
 	.byte	0x3
 	.2byte	0x3446
-	.4byte	0x7c1
+	.4byte	0x7cc
 	.uleb128 0x8
 	.asciz	"tagIFS3BITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x3477
-	.4byte	0x9e2
+	.4byte	0x9ed
 	.uleb128 0x5
 	.asciz	"QEI1IF"
 	.byte	0x3
 	.2byte	0x3478
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -2590,7 +2661,7 @@ _Disable_SELF_TEST:
 	.asciz	"U1EIF"
 	.byte	0x3
 	.2byte	0x3479
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -2601,7 +2672,7 @@ _Disable_SELF_TEST:
 	.asciz	"U2EIF"
 	.byte	0x3
 	.2byte	0x347a
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -2612,7 +2683,7 @@ _Disable_SELF_TEST:
 	.asciz	"CRCIF"
 	.byte	0x3
 	.2byte	0x347b
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -2623,7 +2694,7 @@ _Disable_SELF_TEST:
 	.asciz	"C1TXIF"
 	.byte	0x3
 	.2byte	0x347c
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -2634,7 +2705,7 @@ _Disable_SELF_TEST:
 	.asciz	"C2TXIF"
 	.byte	0x3
 	.2byte	0x347d
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -2645,7 +2716,7 @@ _Disable_SELF_TEST:
 	.asciz	"JTAGIF"
 	.byte	0x3
 	.2byte	0x347f
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -2656,7 +2727,7 @@ _Disable_SELF_TEST:
 	.asciz	"PTGSTEPIF"
 	.byte	0x3
 	.2byte	0x3480
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -2668,18 +2739,18 @@ _Disable_SELF_TEST:
 	.asciz	"IFS3BITS"
 	.byte	0x3
 	.2byte	0x3481
-	.4byte	0x924
+	.4byte	0x92f
 	.uleb128 0x8
 	.asciz	"tagIFS5BITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x3497
-	.4byte	0xb55
+	.4byte	0xb60
 	.uleb128 0x5
 	.asciz	"PTGWDTIF"
 	.byte	0x3
 	.2byte	0x3499
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -2690,7 +2761,7 @@ _Disable_SELF_TEST:
 	.asciz	"PTG0IF"
 	.byte	0x3
 	.2byte	0x349a
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -2701,7 +2772,7 @@ _Disable_SELF_TEST:
 	.asciz	"PTG1IF"
 	.byte	0x3
 	.2byte	0x349b
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -2712,7 +2783,7 @@ _Disable_SELF_TEST:
 	.asciz	"PTG2IF"
 	.byte	0x3
 	.2byte	0x349c
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -2723,7 +2794,7 @@ _Disable_SELF_TEST:
 	.asciz	"PTG3IF"
 	.byte	0x3
 	.2byte	0x349d
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -2734,7 +2805,7 @@ _Disable_SELF_TEST:
 	.asciz	"SENT1IF"
 	.byte	0x3
 	.2byte	0x349e
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -2745,7 +2816,7 @@ _Disable_SELF_TEST:
 	.asciz	"SENT1EIF"
 	.byte	0x3
 	.2byte	0x349f
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -2756,7 +2827,7 @@ _Disable_SELF_TEST:
 	.asciz	"SENT2IF"
 	.byte	0x3
 	.2byte	0x34a0
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -2767,7 +2838,7 @@ _Disable_SELF_TEST:
 	.asciz	"SENT2EIF"
 	.byte	0x3
 	.2byte	0x34a1
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -2778,7 +2849,7 @@ _Disable_SELF_TEST:
 	.asciz	"ADCIF"
 	.byte	0x3
 	.2byte	0x34a2
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -2789,7 +2860,7 @@ _Disable_SELF_TEST:
 	.asciz	"ADCAN0IF"
 	.byte	0x3
 	.2byte	0x34a3
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -2800,7 +2871,7 @@ _Disable_SELF_TEST:
 	.asciz	"ADCAN1IF"
 	.byte	0x3
 	.2byte	0x34a4
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x3
@@ -2811,7 +2882,7 @@ _Disable_SELF_TEST:
 	.asciz	"ADCAN2IF"
 	.byte	0x3
 	.2byte	0x34a5
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x2
@@ -2822,7 +2893,7 @@ _Disable_SELF_TEST:
 	.asciz	"ADCAN3IF"
 	.byte	0x3
 	.2byte	0x34a6
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -2833,7 +2904,7 @@ _Disable_SELF_TEST:
 	.asciz	"ADCAN4IF"
 	.byte	0x3
 	.2byte	0x34a7
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -2845,18 +2916,18 @@ _Disable_SELF_TEST:
 	.asciz	"IFS5BITS"
 	.byte	0x3
 	.2byte	0x34a8
-	.4byte	0x9f3
+	.4byte	0x9fe
 	.uleb128 0x8
 	.asciz	"tagIFS9BITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x34eb
-	.4byte	0xbfd
+	.4byte	0xc08
 	.uleb128 0x5
 	.asciz	"S1BRKIF"
 	.byte	0x3
 	.2byte	0x34ed
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -2867,7 +2938,7 @@ _Disable_SELF_TEST:
 	.asciz	"CCP7IF"
 	.byte	0x3
 	.2byte	0x34ef
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -2878,7 +2949,7 @@ _Disable_SELF_TEST:
 	.asciz	"CCT7IF"
 	.byte	0x3
 	.2byte	0x34f0
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -2889,7 +2960,7 @@ _Disable_SELF_TEST:
 	.asciz	"CCP8IF"
 	.byte	0x3
 	.2byte	0x34f2
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -2900,7 +2971,7 @@ _Disable_SELF_TEST:
 	.asciz	"CCT8IF"
 	.byte	0x3
 	.2byte	0x34f3
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -2911,7 +2982,7 @@ _Disable_SELF_TEST:
 	.asciz	"S1CLKFIF"
 	.byte	0x3
 	.2byte	0x34f5
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x2
@@ -2923,18 +2994,18 @@ _Disable_SELF_TEST:
 	.asciz	"IFS9BITS"
 	.byte	0x3
 	.2byte	0x34f6
-	.4byte	0xb66
+	.4byte	0xb71
 	.uleb128 0x8
 	.asciz	"tagIEC0BITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x3518
-	.4byte	0xd60
+	.4byte	0xd6b
 	.uleb128 0x5
 	.asciz	"INT0IE"
 	.byte	0x3
 	.2byte	0x3519
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -2945,7 +3016,7 @@ _Disable_SELF_TEST:
 	.asciz	"T1IE"
 	.byte	0x3
 	.2byte	0x351a
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -2956,7 +3027,7 @@ _Disable_SELF_TEST:
 	.asciz	"CNAIE"
 	.byte	0x3
 	.2byte	0x351b
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -2967,7 +3038,7 @@ _Disable_SELF_TEST:
 	.asciz	"CNBIE"
 	.byte	0x3
 	.2byte	0x351c
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -2978,7 +3049,7 @@ _Disable_SELF_TEST:
 	.asciz	"DMA0IE"
 	.byte	0x3
 	.2byte	0x351d
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -2989,7 +3060,7 @@ _Disable_SELF_TEST:
 	.asciz	"CCP1IE"
 	.byte	0x3
 	.2byte	0x351f
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -3000,7 +3071,7 @@ _Disable_SELF_TEST:
 	.asciz	"CCT1IE"
 	.byte	0x3
 	.2byte	0x3520
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -3011,7 +3082,7 @@ _Disable_SELF_TEST:
 	.asciz	"DMA1IE"
 	.byte	0x3
 	.2byte	0x3521
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -3022,7 +3093,7 @@ _Disable_SELF_TEST:
 	.asciz	"SPI1RXIE"
 	.byte	0x3
 	.2byte	0x3522
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -3033,7 +3104,7 @@ _Disable_SELF_TEST:
 	.asciz	"SPI1TXIE"
 	.byte	0x3
 	.2byte	0x3523
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -3044,7 +3115,7 @@ _Disable_SELF_TEST:
 	.asciz	"U1RXIE"
 	.byte	0x3
 	.2byte	0x3524
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -3055,7 +3126,7 @@ _Disable_SELF_TEST:
 	.asciz	"U1TXIE"
 	.byte	0x3
 	.2byte	0x3525
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x3
@@ -3066,7 +3137,7 @@ _Disable_SELF_TEST:
 	.asciz	"ECCSBEIE"
 	.byte	0x3
 	.2byte	0x3526
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x2
@@ -3077,7 +3148,7 @@ _Disable_SELF_TEST:
 	.asciz	"NVMIE"
 	.byte	0x3
 	.2byte	0x3527
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -3088,7 +3159,7 @@ _Disable_SELF_TEST:
 	.asciz	"INT1IE"
 	.byte	0x3
 	.2byte	0x3528
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -3100,18 +3171,18 @@ _Disable_SELF_TEST:
 	.asciz	"IEC0BITS"
 	.byte	0x3
 	.2byte	0x3529
-	.4byte	0xc0e
+	.4byte	0xc19
 	.uleb128 0x8
 	.asciz	"tagIEC3BITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x355a
-	.4byte	0xe2f
+	.4byte	0xe3a
 	.uleb128 0x5
 	.asciz	"QEI1IE"
 	.byte	0x3
 	.2byte	0x355b
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -3122,7 +3193,7 @@ _Disable_SELF_TEST:
 	.asciz	"U1EIE"
 	.byte	0x3
 	.2byte	0x355c
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -3133,7 +3204,7 @@ _Disable_SELF_TEST:
 	.asciz	"U2EIE"
 	.byte	0x3
 	.2byte	0x355d
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -3144,7 +3215,7 @@ _Disable_SELF_TEST:
 	.asciz	"CRCIE"
 	.byte	0x3
 	.2byte	0x355e
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -3155,7 +3226,7 @@ _Disable_SELF_TEST:
 	.asciz	"C1TXIE"
 	.byte	0x3
 	.2byte	0x355f
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -3166,7 +3237,7 @@ _Disable_SELF_TEST:
 	.asciz	"C2TXIE"
 	.byte	0x3
 	.2byte	0x3560
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -3177,7 +3248,7 @@ _Disable_SELF_TEST:
 	.asciz	"JTAGIE"
 	.byte	0x3
 	.2byte	0x3562
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -3188,7 +3259,7 @@ _Disable_SELF_TEST:
 	.asciz	"PTGSTEPIE"
 	.byte	0x3
 	.2byte	0x3563
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -3200,18 +3271,18 @@ _Disable_SELF_TEST:
 	.asciz	"IEC3BITS"
 	.byte	0x3
 	.2byte	0x3564
-	.4byte	0xd71
+	.4byte	0xd7c
 	.uleb128 0x8
 	.asciz	"tagIEC5BITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x357a
-	.4byte	0xfa2
+	.4byte	0xfad
 	.uleb128 0x5
 	.asciz	"PTGWDTIE"
 	.byte	0x3
 	.2byte	0x357c
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -3222,7 +3293,7 @@ _Disable_SELF_TEST:
 	.asciz	"PTG0IE"
 	.byte	0x3
 	.2byte	0x357d
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -3233,7 +3304,7 @@ _Disable_SELF_TEST:
 	.asciz	"PTG1IE"
 	.byte	0x3
 	.2byte	0x357e
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -3244,7 +3315,7 @@ _Disable_SELF_TEST:
 	.asciz	"PTG2IE"
 	.byte	0x3
 	.2byte	0x357f
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -3255,7 +3326,7 @@ _Disable_SELF_TEST:
 	.asciz	"PTG3IE"
 	.byte	0x3
 	.2byte	0x3580
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -3266,7 +3337,7 @@ _Disable_SELF_TEST:
 	.asciz	"SENT1IE"
 	.byte	0x3
 	.2byte	0x3581
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -3277,7 +3348,7 @@ _Disable_SELF_TEST:
 	.asciz	"SENT1EIE"
 	.byte	0x3
 	.2byte	0x3582
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -3288,7 +3359,7 @@ _Disable_SELF_TEST:
 	.asciz	"SENT2IE"
 	.byte	0x3
 	.2byte	0x3583
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -3299,7 +3370,7 @@ _Disable_SELF_TEST:
 	.asciz	"SENT2EIE"
 	.byte	0x3
 	.2byte	0x3584
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -3310,7 +3381,7 @@ _Disable_SELF_TEST:
 	.asciz	"ADCIE"
 	.byte	0x3
 	.2byte	0x3585
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -3321,7 +3392,7 @@ _Disable_SELF_TEST:
 	.asciz	"ADCAN0IE"
 	.byte	0x3
 	.2byte	0x3586
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -3332,7 +3403,7 @@ _Disable_SELF_TEST:
 	.asciz	"ADCAN1IE"
 	.byte	0x3
 	.2byte	0x3587
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x3
@@ -3343,7 +3414,7 @@ _Disable_SELF_TEST:
 	.asciz	"ADCAN2IE"
 	.byte	0x3
 	.2byte	0x3588
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x2
@@ -3354,7 +3425,7 @@ _Disable_SELF_TEST:
 	.asciz	"ADCAN3IE"
 	.byte	0x3
 	.2byte	0x3589
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -3365,7 +3436,7 @@ _Disable_SELF_TEST:
 	.asciz	"ADCAN4IE"
 	.byte	0x3
 	.2byte	0x358a
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -3377,18 +3448,18 @@ _Disable_SELF_TEST:
 	.asciz	"IEC5BITS"
 	.byte	0x3
 	.2byte	0x358b
-	.4byte	0xe40
+	.4byte	0xe4b
 	.uleb128 0x8
 	.asciz	"tagIEC9BITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x35ce
-	.4byte	0x104a
+	.4byte	0x1055
 	.uleb128 0x5
 	.asciz	"S1BRKIE"
 	.byte	0x3
 	.2byte	0x35d0
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -3399,7 +3470,7 @@ _Disable_SELF_TEST:
 	.asciz	"CCP7IE"
 	.byte	0x3
 	.2byte	0x35d2
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -3410,7 +3481,7 @@ _Disable_SELF_TEST:
 	.asciz	"CCT7IE"
 	.byte	0x3
 	.2byte	0x35d3
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -3421,7 +3492,7 @@ _Disable_SELF_TEST:
 	.asciz	"CCP8IE"
 	.byte	0x3
 	.2byte	0x35d5
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -3432,7 +3503,7 @@ _Disable_SELF_TEST:
 	.asciz	"CCT8IE"
 	.byte	0x3
 	.2byte	0x35d6
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -3443,7 +3514,7 @@ _Disable_SELF_TEST:
 	.asciz	"S1CLKFIE"
 	.byte	0x3
 	.2byte	0x35d8
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x2
@@ -3455,18 +3526,18 @@ _Disable_SELF_TEST:
 	.asciz	"IEC9BITS"
 	.byte	0x3
 	.2byte	0x35d9
-	.4byte	0xfb3
+	.4byte	0xfbe
 	.uleb128 0x8
 	.asciz	"tagIPC3BITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x3620
-	.4byte	0x10c6
+	.4byte	0x10d1
 	.uleb128 0x5
 	.asciz	"U1TXIP"
 	.byte	0x3
 	.2byte	0x3621
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x3
 	.byte	0xd
@@ -3477,7 +3548,7 @@ _Disable_SELF_TEST:
 	.asciz	"ECCSBEIP"
 	.byte	0x3
 	.2byte	0x3623
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x3
 	.byte	0x9
@@ -3488,7 +3559,7 @@ _Disable_SELF_TEST:
 	.asciz	"NVMIP"
 	.byte	0x3
 	.2byte	0x3625
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x3
 	.byte	0x5
@@ -3499,7 +3570,7 @@ _Disable_SELF_TEST:
 	.asciz	"INT1IP"
 	.byte	0x3
 	.2byte	0x3627
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x3
 	.byte	0x1
@@ -3511,18 +3582,18 @@ _Disable_SELF_TEST:
 	.asciz	"IPC3BITS"
 	.byte	0x3
 	.2byte	0x3628
-	.4byte	0x105b
+	.4byte	0x1066
 	.uleb128 0x8
 	.asciz	"tagIPC12BITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x3691
-	.4byte	0x113f
+	.4byte	0x114a
 	.uleb128 0x5
 	.asciz	"QEI1IP"
 	.byte	0x3
 	.2byte	0x3692
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x3
 	.byte	0xd
@@ -3533,7 +3604,7 @@ _Disable_SELF_TEST:
 	.asciz	"U1EIP"
 	.byte	0x3
 	.2byte	0x3694
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x3
 	.byte	0x9
@@ -3544,7 +3615,7 @@ _Disable_SELF_TEST:
 	.asciz	"U2EIP"
 	.byte	0x3
 	.2byte	0x3696
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x3
 	.byte	0x5
@@ -3555,7 +3626,7 @@ _Disable_SELF_TEST:
 	.asciz	"CRCIP"
 	.byte	0x3
 	.2byte	0x3698
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x3
 	.byte	0x1
@@ -3567,18 +3638,18 @@ _Disable_SELF_TEST:
 	.asciz	"IPC12BITS"
 	.byte	0x3
 	.2byte	0x3699
-	.4byte	0x10d7
+	.4byte	0x10e2
 	.uleb128 0x8
 	.asciz	"tagIPC23BITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x3700
-	.4byte	0x11c4
+	.4byte	0x11cf
 	.uleb128 0x5
 	.asciz	"ADCAN1IP"
 	.byte	0x3
 	.2byte	0x3701
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x3
 	.byte	0xd
@@ -3589,7 +3660,7 @@ _Disable_SELF_TEST:
 	.asciz	"ADCAN2IP"
 	.byte	0x3
 	.2byte	0x3703
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x3
 	.byte	0x9
@@ -3600,7 +3671,7 @@ _Disable_SELF_TEST:
 	.asciz	"ADCAN3IP"
 	.byte	0x3
 	.2byte	0x3705
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x3
 	.byte	0x5
@@ -3611,7 +3682,7 @@ _Disable_SELF_TEST:
 	.asciz	"ADCAN4IP"
 	.byte	0x3
 	.2byte	0x3707
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x3
 	.byte	0x1
@@ -3623,18 +3694,18 @@ _Disable_SELF_TEST:
 	.asciz	"IPC23BITS"
 	.byte	0x3
 	.2byte	0x3708
-	.4byte	0x1151
+	.4byte	0x115c
 	.uleb128 0x8
 	.asciz	"tagINTCON1BITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x37fa
-	.4byte	0x1330
+	.4byte	0x133b
 	.uleb128 0x5
 	.asciz	"OSCFAIL"
 	.byte	0x3
 	.2byte	0x37fc
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -3645,7 +3716,7 @@ _Disable_SELF_TEST:
 	.asciz	"STKERR"
 	.byte	0x3
 	.2byte	0x37fd
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -3656,7 +3727,7 @@ _Disable_SELF_TEST:
 	.asciz	"ADDRERR"
 	.byte	0x3
 	.2byte	0x37fe
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -3667,7 +3738,7 @@ _Disable_SELF_TEST:
 	.asciz	"MATHERR"
 	.byte	0x3
 	.2byte	0x37ff
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -3678,7 +3749,7 @@ _Disable_SELF_TEST:
 	.asciz	"DMACERR"
 	.byte	0x3
 	.2byte	0x3800
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -3689,7 +3760,7 @@ _Disable_SELF_TEST:
 	.asciz	"DIV0ERR"
 	.byte	0x3
 	.2byte	0x3801
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -3700,7 +3771,7 @@ _Disable_SELF_TEST:
 	.asciz	"SFTACERR"
 	.byte	0x3
 	.2byte	0x3802
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -3711,7 +3782,7 @@ _Disable_SELF_TEST:
 	.asciz	"COVTE"
 	.byte	0x3
 	.2byte	0x3803
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -3722,7 +3793,7 @@ _Disable_SELF_TEST:
 	.asciz	"OVBTE"
 	.byte	0x3
 	.2byte	0x3804
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -3733,7 +3804,7 @@ _Disable_SELF_TEST:
 	.asciz	"OVATE"
 	.byte	0x3
 	.2byte	0x3805
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -3744,7 +3815,7 @@ _Disable_SELF_TEST:
 	.asciz	"COVBERR"
 	.byte	0x3
 	.2byte	0x3806
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -3755,7 +3826,7 @@ _Disable_SELF_TEST:
 	.asciz	"COVAERR"
 	.byte	0x3
 	.2byte	0x3807
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x3
@@ -3766,7 +3837,7 @@ _Disable_SELF_TEST:
 	.asciz	"OVBERR"
 	.byte	0x3
 	.2byte	0x3808
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x2
@@ -3777,7 +3848,7 @@ _Disable_SELF_TEST:
 	.asciz	"OVAERR"
 	.byte	0x3
 	.2byte	0x3809
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -3788,7 +3859,7 @@ _Disable_SELF_TEST:
 	.asciz	"NSTDIS"
 	.byte	0x3
 	.2byte	0x380a
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -3800,18 +3871,18 @@ _Disable_SELF_TEST:
 	.asciz	"INTCON1BITS"
 	.byte	0x3
 	.2byte	0x380b
-	.4byte	0x11d6
+	.4byte	0x11e1
 	.uleb128 0x8
 	.asciz	"tagINTCON2BITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x3810
-	.4byte	0x1400
+	.4byte	0x140b
 	.uleb128 0x5
 	.asciz	"INT0EP"
 	.byte	0x3
 	.2byte	0x3811
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -3822,7 +3893,7 @@ _Disable_SELF_TEST:
 	.asciz	"INT1EP"
 	.byte	0x3
 	.2byte	0x3812
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -3833,7 +3904,7 @@ _Disable_SELF_TEST:
 	.asciz	"INT2EP"
 	.byte	0x3
 	.2byte	0x3813
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -3844,7 +3915,7 @@ _Disable_SELF_TEST:
 	.asciz	"INT3EP"
 	.byte	0x3
 	.2byte	0x3814
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -3855,7 +3926,7 @@ _Disable_SELF_TEST:
 	.asciz	"AIVTEN"
 	.byte	0x3
 	.2byte	0x3816
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -3866,7 +3937,7 @@ _Disable_SELF_TEST:
 	.asciz	"SWTRAP"
 	.byte	0x3
 	.2byte	0x3818
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x2
@@ -3877,7 +3948,7 @@ _Disable_SELF_TEST:
 	.asciz	"DISI"
 	.byte	0x3
 	.2byte	0x3819
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -3888,7 +3959,7 @@ _Disable_SELF_TEST:
 	.asciz	"GIE"
 	.byte	0x3
 	.2byte	0x381a
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -3900,17 +3971,17 @@ _Disable_SELF_TEST:
 	.asciz	"INTCON2BITS"
 	.byte	0x3
 	.2byte	0x381b
-	.4byte	0x1344
+	.4byte	0x134f
 	.uleb128 0x4
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x40bd
-	.4byte	0x14d1
+	.4byte	0x14dc
 	.uleb128 0x5
 	.asciz	"MOD"
 	.byte	0x3
 	.2byte	0x40be
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x4
 	.byte	0xc
@@ -3921,7 +3992,7 @@ _Disable_SELF_TEST:
 	.asciz	"CCSEL"
 	.byte	0x3
 	.2byte	0x40bf
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -3932,7 +4003,7 @@ _Disable_SELF_TEST:
 	.asciz	"T32"
 	.byte	0x3
 	.2byte	0x40c0
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -3943,7 +4014,7 @@ _Disable_SELF_TEST:
 	.asciz	"TMRPS"
 	.byte	0x3
 	.2byte	0x40c1
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x2
 	.byte	0x8
@@ -3954,7 +4025,7 @@ _Disable_SELF_TEST:
 	.4byte	.LASF0
 	.byte	0x3
 	.2byte	0x40c2
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x3
 	.byte	0x5
@@ -3965,7 +4036,7 @@ _Disable_SELF_TEST:
 	.asciz	"TMRSYNC"
 	.byte	0x3
 	.2byte	0x40c3
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -3976,7 +4047,7 @@ _Disable_SELF_TEST:
 	.asciz	"CCPSLP"
 	.byte	0x3
 	.2byte	0x40c4
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x3
@@ -3987,7 +4058,7 @@ _Disable_SELF_TEST:
 	.asciz	"CCPSIDL"
 	.byte	0x3
 	.2byte	0x40c5
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x2
@@ -3998,7 +4069,7 @@ _Disable_SELF_TEST:
 	.asciz	"CCPON"
 	.byte	0x3
 	.2byte	0x40c7
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -4010,12 +4081,12 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x40c9
-	.4byte	0x159f
+	.4byte	0x15aa
 	.uleb128 0x5
 	.asciz	"MOD0"
 	.byte	0x3
 	.2byte	0x40ca
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -4026,7 +4097,7 @@ _Disable_SELF_TEST:
 	.asciz	"MOD1"
 	.byte	0x3
 	.2byte	0x40cb
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -4037,7 +4108,7 @@ _Disable_SELF_TEST:
 	.asciz	"MOD2"
 	.byte	0x3
 	.2byte	0x40cc
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -4048,7 +4119,7 @@ _Disable_SELF_TEST:
 	.asciz	"MOD3"
 	.byte	0x3
 	.2byte	0x40cd
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -4059,7 +4130,7 @@ _Disable_SELF_TEST:
 	.asciz	"TMR32"
 	.byte	0x3
 	.2byte	0x40cf
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -4070,7 +4141,7 @@ _Disable_SELF_TEST:
 	.asciz	"TMRPS0"
 	.byte	0x3
 	.2byte	0x40d0
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -4081,7 +4152,7 @@ _Disable_SELF_TEST:
 	.asciz	"TMRPS1"
 	.byte	0x3
 	.2byte	0x40d1
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -4092,7 +4163,7 @@ _Disable_SELF_TEST:
 	.4byte	.LASF1
 	.byte	0x3
 	.2byte	0x40d2
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -4103,7 +4174,7 @@ _Disable_SELF_TEST:
 	.4byte	.LASF2
 	.byte	0x3
 	.2byte	0x40d3
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -4114,7 +4185,7 @@ _Disable_SELF_TEST:
 	.asciz	"CLKSEL2"
 	.byte	0x3
 	.2byte	0x40d4
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -4126,12 +4197,12 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x40d6
-	.4byte	0x15be
+	.4byte	0x15c9
 	.uleb128 0x5
 	.asciz	"CCPMOD"
 	.byte	0x3
 	.2byte	0x40d7
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x4
 	.byte	0xc
@@ -4143,12 +4214,12 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x40d9
-	.4byte	0x1620
+	.4byte	0x162b
 	.uleb128 0x5
 	.asciz	"CCPMOD0"
 	.byte	0x3
 	.2byte	0x40da
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -4159,7 +4230,7 @@ _Disable_SELF_TEST:
 	.asciz	"CCPMOD1"
 	.byte	0x3
 	.2byte	0x40db
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -4170,7 +4241,7 @@ _Disable_SELF_TEST:
 	.asciz	"CCPMOD2"
 	.byte	0x3
 	.2byte	0x40dc
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -4181,7 +4252,7 @@ _Disable_SELF_TEST:
 	.asciz	"CCPMOD3"
 	.byte	0x3
 	.2byte	0x40dd
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -4193,24 +4264,24 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x40bc
-	.4byte	0x163e
+	.4byte	0x1649
 	.uleb128 0x7
-	.4byte	0x1414
+	.4byte	0x141f
 	.uleb128 0x7
-	.4byte	0x14d1
+	.4byte	0x14dc
 	.uleb128 0x7
-	.4byte	0x159f
+	.4byte	0x15aa
 	.uleb128 0x7
-	.4byte	0x15be
+	.4byte	0x15c9
 	.byte	0x0
 	.uleb128 0x8
 	.asciz	"tagCCP8CON1LBITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x40bb
-	.4byte	0x1661
+	.4byte	0x166c
 	.uleb128 0x9
-	.4byte	0x1620
+	.4byte	0x162b
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -4219,17 +4290,17 @@ _Disable_SELF_TEST:
 	.asciz	"CCP8CON1LBITS"
 	.byte	0x3
 	.2byte	0x40e0
-	.4byte	0x163e
+	.4byte	0x1649
 	.uleb128 0x4
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x40e7
-	.4byte	0x1711
+	.4byte	0x171c
 	.uleb128 0x5
 	.asciz	"SYNC"
 	.byte	0x3
 	.2byte	0x40e8
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x5
 	.byte	0xb
@@ -4240,7 +4311,7 @@ _Disable_SELF_TEST:
 	.asciz	"ALTSYNC"
 	.byte	0x3
 	.2byte	0x40e9
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -4251,7 +4322,7 @@ _Disable_SELF_TEST:
 	.asciz	"ONESHOT"
 	.byte	0x3
 	.2byte	0x40ea
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -4262,7 +4333,7 @@ _Disable_SELF_TEST:
 	.asciz	"TRIGEN"
 	.byte	0x3
 	.2byte	0x40eb
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -4273,7 +4344,7 @@ _Disable_SELF_TEST:
 	.asciz	"OPS"
 	.byte	0x3
 	.2byte	0x40ec
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x4
 	.byte	0x4
@@ -4284,7 +4355,7 @@ _Disable_SELF_TEST:
 	.asciz	"RTRGEN"
 	.byte	0x3
 	.2byte	0x40ee
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -4295,7 +4366,7 @@ _Disable_SELF_TEST:
 	.asciz	"OPSSRC"
 	.byte	0x3
 	.2byte	0x40ef
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -4307,12 +4378,12 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x40f1
-	.4byte	0x17df
+	.4byte	0x17ea
 	.uleb128 0x5
 	.asciz	"SYNC0"
 	.byte	0x3
 	.2byte	0x40f2
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -4323,7 +4394,7 @@ _Disable_SELF_TEST:
 	.asciz	"SYNC1"
 	.byte	0x3
 	.2byte	0x40f3
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -4334,7 +4405,7 @@ _Disable_SELF_TEST:
 	.asciz	"SYNC2"
 	.byte	0x3
 	.2byte	0x40f4
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -4345,7 +4416,7 @@ _Disable_SELF_TEST:
 	.asciz	"SYNC3"
 	.byte	0x3
 	.2byte	0x40f5
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -4356,7 +4427,7 @@ _Disable_SELF_TEST:
 	.asciz	"SYNC4"
 	.byte	0x3
 	.2byte	0x40f6
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -4367,7 +4438,7 @@ _Disable_SELF_TEST:
 	.asciz	"OPS0"
 	.byte	0x3
 	.2byte	0x40f8
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -4378,7 +4449,7 @@ _Disable_SELF_TEST:
 	.asciz	"OPS1"
 	.byte	0x3
 	.2byte	0x40f9
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -4389,7 +4460,7 @@ _Disable_SELF_TEST:
 	.asciz	"OPS2"
 	.byte	0x3
 	.2byte	0x40fa
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -4400,7 +4471,7 @@ _Disable_SELF_TEST:
 	.asciz	"OPS3"
 	.byte	0x3
 	.2byte	0x40fb
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -4411,7 +4482,7 @@ _Disable_SELF_TEST:
 	.asciz	"OPSRC"
 	.byte	0x3
 	.2byte	0x40fd
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -4423,12 +4494,12 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x40ff
-	.4byte	0x17fc
+	.4byte	0x1807
 	.uleb128 0x5
 	.asciz	"IOPS"
 	.byte	0x3
 	.2byte	0x4101
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x4
 	.byte	0x4
@@ -4440,12 +4511,12 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4103
-	.4byte	0x1856
+	.4byte	0x1861
 	.uleb128 0x5
 	.asciz	"IOPS0"
 	.byte	0x3
 	.2byte	0x4105
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -4456,7 +4527,7 @@ _Disable_SELF_TEST:
 	.asciz	"IOPS1"
 	.byte	0x3
 	.2byte	0x4106
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -4467,7 +4538,7 @@ _Disable_SELF_TEST:
 	.asciz	"IOPS2"
 	.byte	0x3
 	.2byte	0x4107
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -4478,7 +4549,7 @@ _Disable_SELF_TEST:
 	.asciz	"IOPS3"
 	.byte	0x3
 	.2byte	0x4108
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -4490,24 +4561,24 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x40e6
-	.4byte	0x1874
+	.4byte	0x187f
 	.uleb128 0x7
-	.4byte	0x1677
+	.4byte	0x1682
 	.uleb128 0x7
-	.4byte	0x1711
+	.4byte	0x171c
 	.uleb128 0x7
-	.4byte	0x17df
+	.4byte	0x17ea
 	.uleb128 0x7
-	.4byte	0x17fc
+	.4byte	0x1807
 	.byte	0x0
 	.uleb128 0x8
 	.asciz	"tagCCP8CON1HBITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x40e5
-	.4byte	0x1897
+	.4byte	0x18a2
 	.uleb128 0x9
-	.4byte	0x1856
+	.4byte	0x1861
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -4516,17 +4587,17 @@ _Disable_SELF_TEST:
 	.asciz	"CCP8CON1HBITS"
 	.byte	0x3
 	.2byte	0x410b
-	.4byte	0x1874
+	.4byte	0x187f
 	.uleb128 0x4
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4112
-	.4byte	0x1907
+	.4byte	0x1912
 	.uleb128 0x5
 	.asciz	"ASDG"
 	.byte	0x3
 	.2byte	0x4113
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x8
 	.byte	0x8
@@ -4537,7 +4608,7 @@ _Disable_SELF_TEST:
 	.asciz	"SSDG"
 	.byte	0x3
 	.2byte	0x4115
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x3
@@ -4548,7 +4619,7 @@ _Disable_SELF_TEST:
 	.asciz	"ASDGM"
 	.byte	0x3
 	.2byte	0x4117
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -4559,7 +4630,7 @@ _Disable_SELF_TEST:
 	.asciz	"PWMRSEN"
 	.byte	0x3
 	.2byte	0x4118
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -4571,12 +4642,12 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x411a
-	.4byte	0x19b1
+	.4byte	0x19bc
 	.uleb128 0x5
 	.asciz	"ASDG0"
 	.byte	0x3
 	.2byte	0x411b
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -4587,7 +4658,7 @@ _Disable_SELF_TEST:
 	.asciz	"ASDG1"
 	.byte	0x3
 	.2byte	0x411c
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -4598,7 +4669,7 @@ _Disable_SELF_TEST:
 	.asciz	"ASDG2"
 	.byte	0x3
 	.2byte	0x411d
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -4609,7 +4680,7 @@ _Disable_SELF_TEST:
 	.asciz	"ASDG3"
 	.byte	0x3
 	.2byte	0x411e
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -4620,7 +4691,7 @@ _Disable_SELF_TEST:
 	.asciz	"ASDG4"
 	.byte	0x3
 	.2byte	0x411f
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -4631,7 +4702,7 @@ _Disable_SELF_TEST:
 	.asciz	"ASDG5"
 	.byte	0x3
 	.2byte	0x4120
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -4642,7 +4713,7 @@ _Disable_SELF_TEST:
 	.asciz	"ASDG6"
 	.byte	0x3
 	.2byte	0x4121
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -4653,7 +4724,7 @@ _Disable_SELF_TEST:
 	.asciz	"ASDG7"
 	.byte	0x3
 	.2byte	0x4122
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -4665,20 +4736,20 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4111
-	.4byte	0x19c5
+	.4byte	0x19d0
 	.uleb128 0x7
-	.4byte	0x18ad
+	.4byte	0x18b8
 	.uleb128 0x7
-	.4byte	0x1907
+	.4byte	0x1912
 	.byte	0x0
 	.uleb128 0x8
 	.asciz	"tagCCP8CON2LBITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4110
-	.4byte	0x19e8
+	.4byte	0x19f3
 	.uleb128 0x9
-	.4byte	0x19b1
+	.4byte	0x19bc
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -4687,18 +4758,18 @@ _Disable_SELF_TEST:
 	.asciz	"CCP8CON2LBITS"
 	.byte	0x3
 	.2byte	0x4125
-	.4byte	0x19c5
+	.4byte	0x19d0
 	.uleb128 0x8
 	.asciz	"tagADCON1LBITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4339
-	.4byte	0x1a3f
+	.4byte	0x1a4a
 	.uleb128 0x5
 	.asciz	"ADSIDL"
 	.byte	0x3
 	.2byte	0x433b
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x2
@@ -4709,7 +4780,7 @@ _Disable_SELF_TEST:
 	.asciz	"ADON"
 	.byte	0x3
 	.2byte	0x433d
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -4721,17 +4792,17 @@ _Disable_SELF_TEST:
 	.asciz	"ADCON1LBITS"
 	.byte	0x3
 	.2byte	0x433e
-	.4byte	0x19fe
+	.4byte	0x1a09
 	.uleb128 0x4
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4345
-	.4byte	0x1a85
+	.4byte	0x1a90
 	.uleb128 0x5
 	.asciz	"SHRRES"
 	.byte	0x3
 	.2byte	0x4347
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x2
 	.byte	0x9
@@ -4742,7 +4813,7 @@ _Disable_SELF_TEST:
 	.asciz	"FORM"
 	.byte	0x3
 	.2byte	0x4348
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -4754,12 +4825,12 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x434a
-	.4byte	0x1abb
+	.4byte	0x1ac6
 	.uleb128 0x5
 	.asciz	"SHRRES0"
 	.byte	0x3
 	.2byte	0x434c
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -4770,7 +4841,7 @@ _Disable_SELF_TEST:
 	.asciz	"SHRRES1"
 	.byte	0x3
 	.2byte	0x434d
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -4782,20 +4853,20 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4344
-	.4byte	0x1acf
+	.4byte	0x1ada
 	.uleb128 0x7
-	.4byte	0x1a53
+	.4byte	0x1a5e
 	.uleb128 0x7
-	.4byte	0x1a85
+	.4byte	0x1a90
 	.byte	0x0
 	.uleb128 0x8
 	.asciz	"tagADCON1HBITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4343
-	.4byte	0x1af0
+	.4byte	0x1afb
 	.uleb128 0x9
-	.4byte	0x1abb
+	.4byte	0x1ac6
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -4804,17 +4875,17 @@ _Disable_SELF_TEST:
 	.asciz	"ADCON1HBITS"
 	.byte	0x3
 	.2byte	0x4350
-	.4byte	0x1acf
+	.4byte	0x1ada
 	.uleb128 0x4
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4357
-	.4byte	0x1b8e
+	.4byte	0x1b99
 	.uleb128 0x5
 	.asciz	"SHRADCS"
 	.byte	0x3
 	.2byte	0x4358
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x7
 	.byte	0x9
@@ -4825,7 +4896,7 @@ _Disable_SELF_TEST:
 	.asciz	"SHREISEL"
 	.byte	0x3
 	.2byte	0x435a
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x3
 	.byte	0x5
@@ -4836,7 +4907,7 @@ _Disable_SELF_TEST:
 	.asciz	"PTGEN"
 	.byte	0x3
 	.2byte	0x435b
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -4847,7 +4918,7 @@ _Disable_SELF_TEST:
 	.asciz	"EIEN"
 	.byte	0x3
 	.2byte	0x435c
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x3
@@ -4858,7 +4929,7 @@ _Disable_SELF_TEST:
 	.asciz	"REFERCIE"
 	.byte	0x3
 	.2byte	0x435e
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -4869,7 +4940,7 @@ _Disable_SELF_TEST:
 	.asciz	"REFCIE"
 	.byte	0x3
 	.2byte	0x435f
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -4881,12 +4952,12 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4361
-	.4byte	0x1c81
+	.4byte	0x1c8c
 	.uleb128 0x5
 	.asciz	"SHRADCS0"
 	.byte	0x3
 	.2byte	0x4362
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -4897,7 +4968,7 @@ _Disable_SELF_TEST:
 	.asciz	"SHRADCS1"
 	.byte	0x3
 	.2byte	0x4363
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -4908,7 +4979,7 @@ _Disable_SELF_TEST:
 	.asciz	"SHRADCS2"
 	.byte	0x3
 	.2byte	0x4364
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -4919,7 +4990,7 @@ _Disable_SELF_TEST:
 	.asciz	"SHRADCS3"
 	.byte	0x3
 	.2byte	0x4365
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -4930,7 +5001,7 @@ _Disable_SELF_TEST:
 	.asciz	"SHRADCS4"
 	.byte	0x3
 	.2byte	0x4366
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -4941,7 +5012,7 @@ _Disable_SELF_TEST:
 	.asciz	"SHRADCS5"
 	.byte	0x3
 	.2byte	0x4367
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -4952,7 +5023,7 @@ _Disable_SELF_TEST:
 	.asciz	"SHRADCS6"
 	.byte	0x3
 	.2byte	0x4368
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -4963,7 +5034,7 @@ _Disable_SELF_TEST:
 	.asciz	"SHREISEL0"
 	.byte	0x3
 	.2byte	0x436a
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -4974,7 +5045,7 @@ _Disable_SELF_TEST:
 	.asciz	"SHREISEL1"
 	.byte	0x3
 	.2byte	0x436b
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -4985,7 +5056,7 @@ _Disable_SELF_TEST:
 	.asciz	"SHREISEL2"
 	.byte	0x3
 	.2byte	0x436c
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -4997,20 +5068,20 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4356
-	.4byte	0x1c95
+	.4byte	0x1ca0
 	.uleb128 0x7
-	.4byte	0x1b04
+	.4byte	0x1b0f
 	.uleb128 0x7
-	.4byte	0x1b8e
+	.4byte	0x1b99
 	.byte	0x0
 	.uleb128 0x8
 	.asciz	"tagADCON2LBITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4355
-	.4byte	0x1cb6
+	.4byte	0x1cc1
 	.uleb128 0x9
-	.4byte	0x1c81
+	.4byte	0x1c8c
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -5019,17 +5090,17 @@ _Disable_SELF_TEST:
 	.asciz	"ADCON2LBITS"
 	.byte	0x3
 	.2byte	0x436f
-	.4byte	0x1c95
+	.4byte	0x1ca0
 	.uleb128 0x4
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4376
-	.4byte	0x1d14
+	.4byte	0x1d1f
 	.uleb128 0x5
 	.asciz	"SHRSAMC"
 	.byte	0x3
 	.2byte	0x4377
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0xa
 	.byte	0x6
@@ -5040,7 +5111,7 @@ _Disable_SELF_TEST:
 	.asciz	"REFERR"
 	.byte	0x3
 	.2byte	0x4379
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -5051,7 +5122,7 @@ _Disable_SELF_TEST:
 	.asciz	"REFRDY"
 	.byte	0x3
 	.2byte	0x437a
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -5063,12 +5134,12 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x437c
-	.4byte	0x1e04
+	.4byte	0x1e0f
 	.uleb128 0x5
 	.asciz	"SHRSAMC0"
 	.byte	0x3
 	.2byte	0x437d
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -5079,7 +5150,7 @@ _Disable_SELF_TEST:
 	.asciz	"SHRSAMC1"
 	.byte	0x3
 	.2byte	0x437e
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -5090,7 +5161,7 @@ _Disable_SELF_TEST:
 	.asciz	"SHRSAMC2"
 	.byte	0x3
 	.2byte	0x437f
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -5101,7 +5172,7 @@ _Disable_SELF_TEST:
 	.asciz	"SHRSAMC3"
 	.byte	0x3
 	.2byte	0x4380
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -5112,7 +5183,7 @@ _Disable_SELF_TEST:
 	.asciz	"SHRSAMC4"
 	.byte	0x3
 	.2byte	0x4381
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -5123,7 +5194,7 @@ _Disable_SELF_TEST:
 	.asciz	"SHRSAMC5"
 	.byte	0x3
 	.2byte	0x4382
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -5134,7 +5205,7 @@ _Disable_SELF_TEST:
 	.asciz	"SHRSAMC6"
 	.byte	0x3
 	.2byte	0x4383
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -5145,7 +5216,7 @@ _Disable_SELF_TEST:
 	.asciz	"SHRSAMC7"
 	.byte	0x3
 	.2byte	0x4384
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -5156,7 +5227,7 @@ _Disable_SELF_TEST:
 	.asciz	"SHRSAMC8"
 	.byte	0x3
 	.2byte	0x4385
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -5167,7 +5238,7 @@ _Disable_SELF_TEST:
 	.asciz	"SHRSAMC9"
 	.byte	0x3
 	.2byte	0x4386
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -5179,20 +5250,20 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4375
-	.4byte	0x1e18
+	.4byte	0x1e23
 	.uleb128 0x7
-	.4byte	0x1cca
+	.4byte	0x1cd5
 	.uleb128 0x7
-	.4byte	0x1d14
+	.4byte	0x1d1f
 	.byte	0x0
 	.uleb128 0x8
 	.asciz	"tagADCON2HBITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4374
-	.4byte	0x1e39
+	.4byte	0x1e44
 	.uleb128 0x9
-	.4byte	0x1e04
+	.4byte	0x1e0f
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -5201,17 +5272,17 @@ _Disable_SELF_TEST:
 	.asciz	"ADCON2HBITS"
 	.byte	0x3
 	.2byte	0x4389
-	.4byte	0x1e18
+	.4byte	0x1e23
 	.uleb128 0x4
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4390
-	.4byte	0x1f1c
+	.4byte	0x1f27
 	.uleb128 0x5
 	.asciz	"CNVCHSEL"
 	.byte	0x3
 	.2byte	0x4391
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x6
 	.byte	0xa
@@ -5222,7 +5293,7 @@ _Disable_SELF_TEST:
 	.asciz	"SWCTRG"
 	.byte	0x3
 	.2byte	0x4392
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -5233,7 +5304,7 @@ _Disable_SELF_TEST:
 	.asciz	"SWLCTRG"
 	.byte	0x3
 	.2byte	0x4393
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -5244,7 +5315,7 @@ _Disable_SELF_TEST:
 	.asciz	"CNVRTCH"
 	.byte	0x3
 	.2byte	0x4394
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -5255,7 +5326,7 @@ _Disable_SELF_TEST:
 	.asciz	"SHRSAMP"
 	.byte	0x3
 	.2byte	0x4395
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -5266,7 +5337,7 @@ _Disable_SELF_TEST:
 	.asciz	"SUSPRDY"
 	.byte	0x3
 	.2byte	0x4396
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -5277,7 +5348,7 @@ _Disable_SELF_TEST:
 	.asciz	"SUSPCIE"
 	.byte	0x3
 	.2byte	0x4397
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -5288,7 +5359,7 @@ _Disable_SELF_TEST:
 	.asciz	"SUSPEND"
 	.byte	0x3
 	.2byte	0x4398
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x3
@@ -5299,7 +5370,7 @@ _Disable_SELF_TEST:
 	.asciz	"REFSEL"
 	.byte	0x3
 	.2byte	0x4399
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x3
 	.byte	0x0
@@ -5311,12 +5382,12 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x439b
-	.4byte	0x1ff8
+	.4byte	0x2003
 	.uleb128 0x5
 	.asciz	"CNVCHSEL0"
 	.byte	0x3
 	.2byte	0x439c
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -5327,7 +5398,7 @@ _Disable_SELF_TEST:
 	.asciz	"CNVCHSEL1"
 	.byte	0x3
 	.2byte	0x439d
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -5338,7 +5409,7 @@ _Disable_SELF_TEST:
 	.asciz	"CNVCHSEL2"
 	.byte	0x3
 	.2byte	0x439e
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -5349,7 +5420,7 @@ _Disable_SELF_TEST:
 	.asciz	"CNVCHSEL3"
 	.byte	0x3
 	.2byte	0x439f
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -5360,7 +5431,7 @@ _Disable_SELF_TEST:
 	.asciz	"CNVCHSEL4"
 	.byte	0x3
 	.2byte	0x43a0
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -5371,7 +5442,7 @@ _Disable_SELF_TEST:
 	.asciz	"CNVCHSEL5"
 	.byte	0x3
 	.2byte	0x43a1
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -5382,7 +5453,7 @@ _Disable_SELF_TEST:
 	.asciz	"REFSEL0"
 	.byte	0x3
 	.2byte	0x43a3
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x2
@@ -5393,7 +5464,7 @@ _Disable_SELF_TEST:
 	.asciz	"REFSEL1"
 	.byte	0x3
 	.2byte	0x43a4
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -5404,7 +5475,7 @@ _Disable_SELF_TEST:
 	.asciz	"REFSEL2"
 	.byte	0x3
 	.2byte	0x43a5
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -5416,20 +5487,20 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x438f
-	.4byte	0x200c
+	.4byte	0x2017
 	.uleb128 0x7
-	.4byte	0x1e4d
+	.4byte	0x1e58
 	.uleb128 0x7
-	.4byte	0x1f1c
+	.4byte	0x1f27
 	.byte	0x0
 	.uleb128 0x8
 	.asciz	"tagADCON3LBITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x438e
-	.4byte	0x202d
+	.4byte	0x2038
 	.uleb128 0x9
-	.4byte	0x1ff8
+	.4byte	0x2003
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -5438,17 +5509,17 @@ _Disable_SELF_TEST:
 	.asciz	"ADCON3LBITS"
 	.byte	0x3
 	.2byte	0x43a8
-	.4byte	0x200c
+	.4byte	0x2017
 	.uleb128 0x4
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x43af
-	.4byte	0x2083
+	.4byte	0x208e
 	.uleb128 0x5
 	.asciz	"SHREN"
 	.byte	0x3
 	.2byte	0x43b1
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -5459,7 +5530,7 @@ _Disable_SELF_TEST:
 	.4byte	.LASF3
 	.byte	0x3
 	.2byte	0x43b2
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x6
 	.byte	0x2
@@ -5470,7 +5541,7 @@ _Disable_SELF_TEST:
 	.4byte	.LASF0
 	.byte	0x3
 	.2byte	0x43b3
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x2
 	.byte	0x0
@@ -5482,12 +5553,12 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x43b5
-	.4byte	0x2135
+	.4byte	0x2140
 	.uleb128 0x5
 	.asciz	"CLKDIV0"
 	.byte	0x3
 	.2byte	0x43b7
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -5498,7 +5569,7 @@ _Disable_SELF_TEST:
 	.asciz	"CLKDIV1"
 	.byte	0x3
 	.2byte	0x43b8
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -5509,7 +5580,7 @@ _Disable_SELF_TEST:
 	.asciz	"CLKDIV2"
 	.byte	0x3
 	.2byte	0x43b9
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -5520,7 +5591,7 @@ _Disable_SELF_TEST:
 	.asciz	"CLKDIV3"
 	.byte	0x3
 	.2byte	0x43ba
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -5531,7 +5602,7 @@ _Disable_SELF_TEST:
 	.asciz	"CLKDIV4"
 	.byte	0x3
 	.2byte	0x43bb
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x3
@@ -5542,7 +5613,7 @@ _Disable_SELF_TEST:
 	.asciz	"CLKDIV5"
 	.byte	0x3
 	.2byte	0x43bc
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x2
@@ -5553,7 +5624,7 @@ _Disable_SELF_TEST:
 	.4byte	.LASF1
 	.byte	0x3
 	.2byte	0x43bd
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -5564,7 +5635,7 @@ _Disable_SELF_TEST:
 	.4byte	.LASF2
 	.byte	0x3
 	.2byte	0x43be
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -5576,20 +5647,20 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x43ae
-	.4byte	0x2149
+	.4byte	0x2154
 	.uleb128 0x7
-	.4byte	0x2041
+	.4byte	0x204c
 	.uleb128 0x7
-	.4byte	0x2083
+	.4byte	0x208e
 	.byte	0x0
 	.uleb128 0x8
 	.asciz	"tagADCON3HBITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x43ad
-	.4byte	0x216a
+	.4byte	0x2175
 	.uleb128 0x9
-	.4byte	0x2135
+	.4byte	0x2140
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -5598,18 +5669,18 @@ _Disable_SELF_TEST:
 	.asciz	"ADCON3HBITS"
 	.byte	0x3
 	.2byte	0x43c1
-	.4byte	0x2149
+	.4byte	0x2154
 	.uleb128 0x8
 	.asciz	"tagADMOD0LBITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x43c6
-	.4byte	0x2237
+	.4byte	0x2242
 	.uleb128 0x5
 	.asciz	"SIGN0"
 	.byte	0x3
 	.2byte	0x43c7
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -5620,7 +5691,7 @@ _Disable_SELF_TEST:
 	.asciz	"SIGN1"
 	.byte	0x3
 	.2byte	0x43c9
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -5631,7 +5702,7 @@ _Disable_SELF_TEST:
 	.asciz	"SIGN2"
 	.byte	0x3
 	.2byte	0x43cb
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -5642,7 +5713,7 @@ _Disable_SELF_TEST:
 	.asciz	"SIGN3"
 	.byte	0x3
 	.2byte	0x43cd
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -5653,7 +5724,7 @@ _Disable_SELF_TEST:
 	.asciz	"SIGN4"
 	.byte	0x3
 	.2byte	0x43cf
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -5664,7 +5735,7 @@ _Disable_SELF_TEST:
 	.asciz	"SIGN5"
 	.byte	0x3
 	.2byte	0x43d1
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -5675,7 +5746,7 @@ _Disable_SELF_TEST:
 	.asciz	"SIGN6"
 	.byte	0x3
 	.2byte	0x43d3
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x3
@@ -5686,7 +5757,7 @@ _Disable_SELF_TEST:
 	.asciz	"SIGN7"
 	.byte	0x3
 	.2byte	0x43d5
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -5698,18 +5769,18 @@ _Disable_SELF_TEST:
 	.asciz	"ADMOD0LBITS"
 	.byte	0x3
 	.2byte	0x43d6
-	.4byte	0x217e
+	.4byte	0x2189
 	.uleb128 0x8
 	.asciz	"tagADIELBITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x43ff
-	.4byte	0x2388
+	.4byte	0x2393
 	.uleb128 0x5
 	.asciz	"IE0"
 	.byte	0x3
 	.2byte	0x4400
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -5720,7 +5791,7 @@ _Disable_SELF_TEST:
 	.asciz	"IE1"
 	.byte	0x3
 	.2byte	0x4401
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -5731,7 +5802,7 @@ _Disable_SELF_TEST:
 	.asciz	"IE2"
 	.byte	0x3
 	.2byte	0x4402
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -5742,7 +5813,7 @@ _Disable_SELF_TEST:
 	.asciz	"IE3"
 	.byte	0x3
 	.2byte	0x4403
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -5753,7 +5824,7 @@ _Disable_SELF_TEST:
 	.asciz	"IE4"
 	.byte	0x3
 	.2byte	0x4404
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -5764,7 +5835,7 @@ _Disable_SELF_TEST:
 	.asciz	"IE5"
 	.byte	0x3
 	.2byte	0x4405
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -5775,7 +5846,7 @@ _Disable_SELF_TEST:
 	.asciz	"IE6"
 	.byte	0x3
 	.2byte	0x4406
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -5786,7 +5857,7 @@ _Disable_SELF_TEST:
 	.asciz	"IE7"
 	.byte	0x3
 	.2byte	0x4407
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -5797,7 +5868,7 @@ _Disable_SELF_TEST:
 	.asciz	"IE8"
 	.byte	0x3
 	.2byte	0x4408
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -5808,7 +5879,7 @@ _Disable_SELF_TEST:
 	.asciz	"IE9"
 	.byte	0x3
 	.2byte	0x4409
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -5819,7 +5890,7 @@ _Disable_SELF_TEST:
 	.asciz	"IE10"
 	.byte	0x3
 	.2byte	0x440a
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -5830,7 +5901,7 @@ _Disable_SELF_TEST:
 	.asciz	"IE11"
 	.byte	0x3
 	.2byte	0x440b
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -5841,7 +5912,7 @@ _Disable_SELF_TEST:
 	.asciz	"IE12"
 	.byte	0x3
 	.2byte	0x440c
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x3
@@ -5852,7 +5923,7 @@ _Disable_SELF_TEST:
 	.asciz	"IE13"
 	.byte	0x3
 	.2byte	0x440d
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x2
@@ -5863,7 +5934,7 @@ _Disable_SELF_TEST:
 	.asciz	"IE14"
 	.byte	0x3
 	.2byte	0x440e
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -5874,7 +5945,7 @@ _Disable_SELF_TEST:
 	.asciz	"IE15"
 	.byte	0x3
 	.2byte	0x440f
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -5886,17 +5957,17 @@ _Disable_SELF_TEST:
 	.asciz	"ADIELBITS"
 	.byte	0x3
 	.2byte	0x4410
-	.4byte	0x224b
+	.4byte	0x2256
 	.uleb128 0x4
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4586
-	.4byte	0x23d0
+	.4byte	0x23db
 	.uleb128 0x5
 	.asciz	"TRGSRC2"
 	.byte	0x3
 	.2byte	0x4587
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x5
 	.byte	0xb
@@ -5907,7 +5978,7 @@ _Disable_SELF_TEST:
 	.asciz	"TRGSRC3"
 	.byte	0x3
 	.2byte	0x4589
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x5
 	.byte	0x3
@@ -5919,12 +5990,12 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x458b
-	.4byte	0x24c5
+	.4byte	0x24d0
 	.uleb128 0x5
 	.asciz	"TRIGSRC20"
 	.byte	0x3
 	.2byte	0x458c
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -5935,7 +6006,7 @@ _Disable_SELF_TEST:
 	.asciz	"TRIGSRC21"
 	.byte	0x3
 	.2byte	0x458d
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -5946,7 +6017,7 @@ _Disable_SELF_TEST:
 	.asciz	"TRIGSRC22"
 	.byte	0x3
 	.2byte	0x458e
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -5957,7 +6028,7 @@ _Disable_SELF_TEST:
 	.asciz	"TRIGSRC23"
 	.byte	0x3
 	.2byte	0x458f
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -5968,7 +6039,7 @@ _Disable_SELF_TEST:
 	.asciz	"TRIGSRC24"
 	.byte	0x3
 	.2byte	0x4590
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -5979,7 +6050,7 @@ _Disable_SELF_TEST:
 	.asciz	"TRGSRC30"
 	.byte	0x3
 	.2byte	0x4592
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -5990,7 +6061,7 @@ _Disable_SELF_TEST:
 	.asciz	"TRGSRC31"
 	.byte	0x3
 	.2byte	0x4593
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -6001,7 +6072,7 @@ _Disable_SELF_TEST:
 	.asciz	"TRGSRC32"
 	.byte	0x3
 	.2byte	0x4594
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -6012,7 +6083,7 @@ _Disable_SELF_TEST:
 	.asciz	"TRGSRC33"
 	.byte	0x3
 	.2byte	0x4595
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -6023,7 +6094,7 @@ _Disable_SELF_TEST:
 	.asciz	"TRGSRC34"
 	.byte	0x3
 	.2byte	0x4596
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x3
@@ -6035,12 +6106,12 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4598
-	.4byte	0x2542
+	.4byte	0x254d
 	.uleb128 0x5
 	.asciz	"TRGSRC20"
 	.byte	0x3
 	.2byte	0x4599
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -6051,7 +6122,7 @@ _Disable_SELF_TEST:
 	.asciz	"TRGSRC21"
 	.byte	0x3
 	.2byte	0x459a
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -6062,7 +6133,7 @@ _Disable_SELF_TEST:
 	.asciz	"TRGSRC22"
 	.byte	0x3
 	.2byte	0x459b
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -6073,7 +6144,7 @@ _Disable_SELF_TEST:
 	.asciz	"TRGSRC23"
 	.byte	0x3
 	.2byte	0x459c
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -6084,7 +6155,7 @@ _Disable_SELF_TEST:
 	.asciz	"TRGSRC24"
 	.byte	0x3
 	.2byte	0x459d
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -6096,22 +6167,22 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4585
-	.4byte	0x255b
+	.4byte	0x2566
 	.uleb128 0x7
-	.4byte	0x239a
+	.4byte	0x23a5
 	.uleb128 0x7
-	.4byte	0x23d0
+	.4byte	0x23db
 	.uleb128 0x7
-	.4byte	0x24c5
+	.4byte	0x24d0
 	.byte	0x0
 	.uleb128 0x8
 	.asciz	"tagADTRIG0HBITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4584
-	.4byte	0x257d
+	.4byte	0x2588
 	.uleb128 0x9
-	.4byte	0x2542
+	.4byte	0x254d
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -6120,18 +6191,18 @@ _Disable_SELF_TEST:
 	.asciz	"ADTRIG0HBITS"
 	.byte	0x3
 	.2byte	0x45a0
-	.4byte	0x255b
+	.4byte	0x2566
 	.uleb128 0x8
 	.asciz	"tagADCON5LBITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4795
-	.4byte	0x25d5
+	.4byte	0x25e0
 	.uleb128 0x5
 	.asciz	"SHRPWR"
 	.byte	0x3
 	.2byte	0x4797
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -6142,7 +6213,7 @@ _Disable_SELF_TEST:
 	.asciz	"SHRRDY"
 	.byte	0x3
 	.2byte	0x4799
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -6154,18 +6225,18 @@ _Disable_SELF_TEST:
 	.asciz	"ADCON5LBITS"
 	.byte	0x3
 	.2byte	0x479a
-	.4byte	0x2592
+	.4byte	0x259d
 	.uleb128 0x8
 	.asciz	"tagADCON5HBITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x479f
-	.4byte	0x262e
+	.4byte	0x2639
 	.uleb128 0x5
 	.asciz	"SHRCIE"
 	.byte	0x3
 	.2byte	0x47a1
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -6176,7 +6247,7 @@ _Disable_SELF_TEST:
 	.asciz	"WARMTIME"
 	.byte	0x3
 	.2byte	0x47a2
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x4
 	.byte	0x4
@@ -6188,17 +6259,17 @@ _Disable_SELF_TEST:
 	.asciz	"ADCON5HBITS"
 	.byte	0x3
 	.2byte	0x47a3
-	.4byte	0x25e9
+	.4byte	0x25f4
 	.uleb128 0x4
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x47d4
-	.4byte	0x26b0
+	.4byte	0x26bb
 	.uleb128 0x5
 	.asciz	"FCLKDIV"
 	.byte	0x3
 	.2byte	0x47d5
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x3
 	.byte	0xd
@@ -6209,7 +6280,7 @@ _Disable_SELF_TEST:
 	.4byte	.LASF3
 	.byte	0x3
 	.2byte	0x47d7
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x2
 	.byte	0xa
@@ -6220,7 +6291,7 @@ _Disable_SELF_TEST:
 	.4byte	.LASF0
 	.byte	0x3
 	.2byte	0x47d8
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x2
 	.byte	0x8
@@ -6231,7 +6302,7 @@ _Disable_SELF_TEST:
 	.asciz	"DACSIDL"
 	.byte	0x3
 	.2byte	0x47da
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x2
@@ -6242,7 +6313,7 @@ _Disable_SELF_TEST:
 	.asciz	"DACON"
 	.byte	0x3
 	.2byte	0x47dc
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -6254,12 +6325,12 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x47de
-	.4byte	0x274f
+	.4byte	0x275a
 	.uleb128 0x5
 	.asciz	"FCLKDIV0"
 	.byte	0x3
 	.2byte	0x47df
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -6270,7 +6341,7 @@ _Disable_SELF_TEST:
 	.asciz	"FCLKDIV1"
 	.byte	0x3
 	.2byte	0x47e0
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -6281,7 +6352,7 @@ _Disable_SELF_TEST:
 	.asciz	"FCLKDIV2"
 	.byte	0x3
 	.2byte	0x47e1
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -6292,7 +6363,7 @@ _Disable_SELF_TEST:
 	.asciz	"CLKDIV0"
 	.byte	0x3
 	.2byte	0x47e3
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -6303,7 +6374,7 @@ _Disable_SELF_TEST:
 	.asciz	"CLKDIV1"
 	.byte	0x3
 	.2byte	0x47e4
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -6314,7 +6385,7 @@ _Disable_SELF_TEST:
 	.4byte	.LASF1
 	.byte	0x3
 	.2byte	0x47e5
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -6325,7 +6396,7 @@ _Disable_SELF_TEST:
 	.4byte	.LASF2
 	.byte	0x3
 	.2byte	0x47e6
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -6337,20 +6408,20 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x47d3
-	.4byte	0x2763
+	.4byte	0x276e
 	.uleb128 0x7
-	.4byte	0x2642
+	.4byte	0x264d
 	.uleb128 0x7
-	.4byte	0x26b0
+	.4byte	0x26bb
 	.byte	0x0
 	.uleb128 0x8
 	.asciz	"tagDACCTRL1LBITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x47d2
-	.4byte	0x2786
+	.4byte	0x2791
 	.uleb128 0x9
-	.4byte	0x274f
+	.4byte	0x275a
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -6359,17 +6430,17 @@ _Disable_SELF_TEST:
 	.asciz	"DACCTRL1LBITS"
 	.byte	0x3
 	.2byte	0x47e9
-	.4byte	0x2763
+	.4byte	0x276e
 	.uleb128 0x4
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x481e
-	.4byte	0x2872
+	.4byte	0x287d
 	.uleb128 0x5
 	.asciz	"HYSSEL"
 	.byte	0x3
 	.2byte	0x481f
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x2
 	.byte	0xe
@@ -6380,7 +6451,7 @@ _Disable_SELF_TEST:
 	.asciz	"HYSPOL"
 	.byte	0x3
 	.2byte	0x4820
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -6391,7 +6462,7 @@ _Disable_SELF_TEST:
 	.asciz	"INSEL"
 	.byte	0x3
 	.2byte	0x4821
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x3
 	.byte	0xa
@@ -6402,7 +6473,7 @@ _Disable_SELF_TEST:
 	.asciz	"CMPPOL"
 	.byte	0x3
 	.2byte	0x4822
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -6413,7 +6484,7 @@ _Disable_SELF_TEST:
 	.asciz	"CMPSTAT"
 	.byte	0x3
 	.2byte	0x4823
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -6424,7 +6495,7 @@ _Disable_SELF_TEST:
 	.asciz	"FLTREN"
 	.byte	0x3
 	.2byte	0x4824
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -6435,7 +6506,7 @@ _Disable_SELF_TEST:
 	.asciz	"DACOEN"
 	.byte	0x3
 	.2byte	0x4825
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -6446,7 +6517,7 @@ _Disable_SELF_TEST:
 	.asciz	"CBE"
 	.byte	0x3
 	.2byte	0x4826
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -6457,7 +6528,7 @@ _Disable_SELF_TEST:
 	.asciz	"IRQM"
 	.byte	0x3
 	.2byte	0x4828
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x2
 	.byte	0x1
@@ -6468,7 +6539,7 @@ _Disable_SELF_TEST:
 	.asciz	"DACEN"
 	.byte	0x3
 	.2byte	0x4829
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -6480,12 +6551,12 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x482b
-	.4byte	0x28d0
+	.4byte	0x28db
 	.uleb128 0x5
 	.asciz	"HYSSEL0"
 	.byte	0x3
 	.2byte	0x482c
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -6496,7 +6567,7 @@ _Disable_SELF_TEST:
 	.asciz	"HYSSEL1"
 	.byte	0x3
 	.2byte	0x482d
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -6507,7 +6578,7 @@ _Disable_SELF_TEST:
 	.asciz	"IRQM0"
 	.byte	0x3
 	.2byte	0x482f
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x2
@@ -6518,7 +6589,7 @@ _Disable_SELF_TEST:
 	.asciz	"IRQM1"
 	.byte	0x3
 	.2byte	0x4830
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -6530,20 +6601,20 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x481d
-	.4byte	0x28e4
+	.4byte	0x28ef
 	.uleb128 0x7
-	.4byte	0x279c
+	.4byte	0x27a7
 	.uleb128 0x7
-	.4byte	0x2872
+	.4byte	0x287d
 	.byte	0x0
 	.uleb128 0x8
 	.asciz	"tagDAC1CONLBITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x481c
-	.4byte	0x2906
+	.4byte	0x2911
 	.uleb128 0x9
-	.4byte	0x28d0
+	.4byte	0x28db
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -6552,17 +6623,17 @@ _Disable_SELF_TEST:
 	.asciz	"DAC1CONLBITS"
 	.byte	0x3
 	.2byte	0x4833
-	.4byte	0x28e4
+	.4byte	0x28ef
 	.uleb128 0x4
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x486d
-	.4byte	0x293a
+	.4byte	0x2945
 	.uleb128 0x5
 	.asciz	"DACDAT"
 	.byte	0x3
 	.2byte	0x486e
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0xc
 	.byte	0x4
@@ -6574,12 +6645,12 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4870
-	.4byte	0x295a
+	.4byte	0x2965
 	.uleb128 0x5
 	.asciz	"DACDATH"
 	.byte	0x3
 	.2byte	0x4871
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0xc
 	.byte	0x4
@@ -6591,12 +6662,12 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4873
-	.4byte	0x2a7a
+	.4byte	0x2a85
 	.uleb128 0x5
 	.asciz	"DACDATH0"
 	.byte	0x3
 	.2byte	0x4874
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -6607,7 +6678,7 @@ _Disable_SELF_TEST:
 	.asciz	"DACDATH1"
 	.byte	0x3
 	.2byte	0x4875
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -6618,7 +6689,7 @@ _Disable_SELF_TEST:
 	.asciz	"DACDATH2"
 	.byte	0x3
 	.2byte	0x4876
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -6629,7 +6700,7 @@ _Disable_SELF_TEST:
 	.asciz	"DACDATH3"
 	.byte	0x3
 	.2byte	0x4877
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -6640,7 +6711,7 @@ _Disable_SELF_TEST:
 	.asciz	"DACDATH4"
 	.byte	0x3
 	.2byte	0x4878
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -6651,7 +6722,7 @@ _Disable_SELF_TEST:
 	.asciz	"DACDATH5"
 	.byte	0x3
 	.2byte	0x4879
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -6662,7 +6733,7 @@ _Disable_SELF_TEST:
 	.asciz	"DACDATH6"
 	.byte	0x3
 	.2byte	0x487a
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -6673,7 +6744,7 @@ _Disable_SELF_TEST:
 	.asciz	"DACDATH7"
 	.byte	0x3
 	.2byte	0x487b
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -6684,7 +6755,7 @@ _Disable_SELF_TEST:
 	.asciz	"DACDATH8"
 	.byte	0x3
 	.2byte	0x487c
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -6695,7 +6766,7 @@ _Disable_SELF_TEST:
 	.asciz	"DACDATH9"
 	.byte	0x3
 	.2byte	0x487d
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -6706,7 +6777,7 @@ _Disable_SELF_TEST:
 	.asciz	"DACDATH10"
 	.byte	0x3
 	.2byte	0x487e
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -6717,7 +6788,7 @@ _Disable_SELF_TEST:
 	.asciz	"DACDATH11"
 	.byte	0x3
 	.2byte	0x487f
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -6729,22 +6800,22 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x486c
-	.4byte	0x2a93
+	.4byte	0x2a9e
 	.uleb128 0x7
-	.4byte	0x291b
+	.4byte	0x2926
 	.uleb128 0x7
-	.4byte	0x293a
+	.4byte	0x2945
 	.uleb128 0x7
-	.4byte	0x295a
+	.4byte	0x2965
 	.byte	0x0
 	.uleb128 0x8
 	.asciz	"tagDAC1DATHBITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x486b
-	.4byte	0x2ab5
+	.4byte	0x2ac0
 	.uleb128 0x9
-	.4byte	0x2a7a
+	.4byte	0x2a85
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -6753,18 +6824,18 @@ _Disable_SELF_TEST:
 	.asciz	"DAC1DATHBITS"
 	.byte	0x3
 	.2byte	0x4882
-	.4byte	0x2a93
+	.4byte	0x2a9e
 	.uleb128 0x8
 	.asciz	"tagRPCONBITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x48db
-	.4byte	0x2af6
+	.4byte	0x2b01
 	.uleb128 0x5
 	.asciz	"IOLOCK"
 	.byte	0x3
 	.2byte	0x48dd
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -6776,18 +6847,41 @@ _Disable_SELF_TEST:
 	.asciz	"RPCONBITS"
 	.byte	0x3
 	.2byte	0x48de
-	.4byte	0x2aca
+	.4byte	0x2ad5
+	.uleb128 0x8
+	.asciz	"tagRPINR0BITS"
+	.byte	0x2
+	.byte	0x3
+	.2byte	0x48e3
+	.4byte	0x2b3f
+	.uleb128 0x5
+	.asciz	"INT1R"
+	.byte	0x3
+	.2byte	0x48e5
+	.4byte	0x13c
+	.byte	0x2
+	.byte	0x8
+	.byte	0x0
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x0
+	.byte	0x0
+	.uleb128 0xa
+	.asciz	"RPINR0BITS"
+	.byte	0x3
+	.2byte	0x48e6
+	.4byte	0x2b13
 	.uleb128 0x8
 	.asciz	"tagRPINR18BITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4963
-	.4byte	0x2b4a
+	.4byte	0x2b94
 	.uleb128 0x5
 	.asciz	"U1RXR"
 	.byte	0x3
 	.2byte	0x4964
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x8
 	.byte	0x8
@@ -6798,7 +6892,7 @@ _Disable_SELF_TEST:
 	.asciz	"U1DSRR"
 	.byte	0x3
 	.2byte	0x4965
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x8
 	.byte	0x0
@@ -6810,18 +6904,18 @@ _Disable_SELF_TEST:
 	.asciz	"RPINR18BITS"
 	.byte	0x3
 	.2byte	0x4966
-	.4byte	0x2b08
+	.4byte	0x2b52
 	.uleb128 0x8
 	.asciz	"tagRPOR3BITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x49fd
-	.4byte	0x2b9d
+	.4byte	0x2be7
 	.uleb128 0x5
 	.asciz	"RP38R"
 	.byte	0x3
 	.2byte	0x49fe
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x6
 	.byte	0xa
@@ -6832,7 +6926,7 @@ _Disable_SELF_TEST:
 	.asciz	"RP39R"
 	.byte	0x3
 	.2byte	0x4a00
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x6
 	.byte	0x2
@@ -6844,17 +6938,17 @@ _Disable_SELF_TEST:
 	.asciz	"RPOR3BITS"
 	.byte	0x3
 	.2byte	0x4a01
-	.4byte	0x2b5e
+	.4byte	0x2ba8
 	.uleb128 0x4
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4f20
-	.4byte	0x2c2d
+	.4byte	0x2c77
 	.uleb128 0x5
 	.asciz	"OSWEN"
 	.byte	0x3
 	.2byte	0x4f21
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -6865,7 +6959,7 @@ _Disable_SELF_TEST:
 	.asciz	"CF"
 	.byte	0x3
 	.2byte	0x4f23
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -6876,7 +6970,7 @@ _Disable_SELF_TEST:
 	.asciz	"LOCK"
 	.byte	0x3
 	.2byte	0x4f25
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -6887,7 +6981,7 @@ _Disable_SELF_TEST:
 	.asciz	"CLKLOCK"
 	.byte	0x3
 	.2byte	0x4f27
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -6898,7 +6992,7 @@ _Disable_SELF_TEST:
 	.asciz	"NOSC"
 	.byte	0x3
 	.2byte	0x4f28
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x3
 	.byte	0x5
@@ -6909,7 +7003,7 @@ _Disable_SELF_TEST:
 	.asciz	"COSC"
 	.byte	0x3
 	.2byte	0x4f2a
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x3
 	.byte	0x1
@@ -6921,12 +7015,12 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4f2c
-	.4byte	0x2caf
+	.4byte	0x2cf9
 	.uleb128 0x5
 	.asciz	"NOSC0"
 	.byte	0x3
 	.2byte	0x4f2e
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -6937,7 +7031,7 @@ _Disable_SELF_TEST:
 	.asciz	"NOSC1"
 	.byte	0x3
 	.2byte	0x4f2f
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -6948,7 +7042,7 @@ _Disable_SELF_TEST:
 	.asciz	"NOSC2"
 	.byte	0x3
 	.2byte	0x4f30
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -6959,7 +7053,7 @@ _Disable_SELF_TEST:
 	.asciz	"COSC0"
 	.byte	0x3
 	.2byte	0x4f32
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x3
@@ -6970,7 +7064,7 @@ _Disable_SELF_TEST:
 	.asciz	"COSC1"
 	.byte	0x3
 	.2byte	0x4f33
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x2
@@ -6981,7 +7075,7 @@ _Disable_SELF_TEST:
 	.asciz	"COSC2"
 	.byte	0x3
 	.2byte	0x4f34
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -6993,20 +7087,20 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4f1f
-	.4byte	0x2cc3
+	.4byte	0x2d0d
 	.uleb128 0x7
-	.4byte	0x2baf
+	.4byte	0x2bf9
 	.uleb128 0x7
-	.4byte	0x2c2d
+	.4byte	0x2c77
 	.byte	0x0
 	.uleb128 0x8
 	.asciz	"tagOSCCONBITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4f1e
-	.4byte	0x2ce3
+	.4byte	0x2d2d
 	.uleb128 0x9
-	.4byte	0x2caf
+	.4byte	0x2cf9
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -7015,17 +7109,17 @@ _Disable_SELF_TEST:
 	.asciz	"OSCCONBITS"
 	.byte	0x3
 	.2byte	0x4f37
-	.4byte	0x2cc3
+	.4byte	0x2d0d
 	.uleb128 0x4
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4f62
-	.4byte	0x2d17
+	.4byte	0x2d61
 	.uleb128 0x5
 	.asciz	"PLLFBDIV"
 	.byte	0x3
 	.2byte	0x4f63
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0xc
 	.byte	0x4
@@ -7037,12 +7131,12 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4f65
-	.4byte	0x2e43
+	.4byte	0x2e8d
 	.uleb128 0x5
 	.asciz	"PLLFBDIV0"
 	.byte	0x3
 	.2byte	0x4f66
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -7053,7 +7147,7 @@ _Disable_SELF_TEST:
 	.asciz	"PLLFBDIV1"
 	.byte	0x3
 	.2byte	0x4f67
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -7064,7 +7158,7 @@ _Disable_SELF_TEST:
 	.asciz	"PLLFBDIV2"
 	.byte	0x3
 	.2byte	0x4f68
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -7075,7 +7169,7 @@ _Disable_SELF_TEST:
 	.asciz	"PLLFBDIV3"
 	.byte	0x3
 	.2byte	0x4f69
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -7086,7 +7180,7 @@ _Disable_SELF_TEST:
 	.asciz	"PLLFBDIV4"
 	.byte	0x3
 	.2byte	0x4f6a
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -7097,7 +7191,7 @@ _Disable_SELF_TEST:
 	.asciz	"PLLFBDIV5"
 	.byte	0x3
 	.2byte	0x4f6b
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -7108,7 +7202,7 @@ _Disable_SELF_TEST:
 	.asciz	"PLLFBDIV6"
 	.byte	0x3
 	.2byte	0x4f6c
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -7119,7 +7213,7 @@ _Disable_SELF_TEST:
 	.asciz	"PLLFBDIV7"
 	.byte	0x3
 	.2byte	0x4f6d
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -7130,7 +7224,7 @@ _Disable_SELF_TEST:
 	.asciz	"PLLFBDIV8"
 	.byte	0x3
 	.2byte	0x4f6e
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -7141,7 +7235,7 @@ _Disable_SELF_TEST:
 	.asciz	"PLLFBDIV9"
 	.byte	0x3
 	.2byte	0x4f6f
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -7152,7 +7246,7 @@ _Disable_SELF_TEST:
 	.asciz	"PLLFBDIV10"
 	.byte	0x3
 	.2byte	0x4f70
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -7163,7 +7257,7 @@ _Disable_SELF_TEST:
 	.asciz	"PLLFBDIV11"
 	.byte	0x3
 	.2byte	0x4f71
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -7175,20 +7269,20 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4f61
-	.4byte	0x2e57
+	.4byte	0x2ea1
 	.uleb128 0x7
-	.4byte	0x2cf6
+	.4byte	0x2d40
 	.uleb128 0x7
-	.4byte	0x2d17
+	.4byte	0x2d61
 	.byte	0x0
 	.uleb128 0x8
 	.asciz	"tagPLLFBDBITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4f60
-	.4byte	0x2e77
+	.4byte	0x2ec1
 	.uleb128 0x9
-	.4byte	0x2e43
+	.4byte	0x2e8d
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -7197,17 +7291,17 @@ _Disable_SELF_TEST:
 	.asciz	"PLLFBDBITS"
 	.byte	0x3
 	.2byte	0x4f74
-	.4byte	0x2e57
+	.4byte	0x2ea1
 	.uleb128 0x4
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4f7b
-	.4byte	0x2ed7
+	.4byte	0x2f21
 	.uleb128 0x5
 	.asciz	"POST2DIV"
 	.byte	0x3
 	.2byte	0x4f7c
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x3
 	.byte	0xd
@@ -7218,7 +7312,7 @@ _Disable_SELF_TEST:
 	.asciz	"POST1DIV"
 	.byte	0x3
 	.2byte	0x4f7e
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x3
 	.byte	0x9
@@ -7229,7 +7323,7 @@ _Disable_SELF_TEST:
 	.asciz	"VCODIV"
 	.byte	0x3
 	.2byte	0x4f80
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x2
 	.byte	0x6
@@ -7241,12 +7335,12 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4f82
-	.4byte	0x2f9d
+	.4byte	0x2fe7
 	.uleb128 0x5
 	.asciz	"POST2DIV0"
 	.byte	0x3
 	.2byte	0x4f83
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -7257,7 +7351,7 @@ _Disable_SELF_TEST:
 	.asciz	"POST2DIV1"
 	.byte	0x3
 	.2byte	0x4f84
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -7268,7 +7362,7 @@ _Disable_SELF_TEST:
 	.asciz	"POST2DIV2"
 	.byte	0x3
 	.2byte	0x4f85
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -7279,7 +7373,7 @@ _Disable_SELF_TEST:
 	.asciz	"POST1DIV0"
 	.byte	0x3
 	.2byte	0x4f87
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -7290,7 +7384,7 @@ _Disable_SELF_TEST:
 	.asciz	"POST1DIV1"
 	.byte	0x3
 	.2byte	0x4f88
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -7301,7 +7395,7 @@ _Disable_SELF_TEST:
 	.asciz	"POST1DIV2"
 	.byte	0x3
 	.2byte	0x4f89
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -7312,7 +7406,7 @@ _Disable_SELF_TEST:
 	.asciz	"VCODIV0"
 	.byte	0x3
 	.2byte	0x4f8b
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -7323,7 +7417,7 @@ _Disable_SELF_TEST:
 	.asciz	"VCODIV1"
 	.byte	0x3
 	.2byte	0x4f8c
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -7335,20 +7429,20 @@ _Disable_SELF_TEST:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4f7a
-	.4byte	0x2fb1
+	.4byte	0x2ffb
 	.uleb128 0x7
-	.4byte	0x2e8a
+	.4byte	0x2ed4
 	.uleb128 0x7
-	.4byte	0x2ed7
+	.4byte	0x2f21
 	.byte	0x0
 	.uleb128 0x8
 	.asciz	"tagPLLDIVBITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4f79
-	.4byte	0x2fd1
+	.4byte	0x301b
 	.uleb128 0x9
-	.4byte	0x2f9d
+	.4byte	0x2fe7
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -7357,18 +7451,18 @@ _Disable_SELF_TEST:
 	.asciz	"PLLDIVBITS"
 	.byte	0x3
 	.2byte	0x4f8f
-	.4byte	0x2fb1
+	.4byte	0x2ffb
 	.uleb128 0x8
 	.asciz	"tagPMD1BITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x5010
-	.4byte	0x30d5
+	.4byte	0x311f
 	.uleb128 0x5
 	.asciz	"ADC1MD"
 	.byte	0x3
 	.2byte	0x5011
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -7379,7 +7473,7 @@ _Disable_SELF_TEST:
 	.asciz	"C1MD"
 	.byte	0x3
 	.2byte	0x5012
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -7390,7 +7484,7 @@ _Disable_SELF_TEST:
 	.asciz	"C2MD"
 	.byte	0x3
 	.2byte	0x5013
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -7401,7 +7495,7 @@ _Disable_SELF_TEST:
 	.asciz	"SPI1MD"
 	.byte	0x3
 	.2byte	0x5014
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -7412,7 +7506,7 @@ _Disable_SELF_TEST:
 	.asciz	"SPI2MD"
 	.byte	0x3
 	.2byte	0x5015
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -7423,7 +7517,7 @@ _Disable_SELF_TEST:
 	.asciz	"U1MD"
 	.byte	0x3
 	.2byte	0x5016
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -7434,7 +7528,7 @@ _Disable_SELF_TEST:
 	.asciz	"U2MD"
 	.byte	0x3
 	.2byte	0x5017
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -7445,7 +7539,7 @@ _Disable_SELF_TEST:
 	.asciz	"I2C1MD"
 	.byte	0x3
 	.2byte	0x5018
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -7456,7 +7550,7 @@ _Disable_SELF_TEST:
 	.asciz	"PWMMD"
 	.byte	0x3
 	.2byte	0x501a
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -7467,7 +7561,7 @@ _Disable_SELF_TEST:
 	.asciz	"QEIMD"
 	.byte	0x3
 	.2byte	0x501b
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -7478,7 +7572,7 @@ _Disable_SELF_TEST:
 	.asciz	"T1MD"
 	.byte	0x3
 	.2byte	0x501c
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -7490,18 +7584,18 @@ _Disable_SELF_TEST:
 	.asciz	"PMD1BITS"
 	.byte	0x3
 	.2byte	0x501d
-	.4byte	0x2fe4
+	.4byte	0x302e
 	.uleb128 0x8
 	.asciz	"tagPMD3BITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x5030
-	.4byte	0x3125
+	.4byte	0x316f
 	.uleb128 0x5
 	.asciz	"I2C2MD"
 	.byte	0x3
 	.2byte	0x5032
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -7512,7 +7606,7 @@ _Disable_SELF_TEST:
 	.asciz	"CRCMD"
 	.byte	0x3
 	.2byte	0x5034
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -7524,18 +7618,18 @@ _Disable_SELF_TEST:
 	.asciz	"PMD3BITS"
 	.byte	0x3
 	.2byte	0x5035
-	.4byte	0x30e6
+	.4byte	0x3130
 	.uleb128 0x8
 	.asciz	"tagPMD8BITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x5059
-	.4byte	0x31f5
+	.4byte	0x323f
 	.uleb128 0x5
 	.asciz	"BIASMD"
 	.byte	0x3
 	.2byte	0x505b
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -7546,7 +7640,7 @@ _Disable_SELF_TEST:
 	.asciz	"CLC1MD"
 	.byte	0x3
 	.2byte	0x505c
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -7557,7 +7651,7 @@ _Disable_SELF_TEST:
 	.asciz	"CLC2MD"
 	.byte	0x3
 	.2byte	0x505d
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -7568,7 +7662,7 @@ _Disable_SELF_TEST:
 	.asciz	"CLC3MD"
 	.byte	0x3
 	.2byte	0x505e
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -7579,7 +7673,7 @@ _Disable_SELF_TEST:
 	.asciz	"CLC4MD"
 	.byte	0x3
 	.2byte	0x505f
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -7590,7 +7684,7 @@ _Disable_SELF_TEST:
 	.asciz	"DMTMD"
 	.byte	0x3
 	.2byte	0x5061
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -7601,7 +7695,7 @@ _Disable_SELF_TEST:
 	.asciz	"SENT1MD"
 	.byte	0x3
 	.2byte	0x5063
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -7612,7 +7706,7 @@ _Disable_SELF_TEST:
 	.asciz	"SENT2MD"
 	.byte	0x3
 	.2byte	0x5064
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x1
 	.byte	0x3
@@ -7624,17 +7718,17 @@ _Disable_SELF_TEST:
 	.asciz	"PMD8BITS"
 	.byte	0x3
 	.2byte	0x5065
-	.4byte	0x3136
+	.4byte	0x3180
 	.uleb128 0xc
 	.byte	0x7
 	.byte	0x4
 	.byte	0x1c
-	.4byte	0x3283
+	.4byte	0x32cd
 	.uleb128 0xd
 	.asciz	"AnaDig"
 	.byte	0x4
 	.byte	0x1d
-	.4byte	0x122
+	.4byte	0x12d
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -7642,7 +7736,7 @@ _Disable_SELF_TEST:
 	.asciz	"InOut"
 	.byte	0x4
 	.byte	0x1e
-	.4byte	0x122
+	.4byte	0x12d
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x1
@@ -7650,7 +7744,7 @@ _Disable_SELF_TEST:
 	.asciz	"PullUp"
 	.byte	0x4
 	.byte	0x1f
-	.4byte	0x122
+	.4byte	0x12d
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x2
@@ -7658,7 +7752,7 @@ _Disable_SELF_TEST:
 	.asciz	"PullDw"
 	.byte	0x4
 	.byte	0x20
-	.4byte	0x122
+	.4byte	0x12d
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x3
@@ -7666,7 +7760,7 @@ _Disable_SELF_TEST:
 	.asciz	"OpenDr"
 	.byte	0x4
 	.byte	0x21
-	.4byte	0x122
+	.4byte	0x12d
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x4
@@ -7674,7 +7768,7 @@ _Disable_SELF_TEST:
 	.asciz	"CnEn0"
 	.byte	0x4
 	.byte	0x22
-	.4byte	0x122
+	.4byte	0x12d
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x5
@@ -7682,7 +7776,7 @@ _Disable_SELF_TEST:
 	.asciz	"CnEn1"
 	.byte	0x4
 	.byte	0x23
-	.4byte	0x122
+	.4byte	0x12d
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x6
@@ -7691,7 +7785,7 @@ _Disable_SELF_TEST:
 	.asciz	"gpio_t"
 	.byte	0x4
 	.byte	0x24
-	.4byte	0x3206
+	.4byte	0x3250
 	.uleb128 0xe
 	.byte	0x1
 	.asciz	"Init_Clock"
@@ -7732,12 +7826,12 @@ _Disable_SELF_TEST:
 	.4byte	.LFE3
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x3306
+	.4byte	0x3350
 	.uleb128 0x10
 	.asciz	"Par"
 	.byte	0x1
 	.byte	0x6b
-	.4byte	0x3283
+	.4byte	0x32cd
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 4
@@ -7751,12 +7845,12 @@ _Disable_SELF_TEST:
 	.4byte	.LFE4
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x3333
+	.4byte	0x337d
 	.uleb128 0x12
 	.asciz	"Byte"
 	.byte	0x1
 	.byte	0x97
-	.4byte	0x122
+	.4byte	0x12d
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 0
@@ -7791,12 +7885,12 @@ _Disable_SELF_TEST:
 	.4byte	.LFE7
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x33b8
+	.4byte	0x3402
 	.uleb128 0x12
 	.asciz	"Str"
 	.byte	0x1
 	.byte	0xb9
-	.4byte	0x33b8
+	.4byte	0x3402
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 2
@@ -7804,7 +7898,7 @@ _Disable_SELF_TEST:
 	.asciz	"Len"
 	.byte	0x1
 	.byte	0xb9
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 4
@@ -7812,16 +7906,16 @@ _Disable_SELF_TEST:
 	.asciz	"j"
 	.byte	0x1
 	.byte	0xba
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 0
 	.byte	0x0
 	.uleb128 0x13
 	.byte	0x2
-	.4byte	0x33be
+	.4byte	0x3408
 	.uleb128 0x14
-	.4byte	0x11a
+	.4byte	0x125
 	.uleb128 0xf
 	.byte	0x1
 	.asciz	"Add_Printf_udec8"
@@ -7832,12 +7926,12 @@ _Disable_SELF_TEST:
 	.4byte	.LFE8
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x342e
+	.4byte	0x3478
 	.uleb128 0x15
 	.4byte	.LASF4
 	.byte	0x1
 	.byte	0xc9
-	.4byte	0x122
+	.4byte	0x12d
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 6
@@ -7845,7 +7939,7 @@ _Disable_SELF_TEST:
 	.asciz	"j"
 	.byte	0x1
 	.byte	0xca
-	.4byte	0x122
+	.4byte	0x12d
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 0
@@ -7853,7 +7947,7 @@ _Disable_SELF_TEST:
 	.asciz	"Len"
 	.byte	0x1
 	.byte	0xcb
-	.4byte	0x122
+	.4byte	0x12d
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 4
@@ -7861,7 +7955,7 @@ _Disable_SELF_TEST:
 	.asciz	"Digit"
 	.byte	0x1
 	.byte	0xcc
-	.4byte	0x122
+	.4byte	0x12d
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 1
@@ -7869,7 +7963,7 @@ _Disable_SELF_TEST:
 	.asciz	"Div"
 	.byte	0x1
 	.byte	0xcd
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 2
@@ -7884,12 +7978,12 @@ _Disable_SELF_TEST:
 	.4byte	.LFE9
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x349a
+	.4byte	0x34e4
 	.uleb128 0x15
 	.4byte	.LASF4
 	.byte	0x1
 	.byte	0xe5
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 8
@@ -7897,7 +7991,7 @@ _Disable_SELF_TEST:
 	.asciz	"j"
 	.byte	0x1
 	.byte	0xe6
-	.4byte	0x122
+	.4byte	0x12d
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 0
@@ -7905,7 +7999,7 @@ _Disable_SELF_TEST:
 	.asciz	"Len"
 	.byte	0x1
 	.byte	0xe7
-	.4byte	0x122
+	.4byte	0x12d
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 6
@@ -7913,7 +8007,7 @@ _Disable_SELF_TEST:
 	.asciz	"Digit"
 	.byte	0x1
 	.byte	0xe8
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 2
@@ -7921,7 +8015,7 @@ _Disable_SELF_TEST:
 	.asciz	"Div"
 	.byte	0x1
 	.byte	0xe9
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 4
@@ -7936,12 +8030,12 @@ _Disable_SELF_TEST:
 	.4byte	.LFE10
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x350c
+	.4byte	0x3556
 	.uleb128 0x17
 	.4byte	.LASF4
 	.byte	0x1
 	.2byte	0x101
-	.4byte	0x141
+	.4byte	0x14c
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 10
@@ -7949,7 +8043,7 @@ _Disable_SELF_TEST:
 	.asciz	"j"
 	.byte	0x1
 	.2byte	0x102
-	.4byte	0x122
+	.4byte	0x12d
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 0
@@ -7957,7 +8051,7 @@ _Disable_SELF_TEST:
 	.asciz	"Len"
 	.byte	0x1
 	.2byte	0x103
-	.4byte	0x122
+	.4byte	0x12d
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 8
@@ -7965,7 +8059,7 @@ _Disable_SELF_TEST:
 	.asciz	"Digit"
 	.byte	0x1
 	.2byte	0x104
-	.4byte	0x141
+	.4byte	0x14c
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 2
@@ -7973,7 +8067,7 @@ _Disable_SELF_TEST:
 	.asciz	"Div"
 	.byte	0x1
 	.2byte	0x105
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 6
@@ -7994,7 +8088,7 @@ _Disable_SELF_TEST:
 	.byte	0x1
 	.2byte	0x138
 	.byte	0x1
-	.4byte	0x141
+	.4byte	0x14c
 	.4byte	.LFB12
 	.4byte	.LFE12
 	.byte	0x1
@@ -8009,12 +8103,12 @@ _Disable_SELF_TEST:
 	.4byte	.LFE13
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x3572
+	.4byte	0x35bc
 	.uleb128 0x18
 	.asciz	"Par"
 	.byte	0x1
 	.2byte	0x141
-	.4byte	0x3283
+	.4byte	0x32cd
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 2
@@ -8039,578 +8133,607 @@ _Disable_SELF_TEST:
 	.4byte	.LFE15
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x35c1
+	.4byte	0x360b
 	.uleb128 0x18
 	.asciz	"Par"
 	.byte	0x1
 	.2byte	0x16d
-	.4byte	0x3283
+	.4byte	0x32cd
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 4
+	.byte	0x0
+	.uleb128 0x16
+	.byte	0x1
+	.asciz	"Init_INT1"
+	.byte	0x1
+	.2byte	0x179
+	.byte	0x1
+	.4byte	.LFB16
+	.4byte	.LFE16
+	.byte	0x1
+	.byte	0x5e
+	.4byte	0x3639
+	.uleb128 0x18
+	.asciz	"Par"
+	.byte	0x1
+	.2byte	0x17b
+	.4byte	0x32cd
+	.byte	0x2
+	.byte	0x7e
+	.sleb128 2
 	.byte	0x0
 	.uleb128 0x1b
 	.4byte	.LASF5
 	.byte	0x3
 	.2byte	0x94b
-	.4byte	0x35cf
+	.4byte	0x3647
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x2d6
+	.4byte	0x2e1
 	.uleb128 0x1b
 	.4byte	.LASF6
 	.byte	0x3
 	.2byte	0x96b
-	.4byte	0x35e2
+	.4byte	0x365a
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x494
+	.4byte	0x49f
 	.uleb128 0x1b
 	.4byte	.LASF7
 	.byte	0x3
 	.2byte	0x981
-	.4byte	0x35f5
+	.4byte	0x366d
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x600
+	.4byte	0x60b
 	.uleb128 0x1b
 	.4byte	.LASF8
 	.byte	0x3
 	.2byte	0x9a0
-	.4byte	0x3608
+	.4byte	0x3680
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x7ae
+	.4byte	0x7b9
 	.uleb128 0x1d
 	.asciz	"U1BRG"
 	.byte	0x3
 	.2byte	0x9a3
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x131
+	.4byte	0x13c
 	.uleb128 0x1d
 	.asciz	"U1BRGH"
 	.byte	0x3
 	.2byte	0x9c0
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1d
 	.asciz	"U1TXREG"
 	.byte	0x3
 	.2byte	0x9e6
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF9
 	.byte	0x3
 	.2byte	0x3447
-	.4byte	0x3653
+	.4byte	0x36cb
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x913
+	.4byte	0x91e
 	.uleb128 0x1b
 	.4byte	.LASF10
 	.byte	0x3
 	.2byte	0x3482
-	.4byte	0x3666
+	.4byte	0x36de
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x9e2
+	.4byte	0x9ed
 	.uleb128 0x1b
 	.4byte	.LASF11
 	.byte	0x3
 	.2byte	0x34a9
-	.4byte	0x3679
+	.4byte	0x36f1
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0xb55
+	.4byte	0xb60
 	.uleb128 0x1b
 	.4byte	.LASF12
 	.byte	0x3
 	.2byte	0x34f7
-	.4byte	0x368c
+	.4byte	0x3704
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0xbfd
+	.4byte	0xc08
 	.uleb128 0x1b
 	.4byte	.LASF13
 	.byte	0x3
 	.2byte	0x352a
-	.4byte	0x369f
+	.4byte	0x3717
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0xd60
+	.4byte	0xd6b
 	.uleb128 0x1b
 	.4byte	.LASF14
 	.byte	0x3
 	.2byte	0x3565
-	.4byte	0x36b2
+	.4byte	0x372a
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0xe2f
+	.4byte	0xe3a
 	.uleb128 0x1b
 	.4byte	.LASF15
 	.byte	0x3
 	.2byte	0x358c
-	.4byte	0x36c5
+	.4byte	0x373d
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0xfa2
+	.4byte	0xfad
 	.uleb128 0x1b
 	.4byte	.LASF16
 	.byte	0x3
 	.2byte	0x35da
-	.4byte	0x36d8
+	.4byte	0x3750
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x104a
+	.4byte	0x1055
 	.uleb128 0x1b
 	.4byte	.LASF17
 	.byte	0x3
 	.2byte	0x3629
-	.4byte	0x36eb
+	.4byte	0x3763
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x10c6
+	.4byte	0x10d1
 	.uleb128 0x1b
 	.4byte	.LASF18
 	.byte	0x3
 	.2byte	0x369a
-	.4byte	0x36fe
+	.4byte	0x3776
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x113f
+	.4byte	0x114a
 	.uleb128 0x1b
 	.4byte	.LASF19
 	.byte	0x3
 	.2byte	0x3709
-	.4byte	0x3711
+	.4byte	0x3789
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x11c4
+	.4byte	0x11cf
 	.uleb128 0x1b
 	.4byte	.LASF20
 	.byte	0x3
 	.2byte	0x380c
-	.4byte	0x3724
+	.4byte	0x379c
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x1330
+	.4byte	0x133b
 	.uleb128 0x1b
 	.4byte	.LASF21
 	.byte	0x3
 	.2byte	0x381c
-	.4byte	0x3737
+	.4byte	0x37af
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x1400
+	.4byte	0x140b
 	.uleb128 0x1b
 	.4byte	.LASF22
 	.byte	0x3
 	.2byte	0x40e1
-	.4byte	0x374a
+	.4byte	0x37c2
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x1661
+	.4byte	0x166c
 	.uleb128 0x1b
 	.4byte	.LASF23
 	.byte	0x3
 	.2byte	0x410c
-	.4byte	0x375d
+	.4byte	0x37d5
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x1897
+	.4byte	0x18a2
 	.uleb128 0x1b
 	.4byte	.LASF24
 	.byte	0x3
 	.2byte	0x4126
-	.4byte	0x3770
+	.4byte	0x37e8
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x19e8
+	.4byte	0x19f3
 	.uleb128 0x1b
 	.4byte	.LASF25
 	.byte	0x3
 	.2byte	0x41a1
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF26
 	.byte	0x3
 	.2byte	0x41a3
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1d
 	.asciz	"CCP8PRL"
 	.byte	0x3
 	.2byte	0x41a5
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1d
 	.asciz	"CCP8PRH"
 	.byte	0x3
 	.2byte	0x41a7
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF27
 	.byte	0x3
 	.2byte	0x433f
-	.4byte	0x37c3
+	.4byte	0x383b
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x1a3f
+	.4byte	0x1a4a
 	.uleb128 0x1b
 	.4byte	.LASF28
 	.byte	0x3
 	.2byte	0x4351
-	.4byte	0x37d6
+	.4byte	0x384e
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x1af0
+	.4byte	0x1afb
 	.uleb128 0x1b
 	.4byte	.LASF29
 	.byte	0x3
 	.2byte	0x4370
-	.4byte	0x37e9
+	.4byte	0x3861
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x1cb6
+	.4byte	0x1cc1
 	.uleb128 0x1b
 	.4byte	.LASF30
 	.byte	0x3
 	.2byte	0x438a
-	.4byte	0x37fc
+	.4byte	0x3874
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x1e39
+	.4byte	0x1e44
 	.uleb128 0x1b
 	.4byte	.LASF31
 	.byte	0x3
 	.2byte	0x43a9
-	.4byte	0x380f
+	.4byte	0x3887
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x202d
+	.4byte	0x2038
 	.uleb128 0x1b
 	.4byte	.LASF32
 	.byte	0x3
 	.2byte	0x43c2
-	.4byte	0x3822
+	.4byte	0x389a
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x216a
+	.4byte	0x2175
 	.uleb128 0x1b
 	.4byte	.LASF33
 	.byte	0x3
 	.2byte	0x43d7
-	.4byte	0x3835
+	.4byte	0x38ad
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x2237
+	.4byte	0x2242
 	.uleb128 0x1b
 	.4byte	.LASF34
 	.byte	0x3
 	.2byte	0x4411
-	.4byte	0x3848
+	.4byte	0x38c0
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x2388
+	.4byte	0x2393
 	.uleb128 0x1b
 	.4byte	.LASF35
 	.byte	0x3
 	.2byte	0x45a1
-	.4byte	0x385b
+	.4byte	0x38d3
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x257d
+	.4byte	0x2588
 	.uleb128 0x1b
 	.4byte	.LASF36
 	.byte	0x3
 	.2byte	0x479b
-	.4byte	0x386e
+	.4byte	0x38e6
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x25d5
+	.4byte	0x25e0
 	.uleb128 0x1b
 	.4byte	.LASF37
 	.byte	0x3
 	.2byte	0x47a4
-	.4byte	0x3881
+	.4byte	0x38f9
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x262e
+	.4byte	0x2639
 	.uleb128 0x1b
 	.4byte	.LASF38
 	.byte	0x3
 	.2byte	0x47ea
-	.4byte	0x3894
+	.4byte	0x390c
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x2786
+	.4byte	0x2791
 	.uleb128 0x1b
 	.4byte	.LASF39
 	.byte	0x3
 	.2byte	0x4834
-	.4byte	0x38a7
+	.4byte	0x391f
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x2906
+	.4byte	0x2911
 	.uleb128 0x1b
 	.4byte	.LASF40
 	.byte	0x3
 	.2byte	0x4883
-	.4byte	0x38ba
+	.4byte	0x3932
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x2ab5
+	.4byte	0x2ac0
 	.uleb128 0x1b
 	.4byte	.LASF41
 	.byte	0x3
 	.2byte	0x48df
-	.4byte	0x38cd
+	.4byte	0x3945
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x2af6
+	.4byte	0x2b01
 	.uleb128 0x1b
 	.4byte	.LASF42
 	.byte	0x3
-	.2byte	0x4967
-	.4byte	0x38e0
+	.2byte	0x48e7
+	.4byte	0x3958
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x2b4a
+	.4byte	0x2b3f
 	.uleb128 0x1b
 	.4byte	.LASF43
 	.byte	0x3
-	.2byte	0x4a02
-	.4byte	0x38f3
+	.2byte	0x4967
+	.4byte	0x396b
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x2b9d
+	.4byte	0x2b94
 	.uleb128 0x1b
 	.4byte	.LASF44
 	.byte	0x3
-	.2byte	0x4f38
-	.4byte	0x3906
+	.2byte	0x4a02
+	.4byte	0x397e
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x2ce3
+	.4byte	0x2be7
+	.uleb128 0x1b
+	.4byte	.LASF45
+	.byte	0x3
+	.2byte	0x4f38
+	.4byte	0x3991
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0x1c
+	.4byte	0x2d2d
 	.uleb128 0x1b
 	.4byte	.LASF3
 	.byte	0x3
 	.2byte	0x4f3f
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
-	.uleb128 0x1b
-	.4byte	.LASF45
-	.byte	0x3
-	.2byte	0x4f75
-	.4byte	0x3927
-	.byte	0x1
-	.byte	0x1
-	.uleb128 0x1c
-	.4byte	0x2e77
 	.uleb128 0x1b
 	.4byte	.LASF46
 	.byte	0x3
-	.2byte	0x4f90
-	.4byte	0x393a
+	.2byte	0x4f75
+	.4byte	0x39b2
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x2fd1
+	.4byte	0x2ec1
+	.uleb128 0x1b
+	.4byte	.LASF47
+	.byte	0x3
+	.2byte	0x4f90
+	.4byte	0x39c5
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0x1c
+	.4byte	0x301b
 	.uleb128 0x1d
 	.asciz	"OSCTUN"
 	.byte	0x3
 	.2byte	0x4f93
-	.4byte	0x361d
-	.byte	0x1
-	.byte	0x1
-	.uleb128 0x1b
-	.4byte	.LASF47
-	.byte	0x3
-	.2byte	0x4fa6
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF48
 	.byte	0x3
-	.2byte	0x4fbe
-	.4byte	0x361d
+	.2byte	0x4fa6
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF49
 	.byte	0x3
-	.2byte	0x4fd7
-	.4byte	0x361d
+	.2byte	0x4fbe
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF50
 	.byte	0x3
+	.2byte	0x4fd7
+	.4byte	0x3695
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0x1b
+	.4byte	.LASF51
+	.byte	0x3
 	.2byte	0x4ff2
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1d
 	.asciz	"PMD1"
 	.byte	0x3
 	.2byte	0x500f
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
-	.4byte	.LASF51
+	.4byte	.LASF52
 	.byte	0x3
 	.2byte	0x501e
-	.4byte	0x39a5
+	.4byte	0x3a30
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x30d5
+	.4byte	0x311f
 	.uleb128 0x1d
 	.asciz	"PMD2"
 	.byte	0x3
 	.2byte	0x5021
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1d
 	.asciz	"PMD3"
 	.byte	0x3
 	.2byte	0x502f
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
-	.4byte	.LASF52
+	.4byte	.LASF53
 	.byte	0x3
 	.2byte	0x5036
-	.4byte	0x39d6
+	.4byte	0x3a61
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	0x3125
+	.4byte	0x316f
 	.uleb128 0x1d
 	.asciz	"PMD4"
 	.byte	0x3
 	.2byte	0x5039
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1d
 	.asciz	"PMD6"
 	.byte	0x3
 	.2byte	0x5041
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1d
 	.asciz	"PMD7"
 	.byte	0x3
 	.2byte	0x504e
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1d
 	.asciz	"PMD8"
 	.byte	0x3
 	.2byte	0x5058
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
-	.uleb128 0x1b
-	.4byte	.LASF53
-	.byte	0x3
-	.2byte	0x5066
-	.4byte	0x3a25
-	.byte	0x1
-	.byte	0x1
-	.uleb128 0x1c
-	.4byte	0x31f5
 	.uleb128 0x1b
 	.4byte	.LASF54
 	.byte	0x3
-	.2byte	0x5091
-	.4byte	0x361d
+	.2byte	0x5066
+	.4byte	0x3ab0
 	.byte	0x1
 	.byte	0x1
+	.uleb128 0x1c
+	.4byte	0x323f
 	.uleb128 0x1b
 	.4byte	.LASF55
 	.byte	0x3
-	.2byte	0x50c7
-	.4byte	0x361d
+	.2byte	0x5091
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF56
 	.byte	0x3
+	.2byte	0x50c7
+	.4byte	0x3695
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0x1b
+	.4byte	.LASF57
+	.byte	0x3
 	.2byte	0x50e3
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1e
-	.4byte	0x122
-	.4byte	0x3a64
+	.4byte	0x12d
+	.4byte	0x3aef
 	.uleb128 0x1f
-	.4byte	0xd7
+	.4byte	0xe2
 	.byte	0x31
 	.byte	0x0
 	.uleb128 0x10
 	.asciz	"TxU1Buf"
 	.byte	0x1
 	.byte	0x1c
-	.4byte	0x3a54
+	.4byte	0x3adf
 	.byte	0x5
 	.byte	0x3
 	.4byte	_TxU1Buf
@@ -8618,7 +8741,7 @@ _Disable_SELF_TEST:
 	.asciz	"TxU1Len"
 	.byte	0x1
 	.byte	0x1d
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x5
 	.byte	0x3
 	.4byte	_TxU1Len
@@ -8626,7 +8749,7 @@ _Disable_SELF_TEST:
 	.asciz	"TxU1Idx"
 	.byte	0x1
 	.byte	0x1e
-	.4byte	0x131
+	.4byte	0x13c
 	.byte	0x5
 	.byte	0x3
 	.4byte	_TxU1Idx
@@ -8634,462 +8757,469 @@ _Disable_SELF_TEST:
 	.4byte	.LASF5
 	.byte	0x3
 	.2byte	0x94b
-	.4byte	0x35cf
+	.4byte	0x3647
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF6
 	.byte	0x3
 	.2byte	0x96b
-	.4byte	0x35e2
+	.4byte	0x365a
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF7
 	.byte	0x3
 	.2byte	0x981
-	.4byte	0x35f5
+	.4byte	0x366d
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF8
 	.byte	0x3
 	.2byte	0x9a0
-	.4byte	0x3608
+	.4byte	0x3680
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1d
 	.asciz	"U1BRG"
 	.byte	0x3
 	.2byte	0x9a3
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1d
 	.asciz	"U1BRGH"
 	.byte	0x3
 	.2byte	0x9c0
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1d
 	.asciz	"U1TXREG"
 	.byte	0x3
 	.2byte	0x9e6
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF9
 	.byte	0x3
 	.2byte	0x3447
-	.4byte	0x3653
+	.4byte	0x36cb
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF10
 	.byte	0x3
 	.2byte	0x3482
-	.4byte	0x3666
+	.4byte	0x36de
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF11
 	.byte	0x3
 	.2byte	0x34a9
-	.4byte	0x3679
+	.4byte	0x36f1
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF12
 	.byte	0x3
 	.2byte	0x34f7
-	.4byte	0x368c
+	.4byte	0x3704
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF13
 	.byte	0x3
 	.2byte	0x352a
-	.4byte	0x369f
+	.4byte	0x3717
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF14
 	.byte	0x3
 	.2byte	0x3565
-	.4byte	0x36b2
+	.4byte	0x372a
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF15
 	.byte	0x3
 	.2byte	0x358c
-	.4byte	0x36c5
+	.4byte	0x373d
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF16
 	.byte	0x3
 	.2byte	0x35da
-	.4byte	0x36d8
+	.4byte	0x3750
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF17
 	.byte	0x3
 	.2byte	0x3629
-	.4byte	0x36eb
+	.4byte	0x3763
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF18
 	.byte	0x3
 	.2byte	0x369a
-	.4byte	0x36fe
+	.4byte	0x3776
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF19
 	.byte	0x3
 	.2byte	0x3709
-	.4byte	0x3711
+	.4byte	0x3789
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF20
 	.byte	0x3
 	.2byte	0x380c
-	.4byte	0x3724
+	.4byte	0x379c
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF21
 	.byte	0x3
 	.2byte	0x381c
-	.4byte	0x3737
+	.4byte	0x37af
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF22
 	.byte	0x3
 	.2byte	0x40e1
-	.4byte	0x374a
+	.4byte	0x37c2
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF23
 	.byte	0x3
 	.2byte	0x410c
-	.4byte	0x375d
+	.4byte	0x37d5
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF24
 	.byte	0x3
 	.2byte	0x4126
-	.4byte	0x3770
+	.4byte	0x37e8
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF25
 	.byte	0x3
 	.2byte	0x41a1
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF26
 	.byte	0x3
 	.2byte	0x41a3
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1d
 	.asciz	"CCP8PRL"
 	.byte	0x3
 	.2byte	0x41a5
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1d
 	.asciz	"CCP8PRH"
 	.byte	0x3
 	.2byte	0x41a7
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF27
 	.byte	0x3
 	.2byte	0x433f
-	.4byte	0x37c3
+	.4byte	0x383b
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF28
 	.byte	0x3
 	.2byte	0x4351
-	.4byte	0x37d6
+	.4byte	0x384e
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF29
 	.byte	0x3
 	.2byte	0x4370
-	.4byte	0x37e9
+	.4byte	0x3861
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF30
 	.byte	0x3
 	.2byte	0x438a
-	.4byte	0x37fc
+	.4byte	0x3874
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF31
 	.byte	0x3
 	.2byte	0x43a9
-	.4byte	0x380f
+	.4byte	0x3887
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF32
 	.byte	0x3
 	.2byte	0x43c2
-	.4byte	0x3822
+	.4byte	0x389a
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF33
 	.byte	0x3
 	.2byte	0x43d7
-	.4byte	0x3835
+	.4byte	0x38ad
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF34
 	.byte	0x3
 	.2byte	0x4411
-	.4byte	0x3848
+	.4byte	0x38c0
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF35
 	.byte	0x3
 	.2byte	0x45a1
-	.4byte	0x385b
+	.4byte	0x38d3
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF36
 	.byte	0x3
 	.2byte	0x479b
-	.4byte	0x386e
+	.4byte	0x38e6
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF37
 	.byte	0x3
 	.2byte	0x47a4
-	.4byte	0x3881
+	.4byte	0x38f9
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF38
 	.byte	0x3
 	.2byte	0x47ea
-	.4byte	0x3894
+	.4byte	0x390c
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF39
 	.byte	0x3
 	.2byte	0x4834
-	.4byte	0x38a7
+	.4byte	0x391f
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF40
 	.byte	0x3
 	.2byte	0x4883
-	.4byte	0x38ba
+	.4byte	0x3932
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF41
 	.byte	0x3
 	.2byte	0x48df
-	.4byte	0x38cd
+	.4byte	0x3945
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF42
 	.byte	0x3
-	.2byte	0x4967
-	.4byte	0x38e0
+	.2byte	0x48e7
+	.4byte	0x3958
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF43
 	.byte	0x3
-	.2byte	0x4a02
-	.4byte	0x38f3
+	.2byte	0x4967
+	.4byte	0x396b
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF44
 	.byte	0x3
+	.2byte	0x4a02
+	.4byte	0x397e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0x1b
+	.4byte	.LASF45
+	.byte	0x3
 	.2byte	0x4f38
-	.4byte	0x3906
+	.4byte	0x3991
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF3
 	.byte	0x3
 	.2byte	0x4f3f
-	.4byte	0x361d
-	.byte	0x1
-	.byte	0x1
-	.uleb128 0x1b
-	.4byte	.LASF45
-	.byte	0x3
-	.2byte	0x4f75
-	.4byte	0x3927
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF46
 	.byte	0x3
+	.2byte	0x4f75
+	.4byte	0x39b2
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0x1b
+	.4byte	.LASF47
+	.byte	0x3
 	.2byte	0x4f90
-	.4byte	0x393a
+	.4byte	0x39c5
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1d
 	.asciz	"OSCTUN"
 	.byte	0x3
 	.2byte	0x4f93
-	.4byte	0x361d
-	.byte	0x1
-	.byte	0x1
-	.uleb128 0x1b
-	.4byte	.LASF47
-	.byte	0x3
-	.2byte	0x4fa6
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF48
 	.byte	0x3
-	.2byte	0x4fbe
-	.4byte	0x361d
+	.2byte	0x4fa6
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF49
 	.byte	0x3
-	.2byte	0x4fd7
-	.4byte	0x361d
+	.2byte	0x4fbe
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF50
 	.byte	0x3
+	.2byte	0x4fd7
+	.4byte	0x3695
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0x1b
+	.4byte	.LASF51
+	.byte	0x3
 	.2byte	0x4ff2
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1d
 	.asciz	"PMD1"
 	.byte	0x3
 	.2byte	0x500f
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
-	.4byte	.LASF51
+	.4byte	.LASF52
 	.byte	0x3
 	.2byte	0x501e
-	.4byte	0x39a5
+	.4byte	0x3a30
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1d
 	.asciz	"PMD2"
 	.byte	0x3
 	.2byte	0x5021
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1d
 	.asciz	"PMD3"
 	.byte	0x3
 	.2byte	0x502f
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
-	.4byte	.LASF52
+	.4byte	.LASF53
 	.byte	0x3
 	.2byte	0x5036
-	.4byte	0x39d6
+	.4byte	0x3a61
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1d
 	.asciz	"PMD4"
 	.byte	0x3
 	.2byte	0x5039
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1d
 	.asciz	"PMD6"
 	.byte	0x3
 	.2byte	0x5041
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1d
 	.asciz	"PMD7"
 	.byte	0x3
 	.2byte	0x504e
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1d
 	.asciz	"PMD8"
 	.byte	0x3
 	.2byte	0x5058
-	.4byte	0x361d
-	.byte	0x1
-	.byte	0x1
-	.uleb128 0x1b
-	.4byte	.LASF53
-	.byte	0x3
-	.2byte	0x5066
-	.4byte	0x3a25
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF54
 	.byte	0x3
-	.2byte	0x5091
-	.4byte	0x361d
+	.2byte	0x5066
+	.4byte	0x3ab0
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF55
 	.byte	0x3
-	.2byte	0x50c7
-	.4byte	0x361d
+	.2byte	0x5091
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF56
 	.byte	0x3
+	.2byte	0x50c7
+	.4byte	0x3695
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0x1b
+	.4byte	.LASF57
+	.byte	0x3
 	.2byte	0x50e3
-	.4byte	0x361d
+	.4byte	0x3695
 	.byte	0x1
 	.byte	0x1
 	.byte	0x0
@@ -9561,225 +9691,231 @@ _Disable_SELF_TEST:
 	.byte	0x0
 	.byte	0x0
 	.section	.debug_pubnames,info
-	.4byte	0x109
+	.4byte	0x117
 	.2byte	0x2
 	.4byte	.Ldebug_info0
-	.4byte	0x3e5b
-	.4byte	0x3291
+	.4byte	0x3ef4
+	.4byte	0x32db
 	.asciz	"Init_Clock"
-	.4byte	0x32ab
+	.4byte	0x32f5
 	.asciz	"Init_GI"
-	.4byte	0x32c2
+	.4byte	0x330c
 	.asciz	"Soft_Reset"
-	.4byte	0x32dc
+	.4byte	0x3326
 	.asciz	"Init_U1"
-	.4byte	0x3333
+	.4byte	0x337d
 	.asciz	"_U1TXInterrupt"
-	.4byte	0x3351
+	.4byte	0x339b
 	.asciz	"Start_Printf"
-	.4byte	0x336d
+	.4byte	0x33b7
 	.asciz	"Add_Printf_str"
-	.4byte	0x33c3
+	.4byte	0x340d
 	.asciz	"Add_Printf_udec8"
-	.4byte	0x342e
+	.4byte	0x3478
 	.asciz	"Add_Printf_udec16"
-	.4byte	0x349a
+	.4byte	0x34e4
 	.asciz	"Add_Printf_udec32"
-	.4byte	0x350c
+	.4byte	0x3556
 	.asciz	"Config_CCT8"
-	.4byte	0x3528
-	.asciz	"Get_CCT8"
-	.4byte	0x3545
-	.asciz	"Init_ADC"
 	.4byte	0x3572
+	.asciz	"Get_CCT8"
+	.4byte	0x358f
+	.asciz	"Init_ADC"
+	.4byte	0x35bc
 	.asciz	"Init_DAC"
-	.4byte	0x358b
+	.4byte	0x35d5
 	.asciz	"Disable_SELF_TEST"
+	.4byte	0x360b
+	.asciz	"Init_INT1"
 	.4byte	0x0
 	.section	.debug_pubtypes,info
-	.4byte	0x5cc
+	.4byte	0x5ed
 	.2byte	0x2
 	.4byte	.Ldebug_info0
-	.4byte	0x3e5b
-	.4byte	0x122
+	.4byte	0x3ef4
+	.4byte	0x12d
 	.asciz	"uint8_t"
-	.4byte	0x131
+	.4byte	0x13c
 	.asciz	"uint16_t"
-	.4byte	0x141
+	.4byte	0x14c
 	.asciz	"uint32_t"
-	.4byte	0x2b6
+	.4byte	0x2c1
 	.asciz	"tagU1MODEBITS"
-	.4byte	0x2d6
+	.4byte	0x2e1
 	.asciz	"U1MODEBITS"
-	.4byte	0x473
+	.4byte	0x47e
 	.asciz	"tagU1MODEHBITS"
-	.4byte	0x494
+	.4byte	0x49f
 	.asciz	"U1MODEHBITS"
-	.4byte	0x4a8
+	.4byte	0x4b3
 	.asciz	"tagU1STABITS"
-	.4byte	0x600
+	.4byte	0x60b
 	.asciz	"U1STABITS"
-	.4byte	0x78e
+	.4byte	0x799
 	.asciz	"tagU1STAHBITS"
-	.4byte	0x7ae
+	.4byte	0x7b9
 	.asciz	"U1STAHBITS"
-	.4byte	0x7c1
+	.4byte	0x7cc
 	.asciz	"tagIFS0BITS"
-	.4byte	0x913
+	.4byte	0x91e
 	.asciz	"IFS0BITS"
-	.4byte	0x924
+	.4byte	0x92f
 	.asciz	"tagIFS3BITS"
-	.4byte	0x9e2
+	.4byte	0x9ed
 	.asciz	"IFS3BITS"
-	.4byte	0x9f3
+	.4byte	0x9fe
 	.asciz	"tagIFS5BITS"
-	.4byte	0xb55
+	.4byte	0xb60
 	.asciz	"IFS5BITS"
-	.4byte	0xb66
+	.4byte	0xb71
 	.asciz	"tagIFS9BITS"
-	.4byte	0xbfd
+	.4byte	0xc08
 	.asciz	"IFS9BITS"
-	.4byte	0xc0e
+	.4byte	0xc19
 	.asciz	"tagIEC0BITS"
-	.4byte	0xd60
+	.4byte	0xd6b
 	.asciz	"IEC0BITS"
-	.4byte	0xd71
+	.4byte	0xd7c
 	.asciz	"tagIEC3BITS"
-	.4byte	0xe2f
+	.4byte	0xe3a
 	.asciz	"IEC3BITS"
-	.4byte	0xe40
+	.4byte	0xe4b
 	.asciz	"tagIEC5BITS"
-	.4byte	0xfa2
+	.4byte	0xfad
 	.asciz	"IEC5BITS"
-	.4byte	0xfb3
+	.4byte	0xfbe
 	.asciz	"tagIEC9BITS"
-	.4byte	0x104a
+	.4byte	0x1055
 	.asciz	"IEC9BITS"
-	.4byte	0x105b
+	.4byte	0x1066
 	.asciz	"tagIPC3BITS"
-	.4byte	0x10c6
+	.4byte	0x10d1
 	.asciz	"IPC3BITS"
-	.4byte	0x10d7
+	.4byte	0x10e2
 	.asciz	"tagIPC12BITS"
-	.4byte	0x113f
+	.4byte	0x114a
 	.asciz	"IPC12BITS"
-	.4byte	0x1151
+	.4byte	0x115c
 	.asciz	"tagIPC23BITS"
-	.4byte	0x11c4
+	.4byte	0x11cf
 	.asciz	"IPC23BITS"
-	.4byte	0x11d6
+	.4byte	0x11e1
 	.asciz	"tagINTCON1BITS"
-	.4byte	0x1330
+	.4byte	0x133b
 	.asciz	"INTCON1BITS"
-	.4byte	0x1344
+	.4byte	0x134f
 	.asciz	"tagINTCON2BITS"
-	.4byte	0x1400
+	.4byte	0x140b
 	.asciz	"INTCON2BITS"
-	.4byte	0x163e
+	.4byte	0x1649
 	.asciz	"tagCCP8CON1LBITS"
-	.4byte	0x1661
+	.4byte	0x166c
 	.asciz	"CCP8CON1LBITS"
-	.4byte	0x1874
+	.4byte	0x187f
 	.asciz	"tagCCP8CON1HBITS"
-	.4byte	0x1897
+	.4byte	0x18a2
 	.asciz	"CCP8CON1HBITS"
-	.4byte	0x19c5
+	.4byte	0x19d0
 	.asciz	"tagCCP8CON2LBITS"
-	.4byte	0x19e8
+	.4byte	0x19f3
 	.asciz	"CCP8CON2LBITS"
-	.4byte	0x19fe
+	.4byte	0x1a09
 	.asciz	"tagADCON1LBITS"
-	.4byte	0x1a3f
+	.4byte	0x1a4a
 	.asciz	"ADCON1LBITS"
-	.4byte	0x1acf
+	.4byte	0x1ada
 	.asciz	"tagADCON1HBITS"
-	.4byte	0x1af0
+	.4byte	0x1afb
 	.asciz	"ADCON1HBITS"
-	.4byte	0x1c95
+	.4byte	0x1ca0
 	.asciz	"tagADCON2LBITS"
-	.4byte	0x1cb6
+	.4byte	0x1cc1
 	.asciz	"ADCON2LBITS"
-	.4byte	0x1e18
+	.4byte	0x1e23
 	.asciz	"tagADCON2HBITS"
-	.4byte	0x1e39
+	.4byte	0x1e44
 	.asciz	"ADCON2HBITS"
-	.4byte	0x200c
+	.4byte	0x2017
 	.asciz	"tagADCON3LBITS"
-	.4byte	0x202d
+	.4byte	0x2038
 	.asciz	"ADCON3LBITS"
-	.4byte	0x2149
+	.4byte	0x2154
 	.asciz	"tagADCON3HBITS"
-	.4byte	0x216a
+	.4byte	0x2175
 	.asciz	"ADCON3HBITS"
-	.4byte	0x217e
+	.4byte	0x2189
 	.asciz	"tagADMOD0LBITS"
-	.4byte	0x2237
+	.4byte	0x2242
 	.asciz	"ADMOD0LBITS"
-	.4byte	0x224b
+	.4byte	0x2256
 	.asciz	"tagADIELBITS"
-	.4byte	0x2388
+	.4byte	0x2393
 	.asciz	"ADIELBITS"
-	.4byte	0x255b
+	.4byte	0x2566
 	.asciz	"tagADTRIG0HBITS"
-	.4byte	0x257d
+	.4byte	0x2588
 	.asciz	"ADTRIG0HBITS"
-	.4byte	0x2592
+	.4byte	0x259d
 	.asciz	"tagADCON5LBITS"
-	.4byte	0x25d5
+	.4byte	0x25e0
 	.asciz	"ADCON5LBITS"
-	.4byte	0x25e9
+	.4byte	0x25f4
 	.asciz	"tagADCON5HBITS"
-	.4byte	0x262e
+	.4byte	0x2639
 	.asciz	"ADCON5HBITS"
-	.4byte	0x2763
+	.4byte	0x276e
 	.asciz	"tagDACCTRL1LBITS"
-	.4byte	0x2786
+	.4byte	0x2791
 	.asciz	"DACCTRL1LBITS"
-	.4byte	0x28e4
+	.4byte	0x28ef
 	.asciz	"tagDAC1CONLBITS"
-	.4byte	0x2906
+	.4byte	0x2911
 	.asciz	"DAC1CONLBITS"
-	.4byte	0x2a93
+	.4byte	0x2a9e
 	.asciz	"tagDAC1DATHBITS"
-	.4byte	0x2ab5
+	.4byte	0x2ac0
 	.asciz	"DAC1DATHBITS"
-	.4byte	0x2aca
+	.4byte	0x2ad5
 	.asciz	"tagRPCONBITS"
-	.4byte	0x2af6
+	.4byte	0x2b01
 	.asciz	"RPCONBITS"
-	.4byte	0x2b08
+	.4byte	0x2b13
+	.asciz	"tagRPINR0BITS"
+	.4byte	0x2b3f
+	.asciz	"RPINR0BITS"
+	.4byte	0x2b52
 	.asciz	"tagRPINR18BITS"
-	.4byte	0x2b4a
+	.4byte	0x2b94
 	.asciz	"RPINR18BITS"
-	.4byte	0x2b5e
+	.4byte	0x2ba8
 	.asciz	"tagRPOR3BITS"
-	.4byte	0x2b9d
+	.4byte	0x2be7
 	.asciz	"RPOR3BITS"
-	.4byte	0x2cc3
+	.4byte	0x2d0d
 	.asciz	"tagOSCCONBITS"
-	.4byte	0x2ce3
+	.4byte	0x2d2d
 	.asciz	"OSCCONBITS"
-	.4byte	0x2e57
+	.4byte	0x2ea1
 	.asciz	"tagPLLFBDBITS"
-	.4byte	0x2e77
+	.4byte	0x2ec1
 	.asciz	"PLLFBDBITS"
-	.4byte	0x2fb1
+	.4byte	0x2ffb
 	.asciz	"tagPLLDIVBITS"
-	.4byte	0x2fd1
+	.4byte	0x301b
 	.asciz	"PLLDIVBITS"
-	.4byte	0x2fe4
+	.4byte	0x302e
 	.asciz	"tagPMD1BITS"
-	.4byte	0x30d5
+	.4byte	0x311f
 	.asciz	"PMD1BITS"
-	.4byte	0x30e6
+	.4byte	0x3130
 	.asciz	"tagPMD3BITS"
-	.4byte	0x3125
+	.4byte	0x316f
 	.asciz	"PMD3BITS"
-	.4byte	0x3136
+	.4byte	0x3180
 	.asciz	"tagPMD8BITS"
-	.4byte	0x31f5
+	.4byte	0x323f
 	.asciz	"PMD8BITS"
-	.4byte	0x3283
+	.4byte	0x32cd
 	.asciz	"gpio_t"
 	.4byte	0x0
 	.section	.debug_aranges,info
@@ -9801,7 +9937,7 @@ _Disable_SELF_TEST:
 	.asciz	"WordIn"
 .LASF35:
 	.asciz	"ADTRIG0Hbits"
-.LASF43:
+.LASF44:
 	.asciz	"RPOR3bits"
 .LASF28:
 	.asciz	"ADCON1Hbits"
@@ -9815,29 +9951,29 @@ _Disable_SELF_TEST:
 	.asciz	"IFS0bits"
 .LASF39:
 	.asciz	"DAC1CONLbits"
-.LASF48:
+.LASF49:
 	.asciz	"APLLFBD1"
 .LASF10:
 	.asciz	"IFS3bits"
 .LASF13:
 	.asciz	"IEC0bits"
-.LASF45:
+.LASF46:
 	.asciz	"PLLFBDbits"
-.LASF51:
+.LASF52:
 	.asciz	"PMD1bits"
 .LASF34:
 	.asciz	"ADIELbits"
-.LASF53:
+.LASF54:
 	.asciz	"PMD8bits"
 .LASF14:
 	.asciz	"IEC3bits"
 .LASF12:
 	.asciz	"IFS9bits"
-.LASF55:
+.LASF56:
 	.asciz	"REFOCONH"
-.LASF54:
+.LASF55:
 	.asciz	"REFOCONL"
-.LASF52:
+.LASF53:
 	.asciz	"PMD3bits"
 .LASF16:
 	.asciz	"IEC9bits"
@@ -9875,20 +10011,22 @@ _Disable_SELF_TEST:
 	.asciz	"U1STAHbits"
 .LASF30:
 	.asciz	"ADCON2Hbits"
-.LASF42:
+.LASF43:
 	.asciz	"RPINR18bits"
 .LASF17:
 	.asciz	"IPC3bits"
 .LASF5:
 	.asciz	"U1MODEbits"
-.LASF44:
+.LASF45:
 	.asciz	"OSCCONbits"
-.LASF56:
+.LASF57:
 	.asciz	"REFOTRIMH"
 .LASF6:
 	.asciz	"U1MODEHbits"
-.LASF47:
+.LASF48:
 	.asciz	"ACLKCON1"
+.LASF42:
+	.asciz	"RPINR0bits"
 .LASF41:
 	.asciz	"RPCONbits"
 .LASF19:
@@ -9897,13 +10035,13 @@ _Disable_SELF_TEST:
 	.asciz	"ADCON2Lbits"
 .LASF7:
 	.asciz	"U1STAbits"
-.LASF46:
+.LASF47:
 	.asciz	"PLLDIVbits"
-.LASF50:
+.LASF51:
 	.asciz	"CANCLKCON"
 .LASF22:
 	.asciz	"CCP8CON1Lbits"
-.LASF49:
+.LASF50:
 	.asciz	"APLLDIV1"
 .LASF15:
 	.asciz	"IEC5bits"

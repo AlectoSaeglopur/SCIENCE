@@ -47,9 +47,6 @@
 #define U1B_SIZE                (uint8_t) 50                                    //!< UART1 TX buffer size [B] (NB: shall contain all characters of each statistics line to be printed)
 #define STATS_DELAY             (uint8_t) 2                                     //!< Delay in ms (NB: shall give enough time to print single statistics line, e.g. U1@450 kb/s and SZ=50B -> 50*(8+3)/450k = 1.2 ms
 
-/** Queue */
-#define QUEUE_FILTER_LEN        (uint8_t) 5                                     //!< ADC-DAC filtering queue length
-
 
 
 /******************/
@@ -73,6 +70,7 @@ uint32_t Get_CCT8( void );
 void Init_ADC( void );
 void Disable_SELF_TEST( void );
 void Init_DAC( void );
+void Init_INT1( void );
 
 
 

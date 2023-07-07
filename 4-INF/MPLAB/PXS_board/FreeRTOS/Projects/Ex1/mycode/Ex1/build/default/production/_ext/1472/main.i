@@ -1,9 +1,9 @@
 # 1 "../main.c"
-# 1 "C:\\Users\\Filippo\\Desktop\\Projects\\Ex1\\mycode\\Ex1"
+# 1 "C:\\Users\\Filippo\\Downloads\\FreeRTOS\\Projects\\Ex1\\mycode\\Ex1"
 # 1 "<built-in>"
 # 1 "<command-line>"
 # 1 "../main.c"
-# 20 "../main.c"
+# 21 "../main.c"
 # 1 "../system.h" 1
 # 24 "../system.h"
 # 1 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdio.h" 1 3 4
@@ -21742,7 +21742,7 @@ extern int _program_inactive_slave(int slave_number, int verify,
 extern void _start_slave(void);
 extern void _stop_slave(void);
 # 42 "../system.h" 2
-# 59 "../system.h"
+# 56 "../system.h"
 void Init_Clock( void );
 void Init_GI( void );
 void Soft_Reset( void );
@@ -21760,9 +21760,10 @@ uint32_t Get_CCT8( void );
 void Init_ADC( void );
 void Disable_SELF_TEST( void );
 void Init_DAC( void );
-# 21 "../main.c" 2
-# 1 "../priority.h" 1
+void Init_INT1( void );
 # 22 "../main.c" 2
+# 1 "../priority.h" 1
+# 23 "../main.c" 2
 # 1 "../gpio.h" 1
 # 28 "../gpio.h"
 typedef struct {
@@ -21782,7 +21783,7 @@ void Config_GPIO( uint8_t *PinId, gpio_t Param );
 void Set_GPIO( uint8_t *PinId, uint8_t State );
 void Toggle_GPIO( uint8_t *PinId );
 uint8_t Get_GPIO( uint8_t *PinId );
-# 23 "../main.c" 2
+# 24 "../main.c" 2
 # 1 "../misc.h" 1
 # 23 "../misc.h"
 # 1 "../../source/include/FreeRTOS.h" 1
@@ -22237,7 +22238,7 @@ typedef struct xSTATIC_TCB
   uint8_t ucDummy19;
 
 
-
+  uint8_t uxDummy20;
 
 
 } StaticTask_t;
@@ -22255,7 +22256,16 @@ typedef struct xSTATIC_QUEUE
  StaticList_t xDummy3[ 2 ];
  UBaseType_t uxDummy4[ 3 ];
  uint8_t ucDummy5[ 2 ];
-# 997 "../../source/include/FreeRTOS.h"
+
+
+  uint8_t ucDummy6;
+
+
+
+
+
+
+
   UBaseType_t uxDummy8;
   uint8_t ucDummy9;
 
@@ -22273,7 +22283,7 @@ typedef struct xSTATIC_EVENT_GROUP
 
 
 
-
+   uint8_t ucDummy4;
 
 
 } StaticEventGroup_t;
@@ -22290,7 +22300,7 @@ typedef struct xSTATIC_TIMER
 
 
 
-
+  uint8_t ucDummy7;
 
 
 } StaticTimer_t;
@@ -22433,6 +22443,8 @@ BaseType_t xQueueTakeMutexRecursive( QueueHandle_t xMutex, TickType_t xTicksToWa
 BaseType_t xQueueGiveMutexRecursive( QueueHandle_t pxMutex ) ;
 # 1639 "../../source/include/queue.h"
  QueueHandle_t xQueueGenericCreate( const UBaseType_t uxQueueLength, const UBaseType_t uxItemSize, const uint8_t ucQueueType ) ;
+# 1648 "../../source/include/queue.h"
+ QueueHandle_t xQueueGenericCreateStatic( const UBaseType_t uxQueueLength, const UBaseType_t uxItemSize, uint8_t *pucQueueStorage, StaticQueue_t *pxStaticQueue, const uint8_t ucQueueType ) ;
 # 1699 "../../source/include/queue.h"
 QueueSetHandle_t xQueueCreateSet( const UBaseType_t uxEventQueueLength ) ;
 # 1723 "../../source/include/queue.h"
@@ -22550,6 +22562,14 @@ typedef enum
        void * const pvParameters,
        UBaseType_t uxPriority,
        TaskHandle_t * const pxCreatedTask ) ;
+# 476 "../../source/include/task.h"
+ TaskHandle_t xTaskCreateStatic( TaskFunction_t pxTaskCode,
+         const char * const pcName,
+         const uint32_t ulStackDepth,
+         void * const pvParameters,
+         UBaseType_t uxPriority,
+         StackType_t * const puxStackBuffer,
+         StaticTask_t * const pxTaskBuffer ) ;
 # 602 "../../source/include/task.h"
 void vTaskAllocateMPURegions( TaskHandle_t xTask, const MemoryRegion_t * const pxRegions ) ;
 # 643 "../../source/include/task.h"
@@ -22727,6 +22747,13 @@ typedef void (*PendedFunction_t)( void *, uint32_t );
         const UBaseType_t uxAutoReload,
         void * const pvTimerID,
         TimerCallbackFunction_t pxCallbackFunction ) ;
+# 399 "../../source/include/timers.h"
+ TimerHandle_t xTimerCreateStatic( const char * const pcTimerName,
+          const TickType_t xTimerPeriodInTicks,
+          const UBaseType_t uxAutoReload,
+          void * const pvTimerID,
+          TimerCallbackFunction_t pxCallbackFunction,
+          StaticTimer_t *pxTimerBuffer ) ;
 # 427 "../../source/include/timers.h"
 void *pvTimerGetTimerID( const TimerHandle_t xTimer ) ;
 # 448 "../../source/include/timers.h"
@@ -22771,12 +22798,12 @@ BaseType_t xAreBlockTimeTestTasksStillRunning( void );
 
 typedef QueueHandle_t SemaphoreHandle_t;
 # 30 "../misc.h" 2
-# 52 "../misc.h"
-void ConfigMod_LEDs( void );
+# 54 "../misc.h"
+void ConfigMod_LEDs( uint8_t * Led1 );
 void ConfigMod_Stats( void);
 void ConfigMod_Filter( void );
 void ConfigMod_Watchdog( void );
-# 24 "../main.c" 2
+# 25 "../main.c" 2
 # 43 "../main.c"
 int main( void ){
 
@@ -22786,7 +22813,8 @@ int main( void ){
     Init_U1();
 
 
-    ConfigMod_LEDs();
+    uint8_t * Gpio_Led1 = (uint8_t[2]) {(uint8_t) 1,14};
+    ConfigMod_LEDs(Gpio_Led1);
 
 
     ConfigMod_Stats();
@@ -22802,7 +22830,7 @@ int main( void ){
  return 0;
 
 }
-# 77 "../main.c"
+# 78 "../main.c"
 void vApplicationIdleHook( void ){
  vCoRoutineSchedule();
 

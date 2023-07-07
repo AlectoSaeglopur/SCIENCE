@@ -5,7 +5,7 @@
  * @ingroup BSP_C
  * @brief SYSTEM LIBRARY
  *
- * Script containing internal MCU system setting functions.
+ * Script containing internal MCU system setting functions and pragmas definition.
  * 
  * @addtogroup BSP_C
  * Group with all BPS library files.
@@ -321,7 +321,7 @@ void Init_ADC( void ){
     gpio_t Par;
     Par.AnaDig = xANALOG;
     Par.InOut = xINPUT;
-    Config_GPIO(oADC3_VI1,Par);                                                 /** - Configure ADC channel pin */
+    Config_GPIO(oVI1,Par);                                                      /** - Configure ADC channel pin */
     Lock_GPIOs();                                                               /** - Lock GPIOs and PPS assignments after configuring */
     ADCON1Lbits.ADON = 0;                                                       /** - Disable module before configuring */
     ADCON1Hbits.FORM = 0;                                                       /** - Use integer data format */
@@ -358,7 +358,7 @@ void Init_DAC( void ){
 }
 
 /**
- * @brief <i> Function to disable SELF_TEST line, so to connect ADC channels to connector J7 (and not to DAC output, see PXS board schematic). </i>
+ * @brief <i> Function to disable SELF_TEST line, so to connect ADC channels to connector J7 (see PXS board schematic). </i>
  */
 void Disable_SELF_TEST( void ){
     Unlock_GPIOs();                                                             /** - Unlock GPIOs and PP assignments before configuring */
@@ -369,6 +369,24 @@ void Disable_SELF_TEST( void ){
     Config_GPIO(oSELF_TEST,Par);                                                /** - Configure pin */
     Lock_GPIOs();                                                               /** - Lock GPIOs and PPS assignments after configuring */
     Set_GPIO(oSELF_TEST,xHIGH);                                                 /** - Set and keep SELF_TEST high (active-low) */
+}
+
+/**
+ * @brief <i> Function to configure INT1 module. </i>
+ */
+void Init_INT1( void ){
+    Unlock_GPIOs();
+    gpio_t Par;
+    Par.AnaDig = xDIGITAL;
+    Par.InOut = xINPUT;
+    Par.PullUp = xENABLE;
+    Config_GPIO(oEXTR5,Par);                                                    /** - Initialize EXTI GPIO */
+    RPINR0bits.INT1R = 44;                                                      /** - PPS assignment for binding INT1 to RB12 (RP44) */
+    Lock_GPIOs();
+    INTCON2bits.INT1EP = 1;                                                     /** - Set negative (aka falling) edge interrupt type */
+    IFS0bits.INT1IF = 0;                                                        /** - Clear interrupt flag */
+    IPC3bits.INT1IP = PRT_HW_INT1;                                              /** - Set interrupt priority */
+    IEC0bits.INT1IE = 1;                                                        /** - Enable interrupt */
 }
 
 

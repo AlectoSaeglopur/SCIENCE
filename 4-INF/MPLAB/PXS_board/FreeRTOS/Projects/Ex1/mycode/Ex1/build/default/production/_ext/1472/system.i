@@ -1,5 +1,5 @@
 # 1 "../system.c"
-# 1 "C:\\Users\\Filippo\\Desktop\\Projects\\Ex1\\mycode\\Ex1"
+# 1 "C:\\Users\\Filippo\\Downloads\\FreeRTOS\\Projects\\Ex1\\mycode\\Ex1"
 # 1 "<built-in>"
 # 1 "<command-line>"
 # 1 "../system.c"
@@ -21744,7 +21744,7 @@ extern int _program_inactive_slave(int slave_number, int verify,
 extern void _start_slave(void);
 extern void _stop_slave(void);
 # 42 "../system.h" 2
-# 59 "../system.h"
+# 56 "../system.h"
 void Init_Clock( void );
 void Init_GI( void );
 void Soft_Reset( void );
@@ -21762,6 +21762,7 @@ uint32_t Get_CCT8( void );
 void Init_ADC( void );
 void Disable_SELF_TEST( void );
 void Init_DAC( void );
+void Init_INT1( void );
 # 21 "../gpio.h" 2
 
 
@@ -21888,10 +21889,10 @@ void Init_U1( void ){
     U1STAbits.OERIE = 1;
     U1STAbits.FERIE = 1;
     U1STAbits.PERIE = 1;
-    IPC12bits.U1EIP = (uint8_t) 7;
+    IPC12bits.U1EIP = (uint8_t) 4;
     IFS3bits.U1EIF = 0;
     IEC3bits.U1EIE = 1;
-    IPC3bits.U1TXIP = (uint8_t) 4;
+    IPC3bits.U1TXIP = (uint8_t) 3;
     IFS0bits.U1TXIF = 0;
     IEC0bits.U1TXIE = 1;
     IFS0bits.U1RXIF = 0;
@@ -22082,7 +22083,7 @@ void Init_ADC( void ){
     ADCON3Hbits.CLKDIV = 0;
     ADMOD0Lbits.SIGN3 = 0;
     ADIELbits.IE3 = 1;
-    IPC23bits.ADCAN3IP = (uint8_t) 6;
+    IPC23bits.ADCAN3IP = (uint8_t) 5;
     IFS5bits.ADCAN3IF = 0;
     IEC5bits.ADCAN3IE = 1;
     ADCON1Lbits.ADON = 1;
@@ -22119,7 +22120,25 @@ void Disable_SELF_TEST( void ){
     Lock_GPIOs();
     Set_GPIO((uint8_t[2]) {(uint8_t) 3,4},(uint8_t) 1);
 }
-# 381 "../system.c"
+
+
+
+
+void Init_INT1( void ){
+    Unlock_GPIOs();
+    gpio_t Par;
+    Par.AnaDig = (uint8_t) 0;
+    Par.InOut = (uint8_t) 1;
+    Par.PullUp = (uint8_t) 1;
+    Config_GPIO((uint8_t[2]) {(uint8_t) 1,12},Par);
+    RPINR0bits.INT1R = 44;
+    Lock_GPIOs();
+    INTCON2bits.INT1EP = 1;
+    IFS0bits.INT1IF = 0;
+    IPC3bits.INT1IP = (uint8_t) 6;
+    IEC0bits.INT1IE = 1;
+}
+# 399 "../system.c"
 #pragma config AIVTDIS = 1
 #pragma config CSS = 7
 #pragma config CWRP = 1

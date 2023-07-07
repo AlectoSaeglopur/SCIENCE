@@ -1,5 +1,5 @@
 # 1 "../misc.c"
-# 1 "C:\\Users\\Filippo\\Desktop\\Projects\\Ex1\\mycode\\Ex1"
+# 1 "C:\\Users\\Filippo\\Downloads\\FreeRTOS\\Projects\\Ex1\\mycode\\Ex1"
 # 1 "<built-in>"
 # 1 "<command-line>"
 # 1 "../misc.c"
@@ -21744,7 +21744,7 @@ extern int _program_inactive_slave(int slave_number, int verify,
 extern void _start_slave(void);
 extern void _stop_slave(void);
 # 42 "../system.h" 2
-# 59 "../system.h"
+# 56 "../system.h"
 void Init_Clock( void );
 void Init_GI( void );
 void Soft_Reset( void );
@@ -21762,6 +21762,7 @@ uint32_t Get_CCT8( void );
 void Init_ADC( void );
 void Disable_SELF_TEST( void );
 void Init_DAC( void );
+void Init_INT1( void );
 # 22 "../error.h" 2
 
 
@@ -22250,7 +22251,7 @@ typedef struct xSTATIC_TCB
   uint8_t ucDummy19;
 
 
-
+  uint8_t uxDummy20;
 
 
 } StaticTask_t;
@@ -22268,7 +22269,16 @@ typedef struct xSTATIC_QUEUE
  StaticList_t xDummy3[ 2 ];
  UBaseType_t uxDummy4[ 3 ];
  uint8_t ucDummy5[ 2 ];
-# 997 "../../source/include/FreeRTOS.h"
+
+
+  uint8_t ucDummy6;
+
+
+
+
+
+
+
   UBaseType_t uxDummy8;
   uint8_t ucDummy9;
 
@@ -22286,7 +22296,7 @@ typedef struct xSTATIC_EVENT_GROUP
 
 
 
-
+   uint8_t ucDummy4;
 
 
 } StaticEventGroup_t;
@@ -22303,7 +22313,7 @@ typedef struct xSTATIC_TIMER
 
 
 
-
+  uint8_t ucDummy7;
 
 
 } StaticTimer_t;
@@ -22446,6 +22456,8 @@ BaseType_t xQueueTakeMutexRecursive( QueueHandle_t xMutex, TickType_t xTicksToWa
 BaseType_t xQueueGiveMutexRecursive( QueueHandle_t pxMutex ) ;
 # 1639 "../../source/include/queue.h"
  QueueHandle_t xQueueGenericCreate( const UBaseType_t uxQueueLength, const UBaseType_t uxItemSize, const uint8_t ucQueueType ) ;
+# 1648 "../../source/include/queue.h"
+ QueueHandle_t xQueueGenericCreateStatic( const UBaseType_t uxQueueLength, const UBaseType_t uxItemSize, uint8_t *pucQueueStorage, StaticQueue_t *pxStaticQueue, const uint8_t ucQueueType ) ;
 # 1699 "../../source/include/queue.h"
 QueueSetHandle_t xQueueCreateSet( const UBaseType_t uxEventQueueLength ) ;
 # 1723 "../../source/include/queue.h"
@@ -22563,6 +22575,14 @@ typedef enum
        void * const pvParameters,
        UBaseType_t uxPriority,
        TaskHandle_t * const pxCreatedTask ) ;
+# 476 "../../source/include/task.h"
+ TaskHandle_t xTaskCreateStatic( TaskFunction_t pxTaskCode,
+         const char * const pcName,
+         const uint32_t ulStackDepth,
+         void * const pvParameters,
+         UBaseType_t uxPriority,
+         StackType_t * const puxStackBuffer,
+         StaticTask_t * const pxTaskBuffer ) ;
 # 602 "../../source/include/task.h"
 void vTaskAllocateMPURegions( TaskHandle_t xTask, const MemoryRegion_t * const pxRegions ) ;
 # 643 "../../source/include/task.h"
@@ -22740,6 +22760,13 @@ typedef void (*PendedFunction_t)( void *, uint32_t );
         const UBaseType_t uxAutoReload,
         void * const pvTimerID,
         TimerCallbackFunction_t pxCallbackFunction ) ;
+# 399 "../../source/include/timers.h"
+ TimerHandle_t xTimerCreateStatic( const char * const pcTimerName,
+          const TickType_t xTimerPeriodInTicks,
+          const UBaseType_t uxAutoReload,
+          void * const pvTimerID,
+          TimerCallbackFunction_t pxCallbackFunction,
+          StaticTimer_t *pxTimerBuffer ) ;
 # 427 "../../source/include/timers.h"
 void *pvTimerGetTimerID( const TimerHandle_t xTimer ) ;
 # 448 "../../source/include/timers.h"
@@ -22784,8 +22811,8 @@ BaseType_t xAreBlockTimeTestTasksStillRunning( void );
 
 typedef QueueHandle_t SemaphoreHandle_t;
 # 30 "../misc.h" 2
-# 52 "../misc.h"
-void ConfigMod_LEDs( void );
+# 54 "../misc.h"
+void ConfigMod_LEDs( uint8_t * Led1 );
 void ConfigMod_Stats( void);
 void ConfigMod_Filter( void );
 void ConfigMod_Watchdog( void );
@@ -22798,7 +22825,10 @@ void ConfigMod_Watchdog( void );
 
 
 
+
 static QueueHandle_t Hdl_Queue = 0;
+static SemaphoreHandle_t Hdl_Semaphore = 0;
+
 
 
 
@@ -22810,9 +22840,9 @@ static void Blink_LED1( void *pvParameters );
 static void Print_Stats( TimerHandle_t xTimer );
 static void Trigger_ADC3( void *pvParameters );
 static void Update_DAC( void *pvParameters );
-static void Kick_WDT( void *pvParameters );
-# 51 "../misc.c"
-void ConfigMod_LEDs( void ){
+static void Kick_Watchdog( void *pvParameters );
+# 54 "../misc.c"
+void ConfigMod_LEDs( uint8_t * Gpio_Led1 ){
     BaseType_t Ret;
     Ret = xTaskCreate( Blink_LED0, "LED0", 7*( uint16_t ) 20,
         0, (uint8_t) 2, 0 );
@@ -22820,10 +22850,10 @@ void ConfigMod_LEDs( void ){
             Set_ErrFlag((uint16_t) 0x0401);
         }
     Ret = xTaskCreate( Blink_LED1, "LED1", 7*( uint16_t ) 20,
-        (void *)(uint8_t[2]) {(uint8_t) 1,14}, (uint8_t) 3, 0 );
+        (void *)Gpio_Led1, (uint8_t) 3, 0 );
     if( Ret == ( -1 ) ){
             Set_ErrFlag((uint16_t) 0x0401);
-        }
+    }
 }
 
 
@@ -22865,7 +22895,13 @@ static void Blink_LED1( void *pvParameters ){
         Toggle_GPIO(GpioId);
     }
 }
-# 112 "../misc.c"
+
+
+
+
+
+
+
 void ConfigMod_Stats( void ){
     TimerHandle_t Hdl_Timer = xTimerCreate( "TMR2",
         ((TickType_t)(((TickType_t)((uint16_t) 1000)))*(((TickType_t)( ( TickType_t ) 1000 ))/( TickType_t)1000)), ( ( BaseType_t ) 1 ), (void *)2, Print_Stats );
@@ -22932,15 +22968,25 @@ static void Print_Stats( TimerHandle_t xTimer ){
         Start_Printf();
     }
 }
-# 186 "../misc.c"
+
+
+
+
+
+
+
 void ConfigMod_Filter( void ){
 
     Hdl_Queue = xQueueGenericCreate( ( (uint8_t) 5 ), ( sizeof(uint16_t) ), ( ( ( uint8_t ) 0U ) ) );
     if( Hdl_Queue == 0 ){
         Set_ErrFlag((uint16_t) 0x0402);
     } else {
-        BaseType_t Ret;
 
+        Hdl_Semaphore = xQueueGenericCreate( ( UBaseType_t ) 1, ( ( uint8_t ) 0U ), ( ( uint8_t ) 3U ) );
+
+        Init_INT1();
+
+        BaseType_t Ret;
         Ret = xTaskCreate( Trigger_ADC3, "ADC3", 8*( uint16_t ) 20,
                 0, (uint8_t) 6, 0 );
         if( Ret == ( -1 ) ){
@@ -22978,21 +23024,8 @@ void __attribute__((interrupt, auto_psv)) _ADCAN3Interrupt( void ){
     BaseType_t xHigherPriorityTaskWoken = ( ( BaseType_t ) 0 );
     BaseType_t Ret = xQueueGenericSendFromISR( ( Hdl_Queue ), ( &AdcVal6 ), ( &xHigherPriorityTaskWoken ), ( ( BaseType_t ) 0 ) )
                                       ;
-
     if( Ret == ( ( BaseType_t ) 0 ) ){
         Set_ErrFlag((uint16_t) 0x0408);
-
-
-
-
-
-    } else {
-
-
-
-
-
-
     }
 }
 
@@ -23002,53 +23035,70 @@ void __attribute__((interrupt, auto_psv)) _ADCAN3Interrupt( void ){
 
 static void Update_DAC( void *pvParameters ){
     Init_DAC();
+    uint8_t DacWinSz = (uint8_t) 4;
+    uint16_t * WinBuf = pvPortMalloc(DacWinSz*sizeof(uint16_t));
+    memset(WinBuf,0,DacWinSz*sizeof(uint16_t));
+    uint16_t WinIdx = 0;
+    uint16_t WinSum = 0;
     TickType_t xLastWakeTime = xTaskGetTickCount();
     BaseType_t Ret;
-    uint16_t WinIdx = 0;
-    uint16_t * WinBuf = pvPortMalloc((uint8_t) 6*sizeof(uint16_t));
-    memset(WinBuf,0,(uint8_t) 6*sizeof(uint16_t));
-    uint16_t WinSum = 0;
     uint16_t NewVal;
     for( ;; ){
         vTaskDelayUntil(&xLastWakeTime,((TickType_t)(((TickType_t)((uint16_t) 5)))*(((TickType_t)( ( TickType_t ) 1000 ))/( TickType_t)1000)));
+        if( xQueueGenericReceive( ( QueueHandle_t ) ( Hdl_Semaphore ), 0, ( 0 ), ( ( BaseType_t ) 0 ) ) == ( ( BaseType_t ) 1 ) ){
+            vPortFree(WinBuf);
+            if( DacWinSz == (uint8_t) 4 ){
+                DacWinSz = (uint8_t) 10;
+            } else {
+                DacWinSz = (uint8_t) 4;
+            }
+            WinBuf = pvPortMalloc(DacWinSz*sizeof(uint16_t));
+            memset(WinBuf,0,DacWinSz*sizeof(uint16_t));
+            WinIdx = 0;
+            WinSum = 0;
+        }
         Ret = xQueueGenericReceive( ( Hdl_Queue ), ( (void *)&NewVal ), ( 0 ), ( ( BaseType_t ) 0 ) );
-
         if( Ret == ( ( BaseType_t ) 0 ) ){
             Set_ErrFlag((uint16_t) 0x0410);
-
-
-
-
-
         } else {
             WinSum = WinSum-WinBuf[WinIdx]+NewVal;
             WinBuf[WinIdx] = NewVal;
-            WinIdx = (WinIdx+1)%(uint8_t) 6;
-            DAC1DATHbits.DACDATH = WinSum/(uint8_t) 6;
-
-
-
-
-
-
+            WinIdx = (WinIdx+1)%DacWinSz;
+            DAC1DATHbits.DACDATH = WinSum/DacWinSz;
         }
     }
 }
-# 295 "../misc.c"
-void ConfigMod_Watchdog( void ){
-    BaseType_t Ret;
-    Ret = xTaskCreate( Kick_WDT, "WDT", 5*( uint16_t ) 20,
-        0, (uint8_t) 4, 0 );
-    if( Ret == ( -1 ) ){
-            Set_ErrFlag((uint16_t) 0x0401);
-        }
+
+
+
+
+void __attribute__((interrupt, auto_psv)) _INT1Interrupt( void ){
+    IFS0bits.INT1IF = 0;
+    BaseType_t wake_take = ( ( BaseType_t ) 0 );
+    xQueueGiveFromISR( ( QueueHandle_t ) ( Hdl_Semaphore ), ( &wake_take ) );
+
 }
 
 
 
 
 
-static void Kick_WDT( void *pvParameters ){
+
+
+void ConfigMod_Watchdog( void ){
+    BaseType_t Ret;
+    Ret = xTaskCreate( Kick_Watchdog, "WDT", 5*( uint16_t ) 20,
+        0, (uint8_t) 4, 0 );
+    if( Ret == ( -1 ) ){
+            Set_ErrFlag((uint16_t) 0x0401);
+    }
+}
+
+
+
+
+
+static void Kick_Watchdog( void *pvParameters ){
     WDTCONLbits.ON = 1;
     TickType_t xLastWakeTime = xTaskGetTickCount();
     for( ;; ){

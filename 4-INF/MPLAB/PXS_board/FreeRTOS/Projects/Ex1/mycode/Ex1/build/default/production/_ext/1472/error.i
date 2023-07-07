@@ -1,5 +1,5 @@
 # 1 "../error.c"
-# 1 "C:\\Users\\Filippo\\Desktop\\Projects\\Ex1\\mycode\\Ex1"
+# 1 "C:\\Users\\Filippo\\Downloads\\FreeRTOS\\Projects\\Ex1\\mycode\\Ex1"
 # 1 "<built-in>"
 # 1 "<command-line>"
 # 1 "../error.c"
@@ -21744,7 +21744,7 @@ extern int _program_inactive_slave(int slave_number, int verify,
 extern void _start_slave(void);
 extern void _stop_slave(void);
 # 42 "../system.h" 2
-# 59 "../system.h"
+# 56 "../system.h"
 void Init_Clock( void );
 void Init_GI( void );
 void Soft_Reset( void );
@@ -21762,6 +21762,7 @@ uint32_t Get_CCT8( void );
 void Init_ADC( void );
 void Disable_SELF_TEST( void );
 void Init_DAC( void );
+void Init_INT1( void );
 # 22 "../error.h" 2
 
 

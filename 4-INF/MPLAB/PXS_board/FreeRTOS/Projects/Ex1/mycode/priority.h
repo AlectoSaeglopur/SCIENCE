@@ -21,9 +21,10 @@
 
 /** Hardware ISR priorities */
 
-#define PRT_HW_ADC3             (uint8_t) 6                                     //!< Interrupt priority of ADC AN3 channel
-#define PRT_HW_U1TX             (uint8_t) 4                                     //!< Interrupt priority of UART1 TX
-#define PRT_HW_U1ER             (uint8_t) 7                                     //!< Interrupt priority of UART1 errors
+#define PRT_HW_ADC3             (uint8_t) 5                                     //!< Interrupt priority of ADC AN3 channel
+#define PRT_HW_INT1             (uint8_t) 6                                     //!< Interrupt priority of INT1 EXTI
+#define PRT_HW_U1TX             (uint8_t) 3                                     //!< Interrupt priority of UART1 TX
+#define PRT_HW_U1ER             (uint8_t) 4                                     //!< Interrupt priority of UART1 errors
 #define PRT_HW_CCT8             configKERNEL_INTERRUPT_PRIORITY                 //!< Interrupt priority of CCT8
 
 /** Software ISR priorities */

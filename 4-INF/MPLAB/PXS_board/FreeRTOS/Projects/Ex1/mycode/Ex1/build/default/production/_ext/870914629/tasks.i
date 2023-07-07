@@ -1,5 +1,5 @@
 # 1 "../../source/tasks.c"
-# 1 "C:\\Users\\Filippo\\Desktop\\Projects\\Ex1\\mycode\\Ex1"
+# 1 "C:\\Users\\Filippo\\Downloads\\FreeRTOS\\Projects\\Ex1\\mycode\\Ex1"
 # 1 "<built-in>"
 # 1 "<command-line>"
 # 1 "../../source/tasks.c"
@@ -22080,7 +22080,7 @@ extern int _program_inactive_slave(int slave_number, int verify,
 extern void _start_slave(void);
 extern void _stop_slave(void);
 # 42 "../system.h" 2
-# 59 "../system.h"
+# 56 "../system.h"
 void Init_Clock( void );
 void Init_GI( void );
 void Soft_Reset( void );
@@ -22098,6 +22098,7 @@ uint32_t Get_CCT8( void );
 void Init_ADC( void );
 void Disable_SELF_TEST( void );
 void Init_DAC( void );
+void Init_INT1( void );
 # 7 "../FreeRTOSConfig.h" 2
 # 99 "../../source/include/FreeRTOS.h" 2
 
@@ -22226,7 +22227,7 @@ typedef struct xSTATIC_TCB
   uint8_t ucDummy19;
 
 
-
+  uint8_t uxDummy20;
 
 
 } StaticTask_t;
@@ -22244,7 +22245,16 @@ typedef struct xSTATIC_QUEUE
  StaticList_t xDummy3[ 2 ];
  UBaseType_t uxDummy4[ 3 ];
  uint8_t ucDummy5[ 2 ];
-# 997 "../../source/include/FreeRTOS.h"
+
+
+  uint8_t ucDummy6;
+
+
+
+
+
+
+
   UBaseType_t uxDummy8;
   uint8_t ucDummy9;
 
@@ -22262,7 +22272,7 @@ typedef struct xSTATIC_EVENT_GROUP
 
 
 
-
+   uint8_t ucDummy4;
 
 
 } StaticEventGroup_t;
@@ -22279,7 +22289,7 @@ typedef struct xSTATIC_TIMER
 
 
 
-
+  uint8_t ucDummy7;
 
 
 } StaticTimer_t;
@@ -22423,6 +22433,14 @@ typedef enum
        void * const pvParameters,
        UBaseType_t uxPriority,
        TaskHandle_t * const pxCreatedTask ) ;
+# 476 "../../source/include/task.h"
+ TaskHandle_t xTaskCreateStatic( TaskFunction_t pxTaskCode,
+         const char * const pcName,
+         const uint32_t ulStackDepth,
+         void * const pvParameters,
+         UBaseType_t uxPriority,
+         StackType_t * const puxStackBuffer,
+         StaticTask_t * const pxTaskBuffer ) ;
 # 602 "../../source/include/task.h"
 void vTaskAllocateMPURegions( TaskHandle_t xTask, const MemoryRegion_t * const pxRegions ) ;
 # 643 "../../source/include/task.h"
@@ -22600,6 +22618,13 @@ typedef void (*PendedFunction_t)( void *, uint32_t );
         const UBaseType_t uxAutoReload,
         void * const pvTimerID,
         TimerCallbackFunction_t pxCallbackFunction ) ;
+# 399 "../../source/include/timers.h"
+ TimerHandle_t xTimerCreateStatic( const char * const pcTimerName,
+          const TickType_t xTimerPeriodInTicks,
+          const UBaseType_t uxAutoReload,
+          void * const pvTimerID,
+          TimerCallbackFunction_t pxCallbackFunction,
+          StaticTimer_t *pxTimerBuffer ) ;
 # 427 "../../source/include/timers.h"
 void *pvTimerGetTimerID( const TimerHandle_t xTimer ) ;
 # 448 "../../source/include/timers.h"
@@ -22673,7 +22698,18 @@ typedef struct tskTaskControlBlock
 # 349 "../../source/tasks.c"
   volatile uint32_t ulNotifiedValue;
   volatile uint8_t ucNotifyState;
-# 363 "../../source/tasks.c"
+
+
+
+
+
+  uint8_t ucStaticallyAllocated;
+
+
+
+
+
+
 } tskTCB;
 
 
@@ -22715,6 +22751,8 @@ typedef tskTCB TCB_t;
 
  static uint32_t ulTaskSwitchedInTime = 0UL;
  static uint32_t ulTotalRunTime = 0UL;
+# 438 "../../source/tasks.c"
+ extern void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize );
 # 449 "../../source/tasks.c"
  static BaseType_t prvTaskIsTaskSuspended( const TaskHandle_t xTask ) ;
 
@@ -22769,6 +22807,50 @@ static void prvInitialiseNewTask( TaskFunction_t pxTaskCode,
 
 
 static void prvAddNewTaskToReadyList( TCB_t *pxNewTCB ) ;
+
+
+
+
+
+ TaskHandle_t xTaskCreateStatic( TaskFunction_t pxTaskCode,
+         const char * const pcName,
+         const uint32_t ulStackDepth,
+         void * const pvParameters,
+         UBaseType_t uxPriority,
+         StackType_t * const puxStackBuffer,
+         StaticTask_t * const pxTaskBuffer )
+ {
+ TCB_t *pxNewTCB;
+ TaskHandle_t xReturn;
+
+  ;
+  ;
+
+  if( ( pxTaskBuffer != 0 ) && ( puxStackBuffer != 0 ) )
+  {
+
+
+   pxNewTCB = ( TCB_t * ) pxTaskBuffer;
+   pxNewTCB->pxStack = ( StackType_t * ) puxStackBuffer;
+
+
+   {
+
+
+    pxNewTCB->ucStaticallyAllocated = ( ( uint8_t ) 2 );
+   }
+
+
+   prvInitialiseNewTask( pxTaskCode, pcName, ulStackDepth, pvParameters, uxPriority, &xReturn, pxNewTCB, 0 );
+   prvAddNewTaskToReadyList( pxNewTCB );
+  }
+  else
+  {
+   xReturn = 0;
+  }
+
+  return xReturn;
+ }
 # 676 "../../source/tasks.c"
  BaseType_t xTaskCreate( TaskFunction_t pxTaskCode,
        const char * const pcName,
@@ -22808,7 +22890,14 @@ static void prvAddNewTaskToReadyList( TCB_t *pxNewTCB ) ;
 # 742 "../../source/tasks.c"
   if( pxNewTCB != 0 )
   {
-# 752 "../../source/tasks.c"
+
+   {
+
+
+    pxNewTCB->ucStaticallyAllocated = ( ( uint8_t ) 0 );
+   }
+
+
    prvInitialiseNewTask( pxTaskCode, pcName, ( uint32_t ) usStackDepth, pvParameters, uxPriority, pxCreatedTask, pxNewTCB, 0 );
    prvAddNewTaskToReadyList( pxNewTCB );
    xReturn = ( ( ( BaseType_t ) 1 ) );
@@ -23606,18 +23695,35 @@ static void prvAddNewTaskToReadyList( TCB_t *pxNewTCB )
 void vTaskStartScheduler( void )
 {
 BaseType_t xReturn;
-# 1858 "../../source/tasks.c"
+
+
+
  {
+  StaticTask_t *pxIdleTaskTCBBuffer = 0;
+  StackType_t *pxIdleTaskStackBuffer = 0;
+  uint32_t ulIdleTaskStackSize;
 
-  xReturn = xTaskCreate( prvIdleTask,
-        "IDLE", ( 6*( uint16_t ) 20 ),
-        ( void * ) 0,
-        ( ( ( UBaseType_t ) 0U ) | ( ( UBaseType_t ) 0x00 ) ),
-        &xIdleTaskHandle );
+
+
+  vApplicationGetIdleTaskMemory( &pxIdleTaskTCBBuffer, &pxIdleTaskStackBuffer, &ulIdleTaskStackSize );
+  xIdleTaskHandle = xTaskCreateStatic( prvIdleTask,
+            "IDLE",
+            ulIdleTaskStackSize,
+            ( void * ) 0,
+            ( ( ( UBaseType_t ) 0U ) | ( ( UBaseType_t ) 0x00 ) ),
+            pxIdleTaskStackBuffer,
+            pxIdleTaskTCBBuffer );
+
+  if( xIdleTaskHandle != 0 )
+  {
+   xReturn = ( ( ( BaseType_t ) 1 ) );
+  }
+  else
+  {
+   xReturn = ( ( ( BaseType_t ) 0 ) );
+  }
  }
-
-
-
+# 1869 "../../source/tasks.c"
  {
   if( xReturn == ( ( ( BaseType_t ) 1 ) ) )
   {

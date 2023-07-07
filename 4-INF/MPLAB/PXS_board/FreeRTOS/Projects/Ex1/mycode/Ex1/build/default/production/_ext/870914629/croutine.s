@@ -1,4 +1,4 @@
-	.file "C:\\Users\\Filippo\\Desktop\\Projects\\Ex1\\mycode\\Ex1\\..\\..\\source\\croutine.c"
+	.file "C:\\Users\\Filippo\\Downloads\\FreeRTOS\\Projects\\Ex1\\mycode\\Ex1\\..\\..\\source\\croutine.c"
 	.section	.debug_abbrev,info
 .Ldebug_abbrev0:
 	.section	.debug_info,info
@@ -762,7 +762,7 @@ _xCoRoutineRemoveFromEventList:
 	.file 5 "../../source/include/list.h"
 	.file 6 "../../source/include/croutine.h"
 	.section	.debug_info,info
-	.4byte	0x988
+	.4byte	0x993
 	.2byte	0x2
 	.4byte	.Ldebug_abbrev0
 	.byte	0x4
@@ -770,7 +770,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"GNU C 4.5.1 (XC16, Microchip v1.61) (B) Build date: Oct 23 2020"
 	.byte	0x1
 	.asciz	"../../source/croutine.c"
-	.asciz	"C:\\Users\\Filippo\\Desktop\\Projects\\Ex1\\mycode\\Ex1"
+	.asciz	"C:\\Users\\Filippo\\Downloads\\FreeRTOS\\Projects\\Ex1\\mycode\\Ex1"
 	.4byte	.Ltext0
 	.4byte	.Letext0
 	.4byte	.Ldebug_line0
@@ -812,7 +812,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"uint16_t"
 	.byte	0x3
 	.byte	0x31
-	.4byte	0xe5
+	.4byte	0xf0
 	.uleb128 0x3
 	.byte	0x4
 	.byte	0x7
@@ -821,12 +821,12 @@ _xCoRoutineRemoveFromEventList:
 	.byte	0x2
 	.byte	0x2
 	.byte	0x87
-	.4byte	0x236
+	.4byte	0x241
 	.uleb128 0x6
 	.asciz	"C"
 	.byte	0x2
 	.byte	0x88
-	.4byte	0x128
+	.4byte	0x133
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -837,7 +837,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"Z"
 	.byte	0x2
 	.byte	0x89
-	.4byte	0x128
+	.4byte	0x133
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -848,7 +848,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"OV"
 	.byte	0x2
 	.byte	0x8a
-	.4byte	0x128
+	.4byte	0x133
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -859,7 +859,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"N"
 	.byte	0x2
 	.byte	0x8b
-	.4byte	0x128
+	.4byte	0x133
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -870,7 +870,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"RA"
 	.byte	0x2
 	.byte	0x8c
-	.4byte	0x128
+	.4byte	0x133
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -881,7 +881,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"IPL"
 	.byte	0x2
 	.byte	0x8d
-	.4byte	0x128
+	.4byte	0x133
 	.byte	0x2
 	.byte	0x3
 	.byte	0x8
@@ -892,7 +892,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"DC"
 	.byte	0x2
 	.byte	0x8e
-	.4byte	0x128
+	.4byte	0x133
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -903,7 +903,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"DA"
 	.byte	0x2
 	.byte	0x8f
-	.4byte	0x128
+	.4byte	0x133
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -914,7 +914,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"SAB"
 	.byte	0x2
 	.byte	0x90
-	.4byte	0x128
+	.4byte	0x133
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -925,7 +925,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"OAB"
 	.byte	0x2
 	.byte	0x91
-	.4byte	0x128
+	.4byte	0x133
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -936,7 +936,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"SB"
 	.byte	0x2
 	.byte	0x92
-	.4byte	0x128
+	.4byte	0x133
 	.byte	0x2
 	.byte	0x1
 	.byte	0x3
@@ -947,7 +947,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"SA"
 	.byte	0x2
 	.byte	0x93
-	.4byte	0x128
+	.4byte	0x133
 	.byte	0x2
 	.byte	0x1
 	.byte	0x2
@@ -958,7 +958,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"OB"
 	.byte	0x2
 	.byte	0x94
-	.4byte	0x128
+	.4byte	0x133
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -969,7 +969,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"OA"
 	.byte	0x2
 	.byte	0x95
-	.4byte	0x128
+	.4byte	0x133
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -981,12 +981,12 @@ _xCoRoutineRemoveFromEventList:
 	.byte	0x2
 	.byte	0x2
 	.byte	0x97
-	.4byte	0x275
+	.4byte	0x280
 	.uleb128 0x6
 	.asciz	"IPL0"
 	.byte	0x2
 	.byte	0x99
-	.4byte	0x128
+	.4byte	0x133
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -997,7 +997,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"IPL1"
 	.byte	0x2
 	.byte	0x9a
-	.4byte	0x128
+	.4byte	0x133
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -1008,7 +1008,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"IPL2"
 	.byte	0x2
 	.byte	0x9b
-	.4byte	0x128
+	.4byte	0x133
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -1020,20 +1020,20 @@ _xCoRoutineRemoveFromEventList:
 	.byte	0x2
 	.byte	0x2
 	.byte	0x86
-	.4byte	0x288
+	.4byte	0x293
 	.uleb128 0x8
-	.4byte	0x14d
+	.4byte	0x158
 	.uleb128 0x8
-	.4byte	0x236
+	.4byte	0x241
 	.byte	0x0
 	.uleb128 0x9
 	.asciz	"tagSRBITS"
 	.byte	0x2
 	.byte	0x2
 	.byte	0x85
-	.4byte	0x2a3
+	.4byte	0x2ae
 	.uleb128 0xa
-	.4byte	0x275
+	.4byte	0x280
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -1042,7 +1042,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"SRBITS"
 	.byte	0x2
 	.byte	0x9e
-	.4byte	0x288
+	.4byte	0x293
 	.uleb128 0x3
 	.byte	0x1
 	.byte	0x6
@@ -1051,7 +1051,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"BaseType_t"
 	.byte	0x4
 	.byte	0x61
-	.4byte	0x2cb
+	.4byte	0x2d6
 	.uleb128 0x3
 	.byte	0x2
 	.byte	0x5
@@ -1060,23 +1060,23 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"UBaseType_t"
 	.byte	0x4
 	.byte	0x62
-	.4byte	0xcf
+	.4byte	0xda
 	.uleb128 0x4
 	.asciz	"TickType_t"
 	.byte	0x4
 	.byte	0x65
-	.4byte	0x128
+	.4byte	0x133
 	.uleb128 0x9
 	.asciz	"xLIST_ITEM"
 	.byte	0xa
 	.byte	0x5
 	.byte	0xb5
-	.4byte	0x366
+	.4byte	0x371
 	.uleb128 0xb
 	.4byte	.LASF0
 	.byte	0x5
 	.byte	0xb8
-	.4byte	0x2eb
+	.4byte	0x2f6
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -1084,7 +1084,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"pxNext"
 	.byte	0x5
 	.byte	0xb9
-	.4byte	0x366
+	.4byte	0x371
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x2
@@ -1092,7 +1092,7 @@ _xCoRoutineRemoveFromEventList:
 	.4byte	.LASF1
 	.byte	0x5
 	.byte	0xba
-	.4byte	0x366
+	.4byte	0x371
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x4
@@ -1100,7 +1100,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"pvOwner"
 	.byte	0x5
 	.byte	0xbb
-	.4byte	0xa2
+	.4byte	0xad
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x6
@@ -1108,30 +1108,30 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"pvContainer"
 	.byte	0x5
 	.byte	0xbc
-	.4byte	0xa2
+	.4byte	0xad
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x8
 	.byte	0x0
 	.uleb128 0xd
 	.byte	0x2
-	.4byte	0x2fd
+	.4byte	0x308
 	.uleb128 0x4
 	.asciz	"ListItem_t"
 	.byte	0x5
 	.byte	0xbf
-	.4byte	0x2fd
+	.4byte	0x308
 	.uleb128 0x9
 	.asciz	"xMINI_LIST_ITEM"
 	.byte	0x6
 	.byte	0x5
 	.byte	0xc1
-	.4byte	0x3c4
+	.4byte	0x3cf
 	.uleb128 0xb
 	.4byte	.LASF0
 	.byte	0x5
 	.byte	0xc4
-	.4byte	0x2eb
+	.4byte	0x2f6
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -1139,7 +1139,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"pxNext"
 	.byte	0x5
 	.byte	0xc5
-	.4byte	0x366
+	.4byte	0x371
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x2
@@ -1147,7 +1147,7 @@ _xCoRoutineRemoveFromEventList:
 	.4byte	.LASF1
 	.byte	0x5
 	.byte	0xc6
-	.4byte	0x366
+	.4byte	0x371
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x4
@@ -1156,18 +1156,18 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"MiniListItem_t"
 	.byte	0x5
 	.byte	0xc8
-	.4byte	0x37e
+	.4byte	0x389
 	.uleb128 0x9
 	.asciz	"xLIST"
 	.byte	0xa
 	.byte	0x5
 	.byte	0xcd
-	.4byte	0x428
+	.4byte	0x433
 	.uleb128 0xc
 	.asciz	"uxNumberOfItems"
 	.byte	0x5
 	.byte	0xd0
-	.4byte	0x2d8
+	.4byte	0x2e3
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -1175,7 +1175,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"pxIndex"
 	.byte	0x5
 	.byte	0xd1
-	.4byte	0x428
+	.4byte	0x433
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x2
@@ -1183,51 +1183,51 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"xListEnd"
 	.byte	0x5
 	.byte	0xd2
-	.4byte	0x3c4
+	.4byte	0x3cf
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x4
 	.byte	0x0
 	.uleb128 0xd
 	.byte	0x2
-	.4byte	0x36c
+	.4byte	0x377
 	.uleb128 0x4
 	.asciz	"List_t"
 	.byte	0x5
 	.byte	0xd4
-	.4byte	0x3da
+	.4byte	0x3e5
 	.uleb128 0x4
 	.asciz	"CoRoutineHandle_t"
 	.byte	0x6
 	.byte	0x56
-	.4byte	0xa2
+	.4byte	0xad
 	.uleb128 0x4
 	.asciz	"crCOROUTINE_CODE"
 	.byte	0x6
 	.byte	0x59
-	.4byte	0x46d
+	.4byte	0x478
 	.uleb128 0xd
 	.byte	0x2
-	.4byte	0x473
+	.4byte	0x47e
 	.uleb128 0xe
 	.byte	0x1
-	.4byte	0x484
+	.4byte	0x48f
 	.uleb128 0xf
-	.4byte	0x43c
+	.4byte	0x447
 	.uleb128 0xf
-	.4byte	0x2d8
+	.4byte	0x2e3
 	.byte	0x0
 	.uleb128 0x9
 	.asciz	"corCoRoutineControlBlock"
 	.byte	0x1c
 	.byte	0x6
 	.byte	0x5b
-	.4byte	0x52a
+	.4byte	0x535
 	.uleb128 0xc
 	.asciz	"pxCoRoutineFunction"
 	.byte	0x6
 	.byte	0x5d
-	.4byte	0x455
+	.4byte	0x460
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -1235,7 +1235,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"xGenericListItem"
 	.byte	0x6
 	.byte	0x5e
-	.4byte	0x36c
+	.4byte	0x377
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x2
@@ -1243,7 +1243,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"xEventListItem"
 	.byte	0x6
 	.byte	0x5f
-	.4byte	0x36c
+	.4byte	0x377
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0xc
@@ -1251,7 +1251,7 @@ _xCoRoutineRemoveFromEventList:
 	.4byte	.LASF2
 	.byte	0x6
 	.byte	0x60
-	.4byte	0x2d8
+	.4byte	0x2e3
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x16
@@ -1259,7 +1259,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"uxIndex"
 	.byte	0x6
 	.byte	0x61
-	.4byte	0x2d8
+	.4byte	0x2e3
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x18
@@ -1267,7 +1267,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"uxState"
 	.byte	0x6
 	.byte	0x62
-	.4byte	0x128
+	.4byte	0x133
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x1a
@@ -1276,24 +1276,24 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"CRCB_t"
 	.byte	0x6
 	.byte	0x63
-	.4byte	0x484
+	.4byte	0x48f
 	.uleb128 0x10
 	.byte	0x1
 	.asciz	"xCoRoutineCreate"
 	.byte	0x1
 	.byte	0x90
 	.byte	0x1
-	.4byte	0x2b9
+	.4byte	0x2c4
 	.4byte	.LFB0
 	.4byte	.LFE0
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x5c3
+	.4byte	0x5ce
 	.uleb128 0x11
 	.asciz	"pxCoRoutineCode"
 	.byte	0x1
 	.byte	0x90
-	.4byte	0x455
+	.4byte	0x460
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 4
@@ -1301,7 +1301,7 @@ _xCoRoutineRemoveFromEventList:
 	.4byte	.LASF2
 	.byte	0x1
 	.byte	0x90
-	.4byte	0x2d8
+	.4byte	0x2e3
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 6
@@ -1309,7 +1309,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"uxIndex"
 	.byte	0x1
 	.byte	0x90
-	.4byte	0x2d8
+	.4byte	0x2e3
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 8
@@ -1317,7 +1317,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"xReturn"
 	.byte	0x1
 	.byte	0x92
-	.4byte	0x2b9
+	.4byte	0x2c4
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 0
@@ -1325,14 +1325,14 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"pxCoRoutine"
 	.byte	0x1
 	.byte	0x93
-	.4byte	0x5c3
+	.4byte	0x5ce
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 2
 	.byte	0x0
 	.uleb128 0xd
 	.byte	0x2
-	.4byte	0x52a
+	.4byte	0x535
 	.uleb128 0x14
 	.byte	0x1
 	.asciz	"vCoRoutineAddToDelayedList"
@@ -1343,12 +1343,12 @@ _xCoRoutineRemoveFromEventList:
 	.4byte	.LFE1
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x634
+	.4byte	0x63f
 	.uleb128 0x11
 	.asciz	"xTicksToDelay"
 	.byte	0x1
 	.byte	0xc9
-	.4byte	0x2eb
+	.4byte	0x2f6
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 2
@@ -1356,7 +1356,7 @@ _xCoRoutineRemoveFromEventList:
 	.4byte	.LASF3
 	.byte	0x1
 	.byte	0xc9
-	.4byte	0x634
+	.4byte	0x63f
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 4
@@ -1364,14 +1364,14 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"xTimeToWake"
 	.byte	0x1
 	.byte	0xcb
-	.4byte	0x2eb
+	.4byte	0x2f6
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 0
 	.byte	0x0
 	.uleb128 0xd
 	.byte	0x2
-	.4byte	0x42e
+	.4byte	0x439
 	.uleb128 0x15
 	.asciz	"prvCheckPendingReadyList"
 	.byte	0x1
@@ -1381,7 +1381,7 @@ _xCoRoutineRemoveFromEventList:
 	.4byte	.LFE2
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x67e
+	.4byte	0x689
 	.uleb128 0x16
 	.4byte	.LBB2
 	.4byte	.LBE2
@@ -1389,7 +1389,7 @@ _xCoRoutineRemoveFromEventList:
 	.4byte	.LASF4
 	.byte	0x1
 	.byte	0xf6
-	.4byte	0x5c3
+	.4byte	0x5ce
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 0
@@ -1404,12 +1404,12 @@ _xCoRoutineRemoveFromEventList:
 	.4byte	.LFE3
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x6d4
+	.4byte	0x6df
 	.uleb128 0x19
 	.asciz	"pxCRCB"
 	.byte	0x1
 	.2byte	0x108
-	.4byte	0x5c3
+	.4byte	0x5ce
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 2
@@ -1420,7 +1420,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"pxTemp"
 	.byte	0x1
 	.2byte	0x113
-	.4byte	0x634
+	.4byte	0x63f
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 0
@@ -1436,7 +1436,7 @@ _xCoRoutineRemoveFromEventList:
 	.4byte	.LFE4
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x71d
+	.4byte	0x728
 	.uleb128 0x16
 	.4byte	.LBB4
 	.4byte	.LBE4
@@ -1444,14 +1444,14 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"pxConstList"
 	.byte	0x1
 	.2byte	0x155
-	.4byte	0x71d
+	.4byte	0x728
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 0
 	.byte	0x0
 	.byte	0x0
 	.uleb128 0x1b
-	.4byte	0x634
+	.4byte	0x63f
 	.uleb128 0x18
 	.asciz	"prvInitialiseCoRoutineLists"
 	.byte	0x1
@@ -1461,12 +1461,12 @@ _xCoRoutineRemoveFromEventList:
 	.4byte	.LFE5
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x761
+	.4byte	0x76c
 	.uleb128 0x1c
 	.4byte	.LASF2
 	.byte	0x1
 	.2byte	0x160
-	.4byte	0x2d8
+	.4byte	0x2e3
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 0
@@ -1477,17 +1477,17 @@ _xCoRoutineRemoveFromEventList:
 	.byte	0x1
 	.2byte	0x172
 	.byte	0x1
-	.4byte	0x2b9
+	.4byte	0x2c4
 	.4byte	.LFB6
 	.4byte	.LFE6
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x7c9
+	.4byte	0x7d4
 	.uleb128 0x1e
 	.4byte	.LASF3
 	.byte	0x1
 	.2byte	0x172
-	.4byte	0x7c9
+	.4byte	0x7d4
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 4
@@ -1495,7 +1495,7 @@ _xCoRoutineRemoveFromEventList:
 	.4byte	.LASF4
 	.byte	0x1
 	.2byte	0x174
-	.4byte	0x5c3
+	.4byte	0x5ce
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 2
@@ -1503,37 +1503,37 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"xReturn"
 	.byte	0x1
 	.2byte	0x175
-	.4byte	0x2b9
+	.4byte	0x2c4
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 0
 	.byte	0x0
 	.uleb128 0xd
 	.byte	0x2
-	.4byte	0x7cf
+	.4byte	0x7da
 	.uleb128 0x1b
-	.4byte	0x42e
+	.4byte	0x439
 	.uleb128 0x1f
 	.asciz	"SRbits"
 	.byte	0x2
 	.byte	0x9f
-	.4byte	0x7e4
+	.4byte	0x7ef
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x20
-	.4byte	0x2a3
+	.4byte	0x2ae
 	.uleb128 0x21
-	.4byte	0x42e
-	.4byte	0x7f9
+	.4byte	0x439
+	.4byte	0x804
 	.uleb128 0x22
-	.4byte	0xe5
+	.4byte	0xf0
 	.byte	0x1
 	.byte	0x0
 	.uleb128 0x13
 	.asciz	"pxReadyCoRoutineLists"
 	.byte	0x1
 	.byte	0x57
-	.4byte	0x7e9
+	.4byte	0x7f4
 	.byte	0x5
 	.byte	0x3
 	.4byte	_pxReadyCoRoutineLists
@@ -1541,7 +1541,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"xDelayedCoRoutineList1"
 	.byte	0x1
 	.byte	0x58
-	.4byte	0x42e
+	.4byte	0x439
 	.byte	0x5
 	.byte	0x3
 	.4byte	_xDelayedCoRoutineList1
@@ -1549,7 +1549,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"xDelayedCoRoutineList2"
 	.byte	0x1
 	.byte	0x59
-	.4byte	0x42e
+	.4byte	0x439
 	.byte	0x5
 	.byte	0x3
 	.4byte	_xDelayedCoRoutineList2
@@ -1557,7 +1557,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"pxDelayedCoRoutineList"
 	.byte	0x1
 	.byte	0x5a
-	.4byte	0x634
+	.4byte	0x63f
 	.byte	0x5
 	.byte	0x3
 	.4byte	_pxDelayedCoRoutineList
@@ -1565,7 +1565,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"pxOverflowDelayedCoRoutineList"
 	.byte	0x1
 	.byte	0x5b
-	.4byte	0x634
+	.4byte	0x63f
 	.byte	0x5
 	.byte	0x3
 	.4byte	_pxOverflowDelayedCoRoutineList
@@ -1573,7 +1573,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"xPendingReadyCoRoutineList"
 	.byte	0x1
 	.byte	0x5c
-	.4byte	0x42e
+	.4byte	0x439
 	.byte	0x5
 	.byte	0x3
 	.4byte	_xPendingReadyCoRoutineList
@@ -1581,14 +1581,14 @@ _xCoRoutineRemoveFromEventList:
 	.4byte	.LASF5
 	.byte	0x1
 	.byte	0x5f
-	.4byte	0x5c3
+	.4byte	0x5ce
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x13
 	.asciz	"uxTopCoRoutineReadyPriority"
 	.byte	0x1
 	.byte	0x60
-	.4byte	0x2d8
+	.4byte	0x2e3
 	.byte	0x5
 	.byte	0x3
 	.4byte	_uxTopCoRoutineReadyPriority
@@ -1596,7 +1596,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"xCoRoutineTickCount"
 	.byte	0x1
 	.byte	0x61
-	.4byte	0x2eb
+	.4byte	0x2f6
 	.byte	0x5
 	.byte	0x3
 	.4byte	_xCoRoutineTickCount
@@ -1604,7 +1604,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"xLastTickCount"
 	.byte	0x1
 	.byte	0x61
-	.4byte	0x2eb
+	.4byte	0x2f6
 	.byte	0x5
 	.byte	0x3
 	.4byte	_xLastTickCount
@@ -1612,7 +1612,7 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"xPassedTicks"
 	.byte	0x1
 	.byte	0x61
-	.4byte	0x2eb
+	.4byte	0x2f6
 	.byte	0x5
 	.byte	0x3
 	.4byte	_xPassedTicks
@@ -1620,14 +1620,14 @@ _xCoRoutineRemoveFromEventList:
 	.asciz	"SRbits"
 	.byte	0x2
 	.byte	0x9f
-	.4byte	0x7e4
+	.4byte	0x7ef
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x24
 	.4byte	.LASF5
 	.byte	0x1
 	.byte	0x5f
-	.4byte	0x5c3
+	.4byte	0x5ce
 	.byte	0x1
 	.byte	0x5
 	.byte	0x3
@@ -2157,54 +2157,54 @@ _xCoRoutineRemoveFromEventList:
 	.4byte	0x92
 	.2byte	0x2
 	.4byte	.Ldebug_info0
-	.4byte	0x98c
-	.4byte	0x538
+	.4byte	0x997
+	.4byte	0x543
 	.asciz	"xCoRoutineCreate"
-	.4byte	0x5c9
+	.4byte	0x5d4
 	.asciz	"vCoRoutineAddToDelayedList"
-	.4byte	0x6d4
+	.4byte	0x6df
 	.asciz	"vCoRoutineSchedule"
-	.4byte	0x761
+	.4byte	0x76c
 	.asciz	"xCoRoutineRemoveFromEventList"
-	.4byte	0x979
+	.4byte	0x984
 	.asciz	"pxCurrentCoRoutine"
 	.4byte	0x0
 	.section	.debug_pubtypes,info
 	.4byte	0x10f
 	.2byte	0x2
 	.4byte	.Ldebug_info0
-	.4byte	0x98c
-	.4byte	0x128
+	.4byte	0x997
+	.4byte	0x133
 	.asciz	"uint16_t"
-	.4byte	0x288
+	.4byte	0x293
 	.asciz	"tagSRBITS"
-	.4byte	0x2a3
+	.4byte	0x2ae
 	.asciz	"SRBITS"
-	.4byte	0x2b9
+	.4byte	0x2c4
 	.asciz	"BaseType_t"
-	.4byte	0x2d8
+	.4byte	0x2e3
 	.asciz	"UBaseType_t"
-	.4byte	0x2eb
+	.4byte	0x2f6
 	.asciz	"TickType_t"
-	.4byte	0x2fd
+	.4byte	0x308
 	.asciz	"xLIST_ITEM"
-	.4byte	0x36c
+	.4byte	0x377
 	.asciz	"ListItem_t"
-	.4byte	0x37e
+	.4byte	0x389
 	.asciz	"xMINI_LIST_ITEM"
-	.4byte	0x3c4
+	.4byte	0x3cf
 	.asciz	"MiniListItem_t"
-	.4byte	0x3da
+	.4byte	0x3e5
 	.asciz	"xLIST"
-	.4byte	0x42e
+	.4byte	0x439
 	.asciz	"List_t"
-	.4byte	0x43c
+	.4byte	0x447
 	.asciz	"CoRoutineHandle_t"
-	.4byte	0x455
+	.4byte	0x460
 	.asciz	"crCOROUTINE_CODE"
-	.4byte	0x484
+	.4byte	0x48f
 	.asciz	"corCoRoutineControlBlock"
-	.4byte	0x52a
+	.4byte	0x535
 	.asciz	"CRCB_t"
 	.4byte	0x0
 	.section	.debug_aranges,info

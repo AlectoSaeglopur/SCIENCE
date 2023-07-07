@@ -1,4 +1,4 @@
-	.file "C:\\Users\\Filippo\\Desktop\\Projects\\Ex1\\mycode\\Ex1\\..\\error.c"
+	.file "C:\\Users\\Filippo\\Downloads\\FreeRTOS\\Projects\\Ex1\\mycode\\Ex1\\..\\error.c"
 	.section	.debug_abbrev,info
 .Ldebug_abbrev0:
 	.section	.debug_info,info
@@ -1033,7 +1033,7 @@ __HardTrapError:
 	.file 2 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdint.h"
 	.file 3 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\dsPIC33C\\h/p33CH512MP508.h"
 	.section	.debug_info,info
-	.4byte	0x7b1
+	.4byte	0x7bc
 	.2byte	0x2
 	.4byte	.Ldebug_abbrev0
 	.byte	0x4
@@ -1041,7 +1041,7 @@ __HardTrapError:
 	.asciz	"GNU C 4.5.1 (XC16, Microchip v1.61) (B) Build date: Oct 23 2020"
 	.byte	0x1
 	.asciz	"../error.c"
-	.asciz	"C:\\Users\\Filippo\\Desktop\\Projects\\Ex1\\mycode\\Ex1"
+	.asciz	"C:\\Users\\Filippo\\Downloads\\FreeRTOS\\Projects\\Ex1\\mycode\\Ex1"
 	.4byte	.Ltext0
 	.4byte	.Letext0
 	.4byte	.Ldebug_line0
@@ -1087,12 +1087,12 @@ __HardTrapError:
 	.asciz	"uint8_t"
 	.byte	0x2
 	.byte	0x2b
-	.4byte	0xfb
+	.4byte	0x106
 	.uleb128 0x4
 	.asciz	"uint16_t"
 	.byte	0x2
 	.byte	0x31
-	.4byte	0xd8
+	.4byte	0xe3
 	.uleb128 0x3
 	.byte	0x4
 	.byte	0x7
@@ -1102,12 +1102,12 @@ __HardTrapError:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x37fa
-	.4byte	0x2b1
+	.4byte	0x2bc
 	.uleb128 0x6
 	.asciz	"OSCFAIL"
 	.byte	0x3
 	.2byte	0x37fc
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -1118,7 +1118,7 @@ __HardTrapError:
 	.asciz	"STKERR"
 	.byte	0x3
 	.2byte	0x37fd
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -1129,7 +1129,7 @@ __HardTrapError:
 	.asciz	"ADDRERR"
 	.byte	0x3
 	.2byte	0x37fe
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -1140,7 +1140,7 @@ __HardTrapError:
 	.asciz	"MATHERR"
 	.byte	0x3
 	.2byte	0x37ff
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -1151,7 +1151,7 @@ __HardTrapError:
 	.asciz	"DMACERR"
 	.byte	0x3
 	.2byte	0x3800
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -1162,7 +1162,7 @@ __HardTrapError:
 	.asciz	"DIV0ERR"
 	.byte	0x3
 	.2byte	0x3801
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -1173,7 +1173,7 @@ __HardTrapError:
 	.asciz	"SFTACERR"
 	.byte	0x3
 	.2byte	0x3802
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -1184,7 +1184,7 @@ __HardTrapError:
 	.asciz	"COVTE"
 	.byte	0x3
 	.2byte	0x3803
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -1195,7 +1195,7 @@ __HardTrapError:
 	.asciz	"OVBTE"
 	.byte	0x3
 	.2byte	0x3804
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -1206,7 +1206,7 @@ __HardTrapError:
 	.asciz	"OVATE"
 	.byte	0x3
 	.2byte	0x3805
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -1217,7 +1217,7 @@ __HardTrapError:
 	.asciz	"COVBERR"
 	.byte	0x3
 	.2byte	0x3806
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -1228,7 +1228,7 @@ __HardTrapError:
 	.asciz	"COVAERR"
 	.byte	0x3
 	.2byte	0x3807
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0x3
@@ -1239,7 +1239,7 @@ __HardTrapError:
 	.asciz	"OVBERR"
 	.byte	0x3
 	.2byte	0x3808
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0x2
@@ -1250,7 +1250,7 @@ __HardTrapError:
 	.asciz	"OVAERR"
 	.byte	0x3
 	.2byte	0x3809
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -1261,7 +1261,7 @@ __HardTrapError:
 	.asciz	"NSTDIS"
 	.byte	0x3
 	.2byte	0x380a
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -1273,18 +1273,18 @@ __HardTrapError:
 	.asciz	"INTCON1BITS"
 	.byte	0x3
 	.2byte	0x380b
-	.4byte	0x157
+	.4byte	0x162
 	.uleb128 0x5
 	.asciz	"tagINTCON3BITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x3820
-	.4byte	0x34e
+	.4byte	0x359
 	.uleb128 0x6
 	.asciz	"APLL"
 	.byte	0x3
 	.2byte	0x3821
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -1295,7 +1295,7 @@ __HardTrapError:
 	.asciz	"DOOVR"
 	.byte	0x3
 	.2byte	0x3823
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -1306,7 +1306,7 @@ __HardTrapError:
 	.asciz	"DAE"
 	.byte	0x3
 	.2byte	0x3824
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -1317,7 +1317,7 @@ __HardTrapError:
 	.asciz	"CAN2"
 	.byte	0x3
 	.2byte	0x3825
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -1328,7 +1328,7 @@ __HardTrapError:
 	.asciz	"NAE"
 	.byte	0x3
 	.2byte	0x3827
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -1339,7 +1339,7 @@ __HardTrapError:
 	.asciz	"CAN"
 	.byte	0x3
 	.2byte	0x3828
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -1351,18 +1351,18 @@ __HardTrapError:
 	.asciz	"INTCON3BITS"
 	.byte	0x3
 	.2byte	0x3829
-	.4byte	0x2c5
+	.4byte	0x2d0
 	.uleb128 0x5
 	.asciz	"tagINTCON4BITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x382e
-	.4byte	0x3a3
+	.4byte	0x3ae
 	.uleb128 0x6
 	.asciz	"SGHT"
 	.byte	0x3
 	.2byte	0x382f
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -1373,7 +1373,7 @@ __HardTrapError:
 	.asciz	"ECCDBE"
 	.byte	0x3
 	.2byte	0x3830
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -1385,17 +1385,17 @@ __HardTrapError:
 	.asciz	"INTCON4BITS"
 	.byte	0x3
 	.2byte	0x3831
-	.4byte	0x362
+	.4byte	0x36d
 	.uleb128 0x8
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4f20
-	.4byte	0x435
+	.4byte	0x440
 	.uleb128 0x6
 	.asciz	"OSWEN"
 	.byte	0x3
 	.2byte	0x4f21
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -1406,7 +1406,7 @@ __HardTrapError:
 	.asciz	"CF"
 	.byte	0x3
 	.2byte	0x4f23
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -1417,7 +1417,7 @@ __HardTrapError:
 	.asciz	"LOCK"
 	.byte	0x3
 	.2byte	0x4f25
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -1428,7 +1428,7 @@ __HardTrapError:
 	.asciz	"CLKLOCK"
 	.byte	0x3
 	.2byte	0x4f27
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -1439,7 +1439,7 @@ __HardTrapError:
 	.asciz	"NOSC"
 	.byte	0x3
 	.2byte	0x4f28
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x3
 	.byte	0x5
@@ -1450,7 +1450,7 @@ __HardTrapError:
 	.asciz	"COSC"
 	.byte	0x3
 	.2byte	0x4f2a
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x3
 	.byte	0x1
@@ -1462,12 +1462,12 @@ __HardTrapError:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4f2c
-	.4byte	0x4b7
+	.4byte	0x4c2
 	.uleb128 0x6
 	.asciz	"NOSC0"
 	.byte	0x3
 	.2byte	0x4f2e
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -1478,7 +1478,7 @@ __HardTrapError:
 	.asciz	"NOSC1"
 	.byte	0x3
 	.2byte	0x4f2f
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -1489,7 +1489,7 @@ __HardTrapError:
 	.asciz	"NOSC2"
 	.byte	0x3
 	.2byte	0x4f30
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -1500,7 +1500,7 @@ __HardTrapError:
 	.asciz	"COSC0"
 	.byte	0x3
 	.2byte	0x4f32
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0x3
@@ -1511,7 +1511,7 @@ __HardTrapError:
 	.asciz	"COSC1"
 	.byte	0x3
 	.2byte	0x4f33
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0x2
@@ -1522,7 +1522,7 @@ __HardTrapError:
 	.asciz	"COSC2"
 	.byte	0x3
 	.2byte	0x4f34
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -1534,20 +1534,20 @@ __HardTrapError:
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4f1f
-	.4byte	0x4cb
+	.4byte	0x4d6
 	.uleb128 0xa
-	.4byte	0x3b7
+	.4byte	0x3c2
 	.uleb128 0xa
-	.4byte	0x435
+	.4byte	0x440
 	.byte	0x0
 	.uleb128 0x5
 	.asciz	"tagOSCCONBITS"
 	.byte	0x2
 	.byte	0x3
 	.2byte	0x4f1e
-	.4byte	0x4eb
+	.4byte	0x4f6
 	.uleb128 0xb
-	.4byte	0x4b7
+	.4byte	0x4c2
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -1556,7 +1556,7 @@ __HardTrapError:
 	.asciz	"OSCCONBITS"
 	.byte	0x3
 	.2byte	0x4f37
-	.4byte	0x4cb
+	.4byte	0x4d6
 	.uleb128 0xc
 	.byte	0x1
 	.asciz	"Set_ErrFlag"
@@ -1567,12 +1567,12 @@ __HardTrapError:
 	.4byte	.LFE0
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x549
+	.4byte	0x554
 	.uleb128 0xd
 	.4byte	.LASF0
 	.byte	0x1
 	.byte	0x24
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 2
@@ -1580,7 +1580,7 @@ __HardTrapError:
 	.asciz	"Idx"
 	.byte	0x1
 	.byte	0x25
-	.4byte	0x123
+	.4byte	0x12e
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 0
@@ -1588,7 +1588,7 @@ __HardTrapError:
 	.asciz	"Mask"
 	.byte	0x1
 	.byte	0x26
-	.4byte	0x123
+	.4byte	0x12e
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 1
@@ -1599,17 +1599,17 @@ __HardTrapError:
 	.byte	0x1
 	.byte	0x32
 	.byte	0x1
-	.4byte	0x598
+	.4byte	0x5a3
 	.4byte	.LFB1
 	.4byte	.LFE1
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x598
+	.4byte	0x5a3
 	.uleb128 0xd
 	.4byte	.LASF0
 	.byte	0x1
 	.byte	0x32
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 2
@@ -1617,7 +1617,7 @@ __HardTrapError:
 	.asciz	"Idx"
 	.byte	0x1
 	.byte	0x33
-	.4byte	0x123
+	.4byte	0x12e
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 0
@@ -1625,7 +1625,7 @@ __HardTrapError:
 	.asciz	"Mask"
 	.byte	0x1
 	.byte	0x34
-	.4byte	0x123
+	.4byte	0x12e
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 1
@@ -1640,17 +1640,17 @@ __HardTrapError:
 	.byte	0x1
 	.byte	0x3e
 	.byte	0x1
-	.4byte	0x123
+	.4byte	0x12e
 	.4byte	.LFB2
 	.4byte	.LFE2
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x5e1
+	.4byte	0x5ec
 	.uleb128 0xd
 	.4byte	.LASF0
 	.byte	0x1
 	.byte	0x3e
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 2
@@ -1658,7 +1658,7 @@ __HardTrapError:
 	.asciz	"Idx"
 	.byte	0x1
 	.byte	0x3f
-	.4byte	0x123
+	.4byte	0x12e
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 0
@@ -1673,12 +1673,12 @@ __HardTrapError:
 	.4byte	.LFE3
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x62e
+	.4byte	0x639
 	.uleb128 0xd
 	.4byte	.LASF0
 	.byte	0x1
 	.byte	0x48
-	.4byte	0x132
+	.4byte	0x13d
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 2
@@ -1686,7 +1686,7 @@ __HardTrapError:
 	.asciz	"Idx"
 	.byte	0x1
 	.byte	0x49
-	.4byte	0x123
+	.4byte	0x12e
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 0
@@ -1694,7 +1694,7 @@ __HardTrapError:
 	.asciz	"Mask"
 	.byte	0x1
 	.byte	0x4a
-	.4byte	0x123
+	.4byte	0x12e
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 1
@@ -1709,12 +1709,12 @@ __HardTrapError:
 	.4byte	.LFE4
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x65e
+	.4byte	0x669
 	.uleb128 0xe
 	.asciz	"Ret"
 	.byte	0x1
 	.byte	0x55
-	.4byte	0x95
+	.4byte	0xa0
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 0
@@ -1783,50 +1783,50 @@ __HardTrapError:
 	.4byte	.LASF1
 	.byte	0x3
 	.2byte	0x380c
-	.4byte	0x719
+	.4byte	0x724
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x12
-	.4byte	0x2b1
+	.4byte	0x2bc
 	.uleb128 0x11
 	.4byte	.LASF2
 	.byte	0x3
 	.2byte	0x382a
-	.4byte	0x72c
+	.4byte	0x737
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x12
-	.4byte	0x34e
+	.4byte	0x359
 	.uleb128 0x11
 	.4byte	.LASF3
 	.byte	0x3
 	.2byte	0x3832
-	.4byte	0x73f
+	.4byte	0x74a
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x12
-	.4byte	0x3a3
+	.4byte	0x3ae
 	.uleb128 0x11
 	.4byte	.LASF4
 	.byte	0x3
 	.2byte	0x4f38
-	.4byte	0x752
+	.4byte	0x75d
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x12
-	.4byte	0x4eb
+	.4byte	0x4f6
 	.uleb128 0x13
-	.4byte	0x123
-	.4byte	0x767
+	.4byte	0x12e
+	.4byte	0x772
 	.uleb128 0x14
-	.4byte	0xd8
+	.4byte	0xe3
 	.byte	0x13
 	.byte	0x0
 	.uleb128 0xe
 	.asciz	"ErrRegs"
 	.byte	0x1
 	.byte	0x18
-	.4byte	0x757
+	.4byte	0x762
 	.byte	0x5
 	.byte	0x3
 	.4byte	_ErrRegs
@@ -1834,28 +1834,28 @@ __HardTrapError:
 	.4byte	.LASF1
 	.byte	0x3
 	.2byte	0x380c
-	.4byte	0x719
+	.4byte	0x724
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x11
 	.4byte	.LASF2
 	.byte	0x3
 	.2byte	0x382a
-	.4byte	0x72c
+	.4byte	0x737
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x11
 	.4byte	.LASF3
 	.byte	0x3
 	.2byte	0x3832
-	.4byte	0x73f
+	.4byte	0x74a
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x11
 	.4byte	.LASF4
 	.byte	0x3
 	.2byte	0x4f38
-	.4byte	0x752
+	.4byte	0x75d
 	.byte	0x1
 	.byte	0x1
 	.byte	0x0
@@ -2147,54 +2147,54 @@ __HardTrapError:
 	.4byte	0xcd
 	.2byte	0x2
 	.4byte	.Ldebug_info0
-	.4byte	0x7b5
-	.4byte	0x4fe
+	.4byte	0x7c0
+	.4byte	0x509
 	.asciz	"Set_ErrFlag"
-	.4byte	0x549
+	.4byte	0x554
 	.asciz	"Get_ErrFlag"
-	.4byte	0x5a1
+	.4byte	0x5ac
 	.asciz	"Get_ErrPage"
-	.4byte	0x5e1
+	.4byte	0x5ec
 	.asciz	"Clear_ErrFlag"
-	.4byte	0x62e
+	.4byte	0x639
 	.asciz	"Reset_ErrRegs"
-	.4byte	0x65e
+	.4byte	0x669
 	.asciz	"_OscillatorFail"
-	.4byte	0x67d
+	.4byte	0x688
 	.asciz	"_AddressError"
-	.4byte	0x69a
+	.4byte	0x6a5
 	.asciz	"_StackError"
-	.4byte	0x6b5
+	.4byte	0x6c0
 	.asciz	"_MathError"
-	.4byte	0x6cf
+	.4byte	0x6da
 	.asciz	"_SoftTrapError"
-	.4byte	0x6ed
+	.4byte	0x6f8
 	.asciz	"_HardTrapError"
 	.4byte	0x0
 	.section	.debug_pubtypes,info
 	.4byte	0xb1
 	.2byte	0x2
 	.4byte	.Ldebug_info0
-	.4byte	0x7b5
-	.4byte	0x123
+	.4byte	0x7c0
+	.4byte	0x12e
 	.asciz	"uint8_t"
-	.4byte	0x132
+	.4byte	0x13d
 	.asciz	"uint16_t"
-	.4byte	0x157
+	.4byte	0x162
 	.asciz	"tagINTCON1BITS"
-	.4byte	0x2b1
+	.4byte	0x2bc
 	.asciz	"INTCON1BITS"
-	.4byte	0x2c5
+	.4byte	0x2d0
 	.asciz	"tagINTCON3BITS"
-	.4byte	0x34e
+	.4byte	0x359
 	.asciz	"INTCON3BITS"
-	.4byte	0x362
+	.4byte	0x36d
 	.asciz	"tagINTCON4BITS"
-	.4byte	0x3a3
+	.4byte	0x3ae
 	.asciz	"INTCON4BITS"
-	.4byte	0x4cb
+	.4byte	0x4d6
 	.asciz	"tagOSCCONBITS"
-	.4byte	0x4eb
+	.4byte	0x4f6
 	.asciz	"OSCCONBITS"
 	.4byte	0x0
 	.section	.debug_aranges,info

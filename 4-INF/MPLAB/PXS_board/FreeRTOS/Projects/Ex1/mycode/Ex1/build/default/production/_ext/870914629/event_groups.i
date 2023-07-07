@@ -1,5 +1,5 @@
 # 1 "../../source/event_groups.c"
-# 1 "C:\\Users\\Filippo\\Desktop\\Projects\\Ex1\\mycode\\Ex1"
+# 1 "C:\\Users\\Filippo\\Downloads\\FreeRTOS\\Projects\\Ex1\\mycode\\Ex1"
 # 1 "<built-in>"
 # 1 "<command-line>"
 # 1 "../../source/event_groups.c"
@@ -22078,7 +22078,7 @@ extern int _program_inactive_slave(int slave_number, int verify,
 extern void _start_slave(void);
 extern void _stop_slave(void);
 # 42 "../system.h" 2
-# 59 "../system.h"
+# 56 "../system.h"
 void Init_Clock( void );
 void Init_GI( void );
 void Soft_Reset( void );
@@ -22096,6 +22096,7 @@ uint32_t Get_CCT8( void );
 void Init_ADC( void );
 void Disable_SELF_TEST( void );
 void Init_DAC( void );
+void Init_INT1( void );
 # 7 "../FreeRTOSConfig.h" 2
 # 99 "../../source/include/FreeRTOS.h" 2
 
@@ -22224,7 +22225,7 @@ typedef struct xSTATIC_TCB
   uint8_t ucDummy19;
 
 
-
+  uint8_t uxDummy20;
 
 
 } StaticTask_t;
@@ -22242,7 +22243,16 @@ typedef struct xSTATIC_QUEUE
  StaticList_t xDummy3[ 2 ];
  UBaseType_t uxDummy4[ 3 ];
  uint8_t ucDummy5[ 2 ];
-# 997 "../../source/include/FreeRTOS.h"
+
+
+  uint8_t ucDummy6;
+
+
+
+
+
+
+
   UBaseType_t uxDummy8;
   uint8_t ucDummy9;
 
@@ -22260,7 +22270,7 @@ typedef struct xSTATIC_EVENT_GROUP
 
 
 
-
+   uint8_t ucDummy4;
 
 
 } StaticEventGroup_t;
@@ -22277,7 +22287,7 @@ typedef struct xSTATIC_TIMER
 
 
 
-
+  uint8_t ucDummy7;
 
 
 } StaticTimer_t;
@@ -22421,6 +22431,14 @@ typedef enum
        void * const pvParameters,
        UBaseType_t uxPriority,
        TaskHandle_t * const pxCreatedTask ) ;
+# 476 "../../source/include/task.h"
+ TaskHandle_t xTaskCreateStatic( TaskFunction_t pxTaskCode,
+         const char * const pcName,
+         const uint32_t ulStackDepth,
+         void * const pvParameters,
+         UBaseType_t uxPriority,
+         StackType_t * const puxStackBuffer,
+         StaticTask_t * const pxTaskBuffer ) ;
 # 602 "../../source/include/task.h"
 void vTaskAllocateMPURegions( TaskHandle_t xTask, const MemoryRegion_t * const pxRegions ) ;
 # 643 "../../source/include/task.h"
@@ -22598,6 +22616,13 @@ typedef void (*PendedFunction_t)( void *, uint32_t );
         const UBaseType_t uxAutoReload,
         void * const pvTimerID,
         TimerCallbackFunction_t pxCallbackFunction ) ;
+# 399 "../../source/include/timers.h"
+ TimerHandle_t xTimerCreateStatic( const char * const pcTimerName,
+          const TickType_t xTimerPeriodInTicks,
+          const UBaseType_t uxAutoReload,
+          void * const pvTimerID,
+          TimerCallbackFunction_t pxCallbackFunction,
+          StaticTimer_t *pxTimerBuffer ) ;
 # 427 "../../source/include/timers.h"
 void *pvTimerGetTimerID( const TimerHandle_t xTimer ) ;
 # 448 "../../source/include/timers.h"
@@ -22640,6 +22665,8 @@ typedef void * EventGroupHandle_t;
 typedef TickType_t EventBits_t;
 # 188 "../../source/include/event_groups.h"
  EventGroupHandle_t xEventGroupCreate( void ) ;
+# 241 "../../source/include/event_groups.h"
+ EventGroupHandle_t xEventGroupCreateStatic( StaticEventGroup_t *pxEventGroupBuffer ) ;
 # 336 "../../source/include/event_groups.h"
 EventBits_t xEventGroupWaitBits( EventGroupHandle_t xEventGroup, const EventBits_t uxBitsToWaitFor, const BaseType_t xClearOnExit, const BaseType_t xWaitForAllBits, TickType_t xTicksToWait ) ;
 # 393 "../../source/include/event_groups.h"
@@ -22676,12 +22703,55 @@ typedef struct xEventGroupDefinition
 
 
 
-
+  uint8_t ucStaticallyAllocated;
 
 } EventGroup_t;
 # 129 "../../source/event_groups.c"
 static BaseType_t prvTestWaitCondition( const EventBits_t uxCurrentEventBits, const EventBits_t uxBitsToWaitFor, const BaseType_t xWaitForAllBits ) ;
-# 174 "../../source/event_groups.c"
+
+
+
+
+
+ EventGroupHandle_t xEventGroupCreateStatic( StaticEventGroup_t *pxEventGroupBuffer )
+ {
+ EventGroup_t *pxEventBits;
+
+
+  ;
+
+
+  pxEventBits = ( EventGroup_t * ) pxEventGroupBuffer;
+
+  if( pxEventBits != 0 )
+  {
+   pxEventBits->uxEventBits = 0;
+   vListInitialise( &( pxEventBits->xTasksWaitingForBits ) );
+
+
+   {
+
+
+
+    pxEventBits->ucStaticallyAllocated = ( ( BaseType_t ) 1 );
+   }
+
+
+   ;
+  }
+  else
+  {
+   ;
+  }
+
+  return ( EventGroupHandle_t ) pxEventBits;
+ }
+
+
+
+
+
+
  EventGroupHandle_t xEventGroupCreate( void )
  {
  EventGroup_t *pxEventBits;
@@ -22693,7 +22763,16 @@ static BaseType_t prvTestWaitCondition( const EventBits_t uxCurrentEventBits, co
   {
    pxEventBits->uxEventBits = 0;
    vListInitialise( &( pxEventBits->xTasksWaitingForBits ) );
-# 195 "../../source/event_groups.c"
+
+
+   {
+
+
+
+    pxEventBits->ucStaticallyAllocated = ( ( BaseType_t ) 0 );
+   }
+
+
    ;
   }
   else
@@ -23123,14 +23202,20 @@ const List_t *pxTasksWaitingForBits = &( pxEventBits->xTasksWaitingForBits );
    ;
    ( void ) xTaskRemoveFromUnorderedEventList( pxTasksWaitingForBits->xListEnd.pxNext, 0x0200U );
   }
-
-
+# 648 "../../source/event_groups.c"
   {
 
 
-   vPortFree( pxEventBits );
+   if( pxEventBits->ucStaticallyAllocated == ( uint8_t ) ( ( BaseType_t ) 0 ) )
+   {
+    vPortFree( pxEventBits );
+   }
+   else
+   {
+    ;
+   }
   }
-# 661 "../../source/event_groups.c"
+
  }
  ( void ) xTaskResumeAll();
 }

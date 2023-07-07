@@ -1,4 +1,4 @@
-	.file "C:\\Users\\Filippo\\Desktop\\Projects\\Ex1\\mycode\\Ex1\\..\\gpio.c"
+	.file "C:\\Users\\Filippo\\Downloads\\FreeRTOS\\Projects\\Ex1\\mycode\\Ex1\\..\\gpio.c"
 	.section	.debug_abbrev,info
 .Ldebug_abbrev0:
 	.section	.debug_info,info
@@ -1050,7 +1050,7 @@ _Lock_GPIOs:
 	.file 3 "../gpio.h"
 	.file 4 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/dsPIC33CH-MP_DFP/1.4.161/xc16/bin/..\\support\\dsPIC33C\\h/p33CH512MP508.h"
 	.section	.debug_info,info
-	.4byte	0x3d9
+	.4byte	0x3e4
 	.2byte	0x2
 	.4byte	.Ldebug_abbrev0
 	.byte	0x4
@@ -1058,7 +1058,7 @@ _Lock_GPIOs:
 	.asciz	"GNU C 4.5.1 (XC16, Microchip v1.61) (B) Build date: Oct 23 2020"
 	.byte	0x1
 	.asciz	"../gpio.c"
-	.asciz	"C:\\Users\\Filippo\\Desktop\\Projects\\Ex1\\mycode\\Ex1"
+	.asciz	"C:\\Users\\Filippo\\Downloads\\FreeRTOS\\Projects\\Ex1\\mycode\\Ex1"
 	.4byte	.Ltext0
 	.4byte	.Letext0
 	.4byte	.Ldebug_line0
@@ -1102,12 +1102,12 @@ _Lock_GPIOs:
 	.asciz	"uint8_t"
 	.byte	0x2
 	.byte	0x2b
-	.4byte	0xf8
+	.4byte	0x103
 	.uleb128 0x3
 	.asciz	"uint16_t"
 	.byte	0x2
 	.byte	0x31
-	.4byte	0xd5
+	.4byte	0xe0
 	.uleb128 0x2
 	.byte	0x4
 	.byte	0x7
@@ -1116,12 +1116,12 @@ _Lock_GPIOs:
 	.byte	0x7
 	.byte	0x3
 	.byte	0x1c
-	.4byte	0x1d1
+	.4byte	0x1dc
 	.uleb128 0x5
 	.asciz	"AnaDig"
 	.byte	0x3
 	.byte	0x1d
-	.4byte	0x120
+	.4byte	0x12b
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -1129,7 +1129,7 @@ _Lock_GPIOs:
 	.asciz	"InOut"
 	.byte	0x3
 	.byte	0x1e
-	.4byte	0x120
+	.4byte	0x12b
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x1
@@ -1137,7 +1137,7 @@ _Lock_GPIOs:
 	.asciz	"PullUp"
 	.byte	0x3
 	.byte	0x1f
-	.4byte	0x120
+	.4byte	0x12b
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x2
@@ -1145,7 +1145,7 @@ _Lock_GPIOs:
 	.asciz	"PullDw"
 	.byte	0x3
 	.byte	0x20
-	.4byte	0x120
+	.4byte	0x12b
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x3
@@ -1153,7 +1153,7 @@ _Lock_GPIOs:
 	.asciz	"OpenDr"
 	.byte	0x3
 	.byte	0x21
-	.4byte	0x120
+	.4byte	0x12b
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x4
@@ -1161,7 +1161,7 @@ _Lock_GPIOs:
 	.asciz	"CnEn0"
 	.byte	0x3
 	.byte	0x22
-	.4byte	0x120
+	.4byte	0x12b
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x5
@@ -1169,7 +1169,7 @@ _Lock_GPIOs:
 	.asciz	"CnEn1"
 	.byte	0x3
 	.byte	0x23
-	.4byte	0x120
+	.4byte	0x12b
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x6
@@ -1178,7 +1178,7 @@ _Lock_GPIOs:
 	.asciz	"gpio_t"
 	.byte	0x3
 	.byte	0x24
-	.4byte	0x154
+	.4byte	0x15f
 	.uleb128 0x6
 	.byte	0x1
 	.asciz	"Config_GPIO"
@@ -1189,12 +1189,12 @@ _Lock_GPIOs:
 	.4byte	.LFE0
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x24c
+	.4byte	0x257
 	.uleb128 0x7
 	.4byte	.LASF0
 	.byte	0x1
 	.byte	0x1e
-	.4byte	0x24c
+	.4byte	0x257
 	.byte	0x3
 	.byte	0x7e
 	.sleb128 194
@@ -1202,7 +1202,7 @@ _Lock_GPIOs:
 	.asciz	"Param"
 	.byte	0x1
 	.byte	0x1e
-	.4byte	0x1d1
+	.4byte	0x1dc
 	.byte	0x3
 	.byte	0x7e
 	.sleb128 196
@@ -1210,7 +1210,7 @@ _Lock_GPIOs:
 	.asciz	"Sect"
 	.byte	0x1
 	.byte	0x1f
-	.4byte	0x120
+	.4byte	0x12b
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 0
@@ -1218,7 +1218,7 @@ _Lock_GPIOs:
 	.asciz	"Numb"
 	.byte	0x1
 	.byte	0x20
-	.4byte	0x120
+	.4byte	0x12b
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 1
@@ -1226,31 +1226,31 @@ _Lock_GPIOs:
 	.asciz	"Mask"
 	.byte	0x1
 	.byte	0x21
-	.4byte	0x12f
+	.4byte	0x13a
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 2
 	.byte	0x0
 	.uleb128 0xa
 	.byte	0x2
-	.4byte	0x120
+	.4byte	0x12b
 	.uleb128 0xb
 	.byte	0x1
 	.asciz	"Get_GPIO"
 	.byte	0x1
 	.byte	0x73
 	.byte	0x1
-	.4byte	0x120
+	.4byte	0x12b
 	.4byte	.LFB1
 	.4byte	.LFE1
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x2bc
+	.4byte	0x2c7
 	.uleb128 0x7
 	.4byte	.LASF0
 	.byte	0x1
 	.byte	0x73
-	.4byte	0x24c
+	.4byte	0x257
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 16
@@ -1258,7 +1258,7 @@ _Lock_GPIOs:
 	.asciz	"Sect"
 	.byte	0x1
 	.byte	0x74
-	.4byte	0x120
+	.4byte	0x12b
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 1
@@ -1266,7 +1266,7 @@ _Lock_GPIOs:
 	.asciz	"Numb"
 	.byte	0x1
 	.byte	0x75
-	.4byte	0x120
+	.4byte	0x12b
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 2
@@ -1274,7 +1274,7 @@ _Lock_GPIOs:
 	.asciz	"Mask"
 	.byte	0x1
 	.byte	0x76
-	.4byte	0x12f
+	.4byte	0x13a
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 4
@@ -1282,7 +1282,7 @@ _Lock_GPIOs:
 	.asciz	"Val"
 	.byte	0x1
 	.byte	0x77
-	.4byte	0x120
+	.4byte	0x12b
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 0
@@ -1297,12 +1297,12 @@ _Lock_GPIOs:
 	.4byte	.LFE2
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x324
+	.4byte	0x32f
 	.uleb128 0x7
 	.4byte	.LASF0
 	.byte	0x1
 	.byte	0x86
-	.4byte	0x24c
+	.4byte	0x257
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 24
@@ -1310,7 +1310,7 @@ _Lock_GPIOs:
 	.asciz	"State"
 	.byte	0x1
 	.byte	0x86
-	.4byte	0x120
+	.4byte	0x12b
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 26
@@ -1318,7 +1318,7 @@ _Lock_GPIOs:
 	.asciz	"Sect"
 	.byte	0x1
 	.byte	0x87
-	.4byte	0x120
+	.4byte	0x12b
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 0
@@ -1326,7 +1326,7 @@ _Lock_GPIOs:
 	.asciz	"Numb"
 	.byte	0x1
 	.byte	0x88
-	.4byte	0x120
+	.4byte	0x12b
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 1
@@ -1334,7 +1334,7 @@ _Lock_GPIOs:
 	.asciz	"Mask"
 	.byte	0x1
 	.byte	0x89
-	.4byte	0x12f
+	.4byte	0x13a
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 2
@@ -1349,12 +1349,12 @@ _Lock_GPIOs:
 	.4byte	.LFE3
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x37f
+	.4byte	0x38a
 	.uleb128 0x7
 	.4byte	.LASF0
 	.byte	0x1
 	.byte	0x9e
-	.4byte	0x24c
+	.4byte	0x257
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 24
@@ -1362,7 +1362,7 @@ _Lock_GPIOs:
 	.asciz	"Sect"
 	.byte	0x1
 	.byte	0x9f
-	.4byte	0x120
+	.4byte	0x12b
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 0
@@ -1370,7 +1370,7 @@ _Lock_GPIOs:
 	.asciz	"Numb"
 	.byte	0x1
 	.byte	0xa0
-	.4byte	0x120
+	.4byte	0x12b
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 1
@@ -1378,7 +1378,7 @@ _Lock_GPIOs:
 	.asciz	"Mask"
 	.byte	0x1
 	.byte	0xa1
-	.4byte	0x12f
+	.4byte	0x13a
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 2
@@ -1407,16 +1407,16 @@ _Lock_GPIOs:
 	.asciz	"OSCCON"
 	.byte	0x4
 	.2byte	0x4f1d
-	.4byte	0x3c6
+	.4byte	0x3d1
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0xe
-	.4byte	0x12f
+	.4byte	0x13a
 	.uleb128 0xd
 	.asciz	"OSCCON"
 	.byte	0x4
 	.2byte	0x4f1d
-	.4byte	0x3c6
+	.4byte	0x3d1
 	.byte	0x1
 	.byte	0x1
 	.byte	0x0
@@ -1644,30 +1644,30 @@ _Lock_GPIOs:
 	.4byte	0x68
 	.2byte	0x2
 	.4byte	.Ldebug_info0
-	.4byte	0x3dd
-	.4byte	0x1df
+	.4byte	0x3e8
+	.4byte	0x1ea
 	.asciz	"Config_GPIO"
-	.4byte	0x252
+	.4byte	0x25d
 	.asciz	"Get_GPIO"
-	.4byte	0x2bc
+	.4byte	0x2c7
 	.asciz	"Set_GPIO"
-	.4byte	0x324
+	.4byte	0x32f
 	.asciz	"Toggle_GPIO"
-	.4byte	0x37f
+	.4byte	0x38a
 	.asciz	"Unlock_GPIOs"
-	.4byte	0x39b
+	.4byte	0x3a6
 	.asciz	"Lock_GPIOs"
 	.4byte	0x0
 	.section	.debug_pubtypes,info
 	.4byte	0x32
 	.2byte	0x2
 	.4byte	.Ldebug_info0
-	.4byte	0x3dd
-	.4byte	0x120
+	.4byte	0x3e8
+	.4byte	0x12b
 	.asciz	"uint8_t"
-	.4byte	0x12f
+	.4byte	0x13a
 	.asciz	"uint16_t"
-	.4byte	0x1d1
+	.4byte	0x1dc
 	.asciz	"gpio_t"
 	.4byte	0x0
 	.section	.debug_aranges,info

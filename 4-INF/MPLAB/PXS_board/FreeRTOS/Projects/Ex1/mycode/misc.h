@@ -41,7 +41,9 @@
 #define DAC_PERIOD              (uint16_t) 5                                    //!< Update-DAC task period [ms]
 #define WDT_PERIOD              (uint16_t) 3500                                 //!< Kick-watchdog task period [ms] -> NB: shall be between 0.75x and 1x 4.096s
 
-#define DAC_WIN_SZ              (uint8_t) 6                                     //!< DAC averaging-window buffer length
+#define QUEUE_FILTER_LEN        (uint8_t) 5                                     //!< ADC-DAC filtering queue length
+#define DAC_WIN_SZ1             (uint8_t) 4                                     //!< DAC averaging-window buffer length #1
+#define DAC_WIN_SZ2             (uint8_t) 10                                    //!< DAC averaging-window buffer length #2
 
 
 
@@ -49,11 +51,10 @@
 /*** PROTOTYPES ***/
 /******************/
 
-void ConfigMod_LEDs( void );
+void ConfigMod_LEDs( uint8_t * Led1 );
 void ConfigMod_Stats( void);
 void ConfigMod_Filter( void );
 void ConfigMod_Watchdog( void );
-
 
 
 #endif

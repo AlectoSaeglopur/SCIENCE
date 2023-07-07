@@ -1,4 +1,4 @@
-	.file "C:\\Users\\Filippo\\Desktop\\Projects\\Ex1\\mycode\\Ex1\\..\\..\\source\\portable\\MPLAB\\PIC24_dsPIC\\port.c"
+	.file "C:\\Users\\Filippo\\Downloads\\FreeRTOS\\Projects\\Ex1\\mycode\\Ex1\\..\\..\\source\\portable\\MPLAB\\PIC24_dsPIC\\port.c"
 	.section	.debug_abbrev,info
 .Ldebug_abbrev0:
 	.section	.debug_info,info
@@ -30,7 +30,7 @@ _pxPortInitialiseStack:
 	mov	w2,[w14+62]
 	.loc 1 241 0
 	add	w14,#4,w1
-	mov	#_C.5.24604,w2
+	mov	#_C.5.24620,w2
 	
 	repeat	#27-1
 	mov	[w2++],[w1++]
@@ -386,9 +386,9 @@ NOP
 	.size	__T1Interrupt, .-__T1Interrupt
 	.section	.const,psv,page
 	.align	2
-	.type	_C.5.24604,@object
-	.size	_C.5.24604, 54
-_C.5.24604:
+	.type	_C.5.24620,@object
+	.size	_C.5.24620, 54
+_C.5.24620:
 	.word	4369
 	.word	8738
 	.word	13107
@@ -589,7 +589,7 @@ _C.5.24604:
 	.file 4 "../../source/include/projdefs.h"
 	.file 5 "../../source/include/../../Source/portable/MPLAB/PIC24_dsPIC/portmacro.h"
 	.section	.debug_info,info
-	.4byte	0xa82
+	.4byte	0xa8d
 	.2byte	0x2
 	.4byte	.Ldebug_abbrev0
 	.byte	0x4
@@ -597,7 +597,7 @@ _C.5.24604:
 	.asciz	"GNU C 4.5.1 (XC16, Microchip v1.61) (B) Build date: Oct 23 2020"
 	.byte	0x1
 	.asciz	"../../source/portable/MPLAB/PIC24_dsPIC/port.c"
-	.asciz	"C:\\Users\\Filippo\\Desktop\\Projects\\Ex1\\mycode\\Ex1"
+	.asciz	"C:\\Users\\Filippo\\Downloads\\FreeRTOS\\Projects\\Ex1\\mycode\\Ex1"
 	.4byte	.Ltext0
 	.4byte	.Letext0
 	.4byte	.Ldebug_line0
@@ -639,7 +639,7 @@ _C.5.24604:
 	.asciz	"uint16_t"
 	.byte	0x3
 	.byte	0x31
-	.4byte	0xfc
+	.4byte	0x107
 	.uleb128 0x3
 	.byte	0x4
 	.byte	0x7
@@ -648,12 +648,12 @@ _C.5.24604:
 	.byte	0x2
 	.byte	0x2
 	.byte	0x87
-	.4byte	0x24d
+	.4byte	0x258
 	.uleb128 0x6
 	.asciz	"C"
 	.byte	0x2
 	.byte	0x88
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -664,7 +664,7 @@ _C.5.24604:
 	.asciz	"Z"
 	.byte	0x2
 	.byte	0x89
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -675,7 +675,7 @@ _C.5.24604:
 	.asciz	"OV"
 	.byte	0x2
 	.byte	0x8a
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -686,7 +686,7 @@ _C.5.24604:
 	.asciz	"N"
 	.byte	0x2
 	.byte	0x8b
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -697,7 +697,7 @@ _C.5.24604:
 	.asciz	"RA"
 	.byte	0x2
 	.byte	0x8c
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -708,7 +708,7 @@ _C.5.24604:
 	.asciz	"IPL"
 	.byte	0x2
 	.byte	0x8d
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x3
 	.byte	0x8
@@ -719,7 +719,7 @@ _C.5.24604:
 	.asciz	"DC"
 	.byte	0x2
 	.byte	0x8e
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -730,7 +730,7 @@ _C.5.24604:
 	.asciz	"DA"
 	.byte	0x2
 	.byte	0x8f
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -741,7 +741,7 @@ _C.5.24604:
 	.asciz	"SAB"
 	.byte	0x2
 	.byte	0x90
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -752,7 +752,7 @@ _C.5.24604:
 	.asciz	"OAB"
 	.byte	0x2
 	.byte	0x91
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -763,7 +763,7 @@ _C.5.24604:
 	.asciz	"SB"
 	.byte	0x2
 	.byte	0x92
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x3
@@ -774,7 +774,7 @@ _C.5.24604:
 	.asciz	"SA"
 	.byte	0x2
 	.byte	0x93
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x2
@@ -785,7 +785,7 @@ _C.5.24604:
 	.asciz	"OB"
 	.byte	0x2
 	.byte	0x94
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -796,7 +796,7 @@ _C.5.24604:
 	.asciz	"OA"
 	.byte	0x2
 	.byte	0x95
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -808,12 +808,12 @@ _C.5.24604:
 	.byte	0x2
 	.byte	0x2
 	.byte	0x97
-	.4byte	0x28c
+	.4byte	0x297
 	.uleb128 0x6
 	.asciz	"IPL0"
 	.byte	0x2
 	.byte	0x99
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0xa
@@ -824,7 +824,7 @@ _C.5.24604:
 	.asciz	"IPL1"
 	.byte	0x2
 	.byte	0x9a
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -835,7 +835,7 @@ _C.5.24604:
 	.asciz	"IPL2"
 	.byte	0x2
 	.byte	0x9b
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -847,20 +847,20 @@ _C.5.24604:
 	.byte	0x2
 	.byte	0x2
 	.byte	0x86
-	.4byte	0x29f
+	.4byte	0x2aa
 	.uleb128 0x8
-	.4byte	0x164
+	.4byte	0x16f
 	.uleb128 0x8
-	.4byte	0x24d
+	.4byte	0x258
 	.byte	0x0
 	.uleb128 0x9
 	.asciz	"tagSRBITS"
 	.byte	0x2
 	.byte	0x2
 	.byte	0x85
-	.4byte	0x2ba
+	.4byte	0x2c5
 	.uleb128 0xa
-	.4byte	0x28c
+	.4byte	0x297
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -869,18 +869,18 @@ _C.5.24604:
 	.asciz	"SRBITS"
 	.byte	0x2
 	.byte	0x9e
-	.4byte	0x29f
+	.4byte	0x2aa
 	.uleb128 0xb
 	.asciz	"tagT1CONBITS"
 	.byte	0x2
 	.byte	0x2
 	.2byte	0x522
-	.4byte	0x3a3
+	.4byte	0x3ae
 	.uleb128 0xc
 	.asciz	"TCS"
 	.byte	0x2
 	.2byte	0x524
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -891,7 +891,7 @@ _C.5.24604:
 	.asciz	"TSYNC"
 	.byte	0x2
 	.2byte	0x525
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -902,7 +902,7 @@ _C.5.24604:
 	.asciz	"TCKPS"
 	.byte	0x2
 	.2byte	0x527
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x2
 	.byte	0xa
@@ -913,7 +913,7 @@ _C.5.24604:
 	.asciz	"TGATE"
 	.byte	0x2
 	.2byte	0x529
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -924,7 +924,7 @@ _C.5.24604:
 	.asciz	"TECS"
 	.byte	0x2
 	.2byte	0x52a
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x2
 	.byte	0x6
@@ -935,7 +935,7 @@ _C.5.24604:
 	.asciz	"PRWIP"
 	.byte	0x2
 	.2byte	0x52b
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -946,7 +946,7 @@ _C.5.24604:
 	.asciz	"TMWIP"
 	.byte	0x2
 	.2byte	0x52c
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -957,7 +957,7 @@ _C.5.24604:
 	.asciz	"TMWDIS"
 	.byte	0x2
 	.2byte	0x52d
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x3
@@ -968,7 +968,7 @@ _C.5.24604:
 	.asciz	"TSIDL"
 	.byte	0x2
 	.2byte	0x52e
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x2
@@ -979,7 +979,7 @@ _C.5.24604:
 	.asciz	"TON"
 	.byte	0x2
 	.2byte	0x530
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -991,18 +991,18 @@ _C.5.24604:
 	.asciz	"T1CONBITS"
 	.byte	0x2
 	.2byte	0x531
-	.4byte	0x2c8
+	.4byte	0x2d3
 	.uleb128 0xb
 	.asciz	"tagIFS0BITS"
 	.byte	0x2
 	.byte	0x2
 	.2byte	0x3435
-	.4byte	0x507
+	.4byte	0x512
 	.uleb128 0xc
 	.asciz	"INT0IF"
 	.byte	0x2
 	.2byte	0x3436
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -1013,7 +1013,7 @@ _C.5.24604:
 	.asciz	"T1IF"
 	.byte	0x2
 	.2byte	0x3437
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -1024,7 +1024,7 @@ _C.5.24604:
 	.asciz	"CNAIF"
 	.byte	0x2
 	.2byte	0x3438
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -1035,7 +1035,7 @@ _C.5.24604:
 	.asciz	"CNBIF"
 	.byte	0x2
 	.2byte	0x3439
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -1046,7 +1046,7 @@ _C.5.24604:
 	.asciz	"DMA0IF"
 	.byte	0x2
 	.2byte	0x343a
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -1057,7 +1057,7 @@ _C.5.24604:
 	.asciz	"CCP1IF"
 	.byte	0x2
 	.2byte	0x343c
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -1068,7 +1068,7 @@ _C.5.24604:
 	.asciz	"CCT1IF"
 	.byte	0x2
 	.2byte	0x343d
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -1079,7 +1079,7 @@ _C.5.24604:
 	.asciz	"DMA1IF"
 	.byte	0x2
 	.2byte	0x343e
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -1090,7 +1090,7 @@ _C.5.24604:
 	.asciz	"SPI1RXIF"
 	.byte	0x2
 	.2byte	0x343f
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -1101,7 +1101,7 @@ _C.5.24604:
 	.asciz	"SPI1TXIF"
 	.byte	0x2
 	.2byte	0x3440
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -1112,7 +1112,7 @@ _C.5.24604:
 	.asciz	"U1RXIF"
 	.byte	0x2
 	.2byte	0x3441
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -1123,7 +1123,7 @@ _C.5.24604:
 	.asciz	"U1TXIF"
 	.byte	0x2
 	.2byte	0x3442
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x3
@@ -1134,7 +1134,7 @@ _C.5.24604:
 	.asciz	"ECCSBEIF"
 	.byte	0x2
 	.2byte	0x3443
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x2
@@ -1145,7 +1145,7 @@ _C.5.24604:
 	.asciz	"NVMIF"
 	.byte	0x2
 	.2byte	0x3444
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -1156,7 +1156,7 @@ _C.5.24604:
 	.asciz	"INT1IF"
 	.byte	0x2
 	.2byte	0x3445
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -1168,18 +1168,18 @@ _C.5.24604:
 	.asciz	"IFS0BITS"
 	.byte	0x2
 	.2byte	0x3446
-	.4byte	0x3b5
+	.4byte	0x3c0
 	.uleb128 0xb
 	.asciz	"tagIEC0BITS"
 	.byte	0x2
 	.byte	0x2
 	.2byte	0x3518
-	.4byte	0x66a
+	.4byte	0x675
 	.uleb128 0xc
 	.asciz	"INT0IE"
 	.byte	0x2
 	.2byte	0x3519
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0xf
@@ -1190,7 +1190,7 @@ _C.5.24604:
 	.asciz	"T1IE"
 	.byte	0x2
 	.2byte	0x351a
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0xe
@@ -1201,7 +1201,7 @@ _C.5.24604:
 	.asciz	"CNAIE"
 	.byte	0x2
 	.2byte	0x351b
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0xd
@@ -1212,7 +1212,7 @@ _C.5.24604:
 	.asciz	"CNBIE"
 	.byte	0x2
 	.2byte	0x351c
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0xc
@@ -1223,7 +1223,7 @@ _C.5.24604:
 	.asciz	"DMA0IE"
 	.byte	0x2
 	.2byte	0x351d
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0xb
@@ -1234,7 +1234,7 @@ _C.5.24604:
 	.asciz	"CCP1IE"
 	.byte	0x2
 	.2byte	0x351f
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x9
@@ -1245,7 +1245,7 @@ _C.5.24604:
 	.asciz	"CCT1IE"
 	.byte	0x2
 	.2byte	0x3520
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x8
@@ -1256,7 +1256,7 @@ _C.5.24604:
 	.asciz	"DMA1IE"
 	.byte	0x2
 	.2byte	0x3521
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x7
@@ -1267,7 +1267,7 @@ _C.5.24604:
 	.asciz	"SPI1RXIE"
 	.byte	0x2
 	.2byte	0x3522
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x6
@@ -1278,7 +1278,7 @@ _C.5.24604:
 	.asciz	"SPI1TXIE"
 	.byte	0x2
 	.2byte	0x3523
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x5
@@ -1289,7 +1289,7 @@ _C.5.24604:
 	.asciz	"U1RXIE"
 	.byte	0x2
 	.2byte	0x3524
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x4
@@ -1300,7 +1300,7 @@ _C.5.24604:
 	.asciz	"U1TXIE"
 	.byte	0x2
 	.2byte	0x3525
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x3
@@ -1311,7 +1311,7 @@ _C.5.24604:
 	.asciz	"ECCSBEIE"
 	.byte	0x2
 	.2byte	0x3526
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x2
@@ -1322,7 +1322,7 @@ _C.5.24604:
 	.asciz	"NVMIE"
 	.byte	0x2
 	.2byte	0x3527
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -1333,7 +1333,7 @@ _C.5.24604:
 	.asciz	"INT1IE"
 	.byte	0x2
 	.2byte	0x3528
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -1345,18 +1345,18 @@ _C.5.24604:
 	.asciz	"IEC0BITS"
 	.byte	0x2
 	.2byte	0x3529
-	.4byte	0x518
+	.4byte	0x523
 	.uleb128 0xb
 	.asciz	"tagIPC0BITS"
 	.byte	0x2
 	.byte	0x2
 	.2byte	0x35fb
-	.4byte	0x6e1
+	.4byte	0x6ec
 	.uleb128 0xc
 	.asciz	"INT0IP"
 	.byte	0x2
 	.2byte	0x35fc
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x3
 	.byte	0xd
@@ -1367,7 +1367,7 @@ _C.5.24604:
 	.asciz	"T1IP"
 	.byte	0x2
 	.2byte	0x35fe
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x3
 	.byte	0x9
@@ -1378,7 +1378,7 @@ _C.5.24604:
 	.asciz	"CNAIP"
 	.byte	0x2
 	.2byte	0x3600
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x3
 	.byte	0x5
@@ -1389,7 +1389,7 @@ _C.5.24604:
 	.asciz	"CNBIP"
 	.byte	0x2
 	.2byte	0x3602
-	.4byte	0x13f
+	.4byte	0x14a
 	.byte	0x2
 	.byte	0x3
 	.byte	0x1
@@ -1401,7 +1401,7 @@ _C.5.24604:
 	.asciz	"IPC0BITS"
 	.byte	0x2
 	.2byte	0x3603
-	.4byte	0x67b
+	.4byte	0x686
 	.uleb128 0x3
 	.byte	0x1
 	.byte	0x6
@@ -1410,26 +1410,26 @@ _C.5.24604:
 	.asciz	"TaskFunction_t"
 	.byte	0x4
 	.byte	0x4d
-	.4byte	0x710
+	.4byte	0x71b
 	.uleb128 0xe
 	.byte	0x2
-	.4byte	0x716
+	.4byte	0x721
 	.uleb128 0xf
 	.byte	0x1
-	.4byte	0x722
+	.4byte	0x72d
 	.uleb128 0x10
-	.4byte	0xb9
+	.4byte	0xc4
 	.byte	0x0
 	.uleb128 0x4
 	.asciz	"StackType_t"
 	.byte	0x5
 	.byte	0x60
-	.4byte	0x13f
+	.4byte	0x14a
 	.uleb128 0x4
 	.asciz	"BaseType_t"
 	.byte	0x5
 	.byte	0x61
-	.4byte	0x747
+	.4byte	0x752
 	.uleb128 0x3
 	.byte	0x2
 	.byte	0x5
@@ -1438,27 +1438,27 @@ _C.5.24604:
 	.asciz	"UBaseType_t"
 	.byte	0x5
 	.byte	0x62
-	.4byte	0xe6
+	.4byte	0xf1
 	.uleb128 0xe
 	.byte	0x2
-	.4byte	0x722
+	.4byte	0x72d
 	.uleb128 0x11
 	.byte	0x1
 	.asciz	"pxPortInitialiseStack"
 	.byte	0x1
 	.byte	0xec
 	.byte	0x1
-	.4byte	0x767
+	.4byte	0x772
 	.4byte	.LFB0
 	.4byte	.LFE0
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x80f
+	.4byte	0x81a
 	.uleb128 0x12
 	.asciz	"pxTopOfStack"
 	.byte	0x1
 	.byte	0xec
-	.4byte	0x767
+	.4byte	0x772
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 58
@@ -1466,7 +1466,7 @@ _C.5.24604:
 	.asciz	"pxCode"
 	.byte	0x1
 	.byte	0xec
-	.4byte	0x6fa
+	.4byte	0x705
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 60
@@ -1474,7 +1474,7 @@ _C.5.24604:
 	.asciz	"pvParameters"
 	.byte	0x1
 	.byte	0xec
-	.4byte	0xb9
+	.4byte	0xc4
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 62
@@ -1482,7 +1482,7 @@ _C.5.24604:
 	.asciz	"usCode"
 	.byte	0x1
 	.byte	0xee
-	.4byte	0x80f
+	.4byte	0x81a
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 2
@@ -1490,7 +1490,7 @@ _C.5.24604:
 	.asciz	"i"
 	.byte	0x1
 	.byte	0xef
-	.4byte	0x754
+	.4byte	0x75f
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 0
@@ -1498,29 +1498,29 @@ _C.5.24604:
 	.asciz	"xInitialStack"
 	.byte	0x1
 	.byte	0xf1
-	.4byte	0x824
+	.4byte	0x82f
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 4
 	.byte	0x0
 	.uleb128 0x14
-	.4byte	0x13f
+	.4byte	0x14a
 	.uleb128 0x15
-	.4byte	0x722
-	.4byte	0x824
+	.4byte	0x72d
+	.4byte	0x82f
 	.uleb128 0x16
-	.4byte	0xfc
+	.4byte	0x107
 	.byte	0x1a
 	.byte	0x0
 	.uleb128 0x17
-	.4byte	0x814
+	.4byte	0x81f
 	.uleb128 0x18
 	.byte	0x1
 	.asciz	"xPortStartScheduler"
 	.byte	0x1
 	.2byte	0x144
 	.byte	0x1
-	.4byte	0x735
+	.4byte	0x740
 	.4byte	.LFB1
 	.4byte	.LFE1
 	.byte	0x1
@@ -1589,164 +1589,164 @@ _C.5.24604:
 	.asciz	"DSRPAG"
 	.byte	0x2
 	.byte	0x6a
-	.4byte	0x80f
+	.4byte	0x81a
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1a
 	.asciz	"DSWPAG"
 	.byte	0x2
 	.byte	0x71
-	.4byte	0x80f
+	.4byte	0x81a
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1a
 	.asciz	"SRbits"
 	.byte	0x2
 	.byte	0x9f
-	.4byte	0x953
+	.4byte	0x95e
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x14
-	.4byte	0x2ba
+	.4byte	0x2c5
 	.uleb128 0x1a
 	.asciz	"CORCON"
 	.byte	0x2
 	.byte	0xa2
-	.4byte	0x80f
+	.4byte	0x81a
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF0
 	.byte	0x2
 	.2byte	0x532
-	.4byte	0x976
+	.4byte	0x981
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x14
-	.4byte	0x3a3
+	.4byte	0x3ae
 	.uleb128 0x1c
 	.asciz	"TMR1"
 	.byte	0x2
 	.2byte	0x535
-	.4byte	0x80f
+	.4byte	0x81a
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
 	.asciz	"PR1"
 	.byte	0x2
 	.2byte	0x537
-	.4byte	0x80f
+	.4byte	0x81a
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF1
 	.byte	0x2
 	.2byte	0x3447
-	.4byte	0x9a6
+	.4byte	0x9b1
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x14
-	.4byte	0x507
+	.4byte	0x512
 	.uleb128 0x1b
 	.4byte	.LASF2
 	.byte	0x2
 	.2byte	0x352a
-	.4byte	0x9b9
+	.4byte	0x9c4
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x14
-	.4byte	0x66a
+	.4byte	0x675
 	.uleb128 0x1b
 	.4byte	.LASF3
 	.byte	0x2
 	.2byte	0x3604
-	.4byte	0x9cc
+	.4byte	0x9d7
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x14
-	.4byte	0x6e1
+	.4byte	0x6ec
 	.uleb128 0x1d
 	.4byte	.LASF4
 	.byte	0x1
 	.byte	0x6b
-	.4byte	0x754
+	.4byte	0x75f
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1a
 	.asciz	"DSRPAG"
 	.byte	0x2
 	.byte	0x6a
-	.4byte	0x80f
+	.4byte	0x81a
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1a
 	.asciz	"DSWPAG"
 	.byte	0x2
 	.byte	0x71
-	.4byte	0x80f
+	.4byte	0x81a
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1a
 	.asciz	"SRbits"
 	.byte	0x2
 	.byte	0x9f
-	.4byte	0x953
+	.4byte	0x95e
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1a
 	.asciz	"CORCON"
 	.byte	0x2
 	.byte	0xa2
-	.4byte	0x80f
+	.4byte	0x81a
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF0
 	.byte	0x2
 	.2byte	0x532
-	.4byte	0x976
+	.4byte	0x981
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
 	.asciz	"TMR1"
 	.byte	0x2
 	.2byte	0x535
-	.4byte	0x80f
+	.4byte	0x81a
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1c
 	.asciz	"PR1"
 	.byte	0x2
 	.2byte	0x537
-	.4byte	0x80f
+	.4byte	0x81a
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF1
 	.byte	0x2
 	.2byte	0x3447
-	.4byte	0x9a6
+	.4byte	0x9b1
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF2
 	.byte	0x2
 	.2byte	0x352a
-	.4byte	0x9b9
+	.4byte	0x9c4
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1b
 	.4byte	.LASF3
 	.byte	0x2
 	.2byte	0x3604
-	.4byte	0x9cc
+	.4byte	0x9d7
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x1e
 	.4byte	.LASF4
 	.byte	0x1
 	.byte	0x6b
-	.4byte	0x754
+	.4byte	0x75f
 	.byte	0x1
 	.byte	0x5
 	.byte	0x3
@@ -2176,60 +2176,60 @@ _C.5.24604:
 	.4byte	0xe0
 	.2byte	0x2
 	.4byte	.Ldebug_info0
-	.4byte	0xa86
-	.4byte	0x76d
+	.4byte	0xa91
+	.4byte	0x778
 	.asciz	"pxPortInitialiseStack"
-	.4byte	0x829
+	.4byte	0x834
 	.asciz	"xPortStartScheduler"
-	.4byte	0x851
+	.4byte	0x85c
 	.asciz	"vPortEndScheduler"
-	.4byte	0x873
+	.4byte	0x87e
 	.asciz	"Config_T1"
-	.4byte	0x88d
+	.4byte	0x898
 	.asciz	"vApplicationSetupTickTimerInterrupt"
-	.4byte	0x8c1
+	.4byte	0x8cc
 	.asciz	"vPortEnterCritical"
-	.4byte	0x8e4
+	.4byte	0x8ef
 	.asciz	"vPortExitCritical"
-	.4byte	0x906
+	.4byte	0x911
 	.asciz	"_T1Interrupt"
-	.4byte	0xa73
+	.4byte	0xa7e
 	.asciz	"uxCriticalNesting"
 	.4byte	0x0
 	.section	.debug_pubtypes,info
 	.4byte	0xec
 	.2byte	0x2
 	.4byte	.Ldebug_info0
-	.4byte	0xa86
-	.4byte	0x13f
+	.4byte	0xa91
+	.4byte	0x14a
 	.asciz	"uint16_t"
-	.4byte	0x29f
+	.4byte	0x2aa
 	.asciz	"tagSRBITS"
-	.4byte	0x2ba
+	.4byte	0x2c5
 	.asciz	"SRBITS"
-	.4byte	0x2c8
+	.4byte	0x2d3
 	.asciz	"tagT1CONBITS"
-	.4byte	0x3a3
+	.4byte	0x3ae
 	.asciz	"T1CONBITS"
-	.4byte	0x3b5
+	.4byte	0x3c0
 	.asciz	"tagIFS0BITS"
-	.4byte	0x507
+	.4byte	0x512
 	.asciz	"IFS0BITS"
-	.4byte	0x518
+	.4byte	0x523
 	.asciz	"tagIEC0BITS"
-	.4byte	0x66a
+	.4byte	0x675
 	.asciz	"IEC0BITS"
-	.4byte	0x67b
+	.4byte	0x686
 	.asciz	"tagIPC0BITS"
-	.4byte	0x6e1
+	.4byte	0x6ec
 	.asciz	"IPC0BITS"
-	.4byte	0x6fa
+	.4byte	0x705
 	.asciz	"TaskFunction_t"
-	.4byte	0x722
+	.4byte	0x72d
 	.asciz	"StackType_t"
-	.4byte	0x735
+	.4byte	0x740
 	.asciz	"BaseType_t"
-	.4byte	0x754
+	.4byte	0x75f
 	.asciz	"UBaseType_t"
 	.4byte	0x0
 	.section	.debug_aranges,info

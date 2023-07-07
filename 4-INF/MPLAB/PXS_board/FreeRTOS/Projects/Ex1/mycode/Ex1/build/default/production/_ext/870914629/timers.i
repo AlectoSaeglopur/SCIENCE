@@ -1,5 +1,5 @@
 # 1 "../../source/timers.c"
-# 1 "C:\\Users\\Filippo\\Desktop\\Projects\\Ex1\\mycode\\Ex1"
+# 1 "C:\\Users\\Filippo\\Downloads\\FreeRTOS\\Projects\\Ex1\\mycode\\Ex1"
 # 1 "<built-in>"
 # 1 "<command-line>"
 # 1 "../../source/timers.c"
@@ -22077,7 +22077,7 @@ extern int _program_inactive_slave(int slave_number, int verify,
 extern void _start_slave(void);
 extern void _stop_slave(void);
 # 42 "../system.h" 2
-# 59 "../system.h"
+# 56 "../system.h"
 void Init_Clock( void );
 void Init_GI( void );
 void Soft_Reset( void );
@@ -22095,6 +22095,7 @@ uint32_t Get_CCT8( void );
 void Init_ADC( void );
 void Disable_SELF_TEST( void );
 void Init_DAC( void );
+void Init_INT1( void );
 # 7 "../FreeRTOSConfig.h" 2
 # 99 "../../source/include/FreeRTOS.h" 2
 
@@ -22223,7 +22224,7 @@ typedef struct xSTATIC_TCB
   uint8_t ucDummy19;
 
 
-
+  uint8_t uxDummy20;
 
 
 } StaticTask_t;
@@ -22241,7 +22242,16 @@ typedef struct xSTATIC_QUEUE
  StaticList_t xDummy3[ 2 ];
  UBaseType_t uxDummy4[ 3 ];
  uint8_t ucDummy5[ 2 ];
-# 997 "../../source/include/FreeRTOS.h"
+
+
+  uint8_t ucDummy6;
+
+
+
+
+
+
+
   UBaseType_t uxDummy8;
   uint8_t ucDummy9;
 
@@ -22259,7 +22269,7 @@ typedef struct xSTATIC_EVENT_GROUP
 
 
 
-
+   uint8_t ucDummy4;
 
 
 } StaticEventGroup_t;
@@ -22276,7 +22286,7 @@ typedef struct xSTATIC_TIMER
 
 
 
-
+  uint8_t ucDummy7;
 
 
 } StaticTimer_t;
@@ -22420,6 +22430,14 @@ typedef enum
        void * const pvParameters,
        UBaseType_t uxPriority,
        TaskHandle_t * const pxCreatedTask ) ;
+# 476 "../../source/include/task.h"
+ TaskHandle_t xTaskCreateStatic( TaskFunction_t pxTaskCode,
+         const char * const pcName,
+         const uint32_t ulStackDepth,
+         void * const pvParameters,
+         UBaseType_t uxPriority,
+         StackType_t * const puxStackBuffer,
+         StaticTask_t * const pxTaskBuffer ) ;
 # 602 "../../source/include/task.h"
 void vTaskAllocateMPURegions( TaskHandle_t xTask, const MemoryRegion_t * const pxRegions ) ;
 # 643 "../../source/include/task.h"
@@ -22641,6 +22659,8 @@ BaseType_t xQueueTakeMutexRecursive( QueueHandle_t xMutex, TickType_t xTicksToWa
 BaseType_t xQueueGiveMutexRecursive( QueueHandle_t pxMutex ) ;
 # 1639 "../../source/include/queue.h"
  QueueHandle_t xQueueGenericCreate( const UBaseType_t uxQueueLength, const UBaseType_t uxItemSize, const uint8_t ucQueueType ) ;
+# 1648 "../../source/include/queue.h"
+ QueueHandle_t xQueueGenericCreateStatic( const UBaseType_t uxQueueLength, const UBaseType_t uxItemSize, uint8_t *pucQueueStorage, StaticQueue_t *pxStaticQueue, const uint8_t ucQueueType ) ;
 # 1699 "../../source/include/queue.h"
 QueueSetHandle_t xQueueCreateSet( const UBaseType_t uxEventQueueLength ) ;
 # 1723 "../../source/include/queue.h"
@@ -22685,6 +22705,13 @@ typedef void (*PendedFunction_t)( void *, uint32_t );
         const UBaseType_t uxAutoReload,
         void * const pvTimerID,
         TimerCallbackFunction_t pxCallbackFunction ) ;
+# 399 "../../source/include/timers.h"
+ TimerHandle_t xTimerCreateStatic( const char * const pcTimerName,
+          const TickType_t xTimerPeriodInTicks,
+          const UBaseType_t uxAutoReload,
+          void * const pvTimerID,
+          TimerCallbackFunction_t pxCallbackFunction,
+          StaticTimer_t *pxTimerBuffer ) ;
 # 427 "../../source/include/timers.h"
 void *pvTimerGetTimerID( const TimerHandle_t xTimer ) ;
 # 448 "../../source/include/timers.h"
@@ -22731,7 +22758,7 @@ typedef struct tmrTimerControl
 
 
 
-
+  uint8_t ucStaticallyAllocated;
 
 } xTIMER;
 
@@ -22789,7 +22816,15 @@ typedef struct tmrTimerQueueMessage
 
  static QueueHandle_t xTimerQueue = 0;
  static TaskHandle_t xTimerTaskHandle = 0;
-# 194 "../../source/timers.c"
+# 186 "../../source/timers.c"
+ extern void vApplicationGetTimerTaskMemory( StaticTask_t **ppxTimerTaskTCBBuffer, StackType_t **ppxTimerTaskStackBuffer, uint32_t *pulTimerTaskStackSize );
+
+
+
+
+
+
+
 static void prvCheckForValidListAndQueue( void ) ;
 
 
@@ -22867,16 +22902,27 @@ BaseType_t xReturn = ( ( ( BaseType_t ) 0 ) );
 
  if( xTimerQueue != 0 )
  {
-# 292 "../../source/timers.c"
-  {
-   xReturn = xTaskCreate( prvTimerTask,
-         "Tmr Svc",
-         (9*( uint16_t ) 20),
-         0,
-         ( ( UBaseType_t ) 4 ) | ( ( UBaseType_t ) 0x00 ),
-         &xTimerTaskHandle );
-  }
 
+  {
+   StaticTask_t *pxTimerTaskTCBBuffer = 0;
+   StackType_t *pxTimerTaskStackBuffer = 0;
+   uint32_t ulTimerTaskStackSize;
+
+   vApplicationGetTimerTaskMemory( &pxTimerTaskTCBBuffer, &pxTimerTaskStackBuffer, &ulTimerTaskStackSize );
+   xTimerTaskHandle = xTaskCreateStatic( prvTimerTask,
+             "Tmr Svc",
+             ulTimerTaskStackSize,
+             0,
+             ( ( UBaseType_t ) 4 ) | ( ( UBaseType_t ) 0x00 ),
+             pxTimerTaskStackBuffer,
+             pxTimerTaskTCBBuffer );
+
+   if( xTimerTaskHandle != 0 )
+   {
+    xReturn = ( ( ( BaseType_t ) 1 ) );
+   }
+  }
+# 301 "../../source/timers.c"
  }
  else
  {
@@ -22903,12 +22949,56 @@ BaseType_t xReturn = ( ( ( BaseType_t ) 0 ) );
   if( pxNewTimer != 0 )
   {
    prvInitialiseNewTimer( pcTimerName, xTimerPeriodInTicks, uxAutoReload, pvTimerID, pxCallbackFunction, pxNewTimer );
-# 336 "../../source/timers.c"
+
+
+   {
+
+
+
+    pxNewTimer->ucStaticallyAllocated = ( ( BaseType_t ) 0 );
+   }
+
   }
 
   return pxNewTimer;
  }
-# 388 "../../source/timers.c"
+
+
+
+
+
+
+ TimerHandle_t xTimerCreateStatic( const char * const pcTimerName,
+          const TickType_t xTimerPeriodInTicks,
+          const UBaseType_t uxAutoReload,
+          void * const pvTimerID,
+          TimerCallbackFunction_t pxCallbackFunction,
+          StaticTimer_t *pxTimerBuffer )
+ {
+ Timer_t *pxNewTimer;
+# 366 "../../source/timers.c"
+  ;
+  pxNewTimer = ( Timer_t * ) pxTimerBuffer;
+
+  if( pxNewTimer != 0 )
+  {
+   prvInitialiseNewTimer( pcTimerName, xTimerPeriodInTicks, uxAutoReload, pvTimerID, pxCallbackFunction, pxNewTimer );
+
+
+   {
+
+
+    pxNewTimer->ucStaticallyAllocated = ( ( BaseType_t ) 1 );
+   }
+
+  }
+
+  return pxNewTimer;
+ }
+
+
+
+
 static void prvInitialiseNewTimer( const char * const pcTimerName,
          const TickType_t xTimerPeriodInTicks,
          const UBaseType_t uxAutoReload,
@@ -23315,16 +23405,21 @@ TickType_t xTimeNow;
      break;
 
     case ( ( BaseType_t ) 5 ) :
-
-
-
-
+# 846 "../../source/timers.c"
      {
 
 
-      vPortFree( pxTimer );
+
+      if( pxTimer->ucStaticallyAllocated == ( uint8_t ) ( ( BaseType_t ) 0 ) )
+      {
+       vPortFree( pxTimer );
+      }
+      else
+      {
+       ;
+      }
      }
-# 860 "../../source/timers.c"
+
      break;
 
     default :
@@ -23408,9 +23503,15 @@ static void prvCheckForValidListAndQueue( void )
    vListInitialise( &xActiveTimerList2 );
    pxCurrentTimerList = &xActiveTimerList1;
    pxOverflowTimerList = &xActiveTimerList2;
-# 954 "../../source/timers.c"
+
+
    {
-    xTimerQueue = xQueueGenericCreate( ( ( UBaseType_t ) 20 ), ( sizeof( DaemonTaskMessage_t ) ), ( ( ( uint8_t ) 0U ) ) );
+
+
+    static StaticQueue_t xStaticTimerQueue;
+    static uint8_t ucStaticTimerQueueStorage[ 20 * sizeof( DaemonTaskMessage_t ) ];
+
+    xTimerQueue = xQueueGenericCreateStatic( ( ( UBaseType_t ) 20 ), ( sizeof( DaemonTaskMessage_t ) ), ( &( ucStaticTimerQueueStorage[ 0 ] ) ), ( &xStaticTimerQueue ), ( ( ( uint8_t ) 0U ) ) );
    }
 # 971 "../../source/timers.c"
   }

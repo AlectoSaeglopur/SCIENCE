@@ -1,4 +1,4 @@
-	.file "C:\\Users\\Filippo\\Desktop\\Projects\\Ex1\\mycode\\Ex1\\..\\..\\source\\portable\\MemMang\\heap_4.c"
+	.file "C:\\Users\\Filippo\\Downloads\\FreeRTOS\\Projects\\Ex1\\mycode\\Ex1\\..\\..\\source\\portable\\MemMang\\heap_4.c"
 	.section	.debug_abbrev,info
 .Ldebug_abbrev0:
 	.section	.debug_info,info
@@ -669,7 +669,7 @@ _prvInsertBlockIntoFreeList:
 	.file 3 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdlib.h"
 	.file 4 "c:\\program files\\microchip\\xc16\\v1.61\\bin\\bin\\../..\\include\\lega-c/stdint.h"
 	.section	.debug_info,info
-	.4byte	0x526
+	.4byte	0x531
 	.2byte	0x2
 	.4byte	.Ldebug_abbrev0
 	.byte	0x4
@@ -677,7 +677,7 @@ _prvInsertBlockIntoFreeList:
 	.asciz	"GNU C 4.5.1 (XC16, Microchip v1.61) (B) Build date: Oct 23 2020"
 	.byte	0x1
 	.asciz	"../../source/portable/MemMang/heap_4.c"
-	.asciz	"C:\\Users\\Filippo\\Desktop\\Projects\\Ex1\\mycode\\Ex1"
+	.asciz	"C:\\Users\\Filippo\\Downloads\\FreeRTOS\\Projects\\Ex1\\mycode\\Ex1"
 	.4byte	.Ltext0
 	.4byte	.Letext0
 	.4byte	.Ldebug_line0
@@ -707,7 +707,7 @@ _prvInsertBlockIntoFreeList:
 	.asciz	"_Sizet"
 	.byte	0x2
 	.byte	0xa2
-	.4byte	0xf4
+	.4byte	0xff
 	.uleb128 0x3
 	.byte	0x4
 	.byte	0x5
@@ -716,7 +716,7 @@ _prvInsertBlockIntoFreeList:
 	.asciz	"size_t"
 	.byte	0x3
 	.byte	0x24
-	.4byte	0x10b
+	.4byte	0x116
 	.uleb128 0x3
 	.byte	0x1
 	.byte	0x6
@@ -725,7 +725,7 @@ _prvInsertBlockIntoFreeList:
 	.asciz	"uint8_t"
 	.byte	0x4
 	.byte	0x2b
-	.4byte	0x151
+	.4byte	0x15c
 	.uleb128 0x3
 	.byte	0x1
 	.byte	0x8
@@ -744,18 +744,18 @@ _prvInsertBlockIntoFreeList:
 	.asciz	"short int"
 	.uleb128 0x5
 	.byte	0x2
-	.4byte	0x142
+	.4byte	0x14d
 	.uleb128 0x6
 	.asciz	"A_BLOCK_LINK"
 	.byte	0x4
 	.byte	0x1
 	.byte	0x6f
-	.4byte	0x1d7
+	.4byte	0x1e2
 	.uleb128 0x7
 	.asciz	"pxNextFreeBlock"
 	.byte	0x1
 	.byte	0x71
-	.4byte	0x1d7
+	.4byte	0x1e2
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -763,36 +763,36 @@ _prvInsertBlockIntoFreeList:
 	.asciz	"xBlockSize"
 	.byte	0x1
 	.byte	0x72
-	.4byte	0x125
+	.4byte	0x130
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x2
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.4byte	0x192
+	.4byte	0x19d
 	.uleb128 0x4
 	.asciz	"BlockLink_t"
 	.byte	0x1
 	.byte	0x73
-	.4byte	0x192
+	.4byte	0x19d
 	.uleb128 0x8
 	.byte	0x1
 	.asciz	"pvPortMalloc"
 	.byte	0x1
 	.byte	0x9b
 	.byte	0x1
-	.4byte	0xb1
+	.4byte	0xbc
 	.4byte	.LFB0
 	.4byte	.LFE0
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x283
+	.4byte	0x28e
 	.uleb128 0x9
 	.asciz	"xWantedSize"
 	.byte	0x1
 	.byte	0x9b
-	.4byte	0x125
+	.4byte	0x130
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 8
@@ -800,7 +800,7 @@ _prvInsertBlockIntoFreeList:
 	.asciz	"pxBlock"
 	.byte	0x1
 	.byte	0x9d
-	.4byte	0x283
+	.4byte	0x28e
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 0
@@ -808,7 +808,7 @@ _prvInsertBlockIntoFreeList:
 	.asciz	"pxPreviousBlock"
 	.byte	0x1
 	.byte	0x9d
-	.4byte	0x283
+	.4byte	0x28e
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 2
@@ -816,7 +816,7 @@ _prvInsertBlockIntoFreeList:
 	.asciz	"pxNewBlockLink"
 	.byte	0x1
 	.byte	0x9d
-	.4byte	0x283
+	.4byte	0x28e
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 6
@@ -824,14 +824,14 @@ _prvInsertBlockIntoFreeList:
 	.asciz	"pvReturn"
 	.byte	0x1
 	.byte	0x9e
-	.4byte	0xb1
+	.4byte	0xbc
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 4
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.4byte	0x1dd
+	.4byte	0x1e8
 	.uleb128 0xb
 	.byte	0x1
 	.asciz	"vPortFree"
@@ -842,12 +842,12 @@ _prvInsertBlockIntoFreeList:
 	.4byte	.LFE1
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x2d7
+	.4byte	0x2e2
 	.uleb128 0xc
 	.asciz	"pv"
 	.byte	0x1
 	.2byte	0x131
-	.4byte	0xb1
+	.4byte	0xbc
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 4
@@ -855,7 +855,7 @@ _prvInsertBlockIntoFreeList:
 	.asciz	"puc"
 	.byte	0x1
 	.2byte	0x133
-	.4byte	0x18c
+	.4byte	0x197
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 0
@@ -863,7 +863,7 @@ _prvInsertBlockIntoFreeList:
 	.asciz	"pxLink"
 	.byte	0x1
 	.2byte	0x134
-	.4byte	0x283
+	.4byte	0x28e
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 2
@@ -874,7 +874,7 @@ _prvInsertBlockIntoFreeList:
 	.byte	0x1
 	.2byte	0x161
 	.byte	0x1
-	.4byte	0x125
+	.4byte	0x130
 	.4byte	.LFB2
 	.4byte	.LFE2
 	.byte	0x1
@@ -885,7 +885,7 @@ _prvInsertBlockIntoFreeList:
 	.byte	0x1
 	.2byte	0x167
 	.byte	0x1
-	.4byte	0x125
+	.4byte	0x130
 	.4byte	.LFB3
 	.4byte	.LFE3
 	.byte	0x1
@@ -909,12 +909,12 @@ _prvInsertBlockIntoFreeList:
 	.4byte	.LFE5
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x3df
+	.4byte	0x3ea
 	.uleb128 0xd
 	.asciz	"pxFirstFreeBlock"
 	.byte	0x1
 	.2byte	0x175
-	.4byte	0x283
+	.4byte	0x28e
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 6
@@ -922,7 +922,7 @@ _prvInsertBlockIntoFreeList:
 	.asciz	"pucAlignedHeap"
 	.byte	0x1
 	.2byte	0x176
-	.4byte	0x18c
+	.4byte	0x197
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 4
@@ -930,7 +930,7 @@ _prvInsertBlockIntoFreeList:
 	.asciz	"uxAddress"
 	.byte	0x1
 	.2byte	0x177
-	.4byte	0x125
+	.4byte	0x130
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 0
@@ -938,7 +938,7 @@ _prvInsertBlockIntoFreeList:
 	.asciz	"xTotalHeapSize"
 	.byte	0x1
 	.2byte	0x178
-	.4byte	0x125
+	.4byte	0x130
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 2
@@ -952,12 +952,12 @@ _prvInsertBlockIntoFreeList:
 	.4byte	.LFE6
 	.byte	0x1
 	.byte	0x5e
-	.4byte	0x44e
+	.4byte	0x459
 	.uleb128 0xc
 	.asciz	"pxBlockToInsert"
 	.byte	0x1
 	.2byte	0x1a3
-	.4byte	0x283
+	.4byte	0x28e
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 4
@@ -965,7 +965,7 @@ _prvInsertBlockIntoFreeList:
 	.asciz	"pxIterator"
 	.byte	0x1
 	.2byte	0x1a5
-	.4byte	0x283
+	.4byte	0x28e
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 0
@@ -973,23 +973,23 @@ _prvInsertBlockIntoFreeList:
 	.asciz	"puc"
 	.byte	0x1
 	.2byte	0x1a6
-	.4byte	0x18c
+	.4byte	0x197
 	.byte	0x2
 	.byte	0x7e
 	.sleb128 2
 	.byte	0x0
 	.uleb128 0x11
-	.4byte	0x142
-	.4byte	0x45f
+	.4byte	0x14d
+	.4byte	0x46a
 	.uleb128 0x12
-	.4byte	0xf4
+	.4byte	0xff
 	.2byte	0x13ff
 	.byte	0x0
 	.uleb128 0xa
 	.asciz	"ucHeap"
 	.byte	0x1
 	.byte	0x6a
-	.4byte	0x44e
+	.4byte	0x459
 	.byte	0x5
 	.byte	0x3
 	.4byte	_ucHeap
@@ -997,17 +997,17 @@ _prvInsertBlockIntoFreeList:
 	.asciz	"xHeapStructSize"
 	.byte	0x1
 	.byte	0x89
-	.4byte	0x490
+	.4byte	0x49b
 	.byte	0x5
 	.byte	0x3
 	.4byte	_xHeapStructSize
 	.uleb128 0x13
-	.4byte	0x125
+	.4byte	0x130
 	.uleb128 0xa
 	.asciz	"xStart"
 	.byte	0x1
 	.byte	0x8c
-	.4byte	0x1dd
+	.4byte	0x1e8
 	.byte	0x5
 	.byte	0x3
 	.4byte	_xStart
@@ -1015,7 +1015,7 @@ _prvInsertBlockIntoFreeList:
 	.asciz	"pxEnd"
 	.byte	0x1
 	.byte	0x8c
-	.4byte	0x283
+	.4byte	0x28e
 	.byte	0x5
 	.byte	0x3
 	.4byte	_pxEnd
@@ -1023,7 +1023,7 @@ _prvInsertBlockIntoFreeList:
 	.asciz	"xFreeBytesRemaining"
 	.byte	0x1
 	.byte	0x90
-	.4byte	0x125
+	.4byte	0x130
 	.byte	0x5
 	.byte	0x3
 	.4byte	_xFreeBytesRemaining
@@ -1031,7 +1031,7 @@ _prvInsertBlockIntoFreeList:
 	.asciz	"xMinimumEverFreeBytesRemaining"
 	.byte	0x1
 	.byte	0x91
-	.4byte	0x125
+	.4byte	0x130
 	.byte	0x5
 	.byte	0x3
 	.4byte	_xMinimumEverFreeBytesRemaining
@@ -1039,7 +1039,7 @@ _prvInsertBlockIntoFreeList:
 	.asciz	"xBlockAllocatedBit"
 	.byte	0x1
 	.byte	0x97
-	.4byte	0x125
+	.4byte	0x130
 	.byte	0x5
 	.byte	0x3
 	.4byte	_xBlockAllocatedBit
@@ -1337,32 +1337,32 @@ _prvInsertBlockIntoFreeList:
 	.4byte	0x84
 	.2byte	0x2
 	.4byte	.Ldebug_info0
-	.4byte	0x52a
-	.4byte	0x1f0
+	.4byte	0x535
+	.4byte	0x1fb
 	.asciz	"pvPortMalloc"
-	.4byte	0x289
+	.4byte	0x294
 	.asciz	"vPortFree"
-	.4byte	0x2d7
+	.4byte	0x2e2
 	.asciz	"xPortGetFreeHeapSize"
-	.4byte	0x300
+	.4byte	0x30b
 	.asciz	"xPortGetMinimumEverFreeHeapSize"
-	.4byte	0x334
+	.4byte	0x33f
 	.asciz	"vPortInitialiseBlocks"
 	.4byte	0x0
 	.section	.debug_pubtypes,info
 	.4byte	0x51
 	.2byte	0x2
 	.4byte	.Ldebug_info0
-	.4byte	0x52a
-	.4byte	0x10b
+	.4byte	0x535
+	.4byte	0x116
 	.asciz	"_Sizet"
-	.4byte	0x125
+	.4byte	0x130
 	.asciz	"size_t"
-	.4byte	0x142
+	.4byte	0x14d
 	.asciz	"uint8_t"
-	.4byte	0x192
+	.4byte	0x19d
 	.asciz	"A_BLOCK_LINK"
-	.4byte	0x1dd
+	.4byte	0x1e8
 	.asciz	"BlockLink_t"
 	.4byte	0x0
 	.section	.debug_aranges,info

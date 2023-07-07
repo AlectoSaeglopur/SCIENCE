@@ -1,5 +1,5 @@
 # 1 "../../source/queue.c"
-# 1 "C:\\Users\\Filippo\\Desktop\\Projects\\Ex1\\mycode\\Ex1"
+# 1 "C:\\Users\\Filippo\\Downloads\\FreeRTOS\\Projects\\Ex1\\mycode\\Ex1"
 # 1 "<built-in>"
 # 1 "<command-line>"
 # 1 "../../source/queue.c"
@@ -22079,7 +22079,7 @@ extern int _program_inactive_slave(int slave_number, int verify,
 extern void _start_slave(void);
 extern void _stop_slave(void);
 # 42 "../system.h" 2
-# 59 "../system.h"
+# 56 "../system.h"
 void Init_Clock( void );
 void Init_GI( void );
 void Soft_Reset( void );
@@ -22097,6 +22097,7 @@ uint32_t Get_CCT8( void );
 void Init_ADC( void );
 void Disable_SELF_TEST( void );
 void Init_DAC( void );
+void Init_INT1( void );
 # 7 "../FreeRTOSConfig.h" 2
 # 99 "../../source/include/FreeRTOS.h" 2
 
@@ -22225,7 +22226,7 @@ typedef struct xSTATIC_TCB
   uint8_t ucDummy19;
 
 
-
+  uint8_t uxDummy20;
 
 
 } StaticTask_t;
@@ -22243,7 +22244,16 @@ typedef struct xSTATIC_QUEUE
  StaticList_t xDummy3[ 2 ];
  UBaseType_t uxDummy4[ 3 ];
  uint8_t ucDummy5[ 2 ];
-# 997 "../../source/include/FreeRTOS.h"
+
+
+  uint8_t ucDummy6;
+
+
+
+
+
+
+
   UBaseType_t uxDummy8;
   uint8_t ucDummy9;
 
@@ -22261,7 +22271,7 @@ typedef struct xSTATIC_EVENT_GROUP
 
 
 
-
+   uint8_t ucDummy4;
 
 
 } StaticEventGroup_t;
@@ -22278,7 +22288,7 @@ typedef struct xSTATIC_TIMER
 
 
 
-
+  uint8_t ucDummy7;
 
 
 } StaticTimer_t;
@@ -22422,6 +22432,14 @@ typedef enum
        void * const pvParameters,
        UBaseType_t uxPriority,
        TaskHandle_t * const pxCreatedTask ) ;
+# 476 "../../source/include/task.h"
+ TaskHandle_t xTaskCreateStatic( TaskFunction_t pxTaskCode,
+         const char * const pcName,
+         const uint32_t ulStackDepth,
+         void * const pvParameters,
+         UBaseType_t uxPriority,
+         StackType_t * const puxStackBuffer,
+         StaticTask_t * const pxTaskBuffer ) ;
 # 602 "../../source/include/task.h"
 void vTaskAllocateMPURegions( TaskHandle_t xTask, const MemoryRegion_t * const pxRegions ) ;
 # 643 "../../source/include/task.h"
@@ -22643,6 +22661,8 @@ BaseType_t xQueueTakeMutexRecursive( QueueHandle_t xMutex, TickType_t xTicksToWa
 BaseType_t xQueueGiveMutexRecursive( QueueHandle_t pxMutex ) ;
 # 1639 "../../source/include/queue.h"
  QueueHandle_t xQueueGenericCreate( const UBaseType_t uxQueueLength, const UBaseType_t uxItemSize, const uint8_t ucQueueType ) ;
+# 1648 "../../source/include/queue.h"
+ QueueHandle_t xQueueGenericCreateStatic( const UBaseType_t uxQueueLength, const UBaseType_t uxItemSize, uint8_t *pucQueueStorage, StaticQueue_t *pxStaticQueue, const uint8_t ucQueueType ) ;
 # 1699 "../../source/include/queue.h"
 QueueSetHandle_t xQueueCreateSet( const UBaseType_t uxEventQueueLength ) ;
 # 1723 "../../source/include/queue.h"
@@ -22716,7 +22736,16 @@ typedef struct QueueDefinition
 
  volatile int8_t cRxLock;
  volatile int8_t cTxLock;
-# 161 "../../source/queue.c"
+
+
+  uint8_t ucStaticallyAllocated;
+
+
+
+
+
+
+
   UBaseType_t uxQueueNumber;
   uint8_t ucQueueType;
 
@@ -22815,7 +22844,49 @@ Queue_t * const pxQueue = ( Queue_t * ) xQueue;
 
  return ( ( ( BaseType_t ) 1 ) );
 }
-# 386 "../../source/queue.c"
+
+
+
+
+ QueueHandle_t xQueueGenericCreateStatic( const UBaseType_t uxQueueLength, const UBaseType_t uxItemSize, uint8_t *pucQueueStorage, StaticQueue_t *pxStaticQueue, const uint8_t ucQueueType )
+ {
+ Queue_t *pxNewQueue;
+
+  ;
+
+
+
+  ;
+
+
+
+  ;
+  ;
+# 362 "../../source/queue.c"
+  pxNewQueue = ( Queue_t * ) pxStaticQueue;
+
+  if( pxNewQueue != 0 )
+  {
+
+   {
+
+
+
+    pxNewQueue->ucStaticallyAllocated = ( ( BaseType_t ) 1 );
+   }
+
+
+   prvInitialiseNewQueue( uxQueueLength, uxItemSize, pucQueueStorage, ucQueueType, pxNewQueue );
+  }
+
+  return pxNewQueue;
+ }
+
+
+
+
+
+
  QueueHandle_t xQueueGenericCreate( const UBaseType_t uxQueueLength, const UBaseType_t uxItemSize, const uint8_t ucQueueType )
  {
  Queue_t *pxNewQueue;
@@ -22843,7 +22914,16 @@ Queue_t * const pxQueue = ( Queue_t * ) xQueue;
 
 
    pucQueueStorage = ( ( uint8_t * ) pxNewQueue ) + sizeof( Queue_t );
-# 423 "../../source/queue.c"
+
+
+   {
+
+
+
+    pxNewQueue->ucStaticallyAllocated = ( ( BaseType_t ) 0 );
+   }
+
+
    prvInitialiseNewQueue( uxQueueLength, uxItemSize, pucQueueStorage, ucQueueType, pxNewQueue );
   }
 
@@ -22930,7 +23010,55 @@ static void prvInitialiseNewQueue( const UBaseType_t uxQueueLength, const UBaseT
 
   return pxNewQueue;
  }
-# 697 "../../source/queue.c"
+
+
+
+
+
+
+ QueueHandle_t xQueueCreateMutexStatic( const uint8_t ucQueueType, StaticQueue_t *pxStaticQueue )
+ {
+ Queue_t *pxNewQueue;
+ const UBaseType_t uxMutexLength = ( UBaseType_t ) 1, uxMutexSize = ( UBaseType_t ) 0;
+
+
+
+  ( void ) ucQueueType;
+
+  pxNewQueue = ( Queue_t * ) xQueueGenericCreateStatic( uxMutexLength, uxMutexSize, 0, pxStaticQueue, ucQueueType );
+  prvInitialiseMutex( pxNewQueue );
+
+  return pxNewQueue;
+ }
+# 669 "../../source/queue.c"
+ QueueHandle_t xQueueCreateCountingSemaphoreStatic( const UBaseType_t uxMaxCount, const UBaseType_t uxInitialCount, StaticQueue_t *pxStaticQueue )
+ {
+ QueueHandle_t xHandle;
+
+  ;
+  ;
+
+  xHandle = xQueueGenericCreateStatic( uxMaxCount, ( ( UBaseType_t ) 0 ), 0, pxStaticQueue, ( ( uint8_t ) 2U ) );
+
+  if( xHandle != 0 )
+  {
+   ( ( Queue_t * ) xHandle )->uxMessagesWaiting = uxInitialCount;
+
+   ;
+  }
+  else
+  {
+   ;
+  }
+
+  return xHandle;
+ }
+
+
+
+
+
+
  QueueHandle_t xQueueCreateCountingSemaphore( const UBaseType_t uxMaxCount, const UBaseType_t uxInitialCount )
  {
  QueueHandle_t xHandle;
@@ -23657,13 +23785,26 @@ Queue_t * const pxQueue = ( Queue_t * ) xQueue;
 
  ;
  ;
-# 1639 "../../source/queue.c"
+# 1645 "../../source/queue.c"
  {
 
 
-  vPortFree( pxQueue );
+  if( pxQueue->ucStaticallyAllocated == ( uint8_t ) ( ( BaseType_t ) 0 ) )
+  {
+   vPortFree( pxQueue );
+  }
+  else
+  {
+   ;
+  }
  }
-# 1664 "../../source/queue.c"
+
+
+
+
+
+
+
 }
 
 
