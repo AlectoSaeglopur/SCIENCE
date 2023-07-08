@@ -120,8 +120,11 @@ void vApplicationIdleHook( void ){
 //    - 3. Create task for filtering samples from ADC to DAC. Samples are forwarded through a queue from ADC ISR to DAC task. The DAC task receives the
 //         samples and low-pass filters them through an averaging-window buffer. Moreover, INT1 EXTI is used to modify the averaging-window buffer length
 //         between x2 possible values, resulting in a different filtering capability (the longer this length, the more filtered will be the DAC output).
-//         Test setup (assuming ADC and DAC tasks run every 5 ms):
-//           * Signal generator providing a square wave at 10 Hz between 0 and 3.3 V with 50% duty, whose output is connected to pin "oVI1";
-//           * Pull-up network (e.g. 40k Ohm resistor) for button generating EXTI, connected to pin "oEXTR5";
-//           * Oscilloscope for comparing ADC input with DAC output.
 //    - 4. Create task for enabling and periodically kicking watchdog.
+
+// 8. Test setup:
+//    - DSD-Tech USB-to-TTL serial converter to supply PXS board (3.3V-VCC and GND) and to received printf messages (RX);
+//    - PicKit4 to program dsPIC33CH MCU;
+//    - Signal generator providing a square wave at 10 Hz between 0 and 3.3 V with 50% duty, whose output is connected to pin "oVI1" (assuming ADC and DAC tasks run every 5 ms);
+//    - Pull-up network (e.g. 40k Ohm resistor) for button generating EXTI, connected to pin "oEXTR5";
+//    - Oscilloscope for comparing ADC input with DAC output.
