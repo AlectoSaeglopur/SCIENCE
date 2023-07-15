@@ -1,0 +1,42 @@
+Enter value = 78
+
+a =
+
+  1×2 <a href="matlab:helpPopup uint8" style="font-weight:bold">uint8</a> row vector
+
+   13   59
+
+
+b =
+
+  <a href="matlab:helpPopup single" style="font-weight:bold">single</a>
+
+    1.2340
+
+
+c =
+
+    '2'
+
+
+d = 
+
+    "1.234"
+
+
+e =
+
+  <a href="matlab:helpPopup logical" style="font-weight:bold">logical</a>
+
+   0
+
+  Name      Size            Bytes  Class      Attributes
+
+  TD        1x1               182  string               
+  a         1x2                 2  uint8                
+  b         1x1                 4  single               
+  c         1x1                 2  char                 
+  d         1x1               150  string               
+  e         1x1                 1  logical              
+  x         1x1                 8  double               
+
