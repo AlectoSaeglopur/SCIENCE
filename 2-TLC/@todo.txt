@@ -9,15 +9,9 @@
 
 * develop DPSK encoding and non-coherent decoding (see PskChain.m)
 
-* IIR filtering
-
-* Butterworth & Chebyshev filters
-
-* blind equalizer
-
 * development and BER estimation for ASK (and overall review of AM/ASK script)
 
-* FFT algorithm (for every signal length, not just power of 2)
+* FFT algorithm (for every signal length, not just power of 2, i.e. padding zeros)
 
 * implement LDPC and Golay coding
 

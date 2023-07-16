@@ -1,4 +1,6 @@
 
+%% CLASS RELATED TO EX3
+
 %% Define class (NB: shall have the same name of the file)
 classdef class_wave
 

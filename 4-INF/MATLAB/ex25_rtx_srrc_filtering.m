@@ -43,10 +43,12 @@ SRRC_RX_symb = SRRC_FILTER_RX([channel_symb; zeros(span*sps/2,1)]);
 
 t1 = Tscale/SYR*(0:Nbits/log2(M)-1)+SRRC_delay*Tscale/SAR1;
 t2 = Tscale/SAR1*(0:length(SRRC_RX_symb)-1);
-figure; hold on
+figure; 
+box on; hold on
 plot(t2,real(SRRC_RX_symb),'b',t2,imag(SRRC_RX_symb),'r')
 stem(t1,real(mod_symb),'b-.x'); stem(t1,imag(mod_symb),'r-.x')
 xlabel('Time [ms]'); ylabel('Amplitude [V]')
 legend('RX samples (I)','RX samples (Q)', ...
 'TX symbols (I)','TX symbols (Q)','Location','NW')
-title('Sampling of received signal after SRRC filtering') 
+title('Sampling of received signal after SRRC filtering')
+grid on

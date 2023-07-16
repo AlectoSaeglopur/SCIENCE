@@ -21,3 +21,4 @@ plot(Time2,Sgn2,'r.-.')
 legend('original','resampled')
 axis([-T/10 11/10*T 1.1*[-A A]])
 hold off
+grid on

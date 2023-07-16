@@ -175,7 +175,8 @@ fprintf(" - DECODED MESSAGE : %s\n",Out_Msg);
 % legend('In-phase','Quadrature','Location','NW')
 % title('8 - Signal in RX after SRRC filtering')
 % 
-figure; hold on
+figure;
+box on; hold on
 Time = 1:length(RX_symb_downsamp);
 plot(Time,real(RX_symb_downsamp),'bo',Time,imag(RX_symb_downsamp),'ro')
 stem(Time,real(mod_symb(1+Ndummy_I:end-Ndummy_F)),'bx','LineStyle','-.')
@@ -183,6 +184,7 @@ stem(Time,imag(mod_symb(1+Ndummy_I:end-Ndummy_F)),'rx','LineStyle','-.')
 title('9 - Sampling of the received waveform'); hold off
 xlabel('Sample sequence [#]'); ylabel('Amplitude [V]')
 legend('Inphase RX','Quadrature RX','Inphase TX','Quadrature TX')
+grid on
 
 
 %% FREQUENCY ANALYSIS

@@ -1,5 +1,5 @@
 
-%%% COMPARISON BETWEEN CUSTOM AND MATLAB BUILTIN SPLINE INTERPOLATION
+%% COMPARISON BETWEEN CUSTOM AND MATLAB BUILT-IN SPLINE INTERPOLATION
 
 close all; clearvars; clc
 
@@ -43,7 +43,7 @@ function [ WaveB ] = Interp( TimeA, WaveA, TimeB )
     c = GenSpMtx(InSpDiag,[-1 0 1]',LenA);
     s = TmpWave/c;
 %     s = TmpWave*GetInvMtx(c);
-    
+
     pp = pwch(TimeA,WaveA,s,dx',DerWaveA); pp.dim = 1;
     WaveB = ppval(pp,TimeB);
     

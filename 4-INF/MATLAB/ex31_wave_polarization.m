@@ -7,18 +7,18 @@ close all; clearvars; clc
 
 %% PARAMETERS
 
-Nsteps = 100;       % Number of points for estimating wave propagation along z [ALL]
-Ts = 50;            % Time step along z [ALL]
+Nsteps = 100;                                                                       % Number of points for estimating wave propagation along z [ALL]
+Ts = 50;                                                                            % Time step along z [ALL]
 
-A = 1;              % Amplitude of electric and magnetic field [HVC]
-Q = .5;             % Angular velocity [CE]
+A = 1;                                                                              % Amplitude of electric and magnetic field [HVC]
+Q = .5;                                                                             % Angular velocity [CE]
 Amaj = 1.5;
 Amin = .5;
-elev = 124;         % Elevation angle for 3D graph view
-azim = 4;           % Azimuth angle for 3D graph view
+elev = 124;                                                                         % Elevation angle for 3D graph view
+azim = 4;                                                                           % Azimuth angle for 3D graph view
 
-z = Ts*(1:Nsteps);  % Time along propagation direction
-psf =.7;            % Plane scale factor
+z = Ts*(1:Nsteps);                                                                  % Time along propagation direction
+psf =.7;                                                                            % Plane scale factor
 light_green = [.8 1 .8];
 [Px,Py] = meshgrid(-A*psf:.1:A*psf,-A*psf:.1:A*psf);
 Pz = Px-Py+1.05*z(end);
