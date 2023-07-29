@@ -62,3 +62,7 @@
 § Ex31 | Test custom functions for plotting waveform linear (H+V), circular and elliptical polarizations.
 
 § Ex32 | Test 3rd-part functions to zip/unzip a message.
+
+§ Ex33 | Test control system analysis in Laplace domain (s) with "tf", "residue", "step", etc.
+
+§ Ex34 | Test GUI development with "appdesigner" and export into .exe with "deploytool" (see "ex34_gui_info.txt" for further info).

@@ -1,0 +1,35 @@
+
+>> DESIGN GUI (.mlapp) <<
+
+1. type "appdesigner" to start built-in IDE for GUI development;
+
+2. in "design view", drag/resize/rename components from library:
+   - x1 Panel (as box container),
+   - x1 Button (to run execution),
+   - x1 CheckBox (to enable hexadecimal result as well),
+   - x2 EditField-Text (for input expression and hex result),
+   - x1 EditField-Numeric (for decimal result).
+
+3. move to "code view" and add/edit callback function for the button.
+
+-----------------------------------------------------------------
+
+>> EXPORT GUI (.exe) <<
+
+1. close appdesigner;
+
+2. type "mbuild -setup" and check gcc is set as default for C-buyilding;
+
+3. type "deploytool" and select "Application Compiler";
+
+4. create new "Application Compiler Project" and save it (with .prj extension);
+
+5. click "Add main file" and select the aforementioned .mplapp file;
+
+6. edit extra info fields (not essential);
+
+7. click "Package" to start conversion.
+
+8. at the end of the conversion process, a homonymous folder is created and the .exe file is in "./for_testing/";
+
+9. Note that to run the .exe file, "MATLAB-Runtime" compiler shall be installed in the PC. This can be downloaded for free from MathWorks website (no need for this if MATLAB is already installed, since "MATLAB-Runtime" is already included in the main installation).
