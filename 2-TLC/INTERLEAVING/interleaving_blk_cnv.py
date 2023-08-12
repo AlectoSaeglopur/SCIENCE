@@ -176,7 +176,7 @@ def Cnv_Deintrlv( InData, I, M ) :
             else :
                 ShReg[RwIdx,0] = nan
         if ClIdx < M*(I-1) :                                            # case for 1st phase (initial transient)
-            if RwIdx == (ClIdx//M) :                                    # "//" executes  the operation of integer division
+            if RwIdx == (ClIdx//M) :                                    # "//" executes the operation of integer-division
                 RwIdx = 0
                 ClIdx += 1
             else :
