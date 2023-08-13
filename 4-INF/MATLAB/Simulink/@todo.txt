@@ -6,5 +6,3 @@
 - add channel with attenuation and AGC
 - add delay channel and carriaer/symbol synchronization (according to standard)
 - check format of info frames (188 bytes/frame)
-
-
