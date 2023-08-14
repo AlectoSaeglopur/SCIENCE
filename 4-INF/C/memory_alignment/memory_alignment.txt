@@ -1,0 +1,6 @@
+
+For single-element structs (e.g. with only uint8_t FieldX), extra bytes are not typically added, since alignment is not needed in this case. Anyway that's not guaranteed and it always depends on the specific compiler; plus, it depends on if the MCU is capable of handling byte-addressing (newer technology) or just word-addressing (e.g. 32 bits for 32b-MCUs, older technology).
+
+Extra paddings cause to waste some data memory (RAM) during execution, but it speeds up the code execution (compared to standalone declaration of variables), since the data addressing becomes way faster. Plus, it can also save program memory (flash) space, since fewer sintructions are required for data addressing.
+
+Struct-padding is especially helpful (in terms of optimization) when arrays of the struct-type are created.

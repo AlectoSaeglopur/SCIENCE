@@ -4,5 +4,6 @@
 - add SRRC filtering
 - add AWGN channel
 - add channel with attenuation and AGC
+- add preamble detector
 - add delay channel and carriaer/symbol synchronization (according to standard)
 - check format of info frames (188 bytes/frame)
