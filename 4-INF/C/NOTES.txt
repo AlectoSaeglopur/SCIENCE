@@ -1,0 +1,26 @@
+
+§ Use "typedef" to create your custom type (e.g. "typedef unsigned int MYTYPE;").
+
+§ Every #XYZ instruction is called "compiler directive" (e.g. #include or #ifdef).
+
+§ Header files can be seen as extensions of .c files, so to store constants, other libraries or even variables ued in the .c file (for better clarity).
+
+§ In C (but not in C++), variables cannot be used to specify the dimension of arrays during their initialization (#define or "bare" values shall be used instead). For instance, the following code would generate a compilation error:
+const uint8_t DIM = 5;
+uint8_t Vect[] = {0};
+
+§ A header file ca be added in multiple ways through the #define directive:
+  1. "XYZ.h" tells the pre-processor to look into the project directory (typical for custom headers defined in the same folder as the file where the directive is invoked);
+  2. <XZY.h> tells the pre-processor to look into the compiler search path (typical for system/pre-defined header files, e.g. <stdint.h> or <stdio.h>);
+  3. "/PATH/XYZ.h" tells the compiler to look into the specified absolute or relative path (actually veryrare).
+
+§ Constants can be expressed as:
+  - "literals", namely hard-coded values (typically hard to track and so called "magic numbers", such as "int x = 51"). literals can be of x4 types: integers, floating point, characters or strings;
+  - "constants" (using the keywords "const" or "#define").
+
+§ ANSI-C supports hexadecimal literals for integers (e.g. 0xCA), but not binary ones (e.g. 0b11001010). However, these are actually added and provided by most compilers.
+
+§ When defining constants through macros, qualifiers are typically used to tell the compiler what size to allocate. For instance:
+  - "#define XYZ 2u" creates an unsigned-short (aka uint8) constant with value 2;
+  - "#define XYZ 33f" or "#define XYZ 33.0" creates a float constants with value 33;
+  - "#define XYZ 1000" automatically creates a signed-long (aka uint16 or 32, depending on the compiler) with constant with value 1000;
