@@ -1,26 +1,163 @@
 
-§ Use "typedef" to create your custom type (e.g. "typedef unsigned int MYTYPE;").
+§ TYPEDEF
+Use "typedef" to create your custom type (e.g. "typedef unsigned int MYTYPE;").
 
-§ Every #XYZ instruction is called "compiler directive" (e.g. #include or #ifdef).
+------------------------------------
 
-§ Header files can be seen as extensions of .c files, so to store constants, other libraries or even variables ued in the .c file (for better clarity).
+§ COMPILER DIRECTIVE
+Every #XYZ instruction is called "compiler directive" (e.g. #include or #ifdef).
+Note redifining a MACRO multiple times does not cause an error: the actual value is the last encountered by the compiler. For instance, in the following example XYZ will be set to 11.
+#define XYZ 5
+void MyFunc( void ){
+#define XYZ 11
+}
 
-§ In C (but not in C++), variables cannot be used to specify the dimension of arrays during their initialization (#define or "bare" values shall be used instead). For instance, the following code would generate a compilation error:
-const uint8_t DIM = 5;
-uint8_t Vect[] = {0};
+------------------------------------
 
-§ A header file ca be added in multiple ways through the #define directive:
+§ HEADER
+Header files can be seen as extensions of .c files, so to store constants, other libraries or even variables ued in the .c file (for better clarity).
+A header file ca be added in multiple ways through the #define directive:
   1. "XYZ.h" tells the pre-processor to look into the project directory (typical for custom headers defined in the same folder as the file where the directive is invoked);
   2. <XZY.h> tells the pre-processor to look into the compiler search path (typical for system/pre-defined header files, e.g. <stdint.h> or <stdio.h>);
   3. "/PATH/XYZ.h" tells the compiler to look into the specified absolute or relative path (actually veryrare).
 
-§ Constants can be expressed as:
+------------------------------------
+
+§ CONSTANTS
+Constants can be expressed as:
   - "literals", namely hard-coded values (typically hard to track and so called "magic numbers", such as "int x = 51"). literals can be of x4 types: integers, floating point, characters or strings;
   - "constants" (using the keywords "const" or "#define").
-
-§ ANSI-C supports hexadecimal literals for integers (e.g. 0xCA), but not binary ones (e.g. 0b11001010). However, these are actually added and provided by most compilers.
-
-§ When defining constants through macros, qualifiers are typically used to tell the compiler what size to allocate. For instance:
+ANSI-C supports hexadecimal literals for integers (e.g. 0xCA), but not binary ones (e.g. 0b11001010). However, these are actually added and provided by most compilers.
+When defining constants through macros, qualifiers are typically used to tell the compiler what size to allocate. For instance:
   - "#define XYZ 2u" creates an unsigned-short (aka uint8) constant with value 2;
   - "#define XYZ 33f" or "#define XYZ 33.0" creates a float constants with value 33;
-  - "#define XYZ 1000" automatically creates a signed-long (aka uint16 or 32, depending on the compiler) with constant with value 1000;
+  - "#define XYZ 1000" automatically creates a signed-long (aka uint16 or 32, depending on the compiler) with constant with value 1000.
+
+-----------------------------
+
+§ TYPE-CONVERSION AND CASTING
+Type-conversion is sometimes performed automatically by the compiler:
+int x = 5; float = 4.0;
+int z1 = x/y returns 1;
+float z2 = x/y return 1.25;
+In both cases x is teporarily converted to float due to y type, the different result depends on the different z type.
+int x = 5; int y = 4;
+float z3 = x/y returns 1.0;
+This time there was no float-conversion, since both operands are integer.
+Type-casting can be also used to change temporarily the type of a variable.
+
+-----------------------------
+
+§ VARIABLE
+- Declaration : int j;
+- Assignment : j = 9; (or j += 1)
+- Decl+Assig : int j = 9;
+- Note in C (but not in C++), variables cannot be used to specify the dimension of arrays during their initialization (#define or "bare" values shall be used instead). For instance, the following code would generate a compilation error:
+const uint8_t DIM = 5;
+uint8_t Vect[DIM] = {0};
+- Local variables are defined inside a function and valid (aka variable scope) only for that specific function. Input-variable parameters are copied and considered local as well (i.e. having higher precedence over homonymous global variables). Plus, function varibles are created/destroyed inside the stack section of the RAM (with LIFO policy), whereas global variables are placed statically in a dedicated section at the beginning of the RAM.
+
+-----------------------------
+
+§ OPERATORS
+~ : bitwise NOT
+! : logical NOT
+& : bitwise AND
+&& : logical AND
+| : bitwise OR
+|| : logical OR
+^ : bitwise XOR (aka excluive OR)
+Keep in mind precedence and associativity rules (or just use parenthesis to skip the issue).
+
+-----------------------------
+
+§ BIT-SHIFTING
+Bit-shifting is generally more efficient than multiply (<<) or divide (>>), however it can be used only for constant powers of 2. Remember that bit-shifting a signed integer value can lead to errors if that value is negative, since the MSb is replaced by a '0' making it poitive; so avoid it or insert a checking mechanism to set MSb to '1' if the original value was negative.
+
+-----------------------------
+
+§ IF-SWITCH STATEMENTS
+In a multiple if-elseif-else statement, the upper conditions have higher priority than the lower ones (e.g. if 1st condition is met, all others will be ignored).
+In a switch statement once the condition is met, ALL the statement below are executed by default (to avoid this behavior use the keyword "break" inside each state).
+
+-----------------------------
+
+§ LOOPS
+do-while : as the usual while-loop, but executing the state before checking the condition.
+break : to break a loop (even if endless).
+continue : to jump directly to next loop execution cycle skipping all the state code left below.
+
+-----------------------------
+
+§ FUNCTION PROTOTYPE
+Note parameters name can be omitted in function prototypes (but not in the declaration, of course).
+Prototype : int MySum( int A, int B ); OR int MySum( int, int );
+Declaration :
+int MySum( int A, int B ){
+  return (A+B);
+}
+
+-----------------------------
+
+§ STRING
+- Strings can be defined as "XYZ" and automatically terminated by a NUL character (i.e. 0x00). Rembember a string is treated as nothing but an array of characters in C.
+- For example,
+char MyStr[] = "vkn"; OR char MyStr[] = {'v', 'k', 'n', '\0'};
+creates 4-element string (considering the final "\0" character as well).
+- Remember a string can be modified at run-time only element-by-element, for instance:
+MyStr[1] = 'A' -> OK
+MyStr = "vAn" -> ERROR
+
+-----------------------------
+
+§ POINTER
+- Direct access to variable (write) : int XYZ = 22;
+- Indirect access to variable (write) : int *pXYZ = 22;
+- Example #1:
+int X = 99; int *Y = NULL;
+Y = &X; *Y = 32;
+produces the same as the instruction "X = 32".
+- Example #2:
+int *p;
+int x[3] = {0x11,0x22,0x33};
+p = x; OR p = &x[0];
+causes p to point exactly to the memory location of x (i.e. x[0] = 0x11, etc).
+- Remember when declaring a pointer you specify the pointed type, not the dimension of the pointer itself. For instance, assuming to use a dsPIC33 (i.e. 16-bit architecture):
+float AAA = 99.9;
+sizeof(AAA) -> returns "4", since by standard floats are 32-bit variables.
+float *BBB;
+BBB = &AAA;
+sizeof(BBB) -> returns "2", since pointers represent RAM memory addresses, whose size depends on the MCU architecture size (here 16 bits = 2 bytes).
+uint8_t CCC = 99.9;
+sizeof(CCC) -> returns "1", since by standard uint8_t are 8-bit variables.
+uint8_t *DDD;
+DDD = &CCC;
+sizeof(BBB) -> again returns "2" (see below).
+- Remember increasing a pointer in software by using "++" (to point to the next element of the array in memory) actually increases the pointer value (representing the memory address) by the size specified in the pointer declaration. For instance, assuming to use a dsPIC33 (i.e. 16-bit architecture):
+    float x[3] = {1,2,3};
+    float *p;
+    p = x;
+    while( 1 ){
+        __delay_ms(1000);
+        Printf_hex16((uint16_t)p);
+        p++;
+    }
+prints on shell 0x114A, 0x114E, 0x1152, etc, since floats have 4-byte size.
+    uint8_t x[3] = {1,2,3};
+    uint8_t *p;
+    p = x;
+    while( 1 ){
+        __delay_ms(1000);
+        Printf_hex16((uint16_t)p);
+        p++;
+    }
+prints on shell 0x114A, 0x114B, 0x114C, etc, since uint8_t have 1-byte size.
+
+
+
+
+
+
+
+
+
