@@ -66,3 +66,5 @@
 § Ex33 | Test control system analysis in Laplace domain (s) with "tf", "residue", "step", etc.
 
 § Ex34 | Test GUI development with "appdesigner" and export into .exe with "deploytool" (see "ex34_gui_info.txt" for further info).
+
+§ Ex35 | (a) Script for listing all files of a specified type within a directory into a text file; (b) script for searching the text list-file generated before for a specified string-pattern.

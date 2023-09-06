@@ -1,0 +1,594 @@
+gr_modtool newmod zExtra
+cd gr-zExtra/
+gr_modtool add flag_appender_mm
+./gnur_inst_setup.sh 
+mkdir build
+cd build/
+cmake ../
+sudo apt-get install doxygen
+cmake ../
+make
+sudo make install
+sudo ldconfig
+sudo apt-get update && sudo apt-get upgrade swig
+cmake ../
+make
+sudo make install
+sudo ldconfig
+./send_TCP_UDP_msg.sh 127.0.0.1 52001
+sudo mkdir ~/Desktop/VM_SHARED
+sudo mount -t vboxsf VM_SHARED ~/Desktop/VM_SHARED
+./send_TCP_UDP_msg.sh 127.0.0.1 52001
+sudo dpkg -i code_1.65.1-1646706496_amd64.deb 
+sudo make install uninstall
+sudo ldconfig
+gr_modtool newmod zExtra
+gr_modtool newmod zVKN
+gr_modtool add flag_appender16_mm
+cd gr-zExtra/
+gr_modtool add flag_appender16_mm
+clear
+gr_modtool add flag_appender_mm
+mkdir build
+cd build/
+cmake ../
+make
+sudo make install
+sudo ldconfig
+clear
+cmake ../ && make && sudo make install && sudo ldconfig
+cd..
+cd ..
+mkdir build
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+./send_TCP_UDP_msg.sh 127.0.0.1 52001
+sudo usermod -aG vboxsf vkn && sudo chmod ugo+rwx VM_SHARED
+cmake ../ && make && sudo make install && sudo ldconfig
+cmake ../ && make && sudo make install && sudo ldconfigù
+cmake ../ && make && sudo make install && sudo ldconfig
+cd..
+cd ..
+gr_modtool add flag_appender_p_mm
+n
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+cd ..
+gr_modtool --help
+gr_modtool rename --help
+gr_modtool rename -o flag_appender_mm -u flag_appender_c_mm
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+cd ..
+gr_modtool rm --help
+gr_modtool rm -n flag_appender_mm
+sudo make uninstall
+./send_TCP_UDP_msg.sh 127.0.0.1 52001
+cd Projects/
+./send_TCP_UDP_msg.sh 127.0.0.1 52001
+mkdir build
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+cd ..
+gr_modtool add flag_appender_mm
+mkdir build
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+cleat
+clear
+cleat
+clear
+cmake ../ && make && sudo make install && sudo ldconfig
+gr_modtool newmod zExtra
+cd gr-zExtra/
+gr_modtool add flag_appender_mm
+mkdir build
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+sudo make uninstall
+gr_modtool add flag_appender_p_mm
+mkdir build
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+cd ..
+gr_modtool add flag_appender_c_mm
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+./send_TCP_UDP_msg.sh 127.0.0.1 52001
+sudo mount -t vboxsf VM_SHARED ~/Desktop/VM_SHARED
+hexdump flag_appender.bin 
+hexdump preamble_adder.bin 
+cd ..
+./send_TCP_UDP_msg.sh 127.0.0.1 52001
+gr_modtool add preample_adder_c_bb
+clear
+gr_modtool add preample_adder_c_bb
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+sudo make uninstall
+cd ..
+gr_modtool rename --help
+gr_modtool rename -o preample_adder_c_bb -u preamble_adder_c_bb
+mkdir build
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+hexdump preamble_adder.bin 
+clear
+hexdump preamble_adder.bin 
+cleare
+clear
+hexdump preamble_adder.bin 
+clear && hexdump preamble_adder.bin 
+./send_TCP_UDP_msg.sh 127.0.0.1 52001
+clear
+./send_TCP_UDP_msg.sh 127.0.0.1 52001
+sudo mount -t vboxsf VM_SHARED ~/Desktop/VM_SHARED
+./send_TCP_UDP_msg.sh 127.0.0.1 52001
+sudo mount -t vboxsf VM_SHARED ~/Desktop/VM_SHARED
+clear
+./send_TCP_UDP_msg.sh 127.0.0.1 52001
+clear && hexdump preamble_adder.bin 
+gr_modtool add preamble_adder_tag_c_bb
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+cd ..
+mkdir build
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+clear
+cmake ../ && make && sudo make install && sudo ldconfig
+sudo mount -t vboxsf VM_SHARED ~/Desktop/VM_SHARED
+cmake ../ && make && sudo make install && sudo ldconfig
+sudo mount -t vboxsf VM_SHARED ~/Desktop/VM_SHARED
+./send_TCP_UDP_msg.sh 127.0.0.1 52001
+gr_modtool psk_mapper_c_bc
+gr_modtool add psk_mapper_c_bc
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+cmake ../ && make && sudo make install && sudo ldconfig
+sudo mount -t vboxsf VM_SHARED ~/Desktop/VM_SHARED
+./send_TCP_UDP_msg_v1.sh M 8
+clear ./send_TCP_UDP_msg_v2.sh M 8
+clear && ./send_TCP_UDP_msg_v2.sh M 8
+./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001
+clear
+./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001
+./send_TCP_UDP_msg_v2.sh M 8
+./send_TCP_UDP_msg_v2.sh M 228
+clear && ./send_TCP_UDP_msg_v2.sh M 228
+clear && ./send_TCP_UDP_msg_v2.sh 1 228
+clear && ./send_TCP_UDP_msg_v2.sh M 228
+clear && ./send_TCP_UDP_msg_v2.sh M 28
+clear && ./send_TCP_UDP_msg_v2.sh M 8
+clear && ./send_TCP_UDP_msg_v2.sh M 16
+./send_TCP_UDP_msg_v2.sh M 16
+./send_TCP_UDP_msg_v2.sh M 8
+cmake ../ && make && sudo make install && sudo ldconfig
+./send_TCP_UDP_msg_v2.sh M 8
+./send_TCP_UDP_msg_v2.sh O 22
+./send_TCP_UDP_msg_v2.sh O 10
+./send_TCP_UDP_msg_v2.sh O -10
+./send_TCP_UDP_msg_v2.sh O 350
+./send_TCP_UDP_msg_v2.sh R 1
+./send_TCP_UDP_msg_v2.sh R 0
+./send_TCP_UDP_msg_v2.sh R 1
+./send_TCP_UDP_msg_v2.sh M 8
+./send_TCP_UDP_msg_v2.sh M 32
+./send_TCP_UDP_msg_v2.sh M 64
+./send_TCP_UDP_msg_v2.sh M 32
+./send_TCP_UDP_msg_v2.sh M 8
+./send_TCP_UDP_msg_v2.sh M 16
+sudo mount -t vboxsf VM_SHARED ~/Desktop/VM_SHARED
+clear
+./send_TCP_UDP_msg_v2.sh M 8
+cmake ../ && make && sudo make install && sudo ldconfig
+gr_modtool srrc_filter_c_cc
+gr_modtool add srrc_filter_c_cc
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+sudo make uninstall
+cd ..
+gr_modtool rename -o srrc_filter_c_cc -u srrc_filter_tx_c_cc
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+sudo mount -t vboxsf VM_SHARED ~/Desktop/VM_SHARED
+sudo apt-add-repository ppa:octave/stable
+sudo apt-get update
+sudo apt-get install octave
+./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001
+octave --persist read_bin.m
+clear
+octave read_bin.m
+clear && octave read_bin.m
+clear && octave help fread
+sudo apt-get update
+sudo apt-get upgrade octave
+sudo mount -t vboxsf VM_SHARED ~/Desktop/VM_SHARED
+gr_modtool add fsk_modulator
+mkdir build
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+sudo mount -t vboxsf VM_SHARED ~/Desktop/VM_SHARED
+mkdir build
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+mkdir build
+cd build
+cmake ../ && make && sudo make install && sudo ldconfig
+mkdir build
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+mkdir build
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+mkdir build && cd build
+cmake ../ && make && sudo make install && sudo ldconfig
+clear
+doxygen --help
+mkdir build && cd build
+cmake ../ && make && sudo make install && sudo ldconfig
+mkdir build && cd build
+cmake ../ && make && sudo make install && sudo ldconfig
+mkdir build && cd build
+cmake ../ && make && sudo make install && sudo ldconfig
+sudo mount -t vboxsf VM_SHARED ~/Desktop/VM_SHARED
+grmodtool add gfsk_modulator
+gr_modtool add gfsk_modulator
+cd build/
+gr_modtool add gfsk_modulator
+cmake ../ && make && sudo make install && sudo ldconfig
+sudo mount -t vboxsf VM_SHARED ~/Desktop/VM_SHARED
+tar --use-compress-program=unzstd -xvf Metal.Slug.X.tar.zst 
+tar -xvf Metal.Slug.X.tar.zst 
+zstd -d Metal.Slug.X.tar.zst
+clear
+sudo apt-get install zstd
+zstd -d Metal.Slug.X.tar.zst
+tar -xf Metal.Slug.X.tar
+./ start.sh 
+./start.sh 
+sudo apt-get update
+sudo apt install gawk wget git diffstat unzip texinfo gcc build-essential chrpath socat cpio python3 python3-pip python3-pexpect xz-utils debianutils iputils-ping python3-git python3-jinja2 libegl1-mesa libsdl1.2-dev pylint3 xterm python3-subunit mesa-common-dev zstd liblz4-tool
+cd Documents/
+mkdir EMB
+cd EMB/
+git clone -b dunfell git://git.yoctoproject.org/poky.git
+cd Documents/
+ls
+cd GNUR/
+cd Libraries/gr-zVKN/
+gr_mood add agc_p_cc
+gr_modtool add agc_p_cc
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+cd Desktop/
+mkdir VM_SHARED
+cd ..
+sudo mount -t vboxsf VM_SHARED ~/Desktop/VM_SHARED
+cd Documents/GNUR
+ls
+cd Libraries/
+cd gr-zVKN/
+gr_modtool add add_scrambler
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+cd ..
+mkdir build
+cmake ../ && make && sudo make install && sudo ldconfig
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+mkdir build
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+mk dir build
+mkdir build
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+sudo make uninstall
+cmake ../ && make && sudo make install && sudo ldconfig
+cd..
+cd ..
+gr_modtool add add_scrambler
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+sudo make uninstall
+cd..
+cd ..
+mkdir build
+cmake ../ && make && sudo make install && sudo ldconfig
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+cd ..
+mkdir
+mkdir build
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001
+mkdir build
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+cd ..
+mkdir build
+cmake ../ && make && sudo make install && sudo ldconfig
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+cd ..
+gr_modtool --help
+gr_modtool help
+gr_modtool add psk_mapper_p_mm
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+cd ..
+gr_modtool add awgn_p_cc
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+cd ..
+gr_modtool add srrc_filter_rx_c_cc
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001
+cmake ../ && make && sudo make install && sudo ldconfig
+./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001
+cmake ../ && make && sudo make install && sudo ldconfig
+./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001
+cmake ../ && make && sudo make install && sudo ldconfig
+./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001
+cmake ../ && make && sudo make install && sudo ldconfig
+./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001
+cmake ../ && make && sudo make install && sudo ldconfig
+./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001
+cd ..
+gr_modtool add squelch_agc_p_cc
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001
+gr_modtool add psk_decoder
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001
+cl
+clear
+clear && ./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001
+clear && ./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001.
+clear && ./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001
+clear && ./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001.
+clear && ./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001
+clear && ./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001.
+clear && ./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001
+cmake ../ && make && sudo make install && sudo ldconfig
+cd ..
+gr_modtool add srrc_filter_rx_p_cc
+cd build/
+gr_modtool add srrc_filter_rx_p_cc
+cmake ../ && make && sudo make install && sudo ldconfig
+gr_modtool add srrc_filter_rx_p_cc
+cmake ../ && make && sudo make install && sudo ldconfig
+gr_modtool add srrc_filter_rx_p_cc
+cmake ../ && make && sudo make install && sudo ldconfig
+clear && ./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001
+cmake ../ && make && sudo make install && sudo ldconfig
+clear && ./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001
+cmake ../ && make && sudo make install && sudo ldconfig
+clear && ./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001
+clear && ./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001.
+clear && ./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001
+clear && ./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001.
+clear && ./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001
+clear && ./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001.
+clear && ./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001
+clear && ./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001.
+clear && ./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001
+cmake ../ && make && sudo make install && sudo ldconfig
+cd ..
+gr_modtool check_rx_pkt_p_mx
+gr_modtool add check_rx_pkt_p_mx
+cmake ../ && make && sudo make install && sudo ldconfig
+cd build/
+cmake ../ && make && sudo make install && sudo ldconfig
+clear && ./send_TCP_UDP_msg_v1.sh 127.0.0.1 52001
+cmake ../ && make && sudo make install && sudo ldconfig
+cat dummy 
+cat /usr/share/dict/words
+less /usr/share/dict/words
+grep ie /usr/share/dict/words | less
+clear
+find /Documents/ -name fsk_mod -print
+find /Documents/ -name fsk_modulator.py -print
+find /Documents -name fsk_modulator.py -print
+find ./Documents -name fsk_modulator.py -print
+find ./Documents -name fsk_modula -print
+find ./Documents -name fsk_mod'*' -print
+clear
+find ./Documents -name fsk_mod'*' -print
+cd Documents/
+cat dummy 
+sort dummy
+cat dummy 
+cat dummy
+sort dummy -r
+cd ..
+cd Documents/
+cd ../
+clear
+ls
+ls -a
+cd Documents/
+ls .*
+ls .??*
+ls .[^.]*
+less --info
+less --help
+clear
+echo $PATH
+!
+history
+history --help
+history | grep cat
+vim dummy 
+sudo apt install vim
+vim dummy
+:edit banny.txt
+vim banny.txt
+man less
+cd Test_Linux/
+bash ex1.bash 
+vim ex1.bash 
+bash ex1.bash 
+vim ex1.bash 
+bash ex1.bash 
+vim ex1.bash 
+bash ex1.bash 
+vim ex1.bash 
+history > history_log.txt
+clear
+head /proc/cpuinfo
+head /proc/cpuinfo | tr a-z A-Z
+head /proc/cpuinfo
+ls
+ls | echo
+echo | ls
+ls | echo
+ls | vim
+ls
+cat
+clear
+cat ex*
+ls -l
+bash ex1.bash | bash ex1.bash 
+cat ex1* | sort
+cat ex1*
+clear
+ct dummy.txt 
+cat dummy.txt 
+cat dummy.txt | sort
+sort -help
+sort -h
+sort --help
+clear
+cat dummy.txt 
+cat dummy.txt | sort
+cat dummy.txt 
+clear
+cat dummy.txt 
+cat dummy.txt | sort
+cat dummy.txt 
+cat dummy.txt | sort
+cat dummy.txt 
+cat dummy.txt | sort
+ps
+ps --help
+ps -list
+ps list
+ps --help
+ps x
+ps u
+ps u 4299
+ls
+ls -l
+cd Test_Linux/
+ls -l
+man sudo
+sudo umount /media/matlab_iso
+cd Desktop/MATLAB_2017a/
+sudo mount -o ro,loop R2017a_glnxa64_dvd2.iso /media/matlab_iso
+sudo umount /media/matlab_iso
+cd ..
+cd media/
+sudo rmdir matlab_iso
+cd ..
+sudo mkdir -p /media/matlab_iso
+cd Desktop/MATLAB_2017a/
+sudo mount -o ro,loop
+clear
+sudo mount -o ro,loop
+clear
+sudo mount -o ro,loop R2017a_glnxa64_dvd1.iso /media/matlab_iso
+sudo /media/matlab_iso/install
+sudo cp Crack/R2017a/bin/glnxa64/libmwservices.so /usr/local/MATLAB/R2017a/bin/glnxa64/
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+/usr/local/MATLAB/R2017a/bin/matlab
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+cd Documents/MATLAB/
+ls
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+cd Documents/MATLAB/
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+cd Documents/MATLAB/
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+cd Documents/MATLAB/
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+cd Documents/MATLAB/
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+cd Documents/MATLAB/
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+cd Documents/MATLAB/
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+cd Documents/MATLAB/
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+cd Documents/MATLAB/
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+cd Documents/MATLAB/
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+cd Documents/MATLAB/
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+cd Documents/MATLAB/
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+./run_ex_gui.sh
+udo ./run_ex_gui.sh
+sudo ./run_ex_gui.sh
+sudo ./ex_gui.sh
+sudo ./ex_gui
+cd Documents/MATLAB/
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+rm exe/
+rm -r exe
+rm -r ./exe/
+sudo rm -r ./exe/
+cd Documents/MATLAB/
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+cd Documents/MATLAB/
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+cd Documents/MATLAB/
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+cd Documents/MATLAB/
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+cd Documents/MATLAB/
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+cd Documents/MATLAB/
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+cd Documents/MATLAB/
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+cd Documents/MATLAB/
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+cd Documents/MATLAB/
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+cd Documents/MATLAB/
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+cd Documents/MATLAB/
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+cd Documents/MATLAB/
+sudo /usr/local/MATLAB/R2017a/bin/matlab
+cat dummy1.txt" and then "cat dummy1.txt | sort
+cat dummy1.txt && cat dummy1.txt | sort
+clear
+cat dummy1.txt
+history -w ~/history.txt
+clear
+history -w ~/history.txt
+history history.txt
+history -w history.txt
