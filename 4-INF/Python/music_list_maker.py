@@ -25,10 +25,12 @@ flist = glob(Path+'\*.'+Extens)
 dt = datetime.now()                                                             # get current date and time
 fid = open('.\list.txt','w',encoding='utf-8')
 fid.write(' >> '+dt.strftime("%d-%b-%Y %H:%M:%S")+' [P] <<\n\n')
+Nelem = len(flist)
 if Extens == "*" :
-    for j in range(len(flist)) :
+    for j in range(Nelem) :
         fid.write(Nf%(j+1)+': '+flist[j][len(Path)+1:]+'\n')
 else :
-    for j in range(len(flist)) :
+    for j in range(Nelem) :
         fid.write(Nf%(j+1)+': '+flist[j][len(Path)+1:-len(Extens)-1]+'\n')
 fid.close()
+print(" >> Execution completed : "+str(Nelem)+" files listed")

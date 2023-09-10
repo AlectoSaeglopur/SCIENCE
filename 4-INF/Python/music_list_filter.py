@@ -4,6 +4,7 @@
 ' Author: Filippo Valmori
 ' Date: 06/09/2023
 ' Description: Script for filtering a .txt file-list looking for a specified string pattern.
+'              For example, to look for pattern "love is" type into shell "python music_list_filter.py # love is".
 '''
 
 ## LIBRARIES ##
@@ -14,25 +15,29 @@ from sys import argv
 
 ## PARAMETERS ##
 
-Nskip = 2                                                                       # Number of header lines to skip
+Nskip = 2                                                                       # number of header lines to skip
+SpChar = "#"                                                                    # special character required before the string pattern argument
 
 
 ## PROCESSING ##
 
-LenPat = len(argv)-1                                                            # Number of pattern string words
-if LenPat > 0 :
-    Pattern = str(argv[1])                                                      # String-pattern to be found parsed from command (e.g. "python list_filter.py love is" generates Pattern = "love is" )
-    for j in range(LenPat-1) :
-        Pattern = Pattern+' '+str(argv[2+j])
+LenPat = len(argv)-1                                                            # number of pattern string words
+if LenPat < 2 :
+    raise Exception("Not enough input arguments provided.")
+elif str(argv[1]) != SpChar :
+    raise Exception("Wrong start-of-pattern character found.")
+else :
+    Pattern = str(argv[2])                                                      # string-pattern to be found parsed from command
+    for j in range(LenPat-2) :
+        Pattern = Pattern+' '+str(argv[3+j])
     fid = open('.\list.txt','r',encoding='utf-8')                               # the "utf-8" option is needed to correctly red special characters
     Data = fid.readlines()[Nskip:]
     fid.close()
     Cnt = 0
     Nelem = len(Data)
     for j in range(Nelem) :
-        if search(Pattern,Data[j],IGNORECASE) :
+        if search(Pattern,Data[j],IGNORECASE) :                                 # the "IGNORECASE" option allows the search to be case-insensitive
             print(Data[j][:-1])                                                 # "-1" is needed to remove the extra "\n" character added by readlines()
             Cnt += 1
-    print('-----\nMATCHES :',str(Cnt)+' out of '+str(Nelem)+' elements')
-else :
-    raise Exception("No string-pattern given as input!")
+    print('-----\nMatches for "'+Pattern+'" : '+str(Cnt)+' out of '+
+        str(Nelem)+' elements')
