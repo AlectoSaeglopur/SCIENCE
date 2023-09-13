@@ -32,7 +32,8 @@ A header file ca be added in multiple ways through the #define directive:
 
 Constants can be expressed as:
   - "literals", namely hard-coded values (typically hard to track and so called "magic numbers", such as "int x = 51"). literals can be of x4 types: integers, floating point, characters or strings;
-  - "constants" (using the keywords "const" or "#define").
+  - "constants" (using the keywords "const" or "#define"). Note in general (since that's anyway always depending on the specific MCU) global constants are stored into program-memory (flash), whereas local one into data-memory (RAM). Strings may be an exception, since they are often placed in any case into program-memory (but that always depends on the specific compiler/linker anyway); just the pointer to the string may be stored into data-memory (see "const_table.png"). Anyway, most compilers provide attributes (not ANSI-C compliant) to specify where to store a constant. For example, to force pointer to string "xyz" to be stored into program-memory with XC32 compiler, you can write:
+const char *xyz[4] __attribute__((space(prog))) = {"a11","b22","c33","d44"};
 
 ANSI-C supports hexadecimal literals for integers (e.g. 0xCA), but not binary ones (e.g. 0b11001010). However, these are actually added and provided by most compilers.
 
@@ -73,6 +74,8 @@ uint8_t Vect[DIM] = {0};
 
 - Local variables are defined inside a function and valid (aka variable scope) only for that specific function. Input-variable parameters are copied and considered local as well (i.e. having higher precedence over homonymous global variables). Plus, function varibles are created/destroyed inside the stack section of the RAM (with LIFO policy), whereas global variables are placed statically in a dedicated section at the beginning of the RAM.
 
+- Always use the "u/intX_t" type declaration for variables (defined in <stint.h>), since they are compiler-independent (thus, makes your code way more portable). Instead, for example, the generic "int" is 16-bit for XC8, but 32-bit for XC32!
+
 -----------------------------
 
 7. OPERATORS
@@ -111,7 +114,7 @@ continue : to jump directly to next loop execution cycle skipping all the state 
 
 10. FUNCTION PROTOTYPE
 
-Note parameters name can be omitted in function prototypes (but not in the declaration, of course).
+- Note parameters name can be omitted in function prototypes (but not in the declaration, of course).
 
 Prototype : int MySum( int A, int B ); OR int MySum( int, int );
 
@@ -191,11 +194,42 @@ int y;
 y = 5+*(p++);
 returns y = 6 (since expression is first evaluated and then the pointer increased) and p pointing to &x[1].
 
+-----------------------------
 
+13. STRUCTURE
 
+- Structures are collections of variables grouped together under a common name, and each sub-field is called "member";
 
+- there are x3 ways to define and create instances of a structure (but 3rd is the recommended one):
+[1] struct complex_t {
+    float real;
+    float imag;
+} Var1, Var2;
+[2] struct complex_t {
+    float real;
+    float imag;
+}
+...
+struct complex_t x,y;
+[3] typedef struct {
+    floar real;
+    float imag;
+} complex_t;
+...
+complex_t Var1, Var2;
 
+- Members can be assigned during initialization or later:
+complex_t Var1 = {0.4, 5.1};
+Var1.real = -2.9;
+complex_t *pVar2 = &Var1;
+pVar2->imag = 8.4; 
 
+- "Bit-fields" are special kind of members. Here the bit-width of each member can be specified, making it useful to esily bit-access a varible with no need for masking operations. Note the dimension allocated for a bit-fields structure varies depending on the specific compiler! 
 
+-----------------------------
 
+14. UNIONS
 
+- Unions are similar to structures, but all their members share the same memory location. Thus, a union is essentially a variable capable of holding different types of data at different times. The size of a union is equal to that of its largest member. Note that, unlike for structures, modifying a union member means moifying also all others now, since they actually all refer to the same memory location actually!
+
+- For example, unions can be used to choose between the overall value of a variable or its bit-fields (see the "struct_unions.c" script).
