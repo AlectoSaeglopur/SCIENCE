@@ -1,4 +1,18 @@
 
+0. DATA-MEMORY
+
+MCUs have typically x2 kinds of built-in memories:
+
+[a] Program-memory (aka flash), i.e. the (non-volatile and slow) memory where the actual code is stored. This is updated first of all at programming-time, but possibly even at run-time in case there's need to store and preserve some run-time data against power-cycles;
+
+[b] Data-memory (aka RAM), i.e. the (volatile and fast) memory where data and variables are stored and removed for run-time code execution. The data-memory is divided into x3 sub-regions:
+
+- static -> initial (or final, depending on the specific MCU) region where all global variables (regardless of other attributes, e.g. static, volatile or const), including the variables defined as static inside functions, are statically allocated;
+- stack -> middle region where variables within functions are created and then destroyed according to a last-in-first-out (LIFO) policy;
+- heap -> final section dedicated to run-time dynamic allocation (e.g. for arrays with variable length) and its size is typically variable and decided at programming-time (or sometimes settable a priori by the programmer through IDE, e.g. MPLAB for Microchip's dsPICs).
+
+------------------------------------
+
 1. TYPEDEF
 
 Use "typedef" to create your custom type (e.g. "typedef unsigned int MYTYPE;").
@@ -8,7 +22,7 @@ Use "typedef" to create your custom type (e.g. "typedef unsigned int MYTYPE;").
 2. COMPILER DIRECTIVE
 
 Every #XYZ instruction is called "compiler directive" (e.g. #include or #ifdef).
-Note redifining a MACRO multiple times does not cause an error: the actual value is the last encountered by the compiler. For instance, in the following example XYZ will be set to 11.
+Note redefining a MACRO multiple times does not cause an error: the actual value is the last encountered by the compiler. For instance, in the following example XYZ will be set to 11.
 
 #define XYZ 5
 void MyFunc( void ){
@@ -19,12 +33,19 @@ void MyFunc( void ){
 
 3. HEADER
 
-Header files can be seen as extensions of .c files, so to store constants, other libraries or even variables ued in the .c file (for better clarity).
+Header files can be seen as extensions of .c files, so to store constants, other libraries or even variables used in the .c file (for better clarity).
 
 A header file ca be added in multiple ways through the #define directive:
   a) "XYZ.h" tells the pre-processor to look into the project directory (typical for custom headers defined in the same folder as the file where the directive is invoked);
   b) <XZY.h> tells the pre-processor to look into the compiler search path (typical for system/pre-defined header files, e.g. <stdint.h> or <stdio.h>);
-  c) "/PATH/XYZ.h" tells the compiler to look into the specified absolute or relative path (actually veryrare).
+  c) "/PATH/XYZ.h" tells the compiler to look into the specified absolute or relative path (actually very rare).
+
+Remember to use "header-guards" at the beginning of each headef file of your project in order to prevent a single header file to be included more than once by the same compilation unit (NB: in general the compiler creates a number of compilation units equal to the number of source files included in the project, thus .c files).
+ (thus, preventing duplications and making code more robust). The syntax is:
+#ifndef HEADER_H
+#define HEADER
+...
+#endif
 
 ------------------------------------
 
@@ -39,16 +60,24 @@ ANSI-C supports hexadecimal literals for integers (e.g. 0xCA), but not binary on
 
 When defining constants through macros, qualifiers are typically used to tell the compiler what size to allocate. For instance:
   - "#define XYZ 2u" creates an unsigned-short (aka uint8) constant with value 2;
-  - "#define XYZ 33f" or "#define XYZ 33.0" creates a float constants with value 33;
+  - "#define XYZ 33f" or "#define XYZ 33.0" creates a float constant with value 33;
   - "#define XYZ 1000" automatically creates a signed-long (aka uint16 or 32, depending on the compiler) with constant with value 1000.
+
+Remember the "const" keyword actually means the defined variable (in data-memory) is read-only. However, this might be modified anyway through pointer! For example:
+const int XYZ = 10;
+int* pXYZ = &XYZ;			// compiler generates a warning here
+printf("\n\n XYZ = %d\n",XYZ);	   	// returns 10
+*pXYZ = 33;
+printf("\n\n XYZ = %d\n",XYZ);		// returns 33
+To solve the issues (and avoid the warning the message), pXYZ should be declared as "const int* pXYZ": now executing "*pXYZ = 33" would generate an error.
 
 -----------------------------
 
 5. TYPE-CONVERSION AND CASTING
 
-Type-conversion is sometimes performed automatically by the compiler:
+Type-conversions are often performed automatically by the compiler, especially before performing operations:
 
-int x = 5; float = 4.0;
+int x = 5; float y = 4.0;
 int z1 = x/y returns 1;
 float z2 = x/y return 1.25;
 In both cases x is temporarily converted to float due to y-type, the different result depends on the different z type.
@@ -58,6 +87,13 @@ float z3 = x/y returns 1.0;
 This time there was no float-conversion, since both operands are integer.
 
 Type-casting can be also used to change temporarily the type of a variable.
+
+The implicit type conversion (aka promotion) hierarchy (in order to avoid loss of data) is :
+compiler bool -> char -> short int -> (signed) int -> unsigned int -> (signed) long -> unsigned long -> long long -> float -> double -> long double. That's why the following code:
+unsigned int a = 1000;
+signed int b = -1;
+if( a > b )
+is evaluated as false, since b is automatically casted as unsigned int resulting in 0xFFFF, which is larger than 1000. To avoid these issues, always explicitly/manually cast types (e.g. "(int)a" here).
 
 -----------------------------
 
@@ -72,9 +108,9 @@ Type-casting can be also used to change temporarily the type of a variable.
 const uint8_t DIM = 5;
 uint8_t Vect[DIM] = {0};
 
-- Local variables are defined inside a function and valid (aka variable scope) only for that specific function. Input-variable parameters are copied and considered local as well (i.e. having higher precedence over homonymous global variables). Plus, function varibles are created/destroyed inside the stack section of the RAM (with LIFO policy), whereas global variables are placed statically in a dedicated section at the beginning of the RAM.
+- Local variables are defined inside a function and valid (aka variable scope) only for that specific function. Input-variable parameters are copied and considered local as well (i.e. having higher precedence over homonymous global variables). Plus, function variables are created/destroyed inside the stack section of the RAM (with LIFO policy), whereas global variables are placed statically in a dedicated section at the beginning of the RAM.
 
-- Always use the "u/intX_t" type declaration for variables (defined in <stint.h>), since they are compiler-independent (thus, makes your code way more portable). Instead, for example, the generic "int" is 16-bit for XC8, but 32-bit for XC32!
+- Always use the "u/intX_t" type declaration for variables (defined in <stdint.h>), since they are compiler-independent (thus, makes your code way more portable). Instead, for example, the generic "int" is 16-bit for XC8, but 32-bit for XC32!
 
 -----------------------------
 
@@ -86,7 +122,7 @@ uint8_t Vect[DIM] = {0};
 && : logical AND
 | : bitwise OR
 || : logical OR
-^ : bitwise XOR (aka excluive OR)
+^ : bitwise XOR (aka exclusive OR)
 
 Keep in mind precedence and associativity rules (or just use parenthesis to skip the issue).
 
@@ -94,25 +130,36 @@ Keep in mind precedence and associativity rules (or just use parenthesis to skip
 
 8. BIT-SHIFTING
 
-Bit-shifting is generally more efficient than multiply (<<) or divide (>>), however it can be used only for constant powers of 2. Remember that bit-shifting a signed integer value can lead to errors if that value is negative, since the MSb is replaced by a '0' making it poitive; so avoid it or insert a checking mechanism to set MSb to '1' if the original value was negative.
+Bit-shifting is generally more efficient than multiply (<<) or divide (>>), however it can be used only for constant powers of 2. Remember that bit-shifting a signed integer value can lead to errors if that value is negative, since the MSb is replaced by a '0' making it positive; so avoid it or insert a checking mechanism to set MSb to '1' if the original value was negative.
 
 -----------------------------
 
 9. IF-SWITCH STATEMENTS
+
 In a multiple if-elseif-else statement, the upper conditions have higher priority than the lower ones (e.g. if 1st condition is met, all others will be ignored).
 
 In a switch statement once the condition is met, ALL the statement below are executed by default (to avoid this behavior use the keyword "break" inside each state).
 
------------------------------
-
-§ LOOPS
-do-while : as the usual while-loop, but executing the state before checking the condition.
-break : to break a loop (even if endless).
-continue : to jump directly to next loop execution cycle skipping all the state code left below.
+To prevent "=" instead of "==" errors inside if-conditions, always place the constant as on the left. for example,
+if( x == CONST ) -> error not detected by compiler!
+if (CONST == x ) -> error detected by compiler!
 
 -----------------------------
 
-10. FUNCTION PROTOTYPE
+10. LOOPS
+
+- do-while : as the usual while-loop, but executing the state before checking the condition.
+- break : to break a loop (even if endless).
+- continue : to jump directly to next loop execution cycle skipping all the state code left below.
+- goes to : this is how it's called "-->", i.e. the combination of "--" and ">". For instance,
+int cnt = 10;
+while( cnt-- > 0 ){
+...
+}
+
+-----------------------------
+
+11. FUNCTION PROTOTYPE
 
 - Note parameters name can be omitted in function prototypes (but not in the declaration, of course).
 
@@ -125,9 +172,9 @@ int MySum( int A, int B ){
 
 -----------------------------
 
-11. STRING
+12. STRING
 
-- Strings can be defined as "XYZ" and automatically terminated by a NUL character (i.e. 0x00). Rembember a string is treated as nothing but an array of characters in C. For example:
+- Strings can be defined as "XYZ" and automatically terminated by a NUL character (i.e. 0x00). Remember a string is treated as nothing but an array of characters in C. For example:
 char MyStr[] = "vkn";
 creates a 4-element string (considering the final "\0" character as well). Thus it's equivalent to:
 char MyStr[] = {'v', 'k', 'n', '\0'};
@@ -138,7 +185,7 @@ MyStr = "vAn" -> ERROR
 
 -----------------------------
 
-12. POINTER
+13. POINTER
 
 - Direct access to variable (write) : int XYZ = 22;
 
@@ -187,7 +234,7 @@ prints on shell 0x114A, 0x114E, 0x1152, etc, since floats have 4-byte size.
     }
 prints on shell 0x114A, 0x114B, 0x114C, etc, since uint8_t have 1-byte size.
 
-- Remember thet pre/post-incrementing can be executed on pointers as well, For instance:
+- Remember that pre/post-incrementing can be executed on pointers as well, For instance:
 int x[3] = {1,2,3};
 int *p = &x;
 int y;
@@ -196,7 +243,7 @@ returns y = 6 (since expression is first evaluated and then the pointer increase
 
 -----------------------------
 
-13. STRUCTURE
+14. STRUCTURE
 
 - Structures are collections of variables grouped together under a common name, and each sub-field is called "member";
 
@@ -228,8 +275,121 @@ pVar2->imag = 8.4;
 
 -----------------------------
 
-14. UNIONS
+15. UNION
 
-- Unions are similar to structures, but all their members share the same memory location. Thus, a union is essentially a variable capable of holding different types of data at different times. The size of a union is equal to that of its largest member. Note that, unlike for structures, modifying a union member means moifying also all others now, since they actually all refer to the same memory location actually!
+- Unions are similar to structures, but all their members share the same memory location. Thus, a union is essentially a variable capable of holding different types of data at different times. The size of a union is equal to that of its largest member. Note that, unlike for structures, modifying a union member means modifying also all others now, since they actually all refer to the same memory location actually!
 
 - For example, unions can be used to choose between the overall value of a variable or its bit-fields (see the "struct_unions.c" script).
+
+-----------------------------
+
+16. ENUMERATOR
+
+- Enumerators create a mapping between a limited range of integer values and the corresponding symbolic constants. They have a syntax similar to structures/union, and they make code more readable (especially in case of state machines). By default, values always start from 0 and increase by one each time; however, the programmer can also force their values (and then successive values will keep increasing from there). For instance:
+typedef enum {
+    MON,		// 0
+    TUE,		// 1
+    WED = 5,		// 5
+    THU,		// 6
+    FRI, 		// 7
+    SAT = 13,    	// 13
+    SUN			// 14
+} weekday_t;
+
+- Keep in mind C allows you to set an enum-variable even outside the type range. For example, considering the example just above, using "weekday_t today = 66;" would be correctly executing without generating any error.
+ 
+-----------------------------
+
+17. STATE MACHINE
+
+Software state machine can be created using enumerators along with a switch-case or a functions-array (see "state_machine.c"). The switch-case approach is easy to maintain and does not require pointers (thus, issues related to accidental pointers corruption in data-memory are avoided); on the other hand, the function approach is more portable and structured, but might suffer from pointers corruption in the data-memory (this can be counteracted by using the qualifier "const" or watchdogs).
+
+-----------------------------
+
+18. VOLATILE
+
+When a variable is declared as volatile, the compiler generates code that ensures that every access to the variable reads or writes its actual value, rather than using any cached or optimized value. Without the volatile keyword, the compiler may optimize the code by assuming that the value of the variable will not change, and it may reuse the previous value read from the variable instead of reading its current value. This optimization can cause incorrect behavior if the value of the variable changes unexpectedly. Note that defining variables as volatile reduces the code performance, thus shall be used only if really needed. Declaring a variable as "volatile" makes sense for the following cases:
+[a] to access memory-mapped peripheral registers which may change in any moment (e.g. a register storing the state of some digital GPIOs);
+[b] to access variables that can be modified during ISRs (typical of embedded programming);
+[c] to access variables shared among several tasks (typical of multi-thread programming);
+[d] to prevent counter optimization when implementing software delay-functions.
+
+-----------------------------
+
+19. FLOATING-POINT
+
+MCUs can basically handle floating-point arithmetic in x2 ways:
+[a] using an additional hardware module called floating-point unit (FPU), which is designed and optimized exactly for floating-point operations -> faster and more efficient, but also more expensive and space-demanding due to the additional hardware;
+[b] using software libraries to replicate the FPU operation -> way slower, but cheaper and less-space demanding since no additional hardware is needed.
+
+-----------------------------
+
+20. IMPLICIT TYPE PROMOTION
+
+C was designed to implicitly and silently change the integer types of the operands used in expressions. This causes the compiler to promote (aka cast) all integer formats smaller than "int" (e.g. bool, u/int8_t and u/int16_t for 32-bit MCUs) to "signed int" automatically during operations. The rationale behind this is to prevent accidental overflows during arithmetic, but also to allow operands with different signedness to co-exist in the same expression. Unfortunately, the rules for implicit type promotion cause much more harm than good, to the point where they might be one of the biggest flaws in the C language. For instance,
+uint8_t X = 0x55;
+uint16_t Y = ~X;
+printf("%X\n",Y);
+generates "FFAA" instead of the expected "00AA". This is because, before applying the bitwise-NOT, X is implicitly converted to int (i.e. "0x00000055", assuming 32-bit architecture). Then ~X produces "FFFFFFAA", and finally "FFAA" after the uint16_t casting. To get the expected result (i.e. "00AA"), the instruction should have been "uint16_t Y = (uint8_t)(~X)".
+In any case, the best practise in these cases is always to manually add the type-casting, avoiding issues caused by C implicit promotion. See "implicit_type_promotion.pdf" for further details.
+
+-----------------------------
+
+21. SEQUENCE POINT
+
+Sequence points refer to issues and side effects that might arise by misunderstanding how the compiler translates your code into instructions (especially in terms of order). For example:
+[a] if( j++ < 10 || i++ < 5 ) -> in this case, if the 1st condition is met, the 2nd one is not even evaluated, thus "i" might be never increased;
+[b] add(i+1,i=j+2) -> in this case, there's no certainty the 1st argument will be evaluated before being updated by the 2nd one, since the compiler can evaluate the arguments of a function in any order (in fact, the compiler typically generates a warning in these cases);
+[c] a = f(i++)+g(i)+h(i--) -> in this case, there's no certainty the update of the variable "i" will follow the written order, since the compiler can decide to call and evaluate the x3 functions in any order.
+
+-----------------------------
+
+22. MACRO
+
+Macros are simply string replacements that are handled by the preprocessor.
+
+Issues might arise if used unproperly, for example in case input expressions:
+#define SQUARE(X) X*X
+z = SQUARE(1+2)
+actually yields z = 1+2*1+2 = 5 (and not the expected 9). To solve the issue this should be defined as "#define SQUARE(X) (X)*(X)".
+
+Issues can also occur in case of multiple instructions, for example:
+#define SWAP(a,b) a^=b; b=^a; a^=b;
+if( x>5 ) SWAP(x,y);
+actually always executes the last two instructions of SWAP (even if x <= 5). In this case, writing "if( x>5 ){ SWAP(x,y)};" would solve the problem.
+
+Remember that macros cannot be debugged as standalone entities, that's why standard functions are preferred in terms of readabilty and safety!
+
+-----------------------------
+
+23. LINKED LIST DATA STRUCTURE
+
+A linked-list is a sequence of data structures (aka nodes) which are connected together via links and typically stored into the heap memory (but also static allocation into stack is possible). Each link contains a connection to another link. Nodes can be added, deleted of moved within the list. Each node contains at least one value and one pointer.
+
+There are x3 typical types of linked-lists:
+[a] simple linked-list (SLL) -> x1+ values and x1 pointer (aka address) pointing to the next node (thus navigation is forward only), and the last item has next address equal to NULL;
+[b] doubly linked-list (DLL) -> x1+ values and x2 pointers pointing to the next and previous node respectively (thus navigation can be both forward and backward), and the last item has next address equal to NULL as well as the previous address of the first item;
+[c] circular linked-list (CLL) -> same as doubly case, but where the last item points to the first one as next address and the first item to the last one as previous address.
+
+An example of SLL is:
+struct Node {
+    int data;
+    struct Node* next;
+}
+
+The advantages of linked-lists are:
+- values can be added, moved or deleted way more easily than for standard array (particularly usefull in case each value is also assigned with a priority, in order not to affect the priority of the remaining elements);
+- their memory size is mantained (and can be changed) dynamically at run-time (particularly usefull if the array size is not fixed a priori).
+The disadvantages of linked-lists are:
+- extra memory space is required for the pointer memebers of each node;
+- random access is not permitted and elements shall be accessed sequentially (e.g. to access element #3, you have to access #1 and the move to next node twice).
+
+-----------------------------
+
+24. DYNAMIC ALLOCATION
+
+C provides several built-in functions for dynamic allocation in the heap section of data-memory:
+[a] "ptr = malloc(byte_size)" -> allocates a single block of memory (not initialized), returns a pointer to the 1st element, and it's faster but suitable for small and simple data types;
+[b] "ptr = calloc(n_elem, byte_size)" -> allocates n_elem blocks of memory (automatically initialized to 0) of the same size, returns a pointer to the 1st element, and it's slower but more suitable for big and complex data type (e.g. array of structures);
+[c] "ptr = realloc(ptr, new_size)" -> to modify the size of a previously allocated memory space;
+[d] "free(ptr)" -> to explicitly release/deallocate memory space previously allocated through malloc or calloc.

@@ -115,16 +115,16 @@ int main(){
     printf("  Age = %d | Bday = %d/%d/%d\n",T1.Age,T1.Birthday[0],T1.Birthday[1],T1.Birthday[2]);
 
 
-    /* [9] Info from built-in C macros */
+    /* [9] Info from built-in C macros (date-time and end-of-file) */
     printf("\n* [9] Info from built-in C macros\n");
-    char CurTime[9];
-    char CurDate[12];
-    char CurFIle[15];
+    char CurTime[sizeof(__TIME__)];
+    char CurDate[sizeof(__DATE__)];
+    char CurFIle[sizeof(__FILE__)];
     strcpy(CurTime, __TIME__);
     strcpy(CurDate, __DATE__);
     strcpy(CurFIle, __FILE__);
-    printf("  Date -> %s\n", CurDate);
     printf("  Time of Day -> %s\n", CurTime);
+    printf("  Date -> %s\n", CurDate);
     printf("  File Name -> %s\n", CurFIle);
     printf("  End of file at line #%d\n", __LINE__);
 
