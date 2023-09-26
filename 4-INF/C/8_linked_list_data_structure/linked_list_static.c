@@ -70,7 +70,7 @@ void Init_List( heads_t * const heads ){
  * @param newdata data of new node to be added
  * @param newptr priority of new node to be added (NB: shall be > 0)
  */
-void Add_Node( heads_t * const heads, uint16_t newdata, uint8_t newprt ){
+void Add_Node( heads_t * const heads, const uint16_t newdata, const uint8_t newprt ){
     if( (heads->hphy != NULL) && (heads->hlog != NULL) && (newprt > 0) ){
         uint8_t idx_phy = 0;                                                // index over physical list
         while( (idx_phy < MAX_NODES) && !((heads->hphy+idx_phy)->free) ){
@@ -139,7 +139,7 @@ void Remove_Node( heads_t * const heads ){
  * @param head pointer to head-node of the linked-list
  * @param list_view physical/logical list view
  */
-void Print_List( const heads_t * const heads, list_t list_view ){
+void Print_List( const heads_t * const heads, const list_t list_view ){
     uint8_t j = 0;
     if( list_view == LIST_PHY ){
         for( ; j<MAX_NODES; j++ ){
@@ -167,7 +167,7 @@ void Print_List( const heads_t * const heads, list_t list_view ){
 
 int main(){
 
-    list_t print_type = LIST_LOG;                                           // print view (LIST_LOG for logical, LIST_PHY for physical) -> see NOTE#1
+    const list_t print_type = LIST_LOG;                                     // print view (LIST_LOG for logical, LIST_PHY for physical) -> see NOTE#1
 
     heads_t heads = {&linked_list[0],&linked_list[0]};                      // define structure with physical and logical heads (both initialized to 1st element of "linked_list" array)
     Init_List(&heads);                                                      // initialize array/list nodes to default/empty values
@@ -176,7 +176,6 @@ int main(){
         printf("\n >>> PHYSICAL LIST <<<\n\n");
     } else {
         printf("\n >>> LOGICAL LIST <<<\n\n");
-        print_type = LIST_LOG;
     }
     Print_List(&heads,print_type);
 

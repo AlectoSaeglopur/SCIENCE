@@ -40,8 +40,7 @@ A header file ca be added in multiple ways through the #define directive:
   b) <XZY.h> tells the pre-processor to look into the compiler search path (typical for system/pre-defined header files, e.g. <stdint.h> or <stdio.h>);
   c) "/PATH/XYZ.h" tells the compiler to look into the specified absolute or relative path (actually very rare).
 
-Remember to use "header-guards" at the beginning of each headef file of your project in order to prevent a single header file to be included more than once by the same compilation unit (NB: in general the compiler creates a number of compilation units equal to the number of source files included in the project, thus .c files).
- (thus, preventing duplications and making code more robust). The syntax is:
+Remember to use "header-guards" at the beginning of each header file of your project in order to prevent a single header file to be included more than once by the same compilation unit (NB: in general the compiler creates a number of compilation units equal to the number of source files included in the project, thus .c files). This prevents duplications and makes code more robust. The syntax is:
 #ifndef HEADER_H
 #define HEADER
 ...
@@ -70,6 +69,12 @@ printf("\n\n XYZ = %d\n",XYZ);	   	// returns 10
 *pXYZ = 33;
 printf("\n\n XYZ = %d\n",XYZ);		// returns 33
 To solve the issues (and avoid the warning the message), pXYZ should be declared as "const int* pXYZ": now executing "*pXYZ = 33" would generate an error.
+
+Regarding the difference and best choice between "const" and "#define":
+- "const" is considered more elegant and safer in terms of data type, whereas "#define" can autonomously decide the type (unless explicitly specified);
+- "#define" is slightly more efficient in case of low-optimization, since the value is physically replaced at compilation time, where "const" creates a read-only variable in memory and thus an additional memory-reading instruction each time is needed to retrieve it (however, in case of good compiler optimization, nowadays there is no difference at all);
+- "#define" is needed to specified array size, since "const" cannot be used;
+- "#define" is easier to use in header files (in fact, they can be easily declared just once, e.g. "#define EbN0 (float) 15.0"), whereas "const" would cause the compiler/linker to generate a multiple-definition error since the read-only variable is initialized by every source file (.c) including the header where the constant is defined (to solve the issue, the constant shall be just declared in the header - i.e.  "const float EbN0" - and then initialized in the source file - "const float EbN0 = 15.0" -, or using the not-recommended keyword "extern").
 
 -----------------------------
 
@@ -358,7 +363,7 @@ Issues can also occur in case of multiple instructions, for example:
 if( x>5 ) SWAP(x,y);
 actually always executes the last two instructions of SWAP (even if x <= 5). In this case, writing "if( x>5 ){ SWAP(x,y)};" would solve the problem.
 
-Remember that macros cannot be debugged as standalone entities, that's why standard functions are preferred in terms of readabilty and safety!
+Remember that macros cannot be debugged as standalone entities, that's why standard functions are preferred in terms of readability and safety!
 
 -----------------------------
 
@@ -378,10 +383,10 @@ struct Node {
 }
 
 The advantages of linked-lists are:
-- values can be added, moved or deleted way more easily than for standard array (particularly usefull in case each value is also assigned with a priority, in order not to affect the priority of the remaining elements);
-- their memory size is mantained (and can be changed) dynamically at run-time (particularly usefull if the array size is not fixed a priori).
+- values can be added, moved or deleted way more easily than for standard array (particularly useful in case each value is also assigned with a priority, in order not to affect the priority of the remaining elements);
+- their memory size is maintained (and can be changed) dynamically at run-time (particularly useful if the array size is not fixed a priori).
 The disadvantages of linked-lists are:
-- extra memory space is required for the pointer memebers of each node;
+- extra memory space is required for the pointer members of each node;
 - random access is not permitted and elements shall be accessed sequentially (e.g. to access element #3, you have to access #1 and the move to next node twice).
 
 -----------------------------
@@ -393,3 +398,30 @@ C provides several built-in functions for dynamic allocation in the heap section
 [b] "ptr = calloc(n_elem, byte_size)" -> allocates n_elem blocks of memory (automatically initialized to 0) of the same size, returns a pointer to the 1st element, and it's slower but more suitable for big and complex data type (e.g. array of structures);
 [c] "ptr = realloc(ptr, new_size)" -> to modify the size of a previously allocated memory space;
 [d] "free(ptr)" -> to explicitly release/deallocate memory space previously allocated through malloc or calloc.
+
+-----------------------------
+
+25. FUNCTION ARGUMENTS
+
+Remember that in C any input argument (int, pointer, structure, etc.) to a function is just a COPY of the actual variable outside! This means that changing its value inside the function actually applies the modification locally inside the function copy, but does not affect the outside original value. However, the outside value can be modified using pointer: in fact, even though the pointer address itself cannot be globally modified (as said before), actually the pointed value can, since it specifies a global RAM address.
+
+void foo( int * ptr ){
+	*ptr += 2;		// pointed value is change both locally and globally
+	ptr = NULL;		// pointing address is changed only locally
+}
+
+In order to modify the pointing address, two ways are possible (see "linked_list_dynamic.c" and "linked_list_static.c" for more details):
+[a] passing as input a double pointer (i.e. int ** ptr) and then modify the pointer as "*ptr = NULL":
+void foo( int * ptr ){
+	**ptr += 2;		// pointed value is change both locally and globally
+	*ptr = NULL;		// pointing address is change both locally and globally now
+}
+[b] returning the pointer as output and update the global value outside the function, thus:
+int *foo( int * ptr ){
+	*ptr += 2;		// pointed value is change both locally and globally
+	ptr = NULL;		// pointing address is changed only locally so far
+	return ptr;
+}
+pVal = foo(pVal);
+
+Following the discussion above, using the attribute "const" for non-pointer function arguments is not intended to protect the global value of the parameter (since it's just a copy), but to prevent the local value to be mistakenly modified inside the function (i.e. it just makes the code a little safer). In case of pointers, the second "const" (after *) acts exactly the same, but the first one (before *) can be really important in order to prevent the function from mistakenly modify any pointed value or member of the input pointer (e.g. in case of a printing-on-shell function where nothing have to be modified).
