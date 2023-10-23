@@ -1,50 +1,61 @@
 
 0. DATA-MEMORY
 
-MCUs have typically x2 kinds of built-in memories:
+MCUs have typically 2 kinds of internal memories:
 
-[a] Program-memory (aka flash), i.e. the (non-volatile and slow) memory where the actual code is stored. This is updated first of all at programming-time, but possibly even at run-time in case there's need to store and preserve some run-time data against power-cycles;
+[a] Program-memory (aka flash), i.e. the non-volatile and slower memory where the actual code is stored. This is updated mainly at programming-time, but possibly even at run-time in case there's need to store and preserve some run-time data against power-cycles;
 
-[b] Data-memory (aka RAM), i.e. the (volatile and fast) memory where data and variables are stored and removed for run-time code execution. The data-memory is divided into x3 sub-regions:
+[b] Data-memory (aka RAM), i.e. the volatile and faster memory where data (e.g. variables) are stored and removed for run-time code execution. The data-memory is further divided into 3 sub-regions:
+- Static : (Initial or final, depending on the specific MCU) region where all global variables are statically allocated (including variables defined as static inside functions and regardless of other attributes, such as static, volatile or const);
+- Stack : (Middle) region where variables within functions are created and then destroyed according to a last-in-first-out (LIFO) policy. When a function or a method calls another function which in turns calls another function (etc), the execution of all those functions remains suspended until the very last function returns its value. Due to its LIFO policy, the most recently reserved block is always the next one to be freed. This makes stack-allocation and utilization very fast, since keeping track of its current utilization (through a dedicated stack-pointer) is easy, and all allocations/deallocations are done automatically;
+- Heap : (Final) section dedicated to run-time dynamic allocation, whose size is typically variable and decided at programming-time (or sometimes settable a priori by the programmer through IDE, e.g. MPLAB for Microchip's dsPICs). Elements of the heap have no dependencies with each other and can always be accessed randomly at any time. You can allocate a block at any time and free it at any time. Although more flexible, this makes way more complex keeping track of which parts of the heap are allocated or free at any given time, making heap-allocation and utilization way slower than stack;
 
-- static -> initial (or final, depending on the specific MCU) region where all global variables (regardless of other attributes, e.g. static, volatile or const), including the variables defined as static inside functions, are statically allocated;
-- stack -> middle region where variables within functions are created and then destroyed according to a last-in-first-out (LIFO) policy;
-- heap -> final section dedicated to run-time dynamic allocation (e.g. for arrays with variable length) and its size is typically variable and decided at programming-time (or sometimes settable a priori by the programmer through IDE, e.g. MPLAB for Microchip's dsPICs).
+
+- Stack vs Heap -> Stack is recommended when you know exactly how much data you need to allocate at compile-time and this is not too size-demanding. On the other hand, heap is recommended when you don't know exactly how much data you will need at run-time or if you need to allocate size-demanding data (e.g. if you need an array with large and variable/reconfigurable size in time). Moreover, note in multi-threaded situations each thread has its own completely independent stack, but they all share the same heap. Thus, stack is thread-specific and heap is application-specific. Plus, stack memory is not resizable, meaning its allotted size cannot be changed after programming. On the contrary, heap memory can be resized at run-time. Usually the address boundary between stack and heap within the RAM is defined at compile-time (and sometimes configurable via IDE). Finally, note even though both stack and heap are "physically allocated" at run-time (i.e. the RAM partitioning between stack and heap when MCU is powered-up), the layout (i.e. the address locations) of each stack frame is decided (and stored in flash) at compile-time, unlike heap, which instead is completely handled at run-time.
 
 ------------------------------------
 
 1. TYPEDEF
 
-Use "typedef" to create your custom type (e.g. "typedef unsigned int MYTYPE;").
+The keyword "typedef" can be used to create custom types (e.g. "typedef unsigned int MYTYPE;"), structures, unions and enumerators (see below).
 
 ------------------------------------
 
 2. COMPILER DIRECTIVE
 
-Every #XYZ instruction is called "compiler directive" (e.g. #include or #ifdef).
+Every #XYZ instruction is called "compiler directive" (e.g. #include, #ifdef or #define).
+
 Note redefining a MACRO multiple times does not cause an error: the actual value is the last encountered by the compiler. For instance, in the following example XYZ will be set to 11.
 
-#define XYZ 5
+#define XYZ   (uint8_t) 5
 void MyFunc( void ){
-#define XYZ 11
+#define XYZ   (uint8_t) 11
 }
 
 ------------------------------------
 
 3. HEADER
 
-Header files can be seen as extensions of .c files, so to store constants, other libraries or even variables used in the .c file (for better clarity).
+Header files can be seen as extensions of .c files (aka "source files"), helpful to store constants, libraries or even variables used in the corresponding source files to improve code clarity.
 
-A header file ca be added in multiple ways through the #define directive:
+A header file can be added in multiple ways through the #include directive:
   a) "XYZ.h" tells the pre-processor to look into the project directory (typical for custom headers defined in the same folder as the file where the directive is invoked);
   b) <XZY.h> tells the pre-processor to look into the compiler search path (typical for system/pre-defined header files, e.g. <stdint.h> or <stdio.h>);
-  c) "/PATH/XYZ.h" tells the compiler to look into the specified absolute or relative path (actually very rare).
+  c) "/PATH/XYZ.h" tells the compiler to look into the specified absolute or relative path (generalization of 1st case).
 
-Remember to use "header-guards" at the beginning of each header file of your project in order to prevent a single header file to be included more than once by the same compilation unit (NB: in general the compiler creates a number of compilation units equal to the number of source files included in the project, thus .c files). This prevents duplications and makes code more robust. The syntax is:
-#ifndef HEADER_H
-#define HEADER
+Remember to use "header-guards" macros at the beginning of each header file of your project in order to prevent a single header file from being included more than once by the same compilation unit (NB: in general the compiler creates a number of compilation units equal to the number of source files included in the project). This prevents duplications and makes code more robust. The syntax is:
+#ifndef HEADER_NAME_H
+#define HEADER_NAME_H
 ...
 #endif
+
+Some useful built-in C libraries are:
+- <stdio.h> for basic features (e.g. printf function),
+- <stdbool.h> for boolean types,
+- <stdint> for specific integer types (uint8, int32, etc),
+- <string.h> for memcpy/memset functions,
+- <stdlib.h> for malloc/calloc and random generation functions,
+- <time.h> for getting current UTC time in seconds.
 
 ------------------------------------
 
@@ -72,7 +83,7 @@ To solve the issues (and avoid the warning the message), pXYZ should be declared
 
 Regarding the difference and best choice between "const" and "#define":
 - "const" is considered more elegant and safer in terms of data type, whereas "#define" can autonomously decide the type (unless explicitly specified);
-- "#define" is slightly more efficient in case of low-optimization, since the value is physically replaced at compilation time, where "const" creates a read-only variable in memory and thus an additional memory-reading instruction each time is needed to retrieve it (however, in case of good compiler optimization, nowadays there is no difference at all);
+- "#define" is slightly more efficient in case of low-optimization, since the value is physically replaced at compile-time, where "const" creates a read-only variable in memory and thus an additional memory-reading instruction each time is needed to retrieve it (however, in case of good compiler optimization, nowadays there is no difference at all);
 - "#define" is needed to specified array size, since "const" cannot be used;
 - "#define" is easier to use in header files (in fact, they can be easily declared just once, e.g. "#define EbN0 (float) 15.0"), whereas "const" would cause the compiler/linker to generate a multiple-definition error since the read-only variable is initialized by every source file (.c) including the header where the constant is defined (to solve the issue, the constant shall be just declared in the header - i.e.  "const float EbN0" - and then initialized in the source file - "const float EbN0 = 15.0" -, or using the not-recommended keyword "extern").
 
@@ -113,7 +124,7 @@ is evaluated as false, since b is automatically casted as unsigned int resulting
 const uint8_t DIM = 5;
 uint8_t Vect[DIM] = {0};
 
-- Local variables are defined inside a function and valid (aka variable scope) only for that specific function. Input-variable parameters are copied and considered local as well (i.e. having higher precedence over homonymous global variables). Plus, function variables are created/destroyed inside the stack section of the RAM (with LIFO policy), whereas global variables are placed statically in a dedicated section at the beginning of the RAM.
+- Local variables are defined inside a function and valid (aka variable scope) only for that specific function. Input-variable parameters are copied and considered local as well (i.e. having higher precedence over homonymous global variables). Plus, function variables are created/destroyed inside the stack section of the RAM, whereas global variables are placed statically in a dedicated section at the beginning of the RAM.
 
 - Always use the "u/intX_t" type declaration for variables (defined in <stdint.h>), since they are compiler-independent (thus, makes your code way more portable). Instead, for example, the generic "int" is 16-bit for XC8, but 32-bit for XC32!
 
@@ -143,7 +154,7 @@ Bit-shifting is generally more efficient than multiply (<<) or divide (>>), howe
 
 In a multiple if-elseif-else statement, the upper conditions have higher priority than the lower ones (e.g. if 1st condition is met, all others will be ignored).
 
-In a switch statement once the condition is met, ALL the statement below are executed by default (to avoid this behavior use the keyword "break" inside each state).
+In a switch statement once the condition is met, ALL the statement below are executed by default until a "break" is encountered (to avoid this behavior insert the keyword "break" at the end of each state).
 
 To prevent "=" instead of "==" errors inside if-conditions, always place the constant as on the left. for example,
 if( x == CONST ) -> error not detected by compiler!
@@ -166,7 +177,7 @@ while( cnt-- > 0 ){
 
 11. FUNCTION PROTOTYPE
 
-- Note parameters name can be omitted in function prototypes (but not in the declaration, of course).
+- Note parameters name can be omitted in function prototypes (but not in the declaration, of course):
 
 Prototype : int MySum( int A, int B ); OR int MySum( int, int );
 
@@ -313,10 +324,10 @@ Software state machine can be created using enumerators along with a switch-case
 
 18. VOLATILE
 
-When a variable is declared as volatile, the compiler generates code that ensures that every access to the variable reads or writes its actual value, rather than using any cached or optimized value. Without the volatile keyword, the compiler may optimize the code by assuming that the value of the variable will not change, and it may reuse the previous value read from the variable instead of reading its current value. This optimization can cause incorrect behavior if the value of the variable changes unexpectedly. Note that defining variables as volatile reduces the code performance, thus shall be used only if really needed. Declaring a variable as "volatile" makes sense for the following cases:
-[a] to access memory-mapped peripheral registers which may change in any moment (e.g. a register storing the state of some digital GPIOs);
-[b] to access variables that can be modified during ISRs (typical of embedded programming);
-[c] to access variables shared among several tasks (typical of multi-thread programming);
+When a variable is declared with the qualifier "volatile", the compiler generates code that ensures that every access to the variable reads or writes its actual value, rather than using any cached or optimized value. Without the volatile keyword, the compiler may optimize the code by assuming that the value of the variable will not change, and it may reuse the previous value read from the variable instead of reading its current value. This optimization can cause incorrect behavior if the value of the variable changes unexpectedly. Note that defining variables as volatile reduces the code performance, thus shall be used only if really needed. Declaring a variable as "volatile" makes sense for the following cases:
+[a] to access memory-mapped peripheral registers which may change in any moment asynchronously to the program flow (e.g. a register storing the state of some digital GPIOs);
+[b] to access variables (usually global variables) that can be modified during ISRs (typical of embedded programming);
+[c] to access variables shared among several tasks (typical of multi-thread programming; for example, if two tasks have to exchange information via a shared memory location, all shared global variables should be declared volatile on both sides);
 [d] to prevent counter optimization when implementing software delay-functions.
 
 -----------------------------
@@ -447,11 +458,28 @@ There are x2 types of callbacks:
 [a] polled callback -> where the callback execution (i.e. condition) is performed via polling in the main loop (see "polled_callback.c");
 [b] instantaneous callback -> where the callback execution is performed via interrupt inside the ISR (aka Interrupt Service Routine);
 
+-----------------------------
 
+27. SPECIAL FUNCTIONS, MACROS AND TIPS
 
+[a] Hereafter some built-in functions that can come in handy:
+- char * gets(char * str) [<stdio.h>] : takes and interprets user input as characters array;
+- int scanf(const char * format, ...) [<stdio.h>] : takes and interprets user input as the specified type (e.g. scanf("%d",&MyVar));
+- char * strcpy(char *dst, const char *src) [<string.h>] : copies string from src to dst (returning dst, or anything else in case of error);
+- void * memcpy(void * dst, const void sr, size_t n) [<string.h>] : copies n bytes from memory pointer src to dst (returning dst, or anything else in case of error); 
+- void * memset(void *str, int c, size_t n) [<string.h>] : copies byte c into the first n elements of pointer str (returning str, or anything else in case of error);
+- FILE *fopen(const char *filename, const char *mode) [<stdio.h>] : opens a file (.csv, .txt, etc) for read/write operation (e.g. FILE *fid = fopen("SymbsC.csv","w"), see "gaussian_fir_filter.c");
+- int fprintf(FILE *fid, const char *format, ...) [<stdio.h>] : to write string into file pointed by fid (e.g. fprintf(fid,"%1.4f",MyVar));
+- int fclose(FILE *stream) [<stdio.h>] : closes a file previously opened through fopen (e.g. fclose(fid));
+- int rand(void) [<stdlib.h>] : returns a pseudo-random integer uniformly distributed between 0 and RAND_MAX (depending on specific hardware, but usually at least 32767).
 
+[b] Hereafter some built-in macros that can come in handy:
+- __TIME__ [preprocessor] : gets current time of the day as a string (for example, "char CurTime[sizeof(__TIME__)]; strcpy(CurTime, __TIME__);");
+- __DATE__ [preprocessor] : gets current date as a string (example similar as above, see also "misc_examples.c");
+- __FILE__ [preprocessor] : gets name of current file/script (example similar as above, see also "misc_examples.c");
+- __LINE__ [preprocessor] : gets current code line within file/script (example similar as above, see also "misc_examples.c");
+- M_PI [<math.h>] : greek pi constant (pi = 3.141593).
 
-
-
-
-
+[c] Tips:
+- use "srand(time(NULL))" [<stdlib.h>] to link the random generator seed to current machine time (see "\SCIENCE\2-TLC\CHAINS\C\extra.c");
+- to compile and run a C script use "gcc -Wall FILENAME.c -o EXENAME && EXENAME", where "-Wall" enables all warning messages, "-D MACRONAME" enables the corresponding macro, and "-o XYZ" generates the corresponding .exe output (e.g. cls && gcc -Wall -D BIN_FILE IterativeCrc.c -o asd && asd); moreover, remember that in case multiple source files (.c) are included into the project, all of them shall be compiled to generate the object files (.o) and then linked together before running (e.g. "cls && gcc -c file1.c file2.c file3.c main.c && gcc file1.o file2.o file3.o main.o -o asd && asd").

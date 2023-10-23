@@ -85,5 +85,5 @@ int main(){
 
 /*
  * 1. To run the project, use the following command :
- *	  cls && gcc -c extra.c && gcc -c convolutional.c && gcc -c modulation.c && gcc -c main.c && gcc extra.o convolutional.o modulation.o main.o -o asd && asd
+ *	  cls && gcc -c extra.c convolutional.c modulation.c main.c && gcc extra.o convolutional.o modulation.o main.o -o asd && asd
  */

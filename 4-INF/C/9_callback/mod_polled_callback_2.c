@@ -102,5 +102,5 @@ int main( void ){
 // 1. To run the project:
 //    - generate object file for external library (see "mod_polled_callback_1.c");
 //    - generate object file for main project (i.e. "mod_polled_callback_2.o") with "gcc -c mod_polled_callback_2.c";
-//    - link the object files to generate executable and run with "gcc mod_polled_callback_1.c mod_polled_callback_2.c -o asd && asd";
-//    - (or summing up "cls && gcc -c mod_polled_callback_1.c mod_polled_callback_2.c && gcc mod_polled_callback_1.c mod_polled_callback_2.c -o asd && asd").
+//    - link the object files to generate executable and run with "gcc mod_polled_callback_1.o mod_polled_callback_2.o -o asd && asd";
+//    - (or summing up "cls && gcc -c mod_polled_callback_1.c mod_polled_callback_2.c && gcc mod_polled_callback_1.o mod_polled_callback_2.o -o asd && asd").
