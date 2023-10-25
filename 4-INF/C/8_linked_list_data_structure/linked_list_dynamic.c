@@ -1,6 +1,6 @@
 
 /*
- * Script showing an example of simple linked-list data structure with dynamic allocation.
+ * Script showing an example of simple linked-list (SLL) data structure with dynamic allocation.
  */
 
 
