@@ -41,3 +41,9 @@ else :
             Cnt += 1
     print('-----\nMatches for "'+Pattern+'" : '+str(Cnt)+' out of '+
         str(Nelem)+' elements')
+
+
+## NOTES ##
+
+# 1. To search for strings containing parenthesis or brackets add "\" before, since these are special characters used
+#    by Python to delimit string ends. For example, to search all unplugged songs [U], use "... # \[U\]".

@@ -1,4 +1,4 @@
- >> 13-Sep-2023 19:28:48 [P] <<
+ >> 29-Oct-2023 22:12:32 [P] <<
 
    1: 100% (Sonic Youth, 1992)
    2: 111 (Marlene Kuntz, 2007)
@@ -7,2412 +7,2475 @@
    5: 1º 2º 3º (Marlene Kuntz,1994)
    6: 2 the night (Ottmar Liebert, 1990)
    7: 2+2=5 (Radiohead, 2003)
-   8: 250 miles (Radio Moscow, 2009)
-   9: 3 di 3 (Marlene Kuntz, 1996)
-  10: 32-20 blues (Robert Johnson, 1936)
-  11: 4 (Aphex Twin, 1996)
-  12: 4-3-1943 (Lucio Dalla, 1971)
-  13: 50 special (Lùnapop, 1999)
-  14: 74-'75 (The Connells, 1993)
-  15: 9 crimes (Damien Rice, 2006)
-  16: A cuore scalzo (Max Gazzè, 2010)
-  17: A day in the life (The Beatles, 1967)
-  18: A fior di pelle (Marlene Kuntz, 2003)
-  19: A forest (The Cure, 1980)
-  20: A gospel song (Bob Geldof, 1990)
-  21: A hard rain's a-gonna fall (Bob Dylan, 1963)
-  22: A ja ljublju SSSR (CCCP, 1987)
-  23: A kind of magic [Queen]
-  24: A little less conversation [Elvis Presley & JXL]
-  25: A me me piace 'o blues [Pino Daniele]
-  26: A new error (Moderat, 2009)
-  27: A pillow of winds (Pink Floyd, 1971)
-  28: A place called home (PJ Harvey, 2000)
-  29: A prayer for England [Massive Attack]
-  30: A punch up at a wedding (Radiohead, 2003)
-  31: A pà (Live) [Dalla & De Gregori]
-  32: A question of time [Depeche Mode]
-  33: A sangue freddo [Il Teatro Degli Orrori]
-  34: A short term effect [The Cure]
-  35: A sort of homecoming (U2, 1984)
-  36: A thousand miles [Vanessa Carlton]
-  37: A whisper (Coldplay, 2002)
-  38: A whiter shade of pale [Procol Harum]
-  39: A wolf at the door (Radiohead, 2003)
-  40: Abbiamo vinto la guerra (Lo Stato Sociale, 2012)
-  41: Abitudine [Subsonica]
-  42: Abschied (Nico, 1970)
-  43: Ace of spades [Motörhead]
-  44: Acid eyes (Paolo Nutini, 2022)
-  45: Acida [Prozac+]
-  46: Acqua e sale [Adriano Celentano & Mina]
-  47: Acqua e sapone [Stadio]
-  48: Acquiesce [Oasis]
-  49: Acrobati [Daniele Silvestri]
-  50: Across the universe [The Beatles]
-  51: Adam's song [Blink-182]
-  52: Adelante! Adelante! [Francesco De Gregori]
-  53: Aeroplane (Red Hot Chili Peppers, 1995)
-  54: Afraid (Nico, 1970)
-  55: Africa [Toto]
-  56: After the curtain [Beirut]
-  57: Again [Lenny Kravitz]
-  58: Age of anxiety I [Arcade Fire]
-  59: Age of anxiety II (Rabbit hole) [Arcade Fire]
-  60: Age of consent [New Order]
-  61: Ahi Maria [Rino Gaetano]
-  62: Aida [Rino Gaetano]
-  63: Ain't talkin' about love [Van Halen]
-  64: Airbag [Radiohead]
-  65: Al bar Casablanca [Giorgio Gaber]
-  66: Alan's psychedelic breakfast (Pink Floyd, 1970)
-  67: Albachiara [Vasco Rossi]
-  68: Alice [Francesco De Gregori]
-  69: Alive [Pearl Jam]
-  70: All along the watchtower (Live) [U2]
-  71: All along the watchtower [The Jimi Hendrix Experience]
-  72: All apologies [Nirvana]
-  73: All because of you [U2]
-  74: All i need [Air]
-  75: All i want is you [U2]
-  76: All in love is fair (Stevie Wonder, 1973)
-  77: All is full of love [Björk]
-  78: All the cats join in [Benny Goodman]
-  79: All the small things [Blink-182]
-  80: All the things she said [Tatu]
-  81: All this time (Sting, 1991)
-  82: All tomorrow's parties (The Velvet Underground, 1967)
-  83: All you need is love [The Beatles]
-  84: All'una e trentacinque circa (Vinicio Capossela, 1990)
-  85: Alla fiera dell'est [Angelo Branduardi]
-  86: Alle prese con una verde milonga [Paolo Conte]
-  87: Almeno tu nell'universo [Mia Martini]
-  88: Alone in Kyoto [Air]
-  89: Altre F.D.V. (Bluvertigo, 1997)
-  90: Altrove [Eugenio In Via Di Gioia]
-  91: Altrove [Morgan]
-  92: Always [Blink-182]
-  93: Amarsi male [Lo Stato Sociale]
-  94: America [M83]
-  95: American beauty [Thomas Newman]
-  96: American idiot [Green Day]
-  97: American woman [Lenny Kravitz]
-  98: Amico fragile (Fabrizio De André, 1975)
-  99: Amigo (Litfiba, 1988)
- 100: Amore che vieni, amore che vai (Fabrizio De André, 1968)
- 101: Amore disperato (Nada, 1983)
- 102: Amore impossibile [Tiromancino]
- 103: Anarchy in the UK (Sex Pistols, 1977)
- 104: And the radio plays (Live) [CSI]
- 105: Andrea (Fabrizio De André, 1978)
- 106: Andrew [M Field]
- 107: Angel (Massive Attack, 1998)
- 108: Angel of Harlem [U2]
- 109: Animal instinct [The Cranberries]
- 110: Animal [Pearl Jam]
- 111: Anime salve (Fabrizio De André, 1996)
- 112: Anna e Marco [Lucio Dalla]
- 113: Anna verrà [Pino Daniele]
- 114: Annarella (CCCP, 1990)
- 115: Anno zero [Casino Royale]
- 116: Années de pèlerinage (S. 160 No. 2 - Au lac de Wallenstadt) [Franz Liszt]
- 117: Another brick in the wall - pt.2 (Pink Floyd, 1979)
- 118: Another day in paradise [Phil Collins]
- 119: Another one bites the dust [Queen]
- 120: Apapaia (Litfiba, 1986)
- 121: Ape regina (Marlene Kuntz, 1996)
- 122: Are friends electric [Tubeway Army]
- 123: Are you gonna be my girl [Jet]
- 124: Army dreamers (Kate Bush, 1980)
- 125: Arnold Layne (Pink Floyd, 1967)
- 126: Around the world (Red Hot Chili Peppers, 1999)
- 127: Arrow (Half Alive, 2019)
- 128: Ascolta l'infinito [Fiorella Mannoia]
- 129: Ashes to ashes [David Bowie]
- 130: Aspettando il sole [Neffa]
- 131: At last [Etta James]
- 132: At the end of the day [Amon Tobin]
- 133: Atmosphere [Joy Division]
- 134: Atom meart mother suite (Pink Floyd, 1970)
- 135: Auto rock [Mogwai]
- 136: Autogrill [Francesco Guccini]
- 137: Avalon [Roxy Music]
- 138: Ave Maria [Franz Schubert]
- 139: Avril 14th [Aphex Twin]
- 140: Awful [Hole]
- 141: Ayrton (Lucio Dalla, 1996)
- 142: Azzurro [Adriano Celentano]
- 143: Ba ba (Sigur Rós, 2004)
- 144: Baba O'Riley [The Who]
- 145: Babooshka (Kate Bush, 1980)
- 146: Baby scratch my back [Slim Harpo]
- 147: Back around [Half Alive]
- 148: Back in black (AC-DC, 1980)
- 149: Back in the USSR (The Beatles, 1968)
- 150: Back to life (Giovanni Allevi, 2006)
- 151: Bad (U2, 1984)
- 152: Bad day [REM]
- 153: Balanite (Verdena, 2004)
- 154: Ball and biscuit (The White Stripes, 2003)
- 155: Ball and chain [Big Mama Thornton]
- 156: Balla balla ballerino [Lucio Dalla]
- 157: Ballad of a thin man (Bob Dylan, 1965)
- 158: Ballata degli impiccati (Fabrizio De André, 1968)
- 159: Ballata dell'amore cieco (Fabrizio De André, 1974)
- 160: Ballata per la mia piccola iena (Afterhours, 2005)
- 161: Balliamo sul mondo (Live) [Ligabue]
- 162: Baltimore [Nina Simone]
- 163: Bambino (Litfiba, 1988)
- 164: Banquet [Bloc Party]
- 165: Baptized (Lenny Kravitz, 2004)
- 166: Barrel of a gun [Depeche Mode]
- 167: Bartali [Paolo Conte]
- 168: Basket case [Green Day]
- 169: Batcat [Mogwai]
- 170: Be ki don [Samba Touré]
- 171: Be yourself [Morcheeba]
- 172: Be yourself
- 173: Beat it [Michael Jackson]
- 174: Beatcity (Still Corners, 2013)
- 175: Beautiful day [U2]
- 176: Beautiful [The Smashing Pumpkins]
- 177: Beauty queen [Roxy Music]
- 178: Because the night [Patti Smith]
- 179: Been caught stealing [Jane's Addiction]
- 180: Beep beep love (Gruppo Sportivo, 1978)
- 181: Beetlebum [Blur]
- 182: Before i sleep [Mazzy Star]
- 183: Behind blue eyes [The Who]
- 184: Bela Lugosi's dead [Bauhaus]
- 185: Believe in me [Lenny Kravitz]
- 186: Believe [The Chemical Brothers]
- 187: Bella ciao [Modena City Ramblers]
- 188: Bella [Jovanotti]
- 189: Bellbottoms [The Jon Spencer Blues Explosion]
- 190: Bello e impossibile [Gianna Nannini]
- 191: Beppeanna [Bandabardò]
- 192: Berlin (Live) [Lou Reed]
- 193: Berlin [Lou Reed]
- 194: Berta filava [Rino Gaetano]
- 195: Best of you [Foo Fighters]
- 196: Better way [Ben Harper]
- 197: Big bang theory theme [Barenaked Ladies]
- 198: Big calm [Morcheeba]
- 199: Big time sensuality (Fluke mix) [Björk]
- 200: Big yellow taxi [Joni Mitchell]
- 201: Biggy [Warpaint]
- 202: Bigmouth strikes again (The Smiths, 1986)
- 203: Bike (Pink Floyd, 1967)
- 204: Billie Jean [Michael Jackson]
- 205: Binge [Deadletter]
- 206: Biodiversità [KarmaKosmica]
- 207: Bistro fada [Stephane Wrembel]
- 208: Bitter sweet symphony [The Verve]
- 209: Bitter sweet [Roxy Music]
- 210: Black celebration [Depeche Mode]
- 211: Black dog [Led Zeppelin]
- 212: Black heart [Calexico]
- 213: Black horse and the cherry tree [KT Tunstall]
- 214: Black lagoon (Still Corners, 2018)
- 215: Black milk (Massive Attack, 1998)
- 216: Black shuck (The Darkness, 2003)
- 217: Black soul choir [16 Horsepower]
- 218: Blackbird (The Beatles, 1968)
- 219: Blackest eyes [Porcupine Tree]
- 220: Blaze of glory [Bon Jovi]
- 221: Blindfold [Morcheeba]
- 222: Bliss [Muse]
- 223: Blood and sand, milk and endless waters [All Them Witches]
- 224: Blood like lemonade [Morcheeba]
- 225: Blood sugar sex magik (Red Hot Chili Peppers, 1991)
- 226: Blow away (Kate Bush, 1980)
- 227: Blowin' in the wind (Bob Dylan, 1963)
- 228: Blu laguna [Il Pan Del Diavolo]
- 229: Blue in green [Miles Davis]
- 230: Blue monday [New Order]
- 231: Blue monk (Thelonious Monk, 1954)
- 232: Blue moon [Billie Holiday]
- 233: Blue orchid [The White Stripes]
- 234: Boa sorte [Vanessa Da Mata & Ben Harper]
- 235: Bob Dylan's 115th dream [Bob Dylan]
- 236: Bocca di rosa (Fabrizio De André, 1967)
- 237: Bodies (Sex Pistols, 1977)
- 238: Bohemian like you [The Dandy Warhols]
- 239: Bohemian rhapsody [Queen]
- 240: Boléro [Maurice Ravel]
- 241: Bombtrack (Rage Against The Machine, 1992)
- 242: Bone machine [Pixies]
- 243: Bongo bong [Manu Chao]
- 244: Boogie [Paolo Conte]
- 245: Boom boom [John Lee Hooker]
- 246: Boom like that [Mark Knopfler]
- 247: Borghese in borghese [Fulminacci]
- 248: Born in the USA (Bruce Springsteen, 1984)
- 249: Born of a broken man (Rage Against The Machine, 1999)
- 250: Born slippy [Underworld]
- 251: Born to be Abramo [Elio E Le Storie Tese]
- 252: Born to be alive [Patrick Hernandez]
- 253: Born to run [Bruce Springsteen]
- 254: Born under a bad sign [Albert King]
- 255: Both ends burning [Roxy Music]
- 256: Boulevard of broken dreams [Green Day]
- 257: Bow (Kasabian, 2014)
- 258: Boy band [Velvet]
- 259: Brava [Vasco Rossi]
- 260: Brave men run (Sonic Youth, 1985)
- 261: Bravi ragazzi [Edoardo Bennato]
- 262: Brazil [Django Reinhardt]
- 263: Break on through (The Doors, 1967)
- 264: Break the night with colour (Live) [Richard Ashcroft]
- 265: Break the night with colour [Richard Ashcroft]
- 266: Breakfast [Corner In Bloom]
- 267: Breaking the girl (Red Hot Chili Peppers, 1991)
- 268: Breaking the habit [Linkin Park]
- 269: Breath of life [Florence + The Machine]
- 270: Breathe me [Sia]
- 271: Breathing (Kate Bush, 1980)
- 272: Breed [Nirvana]
- 273: Breezeblocks [Alt-J]
- 274: Bridge over troubled water [Don Shirley]
- 275: Brillantina bengalese [Paolo Conte]
- 276: Bring it on down [Oasis]
- 277: Bring on the night [The Police]
- 278: Brothers in arms (Live) [Mark Knopfler]
- 279: Brothers in arms [Dire Straits]
- 280: Buddy Holly [Weezer]
- 281: Building steam with a grain of salt [DJ Shadow]
- 282: Bullet in the head (Rage Against The Machine, 1992)
- 283: Bullet the blue sky (U2, 1987)
- 284: Bullet with butterfly wings (The Smashing Pumpkins, 1995)
- 285: Bulls on parade (Rage Against The Machine, 1996)
- 286: Buon compleanno, Elvis! [Ligabue]
- 287: Buon viaggio [Cesare Cremonini]
- 288: Buonanotte fiorellino (Francesco De Gregori, 1975)
- 289: Burn the witch (Queens Of The Stone Age, 2005)
- 290: Burn the witch [Radiohead]
- 291: Bus stop [Graham Coxon]
- 292: Business [Eminem]
- 293: Butterfly [Crazy Town]
- 294: By my side (Ben Harper, 1995)
- 295: By the way (Red Hot Chili Peppers, 2002)
- 296: By this river (Brian Eno, 1977)
- 297: C'mon Billy [PJ Harvey]
- 298: Caffè nero bollente [Fiorella Mannoia]
- 299: Calamita [Tre Allegri Ragazzi Morti]
- 300: California (Lenny Kravitz, 2004)
- 301: California gurls [Katy Perry & Snoop Dogg]
- 302: Californication (Red Hot Chili Peppers, 1999)
- 303: Call me star [All Them Witches]
- 304: Calling Elvis [Dire Straits]
- 305: Calvin [The Jon Spencer Blues Explosion]
- 306: Cambio [Negrita]
- 307: Can't find my way home (Live) [Eric Clapton & Steve Winwood]
- 308: Can't stand losing you (The Police, 1978)
- 309: Can't stop (Red Hot Chili Peppers, 2002)
- 310: Cangaceiro (Litfiba, 1989)
- 311: Cannonball (Damien Rice, 2002)
- 312: Canon & gigue in D major [Johann Pachelbel]
- 313: Cantaloupe island [Herbie Hancock]
- 314: Cantico dei drogati (Fabrizio De André, 1968)
- 315: Canzone (Lucio Dalla, 1996)
- 316: Canzone contro la natura [The Zen Circus]
- 317: Canzone del maggio (Fabrizio De André, 1973)
- 318: Canzone del maggio (Live) [John De Leo]
- 319: Canzone delle osterie di fuori porta [Samuele Bersani & Luca Carboni]
- 320: Canzone delle situazioni differenti (Francesco Guccini, 1974)
- 321: Canzone di domani (Marlene Kuntz,1994)
- 322: Canzone di notte #2 [Francesco Guccini]
- 323: Capelli - Y10 Bordeaux - L'amore pensato (Live) [Fabi Silvestri Gazzè]
- 324: Capelli [Niccolò Fabi]
- 325: Cara ti amo [Elio E Le Storie Tese]
- 326: Cara [Lucio Dalla]
- 327: Carlo Martello ritorna dalla battaglia di Poitiers (Fabrizio De André, 1967)
- 328: Carmina burana (O fortuna) [Carl Orff]
- 329: Casta diva (Norma) [Maria Callas]
- 330: Castro dies [Jamie T]
- 331: Catene [The Zen Circus]
- 332: Catfish blues [Taj Mahal]
- 333: Catholic block (Sonic Youth, 1987)
- 334: Cave (Muse, 1999)
- 335: Cayman islands [Kings Of Convenience]
- 336: Ce matin-là [Air]
- 337: Celebrate [An Emotional Fish]
- 338: Celebrity skin [Hole]
- 339: Cello suite #1 in G major [Johann Sebastian Bach]
- 340: Cemeteries of London (Coldplay, 2008)
- 341: Cemetry gates (The Smiths, 1986)
- 342: Centrefolds (Placebo, 2003)
- 343: Centro di gravità permanente [Franco Battiato]
- 344: Ceremony [New Order]
- 345: Certe notti [Ligabue]
- 346: Certi magazine (Verdena, 2022)
- 347: Chaise longue (Verdena, 2022)
- 348: Chameleon [Herbie Hancock]
- 349: Champagne supernova [Oasis]
- 350: Chan chan [Buena Vista Social Club]
- 351: Changes [Faul & Wad Ad]
- 352: Charlie fa surf [Baustelle]
- 353: Chase the sun [Planet Funk]
- 354: Che cossè l'amor [Vinicio Capossela]
- 355: Che fantastica storia è la vita [Antonello Venditti]
- 356: Che idea [Flaminio Maphia]
- 357: Che ironia [Vasco Rossi]
- 358: Che rumore fa la felicità [Negrita]
- 359: Che sarà [José Feliciano]
- 360: Che t'aggia dì [Adriano Celentano & Mina]
- 361: Cheated hearts (Yeah Yeah Yeahs, 2006)
- 362: Cheek to cheek [Ella Fitzgerald & Louis Armstrong]
- 363: Cherry lips [Garbage]
- 364: Cherub rock (The Smashing Pumpkins, 1993)
- 365: Chica chica boom chic [Carmen Miranda]
- 366: Chicco e Spillo [Samuele Bersani]
- 367: Chinese dance (The nutcracker) [Pyotr Ilyich Tchaikovsky]
- 368: Chiri hari [Samba Touré]
- 369: Christian [China Crisis]
- 370: Christine [Siouxsie And The Banshees]
- 371: Ci sono molti modi (Afterhours, 2005)
- 372: Ci vuole un fiore [Sergio Endrigo]
- 373: Ciao mamma [Jovanotti]
- 374: Ciao [Lucio Dalla]
- 375: Cieli neri (Bluvertigo, 1997)
- 376: Cigarettes & alcohol [Oasis]
- 377: Cinecittà [Henryk Topel, Giuseppe Bellardinelli & Giovanni Zappalorto]
- 378: Cities in dust [Siouxsie And The Banshees]
- 379: Citizen erased [Muse]
- 380: City of blinding lights [U2]
- 381: Ciuri di strata [Olivia Sellerio]
- 382: Civil war (Guns N' Roses, 1991)
- 383: Clair de lune (Suite bergamasque) [Claude Debussy]
- 384: Claire (Morphine, 1992)
- 385: Clandestino [Manu Chao]
- 386: Clash city rockers [The Clash]
- 387: Climbing up the walls [Radiohead]
- 388: Clint Eastwood (Gorillaz, 2001)
- 389: Clocks (Coldplay, 2002)
- 390: Cloudbusting (Kate Bush, 1985)
- 391: Club foot [Kasabian]
- 392: Clubbed to death (Kurayamino variation) [Rob Dougan]
- 393: Cocaine [Eric Clapton]
- 394: Coccodrilli [Samuele Bersani]
- 395: Coda di lupo (Fabrizio De André, 1978)
- 396: Cold [The Cure]
- 397: Colonel Hathi's march (The jungle book) [Walt Disney]
- 398: Columbia [Oasis]
- 399: Come as you are [Nirvana]
- 400: Come mai [883]
- 401: Come mi guardi tu [Tre Allegri Ragazzi Morti]
- 402: Come stavamo ieri (Marlene Kuntz, 1996)
- 403: Come undone (Robbie Williams, 2002)
- 404: Come undone [V] (Robbie Williams, 2002)
- 405: Come with me now [Kongos]
- 406: Come è profondo il mare [Lucio Dalla]
- 407: Comfortably numb (Pink Floyd, 1979)
- 408: Complete control [The Clash]
- 409: Complicated [Avril Lavigne]
- 410: Comptine d'un autre été, l'après-midi [Yann Tiersen]
- 411: Con le mani [Zucchero]
- 412: Con te partirò [Andrea Bocelli]
- 413: Contessa [Decibel]
- 414: Corcovado [Stan Getz & João Gilberto]
- 415: Corduroy (Pearl Jam, 1994)
- 416: Coro degli zingari (Il trovatore) [Giuseppe Verdi]
- 417: Corri (Litfiba, 1988)
- 418: Corto circuito [99 Posse]
- 419: Cosa sarà [Lucio Dalla]
- 420: Cose difficili [Casino Royale]
- 421: Cosmic love [Florence + The Machine]
- 422: Costruire [Niccolò Fabi]
- 423: Coyote [Dope Lemon]
- 424: Crawling kingsnake [The Black Keys]
- 425: Crazy blues [Mamie Smith]
- 426: Crazy in love [Beyoncé & Jay-Z]
- 427: Crazy little thing called love [Queen]
- 428: Crazy train [Ozzy Osbourne]
- 429: Crazy [Aerosmith]
- 430: Cross road blues (Robert Johnson, 1936)
- 431: Crucified me (Bob Geldof, 1990)
- 432: Crush [The Smashing Pumpkins]
- 433: Cry [Pino Daniele]
- 434: Crystal frontier [Calexico]
- 435: Crystal [New Order]
- 436: Crêuza de mä (Fabrizio De André, 1984)
- 437: Cuccurucucù [Franco Battiato]
- 438: Cupid de locke (The Smashing Pumpkins, 1995)
- 439: Cure for pain [Morphine]
- 440: Cut your hair [Pavement]
- 441: Cutt off [Kasabian]
- 442: D'you know what i mean [Oasis]
- 443: Da ya think i'm sexy (Rod Stewart, 1978)
- 444: Dakota [Stereophonics]
- 445: Dance of the knights (Romeo and Juliet) [Sergei Prokofiev]
- 446: Dance of the sugar plum fairy (The nutcracker) [Pyotr Ilyich Tchaikovsky]
- 447: Dancing barefoot [Patti Smith]
- 448: Dancing in the dark (Bruce Springsteen, 1984)
- 449: Dancing in the dark [Cannonball Adderley]
- 450: Dancing with myself [Generation X]
- 451: Dark necessities (Red Hot Chili Peppers, 2016)
- 452: Dark was the night, cold was the ground [Blind Willie Johnson]
- 453: Date with the night (Yeah Yeah Yeahs, 2003)
- 454: Daughter [Pearl Jam]
- 455: Day is done (Nick Drake, 1969)
- 456: De do do do, de da da da [The Police]
- 457: De Usuahia a la Quiaca [Gustavo Santaolalla]
- 458: Dead leaves and the dirty ground [The White Stripes]
- 459: Dear Prudence (The Beatles, 1968)
- 460: Death disco [Public Image Ltd]
- 461: Death of a disco dancer (The Smiths, 1987)
- 462: Del tempo che passa la felicità [Motta]
- 463: Depressione caspica (Live) [CSI]
- 464: Desecration smile (Red Hot Chili Peppers, 2006)
- 465: Desire [U2]
- 466: Desolation row (Bob Dylan, 1965)
- 467: Despair (Yeah Yeah Yeahs, 2013)
- 468: Desperation (Paolo Nutini, 2022)
- 469: Destinazione paradiso [Gianluca Grignani]
- 470: Di che cosa parla veramente una canzone [Tre Allegri Ragazzi Morti]
- 471: Diamond [All Them Witches]
- 472: Diamonds on the inside [Ben Harper]
- 473: Diary of a madman [Ozzy Osbourne]
- 474: Diavolo rosso (Live) [Paolo Conte]
- 475: Did you no wrong (Sex Pistols, 1977)
- 476: Dies irae (Requiem) [Giuseppe Verdi]
- 477: Dies irae (Requiem) [Wolfgang Amadeus Mozart]
- 478: Dietro la porta [Cristiano De André]
- 479: Diggin' a watery grave [Morcheeba]
- 480: Dirty boots (Sonic Youth, 1990)
- 481: Dirty day [U2]
- 482: Dirty epic [Underworld]
- 483: Dirty Harry (Gorillaz, 2005)
- 484: Disappearing [The War On Drugs]
- 485: Disarm (The Smashing Pumpkins, 1993)
- 486: Disco-very [Warpaint]
- 487: Discotheque [U2]
- 488: Disorder [Joy Division]
- 489: Dispari [Marta Sui Tubi]
- 490: Disperato erotico stomp (Live) [Dalla & De Gregori]
- 491: Disperato erotico stomp [Lucio Dalla]
- 492: Dissident [Pearl Jam]
- 493: Dissolved girl (Massive Attack, 1998)
- 494: Distante [Meg]
- 495: Ditch [The Jon Spencer Blues Explosion]
- 496: Do i wanna know [Arctic Monkeys]
- 497: Do the strand [Roxy Music]
- 498: Do you feel loved [U2]
- 499: Doesn't remind me [Audioslave]
- 500: Dog days are over [Florence + The Machine]
- 501: Dolcenera (Fabrizio De André, 1996)
- 502: Domani smetto [Articolo 31]
- 503: Domani [Artisti Uniti Per L'Abruzzo]
- 504: Domesticated animals (Queens Of The Stone Age, 2017)
- 505: Dominoes [Syd Barrett]
- 506: Don Calisto (Verdena, 2007)
- 507: Don Raffaè (Fabrizio De André, 1990)
- 508: Don't come around here no more [Tom Petty & The Heartbreakers]
- 509: Don't fear the reaper [Blue Öyster Cult]
- 510: Don't forget me (Red Hot Chili Peppers, 2002)
- 511: Don't let it bring you down [Neil Young]
- 512: Don't look back in anger [Oasis]
- 513: Don't stop me now (Queen)
- 514: Don't tell me [Madonna]
- 515: Don't think twice, it's all right (Bob Dylan, 1963)
- 516: Donne [Zucchero]
- 517: Dont stand so close to me [The Police]
- 518: Doomsday (Kasabian, 2014)
- 519: Dope & smoke [Dope Lemon]
- 520: Dormo poco e sogno molto [España Circo Este]
- 521: Down by the water [PJ Harvey]
- 522: Down in a hole [Alice In Chains]
- 523: Down to the river to pray [Alison Krauss]
- 524: Down [Blink-182]
- 525: Downbound train (Bruce Springsteen, 1984)
- 526: Downtown train [Tom Waits]
- 527: Drag (Placebo, 2006)
- 528: Dream a little dream on me [Ella Fitzgerald & Louis Armstrong]
- 529: Dream on [Depeche Mode]
- 530: Dreaming my dreams (The Cranberries, 1994)
- 531: Dreaming of me [Depeche Mode]
- 532: Dreams [Fleetwood Mac]
- 533: Dreams [Nuages]
- 534: Drink before the war [Sinéad O'Connor]
- 535: Drivin' my life away [Eddie Rabbitt]
- 536: Drumming song [Florence + The Machine]
- 537: Dude (looks like a lady) [Aerosmith]
- 538: Due destini (Tiromancino, 2000)
- 539: Duemila [New Trolls]
- 540: Dumb waiters [The Psychedelic Furs]
- 541: Dune mosse [Zucchero]
- 542: Dust my broom [Elmore James]
- 543: E dimmi che non vuoi morire [Patty Pravo]
- 544: E non andar più via [Lucio Dalla]
- 545: E non cessa di girare la mia testa in mezzo al mare (Marlene Kuntz, 1996)
- 546: E tu [Bud Spencer Blues Explosion]
- 547: E... [Vasco Rossi]
- 548: Each time you fall in love [Cigarettes After Sex]
- 549: Easier to lie [Aqualung]
- 550: Easy lover [Phil Collins & Philip Bailey]
- 551: Ebano [Modena City Ramblers]
- 552: Echoes (Pink Floyd, 1971)
- 553: Eclipse (Pink Floyd, 1973)
- 554: Eez-eh (Kasabian, 2014)
- 555: Egomostro [Colapesce]
- 556: Eighties [Killing Joke]
- 557: El diablo (Litfiba, 1990)
- 558: Elderly woman behind the counter in a small town [Pearl Jam]
- 559: Eleanor Rigby (The Beatles, 1966)
- 560: Electioneering [Radiohead]
- 561: Electrical storm (William Orbit mix) [U2]
- 562: Elefante (Verdena, 2004)
- 563: Elegia [Paolo Conte]
- 564: Elevation [U2]
- 565: EMI (Sex Pistols, 1977)
- 566: Emilia paranoica (CCCP, 1986)
- 567: Enchantica [Jon Kennedy]
- 568: End titles (The duchess) [Rachel Portman]
- 569: Endless, nameless [Nirvana]
- 570: English summer rain (Placebo, 2003)
- 571: Enjoy the silence [Depeche Mode]
- 572: Enter sandman [Metallica]
- 573: Eptadone [Skiantos]
- 574: Eskimo (Damien Rice, 2002)
- 575: Eskimo [Francesco Guccini]
- 576: Essere speciale [Niccolò Fabi]
- 577: Even after all [Finley Quaye]
- 578: Even better than the real thing (U2, 1991)
- 579: Everlong [Foo Fighters]
- 580: Every breath you take [The Police]
- 581: Every day is exactly the same [Nine Inch Nails]
- 582: Every little thing she does is magic [The Police]
- 583: Every you every me (Placebo, 1998)
- 584: Everybody needs somebody to love [The Blues Brothers]
- 585: Everybody wants to be a cat (The Aristocats) [Walt Disney]
- 586: Everybody wants to be a cat [The Electric Swing Circus]
- 587: Everyday i love you less and less [Kaiser Chiefs]
- 588: Everything in its right place [Radiohead]
- 589: Exchange [Massive Attack]
- 590: Exit (U2, 1987)
- 591: Expresso love (Dire Straits, 1980)
- 592: Extraterrestre [Eugenio Finardi]
- 593: Extreme ways [Moby]
- 594: Facciamo un compromesso [Edoardo Bennato]
- 595: Fait accompli [Curve]
- 596: Fake plastic trees (Radiohead, 1995)
- 597: Falling down (Muse, 1999)
- 598: Fancy (Yeah Yeah Yeahs, 2006)
- 599: Far finta di essere sani [Giorgio Gaber]
- 600: Farewell and goodnight (The Smashing Pumpkins, 1995)
- 601: Farà cadere lei [Il Pan Del Diavolo]
- 602: Fat bottomed girls [Queen]
- 603: Fata Morgana (Litfiba, 1993)
- 604: Father and son [Cat Stevens]
- 605: Feel (Robbie Williams, 2002)
- 606: Feel good inc. (Gorillaz, 2005)
- 607: Feel good inc. (Luca Stricagnoli, 2017)
- 608: Feeling good [Nina Simone]
- 609: Fell in love with a girl [The White Stripes]
- 610: Femme fatale (The Velvet Underground, 1967)
- 611: Fenomeno [Fabri Fibra]
- 612: Festa mesta (Marlene Kuntz,1994)
- 613: Fields of gold (Sting, 1993)
- 614: Fight for your right [Beastie Boys]
- 615: Figure it out [Royal Blood]
- 616: Fingerbib (Aphex Twin, 1996)
- 617: Fiori d'arancio [Carmen Consoli]
- 618: Fire [Kasabian]
- 619: Fire [The Jimi Hendrix Experience]
- 620: First week, last week... carefree [Talking Heads]
- 621: Firth of fifth [Genesis]
- 622: Fischia il vento [Modena City Ramblers]
- 623: Fishing blues [Henry Thomas]
- 624: Fit for work [Deadletter]
- 625: Fiume Sand Creek (Fabrizio De André, 1981)
- 626: Fix you (Coldplay, 2005)
- 627: Fixing a hole (The Beatles, 1967)
- 628: Flash (Lenny Kravitz, 2004)
- 629: Flash [Cigarettes After Sex]
- 630: Flipside [Norah Jones]
- 631: Flowers blossom [Thony]
- 632: Fly away [Lenny Kravitz]
- 633: Fly me away [Goldfrapp]
- 634: Fodderstompf [Public Image Ltd]
- 635: Foggy notion (The Velvet Underground, 1969)
- 636: Folk death 95 [Mogwai]
- 637: Fontana chiara [Rino Gaetano]
- 638: For no one (The Beatles, 1966)
- 639: For tomorrow [Blur]
- 640: For what it's worth [Buffalo Springfield]
- 641: For what it's worth [Placebo]
- 642: For your pleasure [Roxy Music]
- 643: Forget her [Jeff Buckley]
- 644: Forgotten [Linkin Park]
- 645: Fossi figo [Elio E Le Storie Tese]
- 646: Fragments of freedom [Morcheeba]
- 647: Franziska (Fabrizio De André, 1981)
- 648: Freak [Samuele Bersani]
- 649: Freaky styley (Red Hot Chili Peppers, 1985)
- 650: Freddie freeloader [Miles Davis]
- 651: Frederick [Patti Smith]
- 652: Free fallin' [Tom Petty & The Heartbreakers]
- 653: Friction (Television, 1977)
- 654: Friday i'm in love [The Cure]
- 655: Friend of the night [Mogwai]
- 656: Friggin' in the riggin' [Sex Pistols]
- 657: Frogs [Alice In Chains]
- 658: Fuga all'inglese [Paolo Conte]
- 659: Funky monks (Red Hot Chili Peppers, 1991)
- 660: Funkytown [Lipps Inc.]
- 661: Fuochi nella notte di San Giovanni (Live) [CSI]
- 662: Futterman's rule [Beastie Boys]
- 663: Futura [Lucio Dalla]
- 664: G.O.A.T. [Polyphia]
- 665: Gabriel's oboe (The Mission) [Ennio Morricone]
- 666: Gaetano [Calcutta]
- 667: Galvanize [The Chemical Brothers]
- 668: Games without frontiers [Peter Gabriel]
- 669: Garden of Eden (Guns N' Roses, 1991)
- 670: Garota de Ipanema [Antônio Carlos Jobim]
- 671: Gas panic! [Oasis]
- 672: Generale [Francesco De Gregori]
- 673: Genova per noi [Paolo Conte]
- 674: Get back [The Beatles]
- 675: Get it on [T. Rex]
- 676: Get it together [Beastie Boys]
- 677: Get lucky [Daft Punk & Pharrell Williams]
- 678: Get ready [Midnight Noise]
- 679: Get up offa that thing [James Brown]
- 680: Get up, i feel like being a sex machine [James Brown]
- 681: Ghostbusters [Ray Parker Jr.]
- 682: Gianna [Rino Gaetano]
- 683: Gigolo aunt [Syd Barrett]
- 684: Gimme shelter (The Rolling Stones, 1969)
- 685: Gino e l'alfetta [Daniele Silvestri]
- 686: Gioconda (Litfiba, 1990)
- 687: Girasole [Giorgia]
- 688: Girl from the north country (Bob Dylan, 1963)
- 689: Girl i love you [Massive Attack]
- 690: Girls just want to have fun [Cyndi Lauper]
- 691: Girls, girls, girls [Mötley Crüe]
- 692: Giuda [Eman]
- 693: Giudizi universali [Samuele Bersani]
- 694: Give it away (Red Hot Chili Peppers, 1991)
- 695: Glamodrama (Verdena, 2004)
- 696: Glasgow mega-snake [Mogwai]
- 697: Gli impermeabili [Paolo Conte]
- 698: Gli spari sopra [Vasco Rossi]
- 699: Gloomy sunday [Billie Holiday]
- 700: Gloomy sunday [Sinéad O'Connor]
- 701: Gloria [U2]
- 702: Glorious pop song [Skunk Anansie]
- 703: Glory box [Portishead]
- 704: Glósóli (Sigur Rós, 2005)
- 705: Gnossienne #1 [Erik Satie]
- 706: Go let it out [Oasis]
- 707: Go to sleep (Radiohead, 2003)
- 708: Go with the flow (Queens Of The Stone Age, 2002)
- 709: Gocce di memoria [Giorgia]
- 710: God almighty's gonna cut you down [The Golden Gate Quartet]
- 711: God gave me everything [Mick Jagger]
- 712: God part II [U2]
- 713: God put a smile upon your face (Coldplay, 2002)
- 714: God save the queen (Sex Pistols, 1977)
- 715: God's gonna cut you down [Johnny Cash]
- 716: Gold dust woman [Fleetwood Mac]
- 717: Gold lion (Yeah Yeah Yeahs, 2006)
- 718: Gold lion [L] (Yeah Yeah Yeahs, 2006)
- 719: Gold on the ceiling [The Black Keys]
- 720: Gold soundz [Pavement]
- 721: Golden brown [The Stranglers]
- 722: Gong-oh [Paolo Conte]
- 723: Good (Morphine, 1992)
- 724: Good day my angel [Myslovitz]
- 725: Good fortune (PJ Harvey, 2000)
- 726: Good old days [Deadletter]
- 727: Good on you son [Mark Knopfler]
- 728: Good riddance [Green Day]
- 729: Good time [Leroy]
- 730: Goodnight moon [Shivaree]
- 731: Goosebumps [Debra Dejean]
- 732: Grace [Jeff Buckley]
- 733: Graveyard girl (M83, 2008)
- 734: Green grass of tunnel [Múm]
- 735: Green onions [Booker T. & The MG's]
- 736: Ground on down [Ben Harper]
- 737: Growing on me (The Darkness, 2003)
- 738: Guerra e pace (CCCP, 1987)
- 739: Guerra [Peppe Barra]
- 740: Guerrilla radio (Rage Against The Machine, 1999)
- 741: Guitar blues [Lonnie Johnson]
- 742: Guns on the roof [The Clash]
- 743: Gymnopédie #1 [Erik Satie]
- 744: H.K. farewell [Placebo]
- 745: Ha perso la città [Niccolò Fabi]
- 746: Hallelujah [Jeff Buckley]
- 747: Hand in glove (The Smiths, 1984)
- 748: Hand in my pocket (Alanis Morissette, 1995)
- 749: Hand rubbed finish (The Dirty Grass Players, 2020)
- 750: Hanno ucciso l'uomo ragno [883]
- 751: Happy birthday blues [B.B. King]
- 752: Hard as a rock [AC-DC]
- 753: Hard time killing floor blues [Chris Thomas King]
- 754: Hard to explain (The Strokes, 2001)
- 755: Harder to breathe [Maroon 5]
- 756: Harlem shuffle [The Rolling Stones]
- 757: Harvest feast [All Them Witches]
- 758: Have a cigar (Pink Floyd, 1975)
- 759: Have a good time [Big Walter Horton]
- 760: Have a little faith in me [John Hiatt]
- 761: Have a nice day [Bon Jovi]
- 762: Have a nice day [Stereophonics]
- 763: Hawkmoon 269 [U2]
- 764: He's a pirate [Klaus Badelt]
- 765: Heads will roll (Yeah Yeah Yeahs, 2009)
- 766: Hear that sound (INXS,1990)
- 767: Heart of glass [Blondie]
- 768: Heart of gold [Neil Young]
- 769: Heart-shaped box [Nirvana]
- 770: Heartbreaker [Led Zeppelin]
- 771: Heaven # [Negrita]
- 772: Heaven out of hell [Elisa]
- 773: Heavy soul [The Black Keys]
- 774: Hedonism [Skunk Anansie]
- 775: Hedwig's theme [John Williams]
- 776: Heima (Sigur Rós, 2007)
- 777: Helena beat [Foster Beat]
- 778: Hell hound on my trail (Robert Johnson, 1937)
- 779: Hell's bells (AC-DC, 1980)
- 780: Hello earth (Kate Bush, 1985)
- 781: Helter skelter (Live) [U2]
- 782: Helter skelter (The Beatles, 1968)
- 783: Henna [Lucio Dalla]
- 784: Here is no why (The Smashing Pumpkins, 1995)
- 785: Here is the house [Depeche Mode]
- 786: Here she comes now (The Velvet Underground, 1968)
- 787: Hero [Deadletter]
- 788: Heroes [David Bowie]
- 789: Heroin (The Velvet Underground, 1967)
- 790: Hey boy hey girl [The Chemical Brothers]
- 791: Hey boy, hey girl [Bud Spencer Blues Explosion]
- 792: Hey Jude [The Beatles]
- 793: Hey Julie [Fountains of Wayne]
- 794: Hey man [Zucchero]
- 795: Hey negrita [The Rolling Stones]
- 796: Hey now [Oasis]
- 797: Hey ya! [Outcast]
- 798: Hey you [Dope Lemon]
- 799: Hier encore [Charles Aznavour]
- 800: High and dry (Radiohead, 1995)
- 801: High hopes (Pink Floyd, 1994)
- 802: High water everywhere (pt. 2) [Taj Mahal]
- 803: Higher & higher [Jackie Wilson]
- 804: Higher ground (Stevie Wonder, 1973)
- 805: Higitus figitus (The sword in the stone) [Walt Disney]
- 806: Hit the road Jack [Ray Charles]
- 807: HJTC [All Them Witches]
- 808: Ho hey [The Lumineers]
- 809: Ho imparato a sognare [Negrita]
- 810: Ho una fissa (Verdena, 2015)
- 811: Ho veduto [New Trolls]
- 812: Ho visto un re [Enzo Jannacci]
- 813: Hocus pocus [Focus]
- 814: Hold me, thrill me, kiss me, kill me [U2]
- 815: Holiday [Green Day]
- 816: Holidays in the sun (Sex Pistols, 1977)
- 817: Hollywood [Madonna]
- 818: Holy mountain [Noel Gallagher's High Flying Birds]
- 819: Home sweet home [Mötley Crüe]
- 820: Home [Myriam Alter]
- 821: Honey bones [Dope Lemon]
- 822: Honey white (Morphine, 1995)
- 823: Honeymooning [Holy Motors]
- 824: Hoppípolla (Sigur Rós, 2005)
- 825: Horror head [Curve]
- 826: Hot for teacher [Van Halen]
- 827: Hot fudge (Robbie Williams, 2002)
- 828: Hotel Supramonte (Fabrizio De André, 1981)
- 829: Hound dog [Big Mama Thornton]
- 830: Hounds of love (Kate Bush, 1985)
- 831: House of the rising sun [The Animals]
- 832: How peculiar (Robbie Williams, 2002)
- 833: How soon is now (The Smiths, 1984)
- 834: How to disappear completely [Radiohead]
- 835: How to save a life [The Fray]
- 836: How you remind me [Nickelback]
- 837: Human behaviour [Björk]
- 838: Human touch [Bruce Springsteen]
- 839: Human [The Killers]
- 840: Hungarian dance #5 in G minor [Johannes Brahms]
- 841: Hunger strike [Temple Of The Dog]
- 842: Hungry for you [The Police]
- 843: Hurricane [Thirty Seconds To Mars]
- 844: Hurt [Johnny Cash]
- 845: Hurts like heaven (Coldplay, 2011)
- 846: Hyper-ballad [Björk]
- 847: Hyperborea (Tangerine Dream, 1983)
- 848: Hysteria [Muse]
- 849: I am the walrus [The Beatles]
- 850: I believe in a thing called love (The Darkness, 2003)
- 851: I can't be satisfied [Muddy Waters]
- 852: I can't dance [Genesis]
- 853: I can't stand it [The Velvet Underground]
- 854: I cento passi [Modena City Ramblers]
- 855: I could have lied (Red Hot Chili Peppers, 1991)
- 856: I don't wanna pray [Edward Sharpe & The Magnetic Zeros]
- 857: I don't want to be a star (Lenny Kravitz, 2004)
- 858: I don't want to miss a thing [Aerosmith]
- 859: I feel you [Depeche Mode]
- 860: I got soul [Night Shapers]
- 861: I heard it through the grapevine (Creedence Clearwater Revival, 1970)
- 862: I just don't know what to do with myself [The White Stripes]
- 863: I just want to make love to you [Etta James]
- 864: I love rock and roll [Joan Jett & The Blackhearts]
- 865: I love you Suzanne [Lou Reed]
- 866: I love you, i'm going to blow up your school [Mogwai]
- 867: I might be wrong [Radiohead]
- 868: I migliori anni della nostra vita [Renato Zero]
- 869: I need to know [Tom Petty & The Heartbreakers]
- 870: I never loved a man [Aretha Franklin]
- 871: I qualunquisti [The Zen Circus]
- 872: I ragazzi italiani (Live) [Ron]
- 873: I ragazzi sono in giro [Ligabue]
- 874: I stay away [Alice In Chains]
- 875: I still haven't found what i'm looking for (U2, 1987)
- 876: I still remember [Bloc Party]
- 877: I think i'm paranoid [Garbage]
- 878: I treni a vapore (Live) [Ivano Fossati]
- 879: I walk on guilded splinters (Johnny Jenkins, 1968)
- 880: I wanna be adored [The Stone Roses]
- 881: I wanna be like you (The Jungle Book) [Walt Disney]
- 882: I want it all (Depeche Mode, 2005)
- 883: I'd rather dance with you [Kings Of Convenience]
- 884: I'll fly away [Gillian Welch & Alison Krauss]
- 885: I'll see you in my dreams [Django Reinhardt]
- 886: I'm a believer [Smash Mouth]
- 887: I'm alive [Johnny Thunder]
- 888: I'm eighteen [Alice Cooper]
- 889: I'm finding it harder to be a gentleman [The White Stripes]
- 890: I'm fine [Hazel English]
- 891: I'm free from the chain gang now [Johnny Cash]
- 892: I'm gonna be (500 miles) [The Proclaimers]
- 893: I'm in the mood [John Lee Hooker & Bonnie Raitt]
- 894: I'm Jim Morrison, i'm dead [Mogwai]
- 895: I'm looking through you [The Beatles]
- 896: I'm on fire (Bruce Springsteen, 1984)
- 897: I'm only sleeping [The Beatles]
- 898: I'm outta love [Anastacia]
- 899: I'm sailin' [Mazzy Star]
- 900: I'm your man [Negrita]
- 901: Icky thump [The White Stripes]
- 902: Idioteque [Radiohead]
- 903: If i had a tail (Queens Of The Stone Age, 2013)
- 904: If it takes all night [Roxy Music]
- 905: If you have to ask (Red Hot Chili Peppers, 1991)
- 906: Il ballo di San Vito [Vinicio Capossela]
- 907: Il bombarolo (Fabrizio De André, 1973)
- 908: Il buco (Io non ho paura OST) [Ezio Bosso]
- 909: Il caos strisciante (Verdena, 2007)
- 910: Il cielo d'Irlanda [Fiorella Mannoia]
- 911: Il conformista [Giorgio Gaber]
- 912: Il crotalo e il pavone [Negrita]
- 913: Il gatto e la volpe [Edoardo Bennato]
- 914: Il giorno di dolore che uno ha (Live) [Ligabue]
- 915: Il Gulliver (Verdena, 2007)
- 916: Il mare d'inverno [Loredana Bertè]
- 917: Il mio corpo che cambia (Litfiba, 1999)
- 918: Il mio mondo [Umberto Bindi]
- 919: Il mio nemico [Daniele Silvestri]
- 920: Il mio nome è mai più [Ligajovapelù]
- 921: Il mondo prima di te [Annalisa]
- 922: Il narciso [Giorgio Gaber]
- 923: Il nostro concerto [Umberto Bindi]
- 924: Il pescatore (Fabrizio De André, 1970)
- 925: Il potere dei più buoni [Giorgio Gaber]
- 926: Il ragazzo della via Gluck [Adriano Celentano]
- 927: Il successo [Giorgio Gaber]
- 928: Il suicidio del samurai (Verdena, 2004)
- 929: Il suonatore Jones (Fabrizio De André, 1971)
- 930: Il tempo di morire [Lucio Battisti]
- 931: Il testamento di Tito (Fabrizio De André, 1970)
- 932: Il timido ubriaco [Max Gazzè]
- 933: Il vento [L] (Litfiba, 1989)
- 934: Il vile (Marlene Kuntz, 1996)
- 935: Il volo (Litfiba, 1990)
- 936: Imagine [John Lennon]
- 937: Imitation of life [REM]
- 938: Imitationen (Demo) [Tocotronic]
- 939: Imitationen [Tocotronic]
- 940: Immigrant song [Led Zeppelin]
- 941: Immortality (Pearl Jam, 1994)
- 942: Imparare dal vento [Tiromancino]
- 943: Impossibile [Cosmo]
- 944: Impossible Germany [Wilco]
- 945: Impressioni di settembre (Marlene Kuntz, 2009)
- 946: In bianco e nero [Carmen Consoli]
- 947: In da club [50 Cent]
- 948: In every dream home a heartache [Roxy Music]
- 949: In fila per tre [Edoardo Bennato]
- 950: In my place (Coldplay, 2002)
- 951: In questa grande città [Tre Allegri Ragazzi Morti & Jovanotti]
- 952: In questo mondo di ladri [Antonello Venditti]
- 953: In reverse [The War On Drugs]
- 954: In spite of me [Morphine]
- 955: In the end [Linkin Park]
- 956: In the flesh (Pink Floyd, 1979)
- 957: In the hall of the mountain king (Peer Gynt, suite #1 Op. 46) [Edvard Grieg]
- 958: In the mood [Glenn Miller]
- 959: In the pines [The Louvin Brothers]
- 960: In the sun [Joseph Arthur]
- 961: In the waiting line [Zero 7]
- 962: In this world [Moby]
- 963: In tutti i miei giorni [Raf]
- 964: In un giorno di pioggia [Modena City Ramblers]
- 965: Incantesimo (Litfiba, 1999)
- 966: Incantevole [Subsonica]
- 967: Incontro [Giorgio Gaber]
- 968: Indifference [Pearl Jam]
- 969: Industrial disease [Dire Straits]
- 970: Inertia creeps (Massive Attack, 1998)
- 971: Infidelity [Skunk Anansie]
- 972: Infinito [Raf]
- 973: Infinità (Marlene Kuntz, 1999)
- 974: Inner city blues (Marvin Gaye, 1971)
- 975: Inní mér syngur vitleysingur (Sigur Rós, 2008)
- 976: Inside all the people [Planet Funk]
- 977: Inside [Benny Benassi & Chris Nasty]
- 978: Instrumental 2 [All Them Witches]
- 979: Interstellar overdrive (Pink Floyd, 1967)
- 980: Into dust [Mazzy Star]
- 981: Into you like a train (The Psychedelic Furs, 1981)
- 982: Intro [Alt-J]
- 983: Intro [Warpaint]
- 984: Intruder [Peter Gabriel]
- 985: Invincible [Muse]
- 986: Invisibili [Cristiano De André]
- 987: Invisible sun [The Police]
- 988: Io non mi sento italiano [Giorgio Gaber]
- 989: Io non sono razzista ma... [Willie Peyote]
- 990: Io per lei [Pino Daniele]
- 991: Io se fossi dio [Giorgio Gaber]
- 992: Io sono Francesco [Tricarico]
- 993: Io sto bene (CCCP, 1986)
- 994: Io sto bene [L] (CCCP, 1996)
- 995: Io ti amo da matti (sesso & karnazza) [Skiantos]
- 996: Io vagabondo [Nomadi]
- 997: Iodio [Bluvertigo]
- 998: Iris [Goo Goo Dolls]
- 999: Iron sky [Paolo Nutini]
-1000: Ironic (Alanis Morissette, 1995)
-1001: Is it just me [The Darkness]
-1002: Is there anybody out there (Pink Floyd, 1979)
-1003: ISI [NEU]
-1004: Island of souls [Sting]
-1005: Isobel (Björk, 1995)
-1006: Istanbul (Litfiba, 1985)
-1007: Istrice [Subsonica]
-1008: It is obvious [Syd Barrett]
-1009: It never rains [Dire Straits]
-1010: It takes a fool to remain sane [The Ark]
-1011: It takes a lot to laugh, it takes a train to cry (Bob Dylan, 1965)
-1012: It's a long way to the top [AC-DC]
-1013: It's a long way [Caetano Veloso]
-1014: It's alright ma (i'm only bleeding) [Bob Dylan]
-1015: It's great when we're together [Finley Quaye]
-1016: It's my life [No Doubt]
-1017: It's my own fault, baby [B.B. King]
-1018: It's so easy (Guns N' Roses, 1987)
-1019: Ithaca [Beatenberg]
-1020: Jackie [Sinéad O'Connor]
-1021: Jane says [Jane's Addiction]
-1022: Je so' pazzo [Pino Daniele]
-1023: Jealous guy [John Lennon]
-1024: Jeremy [Pearl Jam]
-1025: Jesus of Suburbia [Green Day]
-1026: Jimmy James [Beastie Boys]
-1027: John the revelator (Depeche Mode, 2005)
-1028: John the revelator [Blind Willie Johnson]
-1029: Johnny B. Goode [Chuck Berry]
-1030: Joker and the thief [Wolfmother]
-1031: Juice to get loose [Left Lane Cruiser]
-1032: Jumpin jack flash [The Rolling Stones]
-1033: Just a cloud [Lusine & Vilja Larjosto]
-1034: Just like heaven [The Cure]
-1035: Just like honey (Jesus And The Mary Chain, 1985)
-1036: Just like u said it would b [Sinéad O'Connor]
-1037: Já sei namorar [Tribalistas]
-1038: K.I.S.S.E.S. [Bent]
-1039: Karma police [Radiohead]
-1040: Karmacoma (Massive Attack, 1994)
-1041: Katyusha [Red Army Choir]
-1042: Keep it healthy [Warpaint]
-1043: Kids (MGMT, 2007)
-1044: Kids with guns (Gorillaz, 2005)
-1045: Kids [Kyle Dixon & Michael Stein]
-1046: Kill [Jimmy Eat World]
-1047: Killing in the name (Rage Against The Machine, 1992)
-1048: King of pain [The Police]
-1049: Kings and queens [Thirty Seconds To Mars]
-1050: Kite (Live) [U2]
-1051: Knights of Cydonia [Muse]
-1052: Knockers [The Darkness]
-1053: Kool thing (Sonic Youth, 1990)
-1054: Kreuzberg [Bloc Party]
-1055: Köln concert (pt.1) [Keith Jarrett]
-1056: L'America [Giorgio Gaber]
-1057: L'amor carnale [The Bastard Sons Of Dioniso]
-1058: L'amore non esiste [Fabi Silvestri Gazzè]
-1059: L'amore pensato [Max Gazzè]
-1060: L'amour est un oiseau rebelle (Carmen) [Maria Callas]
-1061: L'anguilla [99 Posse]
-1062: L'anima (Tiromancino, 2000)
-1063: L'anno che verrà [Lucio Dalla]
-1064: L'arca di Noè [Sergio Endrigo]
-1065: L'artista (Marlene Kuntz, 2010)
-1066: L'assenzio [Bluvertigo]
-1067: L'avvelenata [Francesco Guccini]
-1068: L'avversario [Fabi Silvestri Gazzè]
-1069: L'era del cinghiale bianco [Franco Battiato]
-1070: L'esangue Deborah (Marlene Kuntz, 1996)
-1071: L'isola che non c'è [Edoardo Bennato]
-1072: L'ombra della luce [Franco Battiato]
-1073: L'ultima luna [Lucio Dalla]
-1074: L'ultimo bacio [Carmen Consoli]
-1075: L'uomo che continua [John De Leo]
-1076: L'uomo sogna di volare [Negrita]
-1077: La ballade des gens heureux [Gerard Lenorman]
-1078: La canzone che scrivo per te (Marlene Kuntz, 2000)
-1079: La canzone del padre (Fabrizio De André, 1973)
-1080: La canzone del sole [Lucio Battisti]
-1081: La canzone di Tom [Il Teatro Degli Orrori]
-1082: La canzone mononota [Elio E Le Storie Tese]
-1083: La chiesa si rinnova [Giorgio Gaber]
-1084: La collina (Fabrizio De André, 1971)
-1085: La democrazia (v.1) [Giorgio Gaber]
-1086: La democrazia (v.2) [Giorgio Gaber]
-1087: La descrizione di un attimo (Tiromancino, 2000)
-1088: La domenica delle salme (Fabrizio De André, 1990)
-1089: La femme d'argent [Air]
-1090: La fine della chemio [Sick Tamburo]
-1091: La grange [ZZ Top]
-1092: La guerra di Piero (Fabrizio De André, 1968)
-1093: La guerra è finita [Baustelle]
-1094: La javanaise [Madeleine Peyroux]
-1095: La legge [Giorgio Gaber]
-1096: La leva calcistica della classe '68 [Francesco De Gregori]
-1097: La libertà [Giorgio Gaber]
-1098: La mazurka del misantropo [John De Leo]
-1099: La mia banda suona il rock [Ivano Fossati]
-1100: La mia casa [Daniele Silvestri]
-1101: La mia libertà [Franco Califano]
-1102: La mia signorina [Neffa]
-1103: La musica che gira intorno [Ivano Fossati]
-1104: La paranza [Daniele Silvestri]
-1105: La punta dell'iceberg [Eugenio In Via Di Gioia]
-1106: La raje [Lou X]
-1107: La rondine [Mango]
-1108: La società dei magnaccioni [Armandino Bosco]
-1109: La sottile linea bianca (Afterhours, 2005)
-1110: La stanza del nonno [Giorgio Gaber]
-1111: La strana famiglia [Giorgio Gaber]
-1112: La valse dAmélie [Yann Tiersen]
-1113: La valse [Les Négresses Vertes]
-1114: La vasca [Alex Britti]
-1115: La vedova bianca (Afterhours, 2005)
-1116: La veneziana [Pneumatica Emiliano Romagnola]
-1117: Lacio drom (Litfiba, 1994)
-1118: Lacrimosa (Requiem) [Wolfgang Amadeus Mozart]
-1119: Ladro di cuori col bruco (Lo Stato Sociale, 2012)
-1120: Lady Madonna (The Beatles, 1968)
-1121: Lady marmalade [Christina Aguilera, Lil' Kim, Mya & Pink]
-1122: Lady stardust [David Bowie]
-1123: Lady writer [Dire Straits]
-1124: Lake of fire (Live) [Nirvana]
-1125: Lamento dello sbronzo (Marlene Kuntz, 1999)
-1126: Land of 1000 dances [Wilson Pickett]
-1127: Largo all'avanguardia [Skiantos]
-1128: Lasciarsi un giorno a Roma [Niccolò Fabi]
-1129: Last goodbye [Jeff Buckley]
-1130: Last of our kind [The Darkness]
-1131: Laurens walking (The Straight story) [Angelo Badalamenti]
-1132: Lavorare per il male [Tre Allegri Ragazzi Morti & Pierpaolo Capovilla]
-1133: Lay & love The [Pieces Of Shit]
-1134: Layla [Derek & The Dominos]
-1135: Le cose cambiano (Marta Sui Tubi, 2003)
-1136: Le cose più rare [Cosmo]
-1137: Le dîner de cons [Vladimir Cosma]
-1138: Le elezioni [Giorgio Gaber]
-1139: Le mani [Giorgio Gaber]
-1140: Le quattro stagioni [Antonio Vivaldi]
-1141: Le ragazze fanno grandi sogni [Edoardo Bennato]
-1142: Le sud [Nino Ferrer]
-1143: Le tue ossa nell'altitudine (Verdena, 2004)
-1144: Le vent nous portera [Noir Désir]
-1145: Lead pencil blues [Johnnie Temple]
-1146: Leaders of men [Joy Division]
-1147: Learn to fly [Foo Fighters]
-1148: Learning to fly [Tom Petty & The Heartbreakers]
-1149: Leash [Pearl Jam]
-1150: Leggenda di Natale (Fabrizio De André, 1968)
-1151: Leggero [Ligabue]
-1152: Lemon (U2, 1993)
-1153: Lemon tree [Fool's Garden]
-1154: Lemon [Corner In Bloom]
-1155: Les grandes marches [Moderat]
-1156: Let it be [The Beatles]
-1157: Let it go (Bob Geldof, 1990)
-1158: Let me entertain you (Robbie Williams, 1997)
-1159: Let me see [Morcheeba]
-1160: Let there be love [Nat King Cole]
-1161: Let's get it started [Black Eyed Peas]
-1162: Let's go out tonight [The Blue Nile]
-1163: Let's go surfing [The Drums]
-1164: Lettera al prossimo [Eugenio In Via Di Gioia]
-1165: Lezioni di poesia [Giorgio Canali & Rossofuoco]
-1166: Liberi liberi [Vasco Rossi]
-1167: Libertango [Astor Piazzolla]
-1168: Lieve (Live) [CSI]
-1169: Lieve (Marlene Kuntz, 1994)
-1170: Life in technicolor II (Coldplay, 2008)
-1171: Life is sweet [Fabi Silvestri Gazzè]
-1172: Life on Mars [David Bowie]
-1173: Life's a beach [Django Django]
-1174: Life's a beach [Touch & Go]
-1175: Lift me up [Moby]
-1176: Light my fire (The Doors, 1967)
-1177: Like a rolling stone (Bob Dylan, 1965)
-1178: Like clockwork (Queens Of The Stone Age, 2013)
-1179: Like Herod (Mogwai, 1997)
-1180: Like the 309 [Johnny Cash]
-1181: Liquefy [The Servant]
-1182: Litio [Massimo Volume]
-1183: Little black submarines [The Black Keys]
-1184: Little by little [Oasis]
-1185: Little red rooster [Willie Dixon]
-1186: Little sister (Queens Of The Stone Age, 2005)
-1187: Little talks [Of Monsters And Men]
-1188: Little wing [The Jimi Hendrix Experience]
-1189: Live forever [Oasis]
-1190: Live with me [Massive Attack]
-1191: Lo que me hace vivir [Roberto Fonseca]
-1192: Lo scrutatore non votante [Samuele Bersani]
-1193: Lo shampoo [Giorgio Gaber]
-1194: Lo strano percorso [Max Pezzali]
-1195: Locomotive (Guns N' Roses, 1991)
-1196: London calling [The Clash]
-1197: Lonely boy [The Black Keys]
-1198: Lonely boys paradise [Dope Lemon]
-1199: Long cool woman [The Hollies]
-1200: Loniterp (Verdena, 2011)
-1201: Lontani dal mondo [Negrita]
-1202: Looped [Kiasmos]
-1203: Lose yourself [Eminem]
-1204: Loser [Beck]
-1205: Losing grip [Avril Lavigne]
-1206: Losing my religion [REM]
-1207: Lost in the supermarket [The Clash]
-1208: Lost [Half Alive]
-1209: Lost! (Coldplay, 2008)
-1210: Louie Louie [The Kingsmen]
-1211: Louisiana (Litfiba, 1988)
-1212: Louisiana saturday night [Mel McDaniel]
-1213: Love (The Smashing Pumpkins, 1995)
-1214: Love in a trashcan [The Raveonettes]
-1215: Love in vain [The Rolling Stones]
-1216: Love is noise [The Verve]
-1217: Love is only a feeling (The Darkness, 2003)
-1218: Love is the drug [Roxy Music]
-1219: Love long distance [Gossip]
-1220: Love missile F1-11 [Sigue Sigue Sputnik]
-1221: Love on a real train (Tangerine Dream, 1983)
-1222: Love over gold [Dire Straits]
-1223: Love profusion [Madonna]
-1224: Love reign o'er me [The Who]
-1225: Love rescue me [U2]
-1226: Love somebody (Robbie Williams, 2002)
-1227: Love song [Syd Barrett]
-1228: Love spreads [The Stone Roses]
-1229: Love theme blues (Troppo forte) [Carlo Verdone]
-1230: Love will tear us apart [Joy Division]
-1231: Love you so bad [Ezra Furman]
-1232: Love you to (The Beatles, 1966)
-1233: Lover man [Billie Holiday]
-1234: Lovers in Japan (Coldplay, 2008)
-1235: Low man [Alberta Cross]
-1236: LSF [Kasabian]
-1237: Luce [Elisa]
-1238: Lucky man [The Verve]
-1239: Lucky [Radiohead]
-1240: Lucy in the sky with diamonds [The Beatles]
-1241: Lullaby for a soldier [Maggie Siff]
-1242: Lullaby [The Cure]
-1243: Luna (Verdena, 2004)
-1244: Luna y sol [Manu Chao]
-1245: Lunedì cinema [Stadio]
-1246: Lux aeterna [Clint Mansell]
-1247: Lux aeterna [Motorpsycho]
-1248: M.T.M. [Original Slammer Band]
-1249: Ma che bella città [Edoardo Bennato]
-1250: Ma che discorsi [Daniele Silvestri]
-1251: Ma come fanno i marinai [Lucio Dalla]
-1252: Ma il cielo è sempre più blu [Rino Gaetano]
-1253: Mad about you (Live) [Hooverphonic]
-1254: Mad about you (Sting, 1991)
-1255: Mad about you [Hooverphonic]
-1256: Madre (CCCP, 1989)
-1257: Maggese [Cesare Cremonini]
-1258: Maggie's farm [Bob Dylan]
-1259: Magnolia [Negrita]
-1260: Main theme (The Aristocats) [Walt Disney]
-1261: Main theme (The Good, The Bad and The Ugly) [Ennio Morricone]
-1262: Main title (The sword in the stone) [Walt Disney]
-1263: Make it wit chu (Queens Of The Stone Age, 2007)
-1264: Malamore [Enzo Carella]
-1265: Malibu [Hole]
-1266: Mama maé [Negrita]
-1267: Mama talk to your daughter [J.B. Lenoir]
-1268: Mama, i'm coming home [Ozzy Osbourne]
-1269: Mambo no. 5 [Lou Bega]
-1270: Man (Yeah Yeah Yeahs, 2003)
-1271: Man in a shed (Nick Drake, 1969)
-1272: Man next door (Massive Attack, 1998)
-1273: Man of simple pleasures [Kasabian]
-1274: Mandinka [Sinéad O'Connor]
-1275: Maneater [Nelly Furtado]
-1276: Mani [Edoardo De Crescenzo]
-1277: Maniac [Michael Sembello]
-1278: Manifesto (CCCP, 1987)
-1279: Map of the problematique [Muse]
-1280: Maple leaf rag [Scott Joplin]
-1281: Maps (Yeah Yeah Yeahs, 2003)
-1282: Marajà [Vinicio Capossela]
-1283: Margherita [Riccardo Cocciante]
-1284: Maria [Blondie]
-1285: Marinade [Dope Lemon]
-1286: Marmellata #25 [Cesare Cremonini]
-1287: Marooned (Pink Floyd, 1994)
-1288: Mary Jane's last dance [Tom Petty & The Heartbreakers]
-1289: Masters of war (Bob Dylan, 1963)
-1290: Maudit (Litfiba, 1993)
-1291: Max [Paolo Conte]
-1292: Maybe (Half Alive, 2019)
-1293: Maybe tomorrow [Stereophonics]
-1294: Me gustas tu [Manu Chao]
-1295: Meat is murder (The Smiths, 1985)
-1296: Meds (Placebo, 2006)
-1297: Meine [Daso]
-1298: Mellon Collie and the infinite sadness (The Smashing Pumpkins, 1995)
-1299: Mellow song [Blur]
-1300: Mellowship slinky in B major (Red Hot Chili Peppers, 1991)
-1301: Melodía lírica (Prelude #1) [Heitor Villa-Lobos]
-1302: Mentira [Manu Chao]
-1303: Mercy [Duffy]
-1304: Meri Luis [Lucio Dalla]
-1305: Merry x-mas (Marlene Kuntz, 1994)
-1306: Message in a bottle [The Police]
-1307: Messico e nuvole [Enzo Jannacci]
-1308: Metti in circolo il tuo amore (Live) [Ligabue]
-1309: Metti in circolo il tuo amore [Ligabue]
-1310: Mi addormenterò [Bud Spencer Blues Explosion]
-1311: Mi coltivo (Verdena, 2011)
-1312: Mi fa male il mondo [Giorgio Gaber]
-1313: Mi fido di te [Jovanotti]
-1314: Mi sono ritrovato vivo [The Zen Circus]
-1315: Mi sono rotto il cazzo (Lo Stato Sociale, 2012)
-1316: Midlife crisis [Faith No More]
-1317: Midnight city [M83]
-1318: Midnight drive (Still Corners, 2013)
-1319: Midnight in a perfect world [DJ Shadow]
-1320: Midnight rambler (The Rolling Stones, 1969)
-1321: Midnight slow [Dope Lemon]
-1322: Milanesi al mare (The Zen Circus, 2011)
-1323: Milano [Lucio Dalla]
-1324: Milk it [Nirvana]
-1325: Millennium (Robbie Williams, 1998)
-1326: Mind eraser [The Black Keys]
-1327: Mind fulness [Jecha]
-1328: Mind your own business [Delta 5]
-1329: Minister of rock and roll (Lenny Kravitz, 2004)
-1330: Minor swing [Django Reinhardt]
-1331: Minority [Green Day]
-1332: Minuetto [Mia Martini]
-1333: Mio fratello che guardi il mondo [Ivano Fossati]
-1334: Miserlou [Dick Dale & His Del-Tones]
-1335: Miserlou [Dick Dale]
-1336: Misread [Kings Of Convenience]
-1337: Miss mondo 99 (Live) [Ligabue]
-1338: Misunderstood [Mötley Crüe]
-1339: Mme et Mr Curie [Giorgio Canali & Rossofuoco]
-1340: Mmm mmm mmm mmm [Crash Test Dummies]
-1341: Moanin' [Art Blakey & The Jazz Messengers]
-1342: Moaning lisa smile [Wolf Alice]
-1343: Moby Dick [Led Zeppelin]
-1344: Modern romance (Yeah Yeah Yeahs, 2003)
-1345: Modì [Vinicio Capossela]
-1346: Mofo [U2]
-1347: Mojo pin [Jeff Buckley]
-1348: Monday morning blues [Mississippi John Hurt]
-1349: Monetine (Daniele Silvestri, 2008)
-1350: Money (Pink Floyd, 1973)
-1351: Money for nothing [Dire Straits]
-1352: Monna Lisa [Ivan Graziani]
-1353: Montalbano noir concertante [Franco Piersanti]
-1354: Mora na filosofia [Caetano Veloso]
-1355: More than a feeling [Boston]
-1356: More than this [Roxy Music]
-1357: Morire (CCCP, 1986)
-1358: Morire per delle idee (Fabrizio De André, 1974)
-1359: Morirò da re [Måneskin]
-1360: Morning glory [Oasis]
-1361: Mosh [Eminem]
-1362: Mosquito song (Queens Of The Stone Age, 2002)
-1363: Mostri sotto il letto [Giorgio Canali & Rossofuoco]
-1364: Mother (Pink Floyd, 1979)
-1365: Mother earth [Memphis Slim]
-1366: Motion picture soundtrack [Radiohead]
-1367: Mount wrociai [Beirut]
-1368: Mountain song [Jane's Addiction]
-1369: Move your body [Eiffel 65]
-1370: Moviestar [Stereophonics]
-1371: Moving (Kate Bush, 1978)
-1372: Moving in stereo [The Cars]
-1373: Mr. brightside [The Killers]
-1374: Mr. tambourine man (Live) [Bob Dylan]
-1375: Mr. tambourine man [Bob Dylan]
-1376: Mrs. Robinson [Simon & Garfunkel]
-1377: Muori delay (Verdena, 2007)
-1378: Muscle museum (Muse, 1999)
-1379: Muzzle (The Smashing Pumpkins, 1995)
-1380: My boy builds coffins [Florence + The Machine]
-1381: My brain is hanging upside [The Ramones]
-1382: My California [Beth Hart]
-1383: My favourite game [The Cardigans]
-1384: My friend [Groove Armada]
-1385: My friends (Red Hot Chili Peppers, 1995)
-1386: My friends [D] (Red Hot Chili Peppers, 1995)
-1387: My generation [The Who]
-1388: My heart will go on [Céline Dion]
-1389: My life is going on [Cecilia Krull]
-1390: My Sharona [The Knack]
-1391: My way [Sex Pistols]
-1392: Mysterious ways (U2, 1991)
-1393: Má vlast [Bedřich Smetana]
-1394: naif.super [M+A]
-1395: Nails, hair, hips, heels [Todrick Hall]
-1396: Naive [The Kooks]
-1397: Nancy boy (Placebo, 1996)
-1398: Napalm love [Air]
-1399: Napule è [Pino Daniele]
-1400: Need you tonight [INXS]
-1401: Nei rami (Verdena, 2022)
-1402: Neighborhood #1 - Tunnels (Arcade Fire, 2004)
-1403: Nell'aria [Marcella Bella]
-1404: Nella mia ora di libertà (Fabrizio De André, 1973)
-1405: Nella tua luce (Marlene Kuntz, 2013)
-1406: Nessun dorma (Turandot) [Giacomo Puccini]
-1407: Never an easy way (Morcheeba, 1996)
-1408: Never be the same again [Melanie C]
-1409: Never let me down again (Depeche Mode, 1987)
-1410: Never let me go [Florence + The Machine]
-1411: New born [Muse]
-1412: New shoes [Paolo Nutini]
-1413: New year's day [U2]
-1414: Night and day [Cole Porter]
-1415: Night of the swallow (Kate Bush, 1982)
-1416: Night on bald mountain [Modest Mussorgsky]
-1417: Ninja [M+A & Spank Rock]
-1418: Nixon [Giorgio Gaber]
-1419: No compassion [Talking Heads]
-1420: No distance left to run [Blur]
-1421: No excuses [Alice In Chains]
-1422: No feelings (Sex Pistols, 1977)
-1423: No fun (Sex Pistols, 1977)
-1424: No one knows (Queens Of The Stone Age, 2002)
-1425: No rain [Blind Melon]
-1426: No way [The Zen Circus]
-1427: No woman, no cry (Live) [Bob Marley & The Wailers]
-1428: Nocturne #1 in B flat minor [Frédéric Chopin]
-1429: Nocturne #3 [Eric Satie]
-1430: Non mi pento [Ylenia Lucisano]
-1431: Non prendere l'acme, Eugenio (Verdena, 2007)
-1432: Non sono una signora [Loredana Bertè]
-1433: Non è per sempre (Afterhours, 1999)
-1434: Non è tempo per noi [Ligabue]
-1435: Non è un film [Articolo 31]
-1436: Non, je ne regrette rien [Edith Piaf]
-1437: Nord sud ovest est [883]
-1438: Nord [Paolo Conte]
-1439: Norwegian wood [The Beatles]
-1440: Not dark yet [Bob Dylan]
-1441: Nothing (Depeche Mode, 1987)
-1442: Nothing compares to you [Sinéad O'Connor]
-1443: Nothing else matters [Metallica]
-1444: Nothing's gonna hurt you baby [Cigarettes After Sex]
-1445: Nothingman [Pearl Jam]
-1446: Notte (Marlene Kuntz, 2003)
-1447: Notte prima degli esami [Antonello Venditti]
-1448: November rain (Guns N' Roses, 1991)
-1449: Nu te fermare [Canzoniere Grecanico Salentino]
-1450: Numb [Linkin Park]
-1451: Nuotando nell'aria (Marlene Kuntz,1994)
-1452: Nuova ossessione [Subsonica]
-1453: Nutshell [Alice In Chains]
-1454: Nuvole bianche [Ludovico Einaudi]
-1455: Nuvole rapide [Subsonica]
-1456: Nuvole senza Messico [Giorgio Canali & Rossofuoco]
-1457: O mio babbino caro (Gianni Schicchi) [Giacomo Puccini]
-1458: Ob-la-di, ob-la-da (The Beatles, 1968)
-1459: Occhi bassi [Tre Allegri Ragazzi Morti]
-1460: October [U2]
-1461: Of course [Jane's Addiction]
-1462: Oh mama! [Giorgio Gaber]
-1463: Oh sweet nuthin' [The Velvet Underground]
-1464: Old graffiti (Bibio, 2019)
-1465: Old time rock & roll [Bob Seger]
-1466: Older chests (Damien Rice, 2002)
-1467: Olsen olsen (Sigur Rós, 1999)
-1468: On a plain [Nirvana]
-1469: On every street [Dire Straits]
-1470: On melancholy hill (Gorillaz, 2010)
-1471: On the road again [Canned Heat]
-1472: Onan (Verdena, 2001)
-1473: Onda su onda [Bruno Lauzi]
-1474: One (U2, 1991)
-1475: One more time [The Clash]
-1476: One of these days (Pink Floyd, 1971)
-1477: One of us [Joan Osborne]
-1478: One way ticket [The Darkness]
-1479: Only shallow [My Bloody Valentine]
-1480: Oo-de-lally (Robin Hood) [Walt Disney]
-1481: Ooh la la [Goldfrapp]
-1482: Optigan 1 [Blur]
-1483: Orange evening [DWIG]
-1484: Ordinary man (Chinese Man, 2009)
-1485: Otherside (Red Hot Chili Peppers, 1999)
-1486: Out in the cold [Tom Petty & The Heartbreakers]
-1487: Out of the blue [Roxy Music]
-1488: Out of time [Blur]
-1489: Overture (Don Giovanni) [Wolfgang Amadeus Mozart]
-1490: Overture (The Jungle Book) [Walt Disney]
-1491: Pablo (Francesco De Gregori, 1975)
-1492: Padremadre [Cesare Cremonini]
-1493: Pale blue eyes [The Velvet Underground]
-1494: Panama [Van Halen]
-1495: Paname (Litfiba, 1988)
-1496: Paperback writer [The Beatles]
-1497: Papercut [Linkin Park]
-1498: Parabol + Parabola [Tool]
-1499: Paracetamolo [Calcutta]
-1500: Paradise (Coldplay, 2011)
-1501: Paradise circus [Massive Attack]
-1502: Paradise city (Guns N' Roses, 1987)
-1503: Paranoid android [Radiohead]
-1504: Paranoid [Black Sabbath]
-1505: Parklife [Blur]
-1506: Parole di burro [Carmen Consoli]
-1507: Part of the process [Morcheeba]
-1508: Pas assez de toi [Mano Negra]
-1509: Pascolare (Verdena, 2022)
-1510: Paso doble [Paolo Conte]
-1511: Pass it on [The Coral]
-1512: Pass the mic [Beastie Boys]
-1513: Pastime [Samantha Crain]
-1514: Pastore di nuvole [Luigi Grechi]
-1515: Pata pata [Miriam Makeba]
-1516: Peace beneath the city [Iron & Wine]
-1517: Peace of mind [The Pilgrim]
-1518: Peace reprise [Paul Kelly]
-1519: Pensiero stupendo [Patty Pravo]
-1520: People have the power [Patti Smith]
-1521: Per averti [Adriano Celentano]
-1522: Per me lo so (CCCP, 1987)
-1523: Per me è importante [Tiromancino]
-1524: Per sbaglio (Verdena, 2011)
-1525: Perfect day [Lou Reed]
-1526: Perfetto uniformato [Eugenio In Via Di Gioia]
-1527: Personal Jesus [Depeche Mode]
-1528: Pertanto [Il Pan Del Diavolo]
-1529: Pescatore [Pierangelo Bertoli & Fiorella Mannoia]
-1530: Peter Gunn theme [The Blues Brothers]
-1531: Pezzo di me [Levante & Max Gazzè]
-1532: Phoner to Arizona (Gorillaz, 2010)
-1533: Phony king of England (Robin Hood) [Walt Disney]
-1534: Photograph [Def Leppard]
-1535: Photographic [Depeche Mode]
-1536: Piano concert #1 in B flat minor [Pyotr Ilyich Tchaikovsky]
-1537: Piano quintet in E-flat major - Andante cantabile [Ludwig van Beethoven]
-1538: Piano sonata #14 - Moonlight sonata (Ludwig van Beethoven, 1802)
-1539: Piano sonata #2 in B flat minor, Op.35, Mov.3 (Marche funèbre) [Frédéric Chopin]
-1540: Piazza grande [Lucio Dalla]
-1541: Piccola città [Francesco Guccini]
-1542: Piccola stella senza cielo [Ligabue]
-1543: Piccola storia ignobile [Francesco Guccini]
-1544: Piccolo uomo [Mia Martini]
-1545: Pierrot e la luna (Litfiba, 1986)
-1546: Pierrot the clown (Placebo, 2006)
-1547: Pigs in Zen [Jane's Addiction]
-1548: Pigs on the wing - pt.1 (Pink Floyd, 1977)
-1549: Pink [Aerosmith]
-1550: Piove [Jovanotti]
-1551: Più bella cosa [Eros Ramazzotti]
-1552: Plateau [Meat Puppets]
-1553: Play dead [Björk]
-1554: Play for today (The Cure, 1980)
-1555: Playground love [Air]
-1556: Please me like you want to (Ben Harper, 1995)
-1557: Plug in baby [Muse]
-1558: Police on my back [The Clash]
-1559: Policy of truth [Depeche Mode]
-1560: Politician (Cream, 1968)
-1561: Por el suelo [Manu Chao]
-1562: Porc #1 [Moderat]
-1563: Porcelain [Moby]
-1564: Portobello belle (Live) [Dire Straits]
-1565: Postcards from Italy [Beirut]
-1566: Pow R Toc H (Pink Floyd, 1967)
-1567: Precious (Depeche Mode, 2005)
-1568: Preghiera in gennaio (Fabrizio De André, 1967)
-1569: Prelude Op. 28  No. 15 (Raindrop) [Frédéric Chopin]
-1570: Prelude Op. 28  No. 24 (Storm) [Frédéric Chopin]
-1571: Pretty boy [Noel Gallagher's High Flying Bird]
-1572: Pretty little ditty (Red Hot Chili Peppers, 1989)
-1573: Pretty vacant (Sex Pistols, 1977)
-1574: Pretty woman [Roy Orbison]
-1575: Pride (U2, 1984)
-1576: Prima di andare via [Neffa]
-1577: Prima di andare via [Riccardo Sinigallia]
-1578: Primavera [Ludovico Einaudi]
-1579: Prisencolinensinainciusol [Adriano Celentano]
-1580: Prison [Iosonouncane]
-1581: Private investigations [Dire Straits]
-1582: Problems (Sex Pistols, 1977)
-1583: Profondo rosso [Goblin]
-1584: Proibito (Litfiba, 1990)
-1585: Propaganda [Fabri Fibra, Colapesce, Di Martino]
-1586: Protection (Massive Attack, 1994)
-1587: Psycho killer [Talking Heads]
-1588: Psychotic girl [The Black Keys]
-1589: Psychotzar [Motorpsycho]
-1590: Public image [Public Image Ltd]
-1591: Pulled Up [Talking Heads]
-1592: Pumped up kicks [Foster The People]
-1593: Punk islam (CCCP, 1984)
-1594: Punk rock con le ali [Bianco]
-1595: Pure morning (Placebo, 1998)
-1596: Purple rain [Prince]
-1597: Puzzle (Verdena, 2015)
-1598: Pyramid song [Radiohead]
-1599: Pyro [Kings Of Leon]
-1600: Qualcuno era comunista [Giorgio Gaber]
-1601: Quale allegria [Lucio Dalla]
-1602: Quando sono con te [Ex-Otago]
-1603: Quando è moda è moda [Giorgio Gaber]
-1604: Quattro stracci [Francesco Guccini]
-1605: Que sera, sera [Doris Day]
-1606: Quella che non sei [Ligabue]
-1607: Quelli che (Live) [Enzo Jannacci]
-1608: Quelli che benpensano [Frankie Hi-Nrg Mc]
-1609: Quelli che [Enzo Jannacci]
-1610: Quello che non c'è (Afterhours, 2002)
-1611: Quello che non ho (Fabrizio De André, 1981)
-1612: Quello che non so di te [Motta]
-1613: Quello che perde i pezzi [Giorgio Gaber]
-1614: Radar [Morphine]
-1615: Radetzky march [Johann Strauss I]
-1616: Radio (Paolo Nutini, 2022)
-1617: Rag doll [Aerosmith]
-1618: Rake and rambling boy [Rhys Jones & Christina Wheeler]
-1619: Ramblin' on my mind (Robert Johnson, 1936)
-1620: Rap lamento [Frankie Hi-Nrg Mc]
-1621: Rapper's delight [The Sugarhill Gang]
-1622: Rare tracce [Rino Gaetano]
-1623: Ray of light [Madonna]
-1624: Razzi arpia inferno e fiamme (Verdena, 2011)
-1625: Re-hash (Gorillaz, 2001)
-1626: Real thing [Pale Honey]
-1627: Rearviewmirror [Pearl Jam]
-1628: Reason is treason (Jacknife Lee version) [Kasabian]
-1629: Reason is treason [Kasabian]
-1630: Rebel girl [Bikini Kill]
-1631: Rebel rebel [David Bowie]
-1632: Rebel yell [Billt Idol]
-1633: Rebellion - Lies (Arcade Fire, 2004)
-1634: Recitativo (Fabrizio De André, 1968)
-1635: Red house [The Jimi Hendrix Experience]
-1636: Redemption song [Bob Marley & The Wailers]
-1637: Reflection [Tool]
-1638: Refugee [Tom Petty & The Heartbreakers]
-1639: Reggatta de blanc [The Police]
-1640: Regina di cuori (Litfiba, 1997)
-1641: Remember me [Blue Boy]
-1642: Reptilia [The Strokes]
-1643: Requiem in D minor, K. 626 (I-III) [Wolfgang Amadeus Mozart]
-1644: Resisti (Litfiba, 1990)
-1645: Respect yourself [The Staple Singers]
-1646: Respect [Aretha Franklin]
-1647: Resta (Litfiba, 1986)
-1648: Retrattile (Marlene Kuntz, 1996)
-1649: Retrograde [James Blake]
-1650: Revelations [Audioslave]
-1651: Revenge [Patti Smith]
-1652: Rhapsody in blue [George Gershwin]
-1653: Ricordati di me [Antonello Venditti]
-1654: Ride like the wind [Christopher Cross]
-1655: Ride of the Valkyries [Richard Wagner]
-1656: Right here right now [Fatboy Slim]
-1657: Right on (Marvin Gaye, 1971)
-1658: Rilievo (Verdena, 2015)
-1659: Rimini (Fabrizio De André, 1978)
-1660: Rimmel (Francesco De Gregori, 1975)
-1661: Rise [Public Image Ltd]
-1662: Risingson (Massive Attack, 1998)
-1663: Ritmo (Litfiba, 1997)
-1664: Ritual spirit [Massive Attack]
-1665: Road runner [Sex Pistols]
-1666: Roads (Portishead, 1994)
-1667: Rock 'n' roll star [Oasis]
-1668: Rock and roll ain't noise pollution (AC-DC, 1980)
-1669: Rock and roll [Gary Glitter]
-1670: Rock and roll [Led Zeppelin]
-1671: Rock and roll [The Velvet Underground]
-1672: Rock around the clock [Bill Haley & His Comets]
-1673: Rock me mama [Arthur Big Boy Crudup]
-1674: Rock the casbah [The Clash]
-1675: Rocket (The Smashing Pumpkins, 1993)
-1676: Rocket man (Remix '03) [Elton John]
-1677: Rocket man [Elton John]
-1678: Rocks [Primal Scream]
-1679: Rockstar [Nickelback]
-1680: Roll with it [Oasis]
-1681: Rollin' [Limp Bizkit]
-1682: Rome wasn't built in a day [Morcheeba]
-1683: Romeo and Juliet (Dire Straits, 1980)
-1684: Rootless tree (Damien Rice, 2006)
-1685: Rosalina [Fabio Concato]
-1686: Rotolacampo [Giorgio Canali & Rossofuoco]
-1687: Rotolando verso sud (Déjà Vu mix) [Negrita]
-1688: Rotolando verso sud [Negrita]
-1689: Rotta per casa di dio [883]
-1690: Rotten apple [Alice In Chains]
-1691: Roygbiv [Boards Of Canada]
-1692: Rozzemilia (CCCP, 1987)
-1693: Rue des cascades (Live) [Yann Tiersen]
-1694: Ruler of my heart [Irma Thomas]
-1695: Rumba verso il buco (Io non ho paura OST) [Ezio Bosso]
-1696: Run on [Moby]
-1697: Run right back [The Black Keys]
-1698: Run through the jungle (Creedence Clearwater Revival, 1970)
-1699: Runaway (Half Alive, 2019)
-1700: Runaway [Aurora]
-1701: Runnin' down a dream [Tom Petty & The Heartbreakers]
-1702: Running to stand still (U2, 1987)
-1703: Running up that hill (Kate Bush, 1985)
-1704: Sabotage [Beastie Boys]
-1705: Sacrilege (Yeah Yeah Yeahs, 2013)
-1706: Sad Lisa [Cat Stevens]
-1707: Sad song [Oasis]
-1708: Safe european home [The Clash]
-1709: Safe from harm [Massive Attack]
-1710: Sail to the moon (Radiohead, 2003)
-1711: Sailing to Philadelphia (Mark Knopfler, 2000)
-1712: Salirò [Daniele Silvestri]
-1713: Sally (Fabrizio De André, 1978)
-1714: Sally [Vasco Rossi]
-1715: Samarcanda [Roberto Vecchioni]
-1716: Same love [Macklemore & Mary Lambert]
-1717: Sara non piangere [Pino Daniele]
-1718: Satellite (Sex Pistols, 1977)
-1719: Satellite of love [Lou Reed]
-1720: Satisfaction [The Rolling Stones]
-1721: Saturday come slow [Massive Attack]
-1722: Saturnz barz (Gorillaz, 2017)
-1723: Saudade, saudade [MARO]
-1724: Save a prayer (V) [Duran Duran]
-1725: Save a prayer [Duran Duran]
-1726: Save tonight [Eagle-Eye Cherry]
-1727: Scar tissue (Red Hot Chili Peppers, 1999)
-1728: Scarborough fair [Simon & Garfunkel]
-1729: Scared of girls (Placebo, 1998)
-1730: Scegli me (Verdena, 2011)
-1731: Scenic world [Beirut]
-1732: Schiele, lei, me (Marlene Kuntz, 2003)
-1733: Schism [Tool]
-1734: Schizophrenia (Sonic Youth, 1987)
-1735: Schizzechea [Pino Daniele]
-1736: Scotland's shame [Mogwai]
-1737: Scusate se non piango [Daniele Silvestri]
-1738: Se ti tagliassero a pezzetti (Fabrizio De André, 1981)
-1739: Secondo me gli italiani [Giorgio Gaber]
-1740: Seconds [U2]
-1741: Secret alphabets (Kasabian, 2009)
-1742: Secret journey [The Police]
-1743: Secretly [Skunk Anansie]
-1744: See no evil (Television, 1977)
-1745: Sempre allegri [Bandabardò]
-1746: Send his love to me [PJ Harvey]
-1747: Sendero [Gustavo Santaolalla]
-1748: Senza giacca e cravatta [Nino D'Angelo]
-1749: Senza parole la bocca [TehoTeardo]
-1750: Senza titoli [Samuele Bersani]
-1751: Senza una donna [Zucchero]
-1752: Serve the servants [Nirvana]
-1753: Sestri Levante [The Zen Circus]
-1754: Sette camicie [Eugenio In Via Di Gioia]
-1755: Setting me up [Dire Straits]
-1756: Seven nation army [The White Stripes]
-1757: Sex is not the enemy [Garbage]
-1758: Sex on fire [Kings Of Leon]
-1759: Sex [Negrita]
-1760: Sexy dream (Litfiba, 1999)
-1761: Sgt. Pepper's lonely hearts club band (The Beatles, 1967)
-1762: Shake it baby [John Lee Hooker]
-1763: Shake it out [Florence + The Machine]
-1764: Shape of my heart (Sting, 1993)
-1765: Shape of things to come [Audioslave]
-1766: She bangs the drums [The Stone Roses]
-1767: She belongs to me [Bob Dylan]
-1768: She hangs brightly [Mazzy Star]
-1769: She said she said (The Beatles, 1966)
-1770: She sells sanctuary [The Cult]
-1771: She sells [Roxy Music]
-1772: She will be loved [Maroon 5]
-1773: She wolf [Shakira]
-1774: She's electric [Oasis]
-1775: She's lost control (Joy Division, 1979)
-1776: She's so high [Blur]
-1777: Sheela-na-gig [PJ Harvey]
-1778: Shine on you crazy diamond - pt.1 (Pink Floyd, 1975)
-1779: Shine on you crazy diamond - pt.2 (Pink Floyd, 1975)
-1780: Shiny happy people [REM]
-1781: Shock in my town [Franco Battiato]
-1782: Shock the monkey [Peter Gabriel]
-1783: Shoo-b-doop and cop him [Betty Davis]
-1784: Short change hero [The Heavy]
-1785: Shoulder holster [Morcheeba]
-1786: Show me how to live [Audioslave]
-1787: Shpalman (V) [Elio E Le Storie Tese]
-1788: Siamo dei [Lucio Dalla]
-1789: Siamo solo noi [Vasco Rossi]
-1790: Siamo umani (Litfiba, 1990)
-1791: Siberia [Diaframma]
-1792: Sick and tired [Anastacia]
-1793: Sign 'o' the times [Prince]
-1794: Silvertown blues (Mark Knopfler, 2000)
-1795: Simple twist of fate [Bob Dylan]
-1796: Since you've been gone [Aretha Franklin]
-1797: Sing for absolution [Muse]
-1798: Sing for the moment [Eminem]
-1799: Sing sing sing [Benny Goodman]
-1800: Sing [Travis]
-1801: Sino a notte (Verdena, 2022)
-1802: Sirius [The Alan Parsons Project]
-1803: Sister Ray (The Velvet Underground, 1968)
-1804: Sit down, stand up [Radiohead]
-1805: Sittin' on the dock of the bay [Otis Redding]
-1806: Six days [DJ Shadow]
-1807: Sixteen tons [Tennessee Ernie Ford]
-1808: Skating in Central Park [Bill Evans]
-1809: Skeletons (Yeah Yeah Yeahs, 2009)
-1810: Skin of the night (M83, 2008)
-1811: Skull tattoo (Eagle-Eye Cherry, 2003)
-1812: Sky full of song [Florence + The Machine]
-1813: Slave to love [Bryan Ferry]
-1814: Slave [The Rolling Stones]
-1815: Sleep now in the fire (Rage Against The Machine, 1999)
-1816: Sleeping with ghosts (Placebo, 2003)
-1817: Slide along side [Shifty]
-1818: Slide away [Oasis]
-1819: Slow dancing in a burning room [John Mayer]
-1820: Slowdive [Siouxsie And The Banshees]
-1821: Sly (Massive Attack, 1994)
-1822: Sly [Herbie Hancock]
-1823: Small time shot away [Massive Attack]
-1824: Smalltown boy [Bronski Beat]
-1825: Smells like teen spirit [Nirvana]
-1826: Smoke on the water [Deep Purple]
-1827: Smokes quantity [Boards Of Canada]
-1828: Smokestack lightnin' [Howlin' Wolf]
-1829: Smoking gun [Robert Cray]
-1830: Smooth sailing (Queens Of The Stone Age, 2013)
-1831: So (Tiromancino, 2000)
-1832: So far away [Dire Straits]
-1833: So lonely [The Police]
-1834: So what [Miles Davis]
-1835: So what'cha want [Beastie Boys]
-1836: So you want to be [Patti Smith]
-1837: Soho [Bert Jansch & John Renbourn]
-1838: Sola una volta [Alex Britti]
-1839: Sole spento [Timoria]
-1840: Solo un grande sasso - pt.1 (Verdena, 2002)
-1841: Solo un grande sasso - pt.2 (Verdena, 2002)
-1842: Solo una sana e consapevole libidine salva il giovane dallo stress e dall'azione cattolica [Zucchero]
-1843: Some girls are bigger than others (The Smiths, 1986)
-1844: Some kinda love [The Velvet Underground]
-1845: Some might say [Oasis]
-1846: Somebody that i used to know [Gotye]
-1847: Somebody to love (Jefferson Airplane, 1967)
-1848: Somebody to love [Queen]
-1849: Someplace [Max Maikon]
-1850: Something just like this [The Chainsmokers & Coldplay]
-1851: Sometimes a fantasy [Billy Joel]
-1852: Sometimes you can't make it on your own [U2]
-1853: Somewhere i belong [Linkin Park]
-1854: Song 2 [Blur]
-1855: Song for the dead (Queens Of The Stone Age, 2002)
-1856: Song for the deaf (Queens Of The Stone Age, 2002)
-1857: Song to say goodbye (Placebo, 2006)
-1858: Songbird [Oasis]
-1859: Sonica (Marlene Kuntz,1994)
-1860: Sono = sono [Bluvertigo]
-1861: Sono cosi indie (Lo Stato Sociale, 2012)
-1862: Sooner or later [Michael Tolcher]
-1863: Sorriso in spiaggia - pt.1 (Verdena, 2011)
-1864: Sotto casa [Max Gazzè]
-1865: Sotto prescrizione del dott. Huxley (Verdena, 2007)
-1866: Soul cake [Sting]
-1867: Soul meets body [Death Cab For Cutie]
-1868: Soul to squeeze (Red Hot Chili Peppers, 1993)
-1869: Souljacker (pt. I) [Eels]
-1870: Sour times (Portishead, 1994)
-1871: Spaccacuore [Samuele Bersani]
-1872: Space cadet [Kyuss]
-1873: Space dementia [Muse]
-1874: Spaceman (Verdena, 2001)
-1875: Spanish bombs [The Clash]
-1876: Sparring partner [Paolo Conte]
-1877: Special cases [Massive Attack]
-1878: Special needs (Placebo, 2003)
-1879: Speed of sound (Coldplay, 2005)
-1880: Spellbound [Siouxsie And The Banshees]
-1881: Spendi spandi effendi [Rino Gaetano]
-1882: Spirale ovale [Articolo 31]
-1883: Spirito (Litfiba, 1994)
-1884: Spirits in the material world [The Police]
-1885: Spooky action at a distance [SQÜRL]
-1886: Square dance [Eminem]
-1887: St. James infirmary [Hugh Laurie]
-1888: Stairway to heaven [Led Zeppelin]
-1889: Stan [Eminem]
-1890: Stardust [Nat King Cole]
-1891: Starless (Verdena, 2001)
-1892: Starless [King Crimson]
-1893: Starman [David Bowie]
-1894: Start me up [The Rolling Stones]
-1895: Stato di calma apparente [Paola Turci]
-1896: Stay (faraway, so close!) [U2]
-1897: Stay with me [Clint Mansell & Kronos Quartet]
-1898: Stayin' alive [Bee Gees]
-1899: Steady as she goes [The Raconteurs]
-1900: Steady rain [Warren Zevon]
-1901: Still feel (Half Alive, 2019)
-1902: Stitichezza cronica (Marta Sui Tubi, 2003)
-1903: Stockholm syndrome [Muse]
-1904: Stolen [Dashboard Confessional]
-1905: Stop crying your heart out [Oasis]
-1906: Stop draggin' my heart around [Stevie Nicks & Tom Petty]
-1907: Stop me if you think you've heard this one before (The Smiths, 1987)
-1908: Storm [Godspeed you! Black Emperor]
-1909: Strade (Tiromancino, 2000)
-1910: Straight to number one [Touch & Go]
-1911: Strange fruit [Billie Holiday]
-1912: Strawberry fields forever (The Beatles, 1967)
-1913: Street life [Roxy Music]
-1914: Street spirit [Radiohead]
-1915: Stripped [Depeche Mode]
-1916: Stuck in a moment you can't get out of [U2]
-1917: Stuck in the middle with you [Stealers Wheel]
-1918: Submission (Sex Pistols, 1977)
-1919: Subterranean homesick alien [Radiohead]
-1920: Subterranean homesick blues [Bob Dylan]
-1921: Subway (Yeah Yeah Yeahs, 2013)
-1922: Suck my kiss (Red Hot Chili Peppers, 1991)
-1923: Suddenly i see [KT Tunstall]
-1924: Suffer little children (The Smiths, 1984)
-1925: Sugar Kane (Sonic Youth, 1992)
-1926: Suicide blonde [INXS]
-1927: Suite #3 in D major [Johann Sebastian Bach]
-1928: Sulle labbra (Afterhours, 2002)
-1929: Sultans of swing [Dire Straits]
-1930: Summer '68 (Pink Floyd, 1970)
-1931: Summer 78 [Yann Tiersen]
-1932: Summer on a solitary beach [Franco Battiato]
-1933: Summertime (George Gershwin, 1935)
-1934: Summertime rolls [Jane's Addiction]
-1935: Summon the fire [The Comet Is Coming]
-1936: Sunburn (Muse, 1999)
-1937: Sunday bloody sunday [U2]
-1938: Sunday morning [Maroon 5]
-1939: Sunday morning [The Velvet Underground]
-1940: Sunday shining [Finley Quaye]
-1941: Sunrise [Norah Jones]
-1942: Sunshine of your love (Verdena, 2000)
-1943: Super human [Remember Summer]
-1944: Super sex (Morphine, 1995)
-1945: Supercafone [Piotta]
-1946: Superman [Lazlo Bane]
-1947: Supermassive black hole [Muse]
-1948: Supersonic [Oasis]
-1949: Superstition [Stevie Wonder]
-1950: Sure shot [Beastie Boys]
-1951: Surface-to-air whistle (All Them Witches, 2013)
-1952: Surrender [Cheap Trick]
-1953: Svefn-g-englar (Sigur Rós, 1999)
-1954: Swallowed in the sea (Coldplay, 2005)
-1955: Swan Lake (Op.20, Act. 2) [Pyotr Ilyich Tchaikovsky]
-1956: Swastika girls [Fripp & Eno]
-1957: Sweat [The Jon Spencer Blues Explosion]
-1958: Sweet child o' mine (Guns N' Roses, 1987)
-1959: Sweet child o' mine [Captain fantastic OST]
-1960: Sweet dreams (Eurythmics, 1983)
-1961: Sweet harmony [The Beloved]
-1962: Sweet home Alabama [Lynyrd Skynyrd]
-1963: Sweet home Alabama [The King]
-1964: Sweet home Chicago (Robert Johnson, 1936)
-1965: Sweet Jane [The Velvet Underground]
-1966: Sweet potato (Sia, 2004)
-1967: Sweet thang [Shuggie Thang]
-1968: Sweetest thing [U2]
-1969: Swimsuit issue (Sonic Youth, 1992)
-1970: Sympathy for the devil [Guns N' Roses]
-1971: Sympathy for the devil [The Rolling Stones]
-1972: Symphony #12 (II, Adagio) [Heitor Villa-Lobos]
-1973: Symphony #2 in C minor (Resurrection) [Gustav Mahler]
-1974: Symphony #5 in C sharp minor (4, Adagietto) [Gustav Mahler]
-1975: Symphony #9, mov. 4th (From the new world) [Antonín Dvořák]
-1976: Synchronicity I [The Police]
-1977: Synchronicity II [The Police]
-1978: Sæglópur (Sigur Rós, 2005)
-1979: Sì viaggiare [Lucio Battisti]
-1980: Take a bow [Muse]
-1981: Take a look around [Limp Bizkit]
-1982: Take five [The Dave Brubeck Quartet]
-1983: Take it back [Pink Floyd]
-1984: Take me down (The Smashing Pumpkins, 1995)
-1985: Take me out [Franz Ferdinand]
-1986: Take on me [A-ha]
-1987: Tales of brave Ulysses [Cream]
-1988: Tamala [Samba Touré]
-1989: Tango per due [Nina Zilli]
-1990: Tango [Lucio Dalla]
-1991: Tanto3 [Jovanotti]
-1992: Tapparella (V) [Elio E Le Storie Tese]
-1993: Taste of blood [Mazzy Star]
-1994: Taste the pain (Red Hot Chili Peppers, 1989)
-1995: Teacher's pet [School Of Rock]
-1996: Teardrop (Massive Attack, 1998)
-1997: Tearjerker (Red Hot Chili Peppers, 1995)
-1998: Teen age riot (Sonic Youth, 1988)
-1999: Teenage angst [Placebo]
-2000: Telefonami tra vent'anni [Lucio Dalla]
-2001: Telegraph road [Dire Straits]
-2002: Tempo di valse (Serenade for strings in E major) [Antonín Dvořák]
-2003: Temptation rag [Henry Lodge]
-2004: Tender [Blur]
-2005: Teorema [Marco Ferradini]
-2006: Terrifying [The Rolling Stones]
-2007: Territorial pissings [KarmaKosmica]
-2008: Territorial pissings [Nirvana]
-2009: Tex (Litfiba, 1988)
-2010: That joke isn't funny anymore (The Smiths, 1985)
-2011: That's no way to get along [Robert Wilkins]
-2012: The bare necessities (The Jungle Book) [Walt Disney]
-2013: The battle of Evermore [Led Zeppelin]
-2014: The beatitudes [Kronos Quartet]
-2015: The bed's too big without you [The Police]
-2016: The big sky (Kate Bush, 1985)
-2017: The bitter end (Placebo, 2003)
-2018: The black angel's death song (The Velvet Underground, 1967)
-2019: The blower's daughter (Damien Rice, 2002)
-2020: The blue Danube waltz [Johann Strauss II]
-2021: The bogus man [Roxy Music]
-2022: The book i read [Talking Heads]
-2023: The book of love [Peter Gabriel]
-2024: The cave [Mumford & Sons]
-2025: The chain [Fleetwood Mac]
-2026: The crucible [Motorpsycho]
-2027: The day the world went away (Nine Inch Nails, 1999)
-2028: The ecstasy of gold (The Good, The Bad and The Ugly) [Ennio Morricone]
-2029: The end (The Doors, 1967)
-2030: The entertainer [Scott Joplin]
-2031: The firebird [Igor Stravinsky]
-2032: The first time (U2, 1993)
-2033: The flower duet (Lakmé) [Léo Delibes]
-2034: The fly (U2, 1991)
-2035: The fragile (Nine Inch Nails, 1999)
-2036: The future's so bright, i gotta wear shades [Timbuk 3]
-2037: The gift (The Velvet Underground, 1968)
-2038: The golden age [The Asteroids Galaxy Tour]
-2039: The great beyond [REM]
-2040: The great gig in the sky (Pink Floyd, 1973)
-2041: The great song of indifference (Bob Geldof, 1990)
-2042: The grudge [Tool]
-2043: The guns of Brixton [The Clash]
-2044: The hand that rocks the cradle (The Smiths, 1984)
-2045: The hanging garden [The Cure]
-2046: The hardest button to button [The White Stripes]
-2047: The hardest part (Coldplay, 2005)
-2048: The headmaster ritual (The Smiths, 1985)
-2049: The heaviest of storms [Pale Honey]
-2050: The hell song [Sum 41]
-2051: The history of England [Förnuft och Känsla]
-2052: The importance of being idle [Oasis]
-2053: The kids are alright [The Who]
-2054: The last day of summer [The Cure]
-2055: The lemon song [Led Zeppelin]
-2056: The lightning II [Arcade Fire]
-2057: The long and winding road (The Beatles, 1970)
-2058: The love within [Bloc Party]
-2059: The luck you got [The High Strung]
-2060: The magic [Joan As Police Woman]
-2061: The magnificent seven [The Clash]
-2062: The main thing (Roxy Music, 1982)
-2063: The man in me [Bob Dylan]
-2064: The man with the red face [Laurent Garnier]
-2065: The marriage of coyote woman [All Them Witches]
-2066: The message [Grandmaster Flash and The Furious Five]
-2067: The monolith of Phobos [The Claypool Lennon Delirium]
-2068: The moon is a silver dollar [Lawrence Welk]
-2069: The morning fog (Kate Bush, 1985)
-2070: The murder mystery [The Velvet Underground]
-2071: The musical box [Genesis]
-2072: The national anthem [Radiohead]
-2073: The night café [Clint Mansell]
-2074: The order of death [Public Image Ltd]
-2075: The passenger [Iggy Pop]
-2076: The patient [Tool]
-2077: The power of equality (Red Hot Chili Peppers, 1991)
-2078: The pretender [Foo Fighters]
-2079: The queen is dead (The Smiths, 1986)
-2080: The real Slim Shady [Eminem]
-2081: The rhythm of the night [Corona]
-2082: The rite of spring [Igor Stravinsky]
-2083: The saxophone song (Kate Bush, 1978)
-2084: The scientist (Coldplay, 2002)
-2085: The sea [Morcheeba]
-2086: The seed [The Roots & Cody Chesnutt]
-2087: The sensual world (Kate Bush, 1989)
-2088: The shock of the lightning [Oasis]
-2089: The sorcerer's apprentice [Paul Dukas]
-2090: The soul cages (Sting, 1991)
-2091: The soul of a man [Blind Willie Johnson]
-2092: The sound of Muzak [Porcupine Tree]
-2093: The sounds of silence [Simon & Garfunkel]
-2094: The space between (Roxy Music, 1982)
-2095: The space between [Zero 7]
-2096: The sprawl (Sonic Youth, 1988)
-2097: The things you said (Depeche Mode, 1987)
-2098: The thrill is gone [B.B. King]
-2099: The thrill of it all [Roxy Music]
-2100: The times they are a-changin' [Bob Dylan]
-2101: The trial (Pink Floyd, 1979)
-2102: The trip (Still Corners, 2013)
-2103: The unforgettable fire (U2, 1984)
-2104: The universal [Blur]
-2105: The waiting [Tom Petty & The Heartbreakers]
-2106: The walk (Eurythmics, 1983)
-2107: The wanderer (U2 & Johnny Cash, 1993)
-2108: The way i am [Eminem]
-2109: The way you used to do (Queens Of The Stone Age, 2017)
-2110: The zephyr song (Red Hot Chili Peppers, 2002)
-2111: Theme [Public Image Ltd]
-2112: Then she remembers (The Dream Syndicate, 1982)
-2113: There is a light that never goes out (The Smiths, 1986)
-2114: There, there (Radiohead, 2003)
-2115: Theresa's sound-world (Sonic Youth, 1992)
-2116: These boots are made for walkin' [Planet Funk]
-2117: They say i'm different [Betty Davis]
-2118: Think [Aretha Franklin]
-2119: This charming man (The Smiths, 1984)
-2120: This is love (PJ Harvey, 2000)
-2121: This is not a love song [Public Image Ltd]
-2122: This modern love [Bloc Party]
-2123: This must be the place [Gloria]
-2124: This must be the place [Talking Heads]
-2125: This must be the place [Trevor Green]
-2126: Those sweet words [Norah Jones]
-2127: Three days (Jane's Addiction, 1990)
-2128: Thrift store t-shirt [Brent Jordan]
-2129: Thriller [Michael Jackson]
-2130: Thru the eyes of Ruby (The Smashing Pumpkins, 1995)
-2131: Thunder road [Bruce Springsteen]
-2132: Thunderstruck [AC-DC]
-2133: Thursday [Morphine]
-2134: Ticket to ride [The Beatles]
-2135: Tieni il tempo [883]
-2136: Time (Pink Floyd, 1973)
-2137: Time is running out [Muse]
-2138: Time is the enemy [Quantic]
-2139: Tinseltown in the rain [The Blue Nile]
-2140: Tired and awake [Hidden Orchestra]
-2141: Titanic [Francesco De Gregori]
-2142: Title sequence (The Aristocats) [Walt Disney]
-2143: TNT [AC-DC]
-2144: To bring you my love [PJ Harvey]
-2145: To forgive (The Smashing Pumpkins, 1995)
-2146: To love somebody [Roberta Flack]
-2147: Toda mi vida [Francisco Fiorentino]
-2148: Today (The Smashing Pumpkins, 1993)
-2149: Today i sing the blues [Aretha Franklin]
-2150: Together [Nine Inch Nails]
-2151: Tommy gun [The Clash]
-2152: Tomorrow comes today (Gorillaz, 2001)
-2153: Tomorrow [U2]
-2154: Tonight, tonight (The Smashing Pumpkins, 1995)
-2155: Tony Hawk of Ghana [I Hate My Village]
-2156: Too bad [Nickelback]
-2157: Too many chiefs [Brant Bjork]
-2158: Tra palco e realtà (Live) [Ligabue]
-2159: Train in vain [The Clash]
-2160: Trains [Porcupine Tree]
-2161: Transcending (Red Hot Chili Peppers, 1995)
-2162: Transmission [Joy Division]
-2163: Trasudamerica (Marlene Kuntz,1994)
-2164: Travel is dangerous [Mogwai]
-2165: Treno a vela [Lucio Dalla]
-2166: Trigger hippie (Morcheeba, 1996)
-2167: Trip through your wires [U2]
-2168: Tristan und Isolde (Prelude & liebestod) [Richard Wagner]
-2169: Triste Bahia [Caetano Veloso]
-2170: Trovami un modo semplice per uscirne (Verdena, 2007)
-2171: Troy [Sinéad O'Connor]
-2172: True colors [Ane Brun]
-2173: True faith [New Order]
-2174: True love waits (Live) [Radiohead]
-2175: Try try try [The Smashing Pumpkins]
-2176: Try [Nelly Furtado]
-2177: Tryin' to throw your arms around the world (U2, 1991)
-2178: Tu menti (CCCP, 1987)
-2179: Tu non mi basti mai (Lucio Dalla, 1996)
-2180: Tubthumping [Chumbawamba]
-2181: Tuff enuff [The fabulous Thunderbirds]
-2182: Tunnel of love (Dire Straits, 1980)
-2183: Turn off the light [Nelly Furtado]
-2184: Turnin' on the screw (Queens Of The Stone Age, 2007)
-2185: Tutti frutti [Little Richard]
-2186: Tutti i miei sbagli [Subsonica]
-2187: Tutti matti [Daniele Silvestri]
-2188: Tutti vogliono viaggiare in prima (Live) [Ligabue]
-2189: Tutti vogliono viaggiare in prima [Ligabue]
-2190: Tutto molto interessante [Fabio Rovazzi]
-2191: Twin Peaks theme [Angelo Badalamenti]
-2192: Typhoons [Royal Blood]
-2193: Ubriaco canta amore [Bandabardò]
-2194: Uh-oh, love comes to town [Talking Heads]
-2195: Un chimico (Fabrizio De André, 1971)
-2196: Un gelato al limon [Paolo Conte]
-2197: Un giorno nuovo [Sick Tamburo]
-2198: Un giudice (Fabrizio De André, 1971)
-2199: Un malato di cuore (Fabrizio De André, 1971)
-2200: Un matto (Fabrizio De André, 1971)
-2201: Un ottico (Fabrizio De André, 1971)
-2202: Un po' esageri (Verdena, 2015)
-2203: Un romantico a Milano (Baustelle, 2005)
-2204: Un senso [Vasco Rossi]
-2205: Un'idea [Giorgio Gaber]
-2206: Una canzone per te [Vasco Rossi]
-2207: Una mano sugli occhi [Niccolò Fabi]
-2208: Una storia sbagliata (Fabrizio De André, 1980)
-2209: Una vita da mediano [Ligabue]
-2210: Una vita in vacanza [Lo Stato Sociale]
-2211: Unconditional I (Lookout kid) [Arcade Fire]
-2212: Unconditional II (Race and religion) [Arcade Fire]
-2213: Under ice (Kate Bush, 1985)
-2214: Under the beat [Bambino Prodigio]
-2215: Under the bridge (Red Hot Chili Peppers, 1991)
-2216: Under the milky way [The Church]
-2217: Under the pressure [The War On Drugs]
-2218: Underdog [Kasabian]
-2219: Underwater love [Smoke City]
-2220: Unfamiliar paths [Cliff Martinez]
-2221: Unfinished sympathy [Massive Attack]
-2222: United states of Eurasia [Muse]
-2223: Unità di produzione [CSI]
-2224: Univers (Litfiba, 1986)
-2225: Università [Il Pan Del Diavolo]
-2226: Until the end of the world (U2, 1991)
-2227: Untitled #1 - Vaka (Sigur Rós, 2002)
-2228: Untitled #4 - Njósnavélin (Sigur Rós, 2002)
-2229: Untitled (Interpol, 2002)
-2230: Uomini topo [Carmen Consoli]
-2231: Up from the south [The Budos Band]
-2232: Up in the sky [Oasis]
-2233: Uprising [Muse]
-2234: Us and them (Pink Floyd, 1973)
-2235: Useless [Depeche Mode]
-2236: Vacanze romane [Matia Bazar]
-2237: Vai in Africa, Celestino! [Francesco De Gregori]
-2238: Valium tavor serenase (CCCP, 1986)
-2239: Vamos a la playa [Loona]
-2240: Van Diemen's land [U2]
-2241: Vecchi difetti (Marta Sui Tubi, 2003)
-2242: Vedi cara [Francesco Guccini]
-2243: Venderò [Edoardo Bennato]
-2244: Vengo anch'io, no tu no [Enzo Jannacci]
-2245: Vento d'estate [Max Gazzè & Niccolò Fabi]
-2246: Venus in furs (The Velvet Underground, 1967)
-2247: Venus [Shocking Blue]
-2248: Veramente [Mario Venuti]
-2249: Verranno a chiederti del nostro amore (Fabrizio De André, 1973)
-2250: Very rare [The Jon Spencer Blues Explosion]
-2251: Via con me [Paolo Conte]
-2252: Via del campo (Fabrizio De André, 1967)
-2253: Via Paolo Fabbri 43 [Francesco Guccini]
-2254: Vicious (Lou Reed, 1972)
-2255: Video killed the radio star [The Buggles]
-2256: Vieni a ballare in Puglia [Caparezza]
-2257: Violet (Hole, 1994)
-2258: Violet hill (Coldplay, 2008)
-2259: Visions of Johanna [Bob Dylan]
-2260: Vita spericolata [Vasco Rossi]
-2261: Viva l'Italia [Francesco De Gregori]
-2262: Viva la vida (Coldplay, 2008)
-2263: Viva [The Zen Circus]
-2264: Viva! [Ligabue]
-2265: Vivere il mio tempo (Litfiba, 1999)
-2266: Vivere [Vasco Rossi]
-2267: Vivo, morto o X [Ligabue]
-2268: Viðrar vel til loftárása (Sigur Rós, 1999)
-2269: Vlad the Impaler (V) [Kasabian]
-2270: Voglio una pelle splendida (Afterhours, 1997)
-2271: Voglio vederti danzare [Franco Battiato]
-2272: Voglio volere (Live) [Ligabue]
-2273: Voglio volere [Ligabue]
-2274: Voices inside my head [The Police]
-2275: Volare [Fabio Rovazzi & Gianni Morandi]
-2276: Volevo magia (Verdena, 2022)
-2277: Volta la carta (Fabrizio De André, 1978)
-2278: Voodoo in my blood [Massive Attack]
-2279: Wake me up when september ends [Green Day]
-2280: Wake up (Rage Against The Machine, 1992)
-2281: Wake up dead man [U2]
-2282: Waking up [Elastica]
-2283: Walk of life [Dire Straits]
-2284: Walk on the wild side [Lou Reed]
-2285: Walk on [U2]
-2286: Walk this way [Aerosmith]
-2287: Walking in my shoes [Depeche Mode]
-2288: Walking on a dream [Empire Of The Sun]
-2289: Walking on the moon [The Police]
-2290: Waltz #2 (Jazz suite) [Dmitri Shostakovich]
-2291: Waltz of the flowers (The nutcracker) [Pyotr Ilyich Tchaikovsky]
-2292: Wang dang doodle [Koko Taylor]
-2293: Wannabe [Spice Girls]
-2294: Wanted dead or alive [Bon Jovi]
-2295: Warning sign (Coldplay, 2002)
-2296: Warped (Red Hot Chili Peppers, 1995)
-2297: Watching you without me (Kate Bush, 1985)
-2298: Watermelon man [Herbie Hancock]
-2299: Waving my arms in the air [Syd Barrett]
-2300: We are golden [Mika]
-2301: We are the champions [Queen]
-2302: We don't eat [James Vincent McMorrow]
-2303: We float (PJ Harvey, 2000)
-2304: We own the sky (M83, 2008)
-2305: We will rock you [Queen]
-2306: We're going to be friends [The White Stripes]
-2307: We're no here [Mogwai]
-2308: We're not gonna take it [Twisted Sister]
-2309: Weather storm (Massive Attack, 1994)
-2310: Wedding song (Yeah Yeah Yeahs, 2013)
-2311: Weight of love [The Black Keys]
-2312: Welcome to lunar industries [Clint Mansell]
-2313: Welcome to the jungle (Guns N' Roses, 1987)
-2314: What a wonderful world [Louis Armstrong]
-2315: What difference does it make (The Smiths, 1984)
-2316: What does your soul look like (pt. 4) [DJ Shadow]
-2317: What else is there [Röyksopp]
-2318: What goes on [The Velvet Underground]
-2319: What i am [Edie Brickell & New Bohemians]
-2320: What it is (Mark Knopfler, 2000)
-2321: What the water gave me [Florence + The Machine]
-2322: What you waiting for [Gwen Stefani]
-2323: What's going on (Marvin Gaye, 1971)
-2324: What's my age again [Blink-182]
-2325: What's up [4 Non Blondes]
-2326: What's wrong [Half Alive]
-2327: When i come around [Green Day]
-2328: When love comes to town [U2 & B.B. King]
-2329: When the angels fall (Sting, 1991)
-2330: When the levee breaks [Led Zeppelin]
-2331: Whenever wherever [Shakira]
-2332: Where are we runnin' (Lenny Kravitz, 2004)
-2333: Where did all the love go [Kasabian]
-2334: Where did you sleep last night (Live) [Nirvana]
-2335: Where did you sleep last night [Lead Belly]
-2336: Where is my mind [The Pixies]
-2337: Where the streets have no name (U2, 1987)
-2338: Where to now St. Peter (Elton John, 1970)
-2339: While my guitar gently weeps (The Beatles, 1968)
-2340: Whistle stop (Robin Hood) [Walt Disney]
-2341: White America [Eminem]
-2342: White chalk [PJ Harvey]
-2343: White light white heat (The Velvet Underground, 1968)
-2344: White room [Cream]
-2345: White wedding [Billy Idol]
-2346: Who feels love [Oasis]
-2347: Who pays the price (INXS,1990)
-2348: Who said [Planet Funk]
-2349: Who's gonna ride your wild horses (U2, 1991)
-2350: Whole lotta love [Led Zeppelin]
-2351: Why are sundays so depressing [The Strokes]
-2352: Why do i always feel this way [Pale Honey]
-2353: Why should i cry for you (Sting, 1991)
-2354: Why'd you only call me when you're high [Arctic Monkeys]
-2355: Wicked game [Chris Isaak]
-2356: Wicked ways [Anno Domini Beats]
-2357: Wild horses [The Rolling Stones]
-2358: Wild west end [Dire Straits]
-2359: Wild world [Cat Stevens]
-2360: Wildlife analysis [Boards Of Canada]
-2361: Windowlicker [Aphex Twin]
-2362: Winter kills [Yazoo]
-2363: Wish you were here (Pink Floyd, 1975)
-2364: With a little help from my friends (The Beatles, 1967)
-2365: With my own two hands [Ben Harper]
-2366: With or without you (U2, 1987)
-2367: Without me [Eminem]
-2368: Without you i'm nothing (Placebo, 1998)
-2369: Won't get fooled again [The Who]
-2370: Wonderwall [Oasis]
-2371: Word up [Korn]
-2372: Workhorse [All Them Witches]
-2373: Working class hero  [John Lennon]
-2374: Would you [Touch & Go]
-2375: Wrapped around your finger [The Police]
-2376: Wuthering heights (Kate Bush, 1978)
-2377: X colpa di chi [Zucchero]
-2378: X.Y.U. [The Smashing Pumpkins]
-2379: Year of the cat [Al Stewart]
-2380: Yellow submarine (The Beatles, 1966)
-2381: Yes (Coldplay, 2008)
-2382: Yes (Morphine, 1995)
-2383: Yes i am a long way from home (Mogwai, 1997)
-2384: Yes i know my way [Pino Daniele]
-2385: Yesterday [The Beatles]
-2386: Yosemite [Half Alive]
-2387: You (Radiohead, 1993)
-2388: You and whose army (Radiohead, 2001)
-2389: You are my sunshine [Norman Blake]
-2390: You can't always get what you want (The Rolling Stones, 1969)
-2391: You can't hurry love [Phil Collins]
-2392: You don't know me [Caetano Veloso]
-2393: You don't mess around with Jim [Jim Croce]
-2394: You get what you give [New Radicals]
-2395: You got the silver [take #2] (The Rolling Stones, 1969)
-2396: You know you're right [Nirvana]
-2397: You make me feel [Sylvester]
-2398: You never can tell [Chuck Berry]
-2399: You shook me all night long (AC-DC, 1980)
-2400: You spin me round [Dead Or Alive]
-2401: You think i ain't worth a dollar (Queens Of The Stone Age, 2002)
-2402: You was born to die [Curley Weaver]
-2403: You're as sweet as sugar on a stick [Barry Louis Polisar]
-2404: You've got the love [Florence + The Machine]
-2405: Your ghost [Kristin Hersh]
-2406: Your hand in mine [Explosions In The Sky]
-2407: Youth of the nation (POD, 2001)
-2408: Zebra [John Butler Trio]
-2409: Zero (The Smashing Pumpkins, 1995)
-2410: Zero (Yeah Yeah Yeahs, 2009)
-2411: Zeta reticoli [Meganoidi]
-2412: Ziggy Stardust [David Bowie]
-2413: Zitti e buoni (Måneskin, 2021)
-2414: Zombie (The Cranberries, 1994)
-2415: Zoo station (U2, 1991)
-2416: È non è [Niccolò Fabi]
+   8: 21st century schizoid man (King Crimson, 1969)
+   9: 250 miles (Radio Moscow, 2009)
+  10: 3 di 3 (Marlene Kuntz, 1996)
+  11: 32-20 blues (Robert Johnson, 1936)
+  12: 4 (Aphex Twin, 1996)
+  13: 4-3-1943 (Lucio Dalla, 1971)
+  14: 41 (All Them Witches, 2020)
+  15: 50 special (Lùnapop, 1999)
+  16: 74-'75 (The Connells, 1993)
+  17: 9 crimes (Damien Rice, 2006)
+  18: A cuore scalzo (Max Gazzè, 2010)
+  19: A day in the life (The Beatles, 1967)
+  20: A fior di pelle (Marlene Kuntz, 2003)
+  21: A forest (The Cure, 1980)
+  22: A gospel song (Bob Geldof, 1990)
+  23: A hard rain's a-gonna fall (Bob Dylan, 1963)
+  24: A ja ljublju SSSR (CCCP, 1987)
+  25: A kind of magic (Queen, 1986)
+  26: A little less conversation (Elvis Presley, 1968)
+  27: A me me piace 'o blues [Pino Daniele]
+  28: A new error (Moderat, 2009)
+  29: A pillow of winds (Pink Floyd, 1971)
+  30: A place called home (PJ Harvey, 2000)
+  31: A punch up at a wedding (Radiohead, 2003)
+  32: A pà (Live) [Dalla & De Gregori]
+  33: A question of time (Depeche Mode, 1986)
+  34: A sangue freddo [Il Teatro Degli Orrori]
+  35: A short term effect [The Cure]
+  36: A sort of homecoming (U2, 1984)
+  37: A thousand miles [Vanessa Carlton]
+  38: A whisper (Coldplay, 2002)
+  39: A whiter shade of pale [Procol Harum]
+  40: A wolf at the door (Radiohead, 2003)
+  41: Abbiamo vinto la guerra (Lo Stato Sociale, 2012)
+  42: Abitudine [Subsonica]
+  43: Abschied (Nico, 1970)
+  44: Ace of spades [Motörhead]
+  45: Acid eyes (Paolo Nutini, 2022)
+  46: Acida [Prozac+]
+  47: Acqua e sale [Adriano Celentano & Mina]
+  48: Acqua e sapone [Stadio]
+  49: Acquiesce [Oasis]
+  50: Acrobati (Daniele Silvestri, 2016)
+  51: Across the universe (The Beatles, 1970)
+  52: Adam's song (Blink-182, 1999)
+  53: Adelante! Adelante! [Francesco De Gregori]
+  54: Aeroplane (Red Hot Chili Peppers, 1995)
+  55: Afraid (Nico, 1970)
+  56: Africa [Toto]
+  57: After the curtain [Beirut]
+  58: Again [Lenny Kravitz]
+  59: Age of anxiety I [Arcade Fire]
+  60: Age of anxiety II (Rabbit hole) [Arcade Fire]
+  61: Age of consent (New Order, 1983)
+  62: Ahi Maria [Rino Gaetano]
+  63: Aida [Rino Gaetano]
+  64: Ain't talkin' about love [Van Halen]
+  65: Airbag (Radiohead, 1997)
+  66: Aisle of plenty (Genesis, 1973)
+  67: Al bar Casablanca [Giorgio Gaber]
+  68: Alan's psychedelic breakfast (Pink Floyd, 1970)
+  69: Albachiara [Vasco Rossi]
+  70: Alice [Francesco De Gregori]
+  71: Alive [Pearl Jam]
+  72: All along the watchtower [The Jimi Hendrix Experience]
+  73: All apologies (Nirvana, 1993)
+  74: All because of you (U2, 2004)
+  75: All i need [Air]
+  76: All i want is you (U2, 1988)
+  77: All in love is fair (Stevie Wonder, 1973)
+  78: All is full of love [Björk]
+  79: All the cats join in [Benny Goodman]
+  80: All the small things (Blink-182, 1999)
+  81: All the things she said [Tatu]
+  82: All this time (Sting, 1991)
+  83: All tomorrow's parties (The Velvet Underground, 1967)
+  84: All you need is love [The Beatles]
+  85: All'una e trentacinque circa (Vinicio Capossela, 1990)
+  86: Alla fiera dell'est [Angelo Branduardi]
+  87: Alle prese con una verde milonga [Paolo Conte]
+  88: Almeno tu nell'universo [Mia Martini]
+  89: Alone in Kyoto [Air]
+  90: Altre F.D.V. (Bluvertigo, 1997)
+  91: Altrove [Eugenio In Via Di Gioia]
+  92: Altrove [Morgan]
+  93: Always (Blink-182, 2003)
+  94: Amarsi male [Lo Stato Sociale]
+  95: America [M83]
+  96: American beauty [Thomas Newman]
+  97: American idiot (Green Day, 2004)
+  98: American woman [Lenny Kravitz]
+  99: Amico fragile (Fabrizio De André, 1975)
+ 100: Amigo (Litfiba, 1988)
+ 101: Amore che vieni, amore che vai (Fabrizio De André, 1968)
+ 102: Amore disperato (Nada, 1983)
+ 103: Amore impossibile [Tiromancino]
+ 104: Anarchy in the UK (Sex Pistols, 1977)
+ 105: And the radio plays (Live) [CSI]
+ 106: Andrea (Fabrizio De André, 1978)
+ 107: Andrew [M Field]
+ 108: Angel (Massive Attack, 1998)
+ 109: Angel of Harlem (U2, 1988)
+ 110: Animal instinct [The Cranberries]
+ 111: Animal [Pearl Jam]
+ 112: Anime salve (Fabrizio De André, 1996)
+ 113: Anna e Marco [Lucio Dalla]
+ 114: Anna verrà [Pino Daniele]
+ 115: Annarella (CCCP, 1990)
+ 116: Anno zero [Casino Royale]
+ 117: Années de pèlerinage (S. 160 No. 2 - Au lac de Wallenstadt) [Franz Liszt]
+ 118: Another brick in the wall - pt.2 (Pink Floyd, 1979)
+ 119: Another day in paradise [Phil Collins]
+ 120: Another one bites the dust [Queen]
+ 121: Anything goes (Cole Porter, 1934)
+ 122: Apapaia (Litfiba, 1986)
+ 123: Ape regina (Marlene Kuntz, 1996)
+ 124: Are friends electric [Tubeway Army]
+ 125: Are you gonna be my girl [Jet]
+ 126: Army dreamers (Kate Bush, 1980)
+ 127: Arnold Layne (Pink Floyd, 1967)
+ 128: Around the world (Red Hot Chili Peppers, 1999)
+ 129: Arrow (Half Alive, 2019)
+ 130: Ascolta l'infinito [Fiorella Mannoia]
+ 131: Ashes to ashes [David Bowie]
+ 132: Aspettando il sole [Neffa]
+ 133: Astradyne (Ultravox, 1980)
+ 134: At last [Etta James]
+ 135: At the end of the day [Amon Tobin]
+ 136: Atmosphere (Joy Division, 1980)
+ 137: Atom meart mother suite (Pink Floyd, 1970)
+ 138: Au vieux sebasto (Universal Production Music, 1996)
+ 139: Auto rock (Mogwai, 2006)
+ 140: Autogrill [Francesco Guccini]
+ 141: Ava adore (The Smashing Pumpkins, 1998)
+ 142: Avalon (Roxy Music, 1982)
+ 143: Ave Maria [Franz Schubert]
+ 144: Avril 14th [Aphex Twin]
+ 145: Awful (Hole, 1998)
+ 146: Ayrton (Lucio Dalla, 1996)
+ 147: Azzurro [Adriano Celentano]
+ 148: Ba ba (Sigur Rós, 2004)
+ 149: Baba O'Riley [The Who]
+ 150: Babooshka (Kate Bush, 1980)
+ 151: Baby please don't go (Big Joe Williams)
+ 152: Baby scratch my back [Slim Harpo]
+ 153: Back around (Half Alive, 2022)
+ 154: Back in black (AC-DC, 1980)
+ 155: Back in the USSR (The Beatles, 1968)
+ 156: Back to life (Giovanni Allevi, 2006)
+ 157: Bad (U2, 1984)
+ 158: Bad day [REM]
+ 159: Balanite (Verdena, 2004)
+ 160: Ball and biscuit (The White Stripes, 2003)
+ 161: Ball and chain [Big Mama Thornton]
+ 162: Balla balla ballerino [Lucio Dalla]
+ 163: Ballad of a thin man (Bob Dylan, 1965)
+ 164: Ballata degli impiccati (Fabrizio De André, 1968)
+ 165: Ballata dell'amore cieco (Fabrizio De André, 1974)
+ 166: Ballata per la mia piccola iena (Afterhours, 2005)
+ 167: Balliamo sul mondo (Live) [Ligabue]
+ 168: Baltimore [Nina Simone]
+ 169: Bambino (Litfiba, 1988)
+ 170: Banquet [Bloc Party]
+ 171: Baptized (Lenny Kravitz, 2004)
+ 172: Barrel of a gun [Depeche Mode]
+ 173: Bartali [Paolo Conte]
+ 174: Basket case (Green Day, 1994)
+ 175: Batcat (Mogwai, 2008)
+ 176: Be ki don [Samba Touré]
+ 177: Be yourself (Morcheeba, 2000)
+ 178: Be yourself
+ 179: Beat it [Michael Jackson]
+ 180: Beautiful (The Smashing Pumpkins, 1995)
+ 181: Beautiful day (U2, 2000)
+ 182: Beauty queen [Roxy Music]
+ 183: Because the night [Patti Smith]
+ 184: Been caught stealing [Jane's Addiction]
+ 185: Beep beep love (Gruppo Sportivo, 1978)
+ 186: Beetlebum [Blur]
+ 187: Before i sleep [Mazzy Star]
+ 188: Behind blue eyes [The Who]
+ 189: Bela Lugosi's dead [Bauhaus]
+ 190: Believe in me [Lenny Kravitz]
+ 191: Believe [The Chemical Brothers]
+ 192: Bella ciao [Modena City Ramblers]
+ 193: Bella [Jovanotti]
+ 194: Bellbottoms [The Jon Spencer Blues Explosion]
+ 195: Bello e impossibile [Gianna Nannini]
+ 196: Beppeanna [Bandabardò]
+ 197: Berlin (Live) [Lou Reed]
+ 198: Berlin [Lou Reed]
+ 199: Berta filava [Rino Gaetano]
+ 200: Best of you [Foo Fighters]
+ 201: Better way [Ben Harper]
+ 202: Big bang theory theme [Barenaked Ladies]
+ 203: Big calm (Morcheeba, 1998)
+ 204: Big time sensuality (Fluke mix) [Björk]
+ 205: Big yellow taxi [Joni Mitchell]
+ 206: Biggy (Warpaint, 2014)
+ 207: Bigmouth strikes again (The Smiths, 1986)
+ 208: Bike (Pink Floyd, 1967)
+ 209: Billie Jean [Michael Jackson]
+ 210: Binge [Deadletter]
+ 211: Biodiversità [KarmaKosmica]
+ 212: Bistro fada [Stephane Wrembel]
+ 213: Bitter sweet symphony [The Verve]
+ 214: Bitter sweet [Roxy Music]
+ 215: Black celebration (Depeche Mode, 1986)
+ 216: Black dog [Led Zeppelin]
+ 217: Black heart [Calexico]
+ 218: Black horse and the cherry tree [KT Tunstall]
+ 219: Black lagoon (Still Corners, 2018)
+ 220: Black milk (Massive Attack, 1998)
+ 221: Black shuck (The Darkness, 2003)
+ 222: Black soul choir [16 Horsepower]
+ 223: Blackbird (The Beatles, 1968)
+ 224: Blackest eyes [Porcupine Tree]
+ 225: Blaze of glory [Bon Jovi]
+ 226: Blindfold (Morcheeba, 1998)
+ 227: Bliss (Muse, 2001)
+ 228: Blood and sand, milk and endless waters (All Them Witches, 2015)
+ 229: Blood like lemonade (Morcheeba, 2010)
+ 230: Blood sugar sex magik (Red Hot Chili Peppers, 1991)
+ 231: Blow away (Kate Bush, 1980)
+ 232: Blowin' in the wind (Bob Dylan, 1963)
+ 233: Blu laguna [Il Pan Del Diavolo]
+ 234: Blue in green [Miles Davis]
+ 235: Blue monday [New Order]
+ 236: Blue monk (Thelonious Monk, 1954)
+ 237: Blue moon [Billie Holiday]
+ 238: Blue orchid [The White Stripes]
+ 239: Boa sorte [Vanessa Da Mata & Ben Harper]
+ 240: Bob Dylan's 115th dream [Bob Dylan]
+ 241: Bocca di rosa (Fabrizio De André, 1967)
+ 242: Bodies (Sex Pistols, 1977)
+ 243: Bohemian like you [The Dandy Warhols]
+ 244: Bohemian rhapsody [Queen]
+ 245: Boléro [Maurice Ravel]
+ 246: Bombtrack (Rage Against The Machine, 1992)
+ 247: Bone machine [Pixies]
+ 248: Bongo bong [Manu Chao]
+ 249: Boogie [Paolo Conte]
+ 250: Boom boom [John Lee Hooker]
+ 251: Boom like that [Mark Knopfler]
+ 252: Borealis dancing (Jaimie Branch, 2023)
+ 253: Borghese in borghese [Fulminacci]
+ 254: Born in the USA (Bruce Springsteen, 1984)
+ 255: Born of a broken man (Rage Against The Machine, 1999)
+ 256: Born slippy [Underworld]
+ 257: Born to be Abramo [Elio E Le Storie Tese]
+ 258: Born to be alive [Patrick Hernandez]
+ 259: Born to run [Bruce Springsteen]
+ 260: Born under a bad sign [Albert King]
+ 261: Both ends burning [Roxy Music]
+ 262: Bow (Kasabian, 2014)
+ 263: Boy band [Velvet]
+ 264: Brava [Vasco Rossi]
+ 265: Brave men run (Sonic Youth, 1985)
+ 266: Bravi ragazzi [Edoardo Bennato]
+ 267: Brazil [Django Reinhardt]
+ 268: Break on through (The Doors, 1967)
+ 269: Break the night with colour (Live) [Richard Ashcroft]
+ 270: Break the night with colour [Richard Ashcroft]
+ 271: Breakfast [Corner In Bloom]
+ 272: Breaking the girl (Red Hot Chili Peppers, 1991)
+ 273: Breaking the habit [Linkin Park]
+ 274: Breath of life [Florence + The Machine]
+ 275: Breathe me [Sia]
+ 276: Breathing (Kate Bush, 1980)
+ 277: Breed (Nirvana, 1991)
+ 278: Breezeblocks [Alt-J]
+ 279: Bridge over troubled water [Don Shirley]
+ 280: Brillantina bengalese [Paolo Conte]
+ 281: Bring it on down [Oasis]
+ 282: Bring on the night (The Police, 1979)
+ 283: Brothers in arms (Live) [Mark Knopfler]
+ 284: Brothers in arms [Dire Straits]
+ 285: Buddy Holly [Weezer]
+ 286: Building steam with a grain of salt [DJ Shadow]
+ 287: Bullet in the head (Rage Against The Machine, 1992)
+ 288: Bullet the blue sky (U2, 1987)
+ 289: Bullet with butterfly wings (The Smashing Pumpkins, 1995)
+ 290: Bulls (All Them Witches, 2017)
+ 291: Bulls on parade (Rage Against The Machine, 1996)
+ 292: Buon compleanno, Elvis! [Ligabue]
+ 293: Buon viaggio [Cesare Cremonini]
+ 294: Buonanotte fiorellino (Francesco De Gregori, 1975)
+ 295: Burn the witch (Queens Of The Stone Age, 2005)
+ 296: Burn the witch [Radiohead]
+ 297: Burning grey (Jaimie Branch, 2023)
+ 298: Bus stop [Graham Coxon]
+ 299: Business [Eminem]
+ 300: Butterfly [Crazy Town]
+ 301: By my side (Ben Harper, 1995)
+ 302: By the way (Red Hot Chili Peppers, 2002)
+ 303: By this river (Brian Eno, 1977)
+ 304: C'eravamo tanto sbagliati (Lo Stato Sociale, 2014)
+ 305: C'mon Billy (PJ Harvey, 1995)
+ 306: Caffè nero bollente [Fiorella Mannoia]
+ 307: Calamita [Tre Allegri Ragazzi Morti]
+ 308: California (Lenny Kravitz, 2004)
+ 309: California gurls [Katy Perry & Snoop Dogg]
+ 310: Californication (Red Hot Chili Peppers, 1999)
+ 311: Call me star (All Them Witches, 2015)
+ 312: Calling Elvis [Dire Straits]
+ 313: Calvin (The Jon Spencer Blues Explosion, 1998)
+ 314: Cambio [Negrita]
+ 315: Can't find my way home (Live) [Eric Clapton & Steve Winwood]
+ 316: Can't stand losing you (The Police, 1978)
+ 317: Can't stop (Red Hot Chili Peppers, 2002)
+ 318: Cangaceiro (Litfiba, 1989)
+ 319: Cannonball (Damien Rice, 2002)
+ 320: Canon & gigue in D major [Johann Pachelbel]
+ 321: Cantaloupe island [Herbie Hancock]
+ 322: Cantico dei drogati (Fabrizio De André, 1968)
+ 323: Canzone (Lucio Dalla, 1996)
+ 324: Canzone contro la natura [The Zen Circus]
+ 325: Canzone del maggio (Fabrizio De André, 1973)
+ 326: Canzone del maggio (Live) [John De Leo]
+ 327: Canzone delle osterie di fuori porta [Samuele Bersani & Luca Carboni]
+ 328: Canzone delle situazioni differenti (Francesco Guccini, 1974)
+ 329: Canzone di domani (Marlene Kuntz,1994)
+ 330: Canzone di notte #2 [Francesco Guccini]
+ 331: Capelli - Y10 Bordeaux - L'amore pensato (Live) [Fabi Silvestri Gazzè]
+ 332: Capelli [Niccolò Fabi]
+ 333: Cara ti amo [Elio E Le Storie Tese]
+ 334: Cara [Lucio Dalla]
+ 335: Career opportunities (The Clash, 1980)
+ 336: Carlo Martello ritorna dalla battaglia di Poitiers (Fabrizio De André, 1967)
+ 337: Carmina burana (O fortuna) [Carl Orff]
+ 338: Casta diva (Norma) [Maria Callas]
+ 339: Castro dies [Jamie T]
+ 340: Catene [The Zen Circus]
+ 341: Catfish blues [Taj Mahal]
+ 342: Catholic block (Sonic Youth, 1987)
+ 343: Cave (Muse, 1999)
+ 344: Cayman islands [Kings Of Convenience]
+ 345: Ce matin-là [Air]
+ 346: Celebrate [An Emotional Fish]
+ 347: Celebrity skin (Hole, 1998)
+ 348: Cello suite No. 1 in G major [Johann Sebastian Bach]
+ 349: Cemeteries of London (Coldplay, 2008)
+ 350: Cemetry gates (The Smiths, 1986)
+ 351: Centrefolds (Placebo, 2003)
+ 352: Centro di gravità permanente [Franco Battiato]
+ 353: Ceremony [New Order]
+ 354: Certe notti [Ligabue]
+ 355: Certi magazine (Verdena, 2022)
+ 356: Chaise longue (Verdena, 2022)
+ 357: Chameleon [Herbie Hancock]
+ 358: Champagne supernova [Oasis]
+ 359: Chan chan [Buena Vista Social Club]
+ 360: Changes [Faul & Wad Ad]
+ 361: Charlie fa surf [Baustelle]
+ 362: Chase the sun [Planet Funk]
+ 363: Che cossè l'amor [Vinicio Capossela]
+ 364: Che fantastica storia è la vita [Antonello Venditti]
+ 365: Che idea [Flaminio Maphia]
+ 366: Che ironia [Vasco Rossi]
+ 367: Che rumore fa la felicità [Negrita]
+ 368: Che sarà [José Feliciano]
+ 369: Che t'aggia dì [Adriano Celentano & Mina]
+ 370: Cheated hearts (Yeah Yeah Yeahs, 2006)
+ 371: Cheek to cheek [Ella Fitzgerald & Louis Armstrong]
+ 372: Cherry lips [Garbage]
+ 373: Cherub rock (The Smashing Pumpkins, 1993)
+ 374: Chica chica boom chic [Carmen Miranda]
+ 375: Chicco e Spillo [Samuele Bersani]
+ 376: Chinese dance (The nutcracker) [Pyotr Ilyich Tchaikovsky]
+ 377: Chiodo fisso (Eugenio In Via Di Gioia, 2017)
+ 378: Chiri hari [Samba Touré]
+ 379: Christian [China Crisis]
+ 380: Christine [Siouxsie And The Banshees]
+ 381: Ci sono molti modi (Afterhours, 2005)
+ 382: Ci vuole un fiore [Sergio Endrigo]
+ 383: Ciao mamma [Jovanotti]
+ 384: Ciao [Lucio Dalla]
+ 385: Cieli neri (Bluvertigo, 1997)
+ 386: Cigarettes & alcohol [Oasis]
+ 387: Cinecittà [Henryk Topel & Giuseppe Bellardinelli]
+ 388: Cities in dust [Siouxsie And The Banshees]
+ 389: Citizen erased (Muse, 2001)
+ 390: City of blinding lights (U2, 2004)
+ 391: Ciuri di strata [Olivia Sellerio]
+ 392: Civil war (Guns N' Roses, 1991)
+ 393: Clair de lune - Suite bergamasque [Claude Debussy]
+ 394: Claire (Morphine, 1992)
+ 395: Clandestino [Manu Chao]
+ 396: Clash city rockers [The Clash]
+ 397: Climbing up the walls (Radiohead, 1997)
+ 398: Clint Eastwood (Gorillaz, 2001)
+ 399: Clocks (Coldplay, 2002)
+ 400: Cloudbusting (Kate Bush, 1985)
+ 401: Club foot (Kasabian, 2004)
+ 402: Clubbed to death (Kurayamino variation) [Rob Dougan]
+ 403: Cocaine [Eric Clapton]
+ 404: Coccodrilli [Samuele Bersani]
+ 405: Coda di lupo (Fabrizio De André, 1978)
+ 406: Coffaro's theme (Bill Frisell, 1996)
+ 407: Cold [The Cure]
+ 408: Colonel Hathi's march - The jungle book (Sherman Brothers, 1967)
+ 409: Columbia [Oasis]
+ 410: Come as you are (Nirvana, 1991)
+ 411: Come join the murder (The White Buffalo & The Forest Rangers, 2014)
+ 412: Come mai [883]
+ 413: Come mi guardi tu [Tre Allegri Ragazzi Morti]
+ 414: Come stavamo ieri (Marlene Kuntz, 1996)
+ 415: Come undone (Robbie Williams, 2002)
+ 416: Come undone [V] (Robbie Williams, 2002)
+ 417: Come with me now [Kongos]
+ 418: Come è profondo il mare [Lucio Dalla]
+ 419: Comfortably numb (Pink Floyd, 1979)
+ 420: Complete control [The Clash]
+ 421: Complicated [Avril Lavigne]
+ 422: Comptine d'un autre été, l'après-midi [Yann Tiersen]
+ 423: Con le mani [Zucchero]
+ 424: Con te partirò [Andrea Bocelli]
+ 425: Contessa [Decibel]
+ 426: Corcovado [Stan Getz & João Gilberto]
+ 427: Corduroy (Pearl Jam, 1994)
+ 428: Coro degli zingari (Il trovatore) [Giuseppe Verdi]
+ 429: Corri (Litfiba, 1988)
+ 430: Corto circuito [99 Posse]
+ 431: Cosa sarà [Lucio Dalla]
+ 432: Cose difficili [Casino Royale]
+ 433: Cosmic love [Florence + The Machine]
+ 434: Costruire [Niccolò Fabi]
+ 435: Coyote [Dope Lemon]
+ 436: Crawling kingsnake [The Black Keys]
+ 437: Crazy blues [Mamie Smith]
+ 438: Crazy in love [Beyoncé & Jay-Z]
+ 439: Crazy little thing called love [Queen]
+ 440: Crazy train [Ozzy Osbourne]
+ 441: Crazy [Aerosmith]
+ 442: Cross road blues (Robert Johnson, 1936)
+ 443: Crosseyed and painless (Talking Heads, 1980)
+ 444: Crucified me (Bob Geldof, 1990)
+ 445: Crush (The Smashing Pumpkins, 1991)
+ 446: Cry [Pino Daniele]
+ 447: Crystal frontier [Calexico]
+ 448: Crystal [New Order]
+ 449: Crêuza de mä (Fabrizio De André, 1984)
+ 450: Cuccurucucù [Franco Battiato]
+ 451: Cupid de locke (The Smashing Pumpkins, 1995)
+ 452: Cure for pain [Morphine]
+ 453: Cursum perficio (Enya, 1988)
+ 454: Cut your hair [Pavement]
+ 455: Cutt off (Kasabian, 2004)
+ 456: D'you know what i mean [Oasis]
+ 457: Da ya think i'm sexy (Rod Stewart, 1978)
+ 458: Dakota (Stereophonics, 2005)
+ 459: Dance of the knights (Romeo and Juliet) [Sergei Prokofiev]
+ 460: Dance of the sugar plum fairy (The nutcracker) [Pyotr Ilyich Tchaikovsky]
+ 461: Dancing barefoot [Patti Smith]
+ 462: Dancing in the dark (Bruce Springsteen, 1984)
+ 463: Dancing in the dark [Cannonball Adderley]
+ 464: Dancing with myself [Generation X]
+ 465: Dancing with the moonlight knight (Genesis, 1973)
+ 466: Dark necessities (Red Hot Chili Peppers, 2016)
+ 467: Dark was the night, cold was the ground [Blind Willie Johnson]
+ 468: Date with the night (Yeah Yeah Yeahs, 2003)
+ 469: Daughter [Pearl Jam]
+ 470: Day is done (Nick Drake, 1969)
+ 471: De do do do, de da da da (The Police, 1980)
+ 472: De Usuahia a la Quiaca (Gustavo Santaolalla, 2004)
+ 473: Dead leaves and the dirty ground [The White Stripes]
+ 474: Dear Prudence (The Beatles, 1968)
+ 475: Death disco [Public Image Ltd]
+ 476: Death of a disco dancer (The Smiths, 1987)
+ 477: Del tempo che passa la felicità [Motta]
+ 478: Depressione caspica (Live) [CSI]
+ 479: Desecration smile (Red Hot Chili Peppers, 2006)
+ 480: Desire (U2, 1988)
+ 481: Desolation row (Bob Dylan, 1965)
+ 482: Despair (Yeah Yeah Yeahs, 2013)
+ 483: Desperation (Paolo Nutini, 2022)
+ 484: Destinazione paradiso [Gianluca Grignani]
+ 485: Di che cosa parla veramente una canzone [Tre Allegri Ragazzi Morti]
+ 486: Diamond (All Them Witches, 2018)
+ 487: Diamonds on the inside [Ben Harper]
+ 488: Diary of a madman [Ozzy Osbourne]
+ 489: Diavolo rosso (Live) [Paolo Conte]
+ 490: Did you no wrong (Sex Pistols, 1977)
+ 491: Dies irae (Requiem) [Giuseppe Verdi]
+ 492: Dies irae (Requiem) [Wolfgang Amadeus Mozart]
+ 493: Dietro la porta [Cristiano De André]
+ 494: Dirty boots (Sonic Youth, 1990)
+ 495: Dirty day (U2, 1994)
+ 496: Dirty epic [Underworld]
+ 497: Dirty Harry (Gorillaz, 2005)
+ 498: Disappearing [The War On Drugs]
+ 499: Disarm (The Smashing Pumpkins, 1993)
+ 500: Discipline (King Crimson, 1981)
+ 501: Disco-very (Warpaint, 2014)
+ 502: Discotheque (U2, 1997)
+ 503: Disorder [Joy Division]
+ 504: Dispari [Marta Sui Tubi]
+ 505: Disperato erotico stomp (Live) [Dalla & De Gregori]
+ 506: Disperato erotico stomp [Lucio Dalla]
+ 507: Dissident [Pearl Jam]
+ 508: Dissolve me (Alt-J, 2012)
+ 509: Dissolved girl (Massive Attack, 1998)
+ 510: Distante [Meg]
+ 511: Ditch [The Jon Spencer Blues Explosion]
+ 512: Do i wanna know [Arctic Monkeys]
+ 513: Do the strand [Roxy Music]
+ 514: Do you feel loved (U2, 1997)
+ 515: Doesn't remind me [Audioslave]
+ 516: Dog days are over [Florence + The Machine]
+ 517: Dolcenera (Fabrizio De André, 1996)
+ 518: Domani smetto [Articolo 31]
+ 519: Domani [Artisti Uniti Per L'Abruzzo]
+ 520: Domesticated animals (Queens Of The Stone Age, 2017)
+ 521: Dominoes [Syd Barrett]
+ 522: Don Calisto (Verdena, 2007)
+ 523: Don Raffaè (Fabrizio De André, 1990)
+ 524: Don't bring me coffee (All Them Witches, 2017)
+ 525: Don't come around here no more [Tom Petty & The Heartbreakers]
+ 526: Don't fear the reaper [Blue Öyster Cult]
+ 527: Don't forget me (Red Hot Chili Peppers, 2002)
+ 528: Don't let it bring you down [Neil Young]
+ 529: Don't look back in anger [Oasis]
+ 530: Don't stand so close to me (The Police, 1980)
+ 531: Don't stop me now (Queen)
+ 532: Don't tell me [Madonna]
+ 533: Don't think twice, it's all right (Bob Dylan, 1963)
+ 534: Donne [Zucchero]
+ 535: Doomsday (Kasabian, 2014)
+ 536: Dope & smoke [Dope Lemon]
+ 537: Dormi (Subsonica, 2005)
+ 538: Dormo poco e sogno molto [España Circo Este]
+ 539: Down (Blink-182, 2003)
+ 540: Down by the water (PJ Harvey, 1995)
+ 541: Down in a hole [Alice In Chains]
+ 542: Down to the river to pray [Alison Krauss]
+ 543: Downbound train (Bruce Springsteen, 1984)
+ 544: Downtown train [Tom Waits]
+ 545: Drag (Placebo, 2006)
+ 546: Dream a little dream on me [Ella Fitzgerald & Louis Armstrong]
+ 547: Dream on [Depeche Mode]
+ 548: Dreaming my dreams (The Cranberries, 1994)
+ 549: Dreaming of me (Depeche Mode, 1981)
+ 550: Dreams [Fleetwood Mac]
+ 551: Dreams [Nuages]
+ 552: Drink before the war (Sinéad O'Connor, 1987)
+ 553: Drivin' my life away [Eddie Rabbitt]
+ 554: Drumming song [Florence + The Machine]
+ 555: Dude (looks like a lady) [Aerosmith]
+ 556: Due destini (Tiromancino, 2000)
+ 557: Duemila [New Trolls]
+ 558: Dumb (Nirvana, 1993)
+ 559: Dumb waiters [The Psychedelic Furs]
+ 560: Dune mosse [Zucchero]
+ 561: Dust my broom [Elmore James]
+ 562: E dimmi che non vuoi morire [Patty Pravo]
+ 563: E non andar più via [Lucio Dalla]
+ 564: E non cessa di girare la mia testa in mezzo al mare (Marlene Kuntz, 1996)
+ 565: E tu [Bud Spencer Blues Explosion]
+ 566: E... [Vasco Rossi]
+ 567: Each time you fall in love [Cigarettes After Sex]
+ 568: Easier to lie [Aqualung]
+ 569: Easy lover [Phil Collins & Philip Bailey]
+ 570: Ebano [Modena City Ramblers]
+ 571: Echoes (Pink Floyd, 1971)
+ 572: Eclipse (Pink Floyd, 1973)
+ 573: Ecstacy (2015 Remaster)
+ 574: Ecstacy (New Order, 1983)
+ 575: Eez-eh (Kasabian, 2014)
+ 576: Egomostro [Colapesce]
+ 577: Eighties [Killing Joke]
+ 578: El diablo (Litfiba, 1990)
+ 579: Elderly woman behind the counter in a small town [Pearl Jam]
+ 580: Eleanor Rigby (The Beatles, 1966)
+ 581: Electrical storm (William Orbit mix) [U2]
+ 582: Elefante (Verdena, 2004)
+ 583: Elegia [Paolo Conte]
+ 584: Elevation (U2, 2000)
+ 585: EMI (Sex Pistols, 1977)
+ 586: Emilia paranoica (CCCP, 1986)
+ 587: Enchantica [Jon Kennedy]
+ 588: End titles (The duchess) [Rachel Portman]
+ 589: Endless, nameless (Nirvana, 1991)
+ 590: English summer rain (Placebo, 2003)
+ 591: Enjoy the silence (Depeche Mode, 1990)
+ 592: Enter sandman [Metallica]
+ 593: Epitaph (King Crimson, 1969)
+ 594: Eptadone [Skiantos]
+ 595: Equilibrio precario (Carmen Consoli, 2000)
+ 596: Era de maggio (RobertoMurolo, 1973)
+ 597: Eskimo (Damien Rice, 2002)
+ 598: Eskimo [Francesco Guccini]
+ 599: Essere speciale [Niccolò Fabi]
+ 600: Estampes No. 1 - Pagodes (Claude Debussy, 1903)
+ 601: Even after all [Finley Quaye]
+ 602: Even better than the real thing (U2, 1991)
+ 603: Everlong [Foo Fighters]
+ 604: Every breath you take (The Police, 1983)
+ 605: Every day is exactly the same [Nine Inch Nails]
+ 606: Every little thing she does is magic (The Police, 1981)
+ 607: Every you every me (Placebo, 1998)
+ 608: Everybody needs somebody to love (Bert Berns & Solomon Burke, 1964)
+ 609: Everybody wants to be a cat - The aristocats (Sherman Brothers, 1967)
+ 610: Everybody wants to be a cat [The Electric Swing Circus]
+ 611: Everyday i love you less and less [Kaiser Chiefs]
+ 612: Everything in its right place [Radiohead]
+ 613: Exchange (Massive Attack, 1998)
+ 614: Exit (U2, 1987)
+ 615: Expresso love (Dire Straits, 1980)
+ 616: Extraterrestre [Eugenio Finardi]
+ 617: Extreme ways [Moby]
+ 618: Facciamo finta (Niccolò Fabi, 2016)
+ 619: Facciamo un compromesso [Edoardo Bennato]
+ 620: Fait accompli [Curve]
+ 621: Fake plastic trees (Radiohead, 1995)
+ 622: Falling down (Muse, 1999)
+ 623: Fancy (Yeah Yeah Yeahs, 2006)
+ 624: Far finta di essere sani [Giorgio Gaber]
+ 625: Farewell and goodnight (The Smashing Pumpkins, 1995)
+ 626: Farà cadere lei [Il Pan Del Diavolo]
+ 627: Fat bottomed girls [Queen]
+ 628: Fata Morgana (Litfiba, 1993)
+ 629: Father and son [Cat Stevens]
+ 630: Feel (Robbie Williams, 2002)
+ 631: Feel good inc. (Gorillaz, 2005)
+ 632: Feel good inc. (Luca Stricagnoli, 2017)
+ 633: Feeling good [Nina Simone]
+ 634: Feeling this (Blink-182, 2003)
+ 635: Fell in love with a girl [The White Stripes]
+ 636: Femme fatale (The Velvet Underground, 1967)
+ 637: Fenomeno [Fabri Fibra]
+ 638: Festa mesta (Marlene Kuntz,1994)
+ 639: Fields of gold (Sting, 1993)
+ 640: Fight for your right [Beastie Boys]
+ 641: Figure it out [Royal Blood]
+ 642: Fingerbib (Aphex Twin, 1996)
+ 643: Fiori d'arancio [Carmen Consoli]
+ 644: Fire (Kasabian, 2009)
+ 645: Fire [The Jimi Hendrix Experience]
+ 646: Firth of fifth (Genesis, 1973)
+ 647: Fischia il vento [Modena City Ramblers]
+ 648: Fishing blues [Henry Thomas]
+ 649: Fit for work [Deadletter]
+ 650: Fiume Sand Creek (Fabrizio De André, 1981)
+ 651: Fix you (Coldplay, 2005)
+ 652: Fixing a hole (The Beatles, 1967)
+ 653: Flash (Lenny Kravitz, 2004)
+ 654: Flash [Cigarettes After Sex]
+ 655: Flipside [Norah Jones]
+ 656: Flowers blossom [Thony]
+ 657: Fly away [Lenny Kravitz]
+ 658: Fly me away [Goldfrapp]
+ 659: Fodderstompf [Public Image Ltd]
+ 660: Foggy notion (The Velvet Underground, 1969)
+ 661: Fontana chiara [Rino Gaetano]
+ 662: For no one (The Beatles, 1966)
+ 663: For tomorrow [Blur]
+ 664: For what it's worth [Buffalo Springfield]
+ 665: For what it's worth [Placebo]
+ 666: For your pleasure [Roxy Music]
+ 667: Forget her (Jeff Buckley, 1994)
+ 668: Forgotten [Linkin Park]
+ 669: Fossi figo [Elio E Le Storie Tese]
+ 670: Fragments of freedom (Morcheeba, 2000)
+ 671: Frame by frame (King Crimson, 1981)
+ 672: Franziska (Fabrizio De André, 1981)
+ 673: Freak [Samuele Bersani]
+ 674: Freaky styley (Red Hot Chili Peppers, 1985)
+ 675: Freddie freeloader [Miles Davis]
+ 676: Frederick [Patti Smith]
+ 677: Free fallin' [Tom Petty & The Heartbreakers]
+ 678: French cancan (Universal Production Music, 1996)
+ 679: Friction (Television, 1977)
+ 680: Friday i'm in love [The Cure]
+ 681: Friend of the night (Mogwai, 2006)
+ 682: Friggin' in the riggin' [Sex Pistols]
+ 683: Frogs [Alice In Chains]
+ 684: Fuga all'inglese [Paolo Conte]
+ 685: Fujiyama (The Dave Brubeck Quartet, 1964)
+ 686: Funky monks (Red Hot Chili Peppers, 1991)
+ 687: Funkytown [Lipps Inc.]
+ 688: Fuochi nella notte di San Giovanni (Live) [CSI]
+ 689: Futterman's rule [Beastie Boys]
+ 690: Futura [Lucio Dalla]
+ 691: G.O.A.T. [Polyphia]
+ 692: Gabriel's oboe (The Mission) [Ennio Morricone]
+ 693: Gaetano [Calcutta]
+ 694: Galvanize [The Chemical Brothers]
+ 695: Games without frontiers [Peter Gabriel]
+ 696: Garden of Eden (Guns N' Roses, 1991)
+ 697: Garota de Ipanema [Antônio Carlos Jobim]
+ 698: Gas panic! [Oasis]
+ 699: Generale [Francesco De Gregori]
+ 700: Genova per noi [Paolo Conte]
+ 701: Get back (The Beatles, 1970)
+ 702: Get it on [T. Rex]
+ 703: Get it together [Beastie Boys]
+ 704: Get lucky [Daft Punk & Pharrell Williams]
+ 705: Get ready [Midnight Noise]
+ 706: Get up offa that thing [James Brown]
+ 707: Get up, i feel like being a sex machine [James Brown]
+ 708: Ghostbusters [Ray Parker Jr.]
+ 709: Gianna [Rino Gaetano]
+ 710: Gigolo aunt [Syd Barrett]
+ 711: Gimme shelter (The Rolling Stones, 1969)
+ 712: Gino e l'alfetta [Daniele Silvestri]
+ 713: Gioconda (Litfiba, 1990)
+ 714: Girasole [Giorgia]
+ 715: Girl from the north country (Bob Dylan, 1963)
+ 716: Girl i love you (Massive Attack, 2010)
+ 717: Girls just want to have fun [Cyndi Lauper]
+ 718: Girls, girls, girls [Mötley Crüe]
+ 719: Giuda [Eman]
+ 720: Giudizi universali [Samuele Bersani]
+ 721: Give it away (Red Hot Chili Peppers, 1991)
+ 722: Glamodrama (Verdena, 2004)
+ 723: Glassy days (Laura Cox, 2023)
+ 724: Gli impermeabili [Paolo Conte]
+ 725: Gli spari sopra [Vasco Rossi]
+ 726: Gloomy sunday [Billie Holiday]
+ 727: Gloomy sunday [Sinéad O'Connor]
+ 728: Gloria [U2]
+ 729: Glorious pop song [Skunk Anansie]
+ 730: Glory box [Portishead]
+ 731: Glósóli (Sigur Rós, 2005)
+ 732: Gnossienne No. 1 [Erik Satie]
+ 733: Go let it out [Oasis]
+ 734: Go to sleep (Radiohead, 2003)
+ 735: Go with the flow (Queens Of The Stone Age, 2002)
+ 736: Gocce di memoria [Giorgia]
+ 737: God almighty's gonna cut you down [The Golden Gate Quartet]
+ 738: God gave me everything [Mick Jagger]
+ 739: God part II (U2, 1988)
+ 740: God put a smile upon your face (Coldplay, 2002)
+ 741: God save the queen (Sex Pistols, 1977)
+ 742: God's gonna cut you down [Johnny Cash]
+ 743: Gold dust woman [Fleetwood Mac]
+ 744: Gold lion (Yeah Yeah Yeahs, 2006)
+ 745: Gold lion [A] (Yeah Yeah Yeahs, 2006)
+ 746: Gold on the ceiling [The Black Keys]
+ 747: Gold soundz [Pavement]
+ 748: Goldberg variations - Aria (Johann Sebastian Bach, 1741)
+ 749: Golden brown [The Stranglers]
+ 750: Gong-oh [Paolo Conte]
+ 751: Good (Morphine, 1992)
+ 752: Good day my angel [Myslovitz]
+ 753: Good fortune (PJ Harvey, 2000)
+ 754: Good old days [Deadletter]
+ 755: Good on you son [Mark Knopfler]
+ 756: Good riddance (Green Day, 1997)
+ 757: Good time [Leroy]
+ 758: Goodnight moon [Shivaree]
+ 759: Goosebumps [Debra Dejean]
+ 760: Grace (Jeff Buckley, 1994)
+ 761: Graveyard girl (M83, 2008)
+ 762: Green grass of tunnel [Múm]
+ 763: Green onions [Booker T. & The MG's]
+ 764: Ground on down [Ben Harper]
+ 765: Growing on me (The Darkness, 2003)
+ 766: Guerra e pace (CCCP, 1987)
+ 767: Guerra [Peppe Barra]
+ 768: Guerrilla radio (Rage Against The Machine, 1999)
+ 769: Guitar blues [Lonnie Johnson]
+ 770: Guns on the roof (The Clash, 1978)
+ 771: Gymnopédie No. 1 [Erik Satie]
+ 772: H.K. farewell [Placebo]
+ 773: Ha perso la città (Niccolò Fabi, 2016)
+ 774: Hallelujah (Jeff Buckley, 1994)
+ 775: Hand in glove (The Smiths, 1984)
+ 776: Hand in my pocket (Alanis Morissette, 1995)
+ 777: Hand rubbed finish (The Dirty Grass Players, 2020)
+ 778: Hanno ucciso l'uomo ragno [883]
+ 779: Happy birthday blues [B.B. King]
+ 780: Hard as a rock [AC-DC]
+ 781: Hard time killing floor blues [Chris Thomas King]
+ 782: Hard to explain (The Strokes, 2001)
+ 783: Harder to breathe [Maroon 5]
+ 784: Harlem shuffle [The Rolling Stones]
+ 785: Harvest feast (All Them Witches, 2018)
+ 786: Have a cigar (Pink Floyd, 1975)
+ 787: Have a good time [Big Walter Horton]
+ 788: Have a little faith in me [John Hiatt]
+ 789: Have a nice day (Stereophonics, 2001)
+ 790: Have a nice day [Bon Jovi]
+ 791: He's a pirate [Klaus Badelt]
+ 792: Heads will roll (Yeah Yeah Yeahs, 2009)
+ 793: Hear that sound (INXS,1990)
+ 794: Heart of glass [Blondie]
+ 795: Heart of gold [Neil Young]
+ 796: Heart-shaped box (Nirvana, 1993)
+ 797: Heartbreaker [Led Zeppelin]
+ 798: Heaven # (Negrita, 1998)
+ 799: Heaven out of hell [Elisa]
+ 800: Heavy soul [The Black Keys]
+ 801: Hedonism [Skunk Anansie]
+ 802: Hedwig's theme [John Williams]
+ 803: Heima (Sigur Rós, 2007)
+ 804: Helena beat [Foster Beat]
+ 805: Hell's bells (AC-DC, 1980)
+ 806: Hellhound on my trail (Robert Johnson, 1937)
+ 807: Hello earth (Kate Bush, 1985)
+ 808: Helter skelter (The Beatles, 1968)
+ 809: Henna [Lucio Dalla]
+ 810: Here is no why (The Smashing Pumpkins, 1995)
+ 811: Here is the house [Depeche Mode]
+ 812: Here she comes now (The Velvet Underground, 1968)
+ 813: Hero [Deadletter]
+ 814: Heroes [David Bowie]
+ 815: Heroin (The Velvet Underground, 1967)
+ 816: Hey boy hey girl [The Chemical Brothers]
+ 817: Hey boy, hey girl [Bud Spencer Blues Explosion]
+ 818: Hey Jude [The Beatles]
+ 819: Hey Julie [Fountains of Wayne]
+ 820: Hey man [Zucchero]
+ 821: Hey negrita [The Rolling Stones]
+ 822: Hey now [Oasis]
+ 823: Hey ya! [Outcast]
+ 824: Hey you [Dope Lemon]
+ 825: Hier encore [Charles Aznavour]
+ 826: High and dry (Radiohead, 1995)
+ 827: High hopes (Pink Floyd, 1994)
+ 828: High water everywhere (pt. 2) [Taj Mahal]
+ 829: Higher & higher [Jackie Wilson]
+ 830: Higher ground (Stevie Wonder, 1973)
+ 831: Higitus figitus - The sword in the stone (Karl Swenson, 1963)
+ 832: Hit the road Jack [Ray Charles]
+ 833: Ho hey [The Lumineers]
+ 834: Ho imparato a sognare [Negrita]
+ 835: Ho una fissa (Verdena, 2015)
+ 836: Ho veduto [New Trolls]
+ 837: Ho visto un re [Enzo Jannacci]
+ 838: Hocus pocus [Focus]
+ 839: Hold me, thrill me, kiss me, kill me [U2]
+ 840: Holiday (Green Day, 2004)
+ 841: Holidays in the sun (Sex Pistols, 1977)
+ 842: Hollywood sofa (Negrita, 1998)
+ 843: Hollywood [Madonna]
+ 844: Holy mountain [Noel Gallagher's High Flying Birds]
+ 845: Home (Public Image Ltd, 1986)
+ 846: Home sweet home [Mötley Crüe]
+ 847: Home [Myriam Alter]
+ 848: Honey bones [Dope Lemon]
+ 849: Honey white (Morphine, 1995)
+ 850: Honeymooning [Holy Motors]
+ 851: Hoppípolla (Sigur Rós, 2005)
+ 852: Horror head [Curve]
+ 853: Hot for teacher [Van Halen]
+ 854: Hot fudge (Robbie Williams, 2002)
+ 855: Hotel Supramonte (Fabrizio De André, 1981)
+ 856: Hound dog [Big Mama Thornton]
+ 857: Hounds of love (Kate Bush, 1985)
+ 858: House of the rising sun [The Animals]
+ 859: How peculiar (Robbie Williams, 2002)
+ 860: How soon is now (The Smiths, 1984)
+ 861: How to disappear completely [Radiohead]
+ 862: How to save a life [The Fray]
+ 863: How you remind me [Nickelback]
+ 864: Human behaviour [Björk]
+ 865: Human touch [Bruce Springsteen]
+ 866: Human [The Killers]
+ 867: Hungarian dance No. 5 in G minor [Johannes Brahms]
+ 868: Hunger strike [Temple Of The Dog]
+ 869: Hungry for you (The Police, 1981)
+ 870: Hurricane [Thirty Seconds To Mars]
+ 871: Hurt [Johnny Cash]
+ 872: Hurts like heaven (Coldplay, 2011)
+ 873: Hyper-ballad [Björk]
+ 874: Hyperborea (Tangerine Dream, 1983)
+ 875: Hysteria (Muse, 2003)
+ 876: I am the resurrection (The Stone Roses, 1989)
+ 877: I am the walrus [The Beatles]
+ 878: I believe in a thing called love (The Darkness, 2003)
+ 879: I can't be satisfied (Muddy Waters, 1948)
+ 880: I can't dance [Genesis]
+ 881: I can't stand it [The Velvet Underground]
+ 882: I cento passi [Modena City Ramblers]
+ 883: I could have lied (Red Hot Chili Peppers, 1991)
+ 884: I don't wanna pray [Edward Sharpe & The Magnetic Zeros]
+ 885: I don't want to be a star (Lenny Kravitz, 2004)
+ 886: I don't want to miss a thing [Aerosmith]
+ 887: I feel so wrong (Sleaford Mods, 2017)
+ 888: I feel you [Depeche Mode]
+ 889: I got soul [Night Shapers]
+ 890: I heard it through the grapevine (Creedence Clearwater Revival, 1970)
+ 891: I just don't know what to do with myself [The White Stripes]
+ 892: I just want to make love to you [Etta James]
+ 893: I love rock and roll [Joan Jett & The Blackhearts]
+ 894: I love you Suzanne [Lou Reed]
+ 895: I might be wrong [Radiohead]
+ 896: I migliori anni della nostra vita [Renato Zero]
+ 897: I need to know [Tom Petty & The Heartbreakers]
+ 898: I never loved a man [Aretha Franklin]
+ 899: I qualunquisti [The Zen Circus]
+ 900: I ragazzi italiani (Live) [Ron]
+ 901: I ragazzi sono in giro [Ligabue]
+ 902: I stay away [Alice In Chains]
+ 903: I still haven't found what i'm looking for (U2, 1987)
+ 904: I still remember [Bloc Party]
+ 905: I talk to the wind (King Crimson, 1969)
+ 906: I think i'm paranoid [Garbage]
+ 907: I treni a vapore (Live) [Ivano Fossati]
+ 908: I walk on guilded splinters (Johnny Jenkins, 1968)
+ 909: I wanna be adored [The Stone Roses]
+ 910: I wanna be like you - The jungle book (Sherman Brothers, 1967)
+ 911: I want it all (Depeche Mode, 2005)
+ 912: I'd rather dance with you [Kings Of Convenience]
+ 913: I'll fly away [Gillian Welch & Alison Krauss]
+ 914: I'll see you in my dreams [Django Reinhardt]
+ 915: I'm a believer [Smash Mouth]
+ 916: I'm alive [Johnny Thunder]
+ 917: I'm eighteen [Alice Cooper]
+ 918: I'm finding it harder to be a gentleman [The White Stripes]
+ 919: I'm fine [Hazel English]
+ 920: I'm free from the chain gang now [Johnny Cash]
+ 921: I'm gonna be (500 miles) [The Proclaimers]
+ 922: I'm in the mood [John Lee Hooker & Bonnie Raitt]
+ 923: I'm Jim Morrison, i'm dead (Mogwai, 2008)
+ 924: I'm looking through you [The Beatles]
+ 925: I'm on fire (Bruce Springsteen, 1984)
+ 926: I'm only sleeping [The Beatles]
+ 927: I'm outta love [Anastacia]
+ 928: I'm sailin' [Mazzy Star]
+ 929: I'm your hoochie coochie man (Muddy Waters, 1954)
+ 930: I'm your man (Negrita, 1998)
+ 931: Icky thump [The White Stripes]
+ 932: Idioteque [Radiohead]
+ 933: If i had a tail (Queens Of The Stone Age, 2013)
+ 934: If it takes all night [Roxy Music]
+ 935: If you have to ask (Red Hot Chili Peppers, 1991)
+ 936: Il ballo di San Vito [Vinicio Capossela]
+ 937: Il bombarolo (Fabrizio De André, 1973)
+ 938: Il buco (Io non ho paura OST) [Ezio Bosso]
+ 939: Il caos strisciante (Verdena, 2007)
+ 940: Il cielo d'Irlanda [Fiorella Mannoia]
+ 941: Il conformista [Giorgio Gaber]
+ 942: Il crotalo e il pavone (Negrita, 1998)
+ 943: Il gatto e la volpe [Edoardo Bennato]
+ 944: Il giorno di dolore che uno ha (Live) [Ligabue]
+ 945: Il Gulliver (Verdena, 2007)
+ 946: Il mare d'inverno [Loredana Bertè]
+ 947: Il mio corpo che cambia (Litfiba, 1999)
+ 948: Il mio mondo [Umberto Bindi]
+ 949: Il mio nemico [Daniele Silvestri]
+ 950: Il mio nome è mai più [Ligajovapelù]
+ 951: Il mondo prima di te [Annalisa]
+ 952: Il narciso [Giorgio Gaber]
+ 953: Il nostro concerto [Umberto Bindi]
+ 954: Il pescatore (Fabrizio De André, 1970)
+ 955: Il potere dei più buoni [Giorgio Gaber]
+ 956: Il ragazzo della via Gluck [Adriano Celentano]
+ 957: Il successo [Giorgio Gaber]
+ 958: Il suicidio del samurai (Verdena, 2004)
+ 959: Il suonatore Jones (Fabrizio De André, 1971)
+ 960: Il tempo di morire [Lucio Battisti]
+ 961: Il testamento di Tito (Fabrizio De André, 1970)
+ 962: Il timido ubriaco [Max Gazzè]
+ 963: Il vento [L] (Litfiba, 1989)
+ 964: Il vile (Marlene Kuntz, 1996)
+ 965: Il volo (Litfiba, 1990)
+ 966: Imagine [John Lennon]
+ 967: Imitation of life [REM]
+ 968: Imitationen (Demo) [Tocotronic]
+ 969: Imitationen [Tocotronic]
+ 970: Immigrant song [Led Zeppelin]
+ 971: Immortality (Pearl Jam, 1994)
+ 972: Imparare dal vento [Tiromancino]
+ 973: Impossibile [Cosmo]
+ 974: Impressioni di settembre (Marlene Kuntz, 2009)
+ 975: In a sentimental mood (Duke Ellington & John Coltrane, 1963)
+ 976: In bianco e nero [Carmen Consoli]
+ 977: In da club [50 Cent]
+ 978: In deep (Bill Frisell, 1996)
+ 979: In every dream home a heartache [Roxy Music]
+ 980: In fila per tre [Edoardo Bennato]
+ 981: In my place (Coldplay, 2002)
+ 982: In questa grande città [Tre Allegri Ragazzi Morti & Jovanotti]
+ 983: In questo mondo di ladri [Antonello Venditti]
+ 984: In reverse [The War On Drugs]
+ 985: In spite of me [Morphine]
+ 986: In the end [Linkin Park]
+ 987: In the flesh (Pink Floyd, 1979)
+ 988: In the hall of the mountain king - Peer Gynt [Edvard Grieg]
+ 989: In the mood [Glenn Miller]
+ 990: In the pines [The Louvin Brothers]
+ 991: In the sun [Joseph Arthur]
+ 992: In the waiting line [Zero 7]
+ 993: In this world [Moby]
+ 994: In tutti i miei giorni [Raf]
+ 995: In un giorno di pioggia [Modena City Ramblers]
+ 996: Incantesimo (Litfiba, 1999)
+ 997: Incantevole [Subsonica]
+ 998: Incontro [Giorgio Gaber]
+ 999: Indifference [Pearl Jam]
+1000: Industrial disease [Dire Straits]
+1001: Inertia creeps (Massive Attack, 1998)
+1002: Infidelity [Skunk Anansie]
+1003: Infinito [Raf]
+1004: Infinità (Marlene Kuntz, 1999)
+1005: Inner city blues (Marvin Gaye, 1971)
+1006: Inní mér syngur vitleysingur (Sigur Rós, 2008)
+1007: Inside all the people [Planet Funk]
+1008: Inside [Benny Benassi & Chris Nasty]
+1009: Interstellar overdrive (Pink Floyd, 1967)
+1010: Into dust [Mazzy Star]
+1011: Into you like a train (The Psychedelic Furs, 1981)
+1012: Intro (Alt-J, 2012)
+1013: Intruder [Peter Gabriel]
+1014: Invincible (Muse, 2006)
+1015: Invisibili [Cristiano De André]
+1016: Invisible sun (The Police, 1981)
+1017: Io non mi sento italiano [Giorgio Gaber]
+1018: Io non sono razzista ma... [Willie Peyote]
+1019: Io per lei [Pino Daniele]
+1020: Io se fossi dio [Giorgio Gaber]
+1021: Io sono Francesco [Tricarico]
+1022: Io sto bene (CCCP, 1986)
+1023: Io sto bene [L] (CCCP, 1996)
+1024: Io ti amo da matti (sesso & karnazza) [Skiantos]
+1025: Io vagabondo [Nomadi]
+1026: Iodio [Bluvertigo]
+1027: Iris [Goo Goo Dolls]
+1028: Iron sky [Paolo Nutini]
+1029: Ironic (Alanis Morissette, 1995)
+1030: Is it just me [The Darkness]
+1031: Is there anybody out there (Pink Floyd, 1979)
+1032: ISI [NEU]
+1033: Island of souls [Sting]
+1034: Isobel (Björk, 1995)
+1035: Istanbul (Litfiba, 1985)
+1036: Istrice [Subsonica]
+1037: It is obvious [Syd Barrett]
+1038: It never rains [Dire Straits]
+1039: It takes a fool to remain sane [The Ark]
+1040: It takes a lot to laugh, it takes a train to cry (Bob Dylan, 1965)
+1041: It's a long way (Caetano Veloso, 1972)
+1042: It's a long way to the top [AC-DC]
+1043: It's a man's, man's, man's world (James Brown, 1966)
+1044: It's alright ma (i'm only bleeding) [Bob Dylan]
+1045: It's great when we're together [Finley Quaye]
+1046: It's late (A Beacon School, 2018)
+1047: It's my life [No Doubt]
+1048: It's my own fault, baby [B.B. King]
+1049: It's so easy (Guns N' Roses, 1987)
+1050: Italia bella mostrati gentile (feat. Coro delle Mondine di Novi di Modena) (Toscana) (1)
+1051: Ithaca [Beatenberg]
+1052: Jacknife (Jackie McLean, 1965)
+1053: Jane says [Jane's Addiction]
+1054: Je so' pazzo [Pino Daniele]
+1055: Jealous guy [John Lennon]
+1056: Jeremy [Pearl Jam]
+1057: Jimmy James [Beastie Boys]
+1058: John the revelator (Depeche Mode, 2005)
+1059: John the revelator [Blind Willie Johnson]
+1060: Johnny B. Goode [Chuck Berry]
+1061: Joker and the thief [Wolfmother]
+1062: Juice to get loose [Left Lane Cruiser]
+1063: Jumpin jack flash [The Rolling Stones]
+1064: Just a cloud [Lusine & Vilja Larjosto]
+1065: Just like heaven [The Cure]
+1066: Just like honey (Jesus And The Mary Chain, 1985)
+1067: Just like u said it would b (Sinéad O'Connor, 1987)
+1068: Já sei namorar [Tribalistas]
+1069: K.I.S.S.E.S. [Bent]
+1070: Karma police (Radiohead, 1997)
+1071: Karmacoma (Massive Attack, 1994)
+1072: Katyusha (Red Army Choir, 1938)
+1073: Katyusha [Red Army Choir]
+1074: Keep it healthy (Warpaint, 2014)
+1075: Khorakhané (Fabrizio De André, 1996)
+1076: Kids (MGMT, 2007)
+1077: Kids with guns (Gorillaz, 2005)
+1078: Kids [Kyle Dixon & Michael Stein]
+1079: Kill [Jimmy Eat World]
+1080: Killing in the name (Rage Against The Machine, 1992)
+1081: King of pain (The Police, 1983)
+1082: Kings and queens [Thirty Seconds To Mars]
+1083: Kite [L] (U2, 2000)
+1084: Knights of Cydonia (Muse, 2006)
+1085: Knockers [The Darkness]
+1086: Kool thing (Sonic Youth, 1990)
+1087: L'America [Giorgio Gaber]
+1088: L'amor carnale [The Bastard Sons Of Dioniso]
+1089: L'amore non esiste [Fabi Silvestri Gazzè]
+1090: L'amore pensato [Max Gazzè]
+1091: L'amour est un oiseau rebelle (Carmen) [Maria Callas]
+1092: L'anguilla [99 Posse]
+1093: L'anima (Tiromancino, 2000)
+1094: L'anno che verrà [Lucio Dalla]
+1095: L'arca di Noè [Sergio Endrigo]
+1096: L'artista (Marlene Kuntz, 2010)
+1097: L'assenzio [Bluvertigo]
+1098: L'avvelenata [Francesco Guccini]
+1099: L'avversario [Fabi Silvestri Gazzè]
+1100: L'era del cinghiale bianco [Franco Battiato]
+1101: L'esangue Deborah (Marlene Kuntz, 1996)
+1102: L'isola che non c'è [Edoardo Bennato]
+1103: L'ombra della luce [Franco Battiato]
+1104: L'ultima danza (Bobo Rondelli, 2002)
+1105: L'ultima luna [Lucio Dalla]
+1106: L'ultimo bacio [Carmen Consoli]
+1107: L'uomo che continua [John De Leo]
+1108: L'uomo sogna di volare [Negrita]
+1109: La ballade des gens heureux [Gerard Lenorman]
+1110: La canzone che scrivo per te (Marlene Kuntz, 2000)
+1111: La canzone del padre (Fabrizio De André, 1973)
+1112: La canzone del sole [Lucio Battisti]
+1113: La canzone di Tom [Il Teatro Degli Orrori]
+1114: La canzone mononota [Elio E Le Storie Tese]
+1115: La chiesa si rinnova [Giorgio Gaber]
+1116: La collina (Fabrizio De André, 1971)
+1117: La democrazia (v.1) [Giorgio Gaber]
+1118: La democrazia (v.2) [Giorgio Gaber]
+1119: La descrizione di un attimo (Tiromancino, 2000)
+1120: La domenica delle salme (Fabrizio De André, 1990)
+1121: La femme d'argent [Air]
+1122: La fine dei vent'anni (Motta, 2016)
+1123: La fine della chemio [Sick Tamburo]
+1124: La grange [ZZ Top]
+1125: La guerra di Piero (Fabrizio De André, 1968)
+1126: La guerra è finita [Baustelle]
+1127: La javanaise [Madeleine Peyroux]
+1128: La legge [Giorgio Gaber]
+1129: La leva calcistica della classe '68 [Francesco De Gregori]
+1130: La libertà [Giorgio Gaber]
+1131: La mazurka del misantropo [John De Leo]
+1132: La mia banda suona il rock [Ivano Fossati]
+1133: La mia casa (Daniele Silvestri, 2016)
+1134: La mia libertà [Franco Califano]
+1135: La mia signorina [Neffa]
+1136: La musica che gira intorno [Ivano Fossati]
+1137: La paranza [Daniele Silvestri]
+1138: La punta dell'iceberg (Eugenio In Via Di Gioia, 2017)
+1139: La raje [Lou X]
+1140: La rondine [Mango]
+1141: La società dei magnaccioni [Armandino Bosco]
+1142: La sottile linea bianca (Afterhours, 2005)
+1143: La stanza del nonno [Giorgio Gaber]
+1144: La strana famiglia [Giorgio Gaber]
+1145: La valse dAmélie [Yann Tiersen]
+1146: La valse [Les Négresses Vertes]
+1147: La vasca [Alex Britti]
+1148: La vedova bianca (Afterhours, 2005)
+1149: La veneziana [Pneumatica Emiliano Romagnola]
+1150: La verità (Daniele Silvestri, 2016)
+1151: Lacio drom (Litfiba, 1994)
+1152: Lacrimosa (Requiem) [Wolfgang Amadeus Mozart]
+1153: Ladro di cuori col bruco (Lo Stato Sociale, 2012)
+1154: Lady Madonna (The Beatles, 1968)
+1155: Lady marmalade [Christina Aguilera, Lil' Kim, Mya & Pink]
+1156: Lady stardust [David Bowie]
+1157: Lady writer [Dire Straits]
+1158: Lake of fire [A] (Nirvana, 1994)
+1159: Lamento dello sbronzo (Marlene Kuntz, 1999)
+1160: Land of 1000 dances [Wilson Pickett]
+1161: Largo all'avanguardia [Skiantos]
+1162: Lasciarsi un giorno a Roma [Niccolò Fabi]
+1163: Last goodbye (Jeff Buckley, 1994)
+1164: Last of our kind [The Darkness]
+1165: Laurens walking (The Straight story) [Angelo Badalamenti]
+1166: Lavorare per il male [Tre Allegri Ragazzi Morti & Pierpaolo Capovilla]
+1167: Lay & love The [Pieces Of Shit]
+1168: Layla [Derek & The Dominos]
+1169: Le carillon de solbach (Universal Production Music, 1996)
+1170: Le cose cambiano (Marta Sui Tubi, 2003)
+1171: Le cose più rare [Cosmo]
+1172: Le dîner de cons [Vladimir Cosma]
+1173: Le elezioni [Giorgio Gaber]
+1174: Le mani [Giorgio Gaber]
+1175: Le quattro stagioni [Antonio Vivaldi]
+1176: Le ragazze fanno grandi sogni [Edoardo Bennato]
+1177: Le sud [Nino Ferrer]
+1178: Le tue ossa nell'altitudine (Verdena, 2004)
+1179: Le vent nous portera [Noir Désir]
+1180: Lead pencil blues [Johnnie Temple]
+1181: Leaders of men [Joy Division]
+1182: Learn to fly [Foo Fighters]
+1183: Learning to fly [Tom Petty & The Heartbreakers]
+1184: Leash [Pearl Jam]
+1185: Leggenda di Natale (Fabrizio De André, 1968)
+1186: Leggero [Ligabue]
+1187: Lemon (U2, 1993)
+1188: Lemon tree [Fool's Garden]
+1189: Lemon [Corner In Bloom]
+1190: Les grandes marches [Moderat]
+1191: Let it be (The Beatles, 1970)
+1192: Let it go (Bob Geldof, 1990)
+1193: Let me entertain you (Robbie Williams, 1997)
+1194: Let me see (Morcheeba, 1998)
+1195: Let there be love [Nat King Cole]
+1196: Let's get it started [Black Eyed Peas]
+1197: Let's go out tonight [The Blue Nile]
+1198: Let's go surfing [The Drums]
+1199: Lettera al prossimo [Eugenio In Via Di Gioia]
+1200: Lezioni di poesia [Giorgio Canali & Rossofuoco]
+1201: Liberi liberi [Vasco Rossi]
+1202: Libertango [Astor Piazzolla]
+1203: Lieve (Live) [CSI]
+1204: Lieve (Marlene Kuntz, 1994)
+1205: Life in technicolor II (Coldplay, 2008)
+1206: Life is sweet [Fabi Silvestri Gazzè]
+1207: Life on Mars [David Bowie]
+1208: Life's a beach [Django Django]
+1209: Life's a beach [Touch & Go]
+1210: Lift me up [Moby]
+1211: Light my fire (The Doors, 1967)
+1212: Like a rolling stone (Bob Dylan, 1965)
+1213: Like clockwork (Queens Of The Stone Age, 2013)
+1214: Like Herod (Mogwai, 1997)
+1215: Like the 309 [Johnny Cash]
+1216: Liquefy [The Servant]
+1217: Litio [Massimo Volume]
+1218: Little black submarines [The Black Keys]
+1219: Little by little [Oasis]
+1220: Little red rooster [Willie Dixon]
+1221: Little sister (Queens Of The Stone Age, 2005)
+1222: Little talks [Of Monsters And Men]
+1223: Little wing [The Jimi Hendrix Experience]
+1224: Live forever [Oasis]
+1225: Live with me (Massive Attack, 2006)
+1226: Lo que me hace vivir [Roberto Fonseca]
+1227: Lo scrutatore non votante [Samuele Bersani]
+1228: Lo shampoo [Giorgio Gaber]
+1229: Lo strano percorso [Max Pezzali]
+1230: Locomotive (Guns N' Roses, 1991)
+1231: London calling (The Clash, 1979)
+1232: Lonely boy [The Black Keys]
+1233: Lonely boys paradise [Dope Lemon]
+1234: Lonely woman (Ornette Coleman, 1959)
+1235: Long cool woman [The Hollies]
+1236: Long long time (Linda Ronstadt, 1970)
+1237: Loniterp (Verdena, 2011)
+1238: Lontani dal mondo [Negrita]
+1239: Looped [Kiasmos]
+1240: Lose this skin (The Clash, 1980)
+1241: Lose yourself (Eminem, 2002)
+1242: Loser (Beck, 1994)
+1243: Losing grip [Avril Lavigne]
+1244: Losing my religion [REM]
+1245: Lost (Half Alive, 2022)
+1246: Lost in the supermarket (The Clash, 1979)
+1247: Lost! (Coldplay, 2008)
+1248: Louie Louie [The Kingsmen]
+1249: Louisiana (Litfiba, 1988)
+1250: Louisiana saturday night [Mel McDaniel]
+1251: Love (The Smashing Pumpkins, 1995)
+1252: Love in a trashcan [The Raveonettes]
+1253: Love in vain [The Rolling Stones]
+1254: Love is noise [The Verve]
+1255: Love is only a feeling (The Darkness, 2003)
+1256: Love is the drug [Roxy Music]
+1257: Love long distance [Gossip]
+1258: Love missile F1-11 [Sigue Sigue Sputnik]
+1259: Love on a real train (Tangerine Dream, 1983)
+1260: Love over gold [Dire Straits]
+1261: Love profusion [Madonna]
+1262: Love reign o'er me [The Who]
+1263: Love rescue me (U2, 1988)
+1264: Love somebody (Robbie Williams, 2002)
+1265: Love song [Syd Barrett]
+1266: Love spreads [The Stone Roses]
+1267: Love theme blues (Troppo forte) [Carlo Verdone]
+1268: Love will tear us apart [Joy Division]
+1269: Love you so bad [Ezra Furman]
+1270: Love you to (The Beatles, 1966)
+1271: Lover man [Billie Holiday]
+1272: Lovers in Japan (Coldplay, 2008)
+1273: Lovesong (The Cure, 1989)
+1274: Low man [Alberta Cross]
+1275: LSF (Kasabian, 2004)
+1276: Lu cardillo (Umberto Boselli, 1968)
+1277: Luce [Elisa]
+1278: Lucky man [The Verve]
+1279: Lucy in the sky with diamonds [The Beatles]
+1280: Lullaby for a soldier [Maggie Siff]
+1281: Lullaby [L] (Don Shirley Trio, 1968)
+1282: Lullaby [The Cure]
+1283: Luna (The Smashing Pumpkins, 1993)
+1284: Luna (Verdena, 2004)
+1285: Luna y sol [Manu Chao]
+1286: Lunedì cinema [Stadio]
+1287: Lux aeterna [Clint Mansell]
+1288: Lux aeterna [Motorpsycho]
+1289: Luz negra (Stefano Bollani, 2007)
+1290: M.T.M. [Original Slammer Band]
+1291: Ma che bella città [Edoardo Bennato]
+1292: Ma che discorsi [Daniele Silvestri]
+1293: Ma come fanno i marinai [Lucio Dalla]
+1294: Ma il cielo è sempre più blu [Rino Gaetano]
+1295: Mad about you (Live) [Hooverphonic]
+1296: Mad about you (Sting, 1991)
+1297: Mad about you [Hooverphonic]
+1298: Madre (CCCP, 1989)
+1299: Maggese (Cesare Cremonini, 2005)
+1300: Maggie's farm [Bob Dylan]
+1301: Magnolia [Negrita]
+1302: Main theme (The Good, The Bad and The Ugly) [Ennio Morricone]
+1303: Main theme - The aristocats (Floyd Huddleston, 1967)
+1304: Main title - The sword in the stone (Fred Darian, 1963)
+1305: Make it wit chu (Queens Of The Stone Age, 2007)
+1306: Malamore [Enzo Carella]
+1307: Malibu (Hole, 1998)
+1308: Mama maé [Negrita]
+1309: Mama talk to your daughter [J.B. Lenoir]
+1310: Mama, i'm coming home [Ozzy Osbourne]
+1311: Mambo no. 5 [Lou Bega]
+1312: Man (Yeah Yeah Yeahs, 2003)
+1313: Man in a shed (Nick Drake, 1969)
+1314: Man next door (Massive Attack, 1998)
+1315: Man of simple pleasures (Kasabian, 2011)
+1316: Mandala (Keith Jarrett, 1978)
+1317: Maneater [Nelly Furtado]
+1318: Mani [Edoardo De Crescenzo]
+1319: Maniac [Michael Sembello]
+1320: Manifesto (CCCP, 1987)
+1321: Map of the problematique (Muse, 2006)
+1322: Maple leaf rag [Scott Joplin]
+1323: Maps (Yeah Yeah Yeahs, 2003)
+1324: Marajà [Vinicio Capossela]
+1325: Margherita [Riccardo Cocciante]
+1326: Maria [Blondie]
+1327: Marinade [Dope Lemon]
+1328: Marmellata #25 (Cesare Cremonini, 2005)
+1329: Maronna mia (Pino Daniele, 1977)
+1330: Marooned (Pink Floyd, 1994)
+1331: Mary Jane's last dance (Tom Petty & The Heartbreakers, 1993)
+1332: Mas que nada (Sérgio Mendes, 1966)
+1333: Masters of war (Bob Dylan, 1963)
+1334: Maudit (Litfiba, 1993)
+1335: Max [Paolo Conte]
+1336: Maybe (Half Alive, 2019)
+1337: Maybe tomorrow (Stereophonics, 2003)
+1338: Mazurka bastiaise (Universal Production Music, 1996)
+1339: Me gustas tu [Manu Chao]
+1340: Meat is murder (The Smiths, 1985)
+1341: Meds (Placebo, 2006)
+1342: Meine [Daso]
+1343: Mellon Collie and the infinite sadness (The Smashing Pumpkins, 1995)
+1344: Mellowship slinky in B major (Red Hot Chili Peppers, 1991)
+1345: Melodía lírica - Prelude No. 1 [Heitor Villa-Lobos]
+1346: Mentira [Manu Chao]
+1347: Mercy [Duffy]
+1348: Meri Luis [Lucio Dalla]
+1349: Merry x-mas (Marlene Kuntz, 1994)
+1350: Message in a bottle (The Police, 1979)
+1351: Messico e nuvole [Enzo Jannacci]
+1352: Metti in circolo il tuo amore (Live) [Ligabue]
+1353: Metti in circolo il tuo amore [Ligabue]
+1354: Mi addormenterò [Bud Spencer Blues Explosion]
+1355: Mi coltivo (Verdena, 2011)
+1356: Mi fa male il mondo [Giorgio Gaber]
+1357: Mi fido di te [Jovanotti]
+1358: Mi sono ritrovato vivo [The Zen Circus]
+1359: Mi sono rotto il cazzo (Lo Stato Sociale, 2012)
+1360: Midlife crisis [Faith No More]
+1361: Midnight city [M83]
+1362: Midnight in a perfect world [DJ Shadow]
+1363: Midnight rambler (The Rolling Stones, 1969)
+1364: Midnight slow [Dope Lemon]
+1365: Milanesi al mare (The Zen Circus, 2011)
+1366: Milano [Lucio Dalla]
+1367: Milk it (Nirvana, 1993)
+1368: Millennium (Robbie Williams, 1998)
+1369: Mind eraser [The Black Keys]
+1370: Mind fulness [Jecha]
+1371: Mind your own business [Delta 5]
+1372: Minister of rock and roll (Lenny Kravitz, 2004)
+1373: Minor swing [Django Reinhardt]
+1374: Minority (Green Day, 2000)
+1375: Minuetto [Mia Martini]
+1376: Mio fratello che guardi il mondo [Ivano Fossati]
+1377: Miserlou [Dick Dale & His Del-Tones]
+1378: Miserlou [Dick Dale]
+1379: Misread [Kings Of Convenience]
+1380: Miss mondo 99 (Live) [Ligabue]
+1381: Miss Sarajevo (U2 & Luciano Pavarotti, 1995)
+1382: Misunderstood [Mötley Crüe]
+1383: Mme et Mr Curie [Giorgio Canali & Rossofuoco]
+1384: Mmm mmm mmm mmm [Crash Test Dummies]
+1385: Moanin' [Art Blakey & The Jazz Messengers]
+1386: Moaning lisa smile [Wolf Alice]
+1387: Moby Dick [Led Zeppelin]
+1388: Modern romance (Yeah Yeah Yeahs, 2003)
+1389: Modì [Vinicio Capossela]
+1390: Mofo (U2, 1997)
+1391: Mojo pin (Jeff Buckley, 1994)
+1392: Monday morning blues [Mississippi John Hurt]
+1393: Monetine (Daniele Silvestri, 2008)
+1394: Money (Pink Floyd, 1973)
+1395: Money for nothing [Dire Straits]
+1396: Monna Lisa [Ivan Graziani]
+1397: Monolocale (Daniele Silvestri, 2016)
+1398: Montalbano noir concertante [Franco Piersanti]
+1399: More than a feeling [Boston]
+1400: More than this (Roxy Music, 1982)
+1401: Morire (CCCP, 1986)
+1402: Morire per delle idee (Fabrizio De André, 1974)
+1403: Morirò da re [Måneskin]
+1404: Morning glory [Oasis]
+1405: Mosh [Eminem]
+1406: Mosquito song (Queens Of The Stone Age, 2002)
+1407: Mostri sotto il letto [Giorgio Canali & Rossofuoco]
+1408: Mother (Pink Floyd, 1979)
+1409: Mother earth [Memphis Slim]
+1410: Motion picture soundtrack [Radiohead]
+1411: Mount wrociai [Beirut]
+1412: Mountain song [Jane's Addiction]
+1413: Move your body [Eiffel 65]
+1414: Moviestar (Stereophonics, 2003)
+1415: Moving (Kate Bush, 1978)
+1416: Moving in stereo [The Cars]
+1417: Mr. brightside [The Killers]
+1418: Mr. tambourine man (Live) [Bob Dylan]
+1419: Mr. tambourine man [Bob Dylan]
+1420: Mrs. Robinson [Simon & Garfunkel]
+1421: Ms (Alt-J, 2012)
+1422: Muori delay (Verdena, 2007)
+1423: Muscle museum (Muse, 1999)
+1424: Muzzle (The Smashing Pumpkins, 1995)
+1425: My boy builds coffins [Florence + The Machine]
+1426: My brain is hanging upside [The Ramones]
+1427: My California [Beth Hart]
+1428: My favourite game [The Cardigans]
+1429: My friend [Groove Armada]
+1430: My friends (Red Hot Chili Peppers, 1995)
+1431: My friends [D] (Red Hot Chili Peppers, 1995)
+1432: My generation [The Who]
+1433: My heart will go on [Céline Dion]
+1434: My life is going on [Cecilia Krull]
+1435: My Sharona [The Knack]
+1436: My way [Sex Pistols]
+1437: Mysterious ways (U2, 1991)
+1438: Má vlast [Bedřich Smetana]
+1439: naif.super [M+A]
+1440: Nails, hair, hips, heels [Todrick Hall]
+1441: Naive [The Kooks]
+1442: Nancy boy (Placebo, 1996)
+1443: Napalm love [Air]
+1444: Napule è [Pino Daniele]
+1445: Need you tonight [INXS]
+1446: Nei rami (Verdena, 2022)
+1447: Neighborhood #1 - Tunnels (Arcade Fire, 2004)
+1448: Nell'aria [Marcella Bella]
+1449: Nella mia ora di libertà (Fabrizio De André, 1973)
+1450: Nella tua luce (Marlene Kuntz, 2013)
+1451: Nessun dorma - Turandot (Giacomo Puccini, 1936)
+1452: Never an easy way (Morcheeba, 1996)
+1453: Never be the same again [Melanie C]
+1454: Never let me down again (Depeche Mode, 1987)
+1455: Never let me go [Florence + The Machine]
+1456: New born (Muse, 2001)
+1457: New shoes [Paolo Nutini]
+1458: New year's day [U2]
+1459: Night and day [Cole Porter]
+1460: Night of the swallow (Kate Bush, 1982)
+1461: Night on bald mountain [Modest Mussorgsky]
+1462: Ninja [M+A & Spank Rock]
+1463: Nixon [Giorgio Gaber]
+1464: No compassion (Talking Heads, 1977)
+1465: No distance left to run (Blur, 1999)
+1466: No excuses [Alice In Chains]
+1467: No feelings (Sex Pistols, 1977)
+1468: No fun (Sex Pistols, 1977)
+1469: No one knows (Queens Of The Stone Age, 2002)
+1470: No rain [Blind Melon]
+1471: No way [The Zen Circus]
+1472: No woman, no cry (Live) [Bob Marley & The Wailers]
+1473: Nocturne No. 1 in B flat minor [Frédéric Chopin]
+1474: Nocturne No. 3 [Eric Satie]
+1475: Non mi pento [Ylenia Lucisano]
+1476: Non prendere l'acme, Eugenio (Verdena, 2007)
+1477: Non sono una signora [Loredana Bertè]
+1478: Non è per sempre (Afterhours, 1999)
+1479: Non è tempo per noi [Ligabue]
+1480: Non è un film [Articolo 31]
+1481: Non, je ne regrette rien [Edith Piaf]
+1482: Nord sud ovest est [883]
+1483: Nord [Paolo Conte]
+1484: Norwegian wood [The Beatles]
+1485: Not dark yet [Bob Dylan]
+1486: Nothing (Depeche Mode, 1987)
+1487: Nothing compares to you [Sinéad O'Connor]
+1488: Nothing else matters [Metallica]
+1489: Nothing's gonna hurt you baby [Cigarettes After Sex]
+1490: Nothingman [Pearl Jam]
+1491: Notte (Marlene Kuntz, 2003)
+1492: Notte prima degli esami [Antonello Venditti]
+1493: November rain (Guns N' Roses, 1991)
+1494: Nu te fermare [Canzoniere Grecanico Salentino]
+1495: Numb [Linkin Park]
+1496: Nuotando nell'aria (Marlene Kuntz,1994)
+1497: Nuova ossessione [Subsonica]
+1498: Nutshell [Alice In Chains]
+1499: Nuvole bianche [Ludovico Einaudi]
+1500: Nuvole rapide [Subsonica]
+1501: Nuvole senza Messico [Giorgio Canali & Rossofuoco]
+1502: O mio babbino caro (Gianni Schicchi) [Giacomo Puccini]
+1503: O mio babbino caro - Gianni Schicchi (Giacomo Puccini, 1918)
+1504: Ob-la-di, ob-la-da (The Beatles, 1968)
+1505: Occhi bassi [Tre Allegri Ragazzi Morti]
+1506: October [U2]
+1507: Of course [Jane's Addiction]
+1508: Oh mama! [Giorgio Gaber]
+1509: Oh sweet nuthin' [The Velvet Underground]
+1510: Old graffiti (Bibio, 2019)
+1511: Old time rock & roll [Bob Seger]
+1512: Older chests (Damien Rice, 2002)
+1513: Olsen olsen (Sigur Rós, 1999)
+1514: On a plain (Nirvana, 1991)
+1515: On every street [Dire Straits]
+1516: On melancholy hill (Gorillaz, 2010)
+1517: On the road again [Canned Heat]
+1518: Onan (Verdena, 2001)
+1519: Onda su onda [Bruno Lauzi]
+1520: One (U2, 1991)
+1521: One more time (The Clash, 1980)
+1522: One of these days (Pink Floyd, 1971)
+1523: One of us [Joan Osborne]
+1524: One way ticket [The Darkness]
+1525: Only shallow [My Bloody Valentine]
+1526: Oo-de-lally - Robin Hood (Roger Miller, 1973)
+1527: Ooh la la [Goldfrapp]
+1528: Optigan 1 (Blur, 1999)
+1529: Orange evening [DWIG]
+1530: Ordinary man (Chinese Man, 2009)
+1531: Orinoco flow (Enya, 1988)
+1532: Otherside (Red Hot Chili Peppers, 1999)
+1533: Out in the cold [Tom Petty & The Heartbreakers]
+1534: Out of the blue [Roxy Music]
+1535: Out of time [Blur]
+1536: Overture (Don Giovanni) [Wolfgang Amadeus Mozart]
+1537: Overture - The jungle book (Sherman Brothers, 1967)
+1538: Pablo (Francesco De Gregori, 1975)
+1539: Padremadre [Cesare Cremonini]
+1540: Pale blue eyes [The Velvet Underground]
+1541: Panama [Van Halen]
+1542: Paname (Litfiba, 1988)
+1543: Paperback writer [The Beatles]
+1544: Papercut [Linkin Park]
+1545: Parabol + Parabola [Tool]
+1546: Paracetamolo [Calcutta]
+1547: Paradise (Coldplay, 2011)
+1548: Paradise circus (Massive Attack, 2010)
+1549: Paradise city (Guns N' Roses, 1987)
+1550: Paranoid android (Radiohead, 1997)
+1551: Paranoid [Black Sabbath]
+1552: Parigi (Paolo Conte, 1981)
+1553: Parklife [Blur]
+1554: Parole di burro [Carmen Consoli]
+1555: Pas assez de toi [Mano Negra]
+1556: Pascolare (Verdena, 2022)
+1557: Paso doble [Paolo Conte]
+1558: Pass it on [The Coral]
+1559: Pass the mic [Beastie Boys]
+1560: Pastime [Samantha Crain]
+1561: Pastore di nuvole [Luigi Grechi]
+1562: Pata pata [Miriam Makeba]
+1563: Peace beneath the city [Iron & Wine]
+1564: Peace of mind [The Pilgrim]
+1565: Peace reprise [Paul Kelly]
+1566: Pensiero stupendo [Patty Pravo]
+1567: People have the power [Patti Smith]
+1568: Per averti [Adriano Celentano]
+1569: Per me lo so (CCCP, 1987)
+1570: Per me è importante [Tiromancino]
+1571: Per sbaglio (Verdena, 2011)
+1572: Perfect day (Lou Reed, 1972)
+1573: Perfetto uniformato [Eugenio In Via Di Gioia]
+1574: Personal Jesus (Depeche Mode, 1990)
+1575: Pertanto [Il Pan Del Diavolo]
+1576: Pescatore [Pierangelo Bertoli & Fiorella Mannoia]
+1577: Peter Gunn theme (Henry Mancini, 1959)
+1578: Pezzo di me [Levante & Max Gazzè]
+1579: Phoner to Arizona (Gorillaz, 2010)
+1580: Photograph [Def Leppard]
+1581: Photographic (Depeche Mode, 1981)
+1582: Piano concert No. 1 in B flat minor [Pyotr Ilyich Tchaikovsky]
+1583: Piano quintet in E-flat major - Andante cantabile [Ludwig van Beethoven]
+1584: Piano sonata #14 - Moonlight sonata (Ludwig van Beethoven, 1802)
+1585: Piano sonata No. 2 in B flat minor - Marche funèbre [Frédéric Chopin]
+1586: Piazza grande [Lucio Dalla]
+1587: Piccola città [Francesco Guccini]
+1588: Piccola stella senza cielo [Ligabue]
+1589: Piccola storia ignobile [Francesco Guccini]
+1590: Piccolo uomo [Mia Martini]
+1591: Pierrot e la luna (Litfiba, 1986)
+1592: Pierrot the clown (Placebo, 2006)
+1593: Pigs in zen [Jane's Addiction]
+1594: Pigs on the wing - pt.1 (Pink Floyd, 1977)
+1595: Pink [Aerosmith]
+1596: Piove [Jovanotti]
+1597: Più bella cosa [Eros Ramazzotti]
+1598: Plateau [Meat Puppets]
+1599: Play dead [Björk]
+1600: Play for today (The Cure, 1980)
+1601: Playground love [Air]
+1602: Please me like you want to (Ben Harper, 1995)
+1603: Plug in baby (Muse, 2001)
+1604: Pochi giorni (Daniele Silvestri & Diodato, 2016)
+1605: Police on my back (The Clash, 1980)
+1606: Policy of truth (Depeche Mode, 1990)
+1607: Politician (Cream, 1968)
+1608: Por el suelo [Manu Chao]
+1609: Porc #1 [Moderat]
+1610: Porcelain [Moby]
+1611: Portobello belle (Live) [Dire Straits]
+1612: Postcards from Italy [Beirut]
+1613: Pow R Toc H (Pink Floyd, 1967)
+1614: Prayers for rain (The Cure, 1989)
+1615: Precious (Depeche Mode, 2005)
+1616: Preghiera in gennaio (Fabrizio De André, 1967)
+1617: Prelude Op. 28  No. 15 - Raindrop [Frédéric Chopin]
+1618: Prelude Op. 28  No. 24 - Storm [Frédéric Chopin]
+1619: Pretty boy [Noel Gallagher's High Flying Bird]
+1620: Pretty little ditty (Red Hot Chili Peppers, 1989)
+1621: Pretty vacant (Sex Pistols, 1977)
+1622: Pretty woman [Roy Orbison]
+1623: Pride (U2, 1984)
+1624: Prima di andare via [Neffa]
+1625: Prima di andare via [Riccardo Sinigallia]
+1626: Primavera [Ludovico Einaudi]
+1627: Prisencolinensinainciusol [Adriano Celentano]
+1628: Prison [Iosonouncane]
+1629: Private investigations [Dire Straits]
+1630: Problems (Sex Pistols, 1977)
+1631: Profondo rosso [Goblin]
+1632: Proibito (Litfiba, 1990)
+1633: Prologue - Harry Potter (John Williams, 2001)
+1634: Propaganda [Fabri Fibra, Colapesce, Di Martino]
+1635: Protection (Massive Attack, 1994)
+1636: Psycho killer (Talking Heads, 1977)
+1637: Psychotic girl [The Black Keys]
+1638: Psychotzar [Motorpsycho]
+1639: Public image [Public Image Ltd]
+1640: Pulled up (Talking Heads, 1977)
+1641: Pumped up kicks [Foster The People]
+1642: Punk islam (CCCP, 1984)
+1643: Punk rock con le ali [Bianco]
+1644: Pure morning (Placebo, 1998)
+1645: Purple rain [Prince]
+1646: Puzzle (Verdena, 2015)
+1647: Pyramid song [Radiohead]
+1648: Pyro [Kings Of Leon]
+1649: Qualcuno era comunista [Giorgio Gaber]
+1650: Quale allegria [Lucio Dalla]
+1651: Quando sono con te [Ex-Otago]
+1652: Quando è moda è moda [Giorgio Gaber]
+1653: Quattro stracci [Francesco Guccini]
+1654: Que sera sera [Doris Day]
+1655: Quella che non sei [Ligabue]
+1656: Quelli che (Live) [Enzo Jannacci]
+1657: Quelli che benpensano [Frankie Hi-Nrg Mc]
+1658: Quelli che [Enzo Jannacci]
+1659: Quello che non c'è (Afterhours, 2002)
+1660: Quello che non ho (Fabrizio De André, 1981)
+1661: Quello che non so di te [Motta]
+1662: Quello che perde i pezzi [Giorgio Gaber]
+1663: Questo è un grande paese (Lo Stato Sociale, 2014)
+1664: Radar [Morphine]
+1665: Radetzky march [Johann Strauss I]
+1666: Radio (Paolo Nutini, 2022)
+1667: Rag doll [Aerosmith]
+1668: Rake and rambling boy [Rhys Jones & Christina Wheeler]
+1669: Ramblin' on my mind (Robert Johnson, 1936)
+1670: Rap lamento [Frankie Hi-Nrg Mc]
+1671: Rapper's delight [The Sugarhill Gang]
+1672: Rare tracce [Rino Gaetano]
+1673: Ray of light [Madonna]
+1674: Razzi arpia inferno e fiamme (Verdena, 2011)
+1675: Re-hash (Gorillaz, 2001)
+1676: Real thing [Pale Honey]
+1677: Rearviewmirror [Pearl Jam]
+1678: Reason is treason (Kasabian, 2004)
+1679: Reason is treason [R] (Kasabian, 2004)
+1680: Rebel girl [Bikini Kill]
+1681: Rebel rebel [David Bowie]
+1682: Rebel yell [Billt Idol]
+1683: Rebellion - Lies (Arcade Fire, 2004)
+1684: Recitativo (Fabrizio De André, 1968)
+1685: Red house [The Jimi Hendrix Experience]
+1686: Redemption song [Bob Marley & The Wailers]
+1687: Reflection [Tool]
+1688: Refugee [Tom Petty & The Heartbreakers]
+1689: Reggatta de blanc (The Police, 1979)
+1690: Regina di cuori (Litfiba, 1997)
+1691: Remember me [Blue Boy]
+1692: Reptilia [The Strokes]
+1693: Requiem in D minor - K. 626 [Wolfgang Amadeus Mozart]
+1694: Resisti (Litfiba, 1990)
+1695: Respect yourself [The Staple Singers]
+1696: Respect [Aretha Franklin]
+1697: Resta (Litfiba, 1986)
+1698: Retrattile (Marlene Kuntz, 1996)
+1699: Retrograde [James Blake]
+1700: Revelations [Audioslave]
+1701: Revenge [Patti Smith]
+1702: Rhapsody in blue [George Gershwin]
+1703: Ricordati di me [Antonello Venditti]
+1704: Ride like the wind [Christopher Cross]
+1705: Ride of the Valkyries [Richard Wagner]
+1706: Right here right now [Fatboy Slim]
+1707: Right on (Marvin Gaye, 1971)
+1708: Rilievo (Verdena, 2015)
+1709: Rimini (Fabrizio De André, 1978)
+1710: Rimmel (Francesco De Gregori, 1975)
+1711: Rise [Public Image Ltd]
+1712: Rising sun (The Dave Brubeck Quartet, 1964)
+1713: Risingson (Massive Attack, 1998)
+1714: Ritmo (Litfiba, 1997)
+1715: Riviera nostalgia (Universal Production Music, 1996)
+1716: Road runner [Sex Pistols]
+1717: Roads (Portishead, 1994)
+1718: Rock 'n' roll star [Oasis]
+1719: Rock and roll ain't noise pollution (AC-DC, 1980)
+1720: Rock and roll [Gary Glitter]
+1721: Rock and roll [Led Zeppelin]
+1722: Rock and roll [The Velvet Underground]
+1723: Rock around the clock [Bill Haley & His Comets]
+1724: Rock me mama [Arthur Big Boy Crudup]
+1725: Rock the casbah [The Clash]
+1726: Rocket (The Smashing Pumpkins, 1993)
+1727: Rocket man (Remix '03) [Elton John]
+1728: Rocket man [Elton John]
+1729: Rocks [Primal Scream]
+1730: Rockstar [Nickelback]
+1731: Roll with it [Oasis]
+1732: Rollin' [Limp Bizkit]
+1733: Rome wasn't built in a day (Morcheeba, 2000)
+1734: Romeo and Juliet (Dire Straits, 1980)
+1735: Rootless tree (Damien Rice, 2006)
+1736: Rosalina [Fabio Concato]
+1737: Rotolacampo [Giorgio Canali & Rossofuoco]
+1738: Rotolando verso sud (Déjà Vu mix) [Negrita]
+1739: Rotolando verso sud [Negrita]
+1740: Rotta per casa di dio [883]
+1741: Rotten apple [Alice In Chains]
+1742: Roygbiv [Boards Of Canada]
+1743: Rue des cascades (Live) [Yann Tiersen]
+1744: Ruler of my heart [Irma Thomas]
+1745: Rumba verso il buco (Io non ho paura OST) [Ezio Bosso]
+1746: Run on [Moby]
+1747: Run right back [The Black Keys]
+1748: Run through the jungle (Creedence Clearwater Revival, 1970)
+1749: Runaway (Half Alive, 2019)
+1750: Runaway [Aurora]
+1751: Runnin' down a dream [Tom Petty & The Heartbreakers]
+1752: Running to stand still (U2, 1987)
+1753: Running up that hill (Kate Bush, 1985)
+1754: Sabotage [Beastie Boys]
+1755: Sacrilege (Yeah Yeah Yeahs, 2013)
+1756: Sad Lisa [Cat Stevens]
+1757: Sad song [Oasis]
+1758: Safe european home (The Clash, 1978)
+1759: Safe from harm (Massive Attack, 1991)
+1760: Sail to the moon (Radiohead, 2003)
+1761: Sailing to Philadelphia (Mark Knopfler, 2000)
+1762: Salirò [Daniele Silvestri]
+1763: Sally (Fabrizio De André, 1978)
+1764: Sally [Vasco Rossi]
+1765: Samarcanda [Roberto Vecchioni]
+1766: Same love [Macklemore & Mary Lambert]
+1767: Sara non piangere [Pino Daniele]
+1768: Satellite (Sex Pistols, 1977)
+1769: Satellite of love (Lou Reed, 1972)
+1770: Satisfaction [The Rolling Stones]
+1771: Saturday come slow (Massive Attack, 2010)
+1772: Saturnine & iron jaw (All Them Witches, 2020)
+1773: Saturnz barz (Gorillaz, 2017)
+1774: Saudade, saudade [MARO]
+1775: Save a prayer (V) [Duran Duran]
+1776: Save a prayer [Duran Duran]
+1777: Save tonight [Eagle-Eye Cherry]
+1778: Scar tissue (Red Hot Chili Peppers, 1999)
+1779: Scarborough fair [Simon & Garfunkel]
+1780: Scared of girls (Placebo, 1998)
+1781: Scegli me (Verdena, 2011)
+1782: Scenic world [Beirut]
+1783: Schiele, lei, me (Marlene Kuntz, 2003)
+1784: Schism [Tool]
+1785: Schizophrenia (Sonic Youth, 1987)
+1786: Schizzechea [Pino Daniele]
+1787: Scuola (Eugenio Finardi, 1977)
+1788: Scusate se non piango [Daniele Silvestri]
+1789: Se ti tagliassero a pezzetti (Fabrizio De André, 1981)
+1790: Secondo me gli italiani [Giorgio Gaber]
+1791: Seconds [U2]
+1792: Secret alphabets (Kasabian, 2009)
+1793: Secret journey (The Police, 1981)
+1794: Secretly [Skunk Anansie]
+1795: See no evil (Television, 1977)
+1796: Sempre allegri [Bandabardò]
+1797: Send his love to me (PJ Harvey, 1995)
+1798: Sendero (Gustavo Santaolalla, 2004)
+1799: Senza giacca e cravatta [Nino D'Angelo]
+1800: Senza macchine che vadano a fuoco (Lo Stato Sociale, 2014)
+1801: Senza parole la bocca [TehoTeardo]
+1802: Senza titoli [Samuele Bersani]
+1803: Senza una donna [Zucchero]
+1804: Serenade for strings in E major - Tempo di valse (Antonín Dvořák, 1875)
+1805: Serve the servants (Nirvana, 1993)
+1806: Sestri Levante [The Zen Circus]
+1807: Sette camicie (Eugenio In Via Di Gioia, 2017)
+1808: Setting me up [Dire Straits]
+1809: Seven nation army [The White Stripes]
+1810: Sex is not the enemy [Garbage]
+1811: Sex on fire [Kings Of Leon]
+1812: Sex [Negrita]
+1813: Sexy dream (Litfiba, 1999)
+1814: Sgt. Pepper's lonely hearts club band (The Beatles, 1967)
+1815: Shake it baby [John Lee Hooker]
+1816: Shake it out [Florence + The Machine]
+1817: Shape of my heart (Sting, 1993)
+1818: Shape of things to come [Audioslave]
+1819: She bangs the drums [The Stone Roses]
+1820: She belongs to me [Bob Dylan]
+1821: She hangs brightly [Mazzy Star]
+1822: She said she said (The Beatles, 1966)
+1823: She sells sanctuary [The Cult]
+1824: She sells [Roxy Music]
+1825: She will be loved [Maroon 5]
+1826: She wolf [Shakira]
+1827: She's electric [Oasis]
+1828: She's lost control (Joy Division, 1979)
+1829: She's so high [Blur]
+1830: Sheela-na-gig [PJ Harvey]
+1831: Shine on you crazy diamond - pt.1 (Pink Floyd, 1975)
+1832: Shine on you crazy diamond - pt.2 (Pink Floyd, 1975)
+1833: Shiny happy people [REM]
+1834: Shock in my town [Franco Battiato]
+1835: Shock the monkey [Peter Gabriel]
+1836: Shoo-b-doop and cop him [Betty Davis]
+1837: Short change hero [The Heavy]
+1838: Show me how to live [Audioslave]
+1839: Shpalman (V) [Elio E Le Storie Tese]
+1840: Siamo dei [Lucio Dalla]
+1841: Siamo solo noi [Vasco Rossi]
+1842: Siamo umani (Litfiba, 1990)
+1843: Siberia [Diaframma]
+1844: Sick and tired [Anastacia]
+1845: Sign 'o' the times [Prince]
+1846: Silvertown blues (Mark Knopfler, 2000)
+1847: Simple twist of fate [Bob Dylan]
+1848: Since you've been gone [Aretha Franklin]
+1849: Sing for absolution (Muse, 2003)
+1850: Sing for the moment [Eminem]
+1851: Sing sing sing [Benny Goodman]
+1852: Sing [Travis]
+1853: Sino a notte (Verdena, 2022)
+1854: Sirius [The Alan Parsons Project]
+1855: Sister Ray (The Velvet Underground, 1968)
+1856: Sit down, stand up [Radiohead]
+1857: Sittin' on the dock of the bay [Otis Redding]
+1858: Sitting on top of the world (Chris Goss & The Forest Rangers, 2013)
+1859: Six days [DJ Shadow]
+1860: Sixteen tons [Tennessee Ernie Ford]
+1861: Skating in Central Park [Bill Evans]
+1862: Skeletons (Yeah Yeah Yeahs, 2009)
+1863: Skin of the night (M83, 2008)
+1864: Skull tattoo (Eagle-Eye Cherry, 2003)
+1865: Sky full of song [Florence + The Machine]
+1866: Slave to love [Bryan Ferry]
+1867: Slave [The Rolling Stones]
+1868: Sleep now in the fire (Rage Against The Machine, 1999)
+1869: Sleeping with ghosts (Placebo, 2003)
+1870: Slide along side [Shifty]
+1871: Slide away [Oasis]
+1872: Slow dancing in a burning room [John Mayer]
+1873: Slowdive [Siouxsie And The Banshees]
+1874: Sly (Massive Attack, 1994)
+1875: Sly [Herbie Hancock]
+1876: Small time shot away (Massive Attack, 2003)
+1877: Smalltown boy [Bronski Beat]
+1878: Smells like teen spirit (Nirvana, 1991)
+1879: Smisurata preghiera (Fabrizio De André, 1996)
+1880: Smoke on the water [Deep Purple]
+1881: Smokes quantity [Boards Of Canada]
+1882: Smokestack lightnin' [Howlin' Wolf]
+1883: Smoking gun [Robert Cray]
+1884: Smooth sailing (Queens Of The Stone Age, 2013)
+1885: So (Tiromancino, 2000)
+1886: So far away [Dire Straits]
+1887: So lonely (The Police, 1978)
+1888: So long (Laura Cox, 2023)
+1889: So what [Miles Davis]
+1890: So what'cha want [Beastie Boys]
+1891: So you want to be [Patti Smith]
+1892: Soho [Bert Jansch & John Renbourn]
+1893: Sola una volta [Alex Britti]
+1894: Sole spento [Timoria]
+1895: Solo un grande sasso - pt.1 (Verdena, 2002)
+1896: Solo un grande sasso - pt.2 (Verdena, 2002)
+1897: Solo una sana e consapevole libidine salva il giovane dallo stress e dall'azione cattolica [Zucchero]
+1898: Some girls are bigger than others (The Smiths, 1986)
+1899: Some kinda love [The Velvet Underground]
+1900: Some might say [Oasis]
+1901: Somebody that i used to know [Gotye]
+1902: Somebody to love (Jefferson Airplane, 1967)
+1903: Somebody to love [Queen]
+1904: Someplace [Max Maikon]
+1905: Something got me started (Simply Red, 1991)
+1906: Something just like this [The Chainsmokers & Coldplay]
+1907: Sometimes a fantasy [Billy Joel]
+1908: Sometimes you can't make it on your own (U2, 2004)
+1909: Somewhere i belong [Linkin Park]
+1910: Song 2 [Blur]
+1911: Song to say goodbye (Placebo, 2006)
+1912: Songbird [Oasis]
+1913: Sonica (Marlene Kuntz,1994)
+1914: Sono = sono [Bluvertigo]
+1915: Sono cosi indie (Lo Stato Sociale, 2012)
+1916: Sooner or later [Michael Tolcher]
+1917: Sorriso in spiaggia - pt.1 (Verdena, 2011)
+1918: Sotto casa [Max Gazzè]
+1919: Sotto prescrizione del dott. Huxley (Verdena, 2007)
+1920: Soul bossa nova (Quincy Jones, 1962)
+1921: Soul cake [Sting]
+1922: Soul meets body [Death Cab For Cutie]
+1923: Soul to squeeze (Red Hot Chili Peppers, 1993)
+1924: Souljacker (pt. I) [Eels]
+1925: Sour times (Portishead, 1994)
+1926: Spaccacuore [Samuele Bersani]
+1927: Space cadet [Kyuss]
+1928: Space dementia (Muse, 2001)
+1929: Spaceman (Verdena, 2001)
+1930: Spanish bombs (The Clash, 1979)
+1931: Sparring partner [Paolo Conte]
+1932: Special cases (Massive Attack, 2003)
+1933: Special needs (Placebo, 2003)
+1934: Speed of sound (Coldplay, 2005)
+1935: Spellbound [Siouxsie And The Banshees]
+1936: Spendi spandi effendi [Rino Gaetano]
+1937: Spirale ovale [Articolo 31]
+1938: Spirito (Litfiba, 1994)
+1939: Spirits in the material world (The Police, 1981)
+1940: Spooky action at a distance [SQÜRL]
+1941: Square dance [Eminem]
+1942: St. James infirmary [Hugh Laurie]
+1943: Stairway to heaven [Led Zeppelin]
+1944: Stan [Eminem]
+1945: Stardust [Nat King Cole]
+1946: Starless (Verdena, 2001)
+1947: Starless [King Crimson]
+1948: Starman [David Bowie]
+1949: Start me up [The Rolling Stones]
+1950: Stato di calma apparente [Paola Turci]
+1951: Stay (U2, 1994)
+1952: Stay with me [Clint Mansell & Kronos Quartet]
+1953: Stayin' alive [Bee Gees]
+1954: Steady as she goes [The Raconteurs]
+1955: Steady rain [Warren Zevon]
+1956: Still feel (Half Alive, 2019)
+1957: Stitichezza cronica (Marta Sui Tubi, 2003)
+1958: Stockholm syndrome (Muse, 2003)
+1959: Stolen [Dashboard Confessional]
+1960: Stop crying your heart out [Oasis]
+1961: Stop draggin' my heart around [Stevie Nicks & Tom Petty]
+1962: Stop me if you think you've heard this one before (The Smiths, 1987)
+1963: Storm [Godspeed you! Black Emperor]
+1964: Strade (Tiromancino, 2000)
+1965: Straight to number one [Touch & Go]
+1966: Strange fruit [Billie Holiday]
+1967: Strawberry fields forever (The Beatles, 1967)
+1968: Street life [Roxy Music]
+1969: Street spirit [Radiohead]
+1970: Stripped (Depeche Mode, 1986)
+1971: Stuck in a moment you can't get out of (U2, 2000)
+1972: Stuck in the middle with you [Stealers Wheel]
+1973: Submission (Sex Pistols, 1977)
+1974: Subterranean homesick alien (Radiohead, 1997)
+1975: Subterranean homesick blues [Bob Dylan]
+1976: Subway (Yeah Yeah Yeahs, 2013)
+1977: Suck my kiss (Red Hot Chili Peppers, 1991)
+1978: Suddenly i see [KT Tunstall]
+1979: Suffer little children (The Smiths, 1984)
+1980: Sugar Kane (Sonic Youth, 1992)
+1981: Suicide blonde [INXS]
+1982: Suite No. 3 in D major - Overture [Johann Sebastian Bach]
+1983: Sulle labbra (Afterhours, 2002)
+1984: Sultans of swing [Dire Straits]
+1985: Summer '68 (Pink Floyd, 1970)
+1986: Summer 78 [Yann Tiersen]
+1987: Summer on a solitary beach [Franco Battiato]
+1988: Summertime (George Gershwin, 1935)
+1989: Summertime rolls [Jane's Addiction]
+1990: Summon the fire [The Comet Is Coming]
+1991: Sunburn (Muse, 1999)
+1992: Sunday bloody sunday [U2]
+1993: Sunday morning [Maroon 5]
+1994: Sunday morning [The Velvet Underground]
+1995: Sunday shining [Finley Quaye]
+1996: Sunrise [Norah Jones]
+1997: Sunshine of your love (Verdena, 2000)
+1998: Super human [Remember Summer]
+1999: Super sex (Morphine, 1995)
+2000: Supercafone [Piotta]
+2001: Superman [Lazlo Bane]
+2002: Supermassive black hole (Muse, 2006)
+2003: Supersonic [Oasis]
+2004: Superstition [Stevie Wonder]
+2005: Sure shot [Beastie Boys]
+2006: Surface-to-air whistle (All Them Witches, 2013)
+2007: Surrender [Cheap Trick]
+2008: Svefn-g-englar (Sigur Rós, 1999)
+2009: Swallowed in the sea (Coldplay, 2005)
+2010: Swan Lake - Op.20, Act. 2 [Pyotr Ilyich Tchaikovsky]
+2011: Swastika girls [Fripp & Eno]
+2012: Sweat [The Jon Spencer Blues Explosion]
+2013: Sweet child o' mine (Guns N' Roses, 1987)
+2014: Sweet child o' mine [Captain fantastic OST]
+2015: Sweet dreams (Eurythmics, 1983)
+2016: Sweet harmony [The Beloved]
+2017: Sweet home Alabama [Lynyrd Skynyrd]
+2018: Sweet home Alabama [The King]
+2019: Sweet home Chicago (Robert Johnson, 1936)
+2020: Sweet Jane [The Velvet Underground]
+2021: Sweet potato (Sia, 2004)
+2022: Sweet thang [Shuggie Thang]
+2023: Sweetest thing [U2]
+2024: Swimsuit issue (Sonic Youth, 1992)
+2025: Sympathy for the devil [Guns N' Roses]
+2026: Sympathy for the devil [The Rolling Stones]
+2027: Symphony #9, mov. 4th (From the new world) [Antonín Dvořák]
+2028: Symphony No. 12 - Adagio [Heitor Villa-Lobos]
+2029: Symphony No. 2 in C minor - Resurrection [Gustav Mahler]
+2030: Symphony No. 5 in C sharp minor - Adagietto [Gustav Mahler]
+2031: Synchronicity I (The Police, 1983)
+2032: Synchronicity II (The Police, 1983)
+2033: Sæglópur (Sigur Rós, 2005)
+2034: Sì viaggiare [Lucio Battisti]
+2035: Take a bow (Muse, 2006)
+2036: Take a look around [Limp Bizkit]
+2037: Take five [The Dave Brubeck Quartet]
+2038: Take it back [Pink Floyd]
+2039: Take me down (The Smashing Pumpkins, 1995)
+2040: Take me out [Franz Ferdinand]
+2041: Take on me [A-ha]
+2042: Tales from the far side (Bill Frisell, 1996)
+2043: Tales of brave Ulysses [Cream]
+2044: Tamala [Samba Touré]
+2045: Tango per due [Nina Zilli]
+2046: Tango [Lucio Dalla]
+2047: Tanto3 [Jovanotti]
+2048: Tapparella (V) [Elio E Le Storie Tese]
+2049: Taste of blood [Mazzy Star]
+2050: Taste the pain (Red Hot Chili Peppers, 1989)
+2051: Te lo faccio vedere chi sono io (Piero Ciampi, 1973)
+2052: Teacher's pet [School Of Rock]
+2053: Tear the fascists down (Woody Guthrie, 1944)
+2054: Teardrop (Massive Attack, 1998)
+2055: Tearjerker (Red Hot Chili Peppers, 1995)
+2056: Teen age riot (Sonic Youth, 1988)
+2057: Teenage angst [Placebo]
+2058: Telefonami tra vent'anni [Lucio Dalla]
+2059: Telegraph road [Dire Straits]
+2060: Temptation rag [Henry Lodge]
+2061: Tender (Blur, 1999)
+2062: Teorema [Marco Ferradini]
+2063: Terrifying [The Rolling Stones]
+2064: Territorial pissings (Nirvana, 1991)
+2065: Territorial pissings [KarmaKosmica]
+2066: Tex (Litfiba, 1988)
+2067: That joke isn't funny anymore (The Smiths, 1985)
+2068: That's no way to get along [Robert Wilkins]
+2069: The bare necessities - The jungle book (Terry Gilkyson, 1967)
+2070: The battle of Evermore [Led Zeppelin]
+2071: The beatitudes [Kronos Quartet]
+2072: The bed's too big without you (The Police, 1979)
+2073: The big sky (Kate Bush, 1985)
+2074: The bitter end (Placebo, 2003)
+2075: The black angel's death song (The Velvet Underground, 1967)
+2076: The blower's daughter (Damien Rice, 2002)
+2077: The blue Danube waltz [Johann Strauss II]
+2078: The bogus man [Roxy Music]
+2079: The book of love [Peter Gabriel]
+2080: The cave [Mumford & Sons]
+2081: The chain [Fleetwood Mac]
+2082: The crucible [Motorpsycho]
+2083: The day the world went away (Nine Inch Nails, 1999)
+2084: The ecstasy of gold (The Good, The Bad and The Ugly) [Ennio Morricone]
+2085: The end (The Doors, 1967)
+2086: The entertainer [Scott Joplin]
+2087: The firebird (Igor Stravinsky, 1910)
+2088: The first time (U2, 1993)
+2089: The flower duet (Lakmé) [Léo Delibes]
+2090: The fly (U2, 1991)
+2091: The fragile (Nine Inch Nails, 1999)
+2092: The future's so bright, i gotta wear shades [Timbuk 3]
+2093: The gift (The Velvet Underground, 1968)
+2094: The golden age [The Asteroids Galaxy Tour]
+2095: The great beyond [REM]
+2096: The great curve (Talking Heads, 1980)
+2097: The great gig in the sky (Pink Floyd, 1973)
+2098: The great song of indifference (Bob Geldof, 1990)
+2099: The grudge [Tool]
+2100: The hand that rocks the cradle (The Smiths, 1984)
+2101: The hanging garden [The Cure]
+2102: The hardest button to button [The White Stripes]
+2103: The hardest part (Coldplay, 2005)
+2104: The headmaster ritual (The Smiths, 1985)
+2105: The heaviest of storms [Pale Honey]
+2106: The hell song [Sum 41]
+2107: The history of England [Förnuft och Känsla]
+2108: The importance of being idle [Oasis]
+2109: The kids are alright [The Who]
+2110: The Köln concert - pt.2c (Keith Jarrett, 1975)
+2111: The last day of summer [The Cure]
+2112: The lemon song [Led Zeppelin]
+2113: The lightning II [Arcade Fire]
+2114: The long and winding road (The Beatles, 1970)
+2115: The love within [Bloc Party]
+2116: The luck you got [The High Strung]
+2117: The magic [Joan As Police Woman]
+2118: The magnificent seven (The Clash, 1980)
+2119: The main thing (Roxy Music, 1982)
+2120: The man in me [Bob Dylan]
+2121: The man with the red face [Laurent Garnier]
+2122: The marriage of coyote woman [All Them Witches]
+2123: The message [Grandmaster Flash and The Furious Five]
+2124: The monolith of Phobos [The Claypool Lennon Delirium]
+2125: The moon is a silver dollar [Lawrence Welk]
+2126: The morning fog (Kate Bush, 1985)
+2127: The murder mystery [The Velvet Underground]
+2128: The musical box [Genesis]
+2129: The national anthem [Radiohead]
+2130: The night café [Clint Mansell]
+2131: The order of death [Public Image Ltd]
+2132: The passenger [Iggy Pop]
+2133: The patient [Tool]
+2134: The phony king of England - Robin Hood (Johnny Mercer, 1973)
+2135: The power of equality (Red Hot Chili Peppers, 1991)
+2136: The pretender [Foo Fighters]
+2137: The queen is dead (The Smiths, 1986)
+2138: The real Slim Shady [Eminem]
+2139: The rhythm of the night [Corona]
+2140: The rite of spring (Igor Stravinsky, 1913)
+2141: The saxophone song (Kate Bush, 1978)
+2142: The scientist (Coldplay, 2002)
+2143: The seed [The Roots & Cody Chesnutt]
+2144: The sensual world (Kate Bush, 1989)
+2145: The shock of the lightning [Oasis]
+2146: The sorcerer's apprentice [Paul Dukas]
+2147: The soul cages (Sting, 1991)
+2148: The soul of a man [Blind Willie Johnson]
+2149: The sound of Muzak [Porcupine Tree]
+2150: The sounds of silence [Simon & Garfunkel]
+2151: The space between (Roxy Music, 1982)
+2152: The space between [Zero 7]
+2153: The sprawl (Sonic Youth, 1988)
+2154: The things you said (Depeche Mode, 1987)
+2155: The thrill is gone [B.B. King]
+2156: The thrill of it all [Roxy Music]
+2157: The times they are a-changin' [Bob Dylan]
+2158: The trial (Pink Floyd, 1979)
+2159: The trip (Still Corners, 2013)
+2160: The unclouded day (Audra Mae, 2012)
+2161: The unforgettable fire (U2, 1984)
+2162: The universal [Blur]
+2163: The waiting [Tom Petty & The Heartbreakers]
+2164: The walk (Eurythmics, 1983)
+2165: The wanderer (U2 & Johnny Cash, 1993)
+2166: The way i am [Eminem]
+2167: The way you used to do (Queens Of The Stone Age, 2017)
+2168: The zephyr song (Red Hot Chili Peppers, 2002)
+2169: Theme [Public Image Ltd]
+2170: Then she remembers (The Dream Syndicate, 1982)
+2171: There is a light that never goes out (The Smiths, 1986)
+2172: There, there (Radiohead, 2003)
+2173: Theresa's sound-world (Sonic Youth, 1992)
+2174: These boots are made for walkin' [Planet Funk]
+2175: They say i'm different [Betty Davis]
+2176: Think [Aretha Franklin]
+2177: This charming man (The Smiths, 1984)
+2178: This is love (PJ Harvey, 2000)
+2179: This is not a love song [Public Image Ltd]
+2180: This life (Curtis Stigers & The Forest Rangers, 2008)
+2181: This modern love [Bloc Party]
+2182: This must be the place (Talking Heads, 1983)
+2183: This must be the place [Gloria]
+2184: This must be the place [Trevor Green]
+2185: Those sweet words [Norah Jones]
+2186: Three days (Jane's Addiction, 1990)
+2187: Thrift store t-shirt [Brent Jordan]
+2188: Thriller [Michael Jackson]
+2189: Thru the eyes of Ruby (The Smashing Pumpkins, 1995)
+2190: Thunder road [Bruce Springsteen]
+2191: Thunderstruck [AC-DC]
+2192: Thursday [Morphine]
+2193: Ticket to ride [The Beatles]
+2194: Tieni il tempo [883]
+2195: Time (Pink Floyd, 1973)
+2196: Time is running out (Muse, 2003)
+2197: Time is the enemy [Quantic]
+2198: Tinseltown in the rain [The Blue Nile]
+2199: Tired and awake [Hidden Orchestra]
+2200: Titanic [Francesco De Gregori]
+2201: TNT [AC-DC]
+2202: To bring you my love (PJ Harvey, 1995)
+2203: To forgive (The Smashing Pumpkins, 1995)
+2204: To love somebody [Roberta Flack]
+2205: Toda mi vida [Francisco Fiorentino]
+2206: Today (The Smashing Pumpkins, 1993)
+2207: Today i sing the blues [Aretha Franklin]
+2208: Together [Nine Inch Nails]
+2209: Toki's theme (The Dave Brubeck Quartet, 1964)
+2210: Tokyo traffic (The Dave Brubeck Quartet, 1964)
+2211: Tommy gun [The Clash]
+2212: Tomorrow comes today (Gorillaz, 2001)
+2213: Tomorrow [U2]
+2214: Tonight, tonight (The Smashing Pumpkins, 1995)
+2215: Tony Hawk of Ghana [I Hate My Village]
+2216: Too bad [Nickelback]
+2217: Too many chiefs [Brant Bjork]
+2218: Tra palco e realtà (Live) [Ligabue]
+2219: Train in vain (The Clash, 1979)
+2220: Trains [Porcupine Tree]
+2221: Transcending (Red Hot Chili Peppers, 1995)
+2222: Transmission [Joy Division]
+2223: Trasudamerica (Marlene Kuntz,1994)
+2224: Travel is dangerous (Mogwai, 2006)
+2225: Treno a vela [Lucio Dalla]
+2226: Trigger hippie (Morcheeba, 1996)
+2227: Trip through your wires [U2]
+2228: Tristan und Isolde (Prelude & liebestod) [Richard Wagner]
+2229: Triste Bahia (Caetano Veloso, 1972)
+2230: Trovami un modo semplice per uscirne (Verdena, 2007)
+2231: Troy (Sinéad O'Connor, 1987)
+2232: True colors [Ane Brun]
+2233: True faith [New Order]
+2234: True love waits (Live) [Radiohead]
+2235: Try try try (The Smashing Pumpkins, 2000)
+2236: Try [Nelly Furtado]
+2237: Tryin' to throw your arms around the world (U2, 1991)
+2238: Tu menti (CCCP, 1987)
+2239: Tu non mi basti mai (Lucio Dalla, 1996)
+2240: Tubthumping [Chumbawamba]
+2241: Tuff enuff [The fabulous Thunderbirds]
+2242: Tunnel of love (Dire Straits, 1980)
+2243: Turn off the light [Nelly Furtado]
+2244: Turnin' on the screw (Queens Of The Stone Age, 2007)
+2245: Tutti frutti [Little Richard]
+2246: Tutti i miei sbagli [Subsonica]
+2247: Tutti matti [Daniele Silvestri]
+2248: Tutti vogliono viaggiare in prima (Live) [Ligabue]
+2249: Tutti vogliono viaggiare in prima [Ligabue]
+2250: Tutto molto interessante [Fabio Rovazzi]
+2251: Twin Peaks theme [Angelo Badalamenti]
+2252: Typhoons [Royal Blood]
+2253: Ubriaco canta amore [Bandabardò]
+2254: Un chimico (Fabrizio De André, 1971)
+2255: Un gelato al limon [Paolo Conte]
+2256: Un giorno nuovo [Sick Tamburo]
+2257: Un giudice (Fabrizio De André, 1971)
+2258: Un malato di cuore (Fabrizio De André, 1971)
+2259: Un matto (Fabrizio De André, 1971)
+2260: Un ottico (Fabrizio De André, 1971)
+2261: Un po' esageri (Verdena, 2015)
+2262: Un romantico a Milano (Baustelle, 2005)
+2263: Un senso [Vasco Rossi]
+2264: Un'idea [Giorgio Gaber]
+2265: Una canzone per te [Vasco Rossi]
+2266: Una mano sugli occhi (Niccolò Fabi, 2016)
+2267: Una somma di piccole cose (Niccolò Fabi, 2016)
+2268: Una storia sbagliata (Fabrizio De André, 1980)
+2269: Una vita da mediano [Ligabue]
+2270: Una vita in vacanza [Lo Stato Sociale]
+2271: Unconditional I (Lookout kid) [Arcade Fire]
+2272: Unconditional II (Race and religion) [Arcade Fire]
+2273: Under ice (Kate Bush, 1985)
+2274: Under the beat [Bambino Prodigio]
+2275: Under the bridge (Red Hot Chili Peppers, 1991)
+2276: Under the milky way [The Church]
+2277: Under the pressure [The War On Drugs]
+2278: Under the rain (The Dave Brubeck Quartet, 1964)
+2279: Underdog (Kasabian, 2009)
+2280: Underwater love [Smoke City]
+2281: Unfamiliar paths [Cliff Martinez]
+2282: Unfinished sympathy (Massive Attack, 1991)
+2283: United states of Eurasia (Muse, 2009)
+2284: Unità di produzione [CSI]
+2285: Univers (Litfiba, 1986)
+2286: Università [Il Pan Del Diavolo]
+2287: Until the end of the world (U2, 1991)
+2288: Untitled #1 - Vaka (Sigur Rós, 2002)
+2289: Untitled #4 - Njósnavélin (Sigur Rós, 2002)
+2290: Untitled (Interpol, 2002)
+2291: Uomini topo [Carmen Consoli]
+2292: Up from the south [The Budos Band]
+2293: Up in the sky [Oasis]
+2294: Uprising (Muse, 2009)
+2295: Us and them (Pink Floyd, 1973)
+2296: Useless [Depeche Mode]
+2297: Vacanze romane [Matia Bazar]
+2298: Vai in Africa, Celestino! [Francesco De Gregori]
+2299: Valium tavor serenase (CCCP, 1986)
+2300: Vamos a la playa [Loona]
+2301: Van Diemen's land (U2, 1988)
+2302: Vecchi difetti (Marta Sui Tubi, 2003)
+2303: Vedi cara [Francesco Guccini]
+2304: Venderò [Edoardo Bennato]
+2305: Vengo anch'io, no tu no [Enzo Jannacci]
+2306: Vento d'estate [Max Gazzè & Niccolò Fabi]
+2307: Venus in furs (The Velvet Underground, 1967)
+2308: Venus [Shocking Blue]
+2309: Veramente [Mario Venuti]
+2310: Verranno a chiederti del nostro amore (Fabrizio De André, 1973)
+2311: Very rare [The Jon Spencer Blues Explosion]
+2312: Via con me [Paolo Conte]
+2313: Via del campo (Fabrizio De André, 1967)
+2314: Via Paolo Fabbri 43 [Francesco Guccini]
+2315: Vicious (Lou Reed, 1972)
+2316: Video killed the radio star [The Buggles]
+2317: Vieni a ballare in Puglia [Caparezza]
+2318: Violet (Hole, 1994)
+2319: Violet hill (Coldplay, 2008)
+2320: Visions of Johanna [Bob Dylan]
+2321: Vita spericolata [Vasco Rossi]
+2322: Viva l'Italia [Francesco De Gregori]
+2323: Viva la vida (Coldplay, 2008)
+2324: Viva [The Zen Circus]
+2325: Viva! [Ligabue]
+2326: Vivere il mio tempo (Litfiba, 1999)
+2327: Vivere [Vasco Rossi]
+2328: Vivo, morto o X [Ligabue]
+2329: Viðrar vel til loftárása (Sigur Rós, 1999)
+2330: Vlad the Impaler [V] (Kasabian, 2009)
+2331: Voglio una pelle splendida (Afterhours, 1997)
+2332: Voglio vederti danzare [Franco Battiato]
+2333: Voglio volere (Live) [Ligabue]
+2334: Voglio volere [Ligabue]
+2335: Voices inside my head (The Police, 1980)
+2336: Volare [Fabio Rovazzi & Gianni Morandi]
+2337: Volevo magia (Verdena, 2022)
+2338: Volta la carta (Fabrizio De André, 1978)
+2339: Voodoo child (The Jimi Hendrix Experience, 1968)
+2340: Voodoo in my blood (Massive Attack, 2016)
+2341: Wake me up when september ends (Green Day, 2004)
+2342: Wake up (Rage Against The Machine, 1992)
+2343: Wake up dead man (U2, 1997)
+2344: Waking up [Elastica]
+2345: Walk of life [Dire Straits]
+2346: Walk on (U2, 2000)
+2347: Walk on the wild side (Lou Reed, 1972)
+2348: Walk this way [Aerosmith]
+2349: Walking in my shoes [Depeche Mode]
+2350: Walking on a dream [Empire Of The Sun]
+2351: Walking on the moon (The Police, 1979)
+2352: Waltz No. 2 - Jazz suite [Dmitri Shostakovich]
+2353: Waltz of the flowers (The nutcracker) [Pyotr Ilyich Tchaikovsky]
+2354: Wang dang doodle [Koko Taylor]
+2355: Wannabe [Spice Girls]
+2356: Wanted dead or alive [Bon Jovi]
+2357: Warning sign (Coldplay, 2002)
+2358: Warped (Red Hot Chili Peppers, 1995)
+2359: Watching you without me (Kate Bush, 1985)
+2360: Waterfall (The Stone Roses, 1989)
+2361: Watermelon man [Herbie Hancock]
+2362: Waving my arms in the air [Syd Barrett]
+2363: We are golden [Mika]
+2364: We are the champions [Queen]
+2365: We don't eat [James Vincent McMorrow]
+2366: We float (PJ Harvey, 2000)
+2367: We own the sky (M83, 2008)
+2368: We will rock you [Queen]
+2369: We're going to be friends [The White Stripes]
+2370: We're not gonna take it [Twisted Sister]
+2371: Weather storm (Massive Attack, 1994)
+2372: Wedding song (Yeah Yeah Yeahs, 2013)
+2373: Weight of love [The Black Keys]
+2374: Welcome to lunar industries [Clint Mansell]
+2375: Welcome to the jungle (Guns N' Roses, 1987)
+2376: What a wonderful world [Louis Armstrong]
+2377: What difference does it make (The Smiths, 1984)
+2378: What does your soul look like (pt. 4) [DJ Shadow]
+2379: What else is there [Röyksopp]
+2380: What goes on [The Velvet Underground]
+2381: What i am [Edie Brickell & New Bohemians]
+2382: What it is (Mark Knopfler, 2000)
+2383: What the water gave me [Florence + The Machine]
+2384: What you waiting for [Gwen Stefani]
+2385: What's going on (Marvin Gaye, 1971)
+2386: What's my age again (Blink-182, 1999)
+2387: What's up [4 Non Blondes]
+2388: What's wrong (Half Alive, 2022)
+2389: When i come around (Green Day, 1994)
+2390: When love comes to town (U2 & B.B. King, 1988)
+2391: When the angels fall (Sting, 1991)
+2392: When the levee breaks [Led Zeppelin]
+2393: Whenever wherever [Shakira]
+2394: Where are we runnin' (Lenny Kravitz, 2004)
+2395: Where did all the love go (Kasabian, 2009)
+2396: Where did you sleep last night [A] (Nirvana, 1994)
+2397: Where did you sleep last night [Lead Belly]
+2398: Where is my mind [The Pixies]
+2399: Where the streets have no name (U2, 1987)
+2400: Where to now St. Peter (Elton John, 1970)
+2401: While my guitar gently weeps (The Beatles, 1968)
+2402: Whistle stop - Robin Hood (Roger Miller, 1973)
+2403: White America [Eminem]
+2404: White chalk [PJ Harvey]
+2405: White light white heat (The Velvet Underground, 1968)
+2406: White room [Cream]
+2407: White wedding [Billy Idol]
+2408: Who feels love [Oasis]
+2409: Who pays the price (INXS,1990)
+2410: Who said [Planet Funk]
+2411: Who's gonna ride your wild horses (U2, 1991)
+2412: Whole lotta love [Led Zeppelin]
+2413: Why are sundays so depressing [The Strokes]
+2414: Why do i always feel this way [Pale Honey]
+2415: Why should i cry for you (Sting, 1991)
+2416: Why'd you only call me when you're high [Arctic Monkeys]
+2417: Wicked game [Chris Isaak]
+2418: Wicked ways [Anno Domini Beats]
+2419: Wild horses [The Rolling Stones]
+2420: Wild west end [Dire Straits]
+2421: Wild world [Cat Stevens]
+2422: Wildlife analysis [Boards Of Canada]
+2423: Windowlicker [Aphex Twin]
+2424: Winter kills [Yazoo]
+2425: Wish you were here (Pink Floyd, 1975)
+2426: With a little help from my friends (The Beatles, 1967)
+2427: With my own two hands [Ben Harper]
+2428: With or without you (U2, 1987)
+2429: Without me [Eminem]
+2430: Without you i'm nothing (Placebo, 1998)
+2431: Won't get fooled again [The Who]
+2432: Wonderwall [Oasis]
+2433: Word up [Korn]
+2434: Workhorse (All Them Witches, 2018)
+2435: Working class hero  [John Lennon]
+2436: Would you [Touch & Go]
+2437: Wrapped around your finger (The Police, 1983)
+2438: Wuthering heights (Kate Bush, 1978)
+2439: X colpa di chi [Zucchero]
+2440: X.Y.U. (The Smashing Pumpkins, 1995)
+2441: Year of the cat [Al Stewart]
+2442: Yellow submarine (The Beatles, 1966)
+2443: Yes (Coldplay, 2008)
+2444: Yes (Morphine, 1995)
+2445: Yes i am a long way from home (Mogwai, 1997)
+2446: Yes i know my way [Pino Daniele]
+2447: Yesterday [The Beatles]
+2448: Yosemite (Half Alive, 2022)
+2449: You (Radiohead, 1993)
+2450: You and whose army (Radiohead, 2001)
+2451: You are my sunshine [Norman Blake]
+2452: You can't always get what you want (The Rolling Stones, 1969)
+2453: You can't hurry love [Phil Collins]
+2454: You don't know me (Caetano Veloso, 1972)
+2455: You don't mess around with Jim [Jim Croce]
+2456: You get what you give [New Radicals]
+2457: You got the silver [take #2] (The Rolling Stones, 1969)
+2458: You know you're right (Nirvana, 2002)
+2459: You make me feel [Sylvester]
+2460: You never can tell [Chuck Berry]
+2461: You shook me all night long (AC-DC, 1980)
+2462: You spin me round [Dead Or Alive]
+2463: You think i ain't worth a dollar (Queens Of The Stone Age, 2002)
+2464: You was born to die [Curley Weaver]
+2465: You're as sweet as sugar on a stick [Barry Louis Polisar]
+2466: You've got the love [Florence + The Machine]
+2467: Your ghost [Kristin Hersh]
+2468: Your hand in mine [Explosions In The Sky]
+2469: Youth of the nation (POD, 2001)
+2470: Zebra [John Butler Trio]
+2471: Zero (The Smashing Pumpkins, 1995)
+2472: Zero (Yeah Yeah Yeahs, 2009)
+2473: Zeta reticoli (Meganoidi, 2003)
+2474: Ziggy Stardust [David Bowie]
+2475: Zitti e buoni (Måneskin, 2021)
+2476: Zombie (The Cranberries, 1994)
+2477: Zoo station (U2, 1991)
+2478: Zucchero (Eugenio Finardi, 1977)
+2479: È non è [Niccolò Fabi]
