@@ -3,6 +3,11 @@
 ' File containing all game settings configurable by user.
 '''
 
+## LIBRARIES ##
+
+from numpy import inf
+
+
 ## CLASSES ##
 
 class Settings( ):
@@ -16,11 +21,18 @@ class Settings( ):
         self.screen_height = 800                                    # main window height
         self.bg_color = 'lightcyan'                                 # main window color (e.g. 'white' equals (255,255,255) in RGB)
         # Ship settings
-        self.ship_image = 'images/s2.png'
+        self.ship_image = 'images/spaceship1.png'
         self.ship_speed = 1.0                                       # ship speed factor (see NOTE#3 in "main_game.c" for details)
         # Bullet settings
-        self.bullet_speed = 1.0                                     # bullet speed factor
-        self.bullet_width = 3                                       # bullet width [px]
+        self.bullet_speed = 2.0                                     # bullet speed factor
+        self.bullet_width = 5                                       # bullet width [px]
         self.bullet_height = 15                                     # bullet height [px]
         self.bullet_color = 'darkorange'                            # bullet color
         self.bullet_max_no = 6                                      # maximum number of bullets that can be present on screen at a time
+        # Alien Settings
+        self.alien_image = 'images/alien1.png'
+        self.alien_xspeed = 1.0                                     # alien speed factor on X axis
+        self.alien_yspeed = 10                                      # alien speed factor on Y axis (aka drop speed)
+        self.alien_direct = 1                                       # alien moving direction (+/-1 = right/left)
+        self.alien_xnum_max = 8                                     # maximum number of aliens on X axis (use "inf" for no limit)
+        self.alien_ynum_max = 2                                     # maximum number of aliens on Y axis (use "inf" for no limit)

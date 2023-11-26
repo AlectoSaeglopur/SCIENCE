@@ -17,16 +17,14 @@ class Ship( ):
         """ Initialize ship object """
         self.screen = screen                                        # copy and store main window info inside class
         self.params = params                                        # copy and store game parameters inside class
-        # Load ship image and set its initial position
         self.image = pygame.image.load(params.ship_image)           # load ship image
         self.pos = self.image.get_rect()                            # get ship position/dimensions handler
         self.screen_dim = self.screen.get_rect()                    # get main window position/dimensions handler
         self.pos.centerx = self.screen_dim.centerx                  # initialize ship position to screen center on X-axis
         self.pos.bottom = self.screen_dim.bottom                    # initialize ship position to screen bottom on Y-axis
-        self.apos = float(self.pos.centerx)                         # store ship float position (thus more accurate, since "self.pos.centerx" has an integer value)
-        # Initialize movement flags
-        self.moving_right = False
-        self.moving_left = False
+        self.apos = float(self.pos.centerx)                         # store ship float position (thus more accurate, since "self.pos.centerx" is an integer value)
+        self.moving_right = False                                   # initialize right-moving flag
+        self.moving_left = False                                    # initialize left-moving flag
         self.moving_invert = False                                  # (see NOTE#2 in "main_game.py" for details)
 
     def update( self ):
@@ -40,4 +38,4 @@ class Ship( ):
         
     def blitme( self ):
         """ Draw ship object at its current location """
-        self.screen.blit(self.image, self.pos)
+        self.screen.blit(self.image,self.pos)

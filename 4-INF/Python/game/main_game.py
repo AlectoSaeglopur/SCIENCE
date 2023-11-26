@@ -11,6 +11,7 @@ from settings import Settings
 from ship import Ship
 from io_handler import check_events, refresh_screen
 from bullet import update_bullets
+from alien import create_fleet, update_aliens
 
 
 ## FUNCTIONS ##
@@ -24,13 +25,16 @@ def run_game():
     pygame.display.set_caption(params.title)                        # set screen title
     ship = Ship(params,screen)                                      # create ship object
     bullets = Group()                                               # create group storing all live bullets
+    aliens = Group()                                                # create group containing all live aliens
+    create_fleet(params,screen,aliens,ship)                         # create alien fleet
 
     # Game infinite-loop
     while True:
-        check_events(params, screen, ship, bullets)                 # check for keyboard and mouse events
+        check_events(params,screen,ship,bullets)                    # check for keyboard and mouse events
         ship.update()                                               # update ship position (according to keyboard events)
-        update_bullets(bullets)                                     # update bullets position and delete out-of-range ones
-        refresh_screen(params,screen,ship,bullets)                  # update main window and objects
+        update_bullets(params,screen,ship,bullets,aliens)           # update bullets position
+        update_aliens(params,aliens)                                # update aliens position
+        refresh_screen(params,screen,ship,bullets,aliens)           # update main window and objects
 
 
 ## MAIN ##

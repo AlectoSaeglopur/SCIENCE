@@ -14,7 +14,9 @@ from bullet import Bullet
 
 def check_key_press( params, event, screen, ship, bullets ) :
     """ Function to check which keyboard button has been pressed and take actions """
-    if event.key == pygame.K_LEFT :                                 # if left-arrow key pressed to move ship...
+    if event.key == pygame.K_q:                                     # if Q key pressed...
+        sys.exit()                                                  # close the game
+    elif event.key == pygame.K_LEFT :                               # if left-arrow key pressed to move ship...
         if ship.moving_right == True and \
             ship.moving_left == False :
             ship.moving_invert = True
@@ -40,17 +42,18 @@ def check_events( params, screen, ship, bullets ):
     """ Function to check keyboard and mouse edge-events """
     for event in pygame.event.get() :                               # take actions for all new events occurred...
         if event.type == pygame.QUIT :                              # if EXIT button has been clicked via mouse...
-            sys.exit()
+            sys.exit()                                              # close the game
         elif event.type == pygame.KEYDOWN :                         # if any keyboard button has been pressed...
             check_key_press(params,event,screen,ship,bullets)
         elif event.type == pygame.KEYUP:                            # if any keyboard button has been released...
             check_key_release( ship, event )
 
 
-def refresh_screen( params, screen, ship, bullets ) :
+def refresh_screen( params, screen, ship, bullets, aliens ) :
     """ Function to refresh screen and objects (at each loop iteration) """
-    screen.fill(params.bg_color)                                   # re-draw main window 
+    screen.fill(params.bg_color)                                    # re-draw main window 
     ship.blitme()                                                   # re-draw ship object
+    aliens.draw(screen)                                             # re-draw aliens fleet
     for bullet in bullets.sprites():
-        bullet.draw_bullet()
+        bullet.draw_bullet()                                        # redraw bullets
     pygame.display.flip()                                           # make the most recently drawn screen visible

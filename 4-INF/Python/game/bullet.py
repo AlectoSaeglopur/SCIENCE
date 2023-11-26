@@ -7,6 +7,7 @@
 
 import pygame
 from pygame.sprite import Sprite
+from alien import create_fleet
 
 
 ## CLASSES ##
@@ -36,9 +37,18 @@ class Bullet( Sprite ):
 
 ## FUNCTIONS ##
 
-def update_bullets( bullets ) :
-    """ Function to update bullets position and get rid of those out-of-range """
+""" Function check collisions between bullets and aliens """
+def check_collisions( params, screen, ship, aliens, bullets ) :
+    collisions = pygame.sprite.groupcollide(
+        bullets,aliens,True,True)                                   # check if any bullets has hit any aliens (and, if so, get rid of both of them)
+    if len(aliens) == 0 :                                           # if previous alien fleet has been all destroyed...
+        bullets.empty()                                             # destroy all remaining bullets
+        create_fleet(params,screen,aliens,ship)                     # create a new fleet
+
+def update_bullets( params, screen, ship, bullets, aliens ) :
+    """ Function to update bullets position """
     bullets.update()                                                # update bullets position
-    for item in bullets.copy() :                                    # (since items could be removed from the group, iteration is done over a copy of the actual group)
-        if item.rect.bottom <= 0 :                                  # if bottom part of the bullet is above upper limit of screen...
-            bullets.remove(item)                                    # delete bullets disappeared from screen
+    for blt in bullets.copy() :                                     # (since items could be removed from the group, iteration is done over a copy of the actual group)
+        if blt.rect.bottom <= 0 :                                   # if bottom part of the bullet is above upper limit of screen...
+            bullets.remove(blt)                                     # delete bullets disappeared from screen
+    check_collisions(params,screen,ship,aliens,bullets)             # check collisionsbetween bullets and aliens
