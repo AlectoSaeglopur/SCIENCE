@@ -1,65 +1,113 @@
 
 ### LIBRARIES ###
 
-from collections import namedtuple
-from numpy import zeros
-from os import system                                                                       # to call "clear" or "cls" functions
-from pandas import read_excel, isna                                                                     # requires "pip install pandas && pip install xlrd && pip install openpyxl"
-from random import randint
-from re import search, IGNORECASE
-from sys import platform                                                                                # to check current OS
+from collections import namedtuple                                                                      # to create pseudo-structures as in C
+from numpy import inf, zeros
+from os import system                                                                                   # to call "clear" or "cls" shell functions
+from pandas import isna, read_excel                                                                     # requires "pip install pandas && pip install xlrd && pip install openpyxl"
+from random import randint                                                                              # to generate random values
+from re import search, finditer, IGNORECASE
+from sys import argv, platform                                                                          # to check current OS and terminal input arguments
 
 
 
 ### PARAMETERS ###
 
-TabId = 'DLG'                                                                                          # excel sheet tab to be loaded ('DLG', 'ADJ', 'APC', 'NOU', 'VER', 'EXP' or 'SEN')
-LngId = 'M2G'                                                                                             # language ('M2G' for english/italian-to-german or 'G2M' for german/mother-tongue (italian-to-english)
-ModId = 'SQB'                                                                                            # dialogue mode ('RDD' for random dialogues, 'RDS' for random sentences, 'SQF' for forward sequential or 'SQB' for backward sequential)
-MinDlg = 8                                                                                             # to skip all dialogues before this value (set to "1" to skip no lower dialogue!)
-MaxDlg = 10                                                                                             # to skip all dialogues after this value (set to "NoDlg" to skip no upper dialogue!)
+TabId = 'DLG'                                                                                           # excel sheet tab to be loaded (see allowed values in "valid_tabs")
+LngId = 'M2G'                                                                                           # language translation direction (see allowed values in "valid_lngs")
+ModId = 'RDS'                                                                                           # execution mode (see allowed values in "valid_mods")
+MinDlg = 35                                                                                             # lower dialogue number to be processed (NB: set "1" not to skip any lower dialogue)
+MaxDlg = 100                                                                                            # upper dialogue number to be processed (NB: set "100" not to skip any upper dialogue)
+MinNdl = 0                                                                                              # lower non-dialogue line to be processed (NB: set "0" not to skip any lower line)
+MaxNdl = inf                                                                                            # upper non-dialogue line to be processed (NB: set "inf" not to skip any upper line)
 
 
 
 ### CONSTANTS ###
 
-sheet_struct = namedtuple('sheet_struct',['name','data', 'nrows', 'history'])
-valid_tabs = ["DLG", "ADJ", "APC", "NOU", "VER", "EXP", "SEN"]
-valid_lngs = ["M2G", "G2M"]
-valid_mods = ["RDD", "RDS", "SQF", "SQB"]
-DlgSri = [2,10,17,25,36,46,54,66,76,84,94,99,105,113,126,136,145,                                       # starting row indeces for all dialogues (NB: remember to add always a final extra value for setting the proper length of the last dialogue, i.e. the final cell +3)
+sheet_struct = namedtuple('sheet_struct',['name','data','nrows','history'])                             # structure with fields needed to handle loaded sheet/tab
+valid_tabs = ["DLG", "ADJ", "APC", "NOU", "VER", "EXP", "SEN", "AUS"]                                   # list of valid values for "TabId" parameter
+valid_lngs = ["M2G", "G2M"]                                                                             # list of valid values for "LngId" parameter >> see NOTE#1
+valid_mods = ["RDD", "RDS", "SQF", "SQB"]                                                               # list of valid values for "ModId" parameter
+
+len_tab = 3                                                                                             # expected length of all "valid_tabs" string-entries 
+len_lng = 3                                                                                             # expected length of all "valid_lngs" string-entries
+len_mod = 3                                                                                             # expected length of all "valid_mods" string-entries
+
+DlgSri = [2,10,17,25,36,46,54,66,76,84,94,99,105,113,126,136,145,                                       
          152,161,172,182,194,205,215,225,232,244,255,273,286,296,
          307,315,323,334,350,363,373,385,398,410,422,434,449,463,
          477,488,501,514,531,544,556,568,582,597,613,631,643,662,
-         676,692,710,728,754,768,780]
+         676,692,710,728,754,768,780]                                                                   # starting row-indeces of all dialogues in the Excel file >> see NOTE#2
 
-col_dlg_ita = 1
-col_dlg_ger = 2
-col_dlg_not = 3
-col_non_dlg_ger = 1
-col_non_dlg_pro = 2
-col_non_dlg_eng = 3
-col_non_dlg_not = 4
-idx_sheet = {
-  "std": 0,
-  "fnd": 1
+col_dlg_mtr = 1                                                                                         # mother-tongue column-index in dialog sheet
+col_dlg_ger = 2                                                                                         # german column-index in dialog sheet
+col_dlg_not = 3                                                                                         # notes column-index in dialog sheet
+col_non_dlg_ger = 1                                                                                     # german column-index in non-dialog sheets
+col_non_dlg_pro = 2                                                                                     # pronunciation column-index in non-dialog sheets
+col_non_dlg_mtr = 3                                                                                     # mother-tongue column-index in non-dialog sheets
+col_non_dlg_not = 4                                                                                     # notes column-index in non-dialog sheets
+
+no_columns = 4                                                                                          # maximum number of columns among all Excel sheets
+
+len_param = 3                                                                                           # number of expected characters in update-param field 
+
+idx_session = {
+  "std": 0,                                                                                             # standard index session
+  "fnd": 1                                                                                              # find index session
+}
+
+find_cmd = {
+    "id" : 'find',                                                                                      # find command ID
+    "ext_n" : ' --n'                                                                                    # find command extra for adding notes
+}
+
+update_cmd = {
+    "id" : 'update',                                                                                    # update command ID
 }
 
 
 
 ### GLOBAL VARIABLES ###
 
-find_word = ''
-active_sheets = []
-idx_display = zeros(4,dtype=int)
+break_flag = False
+active_sessions = []
+idx_display = zeros(no_columns,dtype=int)
+find_arg = {
+    "pattern" : '',
+    "extra" : ''
+}
 
 
 
 ### FUNCTIONS ###
 
+def override_params( args ) :
+    """ Function to override parameters according to terminal extra arguments."""
+    global TabId, LngId, ModId
+    Nargs = len(args)
+    if Nargs > 0 :
+        for j in range(Nargs) :
+            val = args[j].upper()
+            if val in valid_tabs :
+                TabId = val
+            elif val in valid_lngs :
+                LngId = val
+            elif val in valid_mods :
+                ModId = val
+
+
 def check_parameters( ) :
-    Ndlg = len(DlgSri)-1
-    if MinDlg < 1 or MinDlg > MaxDlg or MaxDlg > Ndlg :
+    """ Function to check parameters correctness. """
+    global MinNdl, MinDlg, MaxDlg
+    Ndlg = len(DlgSri)-1                                                                                # calculate number of available dialogues
+    if MinNdl < 3 :
+        MinNdl = 3                                                                                      # reset "MinNdl" to miminum allowed    
+    if MinDlg < 0 :
+        MinDlg = 0                                                                                      # reset "MinNdl" to miminum allowed
+    if MaxDlg > Ndlg :
+        MaxDlg = Ndlg                                                                                   # reset "MaxDlg" to maximum available
+    if MinDlg < 1 or MinDlg > MaxDlg :
         raise Exception('>> Invalid "MinDlg/MaxDlg": shall be between 1 and "Ndlg".')
     if TabId not in valid_tabs :
         raise Exception('>> Invalid "TabId": value shall be part of "valid_tabs".')
@@ -67,228 +115,379 @@ def check_parameters( ) :
         raise Exception('>> Invalid "LngId": value shall be part of "valid_lngs".')
     if ModId not in valid_mods :
         raise Exception('>> Invalid "ModId": value shall be part of "valid_mods".')
+    if not(all(len(item) == len_tab for item in valid_tabs)) :
+        raise Exception('>> Invalid length of entries in "valid_tabs".')
+    if not(all(len(item) == len_mod for item in valid_mods)) :
+        raise Exception('>> Invalid length of entries in "valid_tabs".')
+    if not(all(len(item) == len_lng for item in valid_lngs)) :
+        raise Exception('>> Invalid length of entries in "valid_tabs".')
 
 
 def clear_shell( ) :
-    CurOS = platform[:3]                                                                    # get first x3 letters of current OS
+    """ Function to clear shell. """
+    CurOS = platform[:3]                                                                                # get first x3 letters of current OS
     if CurOS == 'win' :
-        system("cls")                                                                    # clear Windows shell
+        system("cls")                                                                                   # clear Windows shell
     elif CurOS == 'lin' :
         system("reset")
-        system("clear")                                                                  # clear Ubuntu/Android shell
+        system("clear")                                                                                 # clear Ubuntu/Android shell
+
+
+def check_exit_condition( keys ) :
+    """ Function to check exit/quit condition. """
+    if keys.lower() == 'q' :
+        clear_shell()
+        exit()
+
+
+def check_end_condition( ) :
+    """ Function to check if all items of the current tab have been already processed. """
+    if ((TabId == 'DLG') and (ModId == 'RDS') and (len(active_sessions[idx_session['std']].history) >= DlgSri[MaxDlg]-DlgSri[MinDlg-1]-3*(MaxDlg-(MinDlg-1)))) or \
+        ((TabId == 'DLG') and (ModId == 'SQF') and (MinDlg-1+len(active_sessions[idx_session['std']].history) >= MaxDlg)) or \
+        ((TabId == 'DLG') and (ModId == 'SQB') and (MaxDlg-1-len(active_sessions[idx_session['std']].history) < MinDlg-1)) or \
+        ((TabId == 'DLG') and (ModId == 'RDD') and (len(active_sessions[idx_session['std']].history) >= MaxDlg-MinDlg+1)) or \
+        ((TabId != 'DLG') and (ModId == 'RDD' or ModId == 'RDS') and (len(active_sessions[idx_session['std']].history) > (MaxNdl-MinNdl))) or \
+        ((TabId != 'DLG') and (ModId == 'SQF') and (MinNdl-1+len(active_sessions[idx_session['std']].history) >= MaxNdl)) or \
+        ((TabId != 'DLG') and (ModId == 'SQB') and (MaxNdl-1-len(active_sessions[idx_session['std']].history) < MinNdl-1)) :
+            print('\n>> END: entries in "'+TabId+'"-tab are over!')
+            exit()
 
 
 def set_idx_display( ) :
-    if len(active_sheets) == 1 :            # i.e. dont do this for  FIND
+    """ Function to set the order of columns to display. """
+    if len(active_sessions) == 1 :                                                                      # if not in a FIND-session...
         if TabId == 'DLG' :
             if LngId == 'M2G' :
-                idx_display[0] = col_dlg_ita
+                idx_display[0] = col_dlg_mtr
                 idx_display[1] = col_dlg_ger
                 idx_display[2] = col_dlg_not
                 idx_display[3] = -1
             else :
                 idx_display[0] = col_dlg_ger
-                idx_display[1] = col_dlg_ita
+                idx_display[1] = col_dlg_mtr
                 idx_display[2] = col_dlg_not
                 idx_display[3] = -1
         else :
             if LngId == 'M2G' :
-                idx_display[0] = col_non_dlg_eng
+                idx_display[0] = col_non_dlg_mtr
                 idx_display[1] = col_non_dlg_ger
                 idx_display[2] = col_non_dlg_pro
                 idx_display[3] = col_non_dlg_not
             else :
                 idx_display[0] = col_non_dlg_ger
                 idx_display[1] = col_non_dlg_pro
-                idx_display[2] = col_non_dlg_eng
+                idx_display[2] = col_non_dlg_mtr
                 idx_display[3] = col_non_dlg_not
 
 
+def limit_MaxNdl( ):
+    """ Function to set 'MaxNdl' value from generic 'inf' to actual non-dialogue tab size. """
+    global MaxNdl
+    if len(active_sessions) == 1 and TabId != 'DLG' and MaxNdl == inf :
+        MaxNdl = active_sessions[idx_session['std']].nrows+2
+
+
 def read_tab( tab_id ) :
-    data = read_excel (r'DEUTSCH.xlsx',tab_id,skiprows=0,header=None)                                     # read specific sheet/tab from Excel file ("r" to address special character, such as '\')
-    nrows = data.shape[0]-2                                                                            # skip first x2 header-rows
-    history = []                                                                    # reset history for new tab
-    new_sheet = sheet_struct(tab_id,data,nrows,history)
-    active_sheets.append(new_sheet)
+    """ Function to load a new sheet/tab from Excel file. """
+    global break_flag
+    data = read_excel (r'DEUTSCH.xlsx',tab_id,skiprows=0,header=None)                                   # read specific sheet from Excel file (NB: "r" needed to address special character, such as "\")
+    nrows = data.shape[0]-2                                                                             # get number of rows (skipping first x2 header-rows)
+    history = []                                                                                        # reset history
+    new_sheet = sheet_struct(tab_id,data,nrows,history)                                                 # create new structure for handling new session
+    active_sessions.append(new_sheet)                                                                   # append new sessions to global list
+    break_flag = False                                                                                  # reset break flag
+    limit_MaxNdl()                                                                                      # limit MaxNdl to maximum allowed value (if needed)
+    
+
+def wait_for_input_keys( ):
+    """ Function to wait for user input and parsing find/update-requests. """
+    global break_flag
+    keys = input('\n >> NEXT...\n')
+    check_exit_condition(keys)
+    if check_find_request(keys) | check_update_request(keys) :                                          # if a valid request arrived...
+        break_flag = True                                                                               # assert break flag
 
 
 def check_find_pending( ) :
+    """ Function to check if a new FIND request is pending. """
     flag = False
-    if len(active_sheets) > 1 :
+    if len(active_sessions) > 1 :
         flag = True
     return flag
 
 
 def execute_find( ) :
+    """ Function to execute a FIND request. """
     Nres = 0
-    if active_sheets[idx_sheet['fnd']].name == 'DLG' :
-        for i in range(1,active_sheets[idx_sheet['fnd']].nrows-1) :
-            TxtIta = active_sheets[idx_sheet['fnd']].data.loc[i,1]
-            TxtGer = active_sheets[idx_sheet['fnd']].data.loc[i,2]
-            if not(isna(TxtGer)) :                                                              # skip blank lines
-                if search(find_word,TxtGer,IGNORECASE) or search(find_word,TxtIta,IGNORECASE) :
+    if active_sessions[idx_session['fnd']].name == 'DLG' :
+        for i in range(1,active_sessions[idx_session['fnd']].nrows-1) :
+            TxtMtr = active_sessions[idx_session['fnd']].data.loc[i,col_dlg_mtr]
+            TxtGer = active_sessions[idx_session['fnd']].data.loc[i,col_dlg_ger]
+            TxtNot = active_sessions[idx_session['fnd']].data.loc[i,col_dlg_not]
+            if not(isna(TxtGer)) and not(isna(TxtMtr)) :                                                # if cells are not blank...
+                if search(find_arg["pattern"],TxtGer,IGNORECASE) or search(find_arg["pattern"],TxtMtr,IGNORECASE) :
                     Nres = Nres+1
                     print('#' + str(Nres) + ' [' + str(i) + ']\n')
                     print(TxtGer + '\n')
-                    print(TxtIta + '\n')
+                    print(TxtMtr + '\n')
+                    print("-------\n")
+            if find_arg["extra"] == find_cmd["ext_n"] and not(isna(TxtNot)) and search(find_arg["pattern"],TxtNot,IGNORECASE) :
+                    Nres = Nres+1
+                    print('#' + str(Nres) + ' [' + str(i) + ']\n')
+                    print(TxtNot + '\n')
                     print("-------\n")
     else : 
-        print(' CODE NOT IMPLEMENTED YET!\n')                                                   # @todo find-case for NOU, VER, etc tabs as well!
-    print(str(Nres) + ' results found for "'+ find_word+'" in "'+active_sheets[idx_sheet['fnd']].name+'" tab.\n')
-    active_sheets.pop()
-    input(' >> NEXT...\n')                                                                      # always return to previous mode here (no input read)
+        for i in range(1,active_sessions[idx_session['fnd']].nrows-1) :
+            TxtMtr = active_sessions[idx_session['fnd']].data.loc[i,col_non_dlg_mtr]
+            TxtGer = active_sessions[idx_session['fnd']].data.loc[i,col_non_dlg_ger]
+            TxtNot = active_sessions[idx_session['fnd']].data.loc[i,col_non_dlg_not]
+            if not(isna(TxtGer)) and not(isna(TxtMtr)) :
+                if search(find_arg["pattern"],TxtGer,IGNORECASE) or search(find_arg["pattern"],TxtMtr,IGNORECASE) :
+                    Nres = Nres+1
+                    print('#' + str(Nres) + ' [' + str(i) + ']\n')
+                    print(TxtGer + '\n')
+                    print(TxtMtr + '\n')
+                    if find_arg["extra"] != find_cmd["ext_n"] and not(isna(TxtNot)) :
+                        print(TxtNot + '\n')
+                    print("-------\n")
+            if find_arg["extra"] == find_cmd["ext_n"] and not(isna(TxtNot)) and search(find_arg["pattern"],TxtNot,IGNORECASE) :
+                    Nres = Nres+1
+                    print('#' + str(Nres) + ' [' + str(i) + ']\n')
+                    print(TxtNot + '\n')
+                    print("-------\n")
+    print(str(Nres) + ' results found for "'+ find_arg["pattern"]+'" in "'+active_sessions[idx_session['fnd']].name+'" tab.\n')
+    active_sessions.pop()
+    find_arg["pattern"] = ''
+    find_arg["extra"] = ''
+    wait_for_input_keys()
 
 
 def check_find_request( keys ):
-    """ COMMET!!!! """
+    """ Function to parse find-request commands. """
     flag = False
-    req = keys[0:4]
     msg_len = len(keys)
-    if msg_len >= 10 and req == 'find' :                                                  # e.g. "find dlg anfangen"
-        tab = keys[5:8].upper()
-        if tab in valid_tabs :
-            global TabId, find_word
-            TabId = tab
-            find_word = keys[9:msg_len]
+    cmd_req = keys[0:len(find_cmd["id"])]
+    space_idx = [i.start() for i in finditer(' ',keys)]
+    if msg_len >= 10 and cmd_req == find_cmd["id"] and len(space_idx) >= 2 :                            # e.g. "find adj ganz" or "find dlg anfangen --n" 
+        tab_req = keys[len(find_cmd["id"])+1:len(find_cmd["id"])+len_tab+1].upper()
+        if tab_req in valid_tabs :
+            global TabId, find_arg
+            TabId = tab_req
             flag = True
+            if keys[-len(find_cmd["ext_n"]):] == find_cmd["ext_n"] :
+                find_arg["pattern"] = keys[len(find_cmd["id"])+ len(tab_req)+2:msg_len-len(find_cmd["ext_n"])]
+                find_arg["extra"] = find_cmd["ext_n"]
+            else :
+                find_arg["pattern"] = keys[len(find_cmd["id"])+ len(tab_req)+2:msg_len]
+                find_arg["extra"] = ''
     return flag
 
 
-def check_switch_request( keys ):
+def check_update_request( keys ):
+    """ Function to parse update-request commands. """
     flag = False
-    req = keys[0:6]
+    msg_req = keys[0:len(update_cmd["id"])]
     msg_len = len(keys)
-    if msg_len == 10 and req == 'switch' :                                                  # e.g. "switch adj" to switch tab
-        tab = keys[7:10].upper()
-        if tab in valid_tabs :
+    space_idx = [i.start() for i in finditer(' ',keys)]
+    if len(space_idx) >= 2 and msg_req == update_cmd["id"] and len(keys) >= len(update_cmd["id"])+len_param+5:
+        param = keys[len(update_cmd["id"])+1:len(update_cmd["id"])+len_param+1].lower()
+        value = keys[len(update_cmd["id"])+len_param+2:].upper()
+        if (param == 'tab') and (value in valid_tabs) :                                                 # to update "TabId"
             global TabId
-            TabId = tab
-            active_sheets.pop()
+            TabId = value
+            active_sessions.pop()
             flag = True
-    elif msg_len == 10 and req == 'switch' :                                                # e.g. "switch m2g" to switch mod
-        lng = keys[7:10].upper()
-        if lng in valid_lngs :
+        elif (param == 'lng') and (value in valid_lngs) :                                               # to update "LngId"
             global LngId
-            LngId = lng
+            LngId = value
+            active_sessions.pop()
+            flag = True
+        elif (param == 'mod') and (value in valid_mods) :                                               # to update "ModId"
+            global ModId
+            ModId = value
+            active_sessions.pop()
+            flag = True
+        elif (param == 'dlm') and (len(space_idx) == 3) :                                               # to update "MinDlg" and "MinDlg"
+            global MinDlg, MaxDlg
+            MinDlg = int(keys[space_idx[1]+1:space_idx[2]])
+            MaxDlg = int(keys[space_idx[2]+1:])
+            active_sessions.pop()
+            flag = True
+        elif (param == 'nlm') and (len(space_idx) == 3) :                                               # to update "MinDlg" and "MinDlg"
+            global MinNdl, MaxNdl
+            MinNdl = int(keys[space_idx[1]+1:space_idx[2]])
+            MaxNdl = int(keys[space_idx[2]+1:])
+            active_sessions.pop()
+            flag = True
     return flag
 
 
-def check_exit_condition( keys ) :
-    if keys == 'q' :
-        clear_shell()
-        exit()
-
-
-def check_end_condition( ) :
-    if ((TabId == 'DLG') and (ModId == 'RDS') and (len(active_sheets[idx_sheet['std']].history) >= DlgSri[MaxDlg]-DlgSri[MinDlg-1]-3*(MaxDlg-(MinDlg-1)))) or \
-        ((TabId == 'DLG') and (ModId == 'SQF') and (MinDlg-1+len(active_sheets[idx_sheet['std']].history) >= MaxDlg)) or \
-        ((TabId == 'DLG') and (ModId == 'SQB') and (MaxDlg-1-len(active_sheets[idx_sheet['std']].history) < MinDlg-1)) or \
-        ((TabId == 'DLG') and (ModId == 'RDD') and (len(active_sheets[idx_sheet['std']].history) >= MaxDlg-MinDlg+1)) or \
-        ((TabId != 'DLG') and (len(active_sheets[idx_sheet['std']].history) >= active_sheets[idx_sheet['std']].nrows)) :
-            print('\n>> END: entries in "'+TabId+'"-tab are over!')
-            exit()
-
-
-def execute_non_dialogue_tab_cycle( ) :
-    check_end_condition()
-    while True :
-        idx_item = randint(0,active_sheets[idx_sheet['std']].nrows-1)
-        if not(idx_item in active_sheets[idx_sheet['std']].history) :
-            print('*** ' + '[' + str(len(active_sheets[idx_sheet['std']].history)+1) + '|' + str(idx_item+3) + '] ***\n')
-            print(active_sheets[idx_sheet['std']].data.loc[idx_item+2,idx_display[0]] + '\n')
-            keys = input(' -----\n')
-            check_exit_condition(keys)
-            print(active_sheets[idx_sheet['std']].data.loc[idx_item+2,idx_display[1]] + '\n')
-            active_sheets[idx_sheet['std']].history.append(idx_item)
-            break
+def print_header( idx ) :
+    """ Function to print header in standard execution. """
+    print('*** ' + '[' + str(len(active_sessions[idx_session['std']].history)+1) + '|' + str(idx+1) + '] ***\n')
 
 
 def execute_dialogue_rds_mode_cycle( ) :
+    """ Function to process a new item of dialogue tab in random-sentence mode. """
     check_end_condition()
     while True :
-        idx_item = randint(DlgSri[MinDlg-1],DlgSri[MaxDlg]-4)                                # retrieve random row index
-        if not(isna(active_sheets[idx_sheet['std']].data.loc[idx_item,2])) and not(idx_item+1 in DlgSri) and not(idx_item in active_sheets[idx_sheet['std']].history) :      # avoid blank, title and already processed indeces 
-            print('*** ' + '[' + str(len(active_sheets[idx_sheet['std']].history)+1) + '|' + str(idx_item+1) + '] ***\n')
-            print('> ' + active_sheets[idx_sheet['std']].data.loc[idx_item,idx_display[0]])
+        idx_item = randint(DlgSri[MinDlg-1],DlgSri[MaxDlg]-4)                                           # generate random row-index
+        if not(isna(active_sessions[idx_session['std']].data.loc[idx_item,2])) and not(idx_item+1 in DlgSri) and not(idx_item in active_sessions[idx_session['std']].history) :      # avoid blank, title and already processed indeces 
+            print_header(idx_item)
+            print('> ' + active_sessions[idx_session['std']].data.loc[idx_item,idx_display[0]])
             keys = input('\n -----\n')
             check_exit_condition(keys)
-            print('> ' + active_sheets[idx_sheet['std']].data.loc[idx_item,idx_display[1]] + '\n\n')
-            active_sheets[idx_sheet['std']].history.append(idx_item)
-            break
+            print('> ' + active_sessions[idx_session['std']].data.loc[idx_item,idx_display[1]] + '\n')
+            return idx_item
 
 
 def execute_dialogue_seq_mode_cycle( ) :
+    """ Function to process a new item of dialogue tab in sequencial (backward/forward) mode. """
     check_end_condition()
     if ModId == 'SQF' :
-        idx_item = MinDlg-1+len(active_sheets[idx_sheet['std']].history)
+        idx_item = MinDlg-1+len(active_sessions[idx_session['std']].history)
     elif ModId == 'SQB' :
-        idx_item = MaxDlg-1-len(active_sheets[idx_sheet['std']].history)
-    print('*** ' + '[' + str(len(active_sheets[idx_sheet['std']].history)+1) + '|' + str(idx_item+1) + '] ***\n')
+        idx_item = MaxDlg-1-len(active_sessions[idx_session['std']].history)
+    print_header(idx_item)
     DlgLen = DlgSri[idx_item+1]-DlgSri[idx_item]-3
     for i in range(DlgLen) :
-        print('> ' + active_sheets[idx_sheet['std']].data.loc[DlgSri[idx_item]+i,idx_display[0]])
+        print('> ' + active_sessions[idx_session['std']].data.loc[DlgSri[idx_item]+i,idx_display[0]])
         keys = input('')
         check_exit_condition(keys)
-        print('> ' + active_sheets[idx_sheet['std']].data.loc[DlgSri[idx_item]+i,idx_display[1]] + '\n-----\n')
-    print(active_sheets[idx_sheet['std']].data.loc[DlgSri[idx_item],idx_display[2]] + '\n')
-    active_sheets[idx_sheet['std']].history.append(idx_item)
+        print('> ' + active_sessions[idx_session['std']].data.loc[DlgSri[idx_item]+i,idx_display[1]] + '\n\n-----\n')
+    print(active_sessions[idx_session['std']].data.loc[DlgSri[idx_item],idx_display[2]] + '\n')
+    return idx_item
 
 
 def execute_dialogue_rdd_mode_cycle( ):
+    """ Function to process a new item of dialogue tab in random-dialogue mode. """
     check_end_condition()
     while True :
         idx_item = randint(MinDlg-1,MaxDlg-1)
-        if not(idx_item in active_sheets[idx_sheet['std']].history) :
-            print('*** ' + '[' + str(len(active_sheets[idx_sheet['std']].history)+1) + '|' + str(idx_item+1) + '] ***\n')
+        if not(idx_item in active_sessions[idx_session['std']].history) :
+            print_header(idx_item)
             DlgLen = DlgSri[idx_item+1]-DlgSri[idx_item]-3
             for i in range(DlgLen) :
-                print('> ' + active_sheets[idx_sheet['std']].data.loc[DlgSri[idx_item]+i,idx_display[0]])
+                print('> ' + active_sessions[idx_session['std']].data.loc[DlgSri[idx_item]+i,idx_display[0]])
                 keys = input('')
                 check_exit_condition(keys)
-                print('> ' + active_sheets[idx_sheet['std']].data.loc[DlgSri[idx_item]+i,idx_display[1]] + '\n-----\n')
-            print(active_sheets[idx_sheet['std']].data.loc[DlgSri[idx_item],idx_display[2]] + '\n')
-            active_sheets[idx_sheet['std']].history.append(idx_item)
-            break
+                print('> ' + active_sessions[idx_session['std']].data.loc[DlgSri[idx_item]+i,idx_display[1]] + '\n\n-----\n')
+            print(active_sessions[idx_session['std']].data.loc[DlgSri[idx_item],idx_display[2]] + '\n')
+            return idx_item
 
 
-def execute_dialogue_tab_cycle( ) :
-    if ModId == 'RDS' :                                                                     # i.e. random sentence mode (RDS)
-        execute_dialogue_rds_mode_cycle()
-    elif ModId == 'SQF' or ModId == 'SQB' :                                                              # i.e. forward sequential mode (SQF) or SQB
-        execute_dialogue_seq_mode_cycle()
-    elif ModId == 'RDD' :                                                               # i.e. random dialogue mode (RDD)
-        execute_dialogue_rdd_mode_cycle()
+def parse_dialogue_tab_cycle( ) :
+    """ Function to parse a new item of dialogue tab. """
+    if ModId == 'RDS' :                                                                                 # i.e. random-sentence mode (RDS)
+        idx_item = execute_dialogue_rds_mode_cycle()
+    elif ModId == 'SQF' or ModId == 'SQB' :                                                             # i.e. forward/backward-sequential mode (SQF/SQB)
+        idx_item = execute_dialogue_seq_mode_cycle()
+    elif ModId == 'RDD' :                                                                               # i.e. random-dialogue mode (RDD)
+        idx_item = execute_dialogue_rdd_mode_cycle()
+    active_sessions[idx_session['std']].history.append(idx_item)
+
+
+def execute_non_dialogue_seq_mode_cycle( ) :
+    """ Function to process a new item of current non-dialogue tab in sequential mode. """
+    check_end_condition()
+    while True :
+        if ModId == 'SQF' :
+            idx_item = MinNdl-1+len(active_sessions[idx_session['std']].history)
+        elif ModId == 'SQB' :
+            idx_item = MaxNdl-1-len(active_sessions[idx_session['std']].history)
+
+        print_header(idx_item)
+        for j in range(no_columns) :
+            field = active_sessions[idx_session['std']].data.loc[idx_item,idx_display[j]]
+            if not(isna(field)) :
+                print(field+'\n')
+            if j < len(idx_display)-1 :
+                keys = input(' -----\n')
+                check_exit_condition(keys)
+        return idx_item
+
+
+def execute_non_dialogue_rdm_mode_cycle( ) :
+    """ Function to process a new item of current non-dialogue tab in random mode. """
+    check_end_condition()
+    while True :
+        idx_item = randint(MinNdl-1,MaxNdl-1)
+        if not(idx_item in active_sessions[idx_session['std']].history) :
+            print_header(idx_item)
+            for j in range(no_columns) :
+                field = active_sessions[idx_session['std']].data.loc[idx_item,idx_display[j]]
+                if not(isna(field)) :
+                    print(field+'\n')
+                if j < len(idx_display)-1 :
+                    keys = input(' -----\n')
+                    check_exit_condition(keys)
+            return idx_item
+
+
+def parse_non_dialogue_tab_cycle( ) :
+    """ Function to parse a new item of a non-dialogue tab. """
+    if ModId == 'RDS' or ModId == 'RDD' :                                                               # i.e. random-sentence/dialogue mode (RDS/RDD)
+        idx_item = execute_non_dialogue_rdm_mode_cycle()
+    elif ModId == 'SQF' or ModId == 'SQB' :                                                             # i.e. forward/backward-sequential mode (SQF/SQB)
+        idx_item = execute_non_dialogue_seq_mode_cycle()
+    active_sessions[idx_session['std']].history.append(idx_item)
+
+
+def debug_operation( ) :
+    """ Function to debug all main parameters and global variable at run-time. """
+    print('TabId = ' + TabId)
+    print('LngId = ' + LngId)
+    print('ModId = ' + ModId)
+    print('MinDlg = ' + str(MinDlg) + ' | MaxDlg = ' + str(MaxDlg))
+    print('MinNdl = ' + str(MinNdl) + ' | MaxNdl = ' + str(MaxNdl))
+    print(' ...............\n ')
 
 
 
 ### MAIN ###
 
-check_parameters()
+override_params(argv[1:])                                                                               # check if parameters-override request
 while 1 :
+    check_parameters()
     read_tab(TabId)
     set_idx_display()
-    while 1 :
+    while not(break_flag) :
         clear_shell()
+        #debug_operation()
         if check_find_pending() :
             execute_find()
-        else :                                                                                  # if standard case
-            if active_sheets[idx_sheet['std']].name == 'DLG' :                                  # dialogue tab handler
-                execute_dialogue_tab_cycle()
+        else :
+            if active_sessions[idx_session['std']].name == 'DLG' :                                      # if current session is handling the dialogue tab...
+                parse_dialogue_tab_cycle()
             else :
-                execute_non_dialogue_tab_cycle()
-            keys = input(' >> NEXT...\n')
-            check_exit_condition(keys)
-            if check_find_request(keys) | check_switch_request(keys) :
-                break
+                parse_non_dialogue_tab_cycle()
+            wait_for_input_keys()
 
 
 
-# EXTRA SPAZIO PRIMA DI next all fine di DIALOGO 63
+### NOTES ###
 
-# explain the meaning of "std", aka standard = any non-find execution
-# execute SQB/F anche per non-DLG tabs
-# execute find mode also for non-DLG tabs
-# aggiungi key case per cambiare mode
-# aggiumgi commenti a tutto
-# check dialoghi da ger a ita
-# speigazione su come usare tutte le features
+# 0. To run the script, open a terminal and type "cls && python learn_ger.py". By adding extra arguments the terminal command it is possible to override the value of some parameters specified in the PARAMETERS section. For instance, typing "python learn_ger.py sqf ver" forces "TabId = VER" and "ModId = SQF", regardless of their hard-coded values. 
+
+# 1. Entering 'q' at any moment forces execution to stop and terminal to clear.
+
+# 2. Whenever the message " >> NEXT..." appears, it is possible to enter "find" of "update" commands. The "update"
+#    command allows to modify at run-time each parameter. For example:
+#    - "update tab ver" or "update tab dlg" causes "TabId = VER" or "TabId = DLG";
+#    - "update lng m2g" or "update lng g2m" causes "LngId = M2G" or "LngId = G2M";"
+#    - "update mod rdd" or "update mod sqb" causes "ModId = RDD" or "ModId = SQB";
+#    - "update dlm 10 23" causes "MinDlg = 10" or "MaxDlg = 23";
+#    - "update nlm 35 147" causes "MinNdl = 35" or "MaxNdl = 147".
+#    The "find" command allows to search at run-time for a pattern in a specific tab, and then to resume the previous
+#    operation. For example:
+#    - "find ver bleiben" to search for the pattern "bleiben" throughout the tab VER;
+#    - "find dlg wieder anfangen" to search for the pattern "wieder anfangen" throughout the tab DLG;
+#    Adding the extra option "--n", the NOTES columns can be added to the search (e.g. "find dlg bitte --n").
+
+# 3. Regarding the "LngId" parameter, "M" and "G" respectively stand for "Mother tongue" (i.e. italian of english) and "German".
+
+# 4. Remember to always add a final extra value to "DlgSri"-array for setting the proper length of the last dialogue (i.e. the final row-number of dialogue +3).
+
+# 5. "Standard" execution means any non-find processing cycle. 
+
+# 6. "Non-dialogue" tab means any tab except for 'DLG' (e.g. 'ADJ, 'VER', etc).
