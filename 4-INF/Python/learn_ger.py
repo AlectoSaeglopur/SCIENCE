@@ -15,11 +15,11 @@ from sys import argv, platform                                                  
 
 TabId = 'DLG'                                                                                           # excel sheet tab to be loaded (see allowed values in "valid_tabs")
 LngId = 'M2G'                                                                                           # language translation direction (see allowed values in "valid_lngs")
-ModId = 'RDS'                                                                                           # execution mode (see allowed values in "valid_mods")
-MinDlg = 35                                                                                             # lower dialogue number to be processed (NB: set "1" not to skip any lower dialogue)
+ModId = 'SQF'                                                                                           # execution mode (see allowed values in "valid_mods")
+MinDlg = 1                                                                                              # lower dialogue number to be processed (NB: set "1" not to skip any lower dialogue)
 MaxDlg = 100                                                                                            # upper dialogue number to be processed (NB: set "100" not to skip any upper dialogue)
-MinNdl = 0                                                                                              # lower non-dialogue line to be processed (NB: set "0" not to skip any lower line)
-MaxNdl = inf                                                                                            # upper non-dialogue line to be processed (NB: set "inf" not to skip any upper line)
+LskNdl = 0                                                                                              # Number of lines to be skipped at the beginning of non-dialogue tab (NB: set "0" not to skip any lower line)
+UskNdl = 0                                                                                              # Number of lines to be skipped at the end of non-dialogue tab (NB: set "0" not to skip any upper line)
 
 
 
@@ -29,10 +29,7 @@ sheet_struct = namedtuple('sheet_struct',['name','data','nrows','history'])     
 valid_tabs = ["DLG", "ADJ", "APC", "NOU", "VER", "EXP", "SEN", "AUS"]                                   # list of valid values for "TabId" parameter
 valid_lngs = ["M2G", "G2M"]                                                                             # list of valid values for "LngId" parameter >> see NOTE#1
 valid_mods = ["RDD", "RDS", "SQF", "SQB"]                                                               # list of valid values for "ModId" parameter
-
-len_tab = 3                                                                                             # expected length of all "valid_tabs" string-entries 
-len_lng = 3                                                                                             # expected length of all "valid_lngs" string-entries
-len_mod = 3                                                                                             # expected length of all "valid_mods" string-entries
+len_par = 3                                                                                             # number of characters of each parameter-entry (e.g. "VER", "SQF", etc)
 
 DlgSri = [2,10,17,25,36,46,54,66,76,84,94,99,105,113,126,136,145,                                       
          152,161,172,182,194,205,215,225,232,244,255,273,286,296,
@@ -47,10 +44,9 @@ col_non_dlg_ger = 1                                                             
 col_non_dlg_pro = 2                                                                                     # pronunciation column-index in non-dialog sheets
 col_non_dlg_mtr = 3                                                                                     # mother-tongue column-index in non-dialog sheets
 col_non_dlg_not = 4                                                                                     # notes column-index in non-dialog sheets
-
 no_columns = 4                                                                                          # maximum number of columns among all Excel sheets
 
-len_param = 3                                                                                           # number of expected characters in update-param field 
+len_par = 3                                                                                             # number of characters of each parameter-entry (e.g. "VER", "SQF", etc)
 
 idx_session = {
   "std": 0,                                                                                             # standard index session
@@ -99,14 +95,14 @@ def override_params( args ) :
 
 def check_parameters( ) :
     """ Function to check parameters correctness. """
-    global MinNdl, MinDlg, MaxDlg
+    global MinDlg, MaxDlg, LskNdl, UskNdl
     Ndlg = len(DlgSri)-1                                                                                # calculate number of available dialogues
-    if MinNdl < 3 :
-        MinNdl = 3                                                                                      # reset "MinNdl" to miminum allowed    
-    if MinDlg < 0 :
-        MinDlg = 0                                                                                      # reset "MinNdl" to miminum allowed
     if MaxDlg > Ndlg :
         MaxDlg = Ndlg                                                                                   # reset "MaxDlg" to maximum available
+    if LskNdl < 0:
+        LskNdl = 0                                                                                      # reset "LskNdl" to miminum allowed
+    if UskNdl < 0:
+        UskNdl = 0                                                                                      # reset "UskNdl" to miminum allowed
     if MinDlg < 1 or MinDlg > MaxDlg :
         raise Exception('>> Invalid "MinDlg/MaxDlg": shall be between 1 and "Ndlg".')
     if TabId not in valid_tabs :
@@ -115,11 +111,11 @@ def check_parameters( ) :
         raise Exception('>> Invalid "LngId": value shall be part of "valid_lngs".')
     if ModId not in valid_mods :
         raise Exception('>> Invalid "ModId": value shall be part of "valid_mods".')
-    if not(all(len(item) == len_tab for item in valid_tabs)) :
+    if not(all(len(item) == len_par for item in valid_tabs)) :
         raise Exception('>> Invalid length of entries in "valid_tabs".')
-    if not(all(len(item) == len_mod for item in valid_mods)) :
+    if not(all(len(item) == len_par for item in valid_mods)) :
         raise Exception('>> Invalid length of entries in "valid_tabs".')
-    if not(all(len(item) == len_lng for item in valid_lngs)) :
+    if not(all(len(item) == len_par for item in valid_lngs)) :
         raise Exception('>> Invalid length of entries in "valid_tabs".')
 
 
@@ -146,9 +142,7 @@ def check_end_condition( ) :
         ((TabId == 'DLG') and (ModId == 'SQF') and (MinDlg-1+len(active_sessions[idx_session['std']].history) >= MaxDlg)) or \
         ((TabId == 'DLG') and (ModId == 'SQB') and (MaxDlg-1-len(active_sessions[idx_session['std']].history) < MinDlg-1)) or \
         ((TabId == 'DLG') and (ModId == 'RDD') and (len(active_sessions[idx_session['std']].history) >= MaxDlg-MinDlg+1)) or \
-        ((TabId != 'DLG') and (ModId == 'RDD' or ModId == 'RDS') and (len(active_sessions[idx_session['std']].history) > (MaxNdl-MinNdl))) or \
-        ((TabId != 'DLG') and (ModId == 'SQF') and (MinNdl-1+len(active_sessions[idx_session['std']].history) >= MaxNdl)) or \
-        ((TabId != 'DLG') and (ModId == 'SQB') and (MaxNdl-1-len(active_sessions[idx_session['std']].history) < MinNdl-1)) :
+        ((TabId != 'DLG') and (len(active_sessions[idx_session['std']].history) >= active_sessions[idx_session['std']].nrows-LskNdl-UskNdl)) :
             print('\n>> END: entries in "'+TabId+'"-tab are over!')
             exit()
 
@@ -180,24 +174,16 @@ def set_idx_display( ) :
                 idx_display[3] = col_non_dlg_not
 
 
-def limit_MaxNdl( ):
-    """ Function to set 'MaxNdl' value from generic 'inf' to actual non-dialogue tab size. """
-    global MaxNdl
-    if len(active_sessions) == 1 and TabId != 'DLG' and MaxNdl == inf :
-        MaxNdl = active_sessions[idx_session['std']].nrows+2
-
-
 def read_tab( tab_id ) :
     """ Function to load a new sheet/tab from Excel file. """
     global break_flag
-    data = read_excel (r'DEUTSCH.xlsx',tab_id,skiprows=0,header=None)                                   # read specific sheet from Excel file (NB: "r" needed to address special character, such as "\")
+    data = read_excel (r'Deutsch.xlsx',tab_id,skiprows=0,header=None)                                   # read specific sheet from Excel file (NB: "r" needed to address special character, such as "\")
     nrows = data.shape[0]-2                                                                             # get number of rows (skipping first x2 header-rows)
     history = []                                                                                        # reset history
     new_sheet = sheet_struct(tab_id,data,nrows,history)                                                 # create new structure for handling new session
     active_sessions.append(new_sheet)                                                                   # append new sessions to global list
     break_flag = False                                                                                  # reset break flag
-    limit_MaxNdl()                                                                                      # limit MaxNdl to maximum allowed value (if needed)
-    
+   
 
 def wait_for_input_keys( ):
     """ Function to wait for user input and parsing find/update-requests. """
@@ -269,7 +255,7 @@ def check_find_request( keys ):
     cmd_req = keys[0:len(find_cmd["id"])]
     space_idx = [i.start() for i in finditer(' ',keys)]
     if msg_len >= 10 and cmd_req == find_cmd["id"] and len(space_idx) >= 2 :                            # e.g. "find adj ganz" or "find dlg anfangen --n" 
-        tab_req = keys[len(find_cmd["id"])+1:len(find_cmd["id"])+len_tab+1].upper()
+        tab_req = keys[len(find_cmd["id"])+1:len(find_cmd["id"])+len_par+1].upper()
         if tab_req in valid_tabs :
             global TabId, find_arg
             TabId = tab_req
@@ -313,10 +299,10 @@ def check_update_request( keys ):
             MaxDlg = int(keys[space_idx[2]+1:])
             active_sessions.pop()
             flag = True
-        elif (param == 'nlm') and (len(space_idx) == 3) :                                               # to update "MinDlg" and "MinDlg"
-            global MinNdl, MaxNdl
-            MinNdl = int(keys[space_idx[1]+1:space_idx[2]])
-            MaxNdl = int(keys[space_idx[2]+1:])
+        elif (param == 'nsk') and (len(space_idx) == 3) :                                               # to update "LskNdl" and "UskNdl"
+            global LskNdl, UskNdl
+            LskNdl = int(keys[space_idx[1]+1:space_idx[2]])
+            UskNdl = int(keys[space_idx[2]+1:])
             active_sessions.pop()
             flag = True
     return flag
@@ -392,10 +378,9 @@ def execute_non_dialogue_seq_mode_cycle( ) :
     check_end_condition()
     while True :
         if ModId == 'SQF' :
-            idx_item = MinNdl-1+len(active_sessions[idx_session['std']].history)
+            idx_item = len(active_sessions[idx_session['std']].history)+LskNdl+2
         elif ModId == 'SQB' :
-            idx_item = MaxNdl-1-len(active_sessions[idx_session['std']].history)
-
+            idx_item = active_sessions[idx_session['std']].nrows-UskNdl-len(active_sessions[idx_session['std']].history)+1
         print_header(idx_item)
         for j in range(no_columns) :
             field = active_sessions[idx_session['std']].data.loc[idx_item,idx_display[j]]
@@ -411,7 +396,7 @@ def execute_non_dialogue_rdm_mode_cycle( ) :
     """ Function to process a new item of current non-dialogue tab in random mode. """
     check_end_condition()
     while True :
-        idx_item = randint(MinNdl-1,MaxNdl-1)
+        idx_item = randint(LskNdl+2,active_sessions[idx_session['std']].nrows-UskNdl+1)
         if not(idx_item in active_sessions[idx_session['std']].history) :
             print_header(idx_item)
             for j in range(no_columns) :
@@ -439,7 +424,7 @@ def debug_operation( ) :
     print('LngId = ' + LngId)
     print('ModId = ' + ModId)
     print('MinDlg = ' + str(MinDlg) + ' | MaxDlg = ' + str(MaxDlg))
-    print('MinNdl = ' + str(MinNdl) + ' | MaxNdl = ' + str(MaxNdl))
+    print('LskNdl = ' + str(LskNdl) + ' | UskNdl = ' + str(UskNdl))
     print(' ...............\n ')
 
 
@@ -463,11 +448,13 @@ while 1 :
                 parse_non_dialogue_tab_cycle()
             wait_for_input_keys()
 
-
+L
 
 ### NOTES ###
 
-# 0. To run the script, open a terminal and type "cls && python learn_ger.py". By adding extra arguments the terminal command it is possible to override the value of some parameters specified in the PARAMETERS section. For instance, typing "python learn_ger.py sqf ver" forces "TabId = VER" and "ModId = SQF", regardless of their hard-coded values. 
+# 0. To run the script, open a terminal and type "cls && python learn_ger.py". By adding extra arguments the terminal command
+#    it is possible to override the value of some parameters specified in the PARAMETERS section. For instance, typing
+#    "python learn_ger.py sqf ver" forces "TabId = VER" and "ModId = SQF", regardless of their hard-coded values. 
 
 # 1. Entering 'q' at any moment forces execution to stop and terminal to clear.
 
@@ -477,7 +464,7 @@ while 1 :
 #    - "update lng m2g" or "update lng g2m" causes "LngId = M2G" or "LngId = G2M";"
 #    - "update mod rdd" or "update mod sqb" causes "ModId = RDD" or "ModId = SQB";
 #    - "update dlm 10 23" causes "MinDlg = 10" or "MaxDlg = 23";
-#    - "update nlm 35 147" causes "MinNdl = 35" or "MaxNdl = 147".
+#    - "update nsk 35 147" causes "LskNdl = 35" or "UskNdl = 147".
 #    The "find" command allows to search at run-time for a pattern in a specific tab, and then to resume the previous
 #    operation. For example:
 #    - "find ver bleiben" to search for the pattern "bleiben" throughout the tab VER;
@@ -486,7 +473,8 @@ while 1 :
 
 # 3. Regarding the "LngId" parameter, "M" and "G" respectively stand for "Mother tongue" (i.e. italian of english) and "German".
 
-# 4. Remember to always add a final extra value to "DlgSri"-array for setting the proper length of the last dialogue (i.e. the final row-number of dialogue +3).
+# 4. Remember to always add a final extra value to "DlgSri"-array for setting the proper length of the last dialogue
+#    (i.e. the final row-number of dialogue +3).
 
 # 5. "Standard" execution means any non-find processing cycle. 
 

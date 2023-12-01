@@ -54,6 +54,23 @@ Hereafter for each game type, USB stick folder and expected extensions is specif
 
 ------------------
 
+>>> SFTP CONNECTIVITY <<<
+retropie main meu:
+raspi-config > interface options
+show ip > 192.168.1.8
+
+Filezilla:
+- new site
+- enter ip
+- SFTP
+- logon type normal
+- user pi
+. password raspberry
+
+home/opt/retropie/emulator/drastic/usrcheat.dat
+
+
+------------------
 >>> EXTRA TIPS <<<
 
 - never rename an arcade .zip file, otherwise it won't work;
