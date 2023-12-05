@@ -1,6 +1,6 @@
 
 /*
- * Example of xmacros for database of players (different topic but similar to "ex_xmacros_2.c").
+ * Example of xmacros for database of players (similar to "ex_xmacros_2.c", plus an example of function macro expansion).
  */
 
 /*** INCLUDES ***/
@@ -8,11 +8,15 @@
 #include <stdio.h>
 #include <stdint.h>
 
+/*** VARIABLES ***/
+
+uint8_t Cnt = 0;
+
 
 /*** DEFINES ***/
 
 // 1. list definition
-#define FOR_LIST_OF_PLAYERS(ENTRY)      \
+#define LIST_OF_PLAYERS(ENTRY)          \
     ENTRY(MJ,   23,     17/02/1963)     \
     ENTRY(DR,   1,      04/10/1988)     \
     ENTRY(CB,   34,     20/02/1963)
@@ -21,11 +25,11 @@
 #if 1
 #define DEF_JERSEY(name,jno,...) name##_jr = jno,
 enum {
-    FOR_LIST_OF_PLAYERS( DEF_JERSEY )
+    LIST_OF_PLAYERS( DEF_JERSEY )
 };
 #else
 #define DEF_JERSEY(name,jno,...) uint8_t name##_jr = jno;           // alternative that also gives the chance to customize data-size (with "enum" it's always "int" instead)
-FOR_LIST_OF_PLAYERS( DEF_JERSEY )
+LIST_OF_PLAYERS( DEF_JERSEY )
 #endif
 /*
 The following constants are created after macro-expansion:
@@ -36,7 +40,7 @@ CB_jr = 34;
 
 // 3. expansion generating constants for the league where each player played (fixed for all players)
 #define DEF_LEAGUE(name,...) char * name##_lg =  "NBA";
-FOR_LIST_OF_PLAYERS( DEF_LEAGUE )
+LIST_OF_PLAYERS( DEF_LEAGUE )
 /*
 The following constants are created after macro-expansion:
 MJ_lg = "NBA";
@@ -46,7 +50,7 @@ CB_lg = "NBA";
 
 // 4. expansion generating all birthdays
 #define DEF_BIRTHDAY(name,jno,bday) char * name##_bd = #bday;
-FOR_LIST_OF_PLAYERS( DEF_BIRTHDAY )
+LIST_OF_PLAYERS( DEF_BIRTHDAY )
 /*
 The following constants are created after macro-expansion:
 MJ_bd = "17/02/1963";
@@ -54,23 +58,39 @@ DR_bd = "04/10/1988";
 CB_bd = "20/02/1963";
 */
 
-// 5. printf function getting values through expansion
-void print_info( void ){
-    #define PRINT_PLAYERS(name,jno,bday)        \
-        printf(#name " | %2d", name##_jr);      \
-        printf(" | %s\n",name##_bd);
-    FOR_LIST_OF_PLAYERS( PRINT_PLAYERS )
+// 5. expansion generating functions to print info of each player separately
+#define DEF_FUNCS(name,jno,bday)                                \
+void print_##name##_info( uint8_t * pCnt ){                     \
+  if( pCnt != NULL )  {                                         \
+    printf("%d. " #name " | " #jno " | " #bday "\n",*pCnt);     \
+    (*pCnt)++;                                                  \
+  }                                                             \
 }
+LIST_OF_PLAYERS( DEF_FUNCS )
+/*
+The following constants are created after macro-expansion:
+void print_MJ_info( uint8_t * pCnt ){ ... }
+void print_DR_info( uint8_t * pCnt ){ ... }
+void print_CB_info( uint8_t * pCnt ){ ... }
+>> see NOTE#1
+*/
 
-static volatile void foo( void );
-void foo( void ){
-    printf("ciao\n");
-}
+
 
 /*** MAIN ***/
 
 int main(){
-
-    print_info();
+    print_MJ_info(&Cnt);
+    print_DR_info(&Cnt);
+    print_CB_info(&Cnt);
     return 1;
 }
+
+
+
+/*** NOTES ***/
+
+// 1. Note these functions can have any input type (here uint8_t*), any return type (here void),
+// define local variable, and invoke other functions (e.g. print fhere) like any standard function!
+
+// 2. As a more extensive and detailed example, see "ConfigHandler.c" within the Orville project.

@@ -15,7 +15,7 @@
 
 6. Move to the "Retropie" tab (default), click "O", move to "RASPI CONFIG > Localisation Options > WLAN Country" and select "Italy";
 
-7. In the same main menu now go go to "WIFI", select your Wifi network, and insert Wifi password to give Raspberry access to internet;
+7. In the same main menu now go to "WIFI", select your Wifi network, and insert Wifi password to give Raspberry access to internet;
 
 
 § Move to the "Retropie" tab (default), click "O", move to "RETROPIE SETUP > Configuration/Tools > usbromservice" and enable "USB ROM Service";
@@ -46,31 +46,28 @@ and "re-install (from binary)" if not running the lastest binaty when finished
 
 Hereafter for each game type, USB stick folder and expected extensions is specified:
 
-- GameBoy Advance |  ./roms/gba/ | .gba;
-- NeoGeo | ./roms/arcade/ | .zip;
-- Nintendo DS | ./roms/nds/ | .nds;
-- PlayStation1 | ./roms/psx/ | .bin + .cue;
-- Super Nintendo | ./roms/snes/ | .zip;
+
+ CONSOLE         | PATH           | EXTENSION
+______________________________________________
+ GameBoy Advance | ./roms/gba/    | .gba
+ NeoGeo          | ./roms/arcade/ | .zip
+ Nintendo DS     | ./roms/nds/    | .nds
+ PlayStation1    | ./roms/psx/    | .bin + .cue
+ Super Nintendo  | ./roms/snes/   | .zip
 
 ------------------
 
->>> SFTP CONNECTIVITY <<<
-retropie main meu:
-raspi-config > interface options
-show ip > 192.168.1.8
+>>> FILEZILLA <<<
 
-Filezilla:
-- new site
+- choose "new site"
 - enter ip
-- SFTP
+- choose "SFTP"
 - logon type normal
-- user pi
-. password raspberry
-
-home/opt/retropie/emulator/drastic/usrcheat.dat
-
+- user: pi
+- password: raspberry
 
 ------------------
+
 >>> EXTRA TIPS <<<
 
 - never rename an arcade .zip file, otherwise it won't work;
@@ -87,11 +84,3 @@ home/opt/retropie/emulator/drastic/usrcheat.dat
 >>> @TODO <<<
 
 1. investigate how to improve display visualization in terms of resolution, refresh-rate, etc (e.g. via "Display Options > Underscan").
-
-2a. investigate how to pack multiple .bin files for PSX games;
-2b. add BIOS for psx.
-[for both see here: https://retropie.org.uk/docs/Playstation-1/]
-
-3. investigate how to enable "pause" in arcade games.
-
-4. investigate how to add psp games (e.g. MotoGP): which folder? required additional packages?

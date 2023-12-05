@@ -1,0 +1,128 @@
+§ "Cortex" is a family of processors developed by ARM, a semiconductor company based in Cambridge (UK). ARM defines x3 architecture profiles for the Cortex family:
+- A-profile (applications, 32/64-bit) -> targets high performance markets (such as PC, mobile phones and gaming);
+- R-profile (real-time, 32/64-bit) -> designed for high performance hard real-time and safety critical applications (such as military, medical or avionic devices);
+- M-profile (microcontroller, 32-bit) -> targets deeply embedded systems, with applications ranging from battery powered devices that require very low power consumption to advanced image processing by providing low-latency and highly deterministic operation (ideal for time-sensitive processing).
+
+§ The M-profile is the one of interest here! There are several M-profile versions (e.g. ARMv6-M or ARMv8-M), and the definition of each specific processor (e.g. Cortex-M0+) always includes (besides other characteristics) its ISA (aka Instruction Set Architecture) version (e.g. ARMv6-M). For instance:
+- processor model "Cortex-M0+" uses ISA "ARMv6-M";
+- processor model "Cortex-M7" uses ISA "ARMv7E-M".
+
+§ An ISA is:
+- a collection of (assembly/machine) instructions;
+- a "contract" between hardware and software on behavior;
+- NOT a definition of implementation nor a guarantee of performance -> An ISA specifies the behavior of machine code in a fashion that does not depend on the characteristics of that implementation, providing binary compatibility between implementations. This enables multiple implementations of an ISA that differ in characteristics such as performance, physical size, and monetary cost, but that are capable of running the same machine code (i.e. having the same behavior), so that a lower-performance, lower-cost machine can be replaced with a higher-cost, higher-performance machine without having to replace software. It also enables the evolution of the microarchitectures of the implementations of that ISA, so that a newer, higher-performance implementation of an ISA can run software that runs on previous generations of implementations.
+
+§ The x2 main computer architectures are:
+- Von Neumann, with a single/common bus for both instructions and data;
+- Harvard, with separate/dedicated buses for instructions and data.
+Von Neumann architecture is clearly a less complex, less space-demanding and cheaper solution, but Harvard architecture is faster (since data and instructions can be fetched in parallel, and also because the processor is provided with a cache-memory for each bus).
+ARM Cortex-M processors can use both of them, depending on the specific model (e.g. Cortex-M0+ and Cortex-M7 use respectively Von Neumann and Harvard architecture).
+
+§ Different ISAs can differ in terms of:
+- number of instructions (56, 98 or else);
+- availability of "thumb-instructions" (i.e. a method to compress instructions 32-bit instructions to 16-bit, if possible; thus, x2 instructions can be fetched each cycle);
+- division capability;
+- availability of floating-point unit (single or double);
+- capability of handling 64-bit results for 32-bit multiplications (i.e. safer in terms of overflow);
+Anyway, note that some ISAs are just extension of previous ones (e.g. ARMv7E-M from ARMv6-M), others instead can be unrelated to each other and based on different baselines (e.g. ARMv8-M and ARMv7E).
+
+§ The x2 most used performance-metrics (based on the Instruction-Per-Cycle estimation, aka IPC) to compare different processors/ISAs are the "DMIPS/MHz" (aka "Dhrystone Million Instructions per Second per 1-MHz clock frequency") and the "CoreMark/MHz". They're both based on the execution of a specific benchmark program (called "Dhrystone program" and "CoreMark program" respectively) to compare processors performance. Note that using the simple "MIPS" metric is reliable only when comparing MCUs of the same family: for instance, the very same task executed by an 8-bit MCU and a 32-bit MCU with the same MIPS specification, will be executed in a way smaller time by the 32-bit MCU, thus they cannot be compared just in terms of MIPS. "DMIPS/MHz" and "CoreMark/MHz" overcome this issue.
+
+§ The term "programmer's model" indicates the processor register-model. This is actually the same for all ARM processors (e.g. Cortex-M0 or Cortex-A7) and consists of x16 32-bit CPU registers:
+- R0-R7, generic command/data registers accessible to all instructions [NB: each 32-bit instruction contains bit-fields specifying "type" (e.g. jump, load, store or branch), "data" (e.g. addition operands) and "register id" (in this case, x3 bits to encode the access to one of these x8 registers)];
+- R8-R12, generic command/data registers accessible to all 32-bit instructions and a few 16-bit ones [NB: requires at least x4 bits in the "register id" field];
+- R13, reserved register known as "stack pointer" (SP) storing the memory address of the last data element added to the stack (or sometimes the first available address in the stack);
+- R14, reserved register known as "link register" (LR) storing the return address for function calls (i.e. the address to return to when a function call completes, which must be saved into the stack before branching/jumping).
+- R15, reserved register known as "program counter" (PC) - or sometimes called "instruction pointer" (IP) - storing the flash address of the next instruction to be read/executed.
+- xPSR (aka Program Status Register), reserved register not directly accessible, used to automatically save stack during context switch.
+
+§ "Binary compatibility" means that any code compiled for a specific ISA can also run unchanged for other specific ISAs (e.g. this is true between ARMv6-M and ARMv8-M), since using identical instructions. Thus, libraries (in form of binary files) can be re-used between MCU without re-compiling. Note this concept applies only to cores/CPU (e.g. for executing an algorithm), not to peripherals (since these might be mapped to different memory addresses in different MCU models).
+
+§ A "context switch" is the process of storing the state of a process/thread before giving execution to another, so that the former can be resumed at a later point. This allows multiple processes to share a CPU, and is an essential feature of multitasking operating systems (MOS). Note that in CPUs the term "context" refers to data in registers and program counter at a specific moment in time.
+In bare-metal programming, each process utilizes various CPU registers to store data and hold the current state of the running process. In MOSs, where the operating system switches between processes or threads to allow the execution of multiple processes simultaneously, for every switch the OS must save the state of the currently running process, followed by loading the next process state, which will run on the CPU. This sequence of operations that stores the state of the running process and the loading of the following running process is called "context switch". Thus, the precise meaning of the phrase "context switch" varies. In a multitasking context, it refers to the process of storing the system state for one task, so that task can be paused and another task resumed. A context switch can also occur as the result of an interrupt, such as when a task needs to access disk storage, freeing up CPU time for other tasks. Some operating systems also require a context switch to move between user mode and kernel mode tasks. The process of context switching can have a negative impact on system performance, since it's usually computationally intensive, and much of the design of operating systems is to optimize the use of context switches.
+Older CPUs performed context switch entirely in hardware. However, modern CPUs perform context switches by means of software as well. A modern CPU can perform hundreds of context switches per second. Therefore, the user gets the impression that the computer is performing multiple tasks in a parallel fashion, when the CPU actually alternates or rotates between or among the tasks at a high rate of speed.
+
+§ The "Nested Vectored Interrupt Controller" (aka NVIC) is a built-in chip that provides fast and low latency response to interrupt-driven events in Cortex-M processors (see "mcortex_architecture.jpg"). NVIC is clearly defined for each Cortex-M model and included in its architecture, and allows great cooperation and efficiency between processor core and peripherals (e.g. UART, SPI, etc).
+NVIC covers any "exception" (defined as anything able to changing/deviating the regular execution flow of the code), such as "software interrupts" (caused either by a special instruction in the instruction set or by an exceptional condition in the processor itself), "reset", "interrupt requests" (IRQ), "non-maskable interrupts" (NMI, hardware interrupts that standard interrupt-masking techniques in the system cannot ignore, representing a major hardware fault), memory management, protection violation, debug events, service calls (software-triggered interrupts useful for allowing a piece of code to execute without interruption or jumping to privileged mode from the unprivileged mode).
+NVIC is in charge of detecting exceptions, saving processor state into stack, update PC/R15 to ISR address corresponding to the specific exception, and once completed restoring context from stack and PC in order to resume previous execution. See an example of NVIC mapping in "nvic_mapping.png", where "Pri." = Priority ("Prg." = programmable, and -3 is the highest), "IRQx" are the peripheral interrupts (e.g. UART, SPI, etc).
+Cortex-M NVICs have several powerful features:
+- "Tail chaining" -> the ability to move from the execution of an ISR to another (if multiple are pending) without exiting "Handler Mode" (i.e. the exception mode); this allows to save x1 context-switch cycle, as shown in "nvic_tail_chaining.png" (here x2 different MCUs with and without this features are simulated assuming two interrupts arriving at the very same instant, resulting in 36 instruction cycles spared thanks to tail-chaining);
+- "Interrupt nesting" -> the ability for a higher-priority interrupt to preempt a lower-priority interrupt currently executing (otherwise the higher-priority one should wait until the lower-priority ISR is completed to execute); see example in "nvic_interrupt_nesting.png";
+- "Late arrival" -> if a higher-priority interrupt occurs during the context save of a lower priority interrupt, the processor serves the late arriving first without the need of a second context switch (i.e. sparing instruction cycles); see example in "nvic_late_arrival.png";
+- "Relocatable vector table" -> possibility to relocate the vector table (which by default resides in flash-memory at address 0x00000000) to another address via the "Vector Table Offset Register" (VTOR, i.e. the vector-table offset from default address 0x00000000); note the vector table can be this way relocated even into RAM.
+
+§ "Interrupt latency" refers to the delay (typically measured in terms of MCU instruction cycles) between the IRQ reception (when interrupt flag is asserted) and the start of the related ISR. This delay is mainly due to context switch. A common MCU figure of merit is the so-called "jitter-free latency of the highest priority interrupt". How is it possible this latency is fixed if some instructions actually take multiple cycles to be executed? This is possible because if a multi-cycle instruction is interrupted, this is aborted to serve the higher-priority ISR and then it restarts from the first cycle with no penalty. In older MCU designs (before Cortex-M) instead, the interrupt was forced to wait until the current instruction was over, causing latency jitter depending on the specific interrupted instruction!
+
+§ The "SysTick Core Timer" is a built-in chip acting as a 24-bit system timer (see "mcortex_architecture.jpg"). This is clocked by the processor clock (MCLK), and thus synchronous to processor core. It can be used to trigger interrupt for small delays or for RTOS ticks.
+
+§ Buses are usually synchronous and shared in order to exchange info among all components (processor, RAM, DMA, peripherals, etc). Two examples are the "AHB-Lite" (burst-able), and the "AXI" (network-line).
+
+§ "Instruction-pipelining" is a technique for implementing instruction-level parallelism within a single processor. Pipelining attempts to keep every part of the processor busy with some instruction by dividing incoming instructions into a series of sequential steps performed by different processor units with different parts of instructions processed in parallel. For example, nowadays most MCU architectures allow a 5-step pipeline by parallelizing the IF (fetch), ID (decode), EX (execute), MEM (memory access) and WB (register write-back) steps of successive instructions. A pipeline has x2 main characteristics:
+- latency, i.e. the time (in terms of number of cycles) between the fetching and the execution of each instruction (e.g. a 3-state pipeline has a 3-cycle latency);
+- throughput, i.e. the instruction execution rate of the processor (usually x1 instruction/cycle);
+Examples are:
+- Cortex-M0+ using a 2-stage pipeline (IF+EX);
+- Cortex-M4F using a 3-stage pipeline (IF+ID+EX);
+- Cortex-M7 using a 6-stage pipeline.
+
+§ Cortex-M processors have usually x2 modes:
+- thread mode, associated to normal/main code flow;
+- handler mode, associated to interrupts/exceptions.
+As shown in "modes_std.png" (valid for M0+, M4 and M7 models), the latter is split in x2 privileged a unprivileged sections, whereas the latter always privileged. "Unprivileged" means by default you do NOT have access to all addresses in every state of the processor, thus safer. For example, in a project with some kind of operative system, the RTOS framework would be privileged, whereas the user-implemented tasks unprivileged.
+M23 has a more complicated mode including a "trust zone" (see "modes_pro.png"), splitting between secure and non-secure world (and note they can act as x2 separate RTOSs).
+
+§ Another typical feature provided by M-Cortex (from M0+ models on) processors is "fast I/O access", i.e. a dedicated bus (named IOBUS) going from PORT (GPIOs peripheral) to processor. Therefore, it's no more needed to use main bus (bus nonetheless still possible), making GPIO read/write operations way faster.
+
+§ DSP instructions are used in M4-M7 models for special arithmetical operation, basically of x2 types:
+- SIMD (aka "single-instruction multiple-data"), to perform x4-8bit-operand or x2 16bit-operand additions/subtractions in a single cycle;
+- to load/unload multiple registers in a single cycle.
+
+§ Floating point units (aka "FPU" or "VFP") are coprocessors used for floating point arithmetic. As for any coprocessors, data needs to be transferred between processor and FPU. FPUs have their own set of registers that may need to be saved on context switch. For example:
+- M0+ has no coprocessor support (thus not even FPU);
+- M4 provides single-precision compatibility (i.e. 32-bit "float" type);
+- M7 provides both single and double-precision compatibility (i.e. also 64-bit "double" type).
+
+§ "Cache" memory is a chuck of SRAM placed between processor and bus structure. It stores the read/written values more often used by the CPU in order to improve/speed-up code execution. Each time some data is needed, CPU looks into cache for that (hit), and if not found (miss), then the request goes to the standard bus. 
+Cache is divided into lines (e.g. x1 line = 16 bytes). Then, a collection of lines is called "way" (e.g. x1 way = 8 lines) and a collection of ways "set" (e.g. x1 set = 4 ways).
+If exploiting Harvard architecture, the processor is provided by x2 caches, one for data and one for instructions. These x2 caches have usually the same size, but they're configured differently (in particular, data-cache has higher granularity).
+Most Cortex-M models (e.g. M0+, M4 or M23) do not actually have any cache support (or just optional, such M7).
+The usage of caches creates the so-called "cache coherence" problem: the issue arises when data values in cache and RAM do not match anymore. This may happen whenever a peripheral other than CPU (e.g. DMA) accesses memory (for instance, writing the value of a RAM variable that has been previously read and stored into cache by processor). Mechanisms to guarantee cache coherence are sometimes provided by hardware, but most of the time this shall be covered in terms of software by the developer himself; regarding this, x2 main strategies can be adopted:
+- the developer shall maintain cache with routines supplied by compiler; for example, refresh RAM from cache in case of DMA read-requests, or refresh cache after DMA writing operations into RAM; 
+- using TCM, which shall be properly configured but then requires way less maintenance.
+
+§ TCM (aka "Tightly-Coupled Memory) is directly attached to CPU core, and has dedicated bus to access system RAM (without passing through main bus like cache, which is just a control-logic at the end of the day). TCM provides low-latency memory accesses for the CPU without the unpredictability of access time that is typical of caches (since all cache is scanned each time to search for a variable which may be located anywhere in it - or not!). See "cache_tcm.png" for a hardware comparison between cache and TCM. 
+Most Cortex-M models (e.g. M0+, M4 or M23) do not actually have any TCM support (or just optional, such M7, where TCM has configurable size and runs at processor speed is configurable).
+In terms of performance, TCM is slightly faster and more deterministic (in terms of execution time) than cache (since jitter-free).
+
+§ "TrustZone" (added from version ARMv8-M) provides a foundation/technology for system-wide security and the creation of a trusted platform (e.g. for safe-critical applications). It allows to split the code into a "secure-world" and "non-secure-world" section. TrustZone can be employed to:
+- generate/handle certificates or passwords;
+- increase physical security (e.g. protecting communications);
+- isolate or prevent access to critical firmware sections;
+- increase operational robustness and reliability.
+
+§ A final comparison among the main Cortex-M models:
+
+>> M0+
+- simple processor, but nonetheless usable in complex situations;
+- minimal OS support;
+- basic signal processing;
+- fast I/O performance;
+- speed < 100 MHz.
+
+>> M23
+- same basic features as M0+;
+- enhanced security (TrustZone);
+- additional peripherals and interrupts.
+
+>> M3/M4
+- more efficient signal processing instructions;
+- floating-point unit support (thus, suitable for more complex mathematical applications);
+- complete OS support;
+- more robust/reliable operation thanks to memory protection and access level control (e.g. stack-overflow protection);
+- speed > 100 MHz.
+
+>> M7
+- same basic features as M4;
+- cache and TCM support;
+- dual-issue core support (processor can support x2 instructions per cycle);
+- speed up to 300 MHz.
