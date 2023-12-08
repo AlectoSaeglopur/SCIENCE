@@ -12,34 +12,52 @@ from ship import Ship
 from io_handler import check_events, refresh_screen
 from bullet import update_bullets
 from alien import create_fleet, update_aliens
+from stats import Stats
+from button import Button
+
 
 
 ## FUNCTIONS ##
 
-def run_game():
+def run_game( ) :
     """ Function to initialize pygame, settings, and screen object """
+
+    # Initialization
     pygame.init()
-    params = Settings()                                             # load prameters/settings
+    params = Settings()                                                     # load prameters/settings
     screen = pygame.display.set_mode(
-        (params.screen_width, params.screen_height))                # create screen object specifying its dimensions
-    pygame.display.set_caption(params.title)                        # set screen title
-    ship = Ship(params,screen)                                      # create ship object
-    bullets = Group()                                               # create group storing all live bullets
-    aliens = Group()                                                # create group containing all live aliens
-    create_fleet(params,screen,aliens,ship)                         # create alien fleet
+        (params.screen_width, params.screen_height))                        # create screen object specifying its dimensions
+    pygame.display.set_caption(params.title)                                # set screen title
+    ship = Ship(params,screen)                                              # create ship object
+    bullets = Group()                                                       # create group storing all live bullets
+    aliens = Group()                                                        # create group containing all live aliens
+    stats = Stats(params)                                                   # create game statistics
+    playbtn = Button(params,screen,"Play")                                  # create play-button
+    args = { 'params': params,
+             'screen': screen,
+             'ship': ship,
+             'bullets': bullets,
+             'aliens': aliens,
+             'stats': stats,
+             'playbtn': playbtn
+            }                                                               # create structure/dictionary with all objects
+    create_fleet(args)                                                      # create alien fleet
 
     # Game infinite-loop
-    while True:
-        check_events(params,screen,ship,bullets)                    # check for keyboard and mouse events
-        ship.update()                                               # update ship position (according to keyboard events)
-        update_bullets(params,screen,ship,bullets,aliens)           # update bullets position
-        update_aliens(params,aliens)                                # update aliens position
-        refresh_screen(params,screen,ship,bullets,aliens)           # update main window and objects
+    while True :
+        check_events(args)                                                  # check for keyboard and mouse events
+        if stats.game_state == 'RUNNING' :
+            ship.update(params.alien_speedup**stats.speedup_cnt)            # update ship position (according to keyboard events)
+            update_bullets(args)                                            # update bullets position
+            update_aliens(args)                                             # update aliens position
+        refresh_screen(args)                                                # update main window and objects
+
 
 
 ## MAIN ##
 
 run_game()
+
 
 
 ## NOTES ##
