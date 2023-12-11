@@ -3,12 +3,13 @@
 ' File containing functions to handle events and update screen.
 '''
 
+
 ## LIBRARIES ##
 
-import sys
+from sys import exit
 import pygame
-from bullet import Bullet
-from alien import reset_screen
+from bullets import Bullet
+from aliens import reset_screen
 
 
 ## FUNCTIONS ##
@@ -16,7 +17,7 @@ from alien import reset_screen
 def check_key_press( args, event ) :
     """ Function to check which keyboard button has been pressed and take actions """
     if event.key == pygame.K_q:                                             # if Q key pressed...
-        sys.exit()                                                          # close the game
+        exit()                                                              # close the game
     elif event.key == pygame.K_p:                                           # if P key pressed...
         if args['stats'].game_state == 'RUNNING' :
             args['stats'].game_state = 'PAUSED'
@@ -48,7 +49,7 @@ def check_events( args ) :
     """ Function to check keyboard and mouse edge-events """
     for event in pygame.event.get() :                                       # take actions for all new events occurred...
         if event.type == pygame.QUIT :                                      # if EXIT button has been clicked via mouse...
-            sys.exit()                                                      # close the game
+            exit()                                                          # close the game
         elif event.type == pygame.KEYDOWN :                                 # if any keyboard button has been pressed...
             check_key_press(args,event)
         elif event.type == pygame.KEYUP :                                   # if any keyboard button has been released...
@@ -63,6 +64,8 @@ def check_play_button( args, mouse_x, mouse_y ) :
     """ Start a new game when the player clicks Play-button """
     if args['playbtn'].rect.collidepoint(mouse_x,mouse_y) :
         args['stats'].reset_stats()
+        args['cscore'].update()
+        args['liv_lev'].update()
         reset_screen(args)
         args['stats'].game_state = 'RUNNING'
         pygame.mouse.set_visible(False)                                     # make mouse invisible when game is running
@@ -75,6 +78,9 @@ def refresh_screen( args ) :
     args['aliens'].draw(args['screen'])                                     # re-draw aliens fleet
     for bullet in args['bullets'].sprites():
         bullet.draw_bullet()                                                # redraw bullets
+    args['cscore'].show()                                                   # redraw current score-board
+    args['hscore'].show()                                                   # redraw highest score-board
+    args['liv_lev'].show()                                                  # redraw highest score-board
     if args['stats'].game_state == 'INACTIVE' :
         args['playbtn'].draw_button()                                       # draw the play-button on screen
     pygame.display.flip()                                                   # make the most recently drawn screen visible

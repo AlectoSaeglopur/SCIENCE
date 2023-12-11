@@ -3,17 +3,19 @@
 ' Main file running the game.
 '''
 
+
 ## LIBRARIES ##
 
 import pygame
 from pygame.sprite import Group
 from settings import Settings
-from ship import Ship
+from ships import Ship
 from io_handler import check_events, refresh_screen
-from bullet import update_bullets
-from alien import create_fleet, update_aliens
+from bullets import update_bullets
+from aliens import create_fleet, update_aliens
 from stats import Stats
-from button import Button
+from buttons import Button
+from boards import Board
 
 
 
@@ -33,13 +35,19 @@ def run_game( ) :
     aliens = Group()                                                        # create group containing all live aliens
     stats = Stats(params)                                                   # create game statistics
     playbtn = Button(params,screen,"Play")                                  # create play-button
+    cscore = Board(params,screen,stats,'cscore')
+    hscore = Board(params,screen,stats,'hscore')
+    liv_lev = Board(params,screen,stats,'liv_lev')
     args = { 'params': params,
              'screen': screen,
              'ship': ship,
              'bullets': bullets,
              'aliens': aliens,
              'stats': stats,
-             'playbtn': playbtn
+             'playbtn': playbtn,
+             'cscore': cscore,
+             'hscore': hscore,
+             'liv_lev': liv_lev
             }                                                               # create structure/dictionary with all objects
     create_fleet(args)                                                      # create alien fleet
 
@@ -47,7 +55,7 @@ def run_game( ) :
     while True :
         check_events(args)                                                  # check for keyboard and mouse events
         if stats.game_state == 'RUNNING' :
-            ship.update(params.alien_speedup**stats.speedup_cnt)            # update ship position (according to keyboard events)
+            ship.update(args)                                               # update ship position (according to keyboard events)
             update_bullets(args)                                            # update bullets position
             update_aliens(args)                                             # update aliens position
         refresh_screen(args)                                                # update main window and objects
