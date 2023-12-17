@@ -1,0 +1,968 @@
+ >> PHOENIX @ 17-Dec-2023 12:20:05 <<
+
+   1: Cello Suite No. 1 in G Major, BWV 1007: I. Prélude | Johann Sebastian Bach, Yo-Yo Ma
+   2: Overture (Suite) No. 3 in D Major, BWV 1068: II. Air | Johann Sebastian Bach, Capella Istropolitana, Jaroslav Dvořák
+   3: Canon & Gigue | Johann Pachelbel, London Baroque, Charles Medlam
+   4: Requiem in D Minor, K. 626: IIIa. Sequenz. Dies irae | Wolfgang Amadeus Mozart, Vienna Boys' Choir, Chorus Viennensis, Vienna Volksoper Orchestra, Peter Marschik
+   5: Piano Quintet in E-Flat Major, Op. 16 (Version for Piano Quartet): II. Andante cantabile | Ludwig van Beethoven, Yo-Yo Ma, Emanuel Ax, Isaac Stern, Jaime Laredo
+   6: Hungarian Dance No.5 In G Minor, WoO 1 No. 5 | Johannes Brahms, Wiener Philharmoniker, Claudio Abbado
+   7: Symphony No. 2 in C Minor 'Resurrection': I. Allegro | Gustav Mahler, Paavo Järvi, Hr-sinfonieorchester, Frankfurt Radio Symphony Orchestra
+   8: Symphony No. 5 In C Sharp Minor: IV. Adagietto. Sehr langsam | Gustav Mahler, Wiener Philharmoniker, Pierre Boulez
+   9: Années de pèlerinage, 1ère année "Suisse", S. 160: No. 2. Au lac de Wallenstadt (At the Lake of Wallenstadt) | Franz Liszt, Jenő Jandó
+  10: Night On Bald Mountain | Modest Mussorgsky, Wiener Philharmoniker, Gustavo Dudamel
+  11: Romeo And Juliet, Op.64 / Act 1: Dance of the Knights | Sergei Prokofiev, Cleveland Orchestra, Lorin Maazel
+  12: Chopin: 24 Preludes, Op. 28: No. 15 in D-Flat Major "Raindrop" | Frédéric Chopin, Nikolai Lugansky
+  13: Sonata No. 2 in B-Flat Minor for Piano, Op. 35: III. Marche funébre (Funeral March) | Frédéric Chopin, Vladimir Ashkenazy
+  14: Boléro (Ravel) | London Symphony Orchestra
+  15: Tchaikovsky: Swan Lake, Op. 20, Act 2: No. 10, Scene. Moderato | Pyotr Ilyich Tchaikovsky, André Previn, London Symphony Orchestra
+  16: Piano Concerto No. 1 in B-Flat Minor, Op. 23: Allegro non troppo e molto maestoso | Pyotr Ilyich Tchaikovsky, Van Cliburn, Kirill Kondrashin
+  17: L'apprenti sorcier (the Sorcerer's Apprentice) | Paul Dukas, Ulster Orchestra, Yan Pascal Tortelier
+  18: Vivaldi: Le quattro stagioni (The Four Seasons), Violin Concerto in G Minor Op. 8 No. 2, RV 315, "Summer": III. Presto (Tempo impetuoso d"estate) | Antonio Vivaldi, Itzhak Perlman, London Philharmonic Orchestra
+  19: Requiem: II. Dies irae | Giuseppe Verdi, Christine Brewer, Karen Cargill, Stuart Neill, John Relyea, Sir Colin Davis, London Symphony Orchestra
+  20: Turandot : "Nessun dorma!" | Giacomo Puccini, Luciano Pavarotti, John Alldis Choir
+  21: Peer Gynt, Op. 23: IV. In the Hall of the Mountain King | Edvard Grieg, Andrew Davis, Philharmonia Orchestra
+  22: Suite Bergamasque, L. 75: III. Clair de lune (Andante très expressif) | Claude Debussy, Alain Planès
+  23: Estampes, L. 100: I. Pagodes (modérément animé) | Claude Debussy, Alain Planès
+  24: Nocturnes Nos. 1-3: No. 3. Un peu mouvements (A Little faster) | Erik Satie, Billy Eidi
+  25: The Firebird Suite: VI. Finale | Igor Stravinsky, Wiener Symphoniker, Wolfgang Sawallisch
+  26: Carmina Burana: I. Fortuna Imperatrix Mundi: O Fortuna | Carl Orff, Brighton Festival Chorus, Antal Doráti, Royal Philharmonic Orchestra
+  27: Jazz Suite No.2: 6. Waltz II | Dmitri Shostakovich, Royal Concertgebouw Orchestra, Riccardo Chailly
+  28: Symphony No. 12, W539: II. Adagio | Heitor Villa-Lobos, Orquestra Sinfônica do Estado de São Paulo, Isaac Karabtchevsky
+  29: Prelude No.1 - Melodía lírica | Heitor Villa-Lobos, Pablo Sainz Villegas
+  30: Garota De Ipanema | Vinícius, Antônio Carlos Jobim
+  31: Piazzolla: Libertango | Alison Balsom
+  32: Chan Chan | Buena Vista Social Club
+  33: The Entertainer | Scott Joplin, Morten Gunnar Larsen
+  34: Maple Leaf Rag | Scott Joplin, Alexander Peskanov
+  35: Night and Day | Fred Astaire
+  36: The Soul of a Man | Blind Willie Johnson
+  37: John the Revelator | Blind Willie Johnson
+  38: Dark Was the Night, Cold Was the Ground | Blind Willie Johnson
+  39: Where Did You Sleep Last Night | Lead Belly
+  40: You Was Born To Die | Curley Weaver
+  41: Monday Morning Blues | Mississippi John Hurt
+  42: Baby Please Don't Go | Big Joe Williams
+  43: Sweet Home Chicago | Robert Johnson
+  44: Hellhound on My Trail | Robert Johnson
+  45: I Can't Be Satisfied | Muddy Waters
+  46: Boom Boom | John Lee Hooker
+  47: Rock Me Mama | Arthur "Big Boy" Crudup
+  48: Dust My Broom | Elmore James
+  49: Born Under A Bad Sign | Albert King
+  50: The Thrill Is Gone | B.B. King
+  51: Happy Birthday Blues - Single Version | B.B. King
+  52: I'll See You in My Dreams | Django Reinhardt
+  53: Brazil | Django Reinhardt
+  54: Sixteen Tons | Tennessee Ernie Ford
+  55: Hound Dog | Big Mama Thornton
+  56: Wang Dang Doodle - Remastered | Koko Taylor
+  57: Have A Good Time | Big Walter Horton
+  58: Baby Scratch My Back - Single Version | Slim Harpo
+  59: Hit the Road Jack | Ray Charles
+  60: I Never Loved a Man (The Way I Love You) | Aretha Franklin
+  61: (Sweet Sweet Baby) Since You've Been Gone | Aretha Franklin
+  62: Feeling Good | Nina Simone
+  63: Baltimore | Nina Simone
+  64: Tutti Frutti | Little Richard
+  65: Rhapsody in Blue | George Gershwin
+  66: Non, je ne regrette rien | Édith Piaf
+  67: Let There Be Love | Nat King Cole
+  68: In The Mood | Glenn Miller
+  69: All the Cats Join In | Benny Goodman
+  70: Take Five | The Dave Brubeck Quartet
+  71: I'm Alive | Johnny Thunder
+  72: Land of 1000 Dances | Wilson Pickett
+  73: You Are My Sunshine - From “O Brother, Where Art Thou” Soundtrack | Norman Blake
+  74: I'll Fly Away - From “O Brother, Where Art Thou” Soundtrack | Gillian Welch, Alison Krauss
+  75: Down To The River To Pray - From “O Brother, Where Art Thou” Soundtrack | Alison Krauss
+  76: Hard Time Killing Floor Blues - From “O Brother, Where Art Thou” Soundtrack | Chris Thomas King
+  77: Everybody Needs Somebody to Love | The Blues Brothers
+  78: Think | The Blues Brothers, Aretha Franklin
+  79: Peter Gunn Theme | The Blues Brothers
+  80: Urca Urca Tirulero | Cast of Robin Hood
+  81: Whistle Stop - From "Robin Hood" | Roger Miller
+  82: The Aristocats - From "Songs From The Aristocats" | Maurice Chevalier
+  83: I Wanna Be Like You | Kenny Ball
+  84: Everybody Wants To Be A Cat | The Electric Swing Circus
+  85: That's No Way To Get Along | Robert Wilkins
+  86: Crazy Blues | Mamie Smith
+  87: Rock Around The Clock | Bill Haley & His Comets
+  88: High Water Everywhere, Part 2 | Taj Mahal
+  89: Bridge over Troubled Water | Don Shirley
+  90: Lullaby - Live | Don Shirley Trio
+  91: Be Ki Don | Samba Touré
+  92: Luz Negra | Stefano Bollani
+  93: You Don't Mess Around with Jim | Jim Croce
+  94: Cinecittà | Henryk Topel, Giuseppe Bellardinelli, Giovanni Zappalorto
+  95: Montalbano Noir Concertante | Franco Piersanti, Accademia Musicale Italiana
+  96: End Titles | Rachel Portman
+  97: Nutcracker Suite, Op. 71a: 2e. Chinese Dance (Tea) | Pyotr Ilyich Tchaikovsky, Orchestre Symphonique de Montréal, Charles Dutoit
+  98: Que sera sera | Doris Day
+  99: Fishing Blues | Henry Thomas
+ 100: Corcovado (Quiet Nights Of Quiet Stars) | Stan Getz, João Gilberto, Astrud Gilberto, Antônio Carlos Jobim
+ 101: Pata Pata | Miriam Makeba
+ 102: Guitar blues | Lonnie Johnson
+ 103: Nocturne No. 1 in B-Flat Major, Op. 9, No. 1 | Frédéric Chopin, Sandor Falvai
+ 104: Ave Maria, "Ellens Gesang III", D839 - Arr. Ion Marin | Franz Schubert, Cheryl Studer, London Symphony Orchestra, Ion Marin
+ 105: I Just Want To Make Love To You - Single Version | Etta James
+ 106: Catfish Blues | Robert Petway
+ 107: Gabriel's Oboe | Ennio Morricone
+ 108: Flower Duet | Léo Delibes, Richard Kapp
+ 109: The Moon Is a Silver Dollar | Lawrence Welk, His Champagne Music
+ 110: Temptation Rag | Claude Bolling
+ 111: Chica Chica Boom Chic | Carmen Miranda
+ 112: Ruler of My Heart | Irma Thomas
+ 113: Smoking Gun | Robert Cray
+ 114: Tuff Enuff | The Fabulous Thunderbirds
+ 115: I'm In The Mood | John Lee Hooker, Bonnie Raitt
+ 116: Mama Talk To Your Daughter | J.B. Lenoir
+ 117: 2 The Night (Fast Cars/4 Frank) | Ottmar Liebert
+ 118: Rake and Rambling Boy | Rhys Jones & Christina Wheeler
+ 119: Freddie Freeloader (feat. John Coltrane, Cannonball Adderley, Wynton Kelly & Paul Chambers) | Miles Davis, John Coltrane, Cannonball Adderley, Wynton Kelly, Paul Chambers
+ 120: Stardust | Nat King Cole
+ 121: Dancing In The Dark | Cannonball Adderley
+ 122: Blue in Green (feat. John Coltrane & Bill Evans) | Miles Davis, John Coltrane, Bill Evans
+ 123: He's a Pirate | Klaus Badelt
+ 124: Hedwig's Theme | John Williams
+ 125: So What (feat. John Coltrane, Cannonball Adderley & Bill Evans) | Miles Davis, John Coltrane, Cannonball Adderley, Bill Evans
+ 126: Blue Moon | Billie Holiday
+ 127: The History of England | Förnuft och Känsla
+ 128: St James Infirmary | Hugh Laurie
+ 129: Home | Myriam Alter
+ 130: Bistro Fada | Stephane Wrembel
+ 131: God Almighty's Gonna Cut You Down | The Golden Gate Quartet
+ 132: Lover Man | Billie Holiday
+ 133: Le dîner de cons | Vladimir Cosma, Philip Catherine, Romane
+ 134: Preludes, Op. 28: No. 24 in D Minor, Allegro appassionato | Frédéric Chopin, Jan Simon
+ 135: Tear The Facists Down | Woody Guthrie
+ 136: Strange Fruit | Billie Holiday
+ 137: Gloomy Sunday | Billie Holiday
+ 138: Anything Goes (with Vince Giordano & The Nighthawks) | Cole Porter, Vince Giordano, The Nighthawks
+ 139: La Primavera (Spring) Op. 8 No. 1 in D major: I. Allegro | Antonio Vivaldi, Luka Sulic, Luigi Piovano, Archi dell'Accademia di Santa Cecilia
+ 140: At Last | Etta James
+ 141: Sendero | Gustavo Santaolalla, Don Markese, Braulio Barrera, Javier Casalla, Anibal Kerpel
+ 142: De Usuahia a la Quiaca | Gustavo Santaolalla
+ 143: Moanin' | Art Blakey & The Jazz Messengers
+ 144: I Get Along Without You Very Well (Except Sometimes) - Vocal Version | Chet Baker
+ 145: Bizet: Carmen, Act 1: "L'amour est un oiseau rebelle" (Habanera) [Carmen, Chorus] | Georges Bizet, Maria Callas, Orchestre de l'Opéra National de Paris, Georges Prêtre, Orchestre du Théâtre National de l'Opéra Paris
+ 146: Puccini: Gianni Schicchi: "O mio babbino caro" (Lauretta) | Giacomo Puccini, Maria Callas, Tullio Serafin, Philharmonia Orchestra
+ 147: Chiri Hari | Samba Touré
+ 148: Tamala | Samba Touré
+ 149: Oo-De-Lally - From "Robin Hood" | Roger Miller
+ 150: Overture - Jungle Book | George Bruns
+ 151: Colonel Hathi's March (The Elephant Song) | J. Pat O'Malley, Disney Studio Chorus
+ 152: The Bare Necessities | Phil Harris, Bruce Reitherman
+ 153: Prologue | John Williams
+ 154: Tchaikovsky: The Nutcracker, Op. 71, Act II: No. 13, Waltz of the Flowers | Pyotr Ilyich Tchaikovsky, Sir Simon Rattle, Berliner Philharmoniker
+ 155: Serenade for Strings in E Major, Op. 22, B. 52: II. Tempo di valse | Antonín Dvořák, Prague Chamber Orchestra, Petr Skvor
+ 156: Ride of the Valkyries | Richard Wagner, London Symphony Orchestra, Yondani Butt
+ 157: Tristan und Isolde: Prelude und Liebestod | Richard Wagner, London Symphony Orchestra, Yondani Butt
+ 158: Era de maggio | Roberto Murolo
+ 159: Dance of the Sugar Plum Fairy | Pyotr Ilyich Tchaikovsky, Lior Rosner, Scott Dunn, Royal Philharmonic Orchestra
+ 160: Shake It Baby | John Lee Hooker
+ 161: Skating In Central Park | Bill Evans, Jim Hall
+ 162: I'm Your Hoochie Coochie Man | Muddy Waters
+ 163: A Little Less Conversation | Elvis Presley
+ 164: (Sittin' On) the Dock of the Bay | Otis Redding
+ 165: In A Sentimental Mood | Duke Ellington, John Coltrane
+ 166: Mas Que Nada | Sergio Mendes & Brasil '66
+ 167: Chiodo fisso | Eugenio In Via Di Gioia
+ 168: Sette camicie | Eugenio In Via Di Gioia
+ 169: Keep It Healthy | Warpaint
+ 170: Biggy | Warpaint
+ 171: Disco//very | Warpaint
+ 172: Manifesto | CCCP – Fedeli Alla Linea
+ 173: Rozzemilia | CCCP – Fedeli Alla Linea
+ 174: Guerra E Pace | CCCP – Fedeli Alla Linea
+ 175: I Love Rock 'N Roll | Joan Jett & the Blackhearts
+ 176: Optigan I | Blur
+ 177: Mojo Pin | Jeff Buckley
+ 178: Forget Her | Jeff Buckley
+ 179: In Da Club | 50 Cent
+ 180: De Do Do Do, De Da Da Da | The Police
+ 181: Voices Inside My Head | The Police
+ 182: Moviestar - Full Length Version | Stereophonics
+ 183: Believe | The Chemical Brothers
+ 184: Spanish Bombs - Remastered | The Clash
+ 185: Lost in the Supermarket - Remastered | The Clash
+ 186: Let It Go | Bob Geldof
+ 187: Crucified Me | Bob Geldof
+ 188: Gino e l'alfetta | Daniele Silvestri
+ 189: Ladro di cuori col bruco | Lo Stato Sociale
+ 190: Катюша | The Red Army Choir
+ 191: Dancing With The Moonlit Knight - Remastered 2008 | Genesis
+ 192: Firth Of Fifth - Remastered 2008 | Genesis
+ 193: Aisle Of Plenty - Remastered 2008 | Genesis
+ 194: Small Time Shot Away | Massive Attack
+ 195: Special Cases | Massive Attack
+ 196: Inside All the People | Planet Funk
+ 197: Under the Rain | Planet Funk
+ 198: Piccola Storia Ignobile - 2007 Digital Remaster | Francesco Guccini
+ 199: Via Paolo Fabbri 43 - Remastered 2007 | Francesco Guccini
+ 200: Tokyo Traffic | The Dave Brubeck Quartet
+ 201: Rising Sun | The Dave Brubeck Quartet
+ 202: Toki's Theme | The Dave Brubeck Quartet
+ 203: Fujiyama | The Dave Brubeck Quartet
+ 204: Age of Consent - 2015 Remaster | New Order
+ 205: Ecstacy - 2015 Remaster | New Order
+ 206: 21st Century Schizoid Man - Including "Mirrors" | King Crimson
+ 207: I Talk To The Wind | King Crimson
+ 208: Epitaph - Including "March for No Reason" and "Tomorrow and Tomorrow" | King Crimson
+ 209: So Long | Laura Cox
+ 210: Glassy Days | Laura Cox
+ 211: Pochi giorni (feat. Diodato) | Daniele Silvestri, Diodato
+ 212: Monolocale | Daniele Silvestri
+ 213: La verità | Daniele Silvestri
+ 214: Italia bella mostrati gentile - Toscana | Pneumatica Emiliano Romagnola, Coro delle Mondine di Novi di Modena
+ 215: Lonely Woman | Ornette Coleman
+ 216: Frame By Frame | King Crimson
+ 217: Discipline | King Crimson
+ 218: Yes | Morphine
+ 219: Honey White | Morphine
+ 220: Fame | I Hate My Village
+ 221: Bahum | I Hate My Village
+ 222: Astradyne - 2008 Remaster | Ultravox
+ 223: Stravinsky: Le Sacre du printemps, Tableau I "L'adoration de la Terre" | Igor Stravinsky, Sir Simon Rattle, Berliner Philharmoniker
+ 224: 32-20 Blues | Robert Johnson
+ 225: 3 Gymnopédies: No.1 | Erik Satie, Pascal Rogé
+ 226: Triste Bahia | Caetano Veloso
+ 227: Pretty Boy | Noel Gallagher's High Flying Birds
+ 228: Bob Dylan's 115th Dream | Bob Dylan
+ 229: She Belongs to Me | Bob Dylan
+ 230: Auto Rock | Mogwai
+ 231: Le sud | Nino Ferrer
+ 232: Climbing Up the Walls | Radiohead
+ 233: Subterranean Homesick Alien | Radiohead
+ 234: Airbag | Radiohead
+ 235: Blu laguna | Il Pan Del Diavolo
+ 236: Supermassive Black Hole | Muse
+ 237: Map of the Problematique | Muse
+ 238: Una Somma Di Piccole Cose | Niccolò Fabi
+ 239: Facciamo Finta | Niccolò Fabi
+ 240: This Life | Curtis Stigers, The Forest Rangers
+ 241: Lu Cardillo | Umberto Boselli
+ 242: I Feel So Wrong | Sleaford Mods
+ 243: Goldberg Variations, BWV 988: Aria | Johann Sebastian Bach, Glenn Gould
+ 244: Bulls | All Them Witches
+ 245: Don't Bring Me Coffee | All Them Witches
+ 246: Soul Bossa Nova | Quincy Jones
+ 247: Maronna Mia | Pino Daniele
+ 248: The Unclouded Day - from Sons of Anarchy | Audra Mae
+ 249: Köln, January 24, 1975, Pt. II C - Live | Keith Jarrett
+ 250: Te lo faccio vedere chi sono io | Piero Ciampi
+ 251: L'ultima danza | Bobo Rondelli
+ 252: Variations on an Original Theme, Op. 36, "Enigma": Enigma | Edward Elgar, Bournemouth Symphony Orchestra, George Hurst
+ 253: Home - Remastered 2011 | Public Image Ltd.
+ 254: Lift Me Up | Moby
+ 255: Blue Orchid | The White Stripes
+ 256: The Order Of Death - 2011 - Remaster | Public Image Ltd.
+ 257: It's Late | A Beacon School
+ 258: Friday I'm In Love | The Cure
+ 259: Scuola | Eugenio Finardi
+ 260: Zucchero | Eugenio Finardi
+ 261: Lovesong - Remastered | The Cure
+ 262: Prayers For Rain - Remastered | The Cure
+ 263: Breezeblocks | alt-J
+ 264: Dissolve Me | alt-J
+ 265: Ms | alt-J
+ 266: She Bangs the Drums - Remastered | The Stone Roses
+ 267: Waterfall - Remastered | The Stone Roses
+ 268: I Am the Resurrection - Remastered | The Stone Roses
+ 269: Coyote | DOPE LEMON
+ 270: Honey Bones | DOPE LEMON
+ 271: Parigi | Paolo Conte
+ 272: Sing, Sing, Sing | Benny Goodman
+ 273: La fine dei vent'anni | Motta
+ 274: Crystal | New Order
+ 275: We're Not Gonna Take It | Twisted Sister
+ 276: Take on Me | a-ha
+ 277: Changes | Faul & Wad, PNAU
+ 278: Africa | TOTO
+ 279: Into Dust | Mazzy Star
+ 280: Dreams | Nuages
+ 281: Come Join the Murder - From Sons of Anarchy | The White Buffalo, The Forest Rangers
+ 282: It's A Man's, Man's, Man's World - Single Version / Mono | James Brown
+ 283: We Will Rock You - Remastered 2011 | Queen
+ 284: Death Disco - 7" Edit | Public Image Ltd.
+ 285: The Bogus Man | Roxy Music
+ 286: Space Dementia | Muse
+ 287: Cocaine | Eric Clapton
+ 288: Don't Stop Me Now - Remastered 2011 | Queen
+ 289: Dakota | Stereophonics
+ 290: Something Got Me Started - 2008 Remaster | Simply Red
+ 291: Au Vieux Sebasto | Universal Production Music
+ 292: French CanCan | Universal Production Music
+ 293: Mazurka Bastiaise | Universal Production Music
+ 294: Le Carillon De Solbach | Universal Production Music
+ 295: Riviera Nostalgia | Universal Production Music
+ 296: Abitudine | Subsonica
+ 297: Dormi | Subsonica
+ 298: All The Small Things | blink-182
+ 299: Superman | Lazlo Bane
+ 300: Funky Town | Lipps Inc.
+ 301: Where Did You Sleep Last Night - Live | Nirvana
+ 302: You Know You're Right | Nirvana
+ 303: Voodoo Child (Slight Return) | Jimi Hendrix
+ 304: Mofo | U2
+ 305: Wake Up Dead Man | U2
+ 306: L'Ultimo Bacio - Remastered 2020 | Carmen Consoli
+ 307: Equilibrio Precario - Remastered 2020 | Carmen Consoli
+ 308: Jacknife | Jackie McLean
+ 309: Long Long Time | Linda Ronstadt
+ 310: Be Yourself | Morcheeba
+ 311: Lemon Tree | Fools Garden
+ 312: The Luck You Got | The High Strung
+ 313: Adam's Song | blink-182
+ 314: Ticket To Ride - Remastered | The Beatles
+ 315: Acida | Prozac+
+ 316: Foggy Notion | The Velvet Underground
+ 317: Sulle Labbra | Afterhours
+ 318: Quello Che Non C'è | Afterhours
+ 319: The Things You Said | Depeche Mode
+ 320: Nothing | Depeche Mode
+ 321: Un romantico a Milano | Baustelle
+ 322: Ordinary Man | Chinese Man
+ 323: Sonata No. 14 "Moonlight" in C-Sharp Minor", Op. 27 No. 2: I. Adagio sostenuto | Ludwig van Beethoven, Paul Lewis
+ 324: Resta | Litfiba
+ 325: Univers | Litfiba
+ 326: Apapaia | Litfiba
+ 327: Venus | Shocking Blue
+ 328: Atmosphere | Joy Division
+ 329: Jealous Guy - Remastered 2010 | John Lennon
+ 330: All You Need Is Love - Remastered 2009 | The Beatles
+ 331: On The Road Again | Canned Heat
+ 332: Wuthering Heights | Kate Bush
+ 333: Moving | Kate Bush
+ 334: Suicide Blonde | INXS
+ 335: Hear That Sound | INXS
+ 336: Who Pays The Price | INXS
+ 337: In My Place | Coldplay
+ 338: Warning Sign | Coldplay
+ 339: A Whisper | Coldplay
+ 340: Frogs | Alice In Chains
+ 341: Jesus on the mainline | Bud Spencer Blues Explosion
+ 342: Where To Now St. Peter? | Elton John
+ 343: Into You Like a Train | The Psychedelic Furs
+ 344: Day Is Done | Nick Drake
+ 345: Man In A Shed | Nick Drake
+ 346: Schizophrenia | Sonic Youth
+ 347: Catholic Block | Sonic Youth
+ 348: La Sottile Linea Bianca | Afterhours
+ 349: Ci Sono Molti Modi | Afterhours
+ 350: Good | Morphine
+ 351: Claire | Morphine
+ 352: Then She Remembers | The Dream Syndicate
+ 353: White Light/White Heat | The Velvet Underground
+ 354: Sister Ray | The Velvet Underground
+ 355: Here She Comes Now | The Velvet Underground
+ 356: Wannabe | Spice Girls
+ 357: Spaccacuore | Samuele Bersani
+ 358: Nothing's Gonna Hurt You Baby | Cigarettes After Sex
+ 359: Essere Speciale | Niccolò Fabi
+ 360: The Universal - 2012 Remaster | Blur
+ 361: My Favourite Game | The Cardigans
+ 362: Human Behaviour | Björk
+ 363: Extraterrestre | Eugenio Finardi
+ 364: Turn Off The Light | Nelly Furtado
+ 365: California Gurls | Katy Perry, Snoop Dogg
+ 366: Word Up! | Korn
+ 367: Piccolo uomo | Mia Martini
+ 368: Lasciarsi Un Giorno A Roma | Niccolò Fabi
+ 369: 50 Special | Lùnapop
+ 370: Wicked Game | Chris Isaak
+ 371: Kids | Kyle Dixon & Michael Stein
+ 372: Salirò | Daniele Silvestri
+ 373: Soul Cake | Sting
+ 374: Those Sweet Words | Norah Jones
+ 375: Fight For Your Right | Beastie Boys
+ 376: Because the Night | Patti Smith
+ 377: Looped | Kiasmos
+ 378: Big Yellow Taxi | Joni Mitchell
+ 379: Welcome To The Jungle | Guns N' Roses
+ 380: Somebody to Love | Jefferson Airplane
+ 381: Kids | MGMT
+ 382: Black Lagoon | Still Corners
+ 383: Monetine | Daniele Silvestri
+ 384: Abschied | Nico
+ 385: Afraid | Nico
+ 386: Milanesi al mare | The Zen Circus
+ 387: Ho Una Fissa | Verdena
+ 388: Rilievo | Verdena
+ 389: Vicious | Lou Reed
+ 390: Perfect Day | Lou Reed
+ 391: Satellite of Love | Lou Reed
+ 392: Isobel | Björk
+ 393: Sour Times | Portishead
+ 394: Roads | Portishead
+ 395: Nothingman - Remastered | Pearl Jam
+ 396: Corduroy - Remastered | Pearl Jam
+ 397: Immortality - Remastered | Pearl Jam
+ 398: See No Evil | Television
+ 399: Friction | Television
+ 400: Canzone Delle Situazioni Differenti - 2007 Digital Remaster | Francesco Guccini
+ 401: She's Lost Control - 2019 Digital Master | Joy Division
+ 402: Just Like Honey | The Jesus and Mary Chain
+ 403: Please Me Like You Want To | Ben Harper
+ 404: By My Side | Ben Harper
+ 405: Higher Ground | Stevie Wonder
+ 406: All In Love Is Fair | Stevie Wonder
+ 407: Old Graffiti | Bibio
+ 408: Hand Rubbed Finish | The Dirty Grass Players
+ 409: Cieli neri | Bluvertigo
+ 410: The Power of Equality | Red Hot Chili Peppers
+ 411: Mellowship Slinky in B Major | Red Hot Chili Peppers
+ 412: Blood Sugar Sex Magik | Red Hot Chili Peppers
+ 413: Breaking the Girl | Red Hot Chili Peppers
+ 414: Muori Delay | Verdena
+ 415: Non Prendere L'Acme, Eugenio | Verdena
+ 416: Il Caos Strisciante | Verdena
+ 417: Radio | Paolo Nutini
+ 418: Acid Eyes | Paolo Nutini
+ 419: Desperation | Paolo Nutini
+ 420: Violet | Hole
+ 421: Is There Anybody Out There? - 2011 Remastered Version | Pink Floyd
+ 422: In The Flesh? - 2011 Remastered Version | Pink Floyd
+ 423: Morire | CCCP – Fedeli Alla Linea
+ 424: Valium Tavor Serenase | CCCP – Fedeli Alla Linea
+ 425: Pablo | Francesco De Gregori
+ 426: Lux Aeterna | Clint Mansell, Kronos Quartet
+ 427: Stay with Me (feat. Kronos Quartet) | Clint Mansell, Kronos Quartet
+ 428: Iodio | Bluvertigo
+ 429: Crystal Frontier - Widescreen Version | Calexico
+ 430: Dirty Harry | Gorillaz, Bootie Brown
+ 431: The Last Day Of Summer | The Cure
+ 432: Sunburn | Muse
+ 433: Muscle Museum | Muse
+ 434: Cave | Muse
+ 435: Falling Down | Muse
+ 436: By This River - 2004 Digital Remaster | Brian Eno
+ 437: A Kind Of Magic - Remastered 2011 | Queen
+ 438: How You Remind Me | Nickelback
+ 439: Caffè nero bollente | Fiorella Mannoia
+ 440: Cherry Lips (Go Baby Go) | Garbage
+ 441: Beep Beep Love | Gruppo Sportivo
+ 442: 111 | Marlene Kuntz
+ 443: She Sells Sanctuary | The Cult
+ 444: Spellbound | Siouxsie and the Banshees
+ 445: Every Day Is Exactly The Same | Nine Inch Nails
+ 446: In Every Dream Home A Heartache | Roxy Music
+ 447: Can't Stand Losing You - Remastered 2003 | The Police
+ 448: Rock the Casbah - Remastered | The Clash
+ 449: Feel Good Inc. | Luca Stricagnoli
+ 450: Girl I Love You | Massive Attack
+ 451: Orange Evening | DWIG
+ 452: In The Waiting Line | Zero 7, Sophie Barker
+ 453: Sex Is Not The Enemy | Garbage
+ 454: Distante | Meg
+ 455: The Space Between | Zero 7, Tina Dico
+ 456: America | M83
+ 457: Clash City Rockers | The Clash
+ 458: Lady Madonna - Remastered 2015 | The Beatles
+ 459: Strawberry Fields Forever - Remastered | The Beatles
+ 460: Harlem Shuffle - Remastered 2009 | The Rolling Stones
+ 461: United States of Eurasia (+Collateral Damage) | Muse
+ 462: Don't Come Around Here No More | Tom Petty and the Heartbreakers
+ 463: Cities In Dust | Siouxsie and the Banshees
+ 464: 9 Crimes | Damien Rice
+ 465: Vedi Cara - Remaster 1996 | Francesco Guccini
+ 466: Burn the Witch | Radiohead
+ 467: Paperback Writer - Remastered 2015 | The Beatles
+ 468: Pow R. Toc. H - 2011 Remaster | Pink Floyd
+ 469: Interstellar Overdrive - 2011 Remaster | Pink Floyd
+ 470: Bike - 2011 Remaster | Pink Floyd
+ 471: Refugee | Tom Petty and the Heartbreakers
+ 472: Voodoo In My Blood | Massive Attack, Young Fathers
+ 473: Piazza Grande | Lucio Dalla
+ 474: '74-'75 | The Connells
+ 475: Trigger Hippie | Morcheeba
+ 476: All'una e trentacinque circa | Vinicio Capossela
+ 477: Piccola Cittá - Remastered 2007 | Francesco Guccini
+ 478: Quello che non ho | Fabrizio De André
+ 479: Spaceman | Verdena
+ 480: Ninja (feat. Spank Rock) | M+A, Spank Rock
+ 481: La collina | Fabrizio De André
+ 482: Un chimico | Fabrizio De André
+ 483: Un ottico | Fabrizio De André
+ 484: Otherside | Red Hot Chili Peppers
+ 485: Scared of Girls | Placebo
+ 486: Man Next Door | Massive Attack, Horace Andy
+ 487: Black Milk | Massive Attack, Elizabeth Fraser
+ 488: Risingson | Massive Attack
+ 489: A Place Called Home | PJ Harvey
+ 490: Good Fortune | PJ Harvey
+ 491: We Float | PJ Harvey
+ 492: Love On A Real Train - From 'Risky Business' Original Motion Picture Soundtrack | Tangerine Dream
+ 493: Hyperborea | Tangerine Dream
+ 494: Date With The Night | Yeah Yeah Yeahs
+ 495: Modern Romance | Yeah Yeah Yeahs
+ 496: The Fragile | Nine Inch Nails
+ 497: Play For Today | The Cure
+ 498: Il suicidio del Samurai | Verdena
+ 499: Balanite | Verdena
+ 500: Elefante | Verdena
+ 501: Saturnz Barz (feat. Popcaan) | Gorillaz, Popcaan
+ 502: ...Like Clockwork | Queens of the Stone Age
+ 503: Expresso Love | Dire Straits
+ 504: Ob-La-Di, Ob-La-Da - Remastered | The Beatles
+ 505: Helter Skelter - Remastered 2009 | The Beatles
+ 506: Blackbird - Remastered 2009 | The Beatles
+ 507: Back In The U.S.S.R. - Remastered 2009 | The Beatles
+ 508: A Pillow Of Winds - 2011 Remastered Version | Pink Floyd
+ 509: Speed of Sound | Coldplay
+ 510: The Hardest Part | Coldplay
+ 511: Swallowed in the Sea | Coldplay
+ 512: White America | Eminem
+ 513: Square Dance | Eminem
+ 514: What's Going On | Marvin Gaye
+ 515: Right On | Marvin Gaye
+ 516: Inner City Blues (Make Me Wanna Holler) | Marvin Gaye
+ 517: Downbound Train | Bruce Springsteen
+ 518: I'm On Fire | Bruce Springsteen
+ 519: Break on Through (To the Other Side) | The Doors
+ 520: Light My Fire | The Doors
+ 521: Black Shuck | The Darkness
+ 522: Karmacoma | Massive Attack
+ 523: Weather Storm | Massive Attack
+ 524: Ballad of a Thin Man | Bob Dylan
+ 525: It Takes a Lot to Laugh, It Takes a Train to Cry | Bob Dylan
+ 526: Skull Tattoo | Eagle-Eye Cherry
+ 527: Scegli Me (Un Mondo Che Tu Non Vuoi) | Verdena
+ 528: Per Sbaglio | Verdena
+ 529: Mi Coltivo | Verdena
+ 530: Sorriso In Spiaggia Part I | Verdena
+ 531: I Want It All | Depeche Mode
+ 532: Le cose cambiano | Marta Sui Tubi
+ 533: Stitichezza cronica | Marta Sui Tubi
+ 534: arrow | half•alive
+ 535: RUNAWAY | half•alive
+ 536: 4 | Aphex Twin
+ 537: Fingerbib | Aphex Twin
+ 538: Sail To The Moon | Radiohead
+ 539: A Punch Up at a Wedding | Radiohead
+ 540: A Wolf At the Door | Radiohead
+ 541: Da Ya Think I'm Sexy? | Rod Stewart
+ 542: The Black Angel's Death Song | The Velvet Underground, Nico
+ 543: All Tomorrow's Parties | The Velvet Underground, Nico
+ 544: Femme Fatale | The Velvet Underground, Nico
+ 545: Sunday Morning | The Velvet Underground, Nico
+ 546: I Heard It Through The Grapevine | Creedence Clearwater Revival
+ 547: Drag | Placebo
+ 548: Pierrot the Clown | Placebo
+ 549: Silvertown Blues | Mark Knopfler
+ 550: Politician | Cream
+ 551: Tryin' To Throw Your Arms Around The World | U2
+ 552: Mysterious Ways | U2
+ 553: Who's Gonna Ride Your Wild Horses | U2
+ 554: The Fly | U2
+ 555: Until The End Of The World | U2
+ 556: Even Better Than The Real Thing | U2
+ 557: All I Need (feat. Beth Hirsch) | Air, Beth Hirsch
+ 558: Ce matin-là - From "L'uomo in più" | Air
+ 559: Would You...? | Touch & Go
+ 560: Life's A Beach | Touch & Go
+ 561: If It Takes All Night | Roxy Music
+ 562: Shake It Out | Florence + The Machine
+ 563: What The Water Gave Me | Florence + The Machine
+ 564: Never Let Me Go | Florence + The Machine
+ 565: The Sprawl (Album Version) | Sonic Youth
+ 566: The Long And Winding Road - Remastered | The Beatles
+ 567: Let It Be - Remastered | The Beatles
+ 568: Across The Universe - Remastered | The Beatles
+ 569: Cloudbusting | Kate Bush
+ 570: The Morning Fog | Kate Bush
+ 571: Hounds Of Love | Kate Bush
+ 572: Pride (In The Name Of Love) - Remastered 2009 | U2
+ 573: The Unforgettable Fire - Remastered 2009 | U2
+ 574: Shine On You Crazy Diamond, Pts. 6-9 - 2011 Remaster | Pink Floyd
+ 575: Fancy | Yeah Yeah Yeahs
+ 576: Bombtrack | Rage Against The Machine
+ 577: Wake Up | Rage Against The Machine
+ 578: Where Did All the Love Go? | Kasabian
+ 579: Fire | Kasabian
+ 580: Vlad the Impaler | Kasabian
+ 581: Secret Alphabets | Kasabian
+ 582: Yes | Coldplay
+ 583: Cemeteries of London | Coldplay
+ 584: Viva La Vida | Coldplay
+ 585: Lost! | Coldplay
+ 586: Three Days | Jane's Addiction
+ 587: Let Me See | Morcheeba
+ 588: Blindfold | Morcheeba
+ 589: Dreams - 2004 Remaster | Fleetwood Mac
+ 590: The Chain - 2004 Remaster | Fleetwood Mac
+ 591: How Peculiar | Robbie Williams
+ 592: Love Somebody | Robbie Williams
+ 593: Hot Fudge | Robbie Williams
+ 594: The Zephyr Song | Red Hot Chili Peppers
+ 595: You And Whose Army? | Radiohead
+ 596: With A Little Help From My Friends - Remastered | The Beatles
+ 597: Fixing A Hole - Remastered | The Beatles
+ 598: Spirits In The Material World | The Police
+ 599: Secret Journey | The Police
+ 600: Breaking the Habit | Linkin Park
+ 601: Numb | Linkin Park
+ 602: So Far Away - Full Version | Dire Straits
+ 603: Walk Of Life | Dire Straits
+ 604: All Because Of You | U2
+ 605: City Of Blinding Lights | U2
+ 606: The Soul Cages | Sting
+ 607: All This Time | Sting
+ 608: Runnin' Down A Dream | Tom Petty
+ 609: Sweet Potato | Sia
+ 610: California | Lenny Kravitz
+ 611: Baptized | Lenny Kravitz
+ 612: Hoppípolla | Sigur Rós
+ 613: Little by Little | Oasis
+ 614: Wonderwall - Remastered | Oasis
+ 615: Don't Look Back in Anger - Remastered | Oasis
+ 616: Roll with It - Remastered | Oasis
+ 617: Champagne Supernova | Oasis
+ 618: Hard To Explain | The Strokes
+ 619: Blue Monk | Thelonious Monk
+ 620: I Walk On Guilded Splinters | Johnny Jenkins
+ 621: Untitled | Interpol
+ 622: Baba O'Riley - Remix | The Who, Andy Macpherson, Jon Astley
+ 623: Behind Blue Eyes | The Who
+ 624: doomsday | Kasabian
+ 625: eez-eh | Kasabian
+ 626: bow | Kasabian
+ 627: In This World | Moby
+ 628: Come with Me Now | KONGOS
+ 629: Kill | Jimmy Eat World
+ 630: Dancing Barefoot | Patti Smith
+ 631: Walking On The Moon - Remastered 2003 | The Police
+ 632: Bring On The Night | The Police
+ 633: Exit - Remastered 2007 | U2
+ 634: With Or Without You - Remastered 2007 | U2
+ 635: The Walk - Remastered Version | Eurythmics, Annie Lennox, Dave Stewart
+ 636: Midnight Rambler | The Rolling Stones
+ 637: The Kids Are Alright - Mono | The Who
+ 638: For No One - Remastered 2009 | The Beatles
+ 639: She Said She Said - Remastered 2009 | The Beatles
+ 640: Yellow Submarine - Remastered 2009 | The Beatles
+ 641: Wild West End | Dire Straits
+ 642: Setting Me Up | Dire Straits
+ 643: Lady Writer | Dire Straits
+ 644: Portobello Belle - Live / Alternate Version / Remastered 2022 | Dire Straits
+ 645: Calling Elvis | Dire Straits
+ 646: On Every Street | Dire Straits
+ 647: Safe From Harm - 2012 Mix/Master | Massive Attack
+ 648: Lemon | U2
+ 649: The First Time | U2
+ 650: The Wanderer | U2, The Edge, Johnny Cash
+ 651: Lucky Man | The Verve
+ 652: We're Going to Be Friends | The White Stripes
+ 653: I'm Finding It Harder To Be a Gentleman | The White Stripes
+ 654: I Just Don't Know What To Do With Myself | The White Stripes
+ 655: The Hardest Button To Button | The White Stripes
+ 656: Ball And Biscuit | The White Stripes
+ 657: Fields Of Gold | Sting
+ 658: Fait Accompli | Curve
+ 659: Tomorrow Comes Today | Gorillaz
+ 660: Territorial Pissings | Nirvana
+ 661: Come As You Are | Nirvana
+ 662: Breed | Nirvana
+ 663: Endless, Nameless | Nirvana
+ 664: On A Plain | Nirvana
+ 665: No Feelings - Remastered 2012 | Sex Pistols
+ 666: Submission - Remastered 2012 | Sex Pistols
+ 667: Pretty Vacant - Remastered 2012 | Sex Pistols
+ 668: Did You No Wrong - Remastered 2012 | Sex Pistols
+ 669: Anarchy In The UK - Remastered 2012 | Sex Pistols
+ 670: Satellite - Remastered 2012 | Sex Pistols
+ 671: 19-2000 | Gorillaz
+ 672: Re-Hash | Gorillaz
+ 673: More Than This | Roxy Music
+ 674: The Space Between | Roxy Music
+ 675: Avalon | Roxy Music
+ 676: The Main Thing | Roxy Music
+ 677: Zombie | The Cranberries
+ 678: Dreaming My Dreams | The Cranberries
+ 679: Hurts Like Heaven | Coldplay
+ 680: Paradise | Coldplay
+ 681: Breathing - 2018 Remaster | Kate Bush
+ 682: Army Dreamers - 2018 Remaster | Kate Bush
+ 683: Blow Away - 2018 Remaster | Kate Bush
+ 684: Night Of The Swallow - 2018 Remaster | Kate Bush
+ 685: In Reverse | The War On Drugs
+ 686: Disappearing | The War On Drugs
+ 687: Festa Mesta | Marlene Kuntz
+ 688: Merry X-Mas | Marlene Kuntz
+ 689: Pigs On The Wing 1 - 2011 Remaster | Pink Floyd
+ 690: You Shook Me All Night Long | AC/DC
+ 691: Rock and Roll Ain't Noise Pollution | AC/DC
+ 692: Neighborhood #1 (Tunnels) | Arcade Fire
+ 693: Synchronicity II | The Police
+ 694: King Of Pain - Remastered 2003 | The Police
+ 695: Synchronicity I | The Police
+ 696: With My Own Two Hands | Ben Harper
+ 697: Hand in My Pocket - 2015 Remaster | Alanis Morissette
+ 698: Ironic - 2015 Remaster | Alanis Morissette
+ 699: Strade | Tiromancino
+ 700: Due Destini | Tiromancino
+ 701: So | Tiromancino
+ 702: L'Anima | Tiromancino
+ 703: Graveyard Girl | M83
+ 704: Skin of the Night | M83
+ 705: We Own the Sky | M83
+ 706: Tu non mi basti mai | Lucio Dalla
+ 707: Canzone | Lucio Dalla
+ 708: Ayrton | Lucio Dalla
+ 709: Club Foot | Kasabian
+ 710: Cutt Off | Kasabian
+ 711: L.S.F. | Kasabian
+ 712: Reason Is Treason | Kasabian
+ 713: If I Had a Heart | Fever Ray
+ 714: Main Title from "The Fury" - from HBO's Euphoria | John Williams
+ 715: Serve The Servants | Nirvana
+ 716: Milk It | Nirvana
+ 717: Heart-Shaped Box | Nirvana
+ 718: Dumb | Nirvana
+ 719: Today - 2011 Remaster | The Smashing Pumpkins
+ 720: Luna - 2011 Remaster | The Smashing Pumpkins
+ 721: American Idiot | Green Day
+ 722: Wake Me up When September Ends | Green Day
+ 723: Harvest Feast | All Them Witches
+ 724: Call Me Star | All Them Witches
+ 725: The Marriage Of Coyote Woman | All Them Witches
+ 726: Surface-To-Air Whistle | All Them Witches
+ 727: Alan's Psychedelic Breakfast - 2011 Remaster | Pink Floyd
+ 728: Atom Heart Mother Suite - 2011 Remaster | Pink Floyd
+ 729: Summer '68 - 2011 Remaster | Pink Floyd
+ 730: Drink Before the War | Sinéad O'Connor
+ 731: Just Like U Said It Would B | Sinéad O'Connor
+ 732: What's Wrong | half•alive
+ 733: Lost | half•alive
+ 734: Back Around | half•alive
+ 735: Yosemite | half•alive
+ 736: Safe European Home - Remastered | The Clash
+ 737: Sad Waters - 2009 Remastered Version | Nick Cave & The Bad Seeds
+ 738: Stuck In A Moment You Can't Get Out Of | U2
+ 739: Elevation | U2
+ 740: Kite | U2
+ 741: Walk On | U2
+ 742: The Magnificent Seven - Remastered | The Clash
+ 743: Police On My Back - Remastered | The Clash
+ 744: Lose This Skin - Remastered | The Clash
+ 745: Career Opportunities - Remastered | The Clash
+ 746: Celebrity Skin | Hole
+ 747: Malibu | Hole
+ 748: Loser | Beck
+ 749: Ava Adore | The Smashing Pumpkins
+ 750: Go With The Flow | Queens of the Stone Age
+ 751: Mosquito Song | Queens of the Stone Age
+ 752: Crosseyed and Painless | Talking Heads
+ 753: The Great Curve | Talking Heads
+ 754: Pulled Up - 2005 Remaster | Talking Heads
+ 755: Psycho Killer - 2005 Remaster | Talking Heads
+ 756: No Compassion - 2005 Remaster | Talking Heads
+ 757: Mandala | Keith Jarrett, Jan Garbarek, Palle Danielsson, Jon Christensen
+ 758: Personal Jesus | Depeche Mode
+ 759: Enjoy the Silence | Depeche Mode
+ 760: To Bring You My Love | PJ Harvey
+ 761: Down By The Water | PJ Harvey
+ 762: C'mon Billy | PJ Harvey
+ 763: Rockstar | Nickelback
+ 764: Hard as a Rock | AC/DC
+ 765: Van Diemen's Land - Live - Rattle & Hum Version | U2
+ 766: Desire | U2
+ 767: When Love Comes To Town | U2, B.B. King
+ 768: God Part II | U2
+ 769: Guerrilla Radio | Rage Against The Machine
+ 770: Born of a Broken Man | Rage Against The Machine
+ 771: Testify | Rage Against The Machine
+ 772: Have A Nice Day | Stereophonics
+ 773: Feeling This | blink-182
+ 774: Down | blink-182
+ 775: Always | blink-182
+ 776: Typhoons | Royal Blood
+ 777: Stay Out Of Trouble | Kings of Convenience
+ 778: Save Tonight | Eagle-Eye Cherry
+ 779: Love Is Noise | The Verve
+ 780: I Love You, Suzanne | Lou Reed
+ 781: Easy Lover | Philip Bailey, Phil Collins
+ 782: Last of Our Kind | The Darkness
+ 783: She Wolf | Shakira
+ 784: The Great Gig In The Sky - 2011 Remastered Version | Pink Floyd
+ 785: Any Colour You Like - 2011 Remastered Version | Pink Floyd
+ 786: Eclipse - 2011 Remastered Version | Pink Floyd
+ 787: Walking On A Dream | Empire of the Sun
+ 788: In the Sun | Joseph Arthur
+ 789: Girls Just Want to Have Fun | Cyndi Lauper
+ 790: For What It's Worth | Placebo
+ 791: We Are Golden | MIKA
+ 792: The Bitter End | Placebo
+ 793: Centrefolds | Placebo
+ 794: One Way Ticket | The Darkness
+ 795: Is It Just Me? | The Darkness
+ 796: Dinner Lady Arms | The Darkness
+ 797: Ghostbusters | Ray Parker Jr.
+ 798: Lets Go Surfing | The Drums
+ 799: Lake Of Fire - Live | Nirvana
+ 800: Let's Get It Started - Spike Mix | Black Eyed Peas
+ 801: Naive | The Kooks
+ 802: Butterfly | Crazy Town
+ 803: Little Sister | Queens of the Stone Age
+ 804: Sing for Absolution | Muse
+ 805: Rock and Roll - Remaster | Led Zeppelin
+ 806: Black Dog - Remaster | Led Zeppelin
+ 807: Immigrant Song - Remaster | Led Zeppelin
+ 808: House of the Rising Sun | The Animals
+ 809: Bone Machine - Remastered | Pixies
+ 810: Where Is My Mind? - Remastered | Pixies
+ 811: Pass The Mic - Remastered 2009 | Beastie Boys
+ 812: Can't Find My Way Home - Live from Madison Square Garden | Eric Clapton, Steve Winwood
+ 813: Rock & Roll - Full Length Version; 2015 Remaster | The Velvet Underground
+ 814: Too Many Chiefs - Not Enough Indians | Brant Bjork
+ 815: Love Is The Drug | Roxy Music
+ 816: Both Ends Burning | Roxy Music
+ 817: She Sells | Roxy Music
+ 818: Heart Of Gold | Neil Young
+ 819: Stolen - Single Version | Dashboard Confessional
+ 820: Out of Time | Blur
+ 821: How to Save a Life | The Fray
+ 822: Sooner Or Later | Michael Tolcher
+ 823: Enter Sandman | Metallica
+ 824: What Difference Does It Make? - 2011 Remaster | The Smiths
+ 825: Wanted Dead Or Alive | Bon Jovi
+ 826: You're As Sweet as Sugar on a Stick | Barry Louis Polisar
+ 827: What You Waiting For? | Gwen Stefani
+ 828: Stop Draggin' My Heart Around (with Tom Petty and The Heartbreakers) - 2016 Remaster | Stevie Nicks, Tom Petty and the Heartbreakers
+ 829: True Love Waits (Live In Oslo) | Radiohead
+ 830: These Boots Are Made for Walkin' | Planet Funk
+ 831: Sweet Child O Mine | Viggo Mortensen, George MacKay, Samantha Isler, Annalise Basso, Nicholas Hamilton, Kirk Ross, Philip Klein
+ 832: Sweetest Thing - The Single Mix | U2
+ 833: Ooh La La | Goldfrapp
+ 834: Show Me How to Live | Audioslave
+ 835: Slowdive | Siouxsie and the Banshees
+ 836: Rag Doll | Aerosmith
+ 837: Pyro | Kings of Leon
+ 838: Who Feels Love? | Oasis
+ 839: Paradise Circus | Massive Attack
+ 840: More Than a Feeling | Boston
+ 841: Let Me Entertain You | Robbie Williams
+ 842: Love In a Trashcan | The Raveonettes
+ 843: Too Old to Die Young | Brother Dege
+ 844: Minority | Green Day
+ 845: Midnight City | M83
+ 846: Mind Fulness - Instrumental version | Jecha
+ 847: My California | Beth Hart
+ 848: Man of Simple Pleasures | Kasabian
+ 849: Love Missile F1-11 | Sigue Sigue Sputnik
+ 850: Just Like Heaven | The Cure
+ 851: Liquefy | The Servant
+ 852: The Great Beyond | R.E.M.
+ 853: I'm Looking Through You - Remastered | The Beatles
+ 854: I Can't Dance - Remastered 2007 | Genesis
+ 855: I'm Gonna Be (500 Miles) | The Proclaimers
+ 856: I Think I'm Paranoid | Garbage
+ 857: Khorakhané (a forza di essere vento) | Fabrizio De André
+ 858: Smisurata preghiera | Fabrizio De André
+ 859: Have A Little Faith In Me | John Hiatt
+ 860: Hey Negrita - Remastered | The Rolling Stones
+ 861: Hold Me, Thrill Me, Kiss Me, Kill Me - From 'Batman Forever' | U2
+ 862: Electrical Storm - William Orbit Mix | U2
+ 863: Human | The Killers
+ 864: Alive | Pearl Jam
+ 865: Hurricane | Thirty Seconds To Mars
+ 866: Harder To Breathe | Maroon 5
+ 867: Pumped Up Kicks | Foster The People
+ 868: Forbidden Colours | David Sylvian, Ryuichi Sakamoto
+ 869: Black Horse And The Cherry Tree | KT Tunstall
+ 870: Dog Days Are Over | Florence + The Machine
+ 871: Building Steam With A Grain Of Salt | DJ Shadow
+ 872: Do The Strand | Roxy Music
+ 873: Better Way - War Mix | Ben Harper
+ 874: Dreaming of Me | Depeche Mode
+ 875: Big Bang Theory Theme | Barenaked Ladies
+ 876: Cursum Perficio - 2009 Remaster | Enya
+ 877: Orinoco Flow - 2009 Remaster | Enya
+ 878: Saturnine & Iron Jaw | All Them Witches
+ 879: 41 | All Them Witches
+ 880: borealis dancing | Jaimie Branch
+ 881: burning grey | Jaimie Branch
+ 882: Heaven # | Negrita
+ 883: Hollywood Sofa | Negrita
+ 884: Tales from the Far Side | Bill Frisell
+ 885: In Deep | Bill Frisell
+ 886: Coffaro's Theme | Bill Frisell
+ 887: Believe In Me | Lenny Kravitz
+ 888: Avril 14th | Aphex Twin
+ 889: Beat It | Michael Jackson
+ 890: Olsen olsen | Sigur Rós
+ 891: Senza macchine che vadano a fuoco | Lo Stato Sociale
+ 892: C'eravamo tanto sbagliati | Lo Stato Sociale
+ 893: Il sulografo e la principessa ballerina | Lo Stato Sociale
+ 894: Instant classic | Lo Stato Sociale, Caterina Guzzanti
+ 895: Io, te e Carlo Marx | Lo Stato Sociale
+ 896: My Friend | Groove Armada
+ 897: American Woman | Lenny Kravitz
+ 898: Sono Un Ribelle Mamma | Skiantos
+ 899: Nothing Else Matters | Metallica
+ 900: Let Love Rule | Lenny Kravitz
+ 901: It Takes A Fool To Remain Sane | The Ark
+ 902: The Shock Of The Lightning | Oasis
+ 903: Sweet Home Alabama | Lynyrd Skynyrd
+ 904: Boom, Like That | Mark Knopfler
+ 905: Take Me Out | Franz Ferdinand
+ 906: Good Riddance (Time of Your Life) | Green Day
+ 907: Same Love (feat. Mary Lambert) | Macklemore & Ryan Lewis, Mary Lambert
+ 908: Dark & Long - Remastered | Underworld
+ 909: Ghibli | Savana Funk
+ 910: Madagascar | Savana Funk
+ 911: Blue Boy | Mac DeMarco
+ 912: Una storia disonesta | Stefano Rosso
+ 913: HO UN PROBLEMA | Nello Taver
+ 914: VADO A MILANO FREESTYLE | Nello Taver
+ 915: Stan | Eminem, Dido
+ 916: Goosebumps | Debra Dejean
+ 917: God Gave Me Everything | Mick Jagger
+ 918: All Is Full Of Love | Björk
+ 919: Layla | Derek & The Dominos
+ 920: Down In A Hole (2022 Remaster) | Alice In Chains
+ 921: Break The Night With Colour | Richard Ashcroft
+ 922: I Don't Want to Miss a Thing - From "Armageddon" Soundtrack | Aerosmith
+ 923: Just a Cloud | Lusine, Vilja Larjosto
+ 924: Holy Mountain | Noel Gallagher's High Flying Birds
+ 925: Le vent nous portera | Noir Désir
+ 926: Play Dead | Björk
+ 927: Rootless Tree | Damien Rice
+ 928: Blowin' in the Wind | Bob Dylan
+ 929: Rollin' (Air Raid Vehicle) | Limp Bizkit
+ 930: Something Just Like This | The Chainsmokers, Coldplay
+ 931: Big Time Sensuality - The Fluke Minimix | Björk
+ 932: I'm Fine | Hazel English
+ 933: Goodnight Moon | Shivaree
+ 934: Take A Look Around | Limp Bizkit
+ 935: Sky Full Of Song | Florence + The Machine
+ 936: Unfamiliar Paths | Cliff Martinez
+ 937: Ashes to Ashes - 2017 Remaster | David Bowie
+ 938: Your Hand In Mine | Explosions In The Sky
+ 939: Jumpin' Jack Flash - Mono / Remastered | The Rolling Stones
+ 940: Introduzione i reduci | Giorgio Gaber
+ 941: L'inserimento (prosa) | Giorgio Gaber
+ 942: Il tennis (prosa) | Giorgio Gaber
+ 943: Life on Mars? - 2015 Remaster | David Bowie
+ 944: How Soon Is Now? - 2011 Remaster | The Smiths
+ 945: Winston Churchill's Boy | Benjamin Clementine
+ 946: London | Benjamin Clementine
+ 947: Nemesis | Benjamin Clementine
+ 948: Rio - 2009 Remaster | Duran Duran
+ 949: Mysterious Vibes | The Blackbyrds
+ 950: Something Special | The Blackbyrds
+ 951: Street Games | The Blackbyrds
+ 952: Intro | alt-J
+ 953: Every Other Freckle | alt-J
+ 954: Hunger of the Pine | alt-J
+ 955: The Gospel of John Hurt | alt-J
+ 956: Lovely Day | alt-J
+ 957: Easy Way Out | Gotye
+ 958: Save Me | Gotye
+ 959: White Chalk | PJ Harvey
+ 960: Mine Of Myself | Beatenberg
+ 961: Aqualung | Jethro Tull
+ 962: Cross-Eyed Mary | Jethro Tull
+ 963: Hymn 43 | Jethro Tull
+ 964: No Excuses | Alice In Chains
+ 965: I Stay Away | Alice In Chains
+ 966: B.B.B. | CCCP – Fedeli Alla Linea

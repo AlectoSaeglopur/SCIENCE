@@ -1,0 +1,330 @@
+ >> ULYSSES @ 17-Dec-2023 12:19:14 <<
+
+   1: 3 Di 3 | Marlene Kuntz
+   2: 4/3/1943 | Lucio Dalla
+   3: Acqua e Sale | MINACELENTANO
+   4: Acqua e sapone | Stadio
+   5: A Cuore Scalzo | Max Gazzè
+   6: Adelante! Adelante! | Francesco De Gregori
+   7: A Fior Di Pelle | Marlene Kuntz
+   8: Ahi Maria | Rino Gaetano
+   9: Aida | Rino Gaetano
+  10: Alla Fiera Dell'Est | Angelo Branduardi
+  11: Almeno tu nell'universo - Original Version | Mia Martini
+  12: Altrove | Eugenio In Via Di Gioia
+  13: Altrove | Morgan
+  14: A me me piace 'o blues - 2017 Remaster | Pino Daniele
+  15: Amore che vieni, amore che vai | Fabrizio De André
+  16: Amore Disperato - 2004 Remaster | Nada
+  17: And The Radio Plays | C.S.I.
+  18: Annarella | CCCP – Fedeli Alla Linea
+  19: A pà - Live | Dalla De Gregori
+  20: Ape Regina | Marlene Kuntz
+  21: A Sangue Freddo | Il Teatro Degli Orrori
+  22: Ascolta L'Infinito | Fiorella Mannoia
+  23: Aspettando Il Sole | Neffa, Giuliano Palma
+  24: Azzurro - Remastered | Adriano Celentano
+  25: Ballata dell'amore cieco (o della vanità) | Fabrizio De André
+  26: Balliamo sul mondo - Live; Remastered | Ligabue
+  27: Bartali | Paolo Conte
+  28: Bella | Jovanotti
+  29: Bella Ciao | Modena City Ramblers
+  30: Bocca di rosa | Fabrizio De André
+  31: Borghese In Borghese | Fulminacci
+  32: Born to be Abramo | Elio e le Storie Tese
+  33: Brillantina Bengalese | Paolo Conte
+  34: Calamita | Tre Allegri Ragazzi Morti
+  35: Cangaceiro - Versione Mix | Litfiba
+  36: Canzone Delle Osterie Di Fuori Porta | Samuele Bersani, Luca Carboni
+  37: Capelli | Niccolò Fabi
+  38: Cara | Lucio Dalla
+  39: Catene | The Zen Circus
+  40: Centro Di Gravità Permanente - Remastered | Franco Battiato
+  41: Certe notti | Ligabue
+  42: Che Cossé l'Amor | Vinicio Capossela
+  43: Che Rumore Fa La Felicità? | Negrita
+  44: Che sarà | José Feliciano
+  45: Che T'Aggia Di' | MINACELENTANO
+  46: Coccodrilli | Samuele Bersani
+  47: Come è profondo il mare | Lucio Dalla
+  48: Corto circuito | 99 Posse
+  49: Cose Difficili | Casino Royale
+  50: Costruire | Niccolò Fabi
+  51: Crêuza de mä - New Mix 2014 | Fabrizio De André
+  52: Cuccurucucù - Remastered | Franco Battiato
+  53: Depressione Caspica | C.S.I.
+  54: Diavolo Rosso - Live | Paolo Conte
+  55: Di che cosa parla veramente una canzone? | Tre Allegri Ragazzi Morti
+  56: Dispari | Marta Sui Tubi
+  57: Disperato erotico stomp | Lucio Dalla
+  58: Domani smetto | Articolo 31
+  59: Donne | Zucchero, The Randy Jackson Band
+  60: Don Raffaè | Fabrizio De André
+  61: È Non È | Niccolò Fabi
+  62: E tu? | Bud Spencer Blues Explosion
+  63: Fenomeno | Fabri Fibra
+  64: Fiume Sand Creek | Fabrizio De André
+  65: Flowers Blossom | Thony
+  66: Fossi Figo | Elio e le Storie Tese
+  67: Fuga all'inglese | Paolo Conte
+  68: Fuochi Nella Notte Di San Giovanni | C.S.I.
+  69: Futura | Lucio Dalla
+  70: Generale | Francesco De Gregori
+  71: Gianna | Rino Gaetano
+  72: Girasole | Giorgia
+  73: Giudizi universali | Samuele Bersani
+  74: Gli impermeabili | Paolo Conte
+  75: Gli Spari Sopra (Celebrate) | Vasco Rossi
+  76: Gocce di memoria | Giorgia
+  77: Heaven Out of Hell | Elisa
+  78: Henna | Lucio Dalla
+  79: Ho Visto Un Re | Enzo Jannacci
+  80: I Cento Passi | Modena City Ramblers
+  81: Il ballo di San Vito | Vinicio Capossela
+  82: Il Cielo D'Irlanda | Fiorella Mannoia
+  83: Il mare d'inverno | Loredana Bertè
+  84: Il mio corpo che cambia | Litfiba
+  85: Il mio nemico | Daniele Silvestri
+  86: Il Mio Nome E' Mai Più | Jovanotti, Luciano Ligabue, Piero Pelù
+  87: Il pescatore | Fabrizio De André
+  88: Il Ragazzo Della Via Gluck - Remastered | Adriano Celentano
+  89: Il testamento di Tito | Fabrizio De André
+  90: Il Timido Ubriaco | Max Gazzè
+  91: Il vento - Live | Litfiba
+  92: I migliori anni della nostra vita - Remastered 2019 | Renato Zero
+  93: Imparare Dal Vento | Tiromancino
+  94: Impossibile | Cosmo
+  95: Impressioni Di Settembre | Marlene Kuntz
+  96: Infinito | Raf
+  97: In questa grande città - La prima cumbia | Tre Allegri Ragazzi Morti, Jovanotti
+  98: In questo mondo di ladri | Antonello Venditti
+  99: Inside | Benny Benassi, Chris Nasty
+ 100: In tutti i miei giorni | Raf
+ 101: In Un Giorno Di Pioggia | Modena City Ramblers
+ 102: Invisibili | Cristiano De André
+ 103: Io per lei - 2017 Remaster | Pino Daniele
+ 104: Io se fossi dio | Giorgio Gaber
+ 105: Io sono Francesco | Tricarico
+ 106: Istanbul | Litfiba
+ 107: Istrice | Subsonica
+ 108: I Treni A Vapore - Live Vol. 1 Version | Ivano Fossati
+ 109: Je So' Pazzo - Remastered 2008 | Pino Daniele
+ 110: La Canzone Che Scrivo Per Te | Marlene Kuntz
+ 111: La canzone del sole - Remastered | Lucio Battisti
+ 112: La canzone Mononota | Elio e le Storie Tese
+ 113: La domenica delle salme | Fabrizio De André
+ 114: Lamento Dello Sbronzo | Marlene Kuntz
+ 115: La mia banda suona il rock | Ivano Fossati
+ 116: La mia libertà | Franco Califano
+ 117: La Mia Signorina | Neffa
+ 118: L'amor carnale | The Bastard Sons Of Dioniso
+ 119: L'Amore Pensato | Max Gazzè
+ 120: La musica che gira intorno | Ivano Fossati
+ 121: L'anguilla | 99 Posse
+ 122: La paranza | Daniele Silvestri
+ 123: La punta dell'iceberg | Eugenio In Via Di Gioia
+ 124: La raje | Lou X
+ 125: L'arca di Noè | Sergio Endrigo
+ 126: Largo all'avanguardia | Skiantos
+ 127: L'Artista | Marlene Kuntz
+ 128: La strana famiglia | Giorgio Gaber
+ 129: La Vasca | Alex Britti
+ 130: Lavorare per il male | Tre Allegri Ragazzi Morti, Pierpaolo Capovilla
+ 131: L' avversario | Niccolò Fabi, Daniele Silvestri, Max Gazzè
+ 132: Le elezioni | Giorgio Gaber
+ 133: Leggero | Ligabue
+ 134: Le mani | Giorgio Gaber
+ 135: Lemon | Corner in Bloom
+ 136: Life is sweet | Niccolò Fabi, Daniele Silvestri, Max Gazzè
+ 137: L'isola che non c'è | Edoardo Bennato
+ 138: Lontani Dal Mondo | Negrita
+ 139: Lo shampoo | Giorgio Gaber
+ 140: Louisiana | Litfiba
+ 141: Luce (Tramonti a Nord Est) | Elisa
+ 142: L'Uomo Sogna Di Volare | Negrita
+ 143: Ma che discorsi | Daniele Silvestri
+ 144: Ma come fanno i marinai - Studio Version | Lucio Dalla, Francesco De Gregori
+ 145: Madre - 2008 - Remaster | CCCP – Fedeli Alla Linea
+ 146: Magnolia | Negrita
+ 147: Marmellata #25 | Cesare Cremonini
+ 148: Maudit | Litfiba
+ 149: Max | Paolo Conte
+ 150: Messico E Nuvole | Enzo Jannacci
+ 151: Metti in circolo il tuo amore - 2008 Remaster | Ligabue
+ 152: Mi Fido Di Te | Jovanotti
+ 153: Minuetto | Mia Martini
+ 154: Mio fratello che guardi il mondo | Ivano Fossati
+ 155: Monna Lisa | Ivan Graziani
+ 156: Move Your Body - Gabry Ponte Original Radio Edit | Eiffel 65, Gabry Ponte
+ 157: Napule È | Pino Daniele
+ 158: Nella Mia Ora Di Libertà | Fabrizio De André
+ 159: Nella tua luce | Marlene Kuntz
+ 160: Non È Per Sempre | Afterhours
+ 161: Non sono una signora | Loredana Bertè
+ 162: Nord | Paolo Conte
+ 163: Notte | Marlene Kuntz
+ 164: Nu te fermare | Canzoniere Grecanico Salentino
+ 165: Nuvole Bianche | Ludovico Einaudi
+ 166: Nuvole Rapide | Subsonica
+ 167: Onda Su Onda | Bruno Lauzi
+ 168: Padremadre | Cesare Cremonini
+ 169: Paname | Litfiba
+ 170: Pastore Di Nuvole | Luigi Grechi
+ 171: Pensiero stupendo | Patty Pravo
+ 172: Per Averti | Adriano Celentano
+ 173: Pertanto | Il Pan Del Diavolo
+ 174: Pescatore (feat. Fiorella Mannoia) | Pierangelo Bertoli, Fiorella Mannoia
+ 175: Pezzo di me (feat. Max Gazzè) | Levante, Max Gazzè
+ 176: Piccola stella senza cielo | Ligabue
+ 177: Prima di andare via | Neffa
+ 178: Primavera | Ludovico Einaudi, Robert Ziegler, Royal Philharmonic Orchestra
+ 179: Punk Rock con le ali | Alberto Bianco
+ 180: Punk Islam | CCCP – Fedeli Alla Linea
+ 181: Qualcuno era comunista (prosa) | Giorgio Gaber
+ 182: Quale allegria | Lucio Dalla
+ 183: Quando Sono Con Te | Ex-Otago
+ 184: Quattro Stracci | Francesco Guccini
+ 185: Quelli che... | Enzo Jannacci
+ 186: Quelli che benpensano (feat. Riccardo Sinigallia) | Frankie hi-nrg mc, Riccardo Sinigallia
+ 187: Ricordati di me | Antonello Venditti
+ 188: Rotta X casa di Dio | 883
+ 189: Sally | Fabrizio De André
+ 190: Sally | Vasco Rossi
+ 191: Samarcanda | Roberto Vecchioni
+ 192: Sara non piangere | Pino Daniele
+ 193: Schiele, Lei, Me | Marlene Kuntz
+ 194: Scusate se non piango | Daniele Silvestri
+ 195: Senza titoli | Samuele Bersani
+ 196: Senza Una Donna | Zucchero
+ 197: Sex | Negrita
+ 198: Shpalman | Elio e le Storie Tese
+ 199: Siamo Dei | Lucio Dalla
+ 200: Siamo solo noi | Vasco Rossi
+ 201: Solo Una Sana E Consapevole Libidine Salva Il Giovane Dallo Stress E Dall'Azione Cattolica | Zucchero
+ 202: Sparring Partner | Paolo Conte
+ 203: Spirito | Litfiba
+ 204: Summer On A Solitary Beach - Remastered 2021 | Franco Battiato
+ 205: Supercafone - '99 | Piotta
+ 206: Rotolando Verso Sud | Negrita
+ 207: Tango Per Due | Nina Zilli
+ 208: (Tanto)3 | Jovanotti, Soleluna NY Lab
+ 209: Tapparella | Elio e le Storie Tese
+ 210: Telefonami tra vent'anni | Lucio Dalla
+ 211: Tex - Remix | Litfiba
+ 212: Titanic | Francesco De Gregori
+ 213: Tra palco e realtà | Ligabue
+ 214: Tutti I Miei Sbagli | Subsonica
+ 215: Tutti vogliono viaggiare in prima | Ligabue
+ 216: Una canzone per te | Vasco Rossi
+ 217: Una Vita In Vacanza | Lo Stato Sociale
+ 218: Unita' Di Produzione | C.S.I.
+ 219: Un Senso | Vasco Rossi
+ 220: Uomini Topo | Carmen Consoli
+ 221: Vai In Africa, Celestino! | Francesco De Gregori
+ 222: Vecchi difetti | Marta Sui Tubi
+ 223: Vengo Anch'Io No Tu No | Enzo Jannacci
+ 224: Vento D'Estate | Niccolò Fabi, Max Gazzè
+ 225: Verranno a chiederti del nostro amore | Fabrizio De André
+ 226: Vieni A Ballare In Puglia | Caparezza
+ 227: Vita spericolata | Vasco Rossi
+ 228: Viva | The Zen Circus
+ 229: Viva! | Ligabue
+ 230: Viva l'Italia | Francesco De Gregori
+ 231: Vivere | Vasco Rossi
+ 232: Vivo morto o x | Ligabue
+ 233: Voglio Una Pelle Splendida - Remastered | Afterhours
+ 234: Voglio Vederti Danzare - Remastered | Franco Battiato
+ 235: Voglio volere | Ligabue
+ 236: X Colpa Di Chi? | Zucchero
+ 237: ZITTI E BUONI | Måneskin
+ 238: Breakfast | Corner in Bloom
+ 239: Coda di Lupo | Fabrizio De André
+ 240: Eptadone | Skiantos
+ 241: Hey Boy Hey Girl - Cover Version | Bud Spencer Blues Explosion
+ 242: Nord sud ovest est | 883
+ 243: Ciuri di strata | Olivia Sellerio
+ 244: Fiori D'Arancio | Carmen Consoli
+ 245: Malamore - 3S Take1 | Enzo Carella
+ 246: L'ultima luna | Lucio Dalla
+ 247: Cosa sarà | Lucio Dalla, Francesco De Gregori
+ 248: L'Anno Che Verrà | Lucio Dalla
+ 249: Nuvole senza Messico | Giorgio Canali, Rossofuoco
+ 250: Schizzechea - 2021 Remaster | Pino Daniele
+ 251: Maggese | Cesare Cremonini
+ 252: Rotolacampo | Giorgio Canali, Rossofuoco
+ 253: Buon compleanno, Elvis! | Ligabue
+ 254: Quello che non ho | Fabrizio De André
+ 255: Canzone del maggio - Liberamente tratta da un canto del maggio francese 1968 | Fabrizio De André
+ 256: La Canzone Del Padre | Fabrizio De André
+ 257: Come Stavamo Ieri | Marlene Kuntz
+ 258: Canzoni contro la natura | The Zen Circus
+ 259: Sino a Notte (D.I.) | Verdena
+ 260: Pascolare | Verdena
+ 261: Secondo me gli italiani (prosa) | Giorgio Gaber
+ 262: La democrazia (prosa) | Giorgio Gaber
+ 263: In fila per tre | Edoardo Bennato
+ 264: Gioconda | Litfiba
+ 265: Proibito | Litfiba
+ 266: A Ja Ljublju Sssr (Gimm Sovetskogo Soyusa) | CCCP – Fedeli Alla Linea
+ 267: Per Me Lo So | CCCP – Fedeli Alla Linea
+ 268: Tu Menti | CCCP – Fedeli Alla Linea
+ 269: Abbiamo vinto la guerra | Lo Stato Sociale
+ 270: Mi sono rotto il cazzo | Lo Stato Sociale
+ 271: Sono così indie | Lo Stato Sociale
+ 272: L'Avvelenata - Remastered 2007 | Francesco Guccini
+ 273: Canzone Di Notte N.2 - Remastered 2007 | Francesco Guccini
+ 274: La mia casa | Daniele Silvestri
+ 275: Acrobati | Daniele Silvestri
+ 276: Tony Hawk of Ghana | I Hate My Village
+ 277: Ha Perso La Città | Niccolò Fabi
+ 278: Una Mano Sugli Occhi | Niccolò Fabi
+ 279: Alle prese con una verde milonga | Paolo Conte
+ 280: Via con me | Paolo Conte
+ 281: Boogie | Paolo Conte
+ 282: Del tempo che passa la felicità | Motta
+ 283: Incantevole | Subsonica
+ 284: Parole Di Burro - Remastered 2020 | Carmen Consoli
+ 285: In Bianco E Nero - Remastered 2020 | Carmen Consoli
+ 286: La guerra è finita | Baustelle
+ 287: Pierrot e la luna | Litfiba
+ 288: Mi addormenterò | Bud Spencer Blues Explosion
+ 289: Ballata Per La Mia Piccola Iena | Afterhours
+ 290: La Vedova Bianca | Afterhours
+ 291: I qualunquisti | The Zen Circus
+ 292: Puzzle | Verdena
+ 293: Senza giacca e cravatta | Nino D'Angelo
+ 294: Altre F.D.V. | Bluvertigo
+ 295: Don Calisto | Verdena
+ 296: Sotto Prescrizione Del Dott. Huxley | Verdena
+ 297: Trovami Un Modo Semplice Per Uscirne | Verdena
+ 298: Il Gulliver | Verdena
+ 299: Emilia Paranoica (Remiscelata) | CCCP – Fedeli Alla Linea
+ 300: Io Sto Bene | CCCP – Fedeli Alla Linea
+ 301: Rimmel | Francesco De Gregori
+ 302: Buonanotte Fiorellino | Francesco De Gregori
+ 303: Un matto - Dietro Ogni Scemo C'è Un Villaggio | Fabrizio De André
+ 304: Un giudice | Fabrizio De André
+ 305: Un malato di cuore | Fabrizio De André
+ 306: Il suonatore Jones | Fabrizio De André
+ 307: Luna | Verdena
+ 308: Glamodrama | Verdena
+ 309: Back To Life | Giovanni Allevi
+ 310: Loniterp | Verdena
+ 311: Razzi Arpia Inferno E Fiamme | Verdena
+ 312: Vecchi difetti | Marta Sui Tubi
+ 313: Trasudamerica | Marlene Kuntz
+ 314: Sonica | Marlene Kuntz
+ 315: Lieve | Marlene Kuntz
+ 316: Canzone Di Domani | Marlene Kuntz
+ 317: 1º 2º 3º | Marlene Kuntz
+ 318: Nuotando Nell'Aria | Marlene Kuntz
+ 319: La Descrizione Di Un Attimo | Tiromancino
+ 320: Anime salve | Fabrizio De André
+ 321: Dolcenera | Fabrizio De André
+ 322: Il Crotalo E Il Pavone | Negrita
+ 323: I'm Your Man | Negrita
+ 324: Questo è un grande paese | Lo Stato Sociale, Piotta
+ 325: Le elezioni | Giorgio Gaber
+ 326: L'america | Giorgio Gaber
+ 327: Solo un grande sasso - part 2 | Verdena
+ 328: Solo un grande sasso - part 1 | Verdena
