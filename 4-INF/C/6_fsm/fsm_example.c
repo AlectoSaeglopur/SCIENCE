@@ -113,7 +113,6 @@ int main(){
         print_queue(&fsm_queue);
         update_fsm(&fsm_state,&fsm_queue);                                  // check if FSM state has to be updated
         //print_queue(&fsm_queue);
-        add_evt_end(&fsm_queue);
         printf("----\n");
     }
 

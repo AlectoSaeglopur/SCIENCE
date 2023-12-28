@@ -202,6 +202,16 @@ int MySum( int A, int B ){
   return (A+B);
 }
 
+§ Note a function-prototype can have more specifiers/keywords than its definition, but not the contrary; for example:
+" static void foo( void );
+  ...
+  void foo( void ){...} "
+does NOT generate any error, however:
+" void foo( void );
+  ...
+  static void foo( void ){...} "
+does generate a mismatch error!
+
 -----------------------------
 
 12. STRINGS
@@ -545,7 +555,27 @@ The "P#" stands for placement of sections and blocks in a specific region. The s
 
 -----------------------------
 
-30. FURTHER TIPS
+30. GCC
+
+§ To compile and run a single C source file with GCC from shell type:
+"gcc -Wall FILENAME.c -o XYZ && XYZ" (where "-o XYZ" generates the corresponding .exe output);
+
+§ Use the additional option "-Wall" to enable all warning messages, and "-Wall -Werror" to treat 
+all warnings as compilation error;
+
+§ Use the additional option "-D XYZ" to define/enable the corresponding XYZ macro;
+
+§ Use the additional option "-S" to save the assembly file after compiling (e.g. "gcc XYZ.c -S");
+
+§ Use the additional option "-v" to print verbose info while compiling;
+
+§ To compile and run a C project (including multiple source files) with GCC from shell type, first compile all source files to generate the corresponding object files (adding "-c" to the command) and then link them together before running (e.g. "cls && gcc -c file1.c file2.c file3.c main.c && gcc file1.o file2.o file3.o main.o -o asd && asd", see examples in "\SCIENCE\4-INF\C\9_callback" and "\SCIENCE\2-TLC\CHAINS\C");
+
+§ To force the linker to provide also the .map file as output, add the string "-Xlinker -Map=file.map" to the linking commnad (e.g. "gcc -c files.c && gcc files.o -Xlinker -Map=file.map -o asd && asd");
+
+-----------------------------
+
+31. FURTHER TIPS
 
 § Hereafter some built-in C functions that can come in handy:
 - char * gets(char * str) [<stdio.h>] : takes and interprets user input as characters array;
@@ -556,7 +586,8 @@ The "P#" stands for placement of sections and blocks in a specific region. The s
 - FILE *fopen(const char *filename, const char *mode) [<stdio.h>] : opens a file (.csv, .txt, etc) for read/write operation (e.g. FILE *fid = fopen("SymbsC.csv","w"), see "gaussian_fir_filter.c");
 - int fprintf(FILE *fid, const char *format, ...) [<stdio.h>] : to write string into file pointed by fid (e.g. fprintf(fid,"%1.4f",MyVar));
 - int fclose(FILE *stream) [<stdio.h>] : closes a file previously opened through fopen (e.g. fclose(fid));
-- int rand(void) [<stdlib.h>] : returns a pseudo-random integer uniformly distributed between 0 and RAND_MAX (depending on specific hardware, but usually at least 32767).
+- int rand(void) [<stdlib.h>] : returns a pseudo-random integer uniformly distributed between 0 and RAND_MAX (depending on specific hardware, but usually at least 32767);
+- use "srand(time(NULL))" [<stdlib.h>] to link the random generator seed to current machine time (see "\SCIENCE\2-TLC\CHAINS\C\extra.c").
 
 § Hereafter some built-in macros that can come in handy:
 - __TIME__ [preprocessor] : gets current time of the day as a string (for example, "char CurTime[sizeof(__TIME__)]; strcpy(CurTime, __TIME__); printf("  Time of Day -> %s\n", CurTime);" returns "Time of Day -> 14:09:07");
@@ -564,20 +595,3 @@ The "P#" stands for placement of sections and blocks in a specific region. The s
 - __FILE__ [preprocessor] : gets name of current file/script (example similar as above, see also "misc_examples.c");
 - __LINE__ [preprocessor] : gets current code line within file/script (example similar as above, see also "misc_examples.c");
 - M_PI [<math.h>] : greek pi constant (pi = 3.141593).
-
-§ Extra:
-- use "srand(time(NULL))" [<stdlib.h>] to link the random generator seed to current machine time (see "\SCIENCE\2-TLC\CHAINS\C\extra.c");
-- to compile and run a single C source file with GCC from shell type:
-"gcc -Wall FILENAME.c -o EXENAME && EXENAME",
-where "-Wall" enables all warning messages, "-D MACRONAME" enables the corresponding macro, and "-o XYZ" generates the corresponding .exe output (e.g. cls && gcc -Wall -D BIN_FILE IterativeCrc.c -o asd && asd);
-- to compile and run a C project (including multiple source files) with GCC from shell type, first compile all source files to generate the corresponding object files (adding "-c" to the command) and then link them together before running (e.g. "cls && gcc -c file1.c file2.c file3.c main.c && gcc file1.o file2.o file3.o main.o -o asd && asd", see examples in "\SCIENCE\4-INF\C\9_callback" and "\SCIENCE\2-TLC\CHAINS\C")
-- to force the linker to provide also the .map file as output, add the string "-Xlinker -Map=file.map" to the linking commnad (e.g. "gcc -c files.c && gcc files.o -Xlinker -Map=file.map -o asd && asd");
-- note a function-prototype can have more specifiers/keywords than its definition, but not the contrary; for example:
-" static void foo( void );
-  ...
-  void foo( void ){...} "
-does NOT generate any error, however:
-" void foo( void );
-  ...
-  static void foo( void ){...} "
-does generate a mismatch error!
