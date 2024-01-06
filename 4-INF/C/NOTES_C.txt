@@ -11,6 +11,10 @@
 - Heap : (Final) section dedicated to run-time dynamic allocation, whose size is typically variable and decided at programming-time (or sometimes settable a priori by the programmer through IDE, e.g. MPLAB for Microchip's dsPICs). Elements of the heap have no dependencies with each other and can always be accessed randomly at any time. You can allocate a block at any time and free it at any time. Although more flexible, this makes way more complex keeping track of which parts of the heap are allocated or free at any given time, making heap-allocation and utilization way slower than stack;
 - Stack vs Heap -> Stack is recommended when you know exactly how much data you need to allocate at compile-time and this is not too size-demanding. On the other hand, heap is recommended when you don't know exactly how much data you will need at run-time or if you need to allocate size-demanding data (e.g. if you need an array with large and variable/reconfigurable size in time). Moreover, note in multi-threaded situations each thread has its own completely independent stack, but they all share the same heap. Thus, stack is thread-specific and heap is application-specific. Plus, stack memory is not resizable, meaning its allotted size cannot be changed after programming. On the contrary, heap memory can be resized at run-time. Usually the address boundary between stack and heap within the RAM is defined at compile-time (and sometimes configurable via IDE). Finally, note even though both stack and heap are "physically allocated" at run-time (i.e. the RAM partitioning between stack and heap when MCU is powered-up), the layout (i.e. the address locations) of each stack frame is decided (and stored in flash) at compile-time, unlike heap, which instead is completely handled at run-time.
 
+§ Keep in mind the difference between variable created at "compile-time" or "run-time":
+- compile-time -> for example, a global variable (or "static" inside function) stored into data memory's bss segment or "const" variables stored into program memory;
+- run-time -> for example, a local-scope variable (i.e. non-static inside function) stored into data memory's stack segment or dynamic allocated variables stored into data memory's heap segment.
+
 ------------------------------------
 
 2. COMPILER DIRECTIVES
@@ -440,8 +444,8 @@ struct Node {
 24. DYNAMIC ALLOCATION
 
 § C provides several built-in functions for dynamic allocation in the heap section of data-memory:
-[a] "type_t * ptr = malloc(array_byte_size)" -> (where "array_byte_size = n_elem*sizeof(type_t)") allocates a single block of memory (not initialized), returns a pointer to its first element, and it's faster but suitable mainly for small and simple data types;
-[b] "type_t * ptr = calloc(n_elem, elem_byte_size)" -> (where "elem_byte_size = sizeof(type_t)") allocates n_elem blocks of memory (automatically initialized to 0) of the same size, returns a pointer to its first element, and it's slower but more suitable for big and complex data type (e.g. array of structures);
+[a] "type_t * ptr = malloc(array_byte_size)" -> (where "array_byte_size = n_elem*sizeof(type_t)") allocates a single/contiguous block of memory (not initialized), returns a pointer to its first element, and it's faster but suitable mainly for small and simple data types;
+[b] "type_t * ptr = calloc(n_elem, elem_byte_size)" -> (where "elem_byte_size = sizeof(type_t)") allocates n_elem contiguous blocks of memory of the same size, automatically initialized to 0, returns a pointer to its first element (a pointer more suitable for complex arrays management), and it's slower but more suitable for big and complex data type (e.g. array of structures);
 [c] "ptr = realloc(ptr, new_size)" -> to modify the size of a previously allocated memory space;
 [d] "free(ptr)" -> to explicitly release/deallocate memory space previously allocated through malloc or calloc.
 
@@ -568,6 +572,8 @@ all warnings as compilation error;
 § Use the additional option "-S" to save the assembly file after compiling (e.g. "gcc XYZ.c -S");
 
 § Use the additional option "-v" to print verbose info while compiling;
+
+§ Use the additional option "-E" to stop compilation after preprocessor and save related .i file (e.g. "gcc XYZ.c -E -o asd.i");
 
 § To compile and run a C project (including multiple source files) with GCC from shell type, first compile all source files to generate the corresponding object files (adding "-c" to the command) and then link them together before running (e.g. "cls && gcc -c file1.c file2.c file3.c main.c && gcc file1.o file2.o file3.o main.o -o asd && asd", see examples in "\SCIENCE\4-INF\C\9_callback" and "\SCIENCE\2-TLC\CHAINS\C");
 

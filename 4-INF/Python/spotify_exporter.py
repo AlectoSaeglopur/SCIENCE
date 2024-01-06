@@ -10,7 +10,7 @@
 
 from datetime import datetime
 from re import match
-from spotipy import Spotify                                                         # pip install spotipy
+from spotipy import Spotify                                                         # requires "pip install spotipy"
 from spotipy.oauth2 import SpotifyClientCredentials
 from sys import argv
 
@@ -74,9 +74,7 @@ fid = open('.\spotify_'+PLAYLIST_ID+'.txt','w',encoding='utf-8')
 fid.write(' >> '+PLAYLIST_ID.upper()+' @ '+dt.strftime("%d-%b-%Y %H:%M:%S")+' <<\n\n')
 for j, track in enumerate(tracklist):
     name = track["track"]["name"]
-    artist = ", ".join(
-            [artist["name"] for artist in track["track"]["artists"]]
-        )
+    artist = ", ".join([artist["name"] for artist in track["track"]["artists"]])
     #print(str(j+1)+': '+name+' | '+artist)
     fid.write(Nf%(j+1)+': '+name+' | '+artist+'\n')
 fid.close()
