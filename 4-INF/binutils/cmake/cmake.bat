@@ -9,8 +9,8 @@ cls
 set BFL=build
 echo Build-folder name is "%BFL%"
 
-:: choose make app
-set VMAKE=mingwxx
+:: choose make app ("make" or "mingw32-make")
+set VMAKE=mingw
 
 :: delete, create and move to build-folder
 if exist %BFL% rmdir %BFL% /s /q

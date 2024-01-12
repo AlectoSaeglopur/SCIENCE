@@ -19,7 +19,7 @@ SFL = ..
 BFL = bin
 
 # Compiler flags
-CFLG = -Wall -Werror
+CFLG = -Wall -Werror -g -O0
 
 # Linker flags
 LFLG = -Xlinker -Map=$(BFL)\$(TARGET).map
@@ -32,4 +32,3 @@ SRCF =	convolutional.c		\
 		extra.c 			\
 		main.c				\
 		modulation.c
-		

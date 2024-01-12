@@ -531,11 +531,11 @@ callback_execution(fpointer);"
 § A simple check is to print the address of a function in your C code (e.g. "printf("fptr = %p\n",(void *)FUNC_NAME);") and verify that this should match with the address assocciated to that function in the .map file.
 
 § Map files typically contains five sections:
-- .text -> space allocated for read-only parts of the code and stored in flash (the bulk of this is the code itself);
+- .text -> space allocated for read-only parts of the code and stored in flash (mostly composed of the code instructions themselves);
 - .data -> space allocated for initialized variables and stored in RAM (e.g. "int16_t var = 5;”); since the value of these variables can change at run-time, they shall be stored in RAM and their value initialized at start-up;
 - .bss -> space allocated for uninitialized variables and stored in RAM (e.g. "int16_t var;");
 - .dec -> sum of .text, .data and .bss;
-- .hex -> sum of .text, .data and .bss expressed as hexadecimal values.
+- .hex -> same as .dec, but expressed as hexadecimal.
 
 § At the end of .map file it is recapped the current usage of flash and RAM, plus a list of all the compilation errors/warnings.
 
@@ -564,16 +564,20 @@ The "P#" stands for placement of sections and blocks in a specific region. The s
 § To compile and run a single C source file with GCC from shell type:
 "gcc -Wall FILENAME.c -o XYZ && XYZ" (where "-o XYZ" generates the corresponding .exe output);
 
-§ Use the additional option "-Wall" to enable all warning messages, and "-Wall -Werror" to treat 
+§ Use the additional flag "-Wall" to enable all warning messages, and "-Wall -Werror" to treat 
 all warnings as compilation error;
 
-§ Use the additional option "-D XYZ" to define/enable the corresponding XYZ macro;
+§ Use the additional flag "-D XYZ" to define/enable the corresponding XYZ macro;
 
-§ Use the additional option "-S" to save the assembly file after compiling (e.g. "gcc XYZ.c -S");
+§ Use the additional flag "-S" to save the assembly file after compiling (e.g. "gcc XYZ.c -S");
 
-§ Use the additional option "-v" to print verbose info while compiling;
+§ Use the additional flag "-E" to stop compilation after preprocessor and save related .i file (e.g. "gcc XYZ.c -E -o asd.i");
 
-§ Use the additional option "-E" to stop compilation after preprocessor and save related .i file (e.g. "gcc XYZ.c -E -o asd.i");
+§ Use the additional flag "-O?" to set the compiler optimization level (e.g. -O0, -O2, -Os, etc), see "gcc_optimization.pdf" for more details;
+
+§ Use the additional flag "-v" to print verbose info while compiling;
+
+§ Use the additional flag "-g" to enable debug breakpoints (e.g. using GDB);
 
 § To compile and run a C project (including multiple source files) with GCC from shell type, first compile all source files to generate the corresponding object files (adding "-c" to the command) and then link them together before running (e.g. "cls && gcc -c file1.c file2.c file3.c main.c && gcc file1.o file2.o file3.o main.o -o asd && asd", see examples in "\SCIENCE\4-INF\C\9_callback" and "\SCIENCE\2-TLC\CHAINS\C");
 

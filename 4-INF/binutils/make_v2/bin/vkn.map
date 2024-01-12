@@ -245,7 +245,7 @@ LOAD c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmoldname.a
 LOAD c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingwex.a
 LOAD c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a
 LOAD c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtend.o
-                0x00000380                . = SIZEOF_HEADERS
+                0x000003a8                . = SIZEOF_HEADERS
                 0x00001000                . = ALIGN (__section_alignment__)
 
 .text           0x00401000     0x5400
@@ -1241,9 +1241,17 @@ LOAD c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtend.o
 .debug_aranges  0x0040e000      0x200
  *(.debug_aranges)
  .debug_aranges
-                0x0040e000       0x20 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_chkstk_ms.o)
+                0x0040e000       0x20 bin\convolutional.o
  .debug_aranges
-                0x0040e020       0x18 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_ctors.o)
+                0x0040e020       0x20 bin\extra.o
+ .debug_aranges
+                0x0040e040       0x20 bin\main.o
+ .debug_aranges
+                0x0040e060       0x20 bin\modulation.o
+ .debug_aranges
+                0x0040e080       0x20 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_chkstk_ms.o)
+ .debug_aranges
+                0x0040e0a0       0x18 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_ctors.o)
 
 .zdebug_aranges
  *(.zdebug_aranges)
@@ -1260,40 +1268,56 @@ LOAD c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtend.o
 .zdebug_pubtypes
  *(.zdebug_pubtypes)
 
-.debug_info     0x0040f000     0x1e00
+.debug_info     0x0040f000     0x4200
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x0040f000       0xa7 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_chkstk_ms.o)
- .debug_info    0x0040f0a7     0x1c58 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_ctors.o)
+ .debug_info    0x0040f000      0xcd1 bin\convolutional.o
+ .debug_info    0x0040fcd1      0x980 bin\extra.o
+ .debug_info    0x00410651      0x561 bin\main.o
+ .debug_info    0x00410bb2      0x7b9 bin\modulation.o
+ .debug_info    0x0041136b       0xa7 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_chkstk_ms.o)
+ .debug_info    0x00411412     0x1c58 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_ctors.o)
 
 .zdebug_info
  *(.zdebug_info .zdebug.gnu.linkonce.wi.*)
 
-.debug_abbrev   0x00411000      0x200
+.debug_abbrev   0x00414000      0x800
  *(.debug_abbrev)
- .debug_abbrev  0x00411000       0x14 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_chkstk_ms.o)
- .debug_abbrev  0x00411014      0x11b c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_ctors.o)
+ .debug_abbrev  0x00414000      0x1c3 bin\convolutional.o
+ .debug_abbrev  0x004141c3      0x173 bin\extra.o
+ .debug_abbrev  0x00414336       0xd4 bin\main.o
+ .debug_abbrev  0x0041440a      0x146 bin\modulation.o
+ .debug_abbrev  0x00414550       0x14 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_chkstk_ms.o)
+ .debug_abbrev  0x00414564      0x11b c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_ctors.o)
 
 .zdebug_abbrev
  *(.zdebug_abbrev)
 
-.debug_line     0x00412000      0x200
+.debug_line     0x00415000      0xc00
  *(.debug_line)
- .debug_line    0x00412000       0x71 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_chkstk_ms.o)
- .debug_line    0x00412071      0x157 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_ctors.o)
+ .debug_line    0x00415000      0x410 bin\convolutional.o
+ .debug_line    0x00415410      0x265 bin\extra.o
+ .debug_line    0x00415675       0xae bin\main.o
+ .debug_line    0x00415723      0x1b8 bin\modulation.o
+ .debug_line    0x004158db       0x71 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_chkstk_ms.o)
+ .debug_line    0x0041594c      0x157 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_ctors.o)
 
 .zdebug_line
  *(.zdebug_line)
 
-.debug_frame    0x00413000      0x200
+.debug_frame    0x00416000      0x200
  *(.debug_frame*)
- .debug_frame   0x00413000       0x38 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_chkstk_ms.o)
+ .debug_frame   0x00416000       0x38 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_chkstk_ms.o)
 
 .zdebug_frame
  *(.zdebug_frame*)
 
-.debug_str      0x00414000        0x0
+.debug_str      0x00417000      0x200
  *(.debug_str)
- .debug_str     0x00414000        0x0 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_ctors.o)
+ .debug_str     0x00417000       0x8a bin\convolutional.o
+ .debug_str     0x0041708a        0x6 bin\extra.o
+ .debug_str     0x00417090        0x0 bin\main.o
+ .debug_str     0x00417090        0xa bin\modulation.o
+ .debug_str     0x0041709a        0x0 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_ctors.o)
 
 .zdebug_str
  *(.zdebug_str)

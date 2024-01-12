@@ -1,8 +1,9 @@
-# 1 "..\\main.c"
+# 1 "..\\convolutional.c"
+# 1 "H:\\SCIENCE\\4-INF\\binutils\\make_v2//"
 # 1 "<built-in>"
 # 1 "<command-line>"
-# 1 "..\\main.c"
-# 14 "..\\main.c"
+# 1 "..\\convolutional.c"
+# 13 "..\\convolutional.c"
 # 1 "..\\convolutional.h" 1
 # 17 "..\\convolutional.h"
 # 1 "..\\setting.h" 1
@@ -1590,31 +1591,7 @@ void ConvEncoder( uint8_t *InBits, uint8_t *OutBits, uint8_t *ConVect, uint8_t *
 void GetTrellis( uint8_t *ConVect, trellis *CodeDiagr );
 void HardConvDecoder( uint8_t *InBits, uint8_t *OutBits, trellis *CodeDiagr, uint8_t *PunctVect );
 void SoftConvDecoder( float *InLLRs, uint8_t *OutBits, trellis *CodeDiagr, uint8_t *PunctVect );
-# 15 "..\\main.c" 2
-# 1 "..\\modulation.h" 1
-# 25 "..\\modulation.h"
-void GetPskTable( phasemap *IoTable );
-void GetQamTable( phasemap *IoTable );
-void Mapper( uint8_t *InBytes, complex *OutSymbs, phasemap *Table );
-void HardDemapper( complex *InSymbs, uint8_t *OutBytes, phasemap *Table );
-void SoftDemapper( complex *InSymbs, float *OutLLRs, phasemap *Table );
-# 16 "..\\main.c" 2
-# 1 "..\\extra.h" 1
-# 38 "..\\extra.h"
-void CheckParam( void );
-void RandBytGen( uint8_t *IoBytes );
-void ChanBSC( uint8_t *InBytes, uint8_t *OutBytes, float Peb );
-void ChanAWGN( complex *IoStream );
-void PrintParam( void );
-void PrintByt( uint8_t *Bytes, uint32_t Len, uint8_t Label );
-void PrintSym( complex *Symbols, uint32_t Len, uint8_t Label );
-void PrintLLRs( float *LLRs, uint32_t Len );
-void PrintConvDiagr( trellis *ConvDiagr );
-void PrintTable( phasemap *MapTable );
-void WriteBytCsv( uint8_t *Bytes, uint32_t Len, uint8_t Label );
-void WriteSymCsv( complex *Symbs, uint32_t Len, uint8_t Label );
-void CheckWrongBits( uint8_t *Stream_A, uint8_t *Stream_B, uint32_t Len, uint8_t Label );
-# 17 "..\\main.c" 2
+# 14 "..\\convolutional.c" 2
 
 
 
@@ -1622,58 +1599,456 @@ void CheckWrongBits( uint8_t *Stream_A, uint8_t *Stream_B, uint32_t Len, uint8_t
 
 
 
-int main(){
-
- trellis ConvDiagr;
- phasemap ModTable;
- uint8_t ConVect[2];
- uint8_t PunctVect[2*(uint8_t)2];
- uint8_t TxSrcByt[(uint32_t)100], RxSrcByt[(uint32_t)100];
- uint8_t TxConvByt[(uint32_t)(2*(uint32_t)100)], DemByt[(uint32_t)(2*(uint32_t)100)];
- float SoftLLR[(uint32_t)((uint32_t)(2*(uint32_t)100)<<3)];
- complex ChSym[(uint32_t)(uint32_t)((uint32_t)((uint32_t)100*((uint8_t)2 +1)/(uint8_t)2)<<3)/(uint8_t)log2((uint8_t)4u)];
-
-  CheckParam();
- PrintParam();
-
- RandBytGen(TxSrcByt);
- PrintByt(TxSrcByt,(uint32_t)100,(uint8_t)0);
-
-
- GetConvCP(ConVect,PunctVect);
- ConvEncoder(TxSrcByt,TxConvByt,ConVect,PunctVect);
-
- switch( (uint8_t)30 ){
-  case (uint8_t)30:
-   GetPskTable(&ModTable);
-   break;
-  case (uint8_t)31:
-   GetQamTable(&ModTable);
-   break;
-  default:
-   break;
+static uint8_t ComputeEncBit( uint8_t State, uint8_t ConVal );
+static uint8_t CountByteOnes( uint8_t InByte );
+static uint8_t FindMinIndexHard( vitdech *InPaths );
+static void HardDepuncturing( uint8_t *IoBytes, uint8_t *PunctVect );
+static float GetEuclideanDist( float *CurLLRs, uint8_t TrlByte, uint8_t MaskEras );
+static uint8_t FindMinIndexSoft( vitdecs *InPaths );
+static void SoftDepuncturing( float *InLLRs, uint8_t *PunctVect );
+# 41 "..\\convolutional.c"
+void GetConvCP( uint8_t *ConVect, uint8_t *PuncVect ){
+ uint8_t PuncLen = 2*(uint8_t)2;
+ if ( ConVect != 
+# 43 "..\\convolutional.c" 3 4
+                ((void *)0) 
+# 43 "..\\convolutional.c"
+                     ){
+  memcpy(ConVect,(uint8_t[6][2]) {{7,5},{15,11},{23,25},{47,53}, {79,109},{159,229}}[(uint8_t)7u -3],2);
  }
- Mapper(TxConvByt,ChSym,&ModTable);
-
-
-
- ChanAWGN(ChSym);
-
-
- GetTrellis(ConVect,&ConvDiagr);
-
- if ( (uint8_t)13u == (uint8_t)13u ){
-  HardDemapper(ChSym,DemByt,&ModTable);
-  CheckWrongBits(TxConvByt,DemByt,(uint32_t)((uint32_t)100*((uint8_t)2 +1)/(uint8_t)2),(uint8_t)3);
-  HardConvDecoder(DemByt,RxSrcByt,&ConvDiagr,PunctVect);
- } else if ( (uint8_t)13u == (uint8_t)14u ){
-  SoftDemapper(ChSym,SoftLLR,&ModTable);
-  SoftConvDecoder(SoftLLR,RxSrcByt,&ConvDiagr,PunctVect);
+ if ( PuncVect != 
+# 46 "..\\convolutional.c" 3 4
+                 ((void *)0) 
+# 46 "..\\convolutional.c"
+                      ){
+  switch ( (uint8_t)2 ){
+   case (uint8_t)2:
+    memcpy(PuncVect,(uint8_t[4]) {1,1,0,1},PuncLen);
+    break;
+   case (uint8_t)3:
+    memcpy(PuncVect,(uint8_t[6]) {1,1,0,1,1,0},PuncLen);
+    break;
+   case (uint8_t)5:
+    memcpy(PuncVect,(uint8_t[10]) {1,1,0,1,1,0,0,1,1,0},PuncLen);
+    break;
+   case (uint8_t)7:
+    memcpy(PuncVect,(uint8_t[14]) {1,1,0,1,0,1,0,1,1,0,0,1,1,0},PuncLen);
+    break;
+  }
  }
+}
+# 71 "..\\convolutional.c"
+void GetTrellis( uint8_t *ConVect, trellis *CodeDiagr ){
+ uint8_t i, j;
+ uint8_t StBin[(uint8_t)(1<<((uint8_t)7u -1))];
+ uint8_t State0, State1, OutBit;
+ uint8_t Mask = 0x01;
+ for ( j=0; j<(uint8_t)(1<<((uint8_t)7u -1)); j++ ){
+  StBin[j] = j;
+ }
+ if ( CodeDiagr != 
+# 79 "..\\convolutional.c" 3 4
+                  ((void *)0) 
+# 79 "..\\convolutional.c"
+                       ){
+  for ( j=0; j<(uint8_t)(1<<((uint8_t)7u -1)); j++ ){
+   State0 = StBin[j];
+   for ( i=0; i<2; i++ ){
+    OutBit = ComputeEncBit(State0,ConVect[i]);
+    if ( i == 0 ){
+     CodeDiagr->States[j].OutBits[0] = (OutBit<<1);
+    } else {
+     CodeDiagr->States[j].OutBits[0] += OutBit;
+    }
+   }
+   CodeDiagr->States[j].NextState[0] = (State0>>1);
+   State1 = State0|(Mask<<((uint8_t)7u -1));
+   for ( i=0; i<2; i++ ){
+    OutBit = ComputeEncBit(State1,ConVect[i]);
+    if ( i == 0 ){
+     CodeDiagr->States[j].OutBits[1] = (OutBit<<1);
+    } else {
+     CodeDiagr->States[j].OutBits[1] += OutBit;
+    }
+   }
+   CodeDiagr->States[j].NextState[1] = (State1>>1);
+  }
+ }
+}
+# 112 "..\\convolutional.c"
+static uint8_t ComputeEncBit( uint8_t State, uint8_t ConVal ){
+ uint8_t j;
+ uint8_t OutBit = 0;
+ uint8_t Mask = 0x01;
+ for ( j=0; j<(uint8_t)7u; j++ ){
+  OutBit += (((State>>j) & Mask) & ((ConVal>>j) & Mask));
+ }
+ return (OutBit%2);
+}
+# 131 "..\\convolutional.c"
+void ConvEncoder( uint8_t *InByt, uint8_t *OutByt, uint8_t *ConVect, uint8_t *PunctVect ){
+ uint8_t EncState = 0;
+ uint8_t Mask = 0x01;
+ uint32_t j, ByteIdx;
+ uint8_t BitIdx, RdBit;
+ uint32_t WrIdx = 0;
+ memset(OutByt,0,(uint32_t)(2*(uint32_t)100));
+ for ( j=0; j<(uint32_t)((uint32_t)100<<3); j++ ){
+  ByteIdx = j>>3;
+  BitIdx = (uint8_t)(j&0x0007);
+  EncState >>= 1;
+  EncState |= ((InByt[ByteIdx]>>(7-BitIdx))&Mask)<<((uint8_t)7u -1);
+  ByteIdx = (2*j)>>3;
+  BitIdx = (2*j)&0x0007;
+  OutByt[ByteIdx] |= (ComputeEncBit(EncState,ConVect[0])<<(7-BitIdx));
+  OutByt[ByteIdx] |= (ComputeEncBit(EncState,ConVect[1])<<(6-BitIdx));
+ }
+ if ( (uint8_t)2 != (uint8_t)1 ){
+  for ( j=0; j<(uint32_t)((uint32_t)(2*(uint32_t)100)<<3); j++ ){
+   ByteIdx = (j>>3);
+   BitIdx = (j&0x0007);
+   RdBit = (OutByt[ByteIdx]>>(7-BitIdx))&Mask;
+   if ( PunctVect[j%(2*(uint8_t)2)] ){
+    ByteIdx = WrIdx>>3;
+    BitIdx = 7-(uint8_t)(WrIdx&0x0007);
+    WrIdx++;
+    if ( RdBit == 0 ){
+     OutByt[ByteIdx] &= ~(0x01<<BitIdx);
+    } else {
+     OutByt[ByteIdx] |= (0x01<<BitIdx);
+    }
+   }
+  }
+ }
+}
+# 176 "..\\convolutional.c"
+void HardConvDecoder( uint8_t *EncByt, uint8_t *DecByt, trellis *CodeDiagr, uint8_t *PunctVect ){
+ uint32_t i, ByteIdx, InIdx, WrIdx, IdxFin, CandDist;
+ uint8_t j, CycleBits, BitIdx, MaskEras, HypIdx, HamDist;
+ uint8_t NextSt, MinDistState, StateDep, StateArr;
+ uint8_t Mask = 0x01;
+ vitdech CurPaths = {.Iter = {0}, .Dist = {0}, .Path = {{0}}};
+ CurPaths.Iter[0] = 1;
+ vitdech PrevPaths;
+ if ( (uint8_t)2 == (uint8_t)1 ){
+  MaskEras = 0x03;
+ } else {
+  HardDepuncturing(EncByt,PunctVect);
+ }
+ for ( i=2; i<(uint32_t)((uint32_t)100<<3)+2; i++){
+  InIdx = 2*(i-2);
+  ByteIdx = (InIdx>>3);
+  BitIdx = (uint8_t)(InIdx&0x0007);
+  CycleBits = (EncByt[ByteIdx]>>(6-BitIdx))&0x03;
+  PrevPaths = CurPaths;
+  if ( (uint8_t)2 != (uint8_t)1 ){
+   MaskEras = 0;
+   MaskEras |= (PunctVect[InIdx%(2*(uint8_t)2)]<<1);
+   MaskEras |= PunctVect[(InIdx+1)%(2*(uint8_t)2)];
+  }
+  for ( j=0; j<(uint8_t)(1<<((uint8_t)7u -1)); j++ ){
+   if ( PrevPaths.Iter[j] == i-1 ){
+    for ( HypIdx = 0; HypIdx<2; HypIdx++ ){
+     HamDist = CountByteOnes((CycleBits^(CodeDiagr->States[j].OutBits[HypIdx]))&MaskEras);
+     NextSt = CodeDiagr->States[j].NextState[HypIdx];
+     if ( CurPaths.Iter[NextSt] < i ){
+      CurPaths.Iter[NextSt] = i;
+      CurPaths.Dist[NextSt] = PrevPaths.Dist[j]+(uint32_t)HamDist;
+      if ( i-1 < (uint16_t)((uint8_t)(1<<((uint8_t)7u -1))*(uint16_t)10) ){
+       IdxFin = i-2;
+      } else {
+       IdxFin = (uint16_t)((uint8_t)(1<<((uint8_t)7u -1))*(uint16_t)10)-1;
+      }
+      for ( WrIdx = 0; WrIdx < IdxFin; WrIdx++ ){
+       CurPaths.Path[NextSt][WrIdx] = PrevPaths.Path[j][WrIdx];
+      }
+      CurPaths.Path[NextSt][IdxFin] = j;
+     } else {
+      CandDist = PrevPaths.Dist[j]+(uint32_t)HamDist;
+      if ( CandDist < CurPaths.Dist[NextSt] ){
+       CurPaths.Dist[NextSt] = CandDist;
+       if ( i-1 < (uint16_t)((uint8_t)(1<<((uint8_t)7u -1))*(uint16_t)10) ){
+        IdxFin = i-2;
+       } else {
+        IdxFin = (uint16_t)((uint8_t)(1<<((uint8_t)7u -1))*(uint16_t)10)-1;
+       }
+       for ( WrIdx = 0; WrIdx < IdxFin; WrIdx++ ){
+        CurPaths.Path[NextSt][WrIdx] = PrevPaths.Path[j][WrIdx];
+       }
+       CurPaths.Path[NextSt][IdxFin] = j;
+      }
+     }
+    }
+   }
+  }
+  if ( i-1 == (uint32_t)((uint32_t)100<<3) ){
+   MinDistState = FindMinIndexHard(&CurPaths);
+   if ( i-1 >= (uint16_t)((uint8_t)(1<<((uint8_t)7u -1))*(uint16_t)10) ){
+    IdxFin = (uint16_t)((uint8_t)(1<<((uint8_t)7u -1))*(uint16_t)10);
+   } else {
+    IdxFin = i-1;
+   }
+   for ( WrIdx=0; WrIdx<IdxFin; WrIdx++ ){
+    StateDep = CurPaths.Path[MinDistState][WrIdx];
+    if ( WrIdx == IdxFin-1 ){
+     StateArr = MinDistState;
+    } else {
+     StateArr = CurPaths.Path[MinDistState][WrIdx+1];
+    }
+    ByteIdx = ((uint32_t)((uint32_t)100<<3)-IdxFin+WrIdx)>>3;
+    BitIdx = (uint8_t)(((uint32_t)((uint32_t)100<<3)-IdxFin+WrIdx)&0x0007);
+    if ( CodeDiagr->States[StateDep].NextState[0] == StateArr ){
+     DecByt[ByteIdx] &= ~(Mask<<(7-BitIdx));
+    } else {
+     DecByt[ByteIdx] |= (Mask<<(7-BitIdx));
+    }
+   }
+  } else if ( i-1 >= (uint16_t)((uint8_t)(1<<((uint8_t)7u -1))*(uint16_t)10) ){
+   MinDistState = FindMinIndexHard(&CurPaths);
+   StateDep = CurPaths.Path[MinDistState][0];
+   StateArr = CurPaths.Path[MinDistState][1];
+   ByteIdx = (i-(uint16_t)((uint8_t)(1<<((uint8_t)7u -1))*(uint16_t)10)-1)>>3;
+   BitIdx = (uint8_t)((i-(uint16_t)((uint8_t)(1<<((uint8_t)7u -1))*(uint16_t)10)-1)&0x0007);
+   if ( CodeDiagr->States[StateDep].NextState[0] == StateArr ){
+    DecByt[ByteIdx] &= ~(Mask<<(7-BitIdx));
+   } else {
+    DecByt[ByteIdx] |= (Mask<<(7-BitIdx));
+   }
+   for ( j=0; j<(uint8_t)(1<<((uint8_t)7u -1)); j++){
+    for ( WrIdx = 0; WrIdx<((uint16_t)((uint8_t)(1<<((uint8_t)7u -1))*(uint16_t)10)-1); WrIdx++ ){
+     CurPaths.Path[j][WrIdx] = CurPaths.Path[j][WrIdx+1];
+    }
+   }
+  }
+ }
+}
 
- PrintByt(RxSrcByt,(uint32_t)100,(uint8_t)1);
- CheckWrongBits(TxSrcByt,RxSrcByt,(uint32_t)100,(uint8_t)1);
 
- return 1;
 
+
+
+
+
+static uint8_t CountByteOnes( uint8_t InByte ){
+ uint8_t j;
+ uint8_t Counter = 0;
+ uint8_t Mask = 0x01;
+ for ( j=0; j<8; j++ ){
+  if ( (InByte>>j)&Mask ){
+   Counter++;
+  }
+ }
+ return Counter;
+}
+
+
+
+
+
+
+
+static uint8_t FindMinIndexHard( vitdech *InPaths ){
+ uint8_t j, MinStateIdx;
+ uint32_t MinDist;
+ if ( InPaths != 
+# 304 "..\\convolutional.c" 3 4
+                ((void *)0) 
+# 304 "..\\convolutional.c"
+                     ){
+  MinDist = InPaths->Dist[0];
+  MinStateIdx = 0;
+  for ( j=1; j<(uint8_t)(1<<((uint8_t)7u -1)); j++ ){
+   if ( (InPaths->Iter[j]>0) && (InPaths->Dist[j] < MinDist) ){
+    MinDist = InPaths->Dist[j];
+    MinStateIdx = j;
+   }
+  }
+ }
+ return MinStateIdx;
+}
+# 324 "..\\convolutional.c"
+static void HardDepuncturing( uint8_t *IoByt, uint8_t *PunctVect ){
+ uint8_t Mask = 0x01;
+ uint8_t RdIdxPunc = 2*(uint8_t)2 -1;
+ uint32_t RdIdx = (uint32_t)((uint32_t)((uint32_t)100*((uint8_t)2 +1)/(uint8_t)2)<<3)-1;
+ uint32_t j, ByteIdx;
+ uint8_t BitIdx, RdBit;
+ for ( j=(uint32_t)((uint32_t)(2*(uint32_t)100)<<3); j>0; j-- ){
+  if ( PunctVect[RdIdxPunc] == 1 ){
+   ByteIdx = RdIdx>>3;
+   BitIdx = (uint8_t)(7-(RdIdx&0x0007));
+   RdBit = IoByt[ByteIdx]&(Mask<<BitIdx);
+   RdIdx--;
+  } else {
+   RdBit = 0;
+  }
+  if ( RdIdxPunc > 0 ){
+   RdIdxPunc--;
+  } else {
+   RdIdxPunc = 2*(uint8_t)2 -1;
+  }
+  ByteIdx = (j-1)>>3;
+  BitIdx = (uint8_t)(7-((j-1)&0x0007));
+  if ( RdBit == 0 ){
+   IoByt[ByteIdx] &= ~(Mask<<BitIdx);
+  } else {
+   IoByt[ByteIdx] |= (Mask<<BitIdx);
+  }
+ }
+}
+# 363 "..\\convolutional.c"
+void SoftConvDecoder( float *InLLRs, uint8_t *DecByt, trellis *CodeDiagr, uint8_t *PunctVect ){
+ uint32_t i, ByteIdx, CurIdx, WrIdx, IdxFin;
+ uint8_t j, BitIdx, MaskEras, HypIdx;
+ uint8_t NextSt, MinDistState, StateDep, StateArr;
+ float EuclDist, CandDist;
+ uint8_t Mask = 0x01;
+ vitdecs CurPaths = {.Iter = {0}, .Dist = {0}, .Path = {{0}}};
+ CurPaths.Iter[0] = 1;
+ vitdecs PrevPaths;
+ if ( (uint8_t)2 == (uint8_t)1 ){
+  MaskEras = 0x03;
+ } else {
+  SoftDepuncturing(InLLRs,PunctVect);
+ }
+ for ( i=2; i<(uint32_t)((uint32_t)100<<3)+2; i++){
+  CurIdx = 2*(i-2);
+  PrevPaths = CurPaths;
+  if ( (uint8_t)2 != (uint8_t)1 ){
+   MaskEras = 0;
+   MaskEras |= (PunctVect[CurIdx%(2*(uint8_t)2)]<<1);
+   MaskEras |= PunctVect[(CurIdx+1)%(2*(uint8_t)2)];
+  }
+  for ( j=0; j<(uint8_t)(1<<((uint8_t)7u -1)); j++ ){
+   if ( PrevPaths.Iter[j] == i-1 ){
+    for ( HypIdx = 0; HypIdx<2; HypIdx++ ){
+     EuclDist = GetEuclideanDist(&InLLRs[CurIdx],CodeDiagr->States[j].OutBits[HypIdx],MaskEras);
+     NextSt = CodeDiagr->States[j].NextState[HypIdx];
+     if ( CurPaths.Iter[NextSt] < i ){
+      CurPaths.Iter[NextSt] = i;
+      CurPaths.Dist[NextSt] = PrevPaths.Dist[j]+EuclDist;
+      if ( i-1 < (uint16_t)((uint8_t)(1<<((uint8_t)7u -1))*(uint16_t)10) ){
+       IdxFin = i-2;
+      } else {
+       IdxFin = (uint16_t)((uint8_t)(1<<((uint8_t)7u -1))*(uint16_t)10)-1;
+      }
+      for ( WrIdx = 0; WrIdx < IdxFin; WrIdx++ ){
+       CurPaths.Path[NextSt][WrIdx] = PrevPaths.Path[j][WrIdx];
+      }
+      CurPaths.Path[NextSt][IdxFin] = j;
+     } else {
+      CandDist = PrevPaths.Dist[j]+EuclDist;
+      if ( CandDist < CurPaths.Dist[NextSt] ){
+       CurPaths.Dist[NextSt] = CandDist;
+       if ( i-1 < (uint16_t)((uint8_t)(1<<((uint8_t)7u -1))*(uint16_t)10) ){
+        IdxFin = i-2;
+       } else {
+        IdxFin = (uint16_t)((uint8_t)(1<<((uint8_t)7u -1))*(uint16_t)10)-1;
+       }
+       for ( WrIdx = 0; WrIdx < IdxFin; WrIdx++ ){
+        CurPaths.Path[NextSt][WrIdx] = PrevPaths.Path[j][WrIdx];
+       }
+       CurPaths.Path[NextSt][IdxFin] = j;
+      }
+     }
+    }
+   }
+  }
+  if ( i-1 == (uint32_t)((uint32_t)100<<3) ){
+   MinDistState = FindMinIndexSoft(&CurPaths);
+   if ( i-1 >= (uint16_t)((uint8_t)(1<<((uint8_t)7u -1))*(uint16_t)10) ){
+    IdxFin = (uint16_t)((uint8_t)(1<<((uint8_t)7u -1))*(uint16_t)10);
+   } else {
+    IdxFin = i-1;
+   }
+   for ( WrIdx=0; WrIdx<IdxFin; WrIdx++ ){
+    StateDep = CurPaths.Path[MinDistState][WrIdx];
+    if ( WrIdx == IdxFin-1 ){
+     StateArr = MinDistState;
+    } else {
+     StateArr = CurPaths.Path[MinDistState][WrIdx+1];
+    }
+    ByteIdx = ((uint32_t)((uint32_t)100<<3)-IdxFin+WrIdx)>>3;
+    BitIdx = (uint8_t)(((uint32_t)((uint32_t)100<<3)-IdxFin+WrIdx)&0x0007);
+    if ( CodeDiagr->States[StateDep].NextState[0] == StateArr ){
+     DecByt[ByteIdx] &= ~(Mask<<(7-BitIdx));
+    } else {
+     DecByt[ByteIdx] |= (Mask<<(7-BitIdx));
+    }
+   }
+  } else if ( i-1 >= (uint16_t)((uint8_t)(1<<((uint8_t)7u -1))*(uint16_t)10) ){
+   MinDistState = FindMinIndexSoft(&CurPaths);
+   StateDep = CurPaths.Path[MinDistState][0];
+   StateArr = CurPaths.Path[MinDistState][1];
+   ByteIdx = (i-(uint16_t)((uint8_t)(1<<((uint8_t)7u -1))*(uint16_t)10)-1)>>3;
+   BitIdx = (uint8_t)((i-(uint16_t)((uint8_t)(1<<((uint8_t)7u -1))*(uint16_t)10)-1)&0x0007);
+   if ( CodeDiagr->States[StateDep].NextState[0] == StateArr ){
+    DecByt[ByteIdx] &= ~(Mask<<(7-BitIdx));
+   } else {
+    DecByt[ByteIdx] |= (Mask<<(7-BitIdx));
+   }
+   for ( j=0; j<(uint8_t)(1<<((uint8_t)7u -1)); j++){
+    for ( WrIdx = 0; WrIdx<((uint16_t)((uint8_t)(1<<((uint8_t)7u -1))*(uint16_t)10)-1); WrIdx++ ){
+     CurPaths.Path[j][WrIdx] = CurPaths.Path[j][WrIdx+1];
+    }
+   }
+  }
+ }
+}
+# 470 "..\\convolutional.c"
+static float GetEuclideanDist( float *CurLLRs, uint8_t TrlByte, uint8_t MaskEras ){
+ uint8_t j;
+ uint8_t Mask = 0x01;
+ float Dist = 0;
+ for ( j=0; j<2; j++ ){
+  if ( (MaskEras>>(1-j)) & Mask ){
+   Dist += fabs(2*((float)((TrlByte>>(1-j))&Mask))-1-CurLLRs[j]);
+  }
+ }
+ return Dist;
+}
+
+
+
+
+
+
+
+static uint8_t FindMinIndexSoft( vitdecs *InPaths ){
+ uint8_t j, MinStateIdx;
+ float MinDist;
+ if ( InPaths != 
+# 491 "..\\convolutional.c" 3 4
+                ((void *)0) 
+# 491 "..\\convolutional.c"
+                     ){
+  MinDist = InPaths->Dist[0];
+  MinStateIdx = 0;
+  for ( j=1; j<(uint8_t)(1<<((uint8_t)7u -1)); j++ ){
+   if ( (InPaths->Iter[j]>0) && (InPaths->Dist[j] < MinDist) ){
+    MinDist = InPaths->Dist[j];
+    MinStateIdx = j;
+   }
+  }
+ }
+ return MinStateIdx;
+}
+# 511 "..\\convolutional.c"
+static void SoftDepuncturing( float *InLLRs, uint8_t *PunctVect ){
+ uint32_t j;
+ uint8_t RdIdxPunc = 2*(uint8_t)2 -1;
+ uint32_t RdIdx = (uint32_t)((uint32_t)((uint32_t)100*((uint8_t)2 +1)/(uint8_t)2)<<3)-1;
+ for ( j=(uint32_t)((uint32_t)(2*(uint32_t)100)<<3); j>0; j-- ){
+  if ( PunctVect[RdIdxPunc] == 1 ){
+   InLLRs[j-1] = InLLRs[RdIdx];
+   RdIdx--;
+  } else {
+   InLLRs[j-1] = 0;
+  }
+  if ( RdIdxPunc > 0 ){
+   RdIdxPunc--;
+  } else {
+   RdIdxPunc = 2*(uint8_t)2 -1;
+  }
+ }
 }

@@ -1,10 +1,11 @@
-# 1 "..\\modulation.c"
+# 1 "..\\main.c"
+# 1 "H:\\SCIENCE\\4-INF\\binutils\\make_v2//"
 # 1 "<built-in>"
 # 1 "<command-line>"
-# 1 "..\\modulation.c"
-# 14 "..\\modulation.c"
-# 1 "..\\modulation.h" 1
-# 17 "..\\modulation.h"
+# 1 "..\\main.c"
+# 14 "..\\main.c"
+# 1 "..\\convolutional.h" 1
+# 17 "..\\convolutional.h"
 # 1 "..\\setting.h" 1
 # 17 "..\\setting.h"
 # 1 "c:\\mingw\\include\\stdio.h" 1 3
@@ -1577,7 +1578,7 @@ typedef struct TD6 {
  uint8_t Bits[(uint8_t)4u];
  complex Symbs[(uint8_t)4u];
 } phasemap;
-# 18 "..\\modulation.h" 2
+# 18 "..\\convolutional.h" 2
 
 
 
@@ -1585,12 +1586,36 @@ typedef struct TD6 {
 
 
 
+void GetConvCP( uint8_t *ConVect, uint8_t *PuncVect );
+void ConvEncoder( uint8_t *InBits, uint8_t *OutBits, uint8_t *ConVect, uint8_t *PunctVect );
+void GetTrellis( uint8_t *ConVect, trellis *CodeDiagr );
+void HardConvDecoder( uint8_t *InBits, uint8_t *OutBits, trellis *CodeDiagr, uint8_t *PunctVect );
+void SoftConvDecoder( float *InLLRs, uint8_t *OutBits, trellis *CodeDiagr, uint8_t *PunctVect );
+# 15 "..\\main.c" 2
+# 1 "..\\modulation.h" 1
+# 25 "..\\modulation.h"
 void GetPskTable( phasemap *IoTable );
 void GetQamTable( phasemap *IoTable );
 void Mapper( uint8_t *InBytes, complex *OutSymbs, phasemap *Table );
 void HardDemapper( complex *InSymbs, uint8_t *OutBytes, phasemap *Table );
 void SoftDemapper( complex *InSymbs, float *OutLLRs, phasemap *Table );
-# 15 "..\\modulation.c" 2
+# 16 "..\\main.c" 2
+# 1 "..\\extra.h" 1
+# 38 "..\\extra.h"
+void CheckParam( void );
+void RandBytGen( uint8_t *IoBytes );
+void ChanBSC( uint8_t *InBytes, uint8_t *OutBytes, float Peb );
+void ChanAWGN( complex *IoStream );
+void PrintParam( void );
+void PrintByt( uint8_t *Bytes, uint32_t Len, uint8_t Label );
+void PrintSym( complex *Symbols, uint32_t Len, uint8_t Label );
+void PrintLLRs( float *LLRs, uint32_t Len );
+void PrintConvDiagr( trellis *ConvDiagr );
+void PrintTable( phasemap *MapTable );
+void WriteBytCsv( uint8_t *Bytes, uint32_t Len, uint8_t Label );
+void WriteSymCsv( complex *Symbs, uint32_t Len, uint8_t Label );
+void CheckWrongBits( uint8_t *Stream_A, uint8_t *Stream_B, uint32_t Len, uint8_t Label );
+# 17 "..\\main.c" 2
 
 
 
@@ -1598,164 +1623,58 @@ void SoftDemapper( complex *InSymbs, float *OutLLRs, phasemap *Table );
 
 
 
-static void GetGray( uint8_t *IoArray );
-# 35 "..\\modulation.c"
-void GetPskTable( phasemap *IoTable ){
- uint8_t j;
- uint8_t GrayArray[(uint8_t)4u];
- GetGray(GrayArray);
- for ( j=0; j<(uint8_t)4u; j++ ){
-  IoTable->Bits[j] = GrayArray[j];
-  IoTable->Symbs[j].Re = cos((float)(
-# 41 "..\\modulation.c" 3
-                            3.14159265358979323846
-# 41 "..\\modulation.c"
-                            /(uint8_t)4u)+2*
-# 41 "..\\modulation.c" 3
-                                     3.14159265358979323846
-# 41 "..\\modulation.c"
-                                         *j/(uint8_t)4u);
-  IoTable->Symbs[j].Im = sin((float)(
-# 42 "..\\modulation.c" 3
-                            3.14159265358979323846
-# 42 "..\\modulation.c"
-                            /(uint8_t)4u)+2*
-# 42 "..\\modulation.c" 3
-                                     3.14159265358979323846
-# 42 "..\\modulation.c"
-                                         *j/(uint8_t)4u);
+int main(){
+
+ trellis ConvDiagr;
+ phasemap ModTable;
+ uint8_t ConVect[2];
+ uint8_t PunctVect[2*(uint8_t)2];
+ uint8_t TxSrcByt[(uint32_t)100], RxSrcByt[(uint32_t)100];
+ uint8_t TxConvByt[(uint32_t)(2*(uint32_t)100)], DemByt[(uint32_t)(2*(uint32_t)100)];
+ float SoftLLR[(uint32_t)((uint32_t)(2*(uint32_t)100)<<3)];
+ complex ChSym[(uint32_t)(uint32_t)((uint32_t)((uint32_t)100*((uint8_t)2 +1)/(uint8_t)2)<<3)/(uint8_t)log2((uint8_t)4u)];
+
+  CheckParam();
+ PrintParam();
+
+ RandBytGen(TxSrcByt);
+ PrintByt(TxSrcByt,(uint32_t)100,(uint8_t)0);
+
+
+ GetConvCP(ConVect,PunctVect);
+ ConvEncoder(TxSrcByt,TxConvByt,ConVect,PunctVect);
+
+ switch( (uint8_t)30 ){
+  case (uint8_t)30:
+   GetPskTable(&ModTable);
+   break;
+  case (uint8_t)31:
+   GetQamTable(&ModTable);
+   break;
+  default:
+   break;
  }
-}
+ Mapper(TxConvByt,ChSym,&ModTable);
 
 
 
+ ChanAWGN(ChSym);
 
 
+ GetTrellis(ConVect,&ConvDiagr);
 
-
-void GetQamTable( phasemap *IoTable ){
- uint8_t j;
- uint8_t GrayArray[(uint8_t)4u];
- uint8_t MaxVal = (1<<((uint8_t)log2((uint8_t)4u)/2))-1;
- uint8_t Nrows = sqrt((uint8_t)4u);
- div_t DivFct;
- GetGray(GrayArray);
- for ( j=0; j<(uint8_t)4u; j++ ){
-  DivFct = div(j,Nrows);
-  IoTable->Bits[j] = GrayArray[j];
-  IoTable->Symbs[j].Re = (-MaxVal+2*DivFct.rem)*pow(-1,DivFct.quot+1);
-  IoTable->Symbs[j].Im = MaxVal-2*DivFct.quot;
+ if ( (uint8_t)13u == (uint8_t)13u ){
+  HardDemapper(ChSym,DemByt,&ModTable);
+  CheckWrongBits(TxConvByt,DemByt,(uint32_t)((uint32_t)100*((uint8_t)2 +1)/(uint8_t)2),(uint8_t)3);
+  HardConvDecoder(DemByt,RxSrcByt,&ConvDiagr,PunctVect);
+ } else if ( (uint8_t)13u == (uint8_t)14u ){
+  SoftDemapper(ChSym,SoftLLR,&ModTable);
+  SoftConvDecoder(SoftLLR,RxSrcByt,&ConvDiagr,PunctVect);
  }
-}
 
+ PrintByt(RxSrcByt,(uint32_t)100,(uint8_t)1);
+ CheckWrongBits(TxSrcByt,RxSrcByt,(uint32_t)100,(uint8_t)1);
 
+ return 1;
 
-
-
-
-
-static void GetGray( uint8_t *IoArray ){
- uint8_t i, WrIdx, Counter;
- uint8_t Nblk, Shift;
- uint8_t Mask = 0x01;
- memset(IoArray,0,(uint8_t)4u);
- for ( i=0; i<(uint8_t)log2((uint8_t)4u); i++ ){
-  Nblk = (uint8_t)4u/(1<<i);
-  Shift = (uint8_t)log2((uint8_t)4u)-i-1;
-  Counter = 0;
-  WrIdx = Nblk/2;
-  while ( WrIdx < (uint8_t)4u ){
-   IoArray[WrIdx] |= (Mask<<Shift);
-   if ( Counter < (Nblk-1) ){
-    Counter++;
-   } else {
-    Counter = 0;
-    WrIdx += Nblk;
-   }
-   WrIdx++;
-  }
- }
-}
-# 104 "..\\modulation.c"
-void Mapper( uint8_t *InByt, complex *OutSymbs, phasemap *Table ){
- uint8_t i, BitIdx;
- uint32_t ByteIdx;
- uint32_t j = 0;
- int8_t CurBits = 0;
- uint8_t SymbIdx = 0;
- uint8_t Mask = 0x01;
- while ( j < (uint32_t)((uint32_t)((uint32_t)100*((uint8_t)2 +1)/(uint8_t)2)<<3) ){
-  SymbIdx++;
-  ByteIdx = j>>3;
-  BitIdx = (uint8_t)(7-(j&0x0007));
-  CurBits |= ((InByt[ByteIdx]>>BitIdx)&Mask)<<((uint8_t)log2((uint8_t)4u)-SymbIdx);
-  if ( SymbIdx == (uint8_t)log2((uint8_t)4u) ){
-   for ( i=0; i<(uint8_t)4u; i++ ){
-    if ( Table->Bits[i] == CurBits ){
-     OutSymbs[(j+1)/(uint8_t)log2((uint8_t)4u)-1] = Table->Symbs[i];
-     break;
-    }
-   }
-   SymbIdx = 0;
-   CurBits = 0;
-  }
-  j++;
- }
-}
-# 138 "..\\modulation.c"
-void HardDemapper( complex *InSym, uint8_t *OutBytes, phasemap *Table ){
- uint8_t i, MinIdx, BitIdx;
- uint32_t j, ByteIdx;
- uint8_t Mask = 0x01;
- uint32_t k = 0;
- float MinDist, CurDist;
- memset(OutBytes,0,(uint32_t)((uint32_t)100*((uint8_t)2 +1)/(uint8_t)2));
- for ( j=0; j<(uint32_t)(uint32_t)((uint32_t)((uint32_t)100*((uint8_t)2 +1)/(uint8_t)2)<<3)/(uint8_t)log2((uint8_t)4u); j++ ){
-  MinIdx = 0;
-  MinDist = fabs(InSym[j].Re-Table->Symbs[0].Re)+fabs(InSym[j].Im-Table->Symbs[0].Im);
-  for ( i=1; i<(uint8_t)4u; i++ ){
-   CurDist = fabs(InSym[j].Re-Table->Symbs[i].Re)+fabs(InSym[j].Im-Table->Symbs[i].Im);
-   if ( CurDist < MinDist ){
-    MinDist = CurDist;
-    MinIdx = i;
-   }
-  }
-  for ( i=0; i<(uint8_t)log2((uint8_t)4u); i++ ){
-   if ( Table->Bits[MinIdx] & Mask<<((uint8_t)log2((uint8_t)4u)-1-i) ){
-    ByteIdx = k>>3;
-    BitIdx = (uint8_t)(7-(k&0x0007));
-    OutBytes[ByteIdx] |= Mask<<BitIdx;
-   }
-   k++;
-  }
- }
-}
-# 174 "..\\modulation.c"
-void SoftDemapper( complex *InSym, float *OutLLRs, phasemap *Table ){
- uint32_t k;
- uint8_t i, j;
- float Num, Den, Dist;
- uint8_t Mask = 0x01;
- float N0 = 4;
- if ( (uint8_t)4u == 2 ){
-  for ( k=0; k<(uint32_t)((uint32_t)((uint32_t)100*((uint8_t)2 +1)/(uint8_t)2)<<3); k++ ){
-   OutLLRs[k] = -InSym[k].Im;
-  }
- } else {
-  for ( k=0; k<(uint32_t)(uint32_t)((uint32_t)((uint32_t)100*((uint8_t)2 +1)/(uint8_t)2)<<3)/(uint8_t)log2((uint8_t)4u); k++ ){
-   for ( i=0; i<(uint8_t)log2((uint8_t)4u); i++ ){
-    Num = 0;
-    Den = 0;
-    for ( j=0; j<(uint8_t)4u ; j++ ){
-     Dist = exp(-(pow(InSym[k].Re-Table->Symbs[j].Re,2)+pow(InSym[k].Im-Table->Symbs[j].Im,2))/N0);
-     if ( (Table->Bits[j]>>i) & Mask ){
-      Num += Dist;
-     } else {
-      Den += Dist;
-     }
-    }
-    OutLLRs[(k+1)*(uint8_t)log2((uint8_t)4u)-i-1] = N0/2*log(Num/Den);
-   }
-  }
- }
 }
