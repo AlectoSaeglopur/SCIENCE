@@ -8,10 +8,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "H:/SCIENCE/4-INF/make_cmake/convolutional.c" "CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/convolutional.c.obj" "gcc" "CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/convolutional.c.obj.d"
-  "H:/SCIENCE/4-INF/make_cmake/extra.c" "CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/extra.c.obj" "gcc" "CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/extra.c.obj.d"
-  "H:/SCIENCE/4-INF/make_cmake/main.c" "CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/main.c.obj" "gcc" "CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/main.c.obj.d"
-  "H:/SCIENCE/4-INF/make_cmake/modulation.c" "CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/modulation.c.obj" "gcc" "CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/modulation.c.obj.d"
+  "H:/SCIENCE/4-INF/binutils/convolutional.c" "CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/convolutional.c.obj" "gcc" "CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/convolutional.c.obj.d"
+  "H:/SCIENCE/4-INF/binutils/extra.c" "CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/extra.c.obj" "gcc" "CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/extra.c.obj.d"
+  "H:/SCIENCE/4-INF/binutils/main.c" "CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/main.c.obj" "gcc" "CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/main.c.obj.d"
+  "H:/SCIENCE/4-INF/binutils/modulation.c" "CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/modulation.c.obj" "gcc" "CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/modulation.c.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

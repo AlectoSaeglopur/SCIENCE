@@ -179,20 +179,22 @@ static float GetCpxSgnPower( complex *Stream, uint32_t Len ){
  * @return none
  */
 void PrintByt( uint8_t *Bytes, uint32_t Len, uint8_t Label ){
-	uint32_t j;
 	if ( Label == TXINFOB){
 		printf(" * TX INFO BITS (%d bytes)\n\t",Len);
 	} else if ( Label == RXINFOB){
 		printf(" * RX INFO BITS (%d bytes)\n\t",Len);
 	}
+#ifdef VERBOSE
+	uint32_t j;
 	for ( j=0; j<Len; j++){
 		printf("%2X ",Bytes[j]);
 		if ( (j%20 == 19) && (j<(Len-1)) ) {
 			printf("\n\t");
-
 		}
 	}
-	printf("\n\n");
+	printf("\n");
+#endif
+	printf("\n");
 }
 
 

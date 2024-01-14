@@ -6,5 +6,5 @@ C_DEFINES =
 
 C_INCLUDES = 
 
-C_FLAGS = -Wall -Wextra -D VERBOSE -save-temps
+C_FLAGS = -Wall -Wextra -g -O0 -D VERBOSE -save-temps
 

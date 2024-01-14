@@ -10,8 +10,8 @@ message(" >> Cmake version = " ${CMAKE_VERSION})
 project(vkn LANGUAGES C VERSION 17.5.33)
 
 ## Set compiler and linker options (NB: "-save-temps" option allows to save the *.i and *.s files as well)
-add_compile_options(-Wall -Wextra -D VERBOSE -save-temps)
-add_link_options(-Xlinker -Map=${PROJECT_NAME}.map)
+add_compile_options(-Wall -Wextra -g -O0 -D VERBOSE -save-temps)
+add_link_options(-lm -Xlinker -Map=${PROJECT_NAME}.map)
 
 ## Add source files, compile and link
 if (1)

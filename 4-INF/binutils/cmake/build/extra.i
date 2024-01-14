@@ -1,12 +1,13 @@
-# 1 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
+# 1 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
+# 1 "H:\\SCIENCE\\4-INF\\binutils\\cmake\\build//"
 # 1 "<built-in>"
 # 1 "<command-line>"
-# 1 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
-# 13 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
-# 1 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.h" 1
-# 17 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.h"
-# 1 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 1
-# 17 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h"
+# 1 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
+# 13 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
+# 1 "H:\\SCIENCE\\4-INF\\binutils\\extra.h" 1
+# 17 "H:\\SCIENCE\\4-INF\\binutils\\extra.h"
+# 1 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 1
+# 17 "H:\\SCIENCE\\4-INF\\binutils\\setting.h"
 # 1 "c:\\mingw\\include\\stdio.h" 1 3
 # 38 "c:\\mingw\\include\\stdio.h" 3
        
@@ -442,7 +443,7 @@ int vswscanf (const wchar_t *__restrict__, const wchar_t * __restrict__, __built
 
 
 
-# 18 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 2
+# 18 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 2
 # 1 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 1 3 4
 # 9 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 3 4
 # 1 "c:\\mingw\\include\\stdint.h" 1 3 4
@@ -505,7 +506,7 @@ typedef __uintptr_t uintptr_t;
 typedef long long intmax_t;
 typedef unsigned long long uintmax_t;
 # 10 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 2 3 4
-# 19 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 2
+# 19 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 2
 # 1 "c:\\mingw\\include\\string.h" 1 3
 # 34 "c:\\mingw\\include\\string.h" 3
        
@@ -679,7 +680,7 @@ extern inline __attribute__((__gnu_inline__)) __attribute__((__always_inline__))
 
 
 
-# 20 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 2
+# 20 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 2
 # 1 "c:\\mingw\\include\\stdlib.h" 1 3
 # 34 "c:\\mingw\\include\\stdlib.h" 3
        
@@ -987,7 +988,7 @@ __attribute__((__cdecl__)) __attribute__((__nothrow__)) int unsetenv( const char
 
 
 
-# 21 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 2
+# 21 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 2
 # 1 "c:\\mingw\\include\\time.h" 1 3
 # 33 "c:\\mingw\\include\\time.h" 3
        
@@ -1157,7 +1158,7 @@ int nanosleep( const struct timespec *, struct timespec * );
 size_t wcsftime (wchar_t *, size_t, const wchar_t *, const struct tm *);
 
 
-# 22 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 2
+# 22 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 2
 # 1 "c:\\mingw\\include\\math.h" 1 3
 # 35 "c:\\mingw\\include\\math.h" 3
        
@@ -1543,10 +1544,10 @@ extern float __attribute__((__cdecl__)) fmaf (float, float, float);
 extern long double __attribute__((__cdecl__)) fmal (long double, long double, long double);
 # 931 "c:\\mingw\\include\\math.h" 3
 
-# 23 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 2
-# 79 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h"
+# 23 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 2
+# 79 "H:\\SCIENCE\\4-INF\\binutils\\setting.h"
 
-# 79 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h"
+# 79 "H:\\SCIENCE\\4-INF\\binutils\\setting.h"
 typedef struct TD1 {
  uint8_t OutBits[2];
  uint8_t NextState[2];
@@ -1577,8 +1578,8 @@ typedef struct TD6 {
  uint8_t Bits[(uint8_t)4u];
  complex Symbs[(uint8_t)4u];
 } phasemap;
-# 18 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.h" 2
-# 38 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.h"
+# 18 "H:\\SCIENCE\\4-INF\\binutils\\extra.h" 2
+# 38 "H:\\SCIENCE\\4-INF\\binutils\\extra.h"
 void CheckParam( void );
 void RandBytGen( uint8_t *IoBytes );
 void ChanBSC( uint8_t *InBytes, uint8_t *OutBytes, float Peb );
@@ -1592,7 +1593,7 @@ void PrintTable( phasemap *MapTable );
 void WriteBytCsv( uint8_t *Bytes, uint32_t Len, uint8_t Label );
 void WriteSymCsv( complex *Symbs, uint32_t Len, uint8_t Label );
 void CheckWrongBits( uint8_t *Stream_A, uint8_t *Stream_B, uint32_t Len, uint8_t Label );
-# 14 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c" 2
+# 14 "H:\\SCIENCE\\4-INF\\binutils\\extra.c" 2
 
 
 
@@ -1601,7 +1602,7 @@ void CheckWrongBits( uint8_t *Stream_A, uint8_t *Stream_B, uint32_t Len, uint8_t
 
 
 static float GetCpxSgnPower( complex *Stream, uint32_t Len );
-# 33 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
+# 33 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
 void CheckParam( void ){
  if( ((uint8_t)7u < 3) || ((uint8_t)7u>8) ){
   printf("\n Error-CC : Invalid constrain length!\n");
@@ -1665,39 +1666,39 @@ void PrintParam( void ){
 void RandBytGen( uint8_t *IoBytes ){
  uint32_t j;
  srand(time(
-# 95 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c" 3 4
+# 95 "H:\\SCIENCE\\4-INF\\binutils\\extra.c" 3 4
            ((void *)0)
-# 95 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
+# 95 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
                ));
  for ( j=0; j<(uint32_t)100; j++ ){
   IoBytes[j] = (uint8_t)rand();
  }
 }
-# 109 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
+# 109 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
 void ChanBSC( uint8_t *InByt, uint8_t *OutByt, float Peb ){
  uint32_t j, ByteIdx;
  uint8_t BitIdx;
  uint8_t Mask = 0x01;
  if ( (InByt != 
-# 113 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c" 3 4
+# 113 "H:\\SCIENCE\\4-INF\\binutils\\extra.c" 3 4
                ((void *)0)
-# 113 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
+# 113 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
                    ) && (OutByt != 
-# 113 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c" 3 4
+# 113 "H:\\SCIENCE\\4-INF\\binutils\\extra.c" 3 4
                                    ((void *)0)
-# 113 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
+# 113 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
                                        ) ){
   memcpy(OutByt,InByt,(uint32_t)((uint32_t)100*((uint8_t)2 +1)/(uint8_t)2));
   srand(time(
-# 115 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c" 3 4
+# 115 "H:\\SCIENCE\\4-INF\\binutils\\extra.c" 3 4
             ((void *)0)
-# 115 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
+# 115 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
                 ));
   for ( j=0; j<(uint32_t)((uint32_t)((uint32_t)100*((uint8_t)2 +1)/(uint8_t)2)<<3); j++ ){
    if ( (float)rand( )/(float)
-# 117 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c" 3
+# 117 "H:\\SCIENCE\\4-INF\\binutils\\extra.c" 3
                              0x7FFF 
-# 117 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
+# 117 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
                                       < Peb ){
     ByteIdx = (j>>3);
     BitIdx = 7-(uint8_t)(j&0x0007);
@@ -1726,46 +1727,46 @@ void ChanAWGN( complex *IoStream ){
  float SNR = (float)5 +10*log10((uint8_t)log2((uint8_t)4u));
  float SqSigma = SgnPwr*pow(10,-SNR/10);
  srand(time(
-# 144 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c" 3 4
+# 144 "H:\\SCIENCE\\4-INF\\binutils\\extra.c" 3 4
            ((void *)0)
-# 144 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
+# 144 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
                ));
  for ( j=0; j<(uint32_t)(uint32_t)((uint32_t)((uint32_t)100*((uint8_t)2 +1)/(uint8_t)2)<<3)/(uint8_t)log2((uint8_t)4u); j++ ){
   U1 = rand()*(1.0/
-# 146 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c" 3
+# 146 "H:\\SCIENCE\\4-INF\\binutils\\extra.c" 3
                   0x7FFF
-# 146 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
+# 146 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
                           );
   U2 = rand()*(1.0/
-# 147 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c" 3
+# 147 "H:\\SCIENCE\\4-INF\\binutils\\extra.c" 3
                   0x7FFF
-# 147 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
+# 147 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
                           );
   ReN = sqrt(-2*log(U1))*cos(2*
-# 148 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c" 3
+# 148 "H:\\SCIENCE\\4-INF\\binutils\\extra.c" 3
                               3.14159265358979323846
-# 148 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
+# 148 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
                                   *U2)*sqrt(SqSigma/2)+Mu;
   ImN = sqrt(-2*log(U1))*sin(2*
-# 149 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c" 3
+# 149 "H:\\SCIENCE\\4-INF\\binutils\\extra.c" 3
                               3.14159265358979323846
-# 149 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
+# 149 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
                                   *U2)*sqrt(SqSigma/2)+Mu;
   if ( (fabs(ReN) != 
-# 150 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c" 3
+# 150 "H:\\SCIENCE\\4-INF\\binutils\\extra.c" 3
                     __builtin_inf()
-# 150 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
+# 150 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
                             ) && (fabs(ImN) != 
-# 150 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c" 3
+# 150 "H:\\SCIENCE\\4-INF\\binutils\\extra.c" 3
                                                __builtin_inf()
-# 150 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
+# 150 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
                                                        ) ){
    IoStream[j].Re += ReN;
    IoStream[j].Im += ImN;
   }
  }
 }
-# 164 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
+# 164 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
 static float GetCpxSgnPower( complex *Stream, uint32_t Len ){
  uint32_t j;
  float Energy = 0;
@@ -1774,24 +1775,26 @@ static float GetCpxSgnPower( complex *Stream, uint32_t Len ){
  }
  return Energy/(float)Len;
 }
-# 181 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
+# 181 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
 void PrintByt( uint8_t *Bytes, uint32_t Len, uint8_t Label ){
- uint32_t j;
  if ( Label == (uint8_t)0){
   printf(" * TX INFO BITS (%d bytes)\n\t",Len);
  } else if ( Label == (uint8_t)1){
   printf(" * RX INFO BITS (%d bytes)\n\t",Len);
  }
+
+ uint32_t j;
  for ( j=0; j<Len; j++){
   printf("%2X ",Bytes[j]);
   if ( (j%20 == 19) && (j<(Len-1)) ) {
    printf("\n\t");
-
   }
  }
- printf("\n\n");
+ printf("\n");
+
+ printf("\n");
 }
-# 206 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
+# 208 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
 void PrintSym( complex *Symbols, uint32_t Len, uint8_t Label ){
  uint32_t j;
  if ( Label == (uint8_t)4 ){
@@ -1817,7 +1820,7 @@ void PrintSym( complex *Symbols, uint32_t Len, uint8_t Label ){
  }
  printf("\n\n");
 }
-# 239 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
+# 241 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
 void PrintLLRs( float *LLRs, uint32_t Len ){
  uint32_t j;
  printf(" * SOFT DEMAPPING LLR VALUES\n\t");
@@ -1878,7 +1881,7 @@ void PrintTable( phasemap *MapTable ){
  }
  printf("\n\n");
 }
-# 308 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
+# 310 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
 void WriteBytCsv( uint8_t *Bytes, uint32_t Len, uint8_t Label ){
  uint32_t j;
  FILE *fid;
@@ -1888,9 +1891,9 @@ void WriteBytCsv( uint8_t *Bytes, uint32_t Len, uint8_t Label ){
   fid = fopen("RxInfoBytes.csv","w");
  }
  if (fid != 
-# 316 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c" 3 4
+# 318 "H:\\SCIENCE\\4-INF\\binutils\\extra.c" 3 4
            ((void *)0)
-# 316 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
+# 318 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
                ){
   for ( j=0; j<Len; j++ ){
    fprintf(fid,"%d",Bytes[j]);
@@ -1901,7 +1904,7 @@ void WriteBytCsv( uint8_t *Bytes, uint32_t Len, uint8_t Label ){
  }
  fclose(fid);
 }
-# 335 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
+# 337 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
 void WriteSymCsv( complex *Symbols, uint32_t Len, uint8_t Label ){
  uint32_t j;
  FILE *fid;
@@ -1911,9 +1914,9 @@ void WriteSymCsv( complex *Symbols, uint32_t Len, uint8_t Label ){
   fid = fopen("RxCpxSymbs.csv","w");
  }
  if (fid != 
-# 343 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c" 3 4
+# 345 "H:\\SCIENCE\\4-INF\\binutils\\extra.c" 3 4
            ((void *)0)
-# 343 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
+# 345 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
                ){
   for ( j=0; j<Len; j++ ){
    fprintf(fid,"%1.4f,%1.4f",Symbols[j].Re,Symbols[j].Im);
@@ -1924,7 +1927,7 @@ void WriteSymCsv( complex *Symbols, uint32_t Len, uint8_t Label ){
  }
  fclose(fid);
 }
-# 363 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
+# 365 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
 void CheckWrongBits( uint8_t *Stream_A, uint8_t *Stream_B, uint32_t Len, uint8_t Label ){
  uint8_t BitIdx;
  uint32_t j, ByteIdx;
@@ -1932,13 +1935,13 @@ void CheckWrongBits( uint8_t *Stream_A, uint8_t *Stream_B, uint32_t Len, uint8_t
  uint8_t Mask = 0x01;
  uint32_t BitLen = Len<<3;
  if ( (Stream_A != 
-# 369 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c" 3 4
+# 371 "H:\\SCIENCE\\4-INF\\binutils\\extra.c" 3 4
                   ((void *)0)
-# 369 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
+# 371 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
                       ) && (Stream_B != 
-# 369 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c" 3 4
+# 371 "H:\\SCIENCE\\4-INF\\binutils\\extra.c" 3 4
                                         ((void *)0)
-# 369 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.c"
+# 371 "H:\\SCIENCE\\4-INF\\binutils\\extra.c"
                                             ) ){
   for ( j=0; j<BitLen; j++){
    ByteIdx = (j>>3);

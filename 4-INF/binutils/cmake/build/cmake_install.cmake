@@ -1,4 +1,4 @@
-# Install script for directory: H:/SCIENCE/4-INF/make_cmake/cmake
+# Install script for directory: H:/SCIENCE/4-INF/binutils/cmake
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "H:/SCIENCE/4-INF/make_cmake/cmake/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "H:/SCIENCE/4-INF/binutils/cmake/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

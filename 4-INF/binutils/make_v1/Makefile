@@ -19,10 +19,10 @@ SFL = ..
 BFL = bin
 
 # Compiler flags
-CFLG = -Wall -Werror
+CFLG = -Wall -Werror -g -O0 -D VERBOSE
 
 # Linker flags
-LFLG = -Xlinker -Map=$(BFL)\$(TARGET).map
+LFLG = -lm -Xlinker -Map=$(BFL)\$(TARGET).map
 
 # Compiler version
 CCV = gcc

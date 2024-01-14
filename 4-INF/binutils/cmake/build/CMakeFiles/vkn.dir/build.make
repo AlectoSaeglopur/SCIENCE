@@ -52,10 +52,10 @@ RM = "C:\Program Files\CMake\bin\cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = H:\SCIENCE\4-INF\make_cmake\cmake
+CMAKE_SOURCE_DIR = H:\SCIENCE\4-INF\binutils\cmake
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = H:\SCIENCE\4-INF\make_cmake\cmake\build
+CMAKE_BINARY_DIR = H:\SCIENCE\4-INF\binutils\cmake\build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/vkn.dir/depend.make
@@ -68,81 +68,81 @@ include CMakeFiles/vkn.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/vkn.dir/flags.make
 
-CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/convolutional.c.obj: CMakeFiles/vkn.dir/flags.make
-CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/convolutional.c.obj: H:/SCIENCE/4-INF/make_cmake/convolutional.c
-CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/convolutional.c.obj: CMakeFiles/vkn.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=H:\SCIENCE\4-INF\make_cmake\cmake\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/convolutional.c.obj"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/convolutional.c.obj -MF CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\make_cmake\convolutional.c.obj.d -o CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\make_cmake\convolutional.c.obj -c H:\SCIENCE\4-INF\make_cmake\convolutional.c
+CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/convolutional.c.obj: CMakeFiles/vkn.dir/flags.make
+CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/convolutional.c.obj: H:/SCIENCE/4-INF/binutils/convolutional.c
+CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/convolutional.c.obj: CMakeFiles/vkn.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=H:\SCIENCE\4-INF\binutils\cmake\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/convolutional.c.obj"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/convolutional.c.obj -MF CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\binutils\convolutional.c.obj.d -o CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\binutils\convolutional.c.obj -c H:\SCIENCE\4-INF\binutils\convolutional.c
 
-CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/convolutional.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/convolutional.c.i"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E H:\SCIENCE\4-INF\make_cmake\convolutional.c > CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\make_cmake\convolutional.c.i
+CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/convolutional.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/convolutional.c.i"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E H:\SCIENCE\4-INF\binutils\convolutional.c > CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\binutils\convolutional.c.i
 
-CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/convolutional.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/convolutional.c.s"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S H:\SCIENCE\4-INF\make_cmake\convolutional.c -o CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\make_cmake\convolutional.c.s
+CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/convolutional.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/convolutional.c.s"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S H:\SCIENCE\4-INF\binutils\convolutional.c -o CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\binutils\convolutional.c.s
 
-CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/extra.c.obj: CMakeFiles/vkn.dir/flags.make
-CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/extra.c.obj: H:/SCIENCE/4-INF/make_cmake/extra.c
-CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/extra.c.obj: CMakeFiles/vkn.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=H:\SCIENCE\4-INF\make_cmake\cmake\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/extra.c.obj"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/extra.c.obj -MF CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\make_cmake\extra.c.obj.d -o CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\make_cmake\extra.c.obj -c H:\SCIENCE\4-INF\make_cmake\extra.c
+CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/extra.c.obj: CMakeFiles/vkn.dir/flags.make
+CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/extra.c.obj: H:/SCIENCE/4-INF/binutils/extra.c
+CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/extra.c.obj: CMakeFiles/vkn.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=H:\SCIENCE\4-INF\binutils\cmake\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/extra.c.obj"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/extra.c.obj -MF CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\binutils\extra.c.obj.d -o CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\binutils\extra.c.obj -c H:\SCIENCE\4-INF\binutils\extra.c
 
-CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/extra.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/extra.c.i"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E H:\SCIENCE\4-INF\make_cmake\extra.c > CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\make_cmake\extra.c.i
+CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/extra.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/extra.c.i"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E H:\SCIENCE\4-INF\binutils\extra.c > CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\binutils\extra.c.i
 
-CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/extra.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/extra.c.s"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S H:\SCIENCE\4-INF\make_cmake\extra.c -o CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\make_cmake\extra.c.s
+CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/extra.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/extra.c.s"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S H:\SCIENCE\4-INF\binutils\extra.c -o CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\binutils\extra.c.s
 
-CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/main.c.obj: CMakeFiles/vkn.dir/flags.make
-CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/main.c.obj: H:/SCIENCE/4-INF/make_cmake/main.c
-CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/main.c.obj: CMakeFiles/vkn.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=H:\SCIENCE\4-INF\make_cmake\cmake\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/main.c.obj"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/main.c.obj -MF CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\make_cmake\main.c.obj.d -o CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\make_cmake\main.c.obj -c H:\SCIENCE\4-INF\make_cmake\main.c
+CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/main.c.obj: CMakeFiles/vkn.dir/flags.make
+CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/main.c.obj: H:/SCIENCE/4-INF/binutils/main.c
+CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/main.c.obj: CMakeFiles/vkn.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=H:\SCIENCE\4-INF\binutils\cmake\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/main.c.obj"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/main.c.obj -MF CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\binutils\main.c.obj.d -o CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\binutils\main.c.obj -c H:\SCIENCE\4-INF\binutils\main.c
 
-CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/main.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/main.c.i"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E H:\SCIENCE\4-INF\make_cmake\main.c > CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\make_cmake\main.c.i
+CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/main.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/main.c.i"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E H:\SCIENCE\4-INF\binutils\main.c > CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\binutils\main.c.i
 
-CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/main.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/main.c.s"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S H:\SCIENCE\4-INF\make_cmake\main.c -o CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\make_cmake\main.c.s
+CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/main.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/main.c.s"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S H:\SCIENCE\4-INF\binutils\main.c -o CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\binutils\main.c.s
 
-CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/modulation.c.obj: CMakeFiles/vkn.dir/flags.make
-CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/modulation.c.obj: H:/SCIENCE/4-INF/make_cmake/modulation.c
-CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/modulation.c.obj: CMakeFiles/vkn.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=H:\SCIENCE\4-INF\make_cmake\cmake\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/modulation.c.obj"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/modulation.c.obj -MF CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\make_cmake\modulation.c.obj.d -o CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\make_cmake\modulation.c.obj -c H:\SCIENCE\4-INF\make_cmake\modulation.c
+CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/modulation.c.obj: CMakeFiles/vkn.dir/flags.make
+CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/modulation.c.obj: H:/SCIENCE/4-INF/binutils/modulation.c
+CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/modulation.c.obj: CMakeFiles/vkn.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=H:\SCIENCE\4-INF\binutils\cmake\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/modulation.c.obj"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/modulation.c.obj -MF CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\binutils\modulation.c.obj.d -o CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\binutils\modulation.c.obj -c H:\SCIENCE\4-INF\binutils\modulation.c
 
-CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/modulation.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/modulation.c.i"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E H:\SCIENCE\4-INF\make_cmake\modulation.c > CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\make_cmake\modulation.c.i
+CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/modulation.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/modulation.c.i"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E H:\SCIENCE\4-INF\binutils\modulation.c > CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\binutils\modulation.c.i
 
-CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/modulation.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/modulation.c.s"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S H:\SCIENCE\4-INF\make_cmake\modulation.c -o CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\make_cmake\modulation.c.s
+CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/modulation.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/modulation.c.s"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S H:\SCIENCE\4-INF\binutils\modulation.c -o CMakeFiles\vkn.dir\H_\SCIENCE\4-INF\binutils\modulation.c.s
 
 # Object files for target vkn
 vkn_OBJECTS = \
-"CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/convolutional.c.obj" \
-"CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/extra.c.obj" \
-"CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/main.c.obj" \
-"CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/modulation.c.obj"
+"CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/convolutional.c.obj" \
+"CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/extra.c.obj" \
+"CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/main.c.obj" \
+"CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/modulation.c.obj"
 
 # External object files for target vkn
 vkn_EXTERNAL_OBJECTS =
 
-vkn.exe: CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/convolutional.c.obj
-vkn.exe: CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/extra.c.obj
-vkn.exe: CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/main.c.obj
-vkn.exe: CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/modulation.c.obj
+vkn.exe: CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/convolutional.c.obj
+vkn.exe: CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/extra.c.obj
+vkn.exe: CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/main.c.obj
+vkn.exe: CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/modulation.c.obj
 vkn.exe: CMakeFiles/vkn.dir/build.make
 vkn.exe: CMakeFiles/vkn.dir/linkLibs.rsp
 vkn.exe: CMakeFiles/vkn.dir/objects1.rsp
 vkn.exe: CMakeFiles/vkn.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=H:\SCIENCE\4-INF\make_cmake\cmake\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable vkn.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=H:\SCIENCE\4-INF\binutils\cmake\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable vkn.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\vkn.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -154,6 +154,6 @@ CMakeFiles/vkn.dir/clean:
 .PHONY : CMakeFiles/vkn.dir/clean
 
 CMakeFiles/vkn.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" H:\SCIENCE\4-INF\make_cmake\cmake H:\SCIENCE\4-INF\make_cmake\cmake H:\SCIENCE\4-INF\make_cmake\cmake\build H:\SCIENCE\4-INF\make_cmake\cmake\build H:\SCIENCE\4-INF\make_cmake\cmake\build\CMakeFiles\vkn.dir\DependInfo.cmake "--color=$(COLOR)"
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" H:\SCIENCE\4-INF\binutils\cmake H:\SCIENCE\4-INF\binutils\cmake H:\SCIENCE\4-INF\binutils\cmake\build H:\SCIENCE\4-INF\binutils\cmake\build H:\SCIENCE\4-INF\binutils\cmake\build\CMakeFiles\vkn.dir\DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/vkn.dir/depend
 

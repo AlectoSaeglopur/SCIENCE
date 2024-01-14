@@ -1777,22 +1777,24 @@ static float GetCpxSgnPower( complex *Stream, uint32_t Len ){
 }
 # 181 "..\\extra.c"
 void PrintByt( uint8_t *Bytes, uint32_t Len, uint8_t Label ){
- uint32_t j;
  if ( Label == (uint8_t)0){
   printf(" * TX INFO BITS (%d bytes)\n\t",Len);
  } else if ( Label == (uint8_t)1){
   printf(" * RX INFO BITS (%d bytes)\n\t",Len);
  }
+
+ uint32_t j;
  for ( j=0; j<Len; j++){
   printf("%2X ",Bytes[j]);
   if ( (j%20 == 19) && (j<(Len-1)) ) {
    printf("\n\t");
-
   }
  }
- printf("\n\n");
+ printf("\n");
+
+ printf("\n");
 }
-# 206 "..\\extra.c"
+# 208 "..\\extra.c"
 void PrintSym( complex *Symbols, uint32_t Len, uint8_t Label ){
  uint32_t j;
  if ( Label == (uint8_t)4 ){
@@ -1818,7 +1820,7 @@ void PrintSym( complex *Symbols, uint32_t Len, uint8_t Label ){
  }
  printf("\n\n");
 }
-# 239 "..\\extra.c"
+# 241 "..\\extra.c"
 void PrintLLRs( float *LLRs, uint32_t Len ){
  uint32_t j;
  printf(" * SOFT DEMAPPING LLR VALUES\n\t");
@@ -1879,7 +1881,7 @@ void PrintTable( phasemap *MapTable ){
  }
  printf("\n\n");
 }
-# 308 "..\\extra.c"
+# 310 "..\\extra.c"
 void WriteBytCsv( uint8_t *Bytes, uint32_t Len, uint8_t Label ){
  uint32_t j;
  FILE *fid;
@@ -1889,9 +1891,9 @@ void WriteBytCsv( uint8_t *Bytes, uint32_t Len, uint8_t Label ){
   fid = fopen("RxInfoBytes.csv","w");
  }
  if (fid != 
-# 316 "..\\extra.c" 3 4
+# 318 "..\\extra.c" 3 4
            ((void *)0)
-# 316 "..\\extra.c"
+# 318 "..\\extra.c"
                ){
   for ( j=0; j<Len; j++ ){
    fprintf(fid,"%d",Bytes[j]);
@@ -1902,7 +1904,7 @@ void WriteBytCsv( uint8_t *Bytes, uint32_t Len, uint8_t Label ){
  }
  fclose(fid);
 }
-# 335 "..\\extra.c"
+# 337 "..\\extra.c"
 void WriteSymCsv( complex *Symbols, uint32_t Len, uint8_t Label ){
  uint32_t j;
  FILE *fid;
@@ -1912,9 +1914,9 @@ void WriteSymCsv( complex *Symbols, uint32_t Len, uint8_t Label ){
   fid = fopen("RxCpxSymbs.csv","w");
  }
  if (fid != 
-# 343 "..\\extra.c" 3 4
+# 345 "..\\extra.c" 3 4
            ((void *)0)
-# 343 "..\\extra.c"
+# 345 "..\\extra.c"
                ){
   for ( j=0; j<Len; j++ ){
    fprintf(fid,"%1.4f,%1.4f",Symbols[j].Re,Symbols[j].Im);
@@ -1925,7 +1927,7 @@ void WriteSymCsv( complex *Symbols, uint32_t Len, uint8_t Label ){
  }
  fclose(fid);
 }
-# 363 "..\\extra.c"
+# 365 "..\\extra.c"
 void CheckWrongBits( uint8_t *Stream_A, uint8_t *Stream_B, uint32_t Len, uint8_t Label ){
  uint8_t BitIdx;
  uint32_t j, ByteIdx;
@@ -1933,13 +1935,13 @@ void CheckWrongBits( uint8_t *Stream_A, uint8_t *Stream_B, uint32_t Len, uint8_t
  uint8_t Mask = 0x01;
  uint32_t BitLen = Len<<3;
  if ( (Stream_A != 
-# 369 "..\\extra.c" 3 4
+# 371 "..\\extra.c" 3 4
                   ((void *)0)
-# 369 "..\\extra.c"
+# 371 "..\\extra.c"
                       ) && (Stream_B != 
-# 369 "..\\extra.c" 3 4
+# 371 "..\\extra.c" 3 4
                                         ((void *)0)
-# 369 "..\\extra.c"
+# 371 "..\\extra.c"
                                             ) ){
   for ( j=0; j<BitLen; j++){
    ByteIdx = (j>>3);

@@ -1,7 +1,7 @@
-CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/convolutional.c.obj: \
- H:\SCIENCE\4-INF\make_cmake\convolutional.c \
- H:\SCIENCE\4-INF\make_cmake\convolutional.h \
- H:\SCIENCE\4-INF\make_cmake\setting.h c:\mingw\include\stdio.h \
+CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/binutils/main.c.obj: \
+ H:\SCIENCE\4-INF\binutils\main.c \
+ H:\SCIENCE\4-INF\binutils\convolutional.h \
+ H:\SCIENCE\4-INF\binutils\setting.h c:\mingw\include\stdio.h \
  c:\mingw\include\_mingw.h c:\mingw\include\msvcrtver.h \
  c:\mingw\include\w32api.h c:\mingw\include\sdkddkver.h \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\stddef.h \
@@ -11,4 +11,5 @@ CMakeFiles/vkn.dir/H_/SCIENCE/4-INF/make_cmake/convolutional.c.obj: \
  c:\mingw\include\stdint.h c:\mingw\include\string.h \
  c:\mingw\include\strings.h c:\mingw\include\wchar.h \
  c:\mingw\include\stdlib.h c:\mingw\include\time.h \
- c:\mingw\include\sys\types.h c:\mingw\include\math.h
+ c:\mingw\include\sys\types.h c:\mingw\include\math.h \
+ H:\SCIENCE\4-INF\binutils\modulation.h H:\SCIENCE\4-INF\binutils\extra.h

@@ -1,12 +1,13 @@
-# 1 "H:\\SCIENCE\\4-INF\\make_cmake\\modulation.c"
+# 1 "H:\\SCIENCE\\4-INF\\binutils\\modulation.c"
+# 1 "H:\\SCIENCE\\4-INF\\binutils\\cmake\\build//"
 # 1 "<built-in>"
 # 1 "<command-line>"
-# 1 "H:\\SCIENCE\\4-INF\\make_cmake\\modulation.c"
-# 14 "H:\\SCIENCE\\4-INF\\make_cmake\\modulation.c"
-# 1 "H:\\SCIENCE\\4-INF\\make_cmake\\modulation.h" 1
-# 17 "H:\\SCIENCE\\4-INF\\make_cmake\\modulation.h"
-# 1 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 1
-# 17 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h"
+# 1 "H:\\SCIENCE\\4-INF\\binutils\\modulation.c"
+# 14 "H:\\SCIENCE\\4-INF\\binutils\\modulation.c"
+# 1 "H:\\SCIENCE\\4-INF\\binutils\\modulation.h" 1
+# 17 "H:\\SCIENCE\\4-INF\\binutils\\modulation.h"
+# 1 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 1
+# 17 "H:\\SCIENCE\\4-INF\\binutils\\setting.h"
 # 1 "c:\\mingw\\include\\stdio.h" 1 3
 # 38 "c:\\mingw\\include\\stdio.h" 3
        
@@ -442,7 +443,7 @@ int vswscanf (const wchar_t *__restrict__, const wchar_t * __restrict__, __built
 
 
 
-# 18 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 2
+# 18 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 2
 # 1 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 1 3 4
 # 9 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 3 4
 # 1 "c:\\mingw\\include\\stdint.h" 1 3 4
@@ -505,7 +506,7 @@ typedef __uintptr_t uintptr_t;
 typedef long long intmax_t;
 typedef unsigned long long uintmax_t;
 # 10 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 2 3 4
-# 19 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 2
+# 19 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 2
 # 1 "c:\\mingw\\include\\string.h" 1 3
 # 34 "c:\\mingw\\include\\string.h" 3
        
@@ -679,7 +680,7 @@ extern inline __attribute__((__gnu_inline__)) __attribute__((__always_inline__))
 
 
 
-# 20 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 2
+# 20 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 2
 # 1 "c:\\mingw\\include\\stdlib.h" 1 3
 # 34 "c:\\mingw\\include\\stdlib.h" 3
        
@@ -987,7 +988,7 @@ __attribute__((__cdecl__)) __attribute__((__nothrow__)) int unsetenv( const char
 
 
 
-# 21 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 2
+# 21 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 2
 # 1 "c:\\mingw\\include\\time.h" 1 3
 # 33 "c:\\mingw\\include\\time.h" 3
        
@@ -1157,7 +1158,7 @@ int nanosleep( const struct timespec *, struct timespec * );
 size_t wcsftime (wchar_t *, size_t, const wchar_t *, const struct tm *);
 
 
-# 22 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 2
+# 22 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 2
 # 1 "c:\\mingw\\include\\math.h" 1 3
 # 35 "c:\\mingw\\include\\math.h" 3
        
@@ -1543,10 +1544,10 @@ extern float __attribute__((__cdecl__)) fmaf (float, float, float);
 extern long double __attribute__((__cdecl__)) fmal (long double, long double, long double);
 # 931 "c:\\mingw\\include\\math.h" 3
 
-# 23 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 2
-# 79 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h"
+# 23 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 2
+# 79 "H:\\SCIENCE\\4-INF\\binutils\\setting.h"
 
-# 79 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h"
+# 79 "H:\\SCIENCE\\4-INF\\binutils\\setting.h"
 typedef struct TD1 {
  uint8_t OutBits[2];
  uint8_t NextState[2];
@@ -1577,7 +1578,7 @@ typedef struct TD6 {
  uint8_t Bits[(uint8_t)4u];
  complex Symbs[(uint8_t)4u];
 } phasemap;
-# 18 "H:\\SCIENCE\\4-INF\\make_cmake\\modulation.h" 2
+# 18 "H:\\SCIENCE\\4-INF\\binutils\\modulation.h" 2
 
 
 
@@ -1590,7 +1591,7 @@ void GetQamTable( phasemap *IoTable );
 void Mapper( uint8_t *InBytes, complex *OutSymbs, phasemap *Table );
 void HardDemapper( complex *InSymbs, uint8_t *OutBytes, phasemap *Table );
 void SoftDemapper( complex *InSymbs, float *OutLLRs, phasemap *Table );
-# 15 "H:\\SCIENCE\\4-INF\\make_cmake\\modulation.c" 2
+# 15 "H:\\SCIENCE\\4-INF\\binutils\\modulation.c" 2
 
 
 
@@ -1599,7 +1600,7 @@ void SoftDemapper( complex *InSymbs, float *OutLLRs, phasemap *Table );
 
 
 static void GetGray( uint8_t *IoArray );
-# 35 "H:\\SCIENCE\\4-INF\\make_cmake\\modulation.c"
+# 35 "H:\\SCIENCE\\4-INF\\binutils\\modulation.c"
 void GetPskTable( phasemap *IoTable ){
  uint8_t j;
  uint8_t GrayArray[(uint8_t)4u];
@@ -1607,22 +1608,22 @@ void GetPskTable( phasemap *IoTable ){
  for ( j=0; j<(uint8_t)4u; j++ ){
   IoTable->Bits[j] = GrayArray[j];
   IoTable->Symbs[j].Re = cos((float)(
-# 41 "H:\\SCIENCE\\4-INF\\make_cmake\\modulation.c" 3
+# 41 "H:\\SCIENCE\\4-INF\\binutils\\modulation.c" 3
                             3.14159265358979323846
-# 41 "H:\\SCIENCE\\4-INF\\make_cmake\\modulation.c"
+# 41 "H:\\SCIENCE\\4-INF\\binutils\\modulation.c"
                             /(uint8_t)4u)+2*
-# 41 "H:\\SCIENCE\\4-INF\\make_cmake\\modulation.c" 3
+# 41 "H:\\SCIENCE\\4-INF\\binutils\\modulation.c" 3
                                      3.14159265358979323846
-# 41 "H:\\SCIENCE\\4-INF\\make_cmake\\modulation.c"
+# 41 "H:\\SCIENCE\\4-INF\\binutils\\modulation.c"
                                          *j/(uint8_t)4u);
   IoTable->Symbs[j].Im = sin((float)(
-# 42 "H:\\SCIENCE\\4-INF\\make_cmake\\modulation.c" 3
+# 42 "H:\\SCIENCE\\4-INF\\binutils\\modulation.c" 3
                             3.14159265358979323846
-# 42 "H:\\SCIENCE\\4-INF\\make_cmake\\modulation.c"
+# 42 "H:\\SCIENCE\\4-INF\\binutils\\modulation.c"
                             /(uint8_t)4u)+2*
-# 42 "H:\\SCIENCE\\4-INF\\make_cmake\\modulation.c" 3
+# 42 "H:\\SCIENCE\\4-INF\\binutils\\modulation.c" 3
                                      3.14159265358979323846
-# 42 "H:\\SCIENCE\\4-INF\\make_cmake\\modulation.c"
+# 42 "H:\\SCIENCE\\4-INF\\binutils\\modulation.c"
                                          *j/(uint8_t)4u);
  }
 }
@@ -1676,7 +1677,7 @@ static void GetGray( uint8_t *IoArray ){
   }
  }
 }
-# 104 "H:\\SCIENCE\\4-INF\\make_cmake\\modulation.c"
+# 104 "H:\\SCIENCE\\4-INF\\binutils\\modulation.c"
 void Mapper( uint8_t *InByt, complex *OutSymbs, phasemap *Table ){
  uint8_t i, BitIdx;
  uint32_t ByteIdx;
@@ -1702,7 +1703,7 @@ void Mapper( uint8_t *InByt, complex *OutSymbs, phasemap *Table ){
   j++;
  }
 }
-# 138 "H:\\SCIENCE\\4-INF\\make_cmake\\modulation.c"
+# 138 "H:\\SCIENCE\\4-INF\\binutils\\modulation.c"
 void HardDemapper( complex *InSym, uint8_t *OutBytes, phasemap *Table ){
  uint8_t i, MinIdx, BitIdx;
  uint32_t j, ByteIdx;
@@ -1730,7 +1731,7 @@ void HardDemapper( complex *InSym, uint8_t *OutBytes, phasemap *Table ){
   }
  }
 }
-# 174 "H:\\SCIENCE\\4-INF\\make_cmake\\modulation.c"
+# 174 "H:\\SCIENCE\\4-INF\\binutils\\modulation.c"
 void SoftDemapper( complex *InSym, float *OutLLRs, phasemap *Table ){
  uint32_t k;
  uint8_t i, j;

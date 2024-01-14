@@ -1,12 +1,13 @@
-# 1 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.c"
+# 1 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.c"
+# 1 "H:\\SCIENCE\\4-INF\\binutils\\cmake\\build//"
 # 1 "<built-in>"
 # 1 "<command-line>"
-# 1 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.c"
-# 13 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.c"
-# 1 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.h" 1
-# 17 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.h"
-# 1 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 1
-# 17 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h"
+# 1 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.c"
+# 13 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.c"
+# 1 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.h" 1
+# 17 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.h"
+# 1 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 1
+# 17 "H:\\SCIENCE\\4-INF\\binutils\\setting.h"
 # 1 "c:\\mingw\\include\\stdio.h" 1 3
 # 38 "c:\\mingw\\include\\stdio.h" 3
        
@@ -442,7 +443,7 @@ int vswscanf (const wchar_t *__restrict__, const wchar_t * __restrict__, __built
 
 
 
-# 18 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 2
+# 18 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 2
 # 1 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 1 3 4
 # 9 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 3 4
 # 1 "c:\\mingw\\include\\stdint.h" 1 3 4
@@ -505,7 +506,7 @@ typedef __uintptr_t uintptr_t;
 typedef long long intmax_t;
 typedef unsigned long long uintmax_t;
 # 10 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 2 3 4
-# 19 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 2
+# 19 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 2
 # 1 "c:\\mingw\\include\\string.h" 1 3
 # 34 "c:\\mingw\\include\\string.h" 3
        
@@ -679,7 +680,7 @@ extern inline __attribute__((__gnu_inline__)) __attribute__((__always_inline__))
 
 
 
-# 20 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 2
+# 20 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 2
 # 1 "c:\\mingw\\include\\stdlib.h" 1 3
 # 34 "c:\\mingw\\include\\stdlib.h" 3
        
@@ -987,7 +988,7 @@ __attribute__((__cdecl__)) __attribute__((__nothrow__)) int unsetenv( const char
 
 
 
-# 21 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 2
+# 21 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 2
 # 1 "c:\\mingw\\include\\time.h" 1 3
 # 33 "c:\\mingw\\include\\time.h" 3
        
@@ -1157,7 +1158,7 @@ int nanosleep( const struct timespec *, struct timespec * );
 size_t wcsftime (wchar_t *, size_t, const wchar_t *, const struct tm *);
 
 
-# 22 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 2
+# 22 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 2
 # 1 "c:\\mingw\\include\\math.h" 1 3
 # 35 "c:\\mingw\\include\\math.h" 3
        
@@ -1543,10 +1544,10 @@ extern float __attribute__((__cdecl__)) fmaf (float, float, float);
 extern long double __attribute__((__cdecl__)) fmal (long double, long double, long double);
 # 931 "c:\\mingw\\include\\math.h" 3
 
-# 23 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 2
-# 79 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h"
+# 23 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 2
+# 79 "H:\\SCIENCE\\4-INF\\binutils\\setting.h"
 
-# 79 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h"
+# 79 "H:\\SCIENCE\\4-INF\\binutils\\setting.h"
 typedef struct TD1 {
  uint8_t OutBits[2];
  uint8_t NextState[2];
@@ -1577,7 +1578,7 @@ typedef struct TD6 {
  uint8_t Bits[(uint8_t)4u];
  complex Symbs[(uint8_t)4u];
 } phasemap;
-# 18 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.h" 2
+# 18 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.h" 2
 
 
 
@@ -1590,7 +1591,7 @@ void ConvEncoder( uint8_t *InBits, uint8_t *OutBits, uint8_t *ConVect, uint8_t *
 void GetTrellis( uint8_t *ConVect, trellis *CodeDiagr );
 void HardConvDecoder( uint8_t *InBits, uint8_t *OutBits, trellis *CodeDiagr, uint8_t *PunctVect );
 void SoftConvDecoder( float *InLLRs, uint8_t *OutBits, trellis *CodeDiagr, uint8_t *PunctVect );
-# 14 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.c" 2
+# 14 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.c" 2
 
 
 
@@ -1605,20 +1606,20 @@ static void HardDepuncturing( uint8_t *IoBytes, uint8_t *PunctVect );
 static float GetEuclideanDist( float *CurLLRs, uint8_t TrlByte, uint8_t MaskEras );
 static uint8_t FindMinIndexSoft( vitdecs *InPaths );
 static void SoftDepuncturing( float *InLLRs, uint8_t *PunctVect );
-# 41 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.c"
+# 41 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.c"
 void GetConvCP( uint8_t *ConVect, uint8_t *PuncVect ){
  uint8_t PuncLen = 2*(uint8_t)2;
  if ( ConVect != 
-# 43 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.c" 3 4
+# 43 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.c" 3 4
                 ((void *)0) 
-# 43 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.c"
+# 43 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.c"
                      ){
   memcpy(ConVect,(uint8_t[6][2]) {{7,5},{15,11},{23,25},{47,53}, {79,109},{159,229}}[(uint8_t)7u -3],2);
  }
  if ( PuncVect != 
-# 46 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.c" 3 4
+# 46 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.c" 3 4
                  ((void *)0) 
-# 46 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.c"
+# 46 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.c"
                       ){
   switch ( (uint8_t)2 ){
    case (uint8_t)2:
@@ -1636,7 +1637,7 @@ void GetConvCP( uint8_t *ConVect, uint8_t *PuncVect ){
   }
  }
 }
-# 71 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.c"
+# 71 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.c"
 void GetTrellis( uint8_t *ConVect, trellis *CodeDiagr ){
  uint8_t i, j;
  uint8_t StBin[(uint8_t)(1<<((uint8_t)7u -1))];
@@ -1646,9 +1647,9 @@ void GetTrellis( uint8_t *ConVect, trellis *CodeDiagr ){
   StBin[j] = j;
  }
  if ( CodeDiagr != 
-# 79 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.c" 3 4
+# 79 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.c" 3 4
                   ((void *)0) 
-# 79 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.c"
+# 79 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.c"
                        ){
   for ( j=0; j<(uint8_t)(1<<((uint8_t)7u -1)); j++ ){
    State0 = StBin[j];
@@ -1674,7 +1675,7 @@ void GetTrellis( uint8_t *ConVect, trellis *CodeDiagr ){
   }
  }
 }
-# 112 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.c"
+# 112 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.c"
 static uint8_t ComputeEncBit( uint8_t State, uint8_t ConVal ){
  uint8_t j;
  uint8_t OutBit = 0;
@@ -1684,7 +1685,7 @@ static uint8_t ComputeEncBit( uint8_t State, uint8_t ConVal ){
  }
  return (OutBit%2);
 }
-# 131 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.c"
+# 131 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.c"
 void ConvEncoder( uint8_t *InByt, uint8_t *OutByt, uint8_t *ConVect, uint8_t *PunctVect ){
  uint8_t EncState = 0;
  uint8_t Mask = 0x01;
@@ -1720,7 +1721,7 @@ void ConvEncoder( uint8_t *InByt, uint8_t *OutByt, uint8_t *ConVect, uint8_t *Pu
   }
  }
 }
-# 176 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.c"
+# 176 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.c"
 void HardConvDecoder( uint8_t *EncByt, uint8_t *DecByt, trellis *CodeDiagr, uint8_t *PunctVect ){
  uint32_t i, ByteIdx, InIdx, WrIdx, IdxFin, CandDist;
  uint8_t j, CycleBits, BitIdx, MaskEras, HypIdx, HamDist;
@@ -1850,9 +1851,9 @@ static uint8_t FindMinIndexHard( vitdech *InPaths ){
  uint8_t j, MinStateIdx;
  uint32_t MinDist;
  if ( InPaths != 
-# 304 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.c" 3 4
+# 304 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.c" 3 4
                 ((void *)0) 
-# 304 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.c"
+# 304 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.c"
                      ){
   MinDist = InPaths->Dist[0];
   MinStateIdx = 0;
@@ -1865,7 +1866,7 @@ static uint8_t FindMinIndexHard( vitdech *InPaths ){
  }
  return MinStateIdx;
 }
-# 324 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.c"
+# 324 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.c"
 static void HardDepuncturing( uint8_t *IoByt, uint8_t *PunctVect ){
  uint8_t Mask = 0x01;
  uint8_t RdIdxPunc = 2*(uint8_t)2 -1;
@@ -1895,7 +1896,7 @@ static void HardDepuncturing( uint8_t *IoByt, uint8_t *PunctVect ){
   }
  }
 }
-# 363 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.c"
+# 363 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.c"
 void SoftConvDecoder( float *InLLRs, uint8_t *DecByt, trellis *CodeDiagr, uint8_t *PunctVect ){
  uint32_t i, ByteIdx, CurIdx, WrIdx, IdxFin;
  uint8_t j, BitIdx, MaskEras, HypIdx;
@@ -1994,7 +1995,7 @@ void SoftConvDecoder( float *InLLRs, uint8_t *DecByt, trellis *CodeDiagr, uint8_
   }
  }
 }
-# 470 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.c"
+# 470 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.c"
 static float GetEuclideanDist( float *CurLLRs, uint8_t TrlByte, uint8_t MaskEras ){
  uint8_t j;
  uint8_t Mask = 0x01;
@@ -2017,9 +2018,9 @@ static uint8_t FindMinIndexSoft( vitdecs *InPaths ){
  uint8_t j, MinStateIdx;
  float MinDist;
  if ( InPaths != 
-# 491 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.c" 3 4
+# 491 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.c" 3 4
                 ((void *)0) 
-# 491 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.c"
+# 491 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.c"
                      ){
   MinDist = InPaths->Dist[0];
   MinStateIdx = 0;
@@ -2032,7 +2033,7 @@ static uint8_t FindMinIndexSoft( vitdecs *InPaths ){
  }
  return MinStateIdx;
 }
-# 511 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.c"
+# 511 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.c"
 static void SoftDepuncturing( float *InLLRs, uint8_t *PunctVect ){
  uint32_t j;
  uint8_t RdIdxPunc = 2*(uint8_t)2 -1;

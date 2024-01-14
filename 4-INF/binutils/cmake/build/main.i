@@ -1,12 +1,13 @@
-# 1 "H:\\SCIENCE\\4-INF\\make_cmake\\main.c"
+# 1 "H:\\SCIENCE\\4-INF\\binutils\\main.c"
+# 1 "H:\\SCIENCE\\4-INF\\binutils\\cmake\\build//"
 # 1 "<built-in>"
 # 1 "<command-line>"
-# 1 "H:\\SCIENCE\\4-INF\\make_cmake\\main.c"
-# 14 "H:\\SCIENCE\\4-INF\\make_cmake\\main.c"
-# 1 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.h" 1
-# 17 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.h"
-# 1 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 1
-# 17 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h"
+# 1 "H:\\SCIENCE\\4-INF\\binutils\\main.c"
+# 14 "H:\\SCIENCE\\4-INF\\binutils\\main.c"
+# 1 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.h" 1
+# 17 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.h"
+# 1 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 1
+# 17 "H:\\SCIENCE\\4-INF\\binutils\\setting.h"
 # 1 "c:\\mingw\\include\\stdio.h" 1 3
 # 38 "c:\\mingw\\include\\stdio.h" 3
        
@@ -442,7 +443,7 @@ int vswscanf (const wchar_t *__restrict__, const wchar_t * __restrict__, __built
 
 
 
-# 18 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 2
+# 18 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 2
 # 1 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 1 3 4
 # 9 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 3 4
 # 1 "c:\\mingw\\include\\stdint.h" 1 3 4
@@ -505,7 +506,7 @@ typedef __uintptr_t uintptr_t;
 typedef long long intmax_t;
 typedef unsigned long long uintmax_t;
 # 10 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 2 3 4
-# 19 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 2
+# 19 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 2
 # 1 "c:\\mingw\\include\\string.h" 1 3
 # 34 "c:\\mingw\\include\\string.h" 3
        
@@ -679,7 +680,7 @@ extern inline __attribute__((__gnu_inline__)) __attribute__((__always_inline__))
 
 
 
-# 20 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 2
+# 20 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 2
 # 1 "c:\\mingw\\include\\stdlib.h" 1 3
 # 34 "c:\\mingw\\include\\stdlib.h" 3
        
@@ -987,7 +988,7 @@ __attribute__((__cdecl__)) __attribute__((__nothrow__)) int unsetenv( const char
 
 
 
-# 21 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 2
+# 21 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 2
 # 1 "c:\\mingw\\include\\time.h" 1 3
 # 33 "c:\\mingw\\include\\time.h" 3
        
@@ -1157,7 +1158,7 @@ int nanosleep( const struct timespec *, struct timespec * );
 size_t wcsftime (wchar_t *, size_t, const wchar_t *, const struct tm *);
 
 
-# 22 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 2
+# 22 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 2
 # 1 "c:\\mingw\\include\\math.h" 1 3
 # 35 "c:\\mingw\\include\\math.h" 3
        
@@ -1543,10 +1544,10 @@ extern float __attribute__((__cdecl__)) fmaf (float, float, float);
 extern long double __attribute__((__cdecl__)) fmal (long double, long double, long double);
 # 931 "c:\\mingw\\include\\math.h" 3
 
-# 23 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h" 2
-# 79 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h"
+# 23 "H:\\SCIENCE\\4-INF\\binutils\\setting.h" 2
+# 79 "H:\\SCIENCE\\4-INF\\binutils\\setting.h"
 
-# 79 "H:\\SCIENCE\\4-INF\\make_cmake\\setting.h"
+# 79 "H:\\SCIENCE\\4-INF\\binutils\\setting.h"
 typedef struct TD1 {
  uint8_t OutBits[2];
  uint8_t NextState[2];
@@ -1577,7 +1578,7 @@ typedef struct TD6 {
  uint8_t Bits[(uint8_t)4u];
  complex Symbs[(uint8_t)4u];
 } phasemap;
-# 18 "H:\\SCIENCE\\4-INF\\make_cmake\\convolutional.h" 2
+# 18 "H:\\SCIENCE\\4-INF\\binutils\\convolutional.h" 2
 
 
 
@@ -1590,17 +1591,17 @@ void ConvEncoder( uint8_t *InBits, uint8_t *OutBits, uint8_t *ConVect, uint8_t *
 void GetTrellis( uint8_t *ConVect, trellis *CodeDiagr );
 void HardConvDecoder( uint8_t *InBits, uint8_t *OutBits, trellis *CodeDiagr, uint8_t *PunctVect );
 void SoftConvDecoder( float *InLLRs, uint8_t *OutBits, trellis *CodeDiagr, uint8_t *PunctVect );
-# 15 "H:\\SCIENCE\\4-INF\\make_cmake\\main.c" 2
-# 1 "H:\\SCIENCE\\4-INF\\make_cmake\\modulation.h" 1
-# 25 "H:\\SCIENCE\\4-INF\\make_cmake\\modulation.h"
+# 15 "H:\\SCIENCE\\4-INF\\binutils\\main.c" 2
+# 1 "H:\\SCIENCE\\4-INF\\binutils\\modulation.h" 1
+# 25 "H:\\SCIENCE\\4-INF\\binutils\\modulation.h"
 void GetPskTable( phasemap *IoTable );
 void GetQamTable( phasemap *IoTable );
 void Mapper( uint8_t *InBytes, complex *OutSymbs, phasemap *Table );
 void HardDemapper( complex *InSymbs, uint8_t *OutBytes, phasemap *Table );
 void SoftDemapper( complex *InSymbs, float *OutLLRs, phasemap *Table );
-# 16 "H:\\SCIENCE\\4-INF\\make_cmake\\main.c" 2
-# 1 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.h" 1
-# 38 "H:\\SCIENCE\\4-INF\\make_cmake\\extra.h"
+# 16 "H:\\SCIENCE\\4-INF\\binutils\\main.c" 2
+# 1 "H:\\SCIENCE\\4-INF\\binutils\\extra.h" 1
+# 38 "H:\\SCIENCE\\4-INF\\binutils\\extra.h"
 void CheckParam( void );
 void RandBytGen( uint8_t *IoBytes );
 void ChanBSC( uint8_t *InBytes, uint8_t *OutBytes, float Peb );
@@ -1614,7 +1615,7 @@ void PrintTable( phasemap *MapTable );
 void WriteBytCsv( uint8_t *Bytes, uint32_t Len, uint8_t Label );
 void WriteSymCsv( complex *Symbs, uint32_t Len, uint8_t Label );
 void CheckWrongBits( uint8_t *Stream_A, uint8_t *Stream_B, uint32_t Len, uint8_t Label );
-# 17 "H:\\SCIENCE\\4-INF\\make_cmake\\main.c" 2
+# 17 "H:\\SCIENCE\\4-INF\\binutils\\main.c" 2
 
 
 

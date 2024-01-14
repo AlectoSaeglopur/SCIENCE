@@ -53,10 +53,10 @@ RM = "C:\Program Files\CMake\bin\cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = H:\SCIENCE\4-INF\make_cmake\cmake
+CMAKE_SOURCE_DIR = H:\SCIENCE\4-INF\binutils\cmake
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = H:\SCIENCE\4-INF\make_cmake\cmake\build
+CMAKE_BINARY_DIR = H:\SCIENCE\4-INF\binutils\cmake\build
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -80,14 +80,14 @@ clean: CMakeFiles/vkn.dir/clean
 CMakeFiles/vkn.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\vkn.dir\build.make CMakeFiles/vkn.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\vkn.dir\build.make CMakeFiles/vkn.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=H:\SCIENCE\4-INF\make_cmake\cmake\build\CMakeFiles --progress-num=1,2,3,4,5 "Built target vkn"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=H:\SCIENCE\4-INF\binutils\cmake\build\CMakeFiles --progress-num=1,2,3,4,5 "Built target vkn"
 .PHONY : CMakeFiles/vkn.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/vkn.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start H:\SCIENCE\4-INF\make_cmake\cmake\build\CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start H:\SCIENCE\4-INF\binutils\cmake\build\CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/vkn.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start H:\SCIENCE\4-INF\make_cmake\cmake\build\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start H:\SCIENCE\4-INF\binutils\cmake\build\CMakeFiles 0
 .PHONY : CMakeFiles/vkn.dir/rule
 
 # Convenience name for target.
