@@ -1,5 +1,7 @@
-*.mp4
+1-ELE/Altium/*.mp4
 2-TLC/GNUR/OOT/Web_Libraries/
+3-RF/CST/*.mp4
+Wix/
 Bibliography/BOOKS/ELE - Electronics/The art of electronics - The x chapters (Paul Horowitz, 2020).pdf
 Bibliography/BOOKS/DSP - Digital signal processing/Fundamentals of music processing (Meinhard Muller, 2021).pdf
 Bibliography/BOOKS/TLC - Telecommunications/Telecommunication breakdown - Concepts of communication transmitted via SDR (Richard Johnson, 2003).pdf
