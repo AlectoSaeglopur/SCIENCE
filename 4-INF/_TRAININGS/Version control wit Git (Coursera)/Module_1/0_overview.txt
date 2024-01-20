@@ -1,0 +1,122 @@
+In this video, we'll take an overview
+look at the Git version control system. We will begin with version
+control in general and then talk about Git specifically. We can think of version control
+from the perspectives of content, teams, and agility. Version control manages
+a collection of changing and improving files which
+we can call a project. The complete history of the project
+is tracked and available at any time. Version control also supports teams
+working on that collection of files. Teams work in many different ways, and
+a good version control system will support many of their workflows or
+ways of getting work done. Version control helps support
+collaboration on the project and improves quality through facilitating
+team communication and reviews. Finally, version control enables agility,
+the ability to adapt quickly and constructively to a changing environment. It does this by managing small changes
+to a project and by allowing you to easily test, fix or undo any ideas and
+changes that the team makes. What type of content can be
+managed with version control? Most version control
+systems don't really care. Any content that you value and want to continuously improve is
+a good candidate for version control. Git is commonly used for managing the
+source code related to software projects. Git is especially good at managing
+text-based content like this. Code that is used to run tests is also
+a good candidate for version control. The tests need to be properly managed and
+are usually always improving. Version control is not limited
+to developer related projects. IT teams should manage configuration
+information in version control as well so that the infrastructure can be properly
+managed and rebuilt at any time. Documentation, books and websites all
+contain content that is consistently changing and improving, making them great
+candidates for version control as well. Again any content that you
+want to properly manage and continuously improve should be
+managed with version control. A distributed version control system
+is a type of version control system. It usually has these characteristics. Each user has a local copy of
+the complete history of the project, which is known as a repository. Here we see that there
+are two users on the team and each has a copy of a remote
+repository on their local computer. Even though repositories are distributed
+among team members there's also a single remote repository that is
+designated as the source of truth or official state of the project. This repository is usually hosted
+in a data center or in the cloud. Another characteristic of Distributed
+Version Control is that because each user has a local copy of
+the complete history of the project, they can continue to work while offline. And finally, content is synchronized
+between repositories by pulling content from or
+pushing content to a remote repository. Now that we've discussed
+version control in general, we will discuss Git in particular. Git is a distributed
+version control system. We've seen that this means each user
+has a local copy of the repository and that repositories can
+easily be synchronized. Git is a free and open source software
+project meaning that the code that implements Git is publically available. No single company owns Git, and anyone
+can make contributions to improve it. Git has a vibrant community of support and an ecosystem in which many other
+technologies are integrated with it. Git adapts well to many types
+of projects and work flows. This means that whatever your project
+is or however your team likes to work together, Git can be adapted as
+a useful tool for your team. Git has been used successfully for
+very small projects and for very large projects. In fact software development of the Linux
+operating system is managed using Git. A Git repository contains a series of
+snapshots of the project over time which are known as commits. Each commit contains all
+of the directories and files of the project at the time
+the snapshot was taken. You can go back and view the project at earlier points
+by viewing the older commits. In this example the repository
+holds three commits. In the first commit a file named
+file.txt was added to the repository, beginning the process of tracking
+this very simple project. In commit 2 a directory, or folder named img was added along
+with an image named image.png. The original file.txt file is
+also included in commit 2, maintaining a complete
+snapshot of the project. In commit 3,
+the file.txt file was modified. You can think of that as
+version 2 of the file. The project at commit 3 therefore contains a modified file.txt file and
+the image.png file. Notice that the project has gone through
+a series of continuous improvements with the help of Git. Now that we have a basic
+understanding of version control and of Git, let's discuss the options that
+you have for interfacing with Git. The command line interface and
+the graphical user interface. In this course,
+you have a fundamental decision to make. You have the option of going through
+the hands-on portion of this course using a command line interface. Or you can use the free graphical
+tool called Sourcetree which is a Git client for Windows and
+the Mac operating system. Let's first discuss the option of
+using the command line interface for this course, and with Git in general. A reason that you should
+consider using the command line, is that command line skills are assumed
+for most modern developer and IT jobs. The need for these skills is not
+going away in the foreseeable future. Another reason to use the command
+line is that if something can be executed at the command line,
+it can also be automated. One of the fundamental principles of
+DevOps is to automate everything that can be automated. So using the command line goes
+hand in hand with automation. Another reason to use the command
+line is that working with Git using the command line is often fast and easy. Git is designed and documented on
+the assumption that you will at least occasionally interact with
+it at the command line. There are some reasons that you might
+choose to use Sourcetree rather than a command line. The biggest reason for
+this course at least, is that if you are not already comfortable
+with using a command line, it can be quite challenging to learn to use the command
+line and Git at the same time. One option is to go through this course
+first using the Sourcetree client while you develop your basic
+command line skills. Then you can go through the course again
+using your newly developed skills. Another reason to consider using a Git
+client like Sourcetree is that some tasks might be easier with a user interface. This is especially true when
+displaying information visually or when working with interactive Git
+commands such as interactive rebates. It's helpful to understand the
+capabilities of the command line as well as the graphical tools in order to choose
+the best tool for a specific task. Finally, a reason that you should consider
+using Sourcetree rather than a command line is if you will not be using Git
+often enough to keep your command line skills fresh. It is generally easier
+to user git periodically with SourceTree than
+with the command line, because the user interface guides
+you through more of the tasks. If you are familiar with the command line,
+you might consider going through both the command line and
+SourceTree paths for this course. This will enforce your reinforce
+your Git knowledge and allow you to choose the best tool for
+a given task. The rest of the course involves
+hands on learning with Git. You will see some of the content
+marked as command line, and some of the content will
+be marked as Sourcetree. It's up to you to decide
+which path you take. In general, the concepts that you
+learn are the same for both paths. Here is a brief review
+of what we've covered. Version control enables team to manage
+a collection of files in an agile way. This collection of files
+is called a project and Git is flexible enough to
+manage many types of projects. Git is a distributed
+version control system. Thos means that users work with local
+copies of the repository enabling them to work while offline and synchronize
+with other repositories at a later time. A repository contains
+the project history as commits. A commit is a snapshot of the entire
+project at a point in time. You have the choice of working with Git
+using a command line interface and, or using a graphical user interface. At this point in the course,
+you'll start working hands on with Git, so select the path that makes sense for you. If you are in doubt, we recommend
+starting with the Sourcetree path.

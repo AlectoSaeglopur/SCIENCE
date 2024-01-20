@@ -1,0 +1,123 @@
+In this video we will continue discussing
+a special types of registers and contents they hold. Microcontrollers contain many types
+of memories, including code, data and register memory. Register memory stores temporary data that
+regularly is updated throughout execution. There are many different types of
+registers in a microcontroller, each one with some very
+specific functionality. Registers can be read only or
+they could be read/write, typically our registers are divided
+into small segments called bit fields, these small fields allow us to
+configure smaller blocks of data. You've already learned about the most
+important registers, the two types of core CPU registers, general
+purpose and special purpose registers. However, these core CPU registers are only
+a small fraction of register memory that exist on a microcontroller and they require some special
+access through a memory map. Microcontrollers have a large memory space
+to help interact with the memory and peripheral components. A microcontroller does not have to
+be limited to just one memory space. For example, the CPU core registers
+have their own address base, as they have specific identifiers for
+access. However, the general components
+of a microcontroller have a section of memory reserved for
+their dedicated functionality. These regions are then mapped into one, unified, large address space that allows
+the region to be accessible by pointers. This is referred to as a Memory Map. A Memory Map allows us to assign certain
+components to a range of addresses. You generalize the concept of Memory Map
+regions into a couple of groups. For the cortex and
+micro controllers we have Code, SRAM, General Peripherals, and
+subsystems specific regions. A Code and SRAM memory regions
+are the same regions that we've discussed previously. Instructions and data memory are put
+in Flash and SRAM memory respectively. The addresses for these regions
+get allocated a compile time, and with the help of the linker and
+the linker file, memory use of code and SRAM regions can change from application
+to application, or even during execution. This means the physical
+memory can be re-allocated. However, a compiler wants to
+allocate it based on your C program. The peripherals and
+system specific regions are not this way. These regions are made up for
+special purpose register interaction. Each register in these locations has
+a special function and a unique address. Let us look at a register
+memory in some detail. A microcontroller would typically
+include a few general categories of register memory. These are internal CPU registers. Internal Private CPU registers. External private CPU registers. And general peripheral register memory. A CPU has 16 general purpose and special purpose registers that are used
+for executing assembly instructions. These are the R0 through R12 registers,
+the link register, the stack pointer and the program counter. We've talked about all
+of these previously. These registers are volatile and
+their contents are regularly updated. Some are changed even on
+every single CPU clock cycle. These core registers are only
+accessible by special address basis, using their special assembly identifiers. The CPU core has some other
+special function registers. These include the Program Status
+Registers, the Exception Mask Registers, and the Control Registers. Just like other core CPU
+registers these registers are not in the standard memory map and require special assembly instructions
+to read or write data to them. These instructions are the assembly,
+MRS and MSR constructions. Let's start the program
+status registers or the PSR. These registers help track
+current programs state and are directly used by the CPU in execution. The PSR is made up of three small
+registers, the application PSR, the exception PSR and the interrupt PSR. The APSR contains five bits,
+referred to the N, Z, C, V and Q flags. These flags are used by the CPU to track
+conditional operations needed in assembly, like a branch statement. N is for Negative, Z is for Zero,
+C is for Carry, V is Overflow and Q is for Saturation. Anytime you operate on or compare data in
+a program, this flags are set accordingly meaning if the result of an operation on
+a number is zero, the zero flag is set. From a high level perspective, this is
+equivalent to doing an if condition, comparing a number with the value 0. The interrupt and exception PSRs are used
+for tracking current exception or interrupt state. For example, the interrupt PSR holds
+the current executing exception if the CPU is currently handling one. Each interrupt source is given a special
+interrupt number, that unique number is written into these bits the time that
+the interrupt is being handled by CPU. There are many reserved bits in the
+register because more advanced arm cores use these bits for more advanced features. The Exception Mask registers are made
+up of three different registers, the primask, the faultmask,
+and the basepri. The primask and
+faultmask are used to enable or disable the CPU from handling
+certain exceptions and faults. The basepri register
+allows us to enable or disable the CPU from handling certain
+exceptions and faults based on a priority. A control register allows the processor
+to move between a privileged and non privileged state, and also switch
+which stack pointer is being used for our normal program flow and
+which is being used for interrupts. We will go into more detail about
+exceptions in upcoming modules. External to the CPU core there
+are numerous peripherals both internal, external with many configuration and
+date registers. The system specific regions
+contains specialized platform control registers like
+the System Control Space of SCS. The System Control Space contains
+access to both internal and external private peripherals. Internal private peripherals include
+the nested vector and controller. The NVIC, the system control block,
+and a systick module. These are fundamentally higher level
+control of the micro-controller platform. For example, the NVIC is where we
+configure all the priority levels for various interrupts. And the system control block can
+help you perform software resets. The external private peripherals
+include devices like the embedded trace macrocell or ETM. This is used for debugging a program
+from an external programmer. The last region we will talk about is
+the general peripheral memory space. This space on the ARM Cortex is a 512
+Megabyte region that is broken up in to a couple of smaller regions
+including a bit bandage region and the peripheral devices. Each peripheral memory region is
+aligned into a 4 Kilobyte region. One for each peripheral. For the MSP432, we have example
+peripherals like multiple timers, multiple enhance universal
+serial communication interfaces, analog to digital converters and
+many others. The number of peripherals you
+will see is platform dependent, meaning many chips in a chipset
+family may have varying numbers or combinations of peripheral devices
+to meet different application needs. Let us look at one particular
+peripheral region, the timer A0. This peripheral occupies
+a four kilobyte region, and is made up of many individual registers
+that allow us to configure a timer. Some examples include
+the Timer A0 control register, which allows us to configure timing. The registers listed occupy a fraction
+of the four kilobyte block. For a timer it doesn't
+need a lot of memory. Let's again dive deeper into
+the Timer A0 registers. The control register here has a 16
+bit register that is made up of eight different bit fields. These have pre-defined widths and
+functions assigned for each bit grouping. This control register has bits that
+allow us to enable interrupts, an interrupt flag, selection for
+the timer counter clock and clock dividers which allows the change or
+counting rate. There are also reserve
+bits in these registers. Typically these are unused memory
+locations, sometimes they're used for advanced platform models, or
+the manufacturer might use these for internal use only. Now we can configure this
+register with a pointer. Here we have declared a pointer to
+this control register location. We use an unsigned 16-bit
+pointer to this region. Now without knowing the exact
+functions of these bits, let's say we want to set the TASSEL
+bits or the Timer A source select bits. To a value of 2. And say,
+we also want to enable the interrupt. This will require us to set
+the register to a HEX value of 0202. Now, we just dereference this pointer
+location and assign the value. That's it. The peripheral register
+has been configured. We learned a lot about memory space and how registers are assigned to
+a micro controllers memory map. A memory map provides us a unified
+method of interacting with different memory devices through
+the extraction of a pointer. Registers are broken up into a memory
+space based on function both internal and external through the CPU. Registers are further divided into bit
+fields that were then used to configure functionality or read status. We have plenty more to learn about
+configuring peripheral registers and we'll discuss more in further videos.
