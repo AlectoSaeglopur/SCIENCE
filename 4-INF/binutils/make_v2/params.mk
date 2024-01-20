@@ -28,7 +28,7 @@ LFLG = -lm -Xlinker -Map=$(BFL)\$(TARGET).map
 CCV = gcc
 
 # Source files list
-SRCF =	convolutional.c		\
-		extra.c 			\
-		main.c				\
-		modulation.c
+SRCF = convolutional.c   \
+       extra.c           \
+       main.c            \
+       modulation.c

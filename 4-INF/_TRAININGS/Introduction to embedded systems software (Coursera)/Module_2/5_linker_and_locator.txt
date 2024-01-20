@@ -1,0 +1,155 @@
+In this video we're going to discuss
+the importance of linkers in our build process. Typically the process of linking and
+locating is done in one stage, so we're going to combine the last two steps
+of our build process into one video. These two steps of linking and locating occur in the last
+phase of our build process. As you recall, the job of the linker is
+to take your compiled object files and to combine them into a single object file,
+or an executable. The locater then maps this object
+into specific address locations, producing an executable program that can
+be installed into your embedded processor. There are many jobs that this linker
+takes care of in this process. Let's begin with a look at our
+generalized model for building. This really embellishes our five
+steps as a linear progression. This model is not typically used for
+software projects, as this depicts only one input file
+traveling through these serialized steps. You typically have many
+sources of input files, including different types of source files,
+libraries, and other input files. We can modify this model
+to show a high level view of the build process that displays
+different file entry points. Assembly and C files get compiled
+from the same project into objects. Compiled library code is
+pulled in during linking. If you look carefully,
+you will also see another input file that you have not heard about yet,
+called a linker file. This file is input into our linking and
+locating stage. The linker file is responsible for telling the locator how to map our
+executable into the proper addresses. This is passed in with the -T flag. Let us go into more detail
+about what the linker is doing. The linker's primary responsibility is
+to combine all the compiled object files into a single object file
+containing your entire program. This is the executable. The process of linking is performed
+directly from the LD application or indirectly from the compiler
+application GCC. Each individual object file that
+is compiled cannot be executed. These objects contain raw object
+code with symbol references and a symbol table, or a binary file. The linking process is not as simple as
+appending the contents of these object files into one location. Each object file is made up of
+different memory segments that specify different types of code
+that exist in your file. For example, code memory,
+which includes your functions, is managed differently than how
+your data memory is managed. To complicate this even more,
+cross-references or cross-memory segments need to be resolved. You can think of this as merging code,
+mapping symbols, and assigning addresses. The code you designed was likely
+written with many modules, defining many functions and variables. These functions and variables are likely
+used across many other files, or even modules. The functions and variables become important references
+that the compiler tracks the symbols. The symbols defined in one file and
+used in another need to be mapped so that the location of the symbol's
+address is known and assigned properly to all
+uses of that symbol. You cannot simply look inside these
+object files to see what's going on, as they are not human-readable. Instead, you need to use special
+applications to interpret the object code. You could have some issues though
+if you do not properly declare or include a symbol definition. The linker will need to resolve the symbol
+by searching through all of the object sources that were provided,
+trying to find the one that matches. If it was not found there, it will try to search through its
+library paths to find that symbol. If it cannot resolve it on its own,
+the linker will throw an error and exit. Including libraries is
+slightly more complex. Pre-compiled static libraries
+will directly link at linking time into your output executable. You need to provide the -l flag
+to include these libraries. However, dynamically linked symbols will
+contain paths to dynamic libraries already installed on your device. This could cause issues if there was
+an incompatibility of the library that is installed on the device and
+the library headers you are including. If you are writing code for
+an embedded or an embedded OS platform, there are likely libraries
+already installed on the device. So there's no reason to
+statically compile and upload. Instead, you can just dynamically link
+with these at runtime, saving code space. You will likely use both static and dynamic linking at one
+point during your career. Let's look at an example
+of static linking. You already have experience using
+statically linked libraries, and you probably did not realize it. You should wonder what happens
+before main is called. There are startup routines that run
+before main that are usually defined in some C standard libraries. These are automatically included
+in your build as a static library. If you directly invoke the linker instead
+of letting GCC automatically include this, you will see an error when you cannot find
+the entry or extra routines around main. Invoking the linker directly will have
+you give it these libraries manually. You can also tell GCC to
+stop this if you wish. But that would mean you have to
+define your own initialization and exit software routines. You can do this by providing
+the -nostdlib flag. This flag stops the linking of
+startup routines and libraries. You can also use the verbose flag, -v, to see more details of the compilation and
+linking process. After all linking is done and
+a final object file has been created with all symbols resolved,
+the output is called a relocatable file. Again, this relocatable file
+is not just one large program, it contains many sub
+segments of code blocks. This file with the defined blocks of code will need to be mapped into
+the architecture's memory regions by assigning a specific address
+to various groups of symbols. Each architecture is very different,
+so the locator will need some special direction on how to perform this general
+file to specific address mapping. The linker file we discussed earlier
+contains these special directions that are used during the memory
+relocation process. This file provides the locator with
+information on where the physical memory regions of the processor interface
+with the defined code regions. This file is architecture-dependent and it needs to know what the physical
+memory map of your embedded system is. The linker file specifies many items
+on how to perform this relocation, such as segment name, region name,
+memory sizes, and access permission. First, we're going to break down the
+memory segments of the coded data section. Your program will be split into many
+memory regions during installation. These segments are the physical parts
+of memory on your microcontroller. In contrast, your program executable is also broken
+up into many sections of code and data. These sections are then mapped into
+these physical memory segments. An example of different segments
+include the code, initialization data, stack, and heap. Since the different physical
+memory segments are going to be in different locations or addresses, the linker needs to know
+where code memory should be assigned. Also, for the data that code uses, exact
+addresses need to be given to your program so it can find the data
+it's trying to operate on. The code and data sections will specify their intended
+map location in the section grouping. Each memory segment also provides
+the starting location and the length of memory that our
+program data can be installed into. The total number of memory
+segments must be equal to or larger in size than what
+the total compiled code and data sections add up to, otherwise
+you will have errors at installation. To help prevent this, the linker script
+can also contain small checks to verify that your memory regions
+are not overallocated. Here we have an example where we
+verify that the heap in the stack are not overflowing into
+one another in data memory. And if they do,
+the linker should throw an error and exit. Each memory region specifies access
+permissions such as read, write, and execute for memory blocks. Typically, your data memory,
+which will be in the SRAM, will be set as read and write, or RW. This is because you will often read,
+modify, write data from SRAM. Code memory, on the other hand,
+will have read execute or RX permissions. This is because we will read our
+instructions from code memory like flash and execute them on the CPU. There are a handful of reasons
+why you want to make code memory not writable during program execution. One reason is to prevent an accidental
+overwrite of your code memory, causing your program to be corrupted. Additionally, this is also for security. By making your code memory only
+readable after programming, then you are making it harder for people
+who hack programs by exploiting your hardware to add new code
+into the code memory region. Some processors even cause a fatal error
+or exception if the processor tries to execute code out of SRAM or
+data memory regions. Here we have an example of where
+we took a basic linker file, assigned some arbitrary sizes, and
+provided physical memory spaces. The linker file shows how
+the physical data memory and code memory are mapped
+into our address space. In this case,
+our data memory is in the SRAM, and the main code will go into the flash. Then each code and data section
+specify their intended map locations. Each of these will have varying size and
+will take up space in our main and SRAM memory segments. It is likely that not all of
+the physical memory will be needed, so there will be left over memory space,
+and it will be unused. After you've finished linking and
+locating, you may be interested in seeing how
+the memory allocation was done. For this, you can tell the linker
+to produce a map file. This file will provide information
+on how all of these regions and memory segments were used and allocated. This map file also gives you specific
+addresses for the allocations. In order to generate a map file, you
+need to provide the linker the map flag. There are many other helpful
+flags when using the linker. Some good ones to use
+are listed in this table. Things like optimizing your code with
+the -o flag, including static and dynamic libraries, and even directly
+specifying some of your memory sizes. If you choose to invoke the linker
+indirectly through the compiler, you can still specify these flags by providing
+the -Wl or -Xlinker flag with GCC. And this allows us to pass flags
+down through GCC to the linker. When linking and locating is finished, you will produce an output executable
+file that can go to your installer. The format of this file varies depending
+on the installer and architecture. However, you will see some pretty
+typically output files like Intel Hex records, Executable and Link Format or
+ELF, and ARM Image Format files. Linking is a complicated process and
+involves many different types of input files, including object files,
+library files, and linker files. The process of relocating is yet another
+example where expertise on an architecture is needed, as you must define the memory
+regions of your architecture. Embedded software engineers must be
+involved in this, not only because of how they design their code, but also how
+it's going to fit into the memory space.

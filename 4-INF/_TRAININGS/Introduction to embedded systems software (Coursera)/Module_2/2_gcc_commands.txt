@@ -1,0 +1,148 @@
+Today we're going to learn about using
+GCC to compile a software project. We'lll go through important
+information needed to compile, as well as provide some
+examples of how to compile. As you recall from previous videos,
+building a software project requires five main steps: pre-processing, compiling,
+assembling, linking, and locating. Source files are sent
+through a preprocessor. These preprocessed files go through
+a C to assembly translation by the compiler proper. The assembler then converts
+this output to object code. The linker combines all objects
+into a single executable. And the locator assigns addresses. Building and
+compiling are often used interchangeably. Because by definition, compilation is the
+process of converting high level software language to architecture specific
+binary encoded operations. Some engineers may even include the
+process of linking in to this definition. Regardless, you will gain experience with
+each of these five steps of building. You will invoke command line
+applications to run each of these steps. Sometimes the steps of building might
+be combined into a single application depending on your compiler toolchain. For instance,
+GCC toolchain combines pre-processing and compiling into the application called GCC. The assembler is the application, AS. And the linker and locator are combined
+into an application called LD. However, you can perform the full
+build just using GCC directly. Machines can install
+many compiler toolchains. Some of these GCC compilers
+have very specific information about an architecture. Vendor, OS, or even the ABI in the name. The two arm compilers listed in this
+picture are cross-compilers for two different architecture targets. You can see one is for an embedded
+system with a Linux OS installed, and the other is for
+a Bare-Metal embedded target. You should remember that Bare-Metal
+firmware means to write code directly to interface with hardware. The GCC compiler is a standard
+compiler for this target. You will be working with two
+versions of GCC for this course. First let's talk about the host
+environment's native compiler, GCC. We will use this to write non-architecture
+dependent code to simulate and test it's operation. It is not always the case when we have
+hard work to a mildly test on.So, having other options, like simulators, emulators,
+the right code, is very important. The second compiler is
+a GCC arm cross compiler. This is the arm-non-eabi-gcc. Which is specific, for
+embedded targets, or embedded abi. We will not be executing
+this cross compiled code but rather investigating the architecture
+specifics of the assembly code we produce. On target installation and
+testing will occur in course two. Mostly because it takes time to order and
+receive your target board for this course. Plus this is a good opportunity to
+introduce the concept of writing software that can be tested on multiple platforms. In general, you can see all the tools of
+the cross toolchain by running the command ls-la/usr/bin/arm-none-eabi. Depending on the Linux distribution,
+installation of your tools vary. With our new tool BM,
+you'll install application using apt-get. Exact details on how you do this will be
+covered in environmental documentation for the course. You may want to validate that you
+have the right tool installed or it's the right version. You can run the following two
+commands to do checks for this. By running gcc --version, you can see what version of that
+application is currently installed. To do which gcc it tells you
+the location of installation. --version and which can be done on
+any application you want to use. You can also find some useful information
+about how to use an application by using the manual commands. Most applications have
+something called a manual page. And you can reepor about how to use that. By typing the word man and then
+the program application you wish to run. For instance, man gcc will give
+you the manual for running gcc. This simplified linear install process
+is not typical for a software project. You usually have a more complex
+environment with lots of C files, assembly files, and
+library files coming together. Assembly files usually have
+your .s as extension, and your library files usually have a .a or
+a .lib. Even though more complex, you'll be using a subset of
+commands to perform your build. In this example, the assembler and
+linker will be the entry point for some of the specific project files
+into our overall build generation. And depending on how particular
+you control your build system, the underlying GCC program can be used to
+invoke different parts of the build steps. For instance, GCC can be used for
+wrapping assembly or C file compilation. However, it could also pass control
+down to the linker file without having to invoke the linker directly. This means that all necessary
+options must be passed on to gcc and down to each stage of the build process. Let us look more at the job
+of the Compiler and the Assembler, specifically at
+the contents they operate on. C code gets inverted into
+architecture specific assembly. This conversion is not a one
+to one mapping of lines but instead a decomposition of C operations
+into numerous assembly operations. Each operation itself
+is a very basic task. The assembler can be
+found of as a compiler as it converts assembly language
+into binary coded operations. The binary coded operations are referred
+to as operation codes, or op-codes. Some op-codes also have some associated
+information about the operands, or the data, they are operating on. We will discuss this in more detail, and the machine code translation,
+in follow up modules. Later in the course, we will be using
+an IDE to build, install and debug. However, it is important that you
+understand the compile process before moving into the abstracted IDE. The best option for
+us to investigate the compiler is using our virtual machine's
+command line interface. With this environment,
+we will have very powerful and eye opening introduction to
+the complexity of building. Do not feel overwhelmed about this. Through practice,
+you will gain confidence in your ability to understand compilation and
+the process of building. Let us now interact with the tools to
+compile a simple hello world executable. In this example,
+we are going to use printf, but only for the case of an example. As we gain experience with writing
+embedded software we will not arbitrarily include library functions. Embedded systems have limited memory and
+processing resources so you want to make sure that
+pre-compiled library code does not impede your efficiency
+as you can not modify them. Also while library functions
+might be run time optimized, there's often hardware that we can
+use to improve performance even more. We will want to make sure we use only
+optimized code for our application. GCC commands will have the following form. You will say GCC provide Options and
+then the File you want to compile. The File that we provide is the one
+we wish to convert to object code. And the Options are for giving specific
+instructions on how to compile this file. There are many important
+Options that are of interest, especially our cross compilation. But here is a short list of general
+compile Options that you may be interested in. You can read up on what each of these
+facts mean in more detail in your spare time. But I will use them in
+the following examples, instead of directly
+explaining each of them. The command below will compile and
+link our single input file, main.c, using a c-standardization c99 and use the -o option to store
+the output executable into main.out. It is important to note that if we compile
+and link with one command, all options for both the linker and
+compiler need to be added here. We will discuss linker specific
+options in another video. So the command is gcc with
+the standard set to c99, followed by Werror, and
+then the output file. And then finally the input file we
+wish to convert to object code. The -Werror flag is an important flag for
+quality driven software. This causes compilation to
+fail if any warnings occur. We can use this to prevent
+developers from building software without resolving all of
+their warning messages first. Warnings can sometimes be
+resolved by the compiler, but this could introduce a very subtle bug. As you can see, the compiler spit
+out the output file, main.out, and that did not exist before the command. We can run this using the ./natn.out. Which means that in the current directory,
+we want to execute the following program, and there you have it. Hello world is printed. Let's compile some different options. Instead of compiling and
+linking, let's just compile and we can do that with the following command,
+this time we're using the C89 standard with all the warning messages enabled,
+not as errors. This will compile or assemble, but stop
+before linking because of the -c flag. The -v flag is a typical flag
+that tells the application to output more logging information or
+be more of a verse. If we look at the directory,
+we can now see an object file. A very important point to note about this
+output file is that when we use GCC this way, it automatically searches
+it's own libraries and includes them as part of
+the compilation process. We included the standard library stdio or
+standard io in order to use printf and that library exists in one
+of these GCC included paths. However, it doesn't stop there. You should ask yourself how
+is main being invoked and where does it return
+to after main is done. Main is not actually the entry
+point into your executable. There is initialization code that is
+compiled and run before main, and it's responsible for invoking main. After main returns, this library code
+cleans up your application and exits. Now just to emphasize the architecture
+dependence of the build executable, here I will use the cross-compiler
+with the same name file from before, with some architecture specific flags. Here's a list of some of those important
+architecture specific flags that we use for ARM processors. These architecture flags are important for
+informing the compiler and the linker about specific
+libraries to include as well as the target architecture
+in cpu to cross compile for. We will compile and link using
+the command line in this example. If I try to run this executable it
+will fail because of a format error. Now using the cross compiler doesn't
+really do us any good in terms of execution on the host machine,
+its a different architecture. However, it does allow us to get
+an insight into a translated assembly of our C program. Let's translate just
+the main.c to assembly. We can run the following commands to
+stop GCC at compilation proper stage with the -s option. Now we run this flag with a -g flag,
+which adds debug symbols. This will help us debug executables later. You will see if you open up
+your assembly file, main.s, there is a ton more information added.

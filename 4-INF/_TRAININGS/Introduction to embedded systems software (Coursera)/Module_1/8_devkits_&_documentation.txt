@@ -1,0 +1,144 @@
+In this video, we'll look at the manufacturer and
+third party hardware development kits and the important documentation that is
+needed to configure your microcontroller. Development kits are an important tool for software engineers to start becoming
+familiar with an architecture. Designing hardware takes
+a lot of experience and you hope your platform has no hardware
+bugs that stall your software progress. By using evaluation kits, you have
+a pretty generic hardware platform with lots of vendor support for
+you to get your software design started. Most projects begin by using developers
+kit to evaluate platform options. There are many manufacturers of
+microcontroller integrated circuits, ICs, or application-specific integrated
+circuits, ASICs, in the industry. Some examples include Texas Instruments,
+Silicon Labs, Atmel, or NXP Semi-conductors. The silicon manufacturers often
+make many different type of chips with an assortment of features, and they
+sell their chips for a variety of vendors. Knowing how to pick a particular
+chip is difficult because there are particular factors you
+need to investigate before committing a product to
+a particular chip choice. Inside the IC, there's also a chance that different parts
+of silicon were built by different people. ARM is a good example, as they build
+CPU cores and other technology for silicon manufacturers. Microcontrollers have many features that
+you need to know about before making a selection, especially because
+there will be software implications. Some important features include
+the word size, the number of registers, flash and RAM sizes,
+branch prediction support, instruction and data cache support, floating point
+arithmetic support, or DMA support. These features affect the operation and
+performance on embedded platform. For instance, as you design your project,
+you will have to answer questions such as, how much memory will I need for
+my application? How fast does my application need to run? And what kind of mathematical
+support do I need? You likely need to have some of these
+answers before you commit to a particular microcontroller. The process of creating this feature and operation requirements checklist is called
+a specification, or a features spec. It's possible that you need to make
+significant software changes, or even a hardware change,
+in the middle of a design process if you did not evaluate your
+initial designs correctly. In general, you do not select a chip or
+a part at random. There is some investigation of features
+and specs needed at the beginning of a project, which includes some
+prototyping and proof of concept. Fortunately, manufacturers help with this
+process by providing resources to analyze their products. There are many documents that describe
+how to pick out a platform or evaluate a particular chip. We start with discussing
+the Selector Guide. This helps a user slip down choices by
+interactively selecting feature sets for our design. It shows a full processor family. A chip family will share
+the same chip architecture. Each sub-family typically has more
+differences in supported hardware. And each device in a sub-family
+only has a slightly variances from one sub-family part to another. This guide example is somewhat
+of a painful chart to look at to select the part. However, this guide
+usually has a web-based interface which makes it much
+easier to search through. If you find some interesting
+parts from the selector guide, you can obtain some more information
+using the product brief. This gives a concise overview for
+quick evaluation of a platform for design, but more details than what
+you will see in the selector guide. This is much more marketed, and is far less dense than strict
+product specifications. Once you have slimmed down your selections
+to a subset of models, you can start getting into much more detailed
+documentation sources like the datasheet. This document gives technical
+specifications on a chip or a family of chips with a breakdown of all
+the differences between each version or part number within the family. Pin counts as well as operation
+specifications are provided with diagrams, tables and plots. These operation specifications
+can include many things. Electrical characteristics such as
+voltage and current operating ratings, where we get information on power specs of
+various conditions and operating modes. Timing characteristics are provided for
+our operation of the microcontroller. You will find info on the limit of
+the processor's clock frequencies. There are timing diagrams that
+show expected time delays before certain digital
+signals are asserted. These quantities are usually
+measured in micro or nano seconds. The datasheet even includes some extra
+data on how environmental effects, such as temperature, can affect the device
+or the operation characteristics. Lastly, you will also find physical
+design constraints, such as a CAD drawing with dimensions for the physical
+package and footprints of the chip. The materials in the datasheet is not
+just for a hardware engineer to use. Timing characteristics are very important
+for a software engineer to know about so they may predict or calculate runtime
+requirements and performance. In addition, the datasheet is going
+to detail the pinpoint mappings for a peripheral device you might use. This is a table that describes which
+pins match up to the general IO ports of the microcontroller, and subsequently, which pins can connect
+to certain peripheral devices. The datasheet does not typically
+provide information on configuration. For that, we need to look at
+the Family Technical Reference Manual. This manual describes information
+on general platform components and configuration. You may then have a sub-family reference
+manual which covers particular settings of a specific device. These are manuals that you need to
+look up to know how you go about configuring a chip using
+Bare-Metal Firmware. Sometimes the Family Technical Manuals
+are missing information or issues are found with the chip
+after the release of the product. This is called the Chip Errata. This is a document that contains
+additional and corrective information for our particular device set. It will list problems with
+the description of the configuration or the hardware's operation. They usually provide a workaround
+in the errata sheet. It is important that if something is
+operating unexpectedly with your chips that you consult the errata. Now that a chip has been chosen,
+we need to start on a proof of concept and software prototyping. Not all customers have the time or ability
+to design a printed circuit board or a evaluate their chosen chips and design. Many businesses just create
+development kits and module boards so that prototyping can be
+be done easily, speeding up the time it takes chip manufacturers to get their
+products in customer hands for evaluation. Here we have two example development kits. The first is a microcontroller development
+kit called the Freedom FRDM-KL25Z. This board is a product of NXP and has many impressive features including
+some supplemental external hardware, a capacitive touch slide,
+an RGB LED, and an accelerometer. These are purposely added so that some simple applications can
+be developed with external hardware as part of the evaluation process for
+the microcontroller. A second example is the wireless module
+featuring the Nordic nRF24L01 chip. This is not a microcontroller
+development kit. Development kits are not limited to
+microcontroller silicon manufacturers since any type of sensor,
+external memory, driver or communication device would
+want to be evaluated. The part is a difficult package
+to solder called a QFN package. And that may have specific
+requirements for its antenna. However, the board is
+built in a way that it can easily connect through microcontroller
+boards using a few extra wires. As an embedded software engineer, you can
+easily acquire many of these module boards or microcontroller development kits
+without deep hardware knowledge. Although you will need to
+figure out the connection and interface requirements
+between your boards. Now having access to a platform,
+you can start developing a software proof of concept without
+any hardware design overhead. Once a chip and
+development kit has been acquired, you need to get access to a compiler,
+some programmer debugger hardware and the executable installer software. The design of these support systems,
+dev kits, debuggers, programmers and software, are often done
+by applications and tool engineers from the chip manufacturer
+companies or third party vendors. But these kits, extra hardware and software tools often come at an expensive
+price from the manufacturer. Competition in this market of dev kits
+has grown significantly with the need for even faster prototyping. As a result, four dev kits have
+become even more widely available at a cheap price with
+free software tools and integrated programmer debugger
+hardware on the kit itself. Take, for example, the Freedom Board. This board has a secondary processor which
+is used to run as an onboard program debugger adaptor that can flash
+our target processor, the KL25Z. This adaptor is called OpenSDA. The OpenSDA has a specialized, dedicated
+connection to the processor target for debug support and for
+the programmer interface. The user will connect to
+this open SDA platform by connecting a USB cable
+to the host machine and running a special integrated development
+environment for this processor. Other manufactures have
+done similar things. That could be an example
+of Texas Instruments. Here is an MSP432 launch pad that
+houses the MSP432 Core text in. It comes with a dedicated onboard
+emulator for programming, debugging, and energy measurements. Texas Instruments calls their technology
+the XDS110 EnergyTrace on-board emulator. This EnergyTrace technology
+is an added system to evaluate energy uses of the target
+processor during application. This is in addition to debugging and
+installing. These onboard programmer debuggers
+provide much cheaper options for the software development tool sets you
+can use to interact with the desired embedded platform. In this video we learned about
+the importance of development kits and the documentation for
+designing an embedded system. Documentation will provide you
+architecture-specific information to configure your platform. And the kit will provide you
+early software prototyping and build your confidence in
+working with the hardware. With access to these items, you can evaluate many different processors
+to see if they meet your project's needs.

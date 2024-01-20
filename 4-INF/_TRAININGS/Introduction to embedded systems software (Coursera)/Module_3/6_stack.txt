@@ -1,0 +1,122 @@
+In this video, we will go into more detail about
+The Stack sub-segment of data memory. Previously, we brushed over how data in
+The Stack is allocated and de-allocated. The BSS and Data sub-segments have data
+that get allocated at compile time and exist for the lifetime of a program. The Stack region,
+gets reserved at compile time but the data actually gets allocated runtime. The stack requires some special management
+in order to accommodate the memory reeves. This is done either by the compiler
+at the time of build, or directly by the programmer if
+they're writing code in assembly. Luckily, the compiler will allocate and deallocate data automatically when
+writing in C, based on the architecture. The stack is a place where
+temporary data is stored and the memory is reused over and
+over as a program executes. There are a few main characteristics you
+should know about how stacks are designed. These are the use of
+architecture-specific instructions and registers, the direction of stack growth,
+the contents that are put into the stack. In the order of the stack contents the stack imputation is
+architecture dependent. And it is primarily used for tracking the state of a program as
+routines are called and then returned. These routines include both program
+functions and in sub routines. The lifetime of data allocated on the
+stack will relate to the current scope of a routine. Therefore as functions get called and
+returned, these memories were used for various routines. All routines or application dependent,
+as return types, parameter list and
+local data allocation can all vary. A programmer can nest
+routines within one another. And the program has the ability to enter
+and return from each of these routines, without effecting
+the calling routine's state. The method of describing
+how to pass data in and out of a routine is referred
+to as a calling convention. This can be generalized across
+all routines in an architecture. And calling convention should specify
+architecture specific concepts on how the CPU and the stack are used. Calling conventions differ across
+architectures, as ARM architecture have different calling conventions
+from other risk type processors. This is because internal CPU registers and
+a stack memory management needs to be modified to accommodate a change in
+normal execution flow, the stack is used to allocate, save, and restore
+information for a calling convention. Typical stack implementations store
+local variables, input parameters, and return data on the stack. The amount of this data is dependent
+on the implementation of the routine. In addition to the declared
+function specific data, other architecture specific
+items are put on the stack. These include a copy of used registers,
+return addresses, previous stack pointers, and previous
+special function register information. Specialized functions called require
+additional information to be stored on the stack or maybe even an entirely
+separate stack altogether. Interrupt routines can happen
+asynchronously at any point during your program. Therefore, if called they
+need to be able to save and return to a previous CPU
+state at any point in time. When you combine these two groups
+of routine specific data and CPU state information,
+this is referred to as a stack frame. When more and more sub segments are nested within one
+another new frames are added to the stack. Each new frame has data that is dependent
+on the implementation of the function and the current state of the CPU. As functions return,
+the frame data is removed. CPU state can be restored and the code moves back to the previous
+calling function and its stack frame. You should note that the stack is
+reserved to be a specific size, this means you can potentially overflow
+your allocated stack region by writing code with lots of nested functions,
+numerous function parameters and local variables that might
+all exhibit large data types. However you need to understand what
+an architecture's calling convention is, in order to understand how large a stack
+frame will be given with a function. In arm, the general purpose registers are
+used to store much of this information. There are 16 CPU registers. And the CPU uses them to not
+only execute instructions accordinate the calling
+convention of a routine. Registers r0 through r3 are used to hold
+arguments that are passed into a function. Registers r4 through r11 are used
+to store local variables. R13 holds the current stack pointer or
+the n location of the used stack memory. And r14 register as the link register. It holds the return address for
+a function to return to. When a function is done,
+the return data is put in the r0 register. The size of these registers
+is architecture dependent. But for rr architecture,
+these are 32 bits each. In addition to these
+general purpose registers, ARM has some special purpose CPU registers
+that track and control execution state. These include the program status
+registers, exception mask registers and the control registers. These will be covered more
+later in the specialization. Since the CPU General Purpose Registers
+are used to hold all of the input parameters, to find variables and
+return data, you might think. Why is the stack even used? Well if you pass in to many input
+variables define to many local variables in a function or even use extremely large
+data text, all the extra information that does not fit in these spots gets
+allocated in data memory on the stack. In addition, routines that have
+sub-routine calls within their code need to save off those registers, for
+the new calling routine can use them for their parameters, and variables. This saving of the register
+contents goes onto the stack. By skipping the stack
+use on market textures, we can have improved performance
+because we do not need to load and store data between the CPU and
+data memory so frequently. By keeping all of the data in
+the registers, the CPU can operate faster. When the stack is used to hold data, the stack pointer will move in
+one direction growing the stack. When data is removed,
+the stack will shrink. The growing and shrinking of
+the stack occurs on the same end, with one end firmly set
+to a particular address. The stack can be referred to as a LIFO. A Last In First-Out data Buffer or
+container. However, this LIFO is a specialized LIFO
+for an architecture's calling convention. In addition, as the stack pointer moves,
+stack implementations specify it to move upwards with addresses increasing, or
+downwards with addresses decreasing. In your ARM architecture the stack is
+implemented as a full descending stack, as the stack grows downwards
+to lower addresses. LIFOs, are a general concept
+in software engineering, and we will discuss it more detail,
+in our data structures lectures. The stack has specialized
+registers as mentioned. But it also has specialized instructions,
+to add and remove data to a stack. These operations are referred to as
+a push and a pop, which act as an add or remove instruction. In some architectures these
+are single instructions that push a single piece of information to or
+from the stack. In other architectures, there may be
+a push or a pop specialized instruction that can save or remove a particular
+set of registers to the stack. For example ARM has loaded store structure
+that can move multiple pieces of data to and
+from the stack with one instruction. And better programmers should be careful
+to limit the number of routines that are called in addition
+to how many are nested. This is because the stack
+is not infinite size and you can eventually run out of stack space. This is called a stack overflow. Also, with every routine call and return,
+all of the operations used to save and return from a routine to manipulate stack
+frames result in extra execution overhead. We want our embedded systems to be
+performing as much meaningful processing as possible, not overhead
+associated with calling routines. This does not mean skip routines,
+it just means do not use them excessively. The stack is a vital memory segment for
+software developers. Stack is automatically
+used by the compiler, which in turn utilized
+architecture-specific processes and instructions to call and
+return from a routine. All of these operations get
+compiled into the function call. There's still overhead, in order to
+call and return from a function, and the memory region of the stack
+occupies part of data memory. This is reserved at compile time,
+allocated at run time, and the operations to interact with this
+region are introduced at compilation. However, the memory itself is reused
+throughout the program as different functions can get called to allocate and
+de-allocate data in this region.

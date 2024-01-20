@@ -1,0 +1,96 @@
+In this video, we'll go into more detail
+about the heap subsegment in data memory. The heap is the last main
+segment of discussion for the subsegments of the data segment. We often call this memory dynamic memory. Much like the stack, the heap is allocated
+and deallocated with software at runtime. The difference is that this is
+done manually by the programmer with the use of functions
+that manage the region. The lifetime of heap data will exist for as long as the software designer
+has not deallocated the data. Unlike our data types
+which specify a size, allocation in the heap
+can vary with each call. The heap is a space of dynamic memory
+that is reserved in the data segment. The heap is useful because it allows
+us to dynamically change the size of allocated data. Unlike other subsegments, static
+allocation reserves a set number of bytes. With the heap,
+you do not have this limitation. With each call to reserve memory, you can
+specify any number of bytes to reserve. Additionally, you can resize
+a previous allocation. Much like the stack, allocations and
+de-allocations in the heap mean the compiler has to add extra
+instructions into your program for data management in this region. However, this is not done automatically,
+you have to use heap functions to directly reserve and free data in the heap by
+calling special functions in the software. Data that is reserved will remain reserved
+for as long as the programmer chooses. Allocated data can live for longer than a
+function's scope but less than a program. The process of reserving dynamic memory
+and freeing it is extra overhead for a program to execute. Meaning there is dynamic memory management
+in the form of software routines that check for available space in the heap
+region to place your requested allocation. This dynamic memory manager maintains a
+data structure to track the current state of the heap space. The way to use the heap on your embedded
+system is with the use of four functions. These are malloc, calloc,
+realloc, and free. Malloc and calloc reserve a contiguous
+block of memory by specifying the number of bytes you want to reserve. This can be placed anywhere in the heap
+depending on the current active allocations as long as it does
+not overflow the heap region. Calloc does the same thing as malloc. But it will additionally initialize
+this memory space to 0s. It's very important that once you have
+received a pointer from malloc or calloc, that you do not change that address. You must track that exact address in
+order to free your allocations later. Realloc is the function that allows
+you to change the allocation size of your allocated data. This function requires the new size
+of memory that you wish to have regardless if it is smaller or
+larger than the original. It also requires the original heap
+pointer you allocated with malloc. Realloc will return a pointer
+to the new memory region. This new space could remain
+in the previous location or be moved to a completely new spot. Realloc will free the previous
+location automatically for you. These heap functions require
+a raw byte count of memory and will return a pointer to the beginning
+of the allocated region. Therefore, if you're trying to
+allocate a data structure on the heap, you need to do some math as to how many
+bytes your data structure occupies. The C programming operator
+sizeof can help with this. By giving it a type or a variable, it can return the number of bytes
+this will occupy in memory. These functions require a new type that we
+have not talked about yet called size_t. For now,
+just think of this as an unsigned log int. Free is a function that tells
+the dynamic memory manager that the requested memory is free to
+go back into the available pile. All you need to do is provide free with
+the pointer you are using to track your memory space. You must free your memory when
+you are done with it, otherwise, the heap will have less
+space to work with. All of these routines
+require the programmer to keep track of the allocated memory
+with a pointer, or an address. This pointer must have a scope as
+long as the memory's being used. If you allow the pointer to be local and
+removed from the stack before freeing the memory, that memory is
+lost for the remainder of the program. There's no guarantee that when
+you malloc or realloc data, it is even in the same space or
+there's even enough space to allocate it. If there's not enough space available, these functions will
+return a NULL pointer. Since the heap region often becomes
+very segmented or fragmented as used and free pieces of memory
+are filled throughout the area. You can attempt to reserve memory,
+and although there might be physically enough free memory in the heap,
+it might not be contiguous. Requesting this memory would fail because
+your heap space has become too segmented, over-allocating and
+freeing data frequently and inefficiently. Here's an example where we have
+reserved 8 bytes of data on the heap. Malloc returns a void pointer or a generic pointer to the place in
+memory where this was allocated. You do not want to operate with
+this generic pointer, so it is important that you cast this piece of data
+to the type you wish to program with. This code will perform some arbitrary
+operations on this piece of memory and then eventually free the heap
+memory by calling free, with the pointer we use
+to track the memory. Here's another example that shows how
+your memory space gets fragmented. Assume a heap space of 80 bytes with
+two allocations existing already. The first one is 16 bytes,
+followed by a second one of 32 bytes. Now let's say you free
+the 16 byte location but now you want to make a 40 byte allocation. There's a total of 48 bytes available but
+because of where the original 32 byte allocation was put, you do not have enough
+contiguous memory space to place 40 bytes. There are many negatives to using dynamic
+memory and some embedded engineers advise against its use because the memory and
+execution performance hits. Constantly allocating and freeing memory
+will add excessive execution overhead to managing the heap region. And heap can become fragmented with
+blocks of memory allocated and freed interspersed with one another. Also, failure to free a piece of memory
+is referred to as a memory leak. If you lose track of the heap memory you
+have reserved by storing the reference of data in a local pointer variable,
+the internal software that manages space will think it's still needed even
+though you have now lost track of it. The heap is a vital memory segment for
+software engineers and some embedded systems. However, as embedded system
+architectures scale up in complexity and size, the likelihood of heap use
+on a system is a near guarantee. The heap requires direct
+invocations to utilize the memory, which leads to more overhead spent by
+the CPU to manage this region at runtime. This overhead existed with
+the stack as well, but the heap has the nice advantage of giving
+us a dynamic piece of memory that can have a lifetime longer than a function but
+less than a program.

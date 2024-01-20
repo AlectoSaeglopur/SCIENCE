@@ -1,0 +1,102 @@
+In this video, we're going to talk about how pointers
+are use in an embedded system. In micro controller involves some kind
+of memory in every single instruction. Whether the suspection instruction from
+flash, interacting with the peripheral or reading and writing to entrant. Each of these involve knowing and
+address of some important piece of data. And as you know the best way to interact
+with addresses is by use of pointers. Pointers can access
+different kinds of data and are sized based on an architecture. Pointers are extremely important for
+embedded software as they are the primary means of which we
+can configure the platform components. Pointers have many
+different characteristics. We start by really understanding
+how to declare a pointer, and the types of operators you
+can use with a pointer. A pointer declaration starts
+with a pointer variable type, then an asterisk, indicating that
+this is a variable type pointer. And then also a unique name. We will continue to use our
+standard types in this course, including when we use pointers. You should note that the type of a pointer
+is not how large a pointer variable occupies a memory. The pointer type represents
+how much data you will access with your pointer variable. So, in int8 pointer will access
+signed a 8 bit piece of memory, in int16 pointer will access
+a signed 16 bits of memory, and in int32 bit pointer will
+access 32 bits signed. All pointers are variables
+of the same length. This seems counterintuitive. But you should note that
+pointer variable type has nothing to do with
+the storage size of the pointer. A pointer length will specified by
+the architecture in size in a way that can access all memory
+in an address space. For instance an infant pointer
+has the ability to address two to the end different unique locations. Our ARM architecture has a 32 bit pointer. Therefore, it has two to
+the 32 addressable locations. Each being a byte. Two to the 32 is equal to about four
+gigabytes of memory which is exactly the size of our ARM core text memory map. With pointers being the same length that
+means regardless of the type that you declare it with, that pointer variable will occupy
+32-bits of memory on ARM architecture. Regardless if it's an 8-bit pointer,
+a 32-bit pointer, a float pointer or even structure pointer. The difference between these is only
+the type of data it dereferences. Meaning, when I want to read or write
+data at a location or address you apply the dereference operator to the beginning
+of a previously declared pointer. This will read or write a length of
+data as specified by your pointer type. Starting from your address
+locations specified in the pointer. An easy way to check
+the length of a pointer or validate it's behavior is
+with our size of function. You should recall this function will
+turn the size of a given parameter at compile time. The Dereference Operator
+is the same operator as our pointer declaration operator. However the Dereference Operator must
+come before a previous SQL Pointer with an initialize address. To initialize a pointer,
+you need to use an Address-of Operator or a known pointer address. The Address-of Operator is the & symbol. And this comes before any other variable
+you are trying to get the address of. For instance, the 32 bit pointer here
+is being initialized to the address of the 32 bit variable foo. It is not always the case that
+you will have a variable. You will have access to the address of. There are many cases where you have a set
+of addresses that we need to set a pointer to, like in the case of peripheral memory. To assign a direct address,
+all you need to do is provide the integer value of the
+address and cast that to BF type pointer. The cast is just a set of parenthesis
+that can before a variable and the type you wish to convert
+that variable data to. This does not change
+the value of the address but rather tells the compiler to
+interpret this number as an address. One final note on initialization is
+that you might not know the address of a pointer assignment at
+the time of declaration. In this case, it is good practice to define all
+pointers with a null pointer value. The null value shown here
+is just the value zero. The reason this is done is because
+pointers without an initial value will have some garbage data. Meaning we do not know the address that
+it is currently pointing to, because that memory was likely used by something else
+before the point of variable occupied it. A programmer may mistakenly use
+a non-initialized pointer and corrupt a piece of
+memory by writing to it. When debugging you likely miss this
+because the variable appears that has a valid address due
+to the garbage data. By using a null pointer you can always
+check that the pointer is initialized before writing data to it. This is just a mechanism to
+help protect your memory. Let us do an example where
+we have two pointers. One will be a byte pointer, and the second
+will be a pointer to a structure. The byte pointer will occupy 32-bits
+of memory, but only dereference 8-bits. The struct pointer will
+occupy 32-bits of memory, but it has the ability to dereference
+any three of its structure members. So this structure pointer can
+dereference the 8-bits of varA, the 8-bits of varB, or
+the 16-bits of varC. In the case of the direct data pointer, we can simply use the dereference
+operator to get the 8-bit data. For the structure we need
+to use the arrow operator in that structure field with
+which we need to access. Therefore to access the varB data
+we need the same varS pointer, and our operator, varB. This works the same as
+dereference operator but will properly offset into the structure
+data container to get a given field. Since pointers are all the same length,
+and they hold address information, we can easily cast a pointer from one
+type to another if we ever need to access different amounts of data. Let's say you have a pointer to address
+100, you can use this pointer and cast it to a different pointer type, and they all
+will be pointing to the same address. The only difference is each pointer will
+dereference a different size of data. Applying the dereference operator
+around this cast operation or allows to access the data at that address. In these two examples, we reuse
+our 32-bit pointer, pointer 3, and convert that to an 8-bit pointer which
+will only access the first byte. And also a 16-bit pointer which
+will access the first two bytes. Pointers are the same in memory
+regardless of what they point to. The pointers themselves can be declared
+anywhere in the data segment: the BSS, the data, the heap, or the stack. The pointers can also point anywhere in
+our memory map, whether that is stack, heap, peripheral memory or code memory. However, depending on what it points to,
+it may or may not be able to write to that location
+like in the example of code memory. Pointers are one of the most important
+features for embedded software developers as they are used a great amount
+in micro controller development. Pointers have a slightly different
+format in operation variables, but they exhibit other
+similar characteristics. Pointer variable's scope and lifetime are similar to any
+other piece of data allocated. Local pointers have a scope
+in a lifetime of a function. And global pointers will have a global
+scope in a lifetime of the whole program. The only difference you should keep in
+mind is that while a pointer variable might be unique,
+the data it points to might be shared or pointed to by other pieces of data. By changing that you're modifying it for
+the whole program.

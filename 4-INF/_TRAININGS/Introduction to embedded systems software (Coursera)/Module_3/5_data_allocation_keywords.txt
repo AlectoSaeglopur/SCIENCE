@@ -1,0 +1,103 @@
+In this video,
+we will be discussing special keywords and functions that affect data
+allocation in the data segment. Embedded systems require careful
+control of your limited resources, including your memory. With the help of some special features
+in embedded systems and C programming, we can allocate data and memory to
+exhibit many different characteristics. Size, access, scope,
+location, creation time, and lifetime can all be specified in your
+program by the way you declare your data. At compile time,
+the linker needs a way to track and map all of the data that will be allocated
+throughout the execution of the program. The linker file provides this with a map
+of groupings of compiled data subsegments, and their mapping location
+of physical memory spaces. Through certain C programming keywords and
+functions, we have the ability to
+control this allocation. In our C program, the data segments help us manage
+these various forms of allocation. We divide the data
+segments into subsegments. Each subsegment helps track data
+with different characteristics. Even some of our non-volatile code
+memory is used to store some data. This is used mostly for
+constant and initialization values. However, there are many issues with using
+your program flash for data storage. These PROMs include effects on durability,
+read-write sizes, and latency. Because of these issues, if you have to
+store non-volatile data, you will likely expand your memory to support extra
+non-volatile memory, like EEPROM. Extra memory is not required as
+it is implementation-dependent. We will start with looking at particular C
+keywords that affect our data allocation. These include variable types,
+type modifiers, type qualifiers, and storage classes. Starting with variable types, these tell the compiler exactly how
+much data needs to be allocated. And in the case of certain types,
+how that data should be formatted, like a float variable. Types include things like chars,
+ints, and floats. Derived types, like arrays and
+structures, are implementation-dependent, meaning the types they are defined
+with will affect the overall size. Pointers and enumerated types have a size
+that is dependent on the architecture. In the case of the KL25Z, these
+are the same size as a 32-bit integer. There are many other types that
+we have not mentioned, but you can also get special keywords for
+different C standards. In C99, there are other new types
+like _Bool, _Complex, and imaginary, which take up some amount of memory. The next keyword that can affect
+allocation is the type qualifier const. Const is a type qualifier that specifies
+that the associated data will be constant, meaning it cannot be changed. You should not be able to overwrite
+the associated type of data. In the case of our embedded system, this read-only data will get
+put in part of code memory. Depending on the architecture and
+linker implementation, this can take on names like .const, or
+the .readonlydata memory subsegment. Type modifiers are special keywords
+that alter either the size or the sign of a particular data type. Altering the sign can only change the
+range of values the data can represent. Altering the size can change the size
+of memory that is allocated for particular types. For instance, on ARM architecture,
+a short int will only occupy 2 bytes, a long int will occupy 4 bytes, and
+a long long int will occupy 8 bytes. Storage classes are a type of keyword that
+tell the compiler what the lifetime and scope a particular piece of
+data should have in a program. There are four types of storage classes,
+auto, static, extern, and register. The auto storage class is a default
+storage class for local variables. This specifies that a variable should
+be automatically allocated and deallocated on the stack. Local variables are all default
+without specifying the auto keyword. The static storage class is a keyword
+that tells compilers that a piece of data should persist for
+the lifetime of the program. Static data can go into either the data or the bss segment,
+depending on how it was allocated. However, one important concept of static
+storage class is that when declared in a function, the access to that data is
+only available within the function. Therefore, unlike global variables, which
+can be stored in bss and data, and have a global scope, static has a lifetime of
+the program, but a local scope of access. The extern keyword allows for a variable definition to exist
+outside the current scope of access. This means that a local variable can
+be externally defined in another file. Global variables are accessible
+by the file that has defined them by virtue of the global scope. However, if you want to use a global
+variable defined in another file, you must provide an extern
+declaration of that variable. So that the compiler knows
+this is defined elsewhere. The register keyword is a storage class
+that requests the compiler to allocate the following data in the CPU registers. The CPU registers are the smallest and
+fastest memory in the processor. Dedicating one register to a particular
+variable can potentially make your program faster. However, it could also inhibit
+operations needing registers when there's only one left to choose from. However, this is just a guideline for
+the compiler. This keyword is not used very commonly, as the compiler usually can optimize
+register use better than a programmer. To complicate this further,
+some architectures, like ARM architecture, will try to
+allocate some local variables and function parameters
+directly in the register, to reduce overhead associated
+with interacting with the stack. ARM architecture does this, but
+only for small number of parameters. Let's put all of this
+together in one example. In the excerpt of code,
+you can see a couple of variables and a small function that has
+many variables declared. These examples show how different
+variables can be allocated across the stack, the heap, the data and
+the bss subsections. The variable names have been
+formatted in a way to indicate what section they will be allocated in. Some of the variables have
+no initialization values. Some variables have zero and
+non-zero initialization values. Some variables have storage class
+specifiers like static, and some have const type qualifiers. For example, C_DATA is a non-zero
+initialized global variable that will go in the .data segment. The stack variables also
+contain the characters REG, which represents the CPU registers. This is because ARM will try
+to allocate variables and function parameters in CPU registers. This is to save space and execution overhead with regards to writing
+data to the stack and reading it back out. Lastly, you can see some
+data is allocated and deallocated on the heap,
+using malloc and free function calls. We will discuss these functions in
+more detail in a dedicated video about dynamic memory. All of these allocations discussed
+are defined in the C standard, as well as specific architecture
+implementation requirements. Some of the C programming keywords,
+like the register storage class, are guidelines rather than requirements. The compiler try to best
+to perform the request. In addition, specific compiler attributes
+can be applied to variables to override the default behaviour of how a compiler
+will handle a particular data item. However, applying attributes
+is compiler-dependent, and much harder to port to other compilers. Regardless, with the use of C keywords,
+compiler attributes, and special functions,
+we can define data in many different ways. Knowing how these data get allocated in
+physical memory is important as we more towards optimizing speed and memory use.
