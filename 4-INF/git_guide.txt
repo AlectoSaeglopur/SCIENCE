@@ -1,0 +1,125 @@
+
+>> 1. INSTALLATION <<
+
+- launch Git.exe installer;
+- use "C:\Program Files\Git" as installation path;
+- tick "Open Git Bash here" and untick "Open Git GUI here" within "Windows Explorer integration";
+- select "Use Visual Studio Code as Git's default editor";
+- select "Let Git decide" about default branch naming;
+- select "Git from command line an dalso from 3rd-party software";
+- select "Use bundled OpenSSH";
+- select "Use the OpenSSL library";
+- select "Checkout Windows-style, commit Unix-style line endings";
+- select "Use MinTTY";
+- select "Fast-forward or merge" as pull-command behavior;
+- select "Git Credential Manager";
+- tick "Enable file system caching";
+- skip the "experimental option" and start the installation.
+
+------------------------------------------------------------
+
+>> 2. SETUP <<
+
+§ Configure user's name and email:
+- configure Git username with "git config --global user.name "filippo valmori"";
+- configure Git email with "git config --global user.email "FilippoValmori@eaton.com"";
+- [for the last x2 commands, "--system" or "--local" could be used in place of "--global" (however that's unusual, see Coursera's training for more details);
+- [to readback set user's name and email use "git config user.name" and "git config user.email"];
+
+§ To generate SSH key (using ED25519 algorithm) for encrypting/authenticating communication from/to server:
+  - open Git bash (anywhere);
+  - type "ssh-keygen -t ed25519 -C "your_email@example.com"", specifying your email;
+  - empty-ENTER until completion;
+  - check public (.pub) and private keys have been successfully created in the specified (hidden) folder ".ssh" (e.g. "C:\Users\Filippo\.ssh\");
+  - from internet browser, go to "Github/BitBucket website > Profile icon > Settings/Manage-account > SSH keys" and upload the authentication public-key just created (simply drag-and-drop it);
+  - as a confirmation, type on bash "git-gui" to open Git GUI and here go to "Help > Show SSH Key" and verify the key is successfully loaded. Note setting up the SSH key is helpful because it allows to automatically authenticate yourself when accessing the remote server, thus without the need of supplying your username and password at each visit.
+- [for further details see here "https://confluence.atlassian.com/bitbucketserverkb/ssh-rsa-key-rejected-with-message-no-mutual-signature-algorithm-1026057701.html"].
+
+------------------------------------------------------------
+
+>> 3. LOCATIONS <<
+
+§ Locally on each developer's PC the so-called "project directory" folder contains:
+- "working tree" (WT), where the actual project files and directories (relative to a single commit at each time) are placed and can be edited;
+- "staging area" (SA, sometimes called also "index"), where the file planned to be part of the next commit are stored (or "staged");
+- "local repository" (LR), storing all the commits of the project (thus, representing its version history).
+
+§ Note that locally SA and LR are located inside the hidden sub-directory "/.git" (thus, removing this folder means removing all the project version history locally).
+
+§ The "remote repository" (RR), unlike the other x3, is located remotely in a single data-center/cloud and represents the common interaction point among all developers (thus it identify the offical state of the project at any time). When LR and RR are synchronized, they contain exactly the same commits.
+
+------------------------------------------------------------
+
+>> 4. CREATE NEW LOCAL REPOSITORY <<
+
+- if not existing yet, create a folder where to place all repositories (e.g. "repos_folder");
+- inside the aforementioned folder, create a sub-folder for the new project to be created (e.g. "proj_1");
+- here (e.g. \repos_folder\proj_1\) open a bash type "git init";
+- [now typing "ls -a" it can been seen that the ".git/" hidden folder has been created];
+
+------------------------------------------------------------
+
+>> 5. COMMIT TO LOCAL REPOSITORY <<
+
+- use "git status [-s]" to check if there are files/directories modified or untracked in respect of the last commit;
+- use "git add [file-or-directory]" to add untracked or modified files/directories (and in turn all files inside the latter) to SA;
+- alternatively, use "git add ." to add all untracked or modified files/directories to SA without specifying them one by one;
+- then use "git commit -m "<comment>"" to move all staged files/directories from SA to LR, thus adding a new snapshot/node (representing the current state of the project) to the version history.
+- [use "git status" now to verify WT and SA are now clean];
+- [use "git log [--oneline] [-X]" to see the overall LR commit-history (e.g. X=2 can be used to show only the x2 most recent commits].
+
+------------------------------------------------------------
+
+>> 6. PUSH TO REMOTE REPOSITORY <<
+
+§ In case LR exists and RR does not yet:
+- open an internet browser and create a new empty repository on GitHub/BitBucket with the same name of that in your LR (e.g. "proj_1");
+- use "git remote add <name> <url>" (e.g. "git remote add proj_1 https://github.com/AlectoSaeglopur/proj_1");
+- use "git push -u|--set-upstream <repo_name> <branch>" to initialize RR according to current LR state (e.g. "git push -u origin master" or more specifically "git push -u proj_1 master").
+
+§ In case RR exists and LR does not yet:
+- "git clone <url>";
+- edit source files...;
+- "git add .";
+- "git commit -m "<comment>"";
+- "git push".
+
+------------------------------------------------------------
+
+
+
+
+>> XXX. SYNTAX <<
+
+- the general syntax for commands is "git [command] [--flags] [arguments]";
+- more in detail, "git command (-f|--flag) [<id>] [--] [<paths> ...]", where:
+   | = or
+   [optional] = optional values;
+   -f or --flag = command flag;
+   <placeholder> = required value;
+   () = grouping for clarity or disambiguation;
+   -- = to disambiguate the command;
+   ... = multiple occurrences possible.
+
+------------------------------------------------------------
+
+>> XXXX. EXTRA COMMANDS <<
+
+- "git help" to get a brief explanation about the most common commands;
+- "git help [command]" or "git [command] -h" to retrieve info/documentation about a specific command (online or on shell respectively);
+- "git --version" to check current Git version installed;
+- "git status"
+- "clear" to clear shell (Linux)
+- "ls -a" to show all files and directories within current folder, including hidden ones (Linux)
+
+- use "git clone <url> [<local_project_name>]" to create a local copy of a RR and enables interaction (i.e. pull, push, etc) with that RR;
+- use "git remote [--verbose|-v]" to display information about the RR associated with your LR
+
+- "git-gui" to open Git GUI
+
+NB: all commits belong toa specificbranch
+
+@TODO
+
+submodules example
+gitignore file

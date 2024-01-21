@@ -1,0 +1,148 @@
+In this video, you will learn to push
+commits from a local repository to a remote repository using a command line. We will start by discussing the two
+fundamental options when starting to work with a remote repository,
+git clone and git remote add. There are two fundamental ways to start
+working with a remote repository, it depends on if you already have
+a local repository, in other words, if depends on if you already
+have some work done via commits in a local repository that you want
+to push to a remote repository. If you do not have
+an existing local repository, then you will clone the remote repository, creating a local repository that is
+associated with the remote repository. If you already have a local repository
+with commits that you want to push to a remote repository, then you will add the remote
+repository to your local repository. We will begin by discussing
+the first scenario, where you do not have a local repository
+and you want to clone a remote repository. We will start by cloning
+a remote repository. Git clone is a command used to create
+a local copy of a remote repository. The word clone can be used as a noun and
+a verb. As a noun, a clone is a local
+copy of a remote repository. As a verb, cloning is
+the process of creating a clone. Once you have cloned a repository, you can
+work with the local repository optionally pushing your commits to and pulling new
+commits from the remote repository. A reference to the remote repository
+is included in the local repository. This allows you to
+synchronize the repositories. The project page of a git hosting provider
+provides the git clone command and or the remote repository URL for you to copy. Here we see the git clone
+command on bit bucket and the remote repository URL are in GitHub. The git clone command is used
+to clone a remote repository. You can copy the command or
+the URL from a git hosting provider. If you specify a local project name, that will be used as the name
+of the project directory. If you do not specify a local project
+name, then the project name in the URL minus the .git will be used as
+the name of the project directory. Let's clone a remote
+repository as an example. We start in the repos directory, cloning will create a project directory
+inside of the repos directory. In this example, we'll clone a repository
+hosted on Bitbucket named helloworld. Since we didn't specify
+a local project name this will create a hello world project
+directory inside of the repos directory. Executing the command shows that
+a repository has been cloned in the hello world directory, the commits on the remote repository
+are now in your local repository. We can change to the hello world
+directory to view the local repository. Listing the contents of the directory
+shows the .git directory, just as we would expect for
+a local repository. You can also see some of the project
+files in the working tree. After performing a git clone,
+information on the remote repository is always available using
+the git remote command. The git remote command displays
+information about remote repositories associated with the local repository. Here we have cloned
+the helloworld repository. We can change to the helloworld
+project directory. Then we execute git remote specifying
+the verbose flag to get more detailed information. Git responds with information
+on the remote repository. The URL that was used to clone
+the remote repository is shown. Instead of including
+that URL in git commands, you can use the alias named origin. Next we will add a remote repository
+to an existing local repository. We have seen that there are two
+fundamental starting scenarios when you want to work with a remote repository. We have already covered the scenario
+where you do not start with the local repository. In that case,
+we cloned the remote repository. Now we will cover the scenario where you
+have commits in a local repository and you want to add an association
+to a remote repository so that you can synchronize them. If you already have a local repository
+with commits that you want to push to a remote repository,
+you can use the git remote add command. This command add's information about the
+remote repository to the local repository. The two repositories can then be
+synchronized using aliases instead of URL's. As an example, let's say that we have
+an existing local repository named repoa, containing commits that we would
+like to push to a remote repository. We can log into Bitbucket and
+create a remote repository named repoa. Then from our existing local repository,
+we execute the git remote add command. In this example,
+we name our remote repository origin and we specify the URL copied from Bitbucket. Now, when we execute git
+remote with the verbose flag, we can see that the Bitbucket URL is
+associated with an alias named origin. Finally, we will push commits from a local
+repository to a remote repository. Before we talk about pushing commits
+to a repository, let's take a moment to remember what branches are because
+they are related to pushing commits. As a reminder, all commits belong to
+a branch, a branch can be thought of as an independent line of
+development of the project. By default, there is a single branch and
+it is called master. In this example commits A, B, and
+C all belong to the master branch. So far in this course we have
+not created any branches. So all of our commits have been
+on a default master branch. We will cover branches in much
+more detail later in the course. Git push writes commits for a branch from the local repository
+to the remote repository. A successful push synchronizes
+the branches on the local and remote repositories so that they
+contain exactly the same commits. Pushing to the remote repository is
+primarily done to share your work with the team, but it also serves as a good
+back up of the local repository. You execute the git push command to
+push commits from the local repository to the remote repository. The first time you push, you should pass
+the repository shortcut name or Url. The shortcut name is often origin. You should also include the branch
+name that you would like to push. The set upstream, or -u option, is used
+to set up a tracking relationship between your local branch and
+the corresponding remote branch. Git can then inform you when
+the branches are out of synch. The values after git push are all
+optional, because git will assume default information or use previous values
+after you've executed the first push. Let's look at an example. First we use the git remote command to
+verify that our local repository named repoa has an association
+with the remote repository. Here you can see that the shortcut name
+of the remote repository is origin and it corresponds to the URL of
+a repository on Bitbucket. Next, we execute the git push command. We specify the -u flag the first time to set up a tracking relationship
+between the local and remote branches. We are pushing to the remote
+repository named origin, and the branch that we
+are pushing is called master. The first time you push, you may need to specify your
+Bitbucket user name and password. The commits from the local master
+branch are then written to the remote master branch. Because there is only one
+branch on both repositories, the repositories are now synchronized. Notice that after writing the objects to
+the remote repository, git informs you that a tracking relationship has
+been set up between the local and remote branches because
+you specified the -u flag. If you create a remote
+repository in Bitbucket, you will be given some advice on how
+to get started with the repository. The two options depend on if you
+have an existing local repository as we have discussed earlier. If you do not have a local repository you
+can click on, I'm starting from scratch. The suggestions that are made
+should now look pretty familiar, let's take a closer look. First execute the git clone command
+with the URL provided by Bitbucket. It is recommended that you execute
+this command in your repos directory, to keep all of your local
+repositories organized. The git clone command will create
+a project directory named repoa corresponding to the remote
+repository name. Here you change to that directory. Next a simple read me file is added to
+the working tree in the local repository. If this file exists in
+the commit Bitbucket will show this file on the homepage for
+the remote repository. Then you add the README
+file to the staging area so that it will be in the next commit. Execute git commit and specify
+the commit message as Initial commit. You now have a commit in
+the local repository. Execute git push to write the commits of
+the local master branch to the remote master branch. The -u flag is used to set up a tracking
+relationship between the local and remote master branches. Notice that the origin name for the remote URL was created
+when you executed git clone. The other option that Bitbucket suggests
+after you create a remote repository is relevant if you already
+have a local repository, in this case you select,
+I have an existing project. The suggestions here should
+also look familiar to you. Step one has you navigate to the project
+directory of your local repository. Step two has you connect to your
+existing repository to Bitbucket. You execute the git remote add command
+to set up a relationship between your local repository, and
+the remote Bitbucket repository. This command will add the Bitbucket
+repository URL with the shortcut name of origin. You then push your local commits on
+the master branch to the master branch of the remote repository. The -u flag is set to set up a tracking
+relationship between the local and remote master branches. When you execute this command, the commits
+on the local repositories master branch will be written to
+the remote repository. Assuming there are no other branches,
+your repositories are now synchronized. Once you have successfully pushed a commit
+to Bitbucket, you can log into Bitbucket, click on Commits and verify that
+the commit is in the remote repository. To review what we've discussed, if you
+want to begin working with the remote repository, you have two main options. If you do not have a local repository,
+you clone the remote repository and a local repository will be created. If you already have a local repository
+with commits that you want to push to the remote repository, you can add the remote repository
+from the local repository. Once you've associated the local and remote repositories, you can push
+commits to the remote repository. That is just a start. We will discuss synchronizing the
+repositories more later in this course. Now it's time for you to push
+commits to a remote repository. Separate hands on instructions will
+guide you through the process. You will first clone your Bibucket
+repository, creating a local repository. Then you will create a commit
+in the local repository and push the commit to the remote repository.

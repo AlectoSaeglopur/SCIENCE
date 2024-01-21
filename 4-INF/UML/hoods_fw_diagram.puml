@@ -1,0 +1,83 @@
+@startuml
+
+' 0. SETTINGS
+
+skinparam backgroundColor transparent
+skinparam activity {
+  StartColor #black
+  EndColor #black
+  BackgroundColor #white
+  BorderColor #black
+  FontSize 14
+  arrowFontSize 14
+  NoteBackgroundColor red
+  NoteShadowing true
+}
+
+' comments text-size
+!$SzCmt = 10
+
+!$CoBlk1 = business/white
+!$CoBlk2 = orange/white
+
+' 1. TITLE '
+
+title <size:20><size:20>PHASE EXECUTION
+
+
+
+' 2. UPDATE SECTION'
+
+partition #paleturquoise/white <size:15><b>Hoods {
+'start
+
+#$CoBlk1:<i>HoodsMgr_ExecutePhase</i>;
+
+split
+#$CoBlk2:<i>HoodsMgr_UpdateStateOnPhase</i>
+<size:$SzCmt>(ui, fan and lights states);
+
+split again
+#$CoBlk2:<i>HoodsMgr_UpdateFlagsOnPhase</i>
+<size:$SzCmt>(utility, enable, actions flags);
+
+split again
+#$CoBlk2:<i>HoodsMgr_UpdateLedsOnPhase</i>
+<size:$SzCmt>[update LEDs];
+
+#$CoBlk1:<i>LedHndlr_Control</i>
+<i>LedHndlr_Read</i>
+<size:$SzCmt>[read/write LEDs];
+
+split again
+#$CoBlk2:<i>HoodsMgr_UpdateBuzzerOnPhase</i>
+<size:$SzCmt>[update sounds];
+
+#$CoBlk1:<i>TaskMgr_PostEvent</i>
+<size:$SzCmt>[e.g. args(<size:$SzCmt> TASK_SCHED_SET_SOUND,
+<size:$SzCmt> SNDMGR_SOUND_KEYINVALID);];
+
+split again
+#$CoBlk2:<i>HoodsMgr_UpdateLoadsMACSMsgOnPhase</i>
+<size:$SzCmt>[update loads via MCS messages];
+
+split
+#$CoBlk1:<i>HoodsMgr_UpdateLoadsMACSMsgOnPhaseFan</i>
+<size:$SzCmt>[send MACS message to PB to update fan speed];
+split again
+#$CoBlk1:<i>HoodsMgr_UpdateLoadsMACSMsgOnPhaseFilter</i>
+<size:$SzCmt>[send MACS message to PB to reset grease/charcoal filters counters];
+split again
+#$CoBlk1:<i>HoodsMgr_UpdateLoadsMACSMsgOnPhaseLight</i>
+<size:$SzCmt>[send MACS message to PB to update light-bar intensity];
+split again
+#$CoBlk1:<i>HoodsMgr_UpdateLoadsMACSMsgOnPhaseLightColorTemperature</i>
+<size:$SzCmt>[send MACS message to PB to update light-bar temperature];
+
+end split
+end split
+'stop
+
+}
+
+@enduml
