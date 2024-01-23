@@ -1,0 +1,184 @@
+
+>> 1. INSTALLATION <<
+
+§ Installation procedure:
+- launch Git.exe installer;
+- use "C:\Program Files\Git" as installation path;
+- tick "Open Git Bash here" and untick "Open Git GUI here" within "Windows Explorer integration";
+- select "Use Visual Studio Code as Git's default editor";
+- select "Let Git decide" about default branch naming;
+- select "Git from command line an dalso from 3rd-party software";
+- select "Use bundled OpenSSH";
+- select "Use the OpenSSL library";
+- select "Checkout Windows-style, commit Unix-style line endings";
+- select "Use MinTTY";
+- select "Fast-forward or merge" as pull-command behavior;
+- select "Git Credential Manager";
+- tick "Enable file system caching";
+- skip the "experimental option" and start the installation.
+
+------------------------------------------------------------
+
+>> 2. SETUP <<
+
+§ Configure user's name and email:
+- configure Git username >> "git config --global user.name "filippo valmori"";
+- configure Git email >> "git config --global user.email "filippo.valmori@libero.com"";
+- [for the last x2 commands, "--system" or "--local" could be used in place of "--global" (however that's unusual, see Coursera's training for more details);
+- readback set user's name and email >> "git config user.name" and "git config user.email";
+
+§ To generate SSH key (using ED25519 algorithm) for encrypting/authenticating communication from/to server:
+- open Git bash (anywhere);
+- type "ssh-keygen -t ed25519 -C "your_email@example.com"" specifying your email;
+- empty-ENTER until completion;
+- check public (.pub) and private keys have been successfully created in the specified (hidden) folder ".ssh" (e.g. "C:\Users\Filippo\.ssh\");
+- from internet browser, go to "github website > profile icon > settings/manage-account > ssh keys" and upload the authentication public-key just created (simply drag-and-drop it);
+- as a confirmation, type on bash "git-gui" to open Git GUI and here go to "help > show ssh key" and verify the key has been successfully loaded.
+- NB: setting up the SSH key is helpful because it allows to automatically authenticate yourself when accessing the remote server, thus without the need of supplying your username and password at each visit. For further details see here "https://confluence.atlassian.com/bitbucketserverkb/ssh-rsa-key-rejected-with-message-no-mutual-signature-algorithm-1026057701.html".
+
+------------------------------------------------------------
+
+>> 3. LOCATIONS <<
+
+§ Locally on each developer's PC the so-called "project directory" folder contains:
+- "working tree" (WT), where the actual project files and directories (relative to a single commit at each time) are placed and can be edited;
+- "staging area" (SA, sometimes called also "index"), where the file planned to be part of the next commit are stored (or "staged");
+- "local repository" (LR), storing all the commits of the project (thus, representing its version history).
+
+§ Note that locally SA and LR are located inside the hidden sub-directory "/.git" (thus, removing this folder means removing all the project version history locally).
+
+§ The "remote repository" (RR), unlike the other x3, is located remotely in a single data-center/cloud and represents the common interaction point among all developers (thus it identify the offical state of the project at any time). When LR and RR are synchronized, they contain exactly the same commits.
+
+------------------------------------------------------------
+
+>> 4. CREATE NEW LOCAL REPOSITORY <<
+
+- if the project does not exists yet in RR, create a folder where to place all repositories (e.g. "repos_folder");
+- inside the aforementioned folder, create a sub-folder for the new project to be created (e.g. "proj_1");
+- here (e.g. \repos_folder\proj_1\) open a bash and initilize the LR >> "git init";
+- check the ".git/" hidden folder has been successfully >> "ls -a";
+- add/modify some files within the working tree...
+
+------------------------------------------------------------
+
+>> 5. COMMIT TO LOCAL REPOSITORY <<
+
+- check if there are files/directories modified or untracked in respect of the last commit >> "git status [-s]";
+- add desired untracked or modified files/directories (and in turn all files inside the latter) to SA >> "git add [files-or-directories];
+- NB: for new repositories it's good practise to add a "README.md" file to the project to the main page (if not existing yet);
+- alternatively, add all untracked or modified files/directories to SA without specifying them one by one >> "git add .";
+- move all staged files/directories from SA to LR, thus adding a new snapshot/node (representing the current state of the project) to the version history >> "git commit -m "<comment>"";
+- verify WT and SA are now clean (at least of all commited files/directories) >> "git status";
+- see the overall LR commit-history >> "git log [--oneline] [-X]" (e.g. X=2 can be used to show only the x2 most recent commits);
+- NB: not all modified/untracked files in the WT have to be staged and then part of the next commit/push. Typical examples are the .o/.map/.bin/.srec/.exe files generated after building, since only source files (.c/.h) are actually included in the versioning (assuming not to include them into the ".gitignore" file).
+
+------------------------------------------------------------
+
+>> 6. PUSH TO REMOTE REPOSITORY <<
+
+§ In case LR exists (see sections .4 and .5) and RR does not yet:
+- open an internet browser and create a new empty repository on GitHub website with the same name of that in your LR (e.g. "proj_1");
+- open bash inside LR and link it to RR through its URL/SSH address (e.g. "github website > proj_1 > code > HTTPS/SSH") >> "git remote add <name> <url>" (e.g. <name> = 'origin' or 'proj_1', <url> = "https://github.com/AlectoSaeglopur/proj_1" or "git@github.com:AlectoSaeglopur/proj_1.git", i.e. "git remote add origin git@github.com:AlectoSaeglopur/proj_1.git");
+- NB: using SSH addresses is always recommended if SSH key has been already generated and linked for the user (see section .2);
+- initialize RR according to current LR state >> "git push -u|--set-upstream <repo_name> <branch>" (e.g. "git push -u origin master", or more specifically "git push --set-upstream proj_1 master").
+
+§ In case RR already exists and LR does not yet:
+- clone RR to LR >> "git clone <url>" [again, SSH addresses are recommended (use HTTPS only if SSH does not work)];
+- add/modify some files within the working tree...;
+- commit desired changes to LR (see section .5, e.g "git add . && git commit -m "<comment>"";
+- push current LR state to RR >> "git push".
+
+------------------------------------------------------------
+
+>> XXX. REFERENCES <<
+
+§ A commit can be associated with a "reference", i.e. a user-friendly name (e.g. 'HEAD' or 'master') poiting to a commit hash (e.g. '64a0c1...') or another reference (aka "symbolic reference" in this latter case). Therefore, references can be used instead of hashes for simplicity's sake.
+
+§ Each branch has a so-called "branch label", a reference with the same name of the branch (e.g. 'development' or 'master') pointing always to the most recent commit of that branch (aka "tip of the branch"). Note that 'master' is the default name of the main branch in every repository (thus also the 'master'-reference exists for any repository).
+
+§ All references are automatically stored/updated in "./git/refs/heads/" and they are nothing but files named as their names and containing inside the corresponding hash value. The only exception is 'HEAD', which is kept in "./git".
+
+§ The 'HEAD'-reference points to the branch-commit pair currently present in the WT (thus, it can exist only one 'HEAD' per repository). By default it's usually equal to the "label branch" (e.g. 'master' or 'development'), but unlike the latter this can be also moved back to previous commits of the branch using the "git checkout <commit-id>". For example, assuming to be in the 'master' branch, if using "git log --oneline" returns that 'HEAD' points to 'master' (i.e. 'HEAD->master'), then using "git checkout HEAD~" (i.e. "git checkout PREVIOUS_COMMIT_HASH") moves 'HEAD' one commit back and updates the WT accordingly (thus now 'master' becomes one commit ahead of 'HEAD'). Executing now "git checkout master" (i.e. in general "git checkout <branch-name>") resets 'HEAD' equal to 'master' (i.e. latest commit of branch).
+
+§ The '~' and '^' characters can be used to refer to previous commits. In particular, '~' allows to refer to parent commits (i.e. in case of a single parent), whereas '^' to refer to parent in a merge-commit (i.e. in case of multiple parents). For example:
+
+- show latest x4 commits of current branch (e.g. 'master') >> "git log --online -4";
+- print detailed info about last commit (assuming 'HEAD->master') >> "git show HEAD" [NB: expected to return the same commit shown as 1st entry by the aforementioned "git log ..."];
+- print detailed info about second-last commit >> "git show HEAD~1" or "git show HEAD~" [NB: expected to return the same commit shown as 2nd entry by the aforementioned "git log ..."];
+- print detailed info about third-last commit >> "git show HEAD~2" or "git show HEAD~~" [NB: expected to return the same commit shown as 3rd entry by the aforementioned "git log ..."];
+- ...
+
+
+restart at 8:52
+
+
+------------------------------------------------------------
+
+>> XXX. SYNTAX <<
+
+- the general syntax for commands is "git [command] [--flags] [arguments]";
+- more in detail, "git command (-f|--flag) [<id>] [--] [<paths> ...]", where:
+   | = or
+   [optional] = optional values;
+   -f or --flag = command flag;
+   <placeholder> = required value;
+   () = grouping for clarity or disambiguation;
+   -- = to disambiguate the command;
+   ... = multiple occurrences possible.
+
+------------------------------------------------------------
+
+>> XXX. OBJECTS & IDS <<
+
+§ Git provides x4 main types of objects:
+- commit, i.e. small text file;
+- annotated tag, i.e. permanent reference to a commit;
+- tree, i.e directories/filenames in the project;
+- blob, content of a file in the project.
+Typically the user has to care only about commits and annotated tags, whereas trees and blobs are handled internally and hiddenly by Git itself).
+
+§ The name of a Git object is called "ID", consisting of a 40-character hexadecimal string (aka "hash" or "checksum") generated through the SHA-1 encryption algorithm (e.g. the IDs of all commits related to a branch can be seen via "git log"). Often IDs are shortened to first x7 characters to be more user-friendly (e.g. with "git log --oneline").
+
+§ For each commit Git automatically create and associates a unique ID.
+
+------------------------------------------------------------
+
+>> XXXX. EXTRA COMMANDS <<
+
+- "git help" to get a brief explanation about the most common commands;
+- "git help [command]" or "git [command] -h" to retrieve info/documentation about a specific command (online or on shell respectively);
+- "git --version" to check current Git version installed;
+- "git status"
+- "clear" to clear shell (Linux)
+- "ls -a" to show all files and directories within current folder, including hidden ones (Linux)
+
+- git log + 'q' to exit!
+- git log --oneline --graph
+
+- use "git clone <url> [<local_project_name>]" to create a local copy of a RR and enables interaction (i.e. pull, push, etc) with that RR;
+- use "git remote [--verbose|-v]" to display information about the RR associated with your LR
+
+- "git-gui" to open Git GUI
+
+- after merging back a branch to main, fai checkout to main e status (should be uptodate). then git fetch amd git status, now it should say remote is ahead (?) -> check!
+
+NB: all commits belong toa specificbranch
+
+
+@TODO
+
+submodules example
+gitignore file
+
+
+
+push + modifico wt + pull >> unstaged files rimangono, i.e. non piallati da pull!
+
+
+se faccio push da user#1 e status mi dice che sono uptodate with origin/master
+se altro user#2 fa dopo push
+io user#1 rifaccio statusvedo ancra stesso messaggio di uptodate! >> solo se faccio fetch e poi status allora midice chem mybranchis behind 'origin/master' by 1 commit!!!
+
+
+
+
