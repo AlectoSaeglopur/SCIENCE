@@ -38,7 +38,7 @@
 
 ------------------------------------------------------------
 
->> 3. LOCATIONS <<
+>> 3. LOCATIONS & SYNTAX <<
 
 § Locally on each developer's PC the so-called "project directory" folder contains:
 - "working tree" (WT), where the actual project files and directories (relative to a single commit at each time) are placed and can be edited;
@@ -48,6 +48,16 @@
 § Note that locally SA and LR are located inside the hidden sub-directory "/.git" (thus, removing this folder means removing all the project version history locally).
 
 § The "remote repository" (RR), unlike the other x3, is located remotely in a single data-center/cloud and represents the common interaction point among all developers (thus it identify the offical state of the project at any time). When LR and RR are synchronized, they contain exactly the same commits.
+
+§ The general syntax for commands is "git [command] [--flags] [arguments]".
+More in detail, "git command (-f|--flag) [<id>] [--] [<paths> ...]", where:
+- '|' = or;
+- '[optional]' = optional values;
+- '-f' or '--flag' = command flag;
+- '<placeholder>' = required value;
+- '()' = grouping for clarity or disambiguation;
+- '--' = to disambiguate the command;
+- '...' = multiple occurrences possible.
 
 ------------------------------------------------------------
 
@@ -90,45 +100,7 @@
 
 ------------------------------------------------------------
 
->> XXX. REFERENCES <<
-
-§ A commit can be associated with a "reference", i.e. a user-friendly name (e.g. 'HEAD' or 'master') poiting to a commit hash (e.g. '64a0c1...') or another reference (aka "symbolic reference" in this latter case). Therefore, references can be used instead of hashes for simplicity's sake.
-
-§ Each branch has a so-called "branch label", a reference with the same name of the branch (e.g. 'development' or 'master') pointing always to the most recent commit of that branch (aka "tip of the branch"). Note that 'master' is the default name of the main branch in every repository (thus also the 'master'-reference exists for any repository).
-
-§ All references are automatically stored/updated in "./git/refs/heads/" and they are nothing but files named as their names and containing inside the corresponding hash value. The only exception is 'HEAD', which is kept in "./git".
-
-§ The 'HEAD'-reference points to the branch-commit pair currently present in the WT (thus, it can exist only one 'HEAD' per repository). By default it's usually equal to the "label branch" (e.g. 'master' or 'development'), but unlike the latter this can be also moved back to previous commits of the branch using the "git checkout <commit-id>". For example, assuming to be in the 'master' branch, if using "git log --oneline" returns that 'HEAD' points to 'master' (i.e. 'HEAD->master'), then using "git checkout HEAD~" (i.e. "git checkout PREVIOUS_COMMIT_HASH") moves 'HEAD' one commit back and updates the WT accordingly (thus now 'master' becomes one commit ahead of 'HEAD'). Executing now "git checkout master" (i.e. in general "git checkout <branch-name>") resets 'HEAD' equal to 'master' (i.e. latest commit of branch).
-
-§ The '~' and '^' characters can be used to refer to previous commits. In particular, '~' allows to refer to parent commits (i.e. in case of a single parent), whereas '^' to refer to parent in a merge-commit (i.e. in case of multiple parents). For example:
-
-- show latest x4 commits of current branch (e.g. 'master') >> "git log --online -4";
-- print detailed info about last commit (assuming 'HEAD->master') >> "git show HEAD" [NB: expected to return the same commit shown as 1st entry by the aforementioned "git log ..."];
-- print detailed info about second-last commit >> "git show HEAD~1" or "git show HEAD~" [NB: expected to return the same commit shown as 2nd entry by the aforementioned "git log ..."];
-- print detailed info about third-last commit >> "git show HEAD~2" or "git show HEAD~~" [NB: expected to return the same commit shown as 3rd entry by the aforementioned "git log ..."];
-- ...
-
-
-restart at 8:52
-
-
-------------------------------------------------------------
-
->> XXX. SYNTAX <<
-
-- the general syntax for commands is "git [command] [--flags] [arguments]";
-- more in detail, "git command (-f|--flag) [<id>] [--] [<paths> ...]", where:
-   | = or
-   [optional] = optional values;
-   -f or --flag = command flag;
-   <placeholder> = required value;
-   () = grouping for clarity or disambiguation;
-   -- = to disambiguate the command;
-   ... = multiple occurrences possible.
-
-------------------------------------------------------------
-
->> XXX. OBJECTS & IDS <<
+>> 7. OBJECTS & IDS <<
 
 § Git provides x4 main types of objects:
 - commit, i.e. small text file;
@@ -140,6 +112,69 @@ Typically the user has to care only about commits and annotated tags, whereas tr
 § The name of a Git object is called "ID", consisting of a 40-character hexadecimal string (aka "hash" or "checksum") generated through the SHA-1 encryption algorithm (e.g. the IDs of all commits related to a branch can be seen via "git log"). Often IDs are shortened to first x7 characters to be more user-friendly (e.g. with "git log --oneline").
 
 § For each commit Git automatically create and associates a unique ID.
+
+------------------------------------------------------------
+
+>> 8. REFERENCES & TAGS <<
+
+§ A commit can be associated with a "reference", i.e. a user-friendly name (e.g. 'HEAD' or 'master') poiting to a commit hash (e.g. '64a0c1...') or another reference (aka "symbolic reference" in this latter case). Therefore, references can be used instead of hashes for simplicity's sake.
+
+§ Each branch has a so-called "branch label", a reference with the same name of the branch (e.g. 'development' or 'master') pointing always to the most recent commit of that branch (aka "tip of the branch"). Note that 'master' is the default name of the main branch in every repository (thus also the 'master'-reference exists for any repository).
+
+§ All references are automatically stored/updated in "./git/refs/heads/" and they are nothing but files named as their names and containing inside the corresponding hash value. The only exception is 'HEAD', which is kept in "./git".
+
+§ The 'HEAD'-reference points to the branch-commit pair currently present in the WT (thus, it can exist only one 'HEAD' per repository). By default it's usually equal to the "label branch" (e.g. 'master' or 'development'), but unlike the latter this can be also moved back to previous commits of the branch using the "git checkout <commit-id>". For example, assuming to be in the 'master' branch, if using "git log --oneline" returns that 'HEAD' points to 'master' (i.e. 'HEAD->master'), then using "git checkout HEAD~" (i.e. "git checkout PREVIOUS_COMMIT_HASH") moves 'HEAD' one commit back and updates the WT accordingly (thus now 'master' becomes one commit ahead of 'HEAD'). Executing now "git checkout master" (i.e. in general "git checkout <branch-name>") resets 'HEAD' equal to 'master' (i.e. latest commit of branch).
+
+§ The '~' and '^' characters can be used to refer to previous commits. In particular, '~' allows to refer to parent commits (i.e. in case of a single parent), whereas '^' to refer to parent in a merge-commit (i.e. in case of multiple parents). For example:
+- show latest x4 commits of current branch (e.g. 'master') >> "git log --online -4";
+- print detailed info about last commit (assuming 'HEAD->master') >> "git show HEAD" [NB: expected to return the same commit shown as 1st entry by the aforementioned "git log ..."];
+- print detailed info about second-last commit >> "git show HEAD~1" or "git show HEAD~" [NB: expected to return the same commit shown as 2nd entry by the aforementioned "git log ..."];
+- print detailed info about third-last commit >> "git show HEAD~2" or "git show HEAD~~" [NB: expected to return the same commit shown as 3rd entry by the aforementioned "git log ..."];
+- ...
+
+§ "Tags" are references attached to specific commits, acting as a sort of user-friendly labels for these commits. Thus, tags can be used instead of 'branch labels' or IDs for Git commands (e.g. "git show TAG_NAME"). There are x2 types of tags:
+- 'lightweight', a simple reference to the commmit (just like 'branch labels' or 'HEAD');
+- 'annotated', a full object referencing the commit (including tag's author, date, message and commit ID), which can be optionally even signed and verified via GPG (aka "GNU Privacy Guard") [NB: annotated tags are typically used for code-releases];
+
+§ Useful commands for tags:
+- create a new 'lightweight tag' >> "git tag <tag_name> [<commit>]" (e.g. "git tag v.3.1.8");
+- create a new 'annotated tag' >> "git tag -a [-m "<message>" | -F <file>] <tag_name> [<commit>]" (e.g. "git tag -a -m "release for EMC tests" v.3.1.8");
+- NB: if not specified, <commit> = 'HEAD' by default for both the aforementioned commands;
+- check details of the created tag >> "git show <tag_name>";
+- show all repository tags created >> "git tag".
+
+§ Keep in mind the "git push" command does not automatically transfer tags to RR:
+- transfer a single tag to RR >> "git push <remote> <tag_name>" (e.g. "git commit origin v.3.1.8");
+- transfer all of your tags to RR >> "git push <remote> --tags" (not recommended).
+
+------------------------------------------------------------
+
+9. GIT-IGNORE
+
+§ To keep some files/directories out of Git versioning since the beginning of the project without removing them locally from the WT (e.g. buld files generated after compilation, that usually are not versioned), add them to the ".gitignore" file present in the main page of the WT.
+
+§ To remove some files/directories which were already pushed to RR during previous commits, it's not enough to add them to the ".gitignore" file, since even though you stop pushing them in future commits, they still remain stored in the RR. Thus, since they shall be removed from RR first. Follow the procedure hereafter:
+- be sure your local branch is up-to-date, there's nothing to commit, and the working tree is clean >> "git status";
+- add files/directories to be excluded from versioning to ".gitignore";
+- remove files/directories to be excluded from versioning from RR >> "git rm -r --cached <directory>" or "git rm --cached <file>" (e.g. "git rm -r cached bin/" or "git rm cached .gitignore");
+- stage changes (i.e. files/directories excluded from versioning according to updated ".gitignore") >> "git add .";
+- [NB: the previous command can be alternatively executed over the whole LR via "git rm -r cached .", but that's not recommended since it may create issues in case the project contains submodules];
+- commit changes >> "git commit -m "apply .gitignore updates"";
+- push changes to RR >> "git push";
+- [open the RR on GitHub website and verify the specified files/directories have been removed from the project];
+- [try to modify in the WT a file just excluded from versioning and then verify via "git status" that it's not reported anymore as 'modified'];
+- [finally, you can either decide to keep the excluded files/directories in the WT or delete them completely also locally].
+
+------------------------------------------------------------
+
+>> XXXX. SUBMODULES <<
+
+§ Submodule explanation here!!!!!!!! (@todo)
+
+§ Useful commands for submodules:
+- initialize all submodules just after cloning the main RR (only once) >> "git submodule update --init --recursive";
+- update/pull all submodules (all other times) >> "git submodule update --recursive";
+- apply a Git command on all submodules >> "git submodule foreach --recursive <command>" (e.g. "git submodule foreach --recursive git reset --hard" or "git submodule foreach --recursive git clean -dxf".
 
 ------------------------------------------------------------
 
@@ -164,6 +199,12 @@ Typically the user has to care only about commits and annotated tags, whereas tr
 
 NB: all commits belong toa specificbranch
 
+to cancel a commit in LR : "git reset --hard <commit_id>" (e.g. "git reset --hard HEAD~1", assuming HEAD is pointing to 'branch label');
+
+git checkout -f <branch> (to move discarding all WT changes not staged/committed)
+
+git commit -a -m "<comment>"
+
 
 @TODO
 
@@ -180,5 +221,6 @@ se altro user#2 fa dopo push
 io user#1 rifaccio statusvedo ancra stesso messaggio di uptodate! >> solo se faccio fetch e poi status allora midice chem mybranchis behind 'origin/master' by 1 commit!!!
 
 
+check all @todo!!
 
-
+to check difference between WT and LR open git gui on main repo page (via "git gui")
