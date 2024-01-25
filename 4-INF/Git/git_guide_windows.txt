@@ -169,7 +169,7 @@ Typically the user has to care only about commits and annotated tags, whereas tr
 
 >> 10. BRANCHES <<
 
-§ Every commit belongs to a specific branch (Git's default one is named 'master'), which contains the history of all commits related to that branch. Branches are created by reference and they are useful for code-experimentation/testing, for code development within a team (since they allow concurrent/independent work on the same project without mutual interference, and for supporting multiple project-versions (in case of customization between different applications/clients).
+§ Every commit belongs to a specific branch (Git's default one is named 'master'), which contains the history of all commits related to that branch. Branches are created by reference and they are useful for code-experimentation/testing, for code development within a team (since they allow concurrent/independent work on the same project without mutual interference), and for supporting multiple project-versions (in case of customization between different applications/clients).
 
 § Branches can be of x2 types:
 - 'long-lived' (such as 'master', 'development' or 'release'), related to stable and official versions of the project over time;
@@ -190,6 +190,8 @@ Typically the user has to care only about commits and annotated tags, whereas tr
 § Whenever 'HEAD' within the current branch does not point to the 'branch label' but to one of its previous commits that's called "detached HEAD". Keep in mind if you want to work restarting on a previous commit (i.e. 'HEAD~') you have to first create a dedicated branch and checkout to this (otherwise it would create a so-called "HEAD-detached conflict").
 
 § Use "git branch -d <branch_name>" to delete a branch (then check the result with "git branch"). Keep in mind deleting a branch actually means deleting its 'branch label'. Moreover, note that the command fails if the branch to be deleted is "dangling" (i.e. it has commits which have not been merged back yet to any 'long-lived' branch). To solve this, you can decide to either merge it back or force its deletion via "git branch -D <branch_name>". To revert an accidental/unintended branch deletion use "git reflog" (showing LR list of recent HEAD commits) to read the commit-ID of the deleted dangling branch to be restored and then use "git checkout -b <branch_name> <commit_id>". Finally, remember that Git periodically checks in background withing the project the presence of dangling commits (i.e. commits not linked to a branch anymore, since the latter has been deleted) and delete (aka "garbage-collect") them automatically.
+
+§ Note that a new branch keeps inside also the whole previous history of its source branch (this can be checked easily via "git log --oneline").
 
 ------------------------------------------------------------
 
