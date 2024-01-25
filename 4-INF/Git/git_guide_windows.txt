@@ -7,7 +7,7 @@
 - tick "Open Git Bash here" and untick "Open Git GUI here" within "Windows Explorer integration";
 - select "Use Visual Studio Code as Git's default editor";
 - select "Let Git decide" about default branch naming;
-- select "Git from command line an dalso from 3rd-party software";
+- select "Git from command line and also from 3rd-party software";
 - select "Use bundled OpenSSH";
 - select "Use the OpenSSL library";
 - select "Checkout Windows-style, commit Unix-style line endings";
@@ -33,7 +33,7 @@
 - empty-ENTER until completion;
 - check public (.pub) and private keys have been successfully created in the specified (hidden) folder ".ssh" (e.g. "C:\Users\Filippo\.ssh\");
 - from internet browser, go to "github website > profile icon > settings/manage-account > ssh keys" and upload the authentication public-key just created (simply drag-and-drop it);
-- as a confirmation, type on bash "git-gui" to open Git GUI and here go to "help > show ssh key" and verify the key has been successfully loaded.
+- as a confirmation, type on bash "git gui" to open Git GUI and here go to "help > show ssh key" and verify the key has been successfully loaded.
 - NB: setting up the SSH key is helpful because it allows to automatically authenticate yourself when accessing the remote server, thus without the need of supplying your username and password at each visit. For further details see here "https://confluence.atlassian.com/bitbucketserverkb/ssh-rsa-key-rejected-with-message-no-mutual-signature-algorithm-1026057701.html".
 
 ------------------------------------------------------------
@@ -47,7 +47,7 @@
 
 § Note that locally SA and LR are located inside the hidden sub-directory "/.git" (thus, removing this folder means removing all the project version history locally).
 
-§ The "remote repository" (RR), unlike the other x3, is located remotely in a single data-center/cloud and represents the common interaction point among all developers (thus it identify the offical state of the project at any time). When LR and RR are synchronized, they contain exactly the same commits.
+§ The "remote repository" (RR), unlike the other x3, is located remotely in a single data-center/cloud and represents the common interaction point among all developers (thus it identifies the official state of the project at any time). When LR and RR are synchronized, they contain exactly the same commits.
 
 § The general syntax for commands is "git [command] [--flags] [arguments]".
 More in detail, "git command (-f|--flag) [<id>] [--] [<paths> ...]", where:
@@ -63,9 +63,9 @@ More in detail, "git command (-f|--flag) [<id>] [--] [<paths> ...]", where:
 
 >> 4. CREATE NEW LOCAL REPOSITORY <<
 
-- if the project does not exists yet in RR, create a folder where to place all repositories (e.g. "repos_folder");
+- if the project does not exist yet in RR, create a folder where to place all repositories (e.g. "repos_folder");
 - inside the aforementioned folder, create a sub-folder for the new project to be created (e.g. "proj_1");
-- here (e.g. \repos_folder\proj_1\) open a bash and initilize the LR >> "git init";
+- here (e.g. \repos_folder\proj_1\) open a bash and initialize the LR >> "git init";
 - check the ".git/" hidden folder has been successfully >> "ls -a";
 - add/modify some files within the working tree...
 
@@ -78,7 +78,7 @@ More in detail, "git command (-f|--flag) [<id>] [--] [<paths> ...]", where:
 - NB: for new repositories it's good practise to add a "README.md" file to the project to the main page (if not existing yet);
 - alternatively, add all untracked or modified files/directories to SA without specifying them one by one >> "git add .";
 - move all staged files/directories from SA to LR, thus adding a new snapshot/node (representing the current state of the project) to the version history >> "git commit -m "<comment>"";
-- verify WT and SA are now clean (at least of all commited files/directories) >> "git status";
+- verify WT and SA are now clean (at least of all committed files/directories) >> "git status";
 - see the overall LR commit-history >> "git log [--oneline] [-X]" (e.g. X=2 can be used to show only the x2 most recent commits);
 - NB: not all modified/untracked files in the WT have to be staged and then part of the next commit/push. Typical examples are the .o/.map/.bin/.srec/.exe files generated after building, since only source files (.c/.h) are actually included in the versioning (assuming not to include them into the ".gitignore" file).
 
@@ -117,7 +117,7 @@ Typically the user has to care only about commits and annotated tags, whereas tr
 
 >> 8. REFERENCES & TAGS <<
 
-§ A commit can be associated with a "reference", i.e. a user-friendly name (e.g. 'HEAD' or 'master') poiting to a commit hash (e.g. '64a0c1...') or another reference (aka "symbolic reference" in this latter case). Therefore, references can be used instead of hashes for simplicity's sake.
+§ A commit can be associated with a "reference", i.e. a user-friendly name (e.g. 'HEAD' or 'master') pointing to a commit hash (e.g. '64a0c1...') or another reference (aka "symbolic reference" in this latter case). Therefore, references can be used instead of hashes for simplicity's sake.
 
 § Each branch has a so-called "branch label", a reference with the same name of the branch (e.g. 'development' or 'master') pointing always to the most recent commit of that branch (aka "tip of the branch"). Note that 'master' is the default name of the main branch in every repository (thus also the 'master'-reference exists for any repository).
 
@@ -133,7 +133,7 @@ Typically the user has to care only about commits and annotated tags, whereas tr
 - ...
 
 § "Tags" are references attached to specific commits, acting as a sort of user-friendly labels for these commits. Thus, tags can be used instead of 'branch labels' or IDs for Git commands (e.g. "git show TAG_NAME"). There are x2 types of tags:
-- 'lightweight', a simple reference to the commmit (just like 'branch labels' or 'HEAD');
+- 'lightweight', a simple reference to the commit (just like 'branch labels' or 'HEAD');
 - 'annotated', a full object referencing the commit (including tag's author, date, message and commit ID), which can be optionally even signed and verified via GPG (aka "GNU Privacy Guard") [NB: annotated tags are typically used for code-releases];
 
 § Useful commands for tags:
@@ -149,9 +149,9 @@ Typically the user has to care only about commits and annotated tags, whereas tr
 
 ------------------------------------------------------------
 
-9. GIT-IGNORE
+>> 9. GIT-IGNORE <<
 
-§ To keep some files/directories out of Git versioning since the beginning of the project without removing them locally from the WT (e.g. buld files generated after compilation, that usually are not versioned), add them to the ".gitignore" file present in the main page of the WT.
+§ To keep some files/directories out of Git versioning since the beginning of the project without removing them locally from the WT (e.g. build files generated after compilation, that usually are not versioned), add them to the ".gitignore" file present in the main page of the WT.
 
 § To remove some files/directories which were already pushed to RR during previous commits, it's not enough to add them to the ".gitignore" file, since even though you stop pushing them in future commits, they still remain stored in the RR. Thus, since they shall be removed from RR first. Follow the procedure hereafter:
 - be sure your local branch is up-to-date, there's nothing to commit, and the working tree is clean >> "git status";
@@ -164,6 +164,32 @@ Typically the user has to care only about commits and annotated tags, whereas tr
 - [open the RR on GitHub website and verify the specified files/directories have been removed from the project];
 - [try to modify in the WT a file just excluded from versioning and then verify via "git status" that it's not reported anymore as 'modified'];
 - [finally, you can either decide to keep the excluded files/directories in the WT or delete them completely also locally].
+
+------------------------------------------------------------
+
+>> 10. BRANCHES <<
+
+§ Every commit belongs to a specific branch (Git's default one is named 'master'), which contains the history of all commits related to that branch. Branches are created by reference and they are useful for code-experimentation/testing, for code development within a team (since they allow concurrent/independent work on the same project without mutual interference, and for supporting multiple project-versions (in case of customization between different applications/clients).
+
+§ Branches can be of x2 types:
+- 'long-lived' (such as 'master', 'development' or 'release'), related to stable and official versions of the project over time;
+- 'short-lived' (aka "topic", such as 'bugfix', 'hotfix' or 'feature'), related to tickets that shortly merge back to a 'long-lived' branch.
+
+§ Useful commands for branches:
+- show all branches of the project >> "git branch" (then the branch marked with the '*' character represents the one currently pointed by 'HEAD', i.e. the one present in the WT at that time) [NB: use "git fetch" before to be sure you're up-to-date with the RR];
+- create a new branch in LR >> "git branch <branch_name>" (then check this has been successfully create via "git branch");
+- push a new branch (just created in LR) to RR >> "git push -u origin <branch_name>" [NB: '-u' = '--set-upstream'];
+- [NB: new branches can be also created first on RR as well (e.g. go to "github website > project > view all branches > new branch" and choose the source-branch), then locally use "git fetch" to check if new branches are present on RR (then after executing "git checkout <new_rr_branch> && git branch" the new branch is listed also locally)].
+
+§ The "checkout" command can be used to:
+- switch 'HEAD' from the current branch-commit pair to either the checked-out 'branch label' (i.e. to change branch >> "git checkout <branch>") or 'commit id' (i.e. to change commit on the same branch >> "git checkout <commit>");
+- update the WT with files/directories from the checked-out branch/commit;
+- be able to commit for that branch locally and remotely (i.e. to both LR and RR);
+- [NB: "git checkout -b <branch_name>" = "git branch <branch_name> && git checkout <branch_name>" (assuming <branch_name>-branch does not exist yet locally)].
+
+§ Whenever 'HEAD' within the current branch does not point to the 'branch label' but to one of its previous commits that's called "detached HEAD". Keep in mind if you want to work restarting on a previous commit (i.e. 'HEAD~') you have to first create a dedicated branch and checkout to this (otherwise it would create a so-called "HEAD-detached conflict").
+
+§ Use "git branch -d <branch_name>" to delete a branch (then check the result with "git branch"). Keep in mind deleting a branch actually means deleting its 'branch label'. Moreover, note that the command fails if the branch to be deleted is "dangling" (i.e. it has commits which have not been merged back yet to any 'long-lived' branch). To solve this, you can decide to either merge it back or force its deletion via "git branch -D <branch_name>". To revert an accidental/unintended branch deletion use "git reflog" (showing LR list of recent HEAD commits) to read the commit-ID of the deleted dangling branch to be restored and then use "git checkout -b <branch_name> <commit_id>". Finally, remember that Git periodically checks in background withing the project the presence of dangling commits (i.e. commits not linked to a branch anymore, since the latter has been deleted) and delete (aka "garbage-collect") them automatically.
 
 ------------------------------------------------------------
 
@@ -193,11 +219,9 @@ Typically the user has to care only about commits and annotated tags, whereas tr
 - use "git clone <url> [<local_project_name>]" to create a local copy of a RR and enables interaction (i.e. pull, push, etc) with that RR;
 - use "git remote [--verbose|-v]" to display information about the RR associated with your LR
 
-- "git-gui" to open Git GUI
+- "git gui" to open Git GUI
 
 - after merging back a branch to main, fai checkout to main e status (should be uptodate). then git fetch amd git status, now it should say remote is ahead (?) -> check!
-
-NB: all commits belong toa specificbranch
 
 to cancel a commit in LR : "git reset --hard <commit_id>" (e.g. "git reset --hard HEAD~1", assuming HEAD is pointing to 'branch label');
 
@@ -220,7 +244,16 @@ se faccio push da user#1 e status mi dice che sono uptodate with origin/master
 se altro user#2 fa dopo push
 io user#1 rifaccio statusvedo ancra stesso messaggio di uptodate! >> solo se faccio fetch e poi status allora midice chem mybranchis behind 'origin/master' by 1 commit!!!
 
+stash?
+
+github enables the grph-view ("githubwebsite > insights > network") only for paid versions (enterprise) or if the repo is public!
+
+explain fhow to delete repo or change visibility (between public and private)
 
 check all @todo!!
 
 to check difference between WT and LR open git gui on main repo page (via "git gui")
+
+
+- prova a creare branch, fare push su RR e risolvere conflitti quando rimergi su master
+- prova a creare tag su un commit (tipo per release)
