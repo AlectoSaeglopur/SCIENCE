@@ -1,0 +1,159 @@
+In this video we will discuss references. We will start with
+an overview of references. Commits can be associated with references. A reference is a user-friendly name
+that points to a commit's SHA-1 value or another reference. If a reference points
+to another reference, it's called a symbolic reference. Here, the latest commit has two references
+associated with it, HEAD and master. Instead of using SHA-1 hashes and
+Git commands, you can use references. As an example,
+here we execute a git log command. Notice that the commit
+object has a SHA-1 hash and two references associated with it,
+HEAD and master. We could then call the git show command,
+passing it either the full SHA-1 hash, part of the SHA-1 hash,
+the master reference, or the HEAD reference, since they
+all point to the same SHA-1 hash. In this example,
+we passed the HEAD reference. Executing the command shows details
+related to the commit object. Next, we will discuss branch labels and
+the HEAD reference. Master is the default name of
+the main branch in the repository. A branch is an independent path for
+a set of commits. If we never create a branch in
+a repository, then by default, all commits are part of the master branch. Here, we execute the git status command. And Git informs us that we
+are currently on the master branch. Any commits that we would make at
+this point would be to this branch. A branch label points to the most
+recent commit in the branch. That commit is commonly
+called the tip of the branch. Branch labels are implemented
+as references. In this example there are three
+commits on the master branch, with the master branch label
+pointing to the tip of the branch. Note the subtle difference between
+a branch and a branch label. All three commits belong
+to the master branch, even though the master branch label
+is only at the tip of the branch. Since a branch in
+Git is implemented as a tiny branch label, branches are extremely simple to
+implement and use very few resources. We mentioned that Git implements
+branch labels as references. These references are stored in the .git
+directory of the local repository. Just so that we can understand
+them better, let's take a look inside the .git directory and
+view a branch label reference. This is not a common thing to do and Git might actually optimize the directory
+by what is known as packing. This can change the location
+of the reference, so it's best not to directly work
+inside of this directory. Let's start by changing from the project
+directory to the .git directory. Listing the contents of the .git directory
+shows that it contains a refs directory. References are stored in this directory. We change to the refs directory. Listing the contents of this directory
+shows that it contains a heads directory and a tags directory. We will learn about tags shortly, but local branch references
+are in the heads directory. We change to the heads directory. Listing the contents of the heads
+directory shows that there's currently just one branch label
+reference named master. This is not surprising. It's the name of the default
+branch in the repository. Master is a reference which is
+implemented as a simple text file. If we view the contents
+of the master reference, we can see that it contains a SHA-1 hash. This is the SHA-1 of the commit
+object at the tip of the branch. This is how Git makes the association
+between the master branch label reference and the SHA-1 hash of
+the tip of the branch. Notice that reference files are tiny,
+containing only a short string. HEAD is a reference to the current commit. It usually points to the branch
+label of the current branch. Because it only points to the current
+commit and there can only be one current commit, there is only one
+HEAD reference in your local repository. In this example we have three
+commits on the master branch. The master branch label reference
+points to the most recent commit. The HEAD reference points
+to the master branch label. You can also see this relationship
+when you execute the git log command. Here we execute the git log command with
+the one line option to keep things concise and the -1 option to limit
+the display to the current commit. You can see that for
+the current commit with the SHA-1 hash, starting with 483d,
+there are two associated references. The HEAD reference points
+to the master branch label which points to the current
+commit's SHA-1 hash by association. You can see that this is the same
+relationship as the one shown in the diagram. HEAD is implemented in Git as a reference. There's a single HEAD reference
+in a local repository and it points to the current commit. We have seen that you can view the HEAD
+reference by executing the git log command. As a learning experience, you can
+also view it in the .git directory. We start by changing from our project
+directory to the .git directory. Listing the contents of the .git
+directory shows that the HEAD reference is a top level file. You can view the contents of this file
+to see that currently HEAD points to the master branch label reference. When a reference points to
+another reference like this, it's called a symbolic reference. Next, we will discuss referencing
+prior commits with the ~ and ^ characters. In git commands, the ~ character
+can be appended to git IDs and references to refer to prior commits. Let's look at an example. Here we will execute the git log
+command to view the current branch's commit history. We specify the oneline option
+to keep things concise, and the graph option to show the commit graph. When we execute the command, you can see that there are four
+commits on this branch. If we execute git show HEAD,
+it will show the information for the current commit object,
+whose SHA-1 hash value begins with e0. If we append a ~ to HEAD in the command, we are referring to the current commit's
+parent, whose SHA-1 hash begins with 1e. Appending a single ~ is
+equivalent to appending a ~1. If we execute the command with an argument
+of master~3, we will reference the commit three commits away from the current
+commit, whose SHA-1 begins with 14. If we execute the command
+with a partial SHA-1, followed by three successive tildes,
+we again reference the commit three commits away from the current
+commit, whose SHA-1 begins with 14. The caret character can be appended to
+IDs and references in git commands, primarily to refer to a specific
+parent in a merge commit. Merge commits have multiple parents. As an example, ^2 refers to
+a merge commit's, second parent. Here, we execute the git log command
+to view a list of our commits. You can see that there are four commits,
+all on a branch with no merges. We execute the git show command,
+including an argument of master^. This refers to the first parent
+whose SHA-1 starts with 1e. Note that this is the same behavior
+as if we had used the ~ character. We then execute git show
+with the HEAD^2 argument. This is trying to refer to
+the current commit's second parent. But because there is only one parent,
+we receive an error. We can execute the git show command with
+HEAD^^ as the argument which results in different behavior. This will return the first
+parent's first parent, which is the commit with the SHA-1 of e8. Notice that this is
+the same behavior as if we used an argument of HEAD~~ or HEAD~ 2. Tilda and caret characters can be combined
+arbitrarily to access any commit. Even in a tree with many branches and
+merges. For example HEAD~^ 2 refers to
+the parent's second parent. Finally, we will discuss tags. A tag is a reference attached
+to a specific commit. It acts as a user-friendly label for
+the commit. There are two types of tags. The first type is a lightweight tag. This is implemented as a simple reference,
+much like a branch label or HEAD. It refers to the commit object. The second type of tag
+is an annotated tag. This is one of the four Git
+object types mentioned earlier. An annotated tag is similar to a commit
+object in that it includes metadata such as tag author information,
+tag date, tag message, and the ID of the commit object
+referenced by the tag. Annotated tags can be signed and
+verified with GNU Privacy Guard. This enables someone like a product
+manager to sign off on a release, for example. In general, annotated tags are recommended
+over lightweight tags because they are true Git objects and
+offer more capabilities. To view all the tags in the repository,
+use the git tag command. Here we execute the git tag command and
+see that this repository has two tags. One for version 0.1 and
+one for version 1.0. Like other references, you can use tags
+instead of SHA-1 values in Git commands. Here we execute the git show command
+using a tag name as an argument. We happen to be viewing a lightweight tag,
+so git show shows information about the commit
+associated with the version 0.1 tag. To tag a commit with a lightweight tag, use the git tag command followed with
+an argument specifying the tag name. You can optionally specify
+a commit to be tagged. If you don't specify a commit, the commit
+that HEAD points to will be tagged. Here we execute the git tag command
+passing v1.0 as a tag name. Because no commit is specified, this tags the current commit which
+is the commit that HEAD points to. We can then execute git tag to
+view the tag that we just created. Next, we execute the git tag command
+specifying v0.1 as the tag name. We specify the Commit as HEAD^. This tags the parent and
+the current commit with the v0.1 tag. We execute git tag again, and now we see both of the lightweight
+tags that we created. We can then use a tag name in the git show
+command to obtain more information on the commit referenced by the tag. To tag a commit with an annotated tag,
+you also use the git tag command, but specify the -a option. This will create a Git object. You must specify a tag message. You can specify it in three ways. The first is to pass the -m
+flag specifying a message. The second is to pass the capital F flag
+specifying a file which contains the tag message. The third way is not to
+specify either flag, in which case an editor will be opened so
+that you can type the tag message. In this example, we use the git tag command with the -a
+option to create an annotated tag. The -m option is used to specify a tag
+message of "includes feature 2". We name the tag v2.0. Since we didn't specify a commit, this tag will be associated
+with the current commit. If you execute git show and
+specify an annotated tag as an argument, the information returned
+will include tag object information followed by
+the commit information. Here, we execute git show
+with v2.0 as the argument. You can see that information from the
+annotated tag, such as the tagger name, date, and tag message is shown first. Then the information for the commit
+associated with the tag is displayed. The git push command alone does not
+automatically transfer tags to the remote repository. To transfer a single tag,
+use the git push command and specify the remote name, such as origin,
+as well as the tag name. To transfer all of your tags, you can execute git push remote,
+followed by the tags option. After you push tags,
+you can log into Bitbucket and view them on the remote repository. We see here that we've pushed two tags. When other users clone or
+fetch from the remote repository, they'll also see the tags. Here's a review of what we've
+discussed in this video. A branch label is a reference that
+points to the tip of the branch. HEAD is a reference that
+points to the current commit. In Git commands use ~ and ^ to
+conveniently refer to previous commits. Create tags to place labels
+on specific commits. Tags are not automatically
+pushed to a remote repository. Now it's time for you to work on some of the things
+that we've discussed in this video. Separate hands-on instructions
+are provided for you.
