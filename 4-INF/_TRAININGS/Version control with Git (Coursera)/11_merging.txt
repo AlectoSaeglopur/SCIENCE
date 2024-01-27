@@ -1,0 +1,155 @@
+In this video we will discuss merging. We will start with the merging overview. Merging combines the work
+of independent branches. Usually, this involves merging a topic
+branch, such as the featureX branch, into what is called a base branch,
+such as the master branch. The base branch is usually a longer
+running branch than the topic branch. In this example, the work of the two
+branches is combined into a single commit named M, which we will see
+later is called a merge commit. Prior to the merge, the master branch
+didn't know about the featureX branch. After the merge, the work of featureX
+is included in the master branch. Notice that after the merge commit, commit
+B is part of the featureX branch and the master branch. If we trace back from commit
+M to the initial commit, we can see that there's a path
+that includes commit B. If we trace the path of
+the featureX branch, we can see that it contains commits B and
+A. If we trace the two paths of commit M, we can see that all of
+the commits are included. In fact, we could color commit B half
+green since it belongs to both branches. For simplicity, in the rest of this course
+we will keep the commits a single color. But keep in mind that a commit often
+belongs to more than one branch. There are four main types of merges,
+fast-forward merge, merge commit, squash merge, and rebase. We will talk about the first two in
+this video and the last two later. Next we will discuss fast-forward merges. A fast-forward merge moves the base branch
+label to the tip of the topic branch. In the before example, on the left,
+we can see that we have a base branch called master and
+a topic branch called featureX. Commit A was made to the master branch and
+then a featureX branch was created. Commits B and
+C were created on the featureX branch. If at this point, the featureX branch is
+ready to be merged into the master branch, a fast-forward merge can be executed. As you see on the right, a fast-forward
+merge simply involves moving the master label from commit A to commit C. After the fast-forward merge, both branches contain exactly
+the same commits, C, B, and A. All three commits are exactly the same
+as they were before the merge, only the master branch label was moved. The master branch now contains the work
+of featureX and the merge is complete. A fast forward merge is possible only
+if no other commits have been made to the base branch since
+the topic branch was created. If any commits have been
+added to the base branch, it will not allow you to
+perform a fast-forward merge. In this example,
+a fast-forward merge is not possible because commit D was created after
+the featureX branch was created. If git had allowed a fast-forward merge,
+the master branch label would move to commit C, and
+the work of commit D would be bypassed. Whoever did the work of commit D
+would not be very happy with that, so the merge is not fast-forwardable. Here are the basic steps to
+performing a fast-forward merge. Start by checking out the base branch,
+which in this case is the master branch. Then use the git merge command,
+specifying featureX as an argument. A fast-forward merge is the default
+way that git will attempt the merge. Assuming the merge is successful,
+you can then delete the featureX branch label using the -d
+option of the git branch command. The diagram on the right shows
+the state after the fast-forward merge. Let's perform a fast-forward merge, first we use the git log command
+to view our current commit graph. We can see that there are two commits, the oldest commit includes
+the master branch label. The most recent commit includes
+the feature 2 branch label. Let's say that we are finished
+with feature 2 and are ready to merge with the master branch. The first thing we do is
+check out the master branch, the feature 2 branch will
+be merged into this branch. We then execute the git merge command, passing the feature2 branch
+level as an argument. You can see that git replied that
+this was a Fast-forward merge. Git will always try to perform
+a fast-forward merge unless you tell it not to. Now we can view our commit graph again,
+and see that the latest commit contains
+both the master and feature2 labels. The fast-forward merge simply moved to the
+master branch label to the latest commit. We can then delete the feature2 branch
+label using the git branch command with the -d option. One last view of the commit graph shows
+that we have a nice clean history with the master branch containing
+the work of feature2. As we have just seen,
+after a branch has been merged, its branch label can be deleted. This prevents a continuous increase
+in the number of merged branch labels as the project grows. Dealing with an ever increasing number of
+feature branch labels can be confusing. If you'd like to retain the knowledge
+of where the feature work occured, you can include this information
+in the feature's commit messages. Or you can add a tag that
+permanently marks the feature work. Even though we have deleted the merged
+branch label here, whether or not you should delete the branch label's
+after a merge is a decision that your team should make. We can see with a fast-forward merge,
+the resulting commit history is linear, there are no commits that
+have multiple parents. Next, we will discuss merge commits. A merge commit combines the work of the
+tips of the feature and base branches and places the result into
+a single merge commit. In this example, the featureX branch was merged into
+the master branch using merge commit M. The project M commit M will include
+featureX, which is included in commit C. As well as anything else that is in commit
+E, the previous tip of the master branch. A merge commit always
+has multiple parents. We can see here that the commit M
+has two parents, commits C and E. Because of this non-linear commit graph, it's easy to see the branch
+in the commit history. Combining the work of multiple commits may
+result in what's called a merge conflict, if both branches change the same
+thing in different ways. We will discuss merge conflicts later,
+and for now, we will assume that the merge
+will be successful. Performing a merge with a merge commit
+is basically the same as performing a fast-forward merge. The steps are to check out the base
+branch, merge the topic branch, and then optionally to delete
+the topic branch label. Git will automatically attempt
+to create a merge commit if the merge is not fast forwardable. While executing the git merge command, git will open an editor showing
+a default merge message. This is the commit message for
+the merge commit, you can accept or modify the default merge message. In this example, before the merge, you have a featureX branch based off
+of commit A of the master branch. Two commits, D and E, were made to the master branch since
+the featureX branch label was created. Because the master branch has moved along
+since the featureX branch commit was created, this merge is
+not fast-forwardable. After the merge, you have a merge commit M
+containing a combination of the featureX branch and
+the latest master branch commit E. All of the commits shown then
+belong to the master branch, and you have a nonlinear commit graph. Like with fast-forward merges,
+the feature branch label can be deleted to prevent an ever increasing
+number of branch labels. In this case, the nonlinear commit graph
+clearly shows the branches and merges. In some cases, you might have a situation
+where a merge is fast forwardable, but you would rather have a merge commit. For example,
+your team's policy might be to always merge feature branches
+using merge commits. This is so you can clearly see
+the branches in the commit graph. A no fast-forward merge means that
+a merge commit will always be created, even if the merge is fast-forwardable. The steps to perform a no fast-forward
+merge are similar to the steps for the other merges. The only exception is that you include the
+--no-ff option with the git merge command, this will always create a merge commit. In the before example on the left,
+the featureX branch is fast-forwardable. Because no commits have been made to
+the master branch since we created the featureX branch. After the no fast forward merge,
+we have a merge commit, and our feature branch history is easy to see. The project files in commit M are exactly
+the same as the project files in commit C. Because no other changes were made
+to the project on the master branch. In this case, the difference between
+a fast-forward merge and a merge commit is only in the project history
+information, not in the project files. In this example, we will perform
+a merge using a merge commit, even though the merge is fast forwardable. We will ensure that a merge commit is made
+using the --no-ff option with the git merge command. We start by looking at the commit graph. Notice that this graph is the same
+starting graph as in the previous example, with the initial commit having
+the master branch label. And the current commit
+having the feature 2 label. Next we check out the master branch so that we can begin the merge
+of the feature2 branch. Next we will execute the git merge
+command, passing in the --no-ff option. We specified the feature2
+branch label as an argument. At this point your default git editor
+will open with a default merge message of merge branch feature2,
+we will accept the default merge message. After saving the merge message
+git will perform the merge. Merges are made with things called
+strategies which are ways to perform a merge. This strategy is called
+the recursive strategy. We can then view the commit graph, you can
+see that the current commit is a merge commit containing the merge
+message that we entered. That commit has two parents, the first
+parent is the tip of the feature2 branch, and the second parent
+is the initial commit. You can see that this commit graph is
+similar to the one shown on the right. Optionally, you can then
+delete the feature2 label. All of the commits belong
+to the master branch, so the feature2 label is not needed. Different teams may have different
+policies on what to do with fast-forwardable merges,
+and with merges in general. They may require a linear
+history to keep things clean, they may require merge commits to
+clearly see the branch history. Or they may let the person doing
+the merging decide what to do. In addition to merging topic
+branches into long-running branches, some teams periodically merge long-running
+branches into other long-running branches. These merges are usually easy, because they are fast-forwardable,
+even if a merge commit is used. In this example commits
+are made to the develop branch as the project is worked on. The master branch stays at commit A. Commit A may be the most recent release
+that the project's customers are using. When the develop branch is at a point
+where the team wants to release it, they can perform either
+a fast-forward merge. Or use a simple merge commit,
+as shown here with commit G. Either way, the merge is easy because
+the project files in commit G are exactly the same as
+the files in commit F. Here is a review of what we've
+discussed in this video. Merging combines the work
+of multiple branches. A fast-forward merge moves the base branch
+label to the tip of the topic branch. A merge is fast-forwardable if no other
+commits have been made to the base branch since the branch was created. A merge commit is the result of
+combining the work of multiple commits. A merge commit has multiple parents. Now it's time for you to work on
+the topics discussed in this video, separate instructions are provided for
+you.

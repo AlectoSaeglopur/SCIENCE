@@ -1,0 +1,88 @@
+In this video, you will learn about committing to
+a local repository using a command line. We will start by viewing the status
+of files in the working tree and staging area using git status. Use git status to view the status of files
+in the working tree and staging area. Here, we have executed git status. The first line of the response reminds
+you that you're on the master branch, which is usually the default
+branch of a repository. The second line of the response informs
+you that git hasn't detected any new or modified files in the working tree,
+and that there are no files that have been added
+to the staging area for the next commit. If you tried to create a commit right now,
+it would not work because you haven't changed
+anything since the previous commit. Let's add a file named
+fileA.txt to your working tree. Git status shows the file as untracked. This file is only in the working tree and
+is not managed by git. Notice that git gives helpful messages
+on what you would normally do next. Here, git is suggesting that you use
+the git add command to add the file to the staging area. If you initialized a repository in
+a directory with existing content, that content will also show as untracked. In this example,
+there already was a fileA.txxt file in the project directory before git and
+it was executed. The first call to git status will
+show this file as untracked, just as if it was created after
+initializing the repository. Next, we will add content to
+the staging area using git add. Use git add to add content
+to the staging area. Staged content is part of the next commit. In this example, we add the fileA.txt file to the staging
+area using the git add command. Notice that we have specified
+the file name as an argument to the git add command. After executing git add, git again
+responds with helpful information and advice on what to do next. It shows that there are changes
+in the staging area that could be committed to the repository. The git ad command is not limited
+to using file names as arguments. You can also add a directory name, and all files inside of the directory
+will be tracked by git. Let's say that we have created a directory
+named dirA, and inside of that directory, we created two files,
+fileA.txt and fileB.txt. When we execute git status,
+git notices the dirA directory and shows it as untracked. Instead of adding the individual files,
+we can add the directory. Now when we execute git status, we can
+see that with that single add command, git has added the directory and
+the two files to the staging area. You can add all untracked or
+modified files at once using git add dot. Here, we have created two files. They are currently untracked. We can execute git add dot to
+stage both of the files at once without typing their file names. Executing git status shows that
+both files have been staged. As a word of caution, you might not want
+to use git add dot very often because you can easily commit some files
+that you didn't mean to commit. A modified file is a file that has
+previously been added to the stage or committed to the local repository, but since then has been changed
+in the working tree. We can demonstrate this with an example. We start by creating fileA.txt
+in the working tree. We then run git status, including
+the -s flag to keep the response short. Git notices that there's a new
+file in the working tree and its status is untracked,
+represented by two red question marks. Next, git add is executed to add
+fileA.txt to the staging area. Executing git status again shows that
+fileA.txt has been added to the stage represented by the green A. Next, let's say that we forgot
+to add something to fileA.txt. We modify fileA.txt in the working tree. This time, executing git status shows
+that the file is in two states. The first version of the file has
+been added to the staging area represented by the green A. The modified version of the file
+is in the working tree, which git represents with the red M. So the first version of
+fileA.txt is staged, and the second version is
+modified in the working tree. We can add fileA.txt again to stage
+our latest changes to the file. This time when we execute git status,
+we see that the file is staged with our latest version of the file,
+and is no longer modified. Next, we will discuss committing
+content using git commit. Use the git commit command to add staged
+content to the local repository as a commit. This includes content that you
+have recently added to the stage, as well as the content that
+was in the previous commit. The result is a commit that is
+an entire snapshot of the project. In other words, once you have committed
+a file, it will remain in the staging area and in all commits,
+unless you specifically remove it. When executing git commit, you can use the
+-m flag to specify a short commit message. In this case,
+our commit message is initial commit. If you don't specify -m,
+your default git editor will open. And you can enter a message
+describing the commit. This is especially useful if your commit
+message contains multiple lines of text. The commit message is included
+when viewing the project history. So it's important that it is clear and
+accurate. Once we execute git commit, you will see that a commit has been
+created in the local repository. Git status will then show that the working
+tree and staging area are clean. Finally, we will view the commit
+history using git log. You can view the local repository's
+commit history using git log. Here, we have executed git log and we can see that there is a single
+commit in the repository. You can also see the commit message. Add the --oneline option to git log to
+see a condensed version of the log. In this example, you can see that there
+are three commits in the repository. If you are only interested in
+viewing recent commits, you can add an option specifying the number of
+commits that you would like to view. In this case, we are asking to view
+only the two most recent commits. As a review, git status is used to view
+the status of files in the working tree and staging area. Git add adds untracked or
+modified files to the staging area. Git commit creates a snapshot
+of the current project and stores the result as a commit
+in the local repository. And git log is used to view
+the commit history Now, you are ready to perform the tasks
+demonstrated in this video. The separate hands-on instructions will
+guide you through viewing file status, staging content, committing
+content to a local repository, and viewing your commit history.

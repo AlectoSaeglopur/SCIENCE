@@ -1,0 +1,79 @@
+In this video,
+we will discuss installing and getting started with Git
+using the command line. Separate hands-on instructions related
+to this video are provided for you and you can perform the hands-on
+exercises after viewing this video. We will begin by discussing
+the installation of Git. This video is about using
+Git at the command line. You have the option of using the
+Sourcetree graphical Git client instead. Skip this material if you
+plan on using Sourcetree. Many computers already have Git installed. You can check if your computer has Git
+installed by opening a command line interface and
+entering git --version as shown here. If no version information is shown,
+you must install Git. The command line interface is also
+known as the CLI, the command line or the terminal. Those terms are often
+used interchangeably. If you are not comfortable
+using the command line, you might consider switching to
+the Sourcetree version of this course. If Git is not installed on your computer, you can find installation
+instructions at the URL shown here. After you install Git, you should be able
+to view the version information as shown. Next we will briefly discuss Git syntax. Git is accessed using Git commands. All Git commands start with the word
+git followed by a space and then the specific command. In this example, the command is status, which shows
+the status of the local repository. Following the command can
+be any number of flags which start either with a single dash or
+with double dashes. In this example the short flag is used to
+only provide critical status information. Since this repository has no
+unusual status information no short status information is returned. Note that flags are sometimes
+referred to as options or switches. The final section of a git command
+contains zero or more arguments. For example some commands accept file
+names as arguments such as the git add command. Next we will discuss
+getting help with Git. There are many ways to get help with Git. For example, online searches on
+any topic are usually successful. As far as within Git itself, you can type, git help, followed by a command name for
+detailed help. This is the same as the online
+documentation which you can find at the URL shown here. You can also type git help or
+git alone to bring up overall git help. Concise help can usually be
+found the -h flag for a command. In this example concise help in
+the init command is displayed. Help for git commands include
+some common conventions. A dash or a double dash is used
+to set a flag for a command. These are also known as options or
+switches. A vertical bar represents or. In this example -p|--patch
+can be specified as a flag. Optional values are surrounded
+by square brackets. Placeholders are surrounded
+by angled brackets, replace the placeholder
+with an actual value. Angled brackets surrounded by
+square brackets represents an optional placeholder. If you use this part of the command, you must replace the placeholder
+with an actual value. Parentheses are used for grouping. These are used for clarity or
+to disambiguate the command. In this example, either the -p or --patch
+option must be set for the command. Two stand alone dashes are used
+to disambiguate the command. For example,
+to clarify you are specifying a path here, you can precede it with
+two stand alone dashes. Notice that in this example,
+the dashes are optional. And finally, three dots are used to specify that
+multiple occurrences are possible. In this example, zero or
+more paths can be specified. Finally, we will discuss configuring your
+user information and default editor for Git It's important to set your correct
+username and email address in Git. This information is included in any
+commit that you make to the repository. You use the git config command to specify
+or read configuration information. The system flag means the configuration
+setting applies to every repository for every user on your computer. The global flag applies to
+every repository that you, as a specific user, use on your computer. You can see that the global flag
+is used to set the user name and email in the example below. Specifying a local flag or no flag at all applies the setting
+only to the current repository. For example, you might specify your
+personal email address only for certain repositories. The most local setting takes precedence. If the local value is set,
+it takes precedence. If a local value is not set,
+the global value takes precedence. If a global value is not set,
+the system value takes precedence. To read your configuration information,
+you can execute the git config command with only the name of the configuration
+key that you are interested in. In this example, we're reading the current
+value of our name and email address. If this command is executed
+from inside a local repository, the local value will be returned. If a local value is not specified,
+the global value is returned. If a global value is not specified,
+the system value is returned. Git sometimes opens an editor for
+you to type a message. For example, an editor will open if
+you don't specify a commit message. To set your preferred Git editor, you can
+set the value of the core.editor key. In this example the default Git
+editor has been changed to nano. Now you should be ready
+to do some hands on work. There are separate hands on
+instructions related to this video. Those instructions will help
+guide you through installing Git, if it's not already
+installed on your computer. You will then verify your Git version,
+and explore Git help. Finally you will configure your user name,
+email address, and default Git editor.

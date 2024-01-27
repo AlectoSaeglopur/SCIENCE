@@ -1,0 +1,119 @@
+In this video, I will introduce
+the concepts of programming language standardization, and
+team coding guidelines. Software languages will evolve over
+time just like software applications do. New versions with new features
+will be released, and software teams will need to
+make important decisions. What language should they use? What version should they support? What guidelines should be defined
+on the use of this language? Software teams will need to have
+a complete understanding of these questions if they are to develop
+a project that can be maintained and expanded upon for
+an extended amount of time. one important characteristic
+of higher level languages is that the language is standardized and
+portable across platforms, ensuring that C programming means the same
+thing from one project to the next. Organizations like the International
+Electrical and Electronics Engineers IEEE, the International Organization for
+Standardization, ISO, and the American National Standards Institute,
+ANSI, are three groups that are involved with the process of standardizing various
+technical ideas including software. Without organizations like these, creating portable projects would
+require much more engineering overhead. See programming was no exception to this. And it wasn't until the late 1970s that
+the first unofficial standard of C programming was created by
+Ken Thompson and Dennis Richie. This classic version of C
+was referred to as K&R C. This version of C was the standard for
+C programming for about 15 years. Yet some features of this informal
+standard are no longer supported anymore or have gone out of style. More importantly, in 1989,
+ANSI-C standard was introduced, and in 1990,
+ISO adopted the standard officially. These are referred to as C89 or C90. C99 came out about a decade
+later with some more features. And C11 is the most recent
+C standardization, and it has introduced many features
+specifically related to multi-threading. The reason why it is important to
+know about these standard diversions, is that many compilers have been built
+to default to various versions or even only support only one
+standard of C programming. You may be forced to work
+with a particular compiler or a legacy system may not be able
+to support a new version of C. Luckily, C programming did
+not see many changes or features between the ANSI-C and
+the C99 standards. In our projects, we will be specifying a specific
+standardized C version during compilation and utilizing important new features
+from C99, like the inline keyword. This keyword will be crucial for how we
+design our firmware for embedded systems. In addition to discussing
+C standardization, we will discuss the topics of a coding
+guideline, or a coding standard. A coding standards is simply a list
+of software guidelines a project will need to be written to. These standards can be
+a mixture of requirements. There could be special format and
+documentation of the code needed. You many need to program the flow
+of routines in a certain way. How you name functions, files, and variables may need to
+fit a certain scheme. You may even have limits
+on the types of features, a developer can use on a platform. Server team usually enforce a coding
+standard that must be adhered to for anyone contributing for the code base. A team may contain a wide range of
+experienced software engineers from senior developers to new hires. So keeping the code base consistent helps
+reduce the possibility of syntax bugs or bad practices. Plus you'll get added benefit
+of enhanced readability. There had been formal coding
+guidelines introduced not just for the prevention of bad bugs and
+practices but also to ensure security, portability,
+reliability and safety of software. The Motor Industry Software
+Reliability Association introduced an industry standard coding
+guideline called MISRA C, which was specifically aimed
+at embedded architectures. Software teams could implement these
+guidelines for their own projects or instead develop their
+own internal standard. For your software assessments,
+one of the grading criteria will be related to your coding guides and
+how will you follow them. Embedded software engineers will
+often uncover many bugs as they start developing a product. These bugs could be a result
+of timing issues or race conditions with any processor. They could be due to incorrect
+configuration of the system, they could also be the result
+of incorrect logic. Sometimes, frustratingly, they are due
+to bad syntax or software typos. The overhead in resolving a bug could
+be a major time sink for developers. First, as time is needed to
+test duplicating the failure. Once the failure is seen,
+you need to analyze the bug. You may have to employ software or
+a strategy to perform this analysis. Lastly once you understand the issue
+you can finally resolve it. This may be unavoidable for some of the complex bugs seen
+with timing your configuration. However for syntax or bad practices this can be mitigated
+with the use of good coding practices. It's very important that as you
+develop your software, you adopt and maintain a set of coding standards to
+help keep your code base consistent. As you've learned, software languages
+will grow with time and so does a team. Learning about new features and
+building support for those is not as simple as
+upgrading to a new standard. You often have to make coding changes. On a team, members will come and go, but
+a company must maintain its quality. Keeping a solid understanding
+of the software you support and the mechanism with which you
+contribute to is crucial in maintaining a collaborative
+project over time. Not only from the perspective of software
+quality, but also for the security and safety of your product. In this code example we will see a variety
+of example coding guidelines as discussed in the associated reading on Jack
+Ganssle's A Firmware Development Standard. Starting at the top of the file with
+a block of comments that discuss file name or module name,
+some copyright information,authorship and a description of the module. An informative header section can save
+a developer a lot of time tracking down information in the code. The copyright listed in this
+section is also very important for a software engineer to read and
+understand, especially when looking into adding
+third party software into your project. Including software in a project
+without checking copyright could cause major issues. Copyright infringement may lead you
+to loss of ownership of your code and other legal issues. Cisco Systems had to open source
+some of their firmware for their Linksys routers due to the violation
+of a free software foundation license. More can read up on this
+in supplemental reading. After the header is a function
+prototype with a very informative, commented section. The comments indicate a description,
+parameters and a return type. Usually, this is only
+included in the header and may be the only thing a software
+engineer has access to when interfacing with software, if the
+implementation files were pre-compiled. Every function definition you write should
+have an associative function prototype. Constant information is
+represented win all capitals. Variable names are all lowercase and their
+names maps the purposes of the variable. Indention and newlines are used
+to help with readability. In the numbers array indention is used for
+multi-line statements. Variable values and
+function parameters have both commas and spaces to separate each item. Conditional statements use spaces to
+make the conditions easier to read. The start of a condition block
+begins with a curly bracket, and that is placed at
+the end of the parentheses. The ending curly bracket
+matches up with the same column as the beginning of the statement block. All contents in the conditional block are
+intended to be at the same indention, and in this case, it's two spaces. Spaces are often preferred over tabs, because each editor specifies
+how long a tab actually is. In the function, some checking is performed before
+the main body of the function is run. Input validation may or may not be needed. But in the case of an average, a bug can
+be introduced here by performing a divided by 0 or
+performing a null pointer dereference. Resulting an undefined behavior. All lines in this file
+maintain an 80 character or less length to help with the readability. Often times, a team will build a template
+file with a skeleton of this file and the same commenting and file header
+information so they can create new source files very easily,
+while maintaining their formatting.

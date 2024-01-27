@@ -1,0 +1,97 @@
+Welcome to module two. In this video, will be introducing the
+build system which is just a fancy way to describe the environment and the tools
+needed to compile a software project. In our
+Embedded System Development Platform, build system is contained
+on the host machine. The tools that will be using are provided
+by GNU's Compiler Collection or GCC for short. GNU bundles many useful
+compilation tools together, and we'll often refer to
+this as our toolchain. GCC was developed by a third
+party as free software, and most importantly, GCC supports a wide
+array of architectures including ARM. This wide support is important for developers who have a wish to have some
+flexibility in their platform choice. You may end up using many
+different architectures and many different compilers in your career. But the concept you will learn in
+this module will be extendable to other projects. The main job of the compiler toolset
+is to translate a high-level language into architecture specific languages. For this module, you will learn how to
+use the compiler toolchain on our host Linux virtual machine, or VM,
+to investigate the steps of compilation. With demos and assessment guidance
+you will set up your environment and get your tools installed to begin
+work on your own build system. By the end of the module you'll be able
+to design your own build environment. The architecture specific language
+we need to translate our C-Program into is called assembly. Assembly language does not directly
+get installed onto your processor. The assembly is translated
+into machine code, which is a binary encoding
+of assembly instructions. This machine code is what the processor
+understands and uses to perform work. The machine code binary representation,
+these encoded instructions, can be looked up in the processor's
+Instruction Set Architecture, or the ISA. Providing specific guidance and
+optimizations during the build process, is important for our embedded platform as
+the assembly instructions are the objects that need to be optimized before they are
+converted into the processor executable. Our toolchain for
+building a software project and installing it will include many
+applications of the GCC toolchain. You can refer to these general
+applications needed for the build toolchain as the preprocessor,
+the compiler, the assembler, the linker, the locator and
+the loader installer. The first five applications
+in the build and install process are the five steps for
+building a software project. The roles of these different build
+tools can be described very simply. The preprocessor will take your
+source files Cs and Hs and transform into new files by evaluating
+preprocessor directives and performing macro substitution. These modified files are then
+fed into the compiler proper. This performs a C programming
+to assembly code translation. Next, the assembler converts our
+assembly code into object code. Object code looks like confusing binary
+data and it's not really human readable. This assembly to object code conversion
+gets repeated from many source files. Now, object files need to be
+combined into a single executable where all references between
+object files need to be resolved. We call these references symbols. Now, this job is performed by the linker. Finally, the linker provides the linked
+file to a relocator where which will map all the addresses of code and
+data into the processor's memory space. The final file should be
+your target executable and all that needs to happen is to be
+installed on your target system. Embedded engineers are usually
+very involved with customizing each of these steps for
+their specific application. The operation of installing a build could
+be considered part of the build system, but we would be performing this
+with the help of other tools. For your project, you will use an IDE
+to help install an executable onto your system and
+I will address this in later modules. In general, you can think of compilation as
+converting source files into object code. These source files can be assembly or
+C programs. You can perform this translation as
+many steps as you like, but eventually, these files have to head into the linker. You should note that once
+you compile a project, the executable only work on
+the architecture you compiled at for. It cannot be run on other systems. Native compilation is when
+you compile your build for the same system you intend
+to run the executable on. Typically, we do not natively compile
+embedded projects as we use a host machine to compile our microcontroller
+software builds. When you compile an executable
+on one system and it is intended to run on another,
+this is referred to as cross compilation. We have to Cross Compiler microcontroller
+builds because the microcontroller itself does not usually have an operating
+system or the resources for programs like GCC to be installed for
+us to perform a build. More advanced machines
+may have this capability, like the Cortex-A ARM processor set, but
+we will not cover that in this course. Again, you remember that with
+our development platform, we may have an on board debugger
+that can help us with installing. This is not change how
+the Cross Compiler operate. And you gain more experience
+with writing software. You'll begin to design your own
+libraries for different objectives. And you may even find that
+some open source software can integrate into your project. Creating your own headers and including libraries will be
+an important part of development. And we'll have some major implications
+on how we set up our build environment. We will cover this process
+later in the module. Now, the GCC tool chain will not be
+the only GNU application that will help us during our software development. As you begin to learn the ins and
+outs of building, you will learn that building large
+software projects can be tedious. Managing the compilation of many files, with all their respective compile
+options becomes very cumbersome. To help with this, you'll be introduced to another useful
+tool in the GNU tool chain called Make. Make is a tool that controls
+the generation of executables and other non source files of a program
+from the program source files. Make will help us manage this whole
+process of building our executable. In each of the following videos, we will gain confidence using the GNU
+Toolchain to build our software product. Instead of installing on a target system,
+we will start first by learning to simulate our
+software on a host machine, and validate non architecture specific pieces
+before moving on to our intended target. Mastering how to use these build tools
+will prove immensely valuable in industry and in your own projects. So it's my commitment that by the end
+of this module you will be able to implement a build system using GNU's
+make and GCC compiler tool chain. Examine the pre-processors
+role in compilation, and integrate new libraries to a build system.

@@ -1,0 +1,135 @@
+In this video, we will be talking
+about how to design modular software, by creating our own libraries, and
+using them across software projects. We spoke in great detail about
+designing software with high quality. This meant we thought about certain
+concepts when designing code. This included concepts like writing
+code to be testable and portable. You can realize these ideas by
+writing modularly with libraries. Libraries are just a collection
+of software and source code, or precompiled code format. We can design our own libraries
+to create reusable modules, across different software projects. This should not be a new concept to you, as you probably have used
+libraries before in C programming. Like the C standard libraries or other
+headers, by using the #include directive. You will want to code modules to
+encapsulate specific functionality, so that they can be easily reused. This can contain application specific
+functions or just constant data. From a low level embedded perspective you
+might have a UART communication module, which is used to configure
+a peripheral interface. Or, you might design
+a higher level module, that contains many specific math
+functions or formulas for a data set. You want to design in pieces or
+blocks to help split up the work and ease your validation process, think units. With each module, you can write software
+tests to validate their operation before integrating them In to a larger
+application, ie, a unit test. You can create your own
+library code very easily. But first,
+you need to know how to write a module. Each module will contains two files. The first is an implementation file or
+the c file, the source file. This contains functions definitions and
+other c code. The other file is a header file. And this contains function declarations,
+macros, and even certain derived data type definitions,
+like enumerations or structures. The c file should not be directly
+accessible by software projects. Anything you want accessible
+should be declared in the c files associated header file. You can think of this as hiding
+the private implementation details of the c file. And the header file is the main access
+point in the documentation source, that a software programmer has access to. Any code in the header file should
+be thought of as public access. Let us look at a header
+implementation file example. You should note some special lines at
+the top and bottom of a header file. These usually include the special #ifndef,
+#define, and #endif directives, that contain the entire contents of
+the file in between these statements. If you don't include
+this in your header file, you won't protect against circular or
+redundant includes. This called an include guard. Certain symbols maybe redefined,
+causing compilation to fail. In the example here,
+we have two includes of the same file. After preprocessing, the include directive
+will have copied in the information twice. If the header file has
+an #ifndef specifying, the preprocessor will
+skip the second include. As the contents will have
+already been included, by specifying a directive in
+the name of the header file. An alternative to the #ifndef
+include guard, and a good example of the use of a pragma,
+is the #pragma once directive. This pragma is a nonstandard directive,
+that only certain compilers support. This feature allows us to use only
+a single line to create an include guard. However, because of the limited support,
+using only this option would not make your code portable to other
+compilers or compiler versions. When you define your own modules, give each module a good name,
+relating to its functionality. Give the associating include
+guard preprocessor directive, a similar name in all caps. Avoid defining variables
+in the header file, because every time it is included,
+a symbol with that name will be declared. Make your header files descriptive, by
+including a description of the information it covers at the top of the file. Similarly, function prototypes
+will need informative comments on how to use each function. C programming has a large
+variety of prewritten code called the standard libraries. You've likely used these before,
+such as standard IO and standard LIB or even the Math Library. These libraries are often provided
+with your compiler tool set and they are precompiled. You access them through
+header definitions. You may even have some third party
+libraries that you downloaded for some specific function. So, these are not new to you. Regardless of the source of a library,
+an important reminder is that embedded software needs to be efficient and
+take up as little code space as possible. When you include a library, you should ask
+yourself, is this library precompiled? Is it compiled for my architecture? Was it designed to be optimized for
+my architecture? If you have the library source code,
+you should wonder, what software features does this use? And what other code does this include? The standard libraries provided with your
+compiler, will likely be pretty optimized for the instruction set
+architecture you are using. This means that they're
+not likely optimized for your specific embedded platform. There are often hardware blocks, that may allow us to get even better
+performance than just software solutions. Using the hardware blocks to
+process information is important, because of our limited resources in our
+embedded platform, including memory. For instance, some libraries may require
+large amounts of memory space to operate on, and
+you may not have that much memory. Many software engineering organizations
+often rewrite useful functions from these libraries, specialized for
+their platforms. This applies to third party or
+open source software as well. You should not include
+software arbitrarily. You need to check
+the software's performance and validate it,
+that it meets your requirements. Let us look at compiled libraries for
+a moment. Libraries start with the word lib,
+followed by the name of your library. You'll likely interact with these at
+some point in your software career. When it comes to compiled libraries there
+are two types, static libraries and shared libraries. Static libraries are libraries
+that are compiled and directly linked into your output
+executable at compile time. These include the standard libraries that
+are provided with your compiler toolchain. Static libraries can be created
+using the archiver, GNU tool ar. Shared libraries are libraries that
+linked dynamically at runtime with your executable. These shared libraries exist in
+your platforms memory already, and are not installed
+with your executable. Typically, these are used by architects
+running multiple programs using the same library. For example, advanced architects
+running an embedded operating system. Sometimes embedded manufacturers
+also provide a section of memory dedicated to storing precompiled
+libraries on the hardware. If you do install a shared
+library on your embedded system, it is important that it is put in a region
+of memory that will not be overwritten. You can create shared libraries
+with the shared option from GCC. One important point with using a library
+is, you still need the declarations of the library's header files to
+properly link against that library. Otherwise, the linker will try to search
+its own paths for the undefined symbols. In addition, the header file is
+the informative interface to this library. You're going to use this to figure
+out how to use that library. If you make your own libraries, make your
+header files as descriptive as possible, so other programmers, who wish to use your
+library code, know how to use it properly. You might ask yourself,
+how does cross compilation for my ARM architecture affecting
+including libraries into my project. These libraries has been precompiled for a
+given architecture by a specific compiler. By using the ARM compiler, we already
+have libraries defined for the ARM ISA. To complicate this further, is that there
+are many different flavors of the ARM ISA. How do you know if your compiled
+library is using ARM Thumb encoding, or something like ARMv7? If the library was designed right, it
+will support multiple architectures, and this is provided via flags at compilation. One final item to cover, is how you will design your file
+system around your software files. We discuss naming and software
+portability with preprocessors, but where do you actually create
+your architecture dependencies? Is this set in software? Is this determined at the command line? This choice is up to you, but
+let me provide you with one good example. Imagine you have a build system,
+that supports two boards, with two different micro controllers,
+an MSP and KL25Z. We have a main file that wants
+to be architecture independent. So, it includes an intermediate
+header file called platform.h. This platform file,
+helps us to select between which two different architectures we support,
+based on a compile time switch. Each included file in the platform.h,
+contain architecture dependent, low-level interface information for
+our intended target. Given the switch,
+the correct architecture gets included. This method requires us to create
+the same function name interface for both of the architecture specific files,
+so that higher levels are compatible
+with the initialized function. There are other options to perform this
+architecture dependent compilation. By putting compiled times
+switches directly in the code, instead of intermediate files. Or even using version control to
+help create different file trees. Designing libraries effectively is an
+important software architecture paradigm. You should take time to
+think through code design, before trying to write any implementation. Things like how your code with interface
+with each other, the purpose of a module, the purpose of the functions, will help
+you with your software classification and segmentation.

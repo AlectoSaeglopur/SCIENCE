@@ -1,0 +1,99 @@
+In this video, we
+are going to discuss software configuration
+management, SCM, which is a term that refers to how we configure a
+software project, and how we go about developing
+code for a project. There's more to the process of developing code than
+just writing software. Software engineers
+will need to be informed of the
+build environment, how code is tested and tracked, and also how you can access
+and make changes to the code. Some of the responsibilities of source configuration
+management relates to the software
+development process, but it also covers many
+important engineer related tools and design rules. Software configuration
+management or SCM for short, is a process that is used by software teams to develop
+software projects. This process contains a
+diverse set of goals and guidelines that dictate the
+software processes for, version control,
+development process, environmental information,
+software build and release, software review,
+testing, support, defect tracking and
+task management. There are often more topics
+that were not listed, and sometimes these
+topics are even broken down into
+further granularity. Defining the practices of an SCM is first led
+by a company or team, but also heavily influenced
+by the platform needs. One team might have specific C programming testing practices, while another implements all
+of their code in assembly. Typically, each guideline maps into a specific
+team responsibility as project managers help coordinate schedules and
+deliverables on a team. Is possible to skip implementing
+all aspects of SCM, but the benefits in consistency and software
+organization can provide many advantages without too much user overhead
+for developers. Believe it or not, you've
+likely practice nearly all of these guidelines on
+your software projects without even realizing it. The most important SCM practices, we will discuss in this module are the use of version control, pure software review, coding standards and
+environment information. Version control is one of the most important tools a software engineer should learn. This allows all changes of a software project to be
+tracked indefinitely. Version control is usually combined with software
+review as a way to prevent poorly designed software contributions into a project. Software teams will use
+these two guidelines along with specific
+coding standards, as the methodology for software code storage
+and change requirements. A development environment
+will be where an engineer can actually
+develop code by providing many
+integrations with things like testing, building
+and installation. In follow-up modules, we'll investigate these
+other SCM practices, such as software build,
+installation and testing. You will design your
+own build system and use it to investigate
+your software design. You usually build
+your software on external machines that are not your intended embedded system. Your host machine will contain your build system in addition to many components of our SCM, such as our version
+control software, the compiler tool sets, the developer environment
+and the installer. Eventually, we will take your prebuilt
+software and start to install it into the
+microcontroller. You can simulate and test your code on your
+host environment to help your validation of code
+before you go on target. However, it is important
+that you actually test your code on your
+intended embedded system, and we will need to
+develop good practices and have an informative
+test environment, to be able to validate
+the software. Software support is another important guideline
+that is hard to apply in an educational
+environment, but deserves attention. As your software progress grow, and you begin to start new projects with new
+software repositories, companies like Apple and Google
+support many versions of their OS over a variety
+of hardware platforms. Here we have Apple's iOS, and it supports many different
+ARM core processors, versus the device
+that it's actually built for and the OS version. Because of the short life of the cell phone technology,
+telecom devices, companies need to
+address a metric of hardware and software
+versions across many years. Eventually products will retire, but you will likely
+need to not only refer back to old systems for
+historical information, but also for validation
+against newer products. We call these older
+systems legacy systems. There may be many reasons
+why a system becomes legacy, whether a software or
+hardware is outdated, a loss of compatibility between
+components on the system, parts that are not in
+development anymore, or a company has moved in an off the roadmap and are potentially not supporting that
+product anymore. How well you define and remember your project's SCM practices will make the resurrection
+of legacy systems, the development of new
+systems needed to move on to new teams more successful
+throughout your career. Using your legacy systems as
+lessons learned and also in reuse will speed up your
+development of future products. One last guideline that
+should be addressed is task management and
+defect tracking. We will not directly cover
+this concept in this course, however it is important that you spend some time thinking
+about this topic. You can make the analogy
+that assessments given to you act as a small system
+of task management, where each software task has requirements for you to
+complete and record. Breaking down a software design into manageable modules works hand in hand with tracking the task for
+a software project. Software project needs many
+aspects to be successful, not just working code. SCM is important to
+a project because it describes how software will
+be developed and organized. You can think of SCM as the overall project
+development environment. Getting yourself organized
+before a project starts by defining your decisions
+for the components of SCM. It can help spread the
+work across a team, and provide effective
+communication.
