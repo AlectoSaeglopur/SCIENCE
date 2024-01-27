@@ -262,7 +262,74 @@ Finally, remember it's possible to create an MC even for simplier FF cases by us
 
 § As already said above, the "git status" and "git log --oneline --graph --all" commands include info about tracking-brances status and inform you if the local branch and the corresponding tracking-branch are out of synch or not (e.g. 'Your branch is up-to-date with origin/master'). 
 
---------
+------------------------------------------------------------
+
+>> 14. FETCH, PULL & PUSH COMMANDS <<
+
+§ Most Git commands interacts with LR only, but there are also x4 main "netwrok-commands" in charge of communicating with the RR:
+- "clone" >> to copy a remote repository locally;
+- "fetch" >> to retrieve locally new objects and references from RR;
+- "pull" >> to fetch and merge commits locally;
+- "push" >> to add new object and reference to RR.
+
+§ The "fetch" commands allows to update local tracking-branches with info from RR without merging changes/updates immediately your WT, thus does not affect you LR labels (see Section #13). In case no your LR is already up-to-date with RR no info are shown by executing the command. Executing "git status" before and after a "git fetch" command allows to understand if and how LR and RR are out of sync.
+
+§ The "pull" command combines "git fetch" and "git merge FETCH_HEAD". If any object is fetched, the tracking-branch is merged into the LR. Thus, it may create conflicts; for example, in case for your current branch the LR has some unphushed commits and at the same time RR is ahead of LR by X commits (NB: in case your WT has unstaged/uncommitted changes you can still perform fast-forward pull).
+Hereafter some useful merge-options of "pull"-command:
+- "--ff" (default) >> fast-forward if possible, otherwise perform a merge-commit;
+- "--no-ff" >> always include a merge-commit;
+- "--ff-only" >> cancel instead of doing a merge-commit;
+- "--rebase [--preserve-merges]" >> see later @todo.
+
+
+UNSTAGED/UNCOMMITTED: abort!
+Updating b7b6353..bbb97e7
+error: Your local changes to the following files would be overwritten by merge:
+	mas1.txt
+Please, commit your changes or stash them before you can merge.
+Aborting
+
+UNPUSHED: conflict!
+Auto-merging mas1.txt
+CONFLICT (content): Merge conflict in mas1.txt   ->>>> <<< >>>
+Automatic merge failed; fix conflicts and then commit the result.
+
+
+against this you can  or stash cahnges before going on with pull or solve conflict + add + commit (then 'Your branch is ahead of 'origin/master' by 2 commits.') + push (this creates a branch merge in RR as if you created a topic-branch to solve the conflict!)
+--> DO NOT DO LIKE THIS ANYWAY!!!
+
+
+but if you have unstages/uncommited changes that would not be replaced by pull, it goes fine! (and files still appear as unstage/uncommited with gitstatus)
+
+similarities in merging after a pull and merging after in a feature branch!
+
+
+if LR indietro di 1 commit e io faccio modifica a file indipendente (no conflict) poi add/commit (ma no push) e poi faccio pull, mi parte un merge! i.e. mi si crea un nuovo commit localr che è la somma del mio unpushed in LR e quello latest che ho tirato giù da RR! : see below message (poi apre prompt chiedendo di aggiungere messaggio da associare al merge!)  >> e poi git status mi dice che sono ahead di 2 commit su origin/master (cioè il pull-merge appena fatto è solo locale manon in RR per ora, serve push per quello eventualmente)
+
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (1/1), done.
+remote: Total 3 (delta 2), reused 3 (delta 2), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From https://github.com/AlectoSaeglopur/proj_16
+   4f83692..badcf67  master     -> origin/master
+Merge made by the 'recursive' strategy.
+ mas1.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+
+
+§ push command is used to add/forward commits of curren branch from LR to RR
+git push [-u|--set-upstream] [<repository>] [<branch>]   (see Section #6)
+
+it's always goodpractise to fetch/pull before pushing to beaware of most recent state of RR
+
+restart from 12:00
+
+
+------------------------------------------------------------
+
+
 
 >> XXXX. SUBMODULES <<
 
