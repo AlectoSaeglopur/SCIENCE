@@ -1,0 +1,151 @@
+This video discusses the Fetch,
+Pull and Push commands. We will start with
+a network command overview. Most commands in Git only
+interact with a local repository. However, these four commands,
+which we will call network commands, communicate with the remote repository. We discuss the details elsewhere but
+we will describe them here briefly. The Clone command copies a remote
+repository and creates a local repository. By this point you have quite
+a bit of experience using Clone. The Fetch command retrieves
+the latest objects and references from the remote repository. The Pull command combines a fetch and
+a merge. The Push command adds new objects and
+references to the remote repository. We will discuss Fetch, Push, and
+Pull in more detail in this video. Next, we will discuss the Fetch command. The git fetch command
+retrieves new objects and references from another repository. It mainly updates all of your
+tracking branch information. If the repository argument isn't
+specified and you only have one remote repository set up locally, that remote
+depository will be used by default. Git fetch allows you to download and view
+changes on the remote repository without having to immediately merge
+them into your current work. Let's look at an example,
+we start by viewing our commit graph. It has one commit and we can see that
+this commit is located on the local and remote repositories,
+because the local master branch label and the tracking branch label point to it. We then execute git fetch. Git fetch is objects and
+references from the remote repository. Because it returned results we know
+that something has changed on the remote repository since our last network command. Next, we again execute
+the git log command, we can see that the tracking branch is one
+commit ahead of our local master branch. Somebody implemented feature 2
+since our last network command. We can see that out master branch label
+is still pointing to the same commit that it was before the fetch. Let's look at the commit graphs before and
+after a fetch. We start with the local repository
+with two commits on a single branch. The master branch label and the tracking
+branch label both point to commit B. The remote repository has one more commit
+than the local repository, commit C. This was created after our
+most recent network command. After we execute the fetch, the local
+repository has all of the commits and references from the remote repository,
+but they are on the tracking branch. You can see that this part of the local
+repository matches this part of the remote repository. Our local master branch label has
+not moved because of the fetch. A fetch does not impact
+the local branch labels. After the fetch, the tracking branch has the same commits
+as the remote repository's master branch. After a fetch, executing git status will
+inform you if your current local branch is behind the tracking branch. Here we execute git fetch and see that new projects were retrieved
+from the remote repository. We then execute git status and see that our master branch is behind
+the tracking branch by one commit. It also says that it can
+be fast forward merged. This means that one new commit was
+retrieved from the remote repository, and you can fast forward merge, because you have not added any
+commits to your local branch. This simply means that git will move
+the master branch label to the tip of the tracking branch and check out
+the files from the latest commit. Git tells you that you can execute the git
+pull command to do a fast forward merge. We will discuss git pull more next. Next, we will discuss the Pull command. Git pull is a network command
+that combines git fetch and git merge FETCH_HEAD. FETCH_HEAD is an alias for
+the tip of the tracking branch. First new objects and references from
+the remote repository are fetched. If new objects are added
+to the tracking branch, the tracking branch is merged
+into the local branch. The current branch is assumed
+if branch is not specified. Here we execute the git pull command. In this case one file was fetched. You can see that a fast
+forward merge occurred and changes to file a.text were made. You now are in sync with
+the remote repository. When you execute the git pull command
+you can specify merging options. The default behavior is
+the same as the ff option. This well perform a fast-forward
+merge if possible, otherwise it will create a merge commit. The no-ff option will always
+pull using a merge commit. This create a merge commit for
+every pull that downloads commits. The ff-only option only
+accepts fast-forward merges. It will cancel the merge rather
+than perform a merge commit. You will then have to decide how to deal
+with the merge using a separate command. There is also a rebase option which
+we will discuss in a later video. Here we look at executing a pull
+that includes a fast forward merge. Before the pull the local
+repository has two commits. The remote repository also
+has a third commit, commit C. If we perform a pull,
+commit C will be fetched, and the tracking branch
+label will point to it. Because we haven't made any commits
+to the master branch locally that aren't on the remote repository,
+a fast forward merge is then performed. This simply moves the master branch
+label and HEAD reference to commit C. After executing the pull, the local and
+remote branches are synchronized. Let's look at the pull that
+involves with merge commit. Before the pull we have the local
+repository with three commits, A, B and D. The tracking branch commit is commit B,
+and the local master branch is commit D. The remote repository also has three
+commits, but the last commit is commit C. What probably happened is that we
+fetched when there were two commits on the remote repository. Someone then made and pushed commit
+C sometime before we made commit D. When we execute a pull,
+first the fetch happens. Commit C is retrieved from origin, and the tracking branch label
+then points to commit C. That is the same as the tip
+of the remote repository. After the fetch, the tracking branch
+is merged into the local master branch, creating merge commit E. The merge commit is necessary
+because commits D and C both think that commit B is its parent. Notice that the tracking branch label
+stays behind because we merged into the local master branch. That also makes sense because the tracking
+branch represents the remote branch and the remote branch tip is on Commit C. At this point the remote doesn't know
+that we created a merge commit locally. Let's look at an example of git
+pull with a fast forward merge. We start by executing git status. We see that our master branch is behind
+the tracking branch by one commit. We also see that this merge
+can be fast forwarded. We then execute git pull. This fetches the commit and
+performs a fast forward merge. FileA.txt is updated in our working tree. We then execute git log and see that
+the local master branch label is again pointing to the same commit
+as the tracking branch label. We have just seen that executing a pull
+can update files in your working tree. What if you have modified fileA.text
+before executing git pull? You wouldn't want git
+to replace your file. Git detects this situation and will abort the merge rather than
+letting you lose uncommitted changes. Let's look at an example. First, we modify fileA.text, causing it to have uncommitted
+changes in the working tree. We then execute git pull. Git fetches some objects, but
+then when it tries to perform a merge, it notices that you have local changes
+to a file that it will be replacing. It suggests that you commit or
+stash your changes before the merge, then it aborts the merge. Stashing is a way to save files modified
+in the working tree for later access. Git pull only aborts the merge if you
+have uncommitted changes that would be overwritten by git. If you've modified a file that's not
+going to be replaced by git it lets the merge continue. Let's look at an example. First we create a file
+in our working tree. Since it's brand new, git is not tracking
+it and it shouldn't cause any problems. We then execute git pull. It fetches an object and
+performs a fast forward merge, replacing fileA.txt in the working tree. We then list the files
+of the directory and we see that our uncommitted fileB.txt
+is still there, git hasn't touched it. Notice the similarities between
+merging after a pull and emerging in a feature branch. On the left we create
+a merge commit after a pull. Notice that a merge commit was created
+even know that only branch is the master branch. This is because the tip of the tracking
+branch is acting like a topic branch. To git, the tracking branch
+is just another branch. On the right, we merge in a topic branch. Notice that the commit graphs
+are basically the same. Anything that can happen when merging in
+a topic branch can happen when merging in a tracking branch. Let's execute a pull
+involving a merge commit. First we create a new
+file in the working tree. We add it to the staging area. Then we commit the file. Then we execute git pull. We can see that the remote
+repository has new objects. After the fetch,
+the merge part of pull takes over. Git informs you that
+a merge commit was made. We then view the commit graph and see that a merge commit was created
+merging in the tracking branch. We can see one of the commits of the merge
+was our commit where we added our fileC.text. The second commit of the merge was done
+by somebody who added feature five and pushed the commit to
+the remote repository. Next, we will discuss the push command. The git push command is used to add
+commits to a remote repository. You are pushing the commits
+of your current branch. You optionally specify
+the repository you want to push to. This can be a name like origin or URL. You then optionally specify the branch
+name on the remote that you would like to push to. You can use the -u option to set up
+the local packing branch with this remote branch. Once you've done this, the repository and
+branch name no longer need to be specified in the command, because that information
+is known from the tracking branch. Let's look at an example. Here we will execute the git push command, specifying the previously set up
+remote repository named origin. The name of the branch
+on origin is master. We specify the -u option to set
+up a local tracking branch for this remote master branch. When we execute the command,
+we may be asked for the username and password the first time. You specify your BitBucket information. You can see that three objects have
+been pushed to the remote repository. Finally, git informs you that a local
+tracking branch has been set up for the remote master branch. A general rule is to fetch or
+pull before you do a push. You don't have to do this but if you try to push when you don't have the
+latest remote changes, the push will fail. If you execute a fetch and no objects
+are retrieved, we can safely push. If you're worried about a pull
+creating an unwanted merge commit, you can use the ff only option. Let's look at an example. First, we use BitBucket to create
+a commit on the remote repository, this is done elsewhere. Next, we create fileB.txt,
+we then add it to the staging area. Then we commit the changes. Now we execute git push to add our
+commit to the remote repository. The push is rejected because our
+tracking branch is not current. We needed to fetch or pull before pushing. Here is a review of what we've
+discussed in this video. Clone, fetch, pull and push commands
+communicate with a remote repository. Fetch updates tracking branch information. Pull combines a fetch and a merge. Push adds commits to
+the remote repository. Now, it's time to work with some of
+the topics discussed in this video. Separate hands-on
+instructions are provided.

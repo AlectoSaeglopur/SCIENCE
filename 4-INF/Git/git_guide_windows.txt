@@ -272,41 +272,35 @@ Finally, remember it's possible to create an MC even for simplier FF cases by us
 - "pull" >> to fetch and merge commits locally;
 - "push" >> to add new object and reference to RR.
 
-§ The "fetch" commands allows to update local tracking-branches with info from RR without merging changes/updates immediately your WT, thus does not affect you LR labels (see Section #13). In case no your LR is already up-to-date with RR no info are shown by executing the command. Executing "git status" before and after a "git fetch" command allows to understand if and how LR and RR are out of sync.
+§ The "fetch" command allows to update local tracking-branches with info from RR without merging changes/updates immediately into WT, thus does not affect you LR labels and just makes the user aware of the actual/current RR state (see Section #13). In case LR is already up-to-date with RR no info are shown by executing the command. Plus, executing "git status" before and after a "git fetch" command allows to understand if and how LR and RR are out of sync.
 
-§ The "pull" command combines "git fetch" and "git merge FETCH_HEAD". If any object is fetched, the tracking-branch is merged into the LR. Thus, it may create conflicts; for example, in case for your current branch the LR has some unphushed commits and at the same time RR is ahead of LR by X commits (NB: in case your WT has unstaged/uncommitted changes you can still perform fast-forward pull).
-Hereafter some useful merge-options of "pull"-command:
-- "--ff" (default) >> fast-forward if possible, otherwise perform a merge-commit;
-- "--no-ff" >> always include a merge-commit;
-- "--ff-only" >> cancel instead of doing a merge-commit;
+§ The "pull" command combines "git fetch" and "git merge FETCH_HEAD". If any object is fetched, the tracking-branch is merged into LR/WT. Thus, it may create conflicts. Hereafter some useful merge-options for the "pull" command are listed:
+- "--ff" >> fast-forward if possible, otherwise perform a merge-commit (default);
+- "--no-ff" >> always include a merge-commit (formal);
+- "--ff-only" >> cancel instead of doing a merge-commit (abort if fast-forward not possible);
 - "--rebase [--preserve-merges]" >> see later @todo.
 
+§ There can be multiple situations when executing "git pull":
+- LR and RR in sync, without WT unstanged/uncommitted/unpushed changes >> no effect;
+- LR and RR in sync, with WT unstanged/uncommitted/unpushed changes >> no effect;
+- LR ahead of RR, without WT unstanged/uncommitted/unpushed changes >> no effect;
+- LR ahead of RR, with WT unstanged/uncommitted/unpushed changes >> no effect;
+- RR ahead of LR, without WT unstanged/uncommitted/unpushed changes >> fast-forward pull update (no conflicts);
+- RR ahead of LR, with WT unstanged/uncommitted changes not conflicting with latest RR commits >> fast-forward pull update (no conflicts) with previous WT unstanged/uncommitted changes still present;
+- RR ahead of LR, with WT unstanged/uncommitted changes conflicting with latest RR commits >> pull aborted [see 'PULL MESSAGE #1'];
+- RR ahead of LR, with LR unpushed commits having no conflicts with latest RR commits >> merge-commit (no conflicts) [see 'PULL MESSAGE #2'] - i.e. in this case it's created a new local commit which is the automatic combination of the latest RR commit and the unpushed LR commit (plus, a message is prompted asking the user to provide a comment for the merge), a checking now the local state via "git status" inform you that LR is ahead of 'origin/master' by 2 commits (i.e. pull-merge is just local for the moment) - note this case has many similarities with the topic-to-base-branch merging already discussed in Section #11;
+- RR ahead of LR, with LR unpushed commits having conflicts with latest RR commits >> merge conflict to solve [see 'PULL MESSAGE #3'] - in this case you Git automatically marks the issues on the conflicting files (e.g. 'xyz.c') as already reported in Section #11, waiting for the user to manually resolve them (then 'add' + 'commit' = 'Your branch is ahead of 'origin/master' by 2 commits' + 'push' = merge-branch created in RR as if you created a topic-branch to solve the conflict) or abort the pull/merge ("git merge --abort");
+- [NB: always try to avoid the last situations listed above (i.e. generating mergin or conflicts) and perform "git pull" with WT clean and no unpushed commits on LR (i.e. create a new topic-branch whenever a bugfix/feature-addition is needed, do not work directly on the base-branch)].
 
-UNSTAGED/UNCOMMITTED: abort!
-Updating b7b6353..bbb97e7
+§ PULL MESSAGE #1 - Pull aborting:
+"Updating b7b6353..bbb97e7
 error: Your local changes to the following files would be overwritten by merge:
-	mas1.txt
+	xyz.c
 Please, commit your changes or stash them before you can merge.
-Aborting
+Aborting"
 
-UNPUSHED: conflict!
-Auto-merging mas1.txt
-CONFLICT (content): Merge conflict in mas1.txt   ->>>> <<< >>>
-Automatic merge failed; fix conflicts and then commit the result.
-
-
-against this you can  or stash cahnges before going on with pull or solve conflict + add + commit (then 'Your branch is ahead of 'origin/master' by 2 commits.') + push (this creates a branch merge in RR as if you created a topic-branch to solve the conflict!)
---> DO NOT DO LIKE THIS ANYWAY!!!
-
-
-but if you have unstages/uncommited changes that would not be replaced by pull, it goes fine! (and files still appear as unstage/uncommited with gitstatus)
-
-similarities in merging after a pull and merging after in a feature branch!
-
-
-if LR indietro di 1 commit e io faccio modifica a file indipendente (no conflict) poi add/commit (ma no push) e poi faccio pull, mi parte un merge! i.e. mi si crea un nuovo commit localr che è la somma del mio unpushed in LR e quello latest che ho tirato giù da RR! : see below message (poi apre prompt chiedendo di aggiungere messaggio da associare al merge!)  >> e poi git status mi dice che sono ahead di 2 commit su origin/master (cioè il pull-merge appena fatto è solo locale manon in RR per ora, serve push per quello eventualmente)
-
-remote: Enumerating objects: 5, done.
+§ PULL MESSAGE #2 - Pull merge-commit:
+"remote: Enumerating objects: 5, done.
 remote: Counting objects: 100% (5/5), done.
 remote: Compressing objects: 100% (1/1), done.
 remote: Total 3 (delta 2), reused 3 (delta 2), pack-reused 0
@@ -314,18 +308,18 @@ Unpacking objects: 100% (3/3), done.
 From https://github.com/AlectoSaeglopur/proj_16
    4f83692..badcf67  master     -> origin/master
 Merge made by the 'recursive' strategy.
- mas1.txt | 1 +
- 1 file changed, 1 insertion(+)
+ xyz.c | 1 +
+ 1 file changed, 1 insertion(+)"
 
+§ PULL MESSAGE #3 - Pull merge-conflict:
+"Auto-merging mas1.txt
+CONFLICT (content): Merge conflict in xyz.c
+Automatic merge failed; fix conflicts and then commit the result."
 
-
-§ push command is used to add/forward commits of curren branch from LR to RR
-git push [-u|--set-upstream] [<repository>] [<branch>]   (see Section #6)
-
-it's always goodpractise to fetch/pull before pushing to beaware of most recent state of RR
-
-restart from 12:00
-
+§ The "push" command allows to add/forward current branch commits from LR to RR. Its basic syntax is "git push [-u|--set-upstream] [<repository>] [<branch>]" (see Section #6 for more details). Keep in mind it's always good practise to fetch/pull before pushing in order to be aware of the most recent RR state for that branch. In fact, trying to push when RR is ahead of LR by some commits fails (NB: that's why the work on a single topic-branch should be done by one user only at a time for simplicity's sake) returning the following error:
+"! [rejected]   master -> master (fetch first)
+'error: failed to push some refs to origin'
+..."
 
 ------------------------------------------------------------
 
@@ -403,3 +397,6 @@ git log --oneline --graph [--all] >> senza --all vedi solo commit history del br
 - add "to" to some list entries
 
 check if there's something useful in "git" file in google drive and then destroy it
+
+
+git always gives you hints, read them carefully and  follow them!
