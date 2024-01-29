@@ -323,7 +323,34 @@ Automatic merge failed; fix conflicts and then commit the result."
 
 ------------------------------------------------------------
 
+15. REBASING
 
+§ "Rebasing" means moving commits to a new parent, i.e. the inique commits of a topic-branch are reapplied to the tip of the base-branch. Since anchestor chain has changed, each of the reapplied commits has now a different commit ID. An advange is that after rebasing themerging from topic-branch to base-branch can be fast-forward (and not merge-commit), thus easier.
+Note that Git actually works by calculating differences between commits (known as "diff" or "patch"). Rebasing  means reapplying the 'diffs' to the new parent commits (process called "reapplying commits"). Of course, since reapplying commits is a form of merging, that's susceptible to merge-conflicts (e.g. if commits 'B' and 'D' modify the same sections of the same files, considering the rebasing example hereafter).
+Rebase has both pros and cons:
++ allows to incorportate changes from parent branch;
++ avoids "unnecessary" commits (cleaner history);
+- merge-conflicts may arise;
+- severe issues if commits are shared with other users;
+- does not preserve the actual commits sequence (less accurate history).
+
+§ Rebasing example:
+A -- D   [base-branch]                         
+  \_ (diffAB) -- B -- C   [topic-branch]
+=> REBASING =>
+A -- D -- (diffAB) -- B' -(diffBC)- C'   [base-branch]
+
+§ CAUTION: do not rewrite history that's shared with other users!
+
+§ There are x2 types of rebasing:
+- "regular rebase", i.e. the one discussed so far;
+- "interactive rebase", to rebase  (by adding the "-i" option) a series of commits onto the HEAD that they were originally based on instead of moving them to another one, with also the chance to stop after each commit you want to modify and change the message, add files, etc (e.g. use "git rebase -i HEAD~3" to interactively rebase the last x4 commits)..
+
+§ Useful commands for regular rebasing:
+- to checkout topic-branch parent to upstream/base-branch >> "git rebase <upstream> <branch>" (e.g. "git rebase development bugfix_358") [NB: equivalent to "git checkout <topic-branch> && git rebase <upstream>"].
+- in case of conflict, you can either solve them (check conflicting files by "git status", manually resolve conflicts as usual through editor, stage changes via "git add <resolved_files>" and complete rebase via "git rebase --continue") or abort it (via "git rebase --abort"). 
+
+------------------------------------------------------------
 
 >> XXXX. SUBMODULES <<
 
