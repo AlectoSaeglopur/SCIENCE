@@ -1,0 +1,141 @@
+This video discusses Rewriting History. We will start by talking
+about amending a commit. You can change the most recent commit. This includes changing the commit message
+and/or changing the project files. This creates a new SHA-1 rewriting
+the history of the commit. Let's look at an example. First we will create fileC.txt. We then add it to the staging area, And then we commit it with a typo
+in the commit message. If we look at the most recent commit
+we can see our SHA-1 and our typo. We execute git commit again
+specifying the amend option and fix our typo in the commit message. We then again look at
+the most recent commit and we can see that we have
+fixed the commit message and we can see that the SHA-1 is now
+different from the original SHA-1. In addition to amending
+the most recent commit message, you can change the files of the commit. You do this by modifying
+the staging area and then again executing git
+commit with the amend option. If you want to keep the old commit
+message you can add the no-edit option. Let's take a look at an example. First we'll view our most
+recent commit then we'll change the content of fileC.txt. We'll add that file to
+the staging area then we execute git commit with the amend
+option and the no-edit option. This will change the commit to
+include the updated filesC.text. We can then again view
+the most recent commit and we can see that we have a new SHA-1
+as well as updated fileC.text. Next we will discuss interactive rebase. Interactive rebase lets you
+edit commits using commands. The commits can belong to any branch and
+can in fact belong to a single branch. The commit history is changed, so in general do not use interactive
+rebase if you have shared commits. Interactive mode of the git rebase
+command is turned with the -i option, and as an argument you specify a commit. The children of those
+commits can be modified. In this example,
+before an interactive rebase, we have a single master branch
+with three commits, A, B, and C. And, after the rebase we
+have combined commits B and C into a single commit B prime. You can use interactive rebase
+to change a branch in many ways. You can use a commit from the branch
+as is, you can edit a commit message, you can stop the interactive rebase and
+edit the commit. You can drop or delete the commit. You can squash or fix up the commits,
+which we'll talk about a little later. You can reorder the commits and you can include shell commands to
+execute during the interactive rebase. This is an example of the editor and we have two commits associated
+with the interactive rebase. Git provides you with these comments to
+help you with the interactive rebase. You can change the command on each line. Here we are picking both of the commits
+meaning that we are using the commits. You can change that command to
+reword to edit the commit message, change it to edit to use the commit but
+to stop and amend the commit. Squash to use the commit but
+combine it with the previous commit, fix up is like a squash but
+you don't combine the commit messages. Exec is used to run a shell command
+anywhere in the interactive rebase and d or drop is used to remove a commit. If you re-order the commits,
+they will be reapplied in that order. If you remove or comment out of line,
+that commit will be deleted. If you remove everything from the list,
+the rebase will be aborted. Let's look at an example
+where we edit a commit. Before the rebase,
+we have three commits A, B, and C, in commit B we have a typo in the file
+name and as well as in the commit message. After the interactive rebase, we've fixed
+the file name and the commit message. Because history has been rewritten, the commit ID changes from B to
+B-prime and from C to C-prime. Here we look at the commit graph and we
+can see that the second commit has a typo. It also has an error in the file name. Since we want to change the second commit,
+we can execute git rebase with the -i option respecify
+the SHA-1 of the original commit. So we can work with the children
+of that commit which includes the commit with the typo When we execute the git rebase with the
+interactive mode, this screen shows up. We can change the pick command to edit for
+the fileB.txt commit. This means that when git is reapplying
+the commits, it will stop on this commit. After saving the file,
+git executes the rebase and stops on the commit that we want to edit. You can see that git tells you what
+state you are in and what you can do. If we list the contents
+of the working tree, we can see that we are on
+the commit that needs editing. At this point we can rename the file
+to fix the typo in the file name. We can execute git status, and
+git tells us that an interactive rebase is in progress, and
+provides information on what to do next. You can see that we've deleted a file,
+and added a new file. At this point we can add
+the files to the staging area and then execute git commit
+with the amend option. We can also fix the commit message. Git shows you that you're
+in a detached HEAD state. And this is because the interactive
+rebase paused on the commit that you wanted to edit. At this point we can execute git rebase, the continued option to reapply
+the rest of the commits to the branch. We look at our commit graph and we now see
+that the second commit has been fixed. If we list the files of the working tree, we see that our file name
+has been fixed as well. Next we will delete a commit and when we
+do this we're saying that we do not want to use any of the work of the commit. This can occur if you've
+made a mistake for example. Here we look at our commit graph and
+we see that in the initial commit we added fileA.txt, in the second
+commit we added fileB.txt, and in the most recent commit,
+we've added fileC.txt. If we list the contents of our
+working tree, we see the three files. Now let's assume for
+some reason we don't mean fileB.txt. We can execute the interactive rebase
+specifying the initial commit, allowing to delete the second commit. The editor comes up and
+we can change the command pick to drop for the commit associated with fileB.text. After we save the file, the rebase will be
+performed and the commit will be deleted. We can view the commit graph and see that the commit related to
+fileB.txt has been deleted. We can view the contents
+of the working tree and see that fileB.txt has also been deleted. The work of that commit is gone. Another option is to squash a commit. And this does three main things. It applies the newer squashed
+commit to an older commit. It combines the commit messages,
+and then removes the newer commit. Another related option is called fixup and
+it's like the squash, but the newer commit's message is discarded. Let's look at in the example. Here we view our commit graft and
+we see that we have three commits. The first added fileA.txt, second added
+fileB.txt, and the third added fileC.txt. Let's say that we would like to squash
+the most recent commit combining it's work with the second commit. If we view the contents of the working
+tree, we can see the three files. Now let's say that we would
+like to squash the most recent commit into the second commit,
+combining the work of the two commits. We execute the interactive rebase
+specifying the initial commit so we can work on its children. The editor appears and
+we change the pick command to squash for the most recent commit. This will combine the work
+of both of these commits. At this point, you can edit
+the commit message, which by default, combines the commit messages
+of the two commits. When we save the fie the interactive
+rebase is executed and the two commits are combined
+into a single commit. We can view the commit graph and
+see that we we now have two commits. If we view the contents of
+the working tree we see that all three files are there. Squashing the commits did not
+result in any work being lost. Let's look at the difference
+between squash and delete. Squash combines the commit with the older
+commit, creating a single commit. The work of both commits is included. In the case of delete, none of the changes from this commit
+are applied to other commits. All of the changes are thrown out. The work of the commit is lost and there
+is a greater chance of a merge conflict. This is because some of the transitional
+work between commits may be deleted. Here is an example of
+squash versus delete. Before an interactive rebase
+we have three commits. In commit A we add fileA.text, commit B we add fileB.txt and
+commit C we add fileC.txt. If we execute an interactive rebase and
+squash commit C, we are left two commits. Commit B prime contains all three files
+and we have not lost any of the work. If we perform an interactive rebase and
+delete commit B, we are left with two commits and fileB.txt
+is no longer part of our work entry. Next we will discuss Squash Merges. A squash merge merges the tip of
+the feature branch under the tip of the base branch. Because it is a a merge,
+there is a chance of a merge conflict. It places the results of this
+merge into the staging area which then can be committed. If we look before the squash merge,
+we have four commits, two on the master branch, and
+two on the featureX branch. After the squash merge, we combine
+commits C and D into a new commit E. You now have a simple linear history but commits B and
+D are no longer in the commit graph. After the featureX label
+is deleted commits B and D no longer are part of named branch. They will eventually be
+garbage collected by git. You can see that a squash
+merge simplifies things but it also rewrites the commit history. To perform a squash merge, you check out
+the master branch and then execute git merge with the squash option and specify
+the featureX branch as the argument. This adds the merged content
+to the staging area and you execute git commit to
+create the squash merge commit. You can then delete the featureX branch. You an also squash merge
+with the fast forward, you again check out the master branch. You execute git merge with
+the squash option and featureX branch specified as an argument. You execute git commit and the merge
+will automatically be fast forwarded. You can then delete the featureX branch. You can see, before the merge,
+we had three commits on two branches and after the squash merge we have two
+commits on the single master branch. Commits C and
+C prime contain the same project files, there is just a different commit history. Here is a review of what we've
+discussed in this video. You can amend the most recent commit's
+message and/or its committed files. This will create a new SHA-1 for
+the commit. Interactive rebase allows you to
+rewrite the history of a branch. A squash reduces multiple
+commits into a single commit. Now it is time for you to work with
+the topics discussed in this video. Separate hands on instructions
+that are provided.
