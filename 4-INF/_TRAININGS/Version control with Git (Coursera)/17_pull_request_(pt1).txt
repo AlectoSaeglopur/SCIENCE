@@ -1,0 +1,82 @@
+This is the first of two
+videos on pull requests. We will start with
+a pull request overview. Pull requests are a feature of Git hosting
+sites such as Bitbucket and GitHub. The ultimate goal of a pull request is
+to merge a branch into the project. Pull requests enable team communication
+related to the work of the branch. Notifications, related to the pull
+request, can be sent to team members. Those team members can provide feedback or
+comments, and ultimately can a have a say in approving the content,
+this can act as a form of code review. There are two basic repository
+configurations related to pull requests. The first one is a single remote
+repository, a pull request in a single repository configuration is a request
+to merge a branch of the repository. The second configuration
+involves two remote repositories, in this configuration, a pull request
+is a request to merge a branch from a forked repository into
+the upstream repository. The fork approach is common if
+the submitter doesn't have write access to the upstream repository. You can create a pull request, which
+is also called opening a pull request, anytime during the life of the branch. You can open a pull request
+when you create the branch, this enables the team to begin discussion
+on the work of the branch immediately. You can also open a pull request when
+you want comments on the branch. For example, you may be stuck
+implementing something and want to ask the team for help. And finally, you can open the pull request
+when you think the branch is ready for review and merging. As you can see, a pull request can be opened at any time
+after the related branch is created. Next we will discuss single
+repository pull requests. Before making a pull request,
+you need to prepare to make the request. To prepare to make the pull request,
+first you create a feature branch. This is the branch that we
+hope will eventually be merged into a longer running branch. You can work on the future branch
+before opening a pull request, but to start the team discussion, you can also open a pull request
+immediately after creating the branch. You then push the branch
+to the remote repository. Let's look at an example of preparing for
+a pull request. We start by creating and
+checking out a branch named featureX, the -b option of the git checkout
+command creates the branch. Then we do some work on the branch
+by creating a file named fileA.text, we add the file to the staging area,
+we then commit the file. Finally, we will execute
+the git push command, pushing the featureX branch
+to the remote server. The set-upstream option ensures that
+we set up a local tracking branch. When we execute the git push command, we can see a helpful message about
+creating a pull request for the branch. That bitbucket URL can be used to open
+a pull request directly from your browser. To open a pull request you
+can log into bitbucket, navigate to your remote repository and
+click on Pull requests. Here you can create or view any pull
+request related to the repository. Let's create a pull request by clicking
+the create a pull request link. You are presented with a pull
+request form to fill out. You title your pull request, add
+a description of work done on the branch, optionally specify specific
+reviewers of the pull request, and then click Create pull request. When a pull request has been submitted to
+you, you will see the pull request in your Bitbucket dashboard,
+which is part of the Overview tab. You can see here that we have no pull
+requests waiting for our review and you can see the pull
+requests that we created. When you are reviewing a pull request, you
+can see the full context of the request. You can review the information of the pull
+request itself, you can see what has change in the project, and
+you can see the comments that were made. This is where you can
+add your own comments. You can click Approve to add to the count
+of approvers of the pull request. Your project might require a certain
+number of approvals before the merge is allowed. A person doing the merging of the pull
+request can gain confidence depending on how many people approve it, and
+by who specifically approves it. Click Decline to reject or
+remove the pull request. Be careful if you do this
+because it cannot be undone. Click Edit to update the pull request, you
+do not need to do this if you add a commit to the branch, the pull request
+will automatically be updated. Click Merge to begin the process
+of merging the branch, remember that merging is the ultimate
+goal of the pull request. You will then be asked to
+select a merge strategy. You can create a merge commit or you can squash, a squash will reduce
+the entire branch to one linear commit. You don't have to use one of these
+strategies to perform the merge, you can use your local client to
+merge the branch just as usual. When you push the merge to the remote
+repository the pull request will be closed. After the merge, you can then
+delete the remote branch label. Here we execute git push with the -d
+option to delete the featureX branch label. Here is a review of what we've
+discussed in this video. Pull requests are opened using an online
+Git host such as Bitbucket of GitHub. The ultimate goal of a pull
+request is to merge a branch, but they also facilitate team discussion and
+approval. You can open a pull request any
+time after creating the branch, you do not need to edit the pull request
+if you add a commit to the branch. You can merge the pull request
+using an online Git host or by pushing the merge
+from your local client. Now it's time to work on the topics
+discussed in this video, separate hands on
+instructions are provided.
