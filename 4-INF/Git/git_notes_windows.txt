@@ -61,9 +61,10 @@ More in detail, "git command (-f|--flag) [<id>] [--] [<paths> ...]", where:
 
 ------------------------------------------------------------
 
->> 4. CREATE NEW LOCAL REPOSITORY <<
+>> 4. CREATE NEW REPOSITORY LOCALLY <<
 
-- if the project does not exist yet in RR, create a folder where to place all repositories (e.g. "repos_folder");
+§ If project repository does not exist yet remotely on GitHub website:
+- create a folder where to place all repositories (e.g. "repos_folder");
 - inside the aforementioned folder, create a sub-folder for the new project to be created (e.g. "proj_1");
 - here (e.g. \repos_folder\proj_1\) open a bash and initialize the LR >> "git init";
 - check the ".git/" hidden folder has been successfully >> "ls -a";
@@ -73,14 +74,18 @@ More in detail, "git command (-f|--flag) [<id>] [--] [<paths> ...]", where:
 
 >> 5. COMMIT TO LOCAL REPOSITORY <<
 
+§ Useful commands for committing:
 - check if there are files/directories modified or untracked in respect of the last commit >> "git status [-s]";
 - add desired untracked or modified files/directories (and in turn all files inside the latter) to SA >> "git add [files-or-directories];
 - NB: for new repositories it's good practise to add a "README.md" file to the project to the main page (if not existing yet);
 - alternatively, add all untracked or modified files/directories to SA without specifying them one by one >> "git add .";
-- move all staged files/directories from SA to LR, thus adding a new snapshot/node (representing the current state of the project) to the version history >> "git commit -m "<comment>"" [NB: to combine "git add ." and "git commit -m "<comment>"", you can use "git commit -a -m "<comment>""];
+- move all staged files/directories from SA to LR, thus adding a new snapshot/node (representing the current state of the project) to the version history >> "git commit -m "<comment>"" [NB: you can use "git commit -a -m "<comment>"" to combine "git add ." and "git commit -m "<comment>"", but keep in mind it does not work for untracked files];
 - verify WT and SA are now clean (at least of all committed files/directories) >> "git status";
-- see the LR commit-history of the current branch >> "git log [--oneline] [-X]" (e.g. X=2 can be used to show only the x2 most recent commits instead of the whole history);
-- NB: not all modified/untracked files in the WT have to be staged and then part of the next commit/push. Typical examples are the .o/.map/.bin/.srec/.exe files generated after building, since only source files (.c/.h) are actually included in the versioning (assuming not to include them into the ".gitignore" file).
+- see the LR commit-history of the current branch >> "git log [--oneline] [-X]" (e.g. X=2 can be used to show only the x2 most recent commits instead of the whole history) [NB: press 'Enter' to show more log-lines or 'q' to exit].
+
+§ Not all modified/untracked files in the WT have to be staged and then part of the next commit/push. Typical examples are the .o/.map/.bin/.srec/.exe files generated after building, since only source files (.c/.h) are actually included in the versioning (assuming not to include them into the ".gitignore" file).
+
+§ To delete a current branch commit in LR use "git reset --hard <commit_id>" (e.g. "git reset --hard HEAD~X" to cancel last X commits, assuming HEAD is pointing to branch-label);
 
 ------------------------------------------------------------
 
@@ -89,7 +94,7 @@ More in detail, "git command (-f|--flag) [<id>] [--] [<paths> ...]", where:
 § In case LR exists (see Section #4 and #5) and RR does not yet:
 - open an internet browser and create a new empty repository on GitHub website with the same name of that in your LR (e.g. "proj_1");
 - open bash inside LR and link it to RR through its URL/SSH address (e.g. "github website > proj_1 > code > HTTPS/SSH") >> "git remote add <name> <url>" (e.g. <name> = 'origin' or 'proj_1', <url> = "https://github.com/AlectoSaeglopur/proj_1" or "git@github.com:AlectoSaeglopur/proj_1.git", i.e. "git remote add origin git@github.com:AlectoSaeglopur/proj_1.git");
-- NB: using SSH addresses is always recommended if SSH key has been already generated and linked for the user (see Section #2);
+- [NB: using SSH addresses is always recommended if SSH key has been already generated and linked for the user (see Section #2)];
 - initialize RR according to current LR state >> "git push -u|--set-upstream <repo_name> <branch>" (e.g. "git push -u origin master", or more specifically "git push --set-upstream proj_1 master").
 
 § In case RR already exists and LR does not yet:
@@ -119,11 +124,11 @@ Typically the user has to care only about commits and annotated tags, whereas tr
 
 § A commit can be associated with a "reference", i.e. a user-friendly name (e.g. 'HEAD' or 'master') pointing to a commit hash (e.g. '64a0c1...') or another reference (aka "symbolic reference" in this latter case). Therefore, references can be used instead of hashes for simplicity's sake.
 
-§ Each branch is assigned with a so-called "branch-label", a reference with the same name of the branch (e.g. 'development' or 'master') pointing always to the most recent commit of that branch (aka "tip of the branch"). Note that 'master' is the default name of the main branch in every repository (thus also the 'master'-reference exists for any repository).
+§ Each branch is assigned with a so-called "branch-label", a reference with the same name of the branch (e.g. 'develop' or 'master') pointing always to the most recent commit of that branch (aka "tip of the branch"). Note that 'master' is the default name of the main branch in every repository (thus also the 'master'-reference exists for any repository).
 
 § All references are automatically stored/updated in "./git/refs/heads/" and they are nothing but files named as their names and containing inside the corresponding hash value. The only exception is 'HEAD', which is kept in "./git".
 
-§ The 'HEAD'-reference points to the branch-commit pair currently present in the WT (thus, it can exist only one 'HEAD' per repository). By default it's usually equal to the "label branch" (e.g. 'master' or 'development'), but unlike the latter this can be also moved back to previous commits of the branch using the "git checkout <commit-id>". For example, assuming to be in the 'master' branch, if using "git log --oneline" returns that 'HEAD' points to 'master' (i.e. 'HEAD->master'), then using "git checkout HEAD~" (i.e. "git checkout PREVIOUS_COMMIT_HASH") moves 'HEAD' one commit back and updates the WT accordingly (thus now 'master' becomes one commit ahead of 'HEAD'). Executing now "git checkout master" (i.e. in general "git checkout <branch-name>") resets 'HEAD' equal to 'master' (i.e. latest commit of branch).
+§ The 'HEAD'-reference points to the branch-commit pair currently present in the WT (thus, it can exist only one 'HEAD' per repository). By default it's usually equal to the "label branch" (e.g. 'master' or 'develop'), but unlike the latter this can be also moved back to previous commits of the branch using the "git checkout <commit-id>". For example, assuming to be in the 'master' branch, if using "git log --oneline" returns that 'HEAD' points to 'master' (i.e. 'HEAD->master'), then using "git checkout HEAD~" (i.e. "git checkout PREVIOUS_COMMIT_HASH") moves 'HEAD' one commit back and updates the WT accordingly (thus now 'master' becomes one commit ahead of 'HEAD'). Executing now "git checkout master" (i.e. in general "git checkout <branch-name>") resets 'HEAD' equal to 'master' (i.e. latest commit of branch).
 
 § The '~' and '^' characters can be used to refer to previous commits. In particular, '~' allows to refer to parent commits (i.e. in case of a single parent), whereas '^' to refer to parent in a merge-commit (i.e. in case of multiple parents). For example:
 - show latest x4 commits of current branch (e.g. 'master') >> "git log --online -4";
@@ -181,12 +186,12 @@ Typically the user has to care only about commits and annotated tags, whereas tr
 § Every commit belongs to a specific branch (Git's default one is named 'master'), which contains the history of all commits related to that branch. Branches are created by reference and they are useful for code-experimentation/testing, for code development within a team (since they allow concurrent/independent work on the same project without mutual interference), and for supporting multiple project-versions (in case of customization between different applications/clients).
 
 § Branches can be of x2 types:
-- "long-lived" (aka "base", such as 'master', 'development' or 'release'), related to stable and official versions of the project over time;
+- "long-lived" (aka "base", such as 'master', 'develop' or 'release'), related to stable and official versions of the project over time;
 - "short-lived" (aka "topic", such as 'bugfix', 'hotfix' or 'feature'), related to tickets that shortly merge back to a 'long-lived' branch.
 
 § Useful commands for branches:
 - show all branches of the project >> "git branch" (then the branch marked with the '*' character represents the one currently pointed by 'HEAD', i.e. the one present in the WT at that time) [NB: use "git fetch" before to be sure you're up-to-date with the RR];
-- create a new branch in LR >> "git branch <branch_name>" (then check this has been successfully create via "git branch") [NB: before creating a new branch (e.g. 'bugfix_startup_327') be sure to checkout to the desired source branch (e.g. 'development')];
+- create a new branch in LR >> "git branch <branch_name>" (then check this has been successfully create via "git branch") [NB: before creating a new branch (e.g. 'bugfix_startup_327') be sure to checkout to the desired source branch (e.g. 'develop')];
 - push a new branch (just created in LR) to RR >> "git push -u origin <branch_name>" [NB: '-u' = '--set-upstream'];
 - [NB: new branches can be also created first on RR as well (e.g. go to "github website > project > view all branches > new branch" and choose the source-branch), then locally use "git fetch" to check if new branches are present on RR (then after executing "git checkout <new_rr_branch> && git branch" the new branch is listed also locally)].
 
@@ -212,7 +217,7 @@ Typically the user has to care only about commits and annotated tags, whereas tr
 - "squash merge";
 - "rebase merge".
 
-§ "Fast-forward" (FF) moves directly the source/base branch-label to the tip of the topic-branch and cannot cause conflicts (therefore, it's possible only if no commits have been added to the source/base-branch in the meanwhile). In this case, after merging both branches contain exactly the same commits, thus the base-branch inherits all the topic-branch commits (even if later the topic-branch gets deleted). With FF-merging the resulting commits-history (aka 'commits-graph') is linear, i.e. no commits have multiple parents (this can be checked via "git log--oneline --graph"). Commands to perform an FF-merging:
+§ "Fast-forward" (FF) moves directly the source/base branch-label to the tip of the topic-branch and cannot cause conflicts (therefore, it's possible only if no commits have been added to the source/base-branch in the meanwhile). In this case, after merging both branches contain exactly the same commits, thus the base-branch inherits all the topic-branch commits (even if later the topic-branch gets deleted). With FF-merging the resulting commits-history (aka 'commits-graph') is linear, i.e. no commits have multiple parents (this can be checked via "git log --oneline --graph"). Commands to perform an FF-merging:
 - after pushing the final changes on the topic branch (i.e. the "merge-from-branch"), switch to the base-branch (i.e. the "merge-to-branch") and pull (even if nothing is assumed to have changed) >> "git checkout <base_branch> && git pull" [NB: as said, 'pull' is theoretically not needed in this case since nothing is assumed to have changed in the meanwhile on the base-branch, but nonetheless it's always good practise];
 - merge back topic-branch into base-branch (note FF is always the default type of merging attempted by Git at first) >> "git merge <topic_branch>" [NB: whenever using the command "merge", Git specifies the type of merging is trying to execute (e.g. by printing 'Fast-forward' on shell)];
 - verify your base-branch is now 'ahead of origin by 1 commit' and push merge-changes to RR >> "git status && git push";
@@ -291,7 +296,7 @@ A -- C -- F   [base-branch]
 
 § Useful commands related to tracking-branches:
 - to show commit-history of a remote branch (again, tracked only indirectly via the corresponding tracking-branch) >> "git log origin/master [--oneline]" (equivalent to simply "git log origin [--oneline]" if 'master' is set as default remote tracking-branch);
-- to change locally the defaul remote tracking-branch (e.g. to 'development', since that's usually the one where the bulk of the work is done by the team) >> "git remote set-head <remote> <branch>" (e.g. "git remote set-head origin development", so from now on "git log origin [--oneline]" will refer to 'development' commits and "git branch --all" will show 'remotes/origin/HEAD -> origin/development');
+- to change locally the defaul remote tracking-branch (e.g. to 'develop', since that's usually the one where the bulk of the work is done by the team) >> "git remote set-head <remote> <branch>" (e.g. "git remote set-head origin develop", so from now on "git log origin [--oneline]" will refer to 'develop' commits and "git branch --all" will show 'remotes/origin/HEAD -> origin/develop');
 
 § The initial default tracking-branch (e.g. corresponding to the default branch while cloning) can be changed for all users through "github website > settings > general > default branch". Note this is always set by default to 'master' for new repositories.
 
@@ -382,7 +387,7 @@ A -- D -- (diffAB) -- B' -(diffBC)- C'   [base-branch]
 - "interactive rebase", to rebase (by adding the "-i" option) a series of commits belonging to a specific branch - here commits can be edited, stopped, dropped/deleted, squashed (i.e. combining a specific commit with the previous one into a new single commit, combining also messages), fixed-up (just like squash, but discarding the comment of the newer commit), reordered, etc.
 
 § Useful commands for regular-rebasing:
-- to checkout topic-branch parent to upstream/base-branch >> "git rebase <upstream> <branch>" (e.g. "git rebase development bugfix_358") [NB: equivalent to "git checkout <topic-branch> && git rebase <upstream>"].
+- to checkout topic-branch parent to upstream/base-branch >> "git rebase <upstream> <branch>" (e.g. "git rebase develop bugfix_358") [NB: equivalent to "git checkout <topic-branch> && git rebase <upstream>"].
 - in case of conflict, you can either solve them (check conflicting files by "git status", manually resolve conflicts as usual through editor, stage changes via "git add <resolved_files>" and complete rebase via "git rebase --continue") or abort it (via "git rebase --abort"). 
 
 § Useful commands for interactive-rebasing:
@@ -459,102 +464,76 @@ A -- D -- (diffAB) -- B' -(diffBC)- C'   [base-branch]
 >> 19. STASH <<
 
 § The "git stash" commands allow to take WT uncommitted changes (both staged and unstaged), save them away for later use, and then restore them to WT:
-- to stash uncommitted changes away >> "git stash" (equivalent to "git stash push");
-- to restore last stashed changes to WT and remove them from stashing-area >> "git stash pop";
-- to restore last stashed changes to WT but keep them in stashing-area (for example, this is useful if you need to apply the same stashed changes to multiple branches) >> "git stash apply";
+- to stash uncommitted changes away >> "git stash" (equivalent to "git stash push") [NB: after this commnad, execute "git status" and check WT is now clean];
+- to restore latest stashed changes to WT and remove them from stashing-area >> "git stash pop" [NB: 'latest changes' means the stash-entry labeled as 'stash@{0}'];
+- to restore latest stashed changes to WT but keep them in stashing-area (for example, this is useful if you need to apply the same stashed changes to multiple branches) >> "git stash apply".
 
 § Note that by default the "git stash" command stores:
 - staged changes (i.e. changes that have been added to your index);
 - unstaged changes (i.e. changes made to files that are currently tracked by Git);
-But does not store:
+...but does not store:
 - new files in WT that have not been staged yet (i.e. not part of the versioning yet) >> add the "-u" (where "-u" = "--include-untracked") option to include new untracked files (e.g. "git stash -u");
-- ignored files (i.e. part of the '.gitignore' file) >> add the "-a" (where "-a" = "--all") option to include changes to ignored files as well (e.g. "git stash -a");
+- ignored files (i.e. part of the '.gitignore' file) >> add the "-a" (where "-a" = "--all") option to include changes to ignored files as well (e.g. "git stash -a").
 
+§ The user is not limited to a single stash at a time, but can run "git stash" multiple times to crete multiple stashes in sequence. By default, stashes are identified simply as a 'WIP' (aka "Work In Progress") on top of the branch/commit you created the stash from. Then "git stash list" can be used to list all stashed currently stored. However, after a while it can be difficult to remember what each stash contains (since, for example, they are all listed as something like "stash@{0}: WIP on master: 2e16987" or "stash@{4}: WIP on develop: f955ab0"). To provide a clearer andmore detailed tracking, it's recommended to include a stash description via the "save "message"" option (e.g. "git stash save "stashed changes on xyz.c"").
 
+§ To restore older changes use include the desired stash entry as additional argument (e.g. "git stash pop stash@{2}" or "git stash apply stash@{3}").
 
+§ To retrieve info about a specific stash, use "gist stash show stash@{n}" and add the "-p" option to display also all differences within modified files (e.g. "gist stash show -p stash@{1}").
 
+§ Use "git stash drop stash@{n}" to delete a specific stash, or "git stash clear" to delete all of them.
 
+§ Of course, restoring stashed changes via "pop/apply" can generate conflicts if in the meanwhile the same sections of the same files have been modified. In this case, just resolve manually the conflicts on each file and then stage the changes as usual.
 
-You aren't limited to a single stash. You can run git stash several times to create multiple stashes, and then use git stash list to view them. By default, stashes are identified simply as a "WIP" – work in progress – on top of the branch and commit that you created the stash from. After a while it can be difficult to remember what each stash contains:
-
-$ git stash list
-
-To provide a bit more context, it's good practice to annotate your stashes with a description, using git stash save "message":
-
-By default, git stash pop will re-apply the most recently created stash: stash@{0}
-
-You can choose which stash to re-apply by passing its identifier as the last argument, for example:
-
-$ git stash pop stash@{2}
-
-
-You can view a summary of a stash with git stash show:
-
-$ git stash show
- index.html | 1 +
- style.css | 3 +++
- 2 files changed, 4 insertions(+)
-Or pass the -p option (or --patch) to view the full diff of a stash:
-
-
-
-If you decide you no longer need a particular stash, you can delete it with git stash drop:
-
-$ git stash drop stash@{1}
-Dropped stash@{1} (17e2697fd8251df6163117cb3d58c1f62a5e7cdb)
-Or you can delete all of your stashes with:
-
-$ git stash clear
-
-
-
-
-Stashes are actually encoded in your repository as commit objects. The special ref at .git/refs/stash points to your most recently created stash, and previously created stashes are referenced by the stash ref's reflog. This is why you refer to stashes by stash@{n}: you're actually referring to the nth reflog entry for the stash ref. Since a stash is just a commit, you can inspect it with git log:
-
-
-conflitti? prova!
+§ Remember stashes are actually encoded locally as commit objects. The special ref at ".git/refs/stash" points to the most recent stash, and previous stashes are referenced by the stash ref's reflog. This is why you refer to stashes by stash@{n}, since you're actually referring to the n-th reflog entry for the stash ref.
 
 ------------------------------------------------------------
 
->> XXXX. SUBMODULES <<
+>> 20. SUBMODULES <<
 
-§ Submodule explanation here!!!!!!!! (@todo)
+§ Git submodules allow you to keep a Git repository as a subdirectory of another Git repository. Submodules are simply a reference to another repository at a particular snapshot in time, and enable a Git repository to incorporate and track version history of external code.
+
+§ A Git submodule is a record within a host Git repository that points to a specific commit in another external repository. Submodules are very static and only track specific commits. Submodules do not track Git refs or branches and are not automatically updated when the host repository is updated. When adding a submodule to a repository a new ".gitmodules" file will be created. The ".gitmodules" file contains meta-data about the mapping between the submodule project's URL and local directory. If the parent repository has multiple submodules, the ".gitmodules" file has an entry for each submodule.
+
+§ Using submodules is especially useful:
+- when an external component or subproject is changing too fast or upcoming changes will break the API, you can lock the code to a specific commit for your own safety;
+- when you have a component that is not updated very often and you want to track it as a vendor dependency;
+- when you are delegating a piece of the project to a third party and you want to integrate their work at a specific time or release(assuming updates are not too frequent);
+- in general, to increase projects modularity and reusability.
 
 § Useful commands for submodules:
-- initialize all submodules just after cloning the main RR (only once) >> "git submodule update --init --recursive";
-- update/pull all submodules (all other times) >> "git submodule update --recursive";
-- apply a Git command on all submodules >> "git submodule foreach --recursive <command>" (e.g. "git submodule foreach --recursive git reset --hard" or "git submodule foreach --recursive git clean -dxf".
+- to add a new submodule to an existing/main repository >> "git submodule add <url>" (then new submodule files have to be staged/committed/pushed in order to become a steady part of the main project) [NB: after pushing to RR, open GitHub website and check the submodule commit-reference (e.g. "@3e5a7c") has been added to the main project];
+- after cloning a remote repository containing submodules, remember these have to be also manually initialized (otherwise, submodule folders would remain empty) >> "git clone <url> && git submodule update --init --recursive";
+- to import/update submodule changes on parent project >> "git submodule update --recursive --remote" (see more detaild below);
+- to apply a standard Git command on all submodules of the parent project >> "git submodule foreach --recursive <command>" (e.g. "git submodule foreach --recursive git reset --hard" or "git submodule foreach --recursive git clean -dxf").
+
+§ Once submodules are properly initialized and updated within a parent repository they can be utilized exactly like stand-alone repositories. This means that submodules have their own branches and history. When making changes to a submodule it is important to push submodule changes and then update the parent repositories reference to the submodule.
+
+§ Remember that changes on submodules cannot be made directly from the parent repository (since they cannot be staged/committed from the parent repo). To make changes on a submodule, just clone it locally as a standalone project and work on that as for any other repository (i.e. creating topic-branches, merging-back to base-branch, etc.). Then, to import submodule changes on the parent project:
+- apply submodule changes from RR to WT >> "git submodule update --recursive --remote" [NB: this command actually updates all submodules used inside the parentproject, not just one];
+- alternatively, submodules can be updated one by one by opening a bash inside each of their subfolders and executing "git fetch/pull" [NB: instead executing "git fetch/pull" at parent project level is not able to detect submodules updates from RR];
+- then stash, commit and push changes to update submodules references within the parent project >> "git add . && git commit -m "submodules updated" && git push".
 
 ------------------------------------------------------------
 
->> XXXX. EXTRA COMMANDS <<
+>> 21. EXTRA TIPS <<
 
-- "git help" to get a brief explanation about the most common commands;
-- "git help [command]" or "git [command] -h" to retrieve info/documentation about a specific command (online or on shell respectively);
-- "git --version" to check current Git version installed;
-- "clear" to clear shell (Linux)
-- "ls -a" to show all files and directories within current folder, including hidden ones (Linux)
+§ Some useful Linux commands:
+- "ls -a" to show all files and directories within current folder (including hidden ones);
+- "clear" to clear shell/bash.
 
-- git log + 'q' to exit!
-- git log --oneline --graph
-
-- use "git clone <url> [<local_project_name>]" to create a local copy of a RR and enables interaction (i.e. pull, push, etc) with that RR;
-- use "git remote [--verbose|-v]" to display information about the RR associated with your LR
-
-- "git gui" to open Git GUI and differences on files!!
-
-- after merging back a branch to main, fai checkout to main e status (should be uptodate). then git fetch amd git status, now it should say remote is ahead (?) -> check!
-
-to cancel commits in LR on current branch : "git reset --hard <commit_id_to_restore>" (e.g. "git reset --hard HEAD~X", to cancel last X commits, assuming HEAD is pointing to branch-label);
-
-git checkout -f <branch> (to move discarding all WT changes not staged/committed)
+§ Extra useful Git commands:
+- to get an overview of the most common commands >> "git help";
+- to get info about a specific command >> "git help [command]" or "git [command] -h" (e.g. git status -h");
+- to check current Git version installed >> "git --version";
+- to open Git GUI >> "git gui";
+- to display info about RR (associated to your LR) >> "git remote -v" (where "-v" = "--verbose"); 
+- to display differences inside project files between WT and index (i.e. unstaged changes) >> "git diff [--word-diff]" (or via Git GUI);
+- to display differences inside project files between staging area and LR (i.e. uncommitted changes) >> "git diff --cached [--word-diff]";
+- to display differences inside project files between LR and RR (i.e. unpushed changes) >> "git diff <remote>/<branch> [--word-diff]" (e.g. "git diff origin/develop --word-diff");
+- to checkout to another branch discarding all current unstanged WT changes >> "git checkout -f <branch>";
 
 
-
-
-@TODO
-
-submodules example
 
 push + modifico wt + pull >> unstaged files rimangono, i.e. non piallati da pull!
 
@@ -562,8 +541,6 @@ push + modifico wt + pull >> unstaged files rimangono, i.e. non piallati da pull
 se faccio push da user#1 e status mi dice che sono uptodate with origin/master
 se altro user#2 fa dopo push
 io user#1 rifaccio statusvedo ancra stesso messaggio di uptodate! >> solo se faccio fetch e poi status allora midice chem mybranchis behind 'origin/master' by 1 commit!!!
-
-stash?
 
 github enables the grph-view ("githubwebsite > insights > network") only for paid versions (enterprise) or if the repo is public!
 
