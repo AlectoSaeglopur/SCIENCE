@@ -93,7 +93,7 @@ More in detail, "git command (-f|--flag) [<id>] [--] [<paths> ...]", where:
 
 § In case LR exists (see Section #4 and #5) and RR does not yet:
 - open an internet browser and create a new empty repository on GitHub website with the same name of that in your LR (e.g. "proj_1");
-- open bash inside LR and link it to RR through its URL/SSH address (e.g. "github website > proj_1 > code > HTTPS/SSH") >> "git remote add <name> <url>" (e.g. <name> = 'origin' or 'proj_1', <url> = "https://github.com/AlectoSaeglopur/proj_1" or "git@github.com:AlectoSaeglopur/proj_1.git", i.e. "git remote add origin git@github.com:AlectoSaeglopur/proj_1.git");
+- open bash inside LR and link it to RR through its URL/SSH address (e.g. "github website > PROJECT > code > HTTPS/SSH") >> "git remote add <name> <url>" (e.g. <name> = 'origin' or 'proj_1', <url> = "https://github.com/AlectoSaeglopur/proj_1" or "git@github.com:AlectoSaeglopur/proj_1.git", i.e. "git remote add origin git@github.com:AlectoSaeglopur/proj_1.git");
 - [NB: using SSH addresses is always recommended if SSH key has been already generated and linked for the user (see Section #2)];
 - initialize RR according to current LR state >> "git push -u|--set-upstream <repo_name> <branch>" (e.g. "git push -u origin master", or more specifically "git push --set-upstream proj_1 master").
 
@@ -116,7 +116,7 @@ Typically the user has to care only about commits and annotated tags, whereas tr
 
 § The name of a Git object is called "ID", consisting of a 40-character hexadecimal string (aka "hash" or "checksum") generated through the SHA-1 encryption algorithm (e.g. the IDs of all commits related to a branch can be seen via "git log"). Often IDs are shortened to first x7 characters to be more user-friendly (e.g. with "git log --oneline").
 
-§ For each commit Git automatically create and associates a unique ID (aka hash). ->> based on avalanche algorithm/principle >> EXPLAIN @todo
+§ For each commit Git automatically create and associates a unique ID (aka hash), generated through an avalanche encryption-algorithm (i.e. producing huge changes on hashes even for small changes on repository files).
 
 ------------------------------------------------------------
 
@@ -193,7 +193,7 @@ Typically the user has to care only about commits and annotated tags, whereas tr
 - show all branches of the project >> "git branch" (then the branch marked with the '*' character represents the one currently pointed by 'HEAD', i.e. the one present in the WT at that time) [NB: use "git fetch" before to be sure you're up-to-date with the RR];
 - create a new branch in LR >> "git branch <branch_name>" (then check this has been successfully create via "git branch") [NB: before creating a new branch (e.g. 'bugfix_startup_327') be sure to checkout to the desired source branch (e.g. 'develop')];
 - push a new branch (just created in LR) to RR >> "git push -u origin <branch_name>" [NB: '-u' = '--set-upstream'];
-- [NB: new branches can be also created first on RR as well (e.g. go to "github website > project > view all branches > new branch" and choose the source-branch), then locally use "git fetch" to check if new branches are present on RR (then after executing "git checkout <new_rr_branch> && git branch" the new branch is listed also locally)].
+- [NB: new branches can be also created first on RR as well (e.g. go to "github website > PROJECT > view all branches > new branch" and choose the source-branch), then locally use "git fetch" to check if new branches are present on RR (then after executing "git checkout <new_rr_branch> && git branch" the new branch is listed also locally)].
 
 § The "checkout" command can be used to:
 - switch 'HEAD' from the current branch-commit pair to either the checked-out branch-label (i.e. to change branch >> "git checkout <branch>") or 'commit id' (i.e. to change commit on the same branch >> "git checkout <commit>");
@@ -312,13 +312,13 @@ A -- C -- F   [base-branch]
 - "pull" >> to fetch and merge commits locally;
 - "push" >> to add new object and reference to RR.
 
-§ The "fetch" command allows to update local tracking-branches with info from RR without merging changes/updates immediately into WT, thus does not affect you LR labels and just makes the user aware of the actual/current RR state (see Section #13). In case LR is already up-to-date with RR no info are shown by executing the command. Plus, executing "git status" before and after a "git fetch" command allows to understand if and how LR and RR are out of sync (and gives also suggestions, e.g. if branch can be fast-forwarded on not in case RR is ahead by some commits).
+§ The "fetch" command allows to update local tracking-branches with info from RR without merging changes/updates immediately into WT, thus does not affect you LR labels and just makes the user aware of the actual/current RR state (see Section #13). In case LR is already up-to-date with RR, no info is displayed on shell after executing the command. Plus, executing "git status" before and after a "git fetch" command allows to understand if and how LR and RR are out of sync (and gives also suggestions, e.g. if branch can be fast-forwarded on not in case RR is ahead by some commits).
 
 § The "pull" command combines "git fetch" and "git merge FETCH_HEAD". If any object is fetched, the tracking-branch is merged into LR/WT. Thus, it may create conflicts. Hereafter some useful merge-options for the "pull" command are listed:
 - "--ff" >> fast-forward if possible, otherwise perform a merge-commit (default);
 - "--no-ff" >> always include a merge-commit (formal);
 - "--ff-only" >> cancel instead of doing a merge-commit (abort if fast-forward not possible);
-- "--rebase [--preserve-merges]" >> see later @todo.
+- "--rebase [--preserve-merges]" >> (see Section #15).
 
 § There can be multiple situations when executing "git pull":
 - LR and RR in sync, without WT unstanged/uncommitted/unpushed changes >> no effect;
@@ -326,7 +326,7 @@ A -- C -- F   [base-branch]
 - LR ahead of RR, without WT unstanged/uncommitted/unpushed changes >> no effect;
 - LR ahead of RR, with WT unstanged/uncommitted/unpushed changes >> no effect;
 - RR ahead of LR, without WT unstanged/uncommitted/unpushed changes >> fast-forward pull update (no conflicts);
-- RR ahead of LR, with WT unstanged/uncommitted changes not conflicting with latest RR commits >> fast-forward pull update (no conflicts) with previous WT unstanged/uncommitted changes still present;
+- RR ahead of LR, with WT unstanged/uncommitted changes not conflicting with latest RR commits >> fast-forward pull update (no conflicts) with previous WT unstanged/uncommitted changes preserved;
 - RR ahead of LR, with WT unstanged/uncommitted changes conflicting with latest RR commits >> pull aborted [see 'PULL MESSAGE #1'];
 - RR ahead of LR, with LR unpushed commits having no conflicts with latest RR commits >> merge-commit (no conflicts) [see 'PULL MESSAGE #2'] - i.e. in this case it's created a new local commit which is the automatic combination of the latest RR commit and the unpushed LR commit (plus, a message is prompted asking the user to provide a comment for the merge), a checking now the local state via "git status" inform you that LR is ahead of 'origin/master' by 2 commits (i.e. pull-merge is just local for the moment) - note this case has many similarities with the topic-to-base-branch merging already discussed in Section #11;
 - RR ahead of LR, with LR unpushed commits having conflicts with latest RR commits >> merge conflict to solve [see 'PULL MESSAGE #3'] - in this case you Git automatically marks the issues on the conflicting files (e.g. 'xyz.c') as already reported in Section #11, waiting for the user to manually resolve them (then 'add' + 'commit' = 'Your branch is ahead of 'origin/master' by 2 commits' + 'push' = merge-branch created in RR as if you created a topic-branch to solve the conflict) or abort the pull/merge ("git merge --abort");
@@ -516,13 +516,13 @@ A -- D -- (diffAB) -- B' -(diffBC)- C'   [base-branch]
 
 ------------------------------------------------------------
 
->> 21. EXTRA TIPS <<
+>> 21. VARIOUS <<
 
 § Some useful Linux commands:
 - "ls -a" to show all files and directories within current folder (including hidden ones);
 - "clear" to clear shell/bash.
 
-§ Extra useful Git commands:
+§ Additional useful Git commands:
 - to get an overview of the most common commands >> "git help";
 - to get info about a specific command >> "git help [command]" or "git [command] -h" (e.g. git status -h");
 - to check current Git version installed >> "git --version";
@@ -531,24 +531,15 @@ A -- D -- (diffAB) -- B' -(diffBC)- C'   [base-branch]
 - to display differences inside project files between WT and index (i.e. unstaged changes) >> "git diff [--word-diff]" (or via Git GUI);
 - to display differences inside project files between staging area and LR (i.e. uncommitted changes) >> "git diff --cached [--word-diff]";
 - to display differences inside project files between LR and RR (i.e. unpushed changes) >> "git diff <remote>/<branch> [--word-diff]" (e.g. "git diff origin/develop --word-diff");
-- to checkout to another branch discarding all current unstanged WT changes >> "git checkout -f <branch>";
+- to checkout to another branch discarding all current unstanged WT changes >> "git checkout -f <branch>".
+
+§ Extra GitHub tips:
+- to change repository visibility (public/private) go to "github website > PROJECT > settings > danger zone > change repository visibility"; 
+- the versioning 'graph-view' (see "github website > insights > network") is enabled only for paid versions (e.g. 'Enterprise') or if the repository is kept public.
 
 
 
-push + modifico wt + pull >> unstaged files rimangono, i.e. non piallati da pull!
 
-
-se faccio push da user#1 e status mi dice che sono uptodate with origin/master
-se altro user#2 fa dopo push
-io user#1 rifaccio statusvedo ancra stesso messaggio di uptodate! >> solo se faccio fetch e poi status allora midice chem mybranchis behind 'origin/master' by 1 commit!!!
-
-github enables the grph-view ("githubwebsite > insights > network") only for paid versions (enterprise) or if the repo is public!
-
-explain fhow to delete repo or change visibility (between public and private)
-
-check all @todo!!
-
-to check difference between WT and LR open git gui on main repo page (via "git gui")
 
 
 git log --oneline --graph [--all] >> senza --all vedi solo commit history del bracnh corrente (su gui hai fatto checkout + di recente), con --all cisono tutti i branhc in parallelo!
@@ -565,7 +556,7 @@ check if there's something useful in "git" file in google drive and then destroy
 
 git always gives you hints, read them carefully and  follow them!
 
-fai caso di pull-request con conflitti! -> prima risolvi conflitti facendo pull su topic brange, ie. merge+risoluzconflittiin localepoi chiama pull request!
+fai caso di pull-request con conflitti! -> prima risolvi conflitti facendo pull su topic brange, ie. merge+risoluzconflittiin localepoi chiama pull request! (stile loris)
 
 
 se sottomodulo ha nuovo commit, allora tutti i progetti che lo importano dovranno fare pull del sottomodulo per aggiornarsi e poi fare commit/push a loro volta affinché il riferimento alla nuova versione di sottomodulo da usare sia aggiornata!
