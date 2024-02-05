@@ -2,7 +2,7 @@
 
 § Setup Git on Linux for a 2nd user (user#2, aka "PistolMaravic") in order to clone/push from/to a GitHub repository owned by 1st user (user#1, aka "AlectoSaeglopur" using Windows).
 
-§ Note in order for user#2 to be able to clone/push the repository, user#1 shall set user#2 as "collaborator" of the project (go to "github website > PROJECT > settings > collaborators > add people", and then user#2 has to accept). Keep in mind that if the repository is set as "public" (instead of "private", see "githug webiste > settings > change repository visibility") by user#1, this makes it visible and clonable by any GitHub user; however only if users added as collaborators can also push. Otherwise, if user#1 sets his repository as private, the only way for another user to clone/push is to be included as a collaborator of the project.
+§ Note in order for user#2 to be able to clone/push the repository, user#1 shall set user#2 as "collaborator" of the project (see "git_notes_windows.txt" for more details).
 
 § The procedure has been successfully tested using:
 - Oracle-Virtual-Box 7.0.14;

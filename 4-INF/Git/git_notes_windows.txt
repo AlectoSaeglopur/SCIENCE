@@ -1,8 +1,8 @@
 
 >> 1. INSTALLATION <<
 
-§ Installation procedure (free and open-source):
-- launch Git.exe installer;
+§ Installation procedure (tested on Windows 10 OS):
+- launch Git.exe installer (free and open-source);
 - use "C:\Program Files\Git" as installation path;
 - tick "Open Git Bash here" and untick "Open Git GUI here" within "Windows Explorer integration";
 - select "Use Visual Studio Code as Git's default editor";
@@ -93,7 +93,7 @@ More in detail, "git command (-f|--flag) [<id>] [--] [<paths> ...]", where:
 
 § In case LR exists (see Section #4 and #5) and RR does not yet:
 - open an internet browser and create a new empty repository on GitHub website with the same name of that in your LR (e.g. "proj_1");
-- open bash inside LR and link it to RR through its URL/SSH address (e.g. "github website > PROJECT > code > HTTPS/SSH") >> "git remote add <name> <url>" (e.g. <name> = 'origin' or 'proj_1', <url> = "https://github.com/AlectoSaeglopur/proj_1" or "git@github.com:AlectoSaeglopur/proj_1.git", i.e. "git remote add origin git@github.com:AlectoSaeglopur/proj_1.git");
+- open bash inside LR and link it to RR through its URL address (e.g. "github website > PROJECT > code > HTTPS/SSH") >> "git remote add <name> <url>" (e.g. <name> = 'origin' or 'proj_1', <url> = "https://github.com/AlectoSaeglopur/proj_1" or "git@github.com:AlectoSaeglopur/proj_1.git", i.e. "git remote add origin git@github.com:AlectoSaeglopur/proj_1.git");
 - [NB: using SSH addresses is always recommended if SSH key has been already generated and linked for the user (see Section #2)];
 - initialize RR according to current LR state >> "git push -u|--set-upstream <repo_name> <branch>" (e.g. "git push -u origin master", or more specifically "git push --set-upstream proj_1 master").
 
@@ -158,26 +158,28 @@ Typically the user has to care only about commits and annotated tags, whereas tr
 
 ------------------------------------------------------------
 
->> 9. GIT-IGNORE <<
+>> 9. GIT-IGNORE & RM <<
 
-§ To keep some files/directories of your local project out of Git versioning since the beginning without removing them locally from the WT (e.g. build files generated after compilation, that usually are not versioned), add them to the ".gitignore" file present in the main page of the WT.
+§ The purpose of the ".gitignore" file is to ensure that certain files not tracked by Git remain untracked. To stop tracking a file that is currently tracked, use "git rm --cached" to remove the file from the index. In particular, to keep some WT files/directories out of Git versioning since the beginning without removing them locally from the WT (e.g. build files generated after compilation, that usually are not versioned), add them to the ".gitignore" file present in the main page of the WT.
 
 § To remove some files/directories which were already pushed to RR during previous commits from Git versioning (but still keeping them locally), it's not enough to add them to the ".gitignore" file, since even though you stop pushing them in future commits, they still remain stored in the RR. Thus, since they shall be removed from RR first. Follow the procedure hereafter:
 - be sure your local branch is up-to-date, there's nothing to commit, and the working tree is clean >> "git status";
 - add files/directories to be excluded from versioning to ".gitignore";
-- remove files/directories to be excluded from versioning from RR >> "git rm -r --cached <directory>" or "git rm --cached <file>" (e.g. "git rm -r cached bin/" or "git rm cached .gitignore");
+- remove files/directories to be excluded from versioning from RR >> "git rm -r --cached <directory>" or "git rm --cached <file>" (e.g. "git rm -r --cached bin/" or "git rm --cached xyz.c");
 - stage changes (i.e. files/directories excluded from versioning according to updated ".gitignore") >> "git add .";
 - [NB: the previous command can be alternatively executed over the whole LR via "git rm -r cached .", but that's not recommended since it may create issues in case the project contains submodules];
 - commit changes >> "git commit -m "apply .gitignore updates"";
 - push changes to RR >> "git push";
 - [open the RR on GitHub website and verify the specified files/directories have been removed from the project];
-- [try to modify in the WT a file just excluded from versioning and then verify via "git status" that it's not reported anymore as 'modified'];
+- [try to modify in the WT a file just excluded from versioning and then verify via "git status" that it's not reported anymore as 'modified'].
 
 § Instead, if some project files/directories are no more needed and thus can be completely deleted both locally and remotely, the procedure is easier and similar to usual commits:
 - delete files/directories (i.e. move to recycle bin);
 - "git add ." (or more specifically "git add <files/directories>");
 - "git commit -m "files removed"";
 - "git push".
+
+§ The "--cached" option specifies the removal should happen only on the staging index, leaving WT files untouched. On the other hand, executing "git rm <file>" without the "--cached" option physically deletes the files from the WT and automatically stages the change (i.e it's equivalent to delete the file manually and then execute "git add <file_removed>"), thus operates on the current branch only (the removal event is only applied to the working directory and staging index trees, whereas the file removal is not persisted to the repository history until a new commit is created).
 
 ------------------------------------------------------------
 
@@ -218,7 +220,7 @@ Typically the user has to care only about commits and annotated tags, whereas tr
 - "rebase merge".
 
 § "Fast-forward" (FF) moves directly the source/base branch-label to the tip of the topic-branch and cannot cause conflicts (therefore, it's possible only if no commits have been added to the source/base-branch in the meanwhile). In this case, after merging both branches contain exactly the same commits, thus the base-branch inherits all the topic-branch commits (even if later the topic-branch gets deleted). With FF-merging the resulting commits-history (aka 'commits-graph') is linear, i.e. no commits have multiple parents (this can be checked via "git log --oneline --graph"). Commands to perform an FF-merging:
-- after pushing the final changes on the topic branch (i.e. the "merge-from-branch"), switch to the base-branch (i.e. the "merge-to-branch") and pull (even if nothing is assumed to have changed) >> "git checkout <base_branch> && git pull" [NB: as said, 'pull' is theoretically not needed in this case since nothing is assumed to have changed in the meanwhile on the base-branch, but nonetheless it's always good practise];
+- after pushing the final changes on the topic-branch (i.e. the "merge-from-branch"), switch to the base-branch (i.e. the "merge-to-branch") and pull (even if nothing is assumed to have changed) >> "git checkout <base_branch> && git pull" [NB: as said, 'pull' is theoretically not needed in this case since nothing is assumed to have changed in the meanwhile on the base-branch, but nonetheless it's always good practise];
 - merge back topic-branch into base-branch (note FF is always the default type of merging attempted by Git at first) >> "git merge <topic_branch>" [NB: whenever using the command "merge", Git specifies the type of merging is trying to execute (e.g. by printing 'Fast-forward' on shell)];
 - verify your base-branch is now 'ahead of origin by 1 commit' and push merge-changes to RR >> "git status && git push";
 - [check the topic-branch commits have beeen added to the base-branch, HEAD points now to both branches, and commits-graph is linear >> "git log --oneline --graph"]; 
@@ -366,7 +368,7 @@ Automatic merge failed; fix conflicts and then commit the result."
 >> 15. REBASING & REWRITING HISTORY <<
 
 § "Rebasing" means moving commits to a new parent, i.e. the inique commits of a topic-branch are reapplied to the tip of the base-branch. Since anchestor chain has changed, each of the reapplied commits has now a different commit ID. An advange is that after rebasing themerging from topic-branch to base-branch can be fast-forward (and not merge-commit), thus easier.
-Note that Git actually works by calculating differences between commits (known as "diff" or "patch"). Rebasing  means reapplying the 'diffs' to the new parent commits (process called "reapplying commits"). Of course, since reapplying commits is a form of merging, that's susceptible to merge-conflicts (e.g. if commits 'B' and 'D' modify the same sections of the same files, considering the rebasing example hereafter).
+Remember that Git actually works by estimating and versioning only the differences between consecutive commits (known as "diff" or "patch"). Rebasing  means reapplying the 'diffs' to the new parent commits (process called "reapplying commits"). Of course, since reapplying commits is a form of merging, that's susceptible to merge-conflicts (e.g. if commits 'B' and 'D' modify the same sections of the same files, considering the rebasing example hereafter).
 Rebase has both pros and cons:
 + allows to incorportate changes from parent branch;
 + avoids "unnecessary" commits (cleaner history);
@@ -402,7 +404,7 @@ A -- D -- (diffAB) -- B' -(diffBC)- C'   [base-branch]
 
 >> 16. PULL-REQUEST <<
 
-§ "Pull-request" is a feature provided by most Git hosting services/sites (such as GitHub or BitBucket). Its ultimate goal is again to merge a topic-branch into a base-branch, but improving team communication related to the topic-branch work as well (e.g. team members can send notifications to each others, leave comments/feedbacks, review code and approval/decline its content for merging).
+§ "Pull-request" is a feature provided by most Git hosting services/sites (such as GitHub or BitBucket). Its ultimate goal is again to merge a topic-branch into a base-branch, but improving team communication related to the topic-branch work as well (e.g. team members can send notifications to each others, leave comments/feedbacks, review code and approval/decline its content for merging). Note since pull-request is a feature provided basically by the hosting services (as already said), it's not possible to handle this directly via Git bash.
 
 § Pull-requests can be actually opened at any time of the topic-branch life:
 - at the very beginning to allow topic-branch creation;
@@ -429,6 +431,18 @@ A -- D -- (diffAB) -- B' -(diffBC)- C'   [base-branch]
 - finally all users shall checkout to the base-branch and execute "git pull" to retrieve the latest commit locally.
 
 § MR-pull-requests involve a 'fork-repository' merging back to its 'upstream-repopository', and can be done either via GitHub website or Git bash (see more details in Section #17).
+
+§ Note if you open a pull-request to merge a topic-branch into a base-branch without checking for conflicts before, this may cause the pull-request to be opened and approved twice. In fact, after approving the 1st pull-request the actual merging is executed remotely, then if conflicts are detected the user is asked to solve them and open another pull-request to get the conflicts-resolution approved too. Thus, it's always good practise to avoid conflicts on pull-requests. Hereafter the procedure to handle topic-branch-to-base-branch merge-conflicts locally before opening pull-request (so that pull-request on GitHub will be surely conflicts-free):
+- checkout and pull on base-branch (e.g. 'develop') >> "git checkout develop && git pull";
+- create and checkout to new topic-brach (e.g. 'xyz') >> "git checkout -b xyz";
+- make changes on WT for topic-branch...
+- add, commit and push changes >> "git add . && git commit -m "<comment> && git push [-u origin xyz]";
+- checkout and pull again on base-branch (assuming other team members pushed other commits in the meanwhile) >> "git checkout develop && git pull";
+- checkout to topic-branch >> "git checkout xyz";
+- merge base-branch into topic-branch locally (so to update with latest changes) >> "git merge develop";
+- resolve conflicts locally (if any);
+- add, commit and push merge-update/conflicts-solving >> "git add . && git commit -m "<comment> && git push";
+- open pull request on GitHub from topic-branch to base-branch (e.g. "develop <- vkn").
 
 ------------------------------------------------------------
 
@@ -505,7 +519,7 @@ A -- D -- (diffAB) -- B' -(diffBC)- C'   [base-branch]
 § Useful commands for submodules:
 - to add a new submodule to an existing/main repository >> "git submodule add <url>" (then new submodule files have to be staged/committed/pushed in order to become a steady part of the main project) [NB: after pushing to RR, open GitHub website and check the submodule commit-reference (e.g. "@3e5a7c") has been added to the main project];
 - after cloning a remote repository containing submodules, remember these have to be also manually initialized (otherwise, submodule folders would remain empty) >> "git clone <url> && git submodule update --init --recursive";
-- to import/update submodule changes on parent project >> "git submodule update --recursive --remote" (see more detaild below);
+- to import/update submodule changes on parent project >> "git submodule update --recursive [--remote]" (see more details below);
 - to apply a standard Git command on all submodules of the parent project >> "git submodule foreach --recursive <command>" (e.g. "git submodule foreach --recursive git reset --hard" or "git submodule foreach --recursive git clean -dxf").
 
 § Once submodules are properly initialized and updated within a parent repository they can be utilized exactly like stand-alone repositories. This means that submodules have their own branches and history. When making changes to a submodule it is important to push submodule changes and then update the parent repositories reference to the submodule.
@@ -517,7 +531,26 @@ A -- D -- (diffAB) -- B' -(diffBC)- C'   [base-branch]
 
 ------------------------------------------------------------
 
->> 21. VARIOUS <<
+>> 21. REVERT AND RESET <<
+
+§ In Git a 'reset'-operation undoes one or multiple commits and reverts back to a previous state of a project by removing all subsequent commits. Instead, a 'revert'-operation takes the specified commit, inverse the changes from that commit, and creates a new revert-commit. The ref pointers are then updated to point at the new revert commit making it the tip of the branch.
+
+§ 'Reverting' has two important advantages over 'resetting':
+- it does not change the project history (therefore safer for commits that have already been published to a shared repository);
+- it is able to target an individual commit at an arbitrary point in the history, whereas "git reset" can only work backward from the current commit and delete latest commits until the desired one.
+
+§ Useful 'revert' commads:
+- to revert a branch to some previous commit >> "git revert <older_commit_id_to_revert>" (e.g. "git revert HEAD" to create a new commit reverting the very last commit only, i.e. restoring the second-to-last commit).
+
+§ Useful 'reset' commads:
+- ...
+to unstaged files, i.e. undo "git add <etwas>" >> "git reset xyz.c"
+git rest resets all staged to unstaged
+
+
+------------------------------------------------------------
+
+>> 22. VARIOUS <<
 
 § Useful Linux commands:
 - "ls -a" to show all files and directories within current folder (including hidden ones);
@@ -535,60 +568,36 @@ A -- D -- (diffAB) -- B' -(diffBC)- C'   [base-branch]
 - to checkout to another branch discarding all current unstanged WT changes >> "git checkout -f <branch>";
 - to display graphical commit-history of current branch >> "git log [--oneline] --graph";
 - to display commit-history of current branch including differences (i.e. files changes) >> "git log --diff [--oneline] [--graph]";
-- to display commit-history of all refs (stored in "refs/", i.e. of all branches plus stashes) >> "git log --all [--oneline] [--graph] [--diff]".
+- to display commit-history of all refs (stored in "refs/", i.e. of all branches plus stashes) >> "git log --all [--oneline] [--graph] [--diff]";
+- to show what commit and author last modified each line of a specific file >> "git blame [-L 2,5] [-w] <path>/<file>".
 
 § GitHub tips:
-- to change repository visibility (public/private), transfer repository ownership or delete repository, go to "github website > PROJECT > settings > (scroll down) > danger zone"; 
+- to change repository visibility (public/private), transfer repository ownership or delete repository, go to "github website > PROJECT > settings > (scroll down) > danger zone";
 - the versioning 'graph-view' (see "github website > insights > network") is enabled only for paid versions (e.g. 'Enterprise') or if the repository is kept public;
-- to add branch protection rules, go to "github website > settings > branches >> add branch protection rule" >> for example, set 'Branch name pattern' to 'master', tick 'Require a pull-request before merging' and below 'Require approvals', set 'Required number of approvals' (e.g. x1), and finally tick 'Do not allow bypassing the above settings'.
+- to add branch protection rules, go to "github website > settings > branches >> add branch protection rule" >> for example, set 'Branch name pattern' to 'master', tick 'Require a pull-request before merging' and below 'Require approvals', set 'Required number of approvals' (e.g. x1), and finally tick 'Do not allow bypassing the above settings';
+§ to give access to a repository you own to another team member (so that he/she can gain pull/push rights on that), the latter be set as "collaborator" of the project (note this shall be repeated also for all submodules included in the parent repo) >> go to "github website > PROJECT > settings > collaborators > add people", then he/she shall accept the invitation received on GitHub website [NB: Keep in mind that if the repository is set as "public" by the owner, this makes it visible and clonable by any GitHub user; however only if users added as collaborators can also push. Otherwise, if the owner sets the repository as private, the only way for another user to clone/push is to be included as a collaborator of the project];
+§ Regarding the different kinds of topic-branches that you can create on GitHub:
+- "feature-branch", implementing new features (e.g. adding Bluetooth connectivity to the project);
+- "bugfix-branch", fixing a bug during firmware development/testing;
+- "hotfix-branch", fixing a bug on firmware version already release on the market.
 
 § Extra tips:
 - Git always provides hints as a response for each command, read and follow them carefully;
-- see "https://git-scm.com/docs/" and "https://www.atlassian.com/git/tutorials" for additional documentation about Git;
+- see "https://git-scm.com/docs/" and "https://www.atlassian.com/git/tutorials" for additional documentation about Git.
 
 
 
 
-does not exist a Git command for pull-request, since its developed by host websites!!!
-
-bisogna dare accesso da github anche a sottomoduli per collaboratori!! >> procedure to add collaborators
-usa http if ssh not working
-
-check if there's something useful in "git" file in google drive and then destroy it
-
-
-fai caso di pull-request con conflitti! -> prima risolvi conflitti facendo pull su topic brange, ie. merge+risoluzconflittiin localepoi chiama pull request! (stile loris)
-
-
-difference between bugfix and hotfix (se su released version)
-
-
-git saves only difference between consecutive commits!! (check if already said)
-
-
-
-
-pull on master
-checkout -b subx
-make changes...
-add/commit/push -u
-checkout master
-pull
-checkout subx
-merge master (local)
-resolve conflicts (local)
-add/commit/push
-pull-req (master <- subx)
-
-
-
-he Git "index" is a critical data structure in Git. It serves as the “staging area” between the files you have on your filesystem and your commit history. When you run git add , the files from your working directory are hashed and stored as objects in the index, leading them to be “staged changes”.
-
-git blame
-git revert
+git reset -> see sec21
 git clean
-git reset
-git restore
+git restore -> to remove unstaged changes >> "git restore xyz.c"
 git alias
+git add --all
+"git status src/"
+"git add \*.c \*.txt"
+git status .*c mez/*.h
+git wildcars
+gitignore exceptions with !git reset 
+
 
 fai check finale ortografico su word
