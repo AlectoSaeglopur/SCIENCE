@@ -596,7 +596,7 @@ A -- D -- (diffAB) -- B' -(diffBC)- C'   [base-branch]
 § Git wildcards:
 - you can add an additional path to commands in order to apply actions only on a specific LR subfolder >> e.g. "git status src/" or "git add settings/";
 - you can apply commands only on files with a specified extension >> e.g. "git status \src/*.c" (to check the status of all '.c' files within 'src' subfolder) or "git add \*.c \*.h" (to only stage changes of all '.c' and '.h' files within the repo);
-- to match a specific file pattern with any path inside LR >> "git add **/xyz.c" (to stage changes on one or multiple files named 'xyz.c' with no need to specify its/their exact paths);
+- to match a specific file pattern with any path inside LR >> "git add **/xyz.c" (to stage changes on one or multiple files named 'xyz.c' in any position within the repo) or "git add **/xyz.*" (to stage changes on all files named 'xyz.' with any extension in any position within the repo, e.g. useful to include at same both '.h' and '.c' files of the same module);
 - for more details about pattern-matching and wildcards see "ignore_wildcard_patterns.pdf".
 
 § GitHub tips:
