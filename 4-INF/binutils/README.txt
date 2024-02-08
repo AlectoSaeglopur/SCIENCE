@@ -9,7 +9,7 @@
 - compiled assembly files (.s);
 - compiled object files (.o);
 - linked map file (.map);
-- linked executable (.exe).s
+- linked executable (.exe).
 
 ---------------------------------------------
 
@@ -18,7 +18,7 @@
 § Several binutils tools have been tested (already part of the standard MinGW pack):
 - size -> to display memory sections size, e.g. "size -G convolutional.o modulation.o extra.o main.o vkn.exe";
 - nm -> to display symbols, e.g. "nm extra.o --defined" or "nm vkn.exe";
-- objcopy -> to convert binary formats, e.g. "objcopy vkn.exe -O srec vkn.srec" or "objcopy vkn.exe -O binary vkn.bin";
+- objcopy -> to convert binary formats, e.g. "objcopy vkn.exe -O srec vkn.srec" or "objcopy vkn.exe -O binary vkn.bin" (see all output formats available via "objcopy --help");
 - objdump -> to retrieve assembly code from object file, e.g. "objdump -d extra.o" or "objdump -D vkn.exe > log_objdump.txt";
 - NB#1: to know more options use --help for info for all commnads;
 - NB#2: remember that an executable file (i.e. with extension .exe) is just a type of object files!

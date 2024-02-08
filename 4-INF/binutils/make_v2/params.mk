@@ -16,16 +16,23 @@ TARGET = vkn
 SFL = ..
 
 # Build-folder relative path
-BFL = bin
+BFL = build
 
 # Compiler flags
 CFLG = -Wall -Werror -g -O0 -D VERBOSE
 
 # Linker flags
-LFLG = -lm -Xlinker -Map=$(BFL)\$(TARGET).map
+LFLG = -lm -Xlinker -Map=$(BFL)\lis\$(TARGET).map
 
 # Compiler version
 CCV = gcc
+
+# Conversion tool
+CNV = objcopy
+
+# Conversion formats/extensions
+CFE = srec \
+      binary
 
 # Source files list
 SRCF = convolutional.c   \

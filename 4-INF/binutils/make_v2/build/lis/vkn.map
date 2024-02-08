@@ -25,7 +25,7 @@ c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingw32.a(pseudo-reloc-list.o)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingw32.a(crtst.o)
                               c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingw32.a(tlssup.o) (_CRT_MT)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_chkstk_ms.o)
-                              bin\convolutional.o (__chkstk_ms)
+                              build\obj\convolutional.o (__chkstk_ms)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_ctors.o)
                               c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingw32.a(gccmain.o) (__DTOR_LIST__)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingwex.a(fesetenv.o)
@@ -43,17 +43,17 @@ c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01284.o)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01277.o)
                               c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingwex.a(glob.o) (tolower)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01272.o)
-                              bin\extra.o (time)
+                              build\obj\extra.o (time)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01249.o)
                               c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingw32.a(setargv.o) (strlen)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01242.o)
                               c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingwex.a(glob.o) (strcoll)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01235.o)
-                              bin\extra.o (srand)
+                              build\obj\extra.o (srand)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01234.o)
-                              bin\extra.o (sqrt)
+                              build\obj\extra.o (sqrt)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01230.o)
-                              bin\extra.o (sin)
+                              build\obj\extra.o (sin)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01229.o)
                               c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../crt2.o (signal)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01227.o)
@@ -61,43 +61,43 @@ c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01227.o)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01220.o)
                               c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingwex.a(glob.o) (realloc)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01218.o)
-                              bin\extra.o (rand)
+                              build\obj\extra.o (rand)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01212.o)
-                              bin\extra.o (puts)
+                              build\obj\extra.o (puts)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01211.o)
-                              bin\extra.o (putchar)
+                              build\obj\extra.o (putchar)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01208.o)
-                              bin\extra.o (printf)
+                              build\obj\extra.o (printf)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01207.o)
-                              bin\extra.o (pow)
+                              build\obj\extra.o (pow)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01203.o)
-                              bin\convolutional.o (memset)
+                              build\obj\convolutional.o (memset)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01199.o)
-                              bin\convolutional.o (memcpy)
+                              build\obj\convolutional.o (memcpy)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01194.o)
                               c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingwex.a(dirname.o) (mbstowcs)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01187.o)
                               c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingwex.a(glob.o) (malloc)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01184.o)
-                              bin\extra.o (log)
+                              build\obj\extra.o (log)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01142.o)
                               c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingw32.a(pseudo-reloc.o) (fwrite)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01131.o)
                               c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingw32.a(tlsthrd.o) (free)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01126.o)
-                              bin\extra.o (fputc)
+                              build\obj\extra.o (fputc)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01124.o)
-                              bin\extra.o (fprintf)
+                              build\obj\extra.o (fprintf)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01122.o)
-                              bin\extra.o (fopen)
+                              build\obj\extra.o (fopen)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01111.o)
-                              bin\extra.o (fclose)
+                              build\obj\extra.o (fclose)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01109.o)
-                              bin\modulation.o (exp)
+                              build\obj\modulation.o (exp)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01107.o)
-                              bin\modulation.o (div)
+                              build\obj\modulation.o (div)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01103.o)
-                              bin\extra.o (cos)
+                              build\obj\extra.o (cos)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01098.o)
                               c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingw32.a(tlsthrd.o) (calloc)
 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmsvcrt.a(djpvbs01091.o)
@@ -224,10 +224,10 @@ Linker script and memory map
                 0x00000000                __dll_characteristics__ = 0x0
 LOAD c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../crt2.o
 LOAD c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtbegin.o
-LOAD bin\convolutional.o
-LOAD bin\extra.o
-LOAD bin\main.o
-LOAD bin\modulation.o
+LOAD build\obj\convolutional.o
+LOAD build\obj\extra.o
+LOAD build\obj\main.o
+LOAD build\obj\modulation.o
 LOAD c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libm.a
 LOAD c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingw32.a
 LOAD c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a
@@ -261,13 +261,13 @@ LOAD c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtend.o
  .text          0x00401340      0x120 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtbegin.o
                 0x00401340                __gcc_register_frame
                 0x00401430                __gcc_deregister_frame
- .text          0x00401460     0x1418 bin\convolutional.o
+ .text          0x00401460     0x1418 build\obj\convolutional.o
                 0x00401460                GetConvCP
                 0x004014de                GetTrellis
                 0x004016bc                ConvEncoder
                 0x004018e9                HardConvDecoder
                 0x004020d0                SoftConvDecoder
- .text          0x00402878      0xb78 bin\extra.o
+ .text          0x00402878      0xb78 build\obj\extra.o
                 0x00402878                CheckParam
                 0x0040287e                PrintParam
                 0x00402941                RandBytGen
@@ -281,9 +281,9 @@ LOAD c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtend.o
                 0x0040314d                WriteBytCsv
                 0x00403201                WriteSymCsv
                 0x004032d0                CheckWrongBits
- .text          0x004033f0      0x1ec bin\main.o
+ .text          0x004033f0      0x1ec build\obj\main.o
                 0x004033f0                main
- .text          0x004035dc      0x650 bin\modulation.o
+ .text          0x004035dc      0x650 build\obj\modulation.o
                 0x004035dc                GetPskTable
                 0x0040369b                GetQamTable
                 0x00403840                Mapper
@@ -498,10 +498,10 @@ LOAD c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtend.o
  *(.data)
  .data          0x00407000        0x0 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../crt2.o
  .data          0x00407000        0x4 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtbegin.o
- .data          0x00407004        0x0 bin\convolutional.o
- .data          0x00407004        0x0 bin\extra.o
- .data          0x00407004        0x0 bin\main.o
- .data          0x00407004        0x0 bin\modulation.o
+ .data          0x00407004        0x0 build\obj\convolutional.o
+ .data          0x00407004        0x0 build\obj\extra.o
+ .data          0x00407004        0x0 build\obj\main.o
+ .data          0x00407004        0x0 build\obj\modulation.o
  .data          0x00407004        0x4 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingw32.a(CRTglob.o)
                 0x00407004                _CRT_glob
  .data          0x00407008        0x0 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingw32.a(setargv.o)
@@ -610,8 +610,8 @@ LOAD c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtend.o
  *(.rdata)
  .rdata         0x00408000       0x64 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtbegin.o
  *fill*         0x00408064        0x4 
- .rdata         0x00408068      0x280 bin\extra.o
- .rdata         0x004082e8       0x30 bin\modulation.o
+ .rdata         0x00408068      0x280 build\obj\extra.o
+ .rdata         0x004082e8       0x30 build\obj\modulation.o
  .rdata         0x00408318        0x4 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingw32.a(tlssup.o)
                 0x00408318                __dyn_tls_init_callback
  .rdata         0x0040831c       0xac c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingw32.a(pseudo-reloc.o)
@@ -620,10 +620,10 @@ LOAD c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtend.o
  *(SORT(.rdata$*))
  .rdata$zzz     0x004083e4       0x14 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../crt2.o
  .rdata$zzz     0x004083f8       0x14 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtbegin.o
- .rdata$zzz     0x0040840c       0x24 bin\convolutional.o
- .rdata$zzz     0x00408430       0x24 bin\extra.o
- .rdata$zzz     0x00408454       0x24 bin\main.o
- .rdata$zzz     0x00408478       0x24 bin\modulation.o
+ .rdata$zzz     0x0040840c       0x24 build\obj\convolutional.o
+ .rdata$zzz     0x00408430       0x24 build\obj\extra.o
+ .rdata$zzz     0x00408454       0x24 build\obj\main.o
+ .rdata$zzz     0x00408478       0x24 build\obj\modulation.o
  .rdata$zzz     0x0040849c       0x14 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingw32.a(CRTglob.o)
  .rdata$zzz     0x004084b0       0x14 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingw32.a(setargv.o)
  .rdata$zzz     0x004084c4       0x14 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingw32.a(CRTfmode.o)
@@ -655,10 +655,10 @@ LOAD c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtend.o
  .eh_frame      0x00409000       0xb8 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../crt2.o
  .eh_frame      0x004090b8       0x64 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtbegin.o
                 0x004090b8                __EH_FRAME_BEGIN__
- .eh_frame      0x0040911c      0x1cc bin\convolutional.o
- .eh_frame      0x004092e8      0x1f0 bin\extra.o
- .eh_frame      0x004094d8       0x50 bin\main.o
- .eh_frame      0x00409528       0xfc bin\modulation.o
+ .eh_frame      0x0040911c      0x1cc build\obj\convolutional.o
+ .eh_frame      0x004092e8      0x1f0 build\obj\extra.o
+ .eh_frame      0x004094d8       0x50 build\obj\main.o
+ .eh_frame      0x00409528       0xfc build\obj\modulation.o
  .eh_frame      0x00409624       0x58 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingw32.a(setargv.o)
  .eh_frame      0x0040967c       0x40 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingw32.a(cpu_features.o)
  .eh_frame      0x004096bc       0x68 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingw32.a(gccmain.o)
@@ -681,10 +681,10 @@ LOAD c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtend.o
                 0x0040a000                _argv
                 0x0040a004                _argc
  .bss           0x0040a008       0x18 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtbegin.o
- .bss           0x0040a020        0x0 bin\convolutional.o
- .bss           0x0040a020        0x0 bin\extra.o
- .bss           0x0040a020        0x0 bin\main.o
- .bss           0x0040a020        0x0 bin\modulation.o
+ .bss           0x0040a020        0x0 build\obj\convolutional.o
+ .bss           0x0040a020        0x0 build\obj\extra.o
+ .bss           0x0040a020        0x0 build\obj\main.o
+ .bss           0x0040a020        0x0 build\obj\modulation.o
  .bss           0x0040a020        0x0 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingw32.a(CRTglob.o)
  .bss           0x0040a020        0x0 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingw32.a(setargv.o)
  .bss           0x0040a020        0x4 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingw32.a(CRTfmode.o)
@@ -1243,13 +1243,13 @@ LOAD c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtend.o
 .debug_aranges  0x0040e000      0x200
  *(.debug_aranges)
  .debug_aranges
-                0x0040e000       0x20 bin\convolutional.o
+                0x0040e000       0x20 build\obj\convolutional.o
  .debug_aranges
-                0x0040e020       0x20 bin\extra.o
+                0x0040e020       0x20 build\obj\extra.o
  .debug_aranges
-                0x0040e040       0x20 bin\main.o
+                0x0040e040       0x20 build\obj\main.o
  .debug_aranges
-                0x0040e060       0x20 bin\modulation.o
+                0x0040e060       0x20 build\obj\modulation.o
  .debug_aranges
                 0x0040e080       0x20 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_chkstk_ms.o)
  .debug_aranges
@@ -1272,10 +1272,10 @@ LOAD c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtend.o
 
 .debug_info     0x0040f000     0x4200
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x0040f000      0xcd1 bin\convolutional.o
- .debug_info    0x0040fcd1      0x980 bin\extra.o
- .debug_info    0x00410651      0x561 bin\main.o
- .debug_info    0x00410bb2      0x7b9 bin\modulation.o
+ .debug_info    0x0040f000      0xcd1 build\obj\convolutional.o
+ .debug_info    0x0040fcd1      0x980 build\obj\extra.o
+ .debug_info    0x00410651      0x561 build\obj\main.o
+ .debug_info    0x00410bb2      0x7b9 build\obj\modulation.o
  .debug_info    0x0041136b       0xa7 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_chkstk_ms.o)
  .debug_info    0x00411412     0x1c58 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_ctors.o)
 
@@ -1284,10 +1284,10 @@ LOAD c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtend.o
 
 .debug_abbrev   0x00414000      0x800
  *(.debug_abbrev)
- .debug_abbrev  0x00414000      0x1c3 bin\convolutional.o
- .debug_abbrev  0x004141c3      0x173 bin\extra.o
- .debug_abbrev  0x00414336       0xd4 bin\main.o
- .debug_abbrev  0x0041440a      0x146 bin\modulation.o
+ .debug_abbrev  0x00414000      0x1c3 build\obj\convolutional.o
+ .debug_abbrev  0x004141c3      0x173 build\obj\extra.o
+ .debug_abbrev  0x00414336       0xd4 build\obj\main.o
+ .debug_abbrev  0x0041440a      0x146 build\obj\modulation.o
  .debug_abbrev  0x00414550       0x14 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_chkstk_ms.o)
  .debug_abbrev  0x00414564      0x11b c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_ctors.o)
 
@@ -1296,10 +1296,10 @@ LOAD c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtend.o
 
 .debug_line     0x00415000      0xc00
  *(.debug_line)
- .debug_line    0x00415000      0x410 bin\convolutional.o
- .debug_line    0x00415410      0x266 bin\extra.o
- .debug_line    0x00415676       0xae bin\main.o
- .debug_line    0x00415724      0x1b8 bin\modulation.o
+ .debug_line    0x00415000      0x410 build\obj\convolutional.o
+ .debug_line    0x00415410      0x266 build\obj\extra.o
+ .debug_line    0x00415676       0xae build\obj\main.o
+ .debug_line    0x00415724      0x1b8 build\obj\modulation.o
  .debug_line    0x004158dc       0x71 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_chkstk_ms.o)
  .debug_line    0x0041594d      0x157 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_ctors.o)
 
@@ -1315,10 +1315,10 @@ LOAD c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtend.o
 
 .debug_str      0x00417000      0x200
  *(.debug_str)
- .debug_str     0x00417000       0x8a bin\convolutional.o
- .debug_str     0x0041708a        0x6 bin\extra.o
- .debug_str     0x00417090        0x0 bin\main.o
- .debug_str     0x00417090        0xa bin\modulation.o
+ .debug_str     0x00417000       0x8a build\obj\convolutional.o
+ .debug_str     0x0041708a        0x6 build\obj\extra.o
+ .debug_str     0x00417090        0x0 build\obj\main.o
+ .debug_str     0x00417090        0xa build\obj\modulation.o
  .debug_str     0x0041709a        0x0 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_ctors.o)
 
 .zdebug_str
@@ -1377,4 +1377,4 @@ LOAD c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtend.o
 
 .zdebug_types
  *(.zdebug_types .gnu.linkonce.wt.*)
-OUTPUT(bin\vkn.exe pei-i386)
+OUTPUT(build\bin\vkn.exe pei-i386)
