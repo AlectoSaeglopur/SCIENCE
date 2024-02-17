@@ -79,7 +79,7 @@ find_arg = {
 ### FUNCTIONS ###
 
 def override_params( args ) :
-    """ Function to override parameters according to terminal extra arguments."""
+    """ Function to override parameters according to terminal extra arguments. """
     global TabId, LngId, ModId
     Nargs = len(args)
     if Nargs > 0 :
