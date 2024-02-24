@@ -318,7 +318,7 @@ A -- C -- F   [base-branch]
 - "pull" >> to fetch and merge commits locally;
 - "push" >> to add new object and reference to RR.
 
-§ The "fetch" command allows to update local tracking-branches with info from RR without merging changes/updates immediately into WT, thus does not affect you LR labels and just makes the user aware of the actual/current RR state (see Section #13). In case LR is already up-to-date with RR, no info is displayed on shell after executing the command. Plus, executing "git status" before and after a "git fetch" command allows to understand if and how LR and RR are out of sync (and gives also suggestions, e.g. if branch can be fast-forwarded on not in case RR is ahead by some commits).
+§ The "fetch" command allows to update local tracking-branches with info from RR without merging changes/updates immediately into WT, thus does not affect you LR labels and just makes the user aware of the actual/current RR state (see Section #13). In case LR is already up-to-date with RR, no info is displayed on shell after executing the command. Plus, executing "git status" before and after a "git fetch" command allows to understand if and how LR and RR are out of sync (and gives also suggestions, e.g. if branch can be fast-forwarded on not in case RR is ahead by some commits). This command is also essential/recommended to get aware of and retrieve info about new branches pushed remotely by other users.
 
 § The "pull" command combines "git fetch" and "git merge FETCH_HEAD". If any object is fetched, the tracking-branch is merged into LR/WT. Thus, it may create conflicts. Hereafter some useful merge-options for the "pull" command are listed:
 - "--ff" >> fast-forward if possible, otherwise perform a merge-commit (default);

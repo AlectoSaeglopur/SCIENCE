@@ -1,4 +1,10 @@
 
+"""
+" Script for performing unit-testing on Python class.
+" Filippo Valmori
+" 16/05/2023
+"""
+
 import unittest                                                 # import built-in library for unit testing
 
 

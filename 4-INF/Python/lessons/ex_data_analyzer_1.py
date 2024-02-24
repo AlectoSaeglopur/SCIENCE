@@ -45,5 +45,5 @@ mpl.ylabel("Temperature [C]", fontsize=16)
 fig.autofmt_xdate()                                                         # format X-axis for better visualization
 mpl.xticks(arange(0,len(dates),entry_span),rotation=45,size=16)             # set span resolution on X-axis
 mpl.grid(color='silver',linestyle='--',linewidth=1)
-mpl.savefig('ex_data_analyzer_.png', bbox_inches='tight')
+mpl.savefig('ex_data_analyzer_1.png', bbox_inches='tight')
 mpl.show()

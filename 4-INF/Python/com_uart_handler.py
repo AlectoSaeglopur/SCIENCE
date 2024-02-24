@@ -1,6 +1,6 @@
 
 """
-" Script for handling PC's COM ports for TX/RX through Python.
+" Script for handling PC's COM ports for UART TX/RX through Python.
 " Filippo Valmori
 " 16/05/2022
 """
