@@ -18,11 +18,12 @@ from os.path import splitext
 
 ## PARAMETERS ##
 
-path = "H:/MUSIC/"                                                              # folder path (use '.' for current folder)
-ext_inc = ['mp3','wav']                                                         # file extensions to be included (use ['.*'] for all extensions)
-ext_exc = []                                                                    # file extensions to be excluded (used only if "ext_inc = ['.*']")
+path = "H:/IMAGES/"                                                             # folder path (use '.' for current folder)
+ext_inc = ['.*']                                                                # file extensions to be included (use ['.*'] for all extensions)
+ext_exc = ['.ini']                                                              # file extensions to be excluded (used only if "ext_inc = ['.*']")
 fcnt = '%4d'                                                                    # counter print-format
-pext = True                                                                     # flag for keeping/removing extension in listed files name
+pext = True                                                                     # flag to keep/remove extension in listed files name
+frcu = False                                                                    # flag for extend export to sub-folders recursively
 
 
 
@@ -31,18 +32,23 @@ pext = True                                                                     
 dt = datetime.now()                                                             # get current date and time
 fid = open(path+'list.txt','w',encoding='utf-8')
 fid.write(' >> '+dt.strftime("%d-%b-%Y %H:%M:%S")+' [P] <<\n\n')
+if frcu :
+    spath = '\**\*'                                                             # set sub-path according to recursive flag
+else :
+    spath = '\*'
 
 if ext_inc == ['.*'] :
-    flist = glob(path+'\*'+ext_inc[0])
+    flist = glob(path+spath+ext_inc[0],recursive=frcu)
     ext_inc = []
     for file in flist :
         fname, fext = splitext(file)
-        if not(fext in ext_inc) and not(fext in ext_exc) :
-            ext_inc.append(fext)                                                # retrieve sequentially all file-extensions within folder
+        if not(fext.lower() in ext_inc) and not(fext.lower() in ext_exc) :
+            ext_inc.append(fext.lower())                                        # retrieve sequentially all file-extensions within folder
 
 cnt = zeros(len(ext_inc),dtype=int)                                             # overall counter
+ext_inc.sort()                                                                  # sort extensions alphabetically (for clearer "stats")
 for i, ext in enumerate(ext_inc) :
-    flist = glob(path+'\*'+ext)                                                 # retrieve all files with specified extension within folder
+    flist = glob(path+spath+ext,recursive=frcu)                                                 # retrieve all files with specified extension within folder
     nelem = len(flist)                                                          # number of files with the current extension found
     for j in range(nelem) :
         if pext :

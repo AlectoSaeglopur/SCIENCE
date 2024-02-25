@@ -22,6 +22,8 @@ USERNAME = 'filippo.valmori'                                                    
 CLIENT_ID = 'f19afe5942e54a58b97a0a6aa0ac2f63'                                      # Spotify developer client ID (see "export_spotify_to_csv.pdf") 
 CLIENT_SECRET ='d1c21a071d314ae9bcadc4fd5783bee4'                                   # Spotify developer client secret (see "export_spotify_to_csv.pdf") 
 Nf = "%4d"                                                                          # index print-format
+path = "H:/MUSIC/"                                                                  # output folder path (use '.' for current folder)
+csep = ' || '
 
 
 
@@ -34,14 +36,19 @@ def get_playlist_link( argv ) :
     else :
         name = str(argv[1])
         if name == 'athena' :
+            name = '1_athena'
             link = "https://open.spotify.com/playlist/6PgP1gPFnN3Jk83kSsaCFE?si=cb2d99e5e2714e83"
         elif name == 'ulysses' :
+            name = '2_ulysses'
             link = "https://open.spotify.com/playlist/2za8W48Yx9LvWKTO2dtenk?si=b83862898ecf4385"
         elif name == 'phoenix' :
+            name = '3_phoenix'
             link = "https://open.spotify.com/playlist/2hmOHLiNa7kWFwF9088c0T?si=b399b9b999ea41bc"
         elif name == 'tartaros' :
+            name = '4_tartaros'
             link = "https://open.spotify.com/playlist/0d3feOw4hmOBM2CxqeT3tT?si=5961409b97df4479"
         elif name == 'map' :
+            name = '5_map'
             link = "https://open.spotify.com/playlist/6t1HCTWFhwO5vTBGCCaXom?si=73ec4a65cd3b45e8"
         else :
             raise Exception("Invalid playlist ID.")
@@ -70,13 +77,15 @@ else :
     raise ValueError("Expected format: https://open.spotify.com/playlist/...")
 tracklist = get_playlist_tracks(USERNAME,PLAYLIST_LINK)                             # retrieve playlist tracklist
 dt = datetime.now()                                                                 # get current time/date
-fid = open('.\spotify_'+PLAYLIST_ID+'.txt','w',encoding='utf-8')
+fid = open(path+'spotify_'+PLAYLIST_ID+'.txt','w',encoding='utf-8')
 fid.write(' >> '+PLAYLIST_ID.upper()+' @ '+dt.strftime("%d-%b-%Y %H:%M:%S")+' <<\n\n')
 for j, track in enumerate(tracklist):
     name = track["track"]["name"]
     artist = ", ".join([artist["name"] for artist in track["track"]["artists"]])
+    album = track["track"]["album"]["name"]
+    year = track["track"]["album"]["release_date"]
+    fid.write(Nf%(j+1)+': '+name+csep+artist+csep+album+csep+year+'\n')
     #print(str(j+1)+': '+name+' | '+artist)
-    fid.write(Nf%(j+1)+': '+name+' | '+artist+'\n')
 fid.close()
 print(" >> Execution completed : "+str(j+1)+" files listed")
 

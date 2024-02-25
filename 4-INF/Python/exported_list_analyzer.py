@@ -9,18 +9,18 @@
 
 ## LIBRARIES ##
 
-from re import search, IGNORECASE
+from re import search, IGNORECASE, NOFLAG
 from sys import argv
 
 
 
 ## PARAMETERS ##
 
-path = "H:/MUSIC/"                                                              # folder path (use '.' for current folder)
+path = "H:/IMAGES/"                                                             # folder path (use '.' for current folder)
 fname = "list.txt"                                                              # file name to analyze
 nskip = 2                                                                       # number of header lines to skip
 spchar = "#"                                                                    # separation character required before the string pattern argument
-
+csens = False
 
 
 ## PROCESSING ##
@@ -40,19 +40,23 @@ else :
     nelem = int(data[-1].split(" ")[-1])                                        # retrieve the number of listed elements from the last number in the last line (aka "stats" in "folder_list_exporter.py")
     data[:nelem]
     cnt = 0
+    if csens :
+        sflag = NOFLAG                                                          # set case-sensitive flag according to parameter
+    else :
+        sflag = IGNORECASE
     print("")
     for j in range(nelem) :
-        if search(pattext,data[j],IGNORECASE) :                                 # the "IGNORECASE" option allows the search to be case-insensitive
+        if search(pattext,data[j],sflag) :                                      # the "IGNORECASE" option allows the search to be case-insensitive
             print(" " + data[j][:-1])                                           # "-1" is needed to remove the extra "\n" character added by readlines()
             cnt += 1
-    print('\n >> Matches for "' + pattext + '" : '+str(cnt) +
-          ' out of ' + str(nelem)+' elements')
+    print('\n >> Matches for "' + pattext + '" within "'+path+fname+'":')
+    print('    '+str(cnt) + ' out of ' + str(nelem)+' elements')
 
 
 
 ## NOTES ##
 
-# 1. For example, to look for pattern "love is" type into shell "python music_list_filter.py # love is".
+# 1. For example, to look for pattern "love is" type into shell "python exported_list_analyzer.py # love is".
     
 # 2. To search for strings containing parenthesis or brackets add "\" before, since these are special characters used
 #    by Python to delimit string ends. For example, to search all unplugged songs [U], use "... # \[U\]".
