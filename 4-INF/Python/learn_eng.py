@@ -43,17 +43,17 @@ ncols = [4,4,4,4,4,2,3]                                                         
 ncol_tabs = dict(map(lambda i,j:(i,j),valid_tabs,ncols))                                      
 
 idx_session = {
-  "std": 0,                                                                                             # standard index session
-  "fnd": 1                                                                                              # find index session
+  "std": 0,                                                                                             # standard session index
+  "fnd": 1                                                                                              # "find"-session index
 }
 
 find_cmd = {
-    "id" : 'find',                                                                                      # find command ID
-    "ext_e" : ' --e'                                                                                    # find command extra for adding notes
+    "id" : 'find',                                                                                      # "find"-command ID
+    "ext_e" : ' --e'                                                                                    # "find"-command extra flag for including notes to results
 }
 
 update_cmd = {
-    "id" : 'update',                                                                                    # update command ID
+    "id" : 'update',                                                                                    # "update"-command ID
 }
 
 
@@ -336,7 +336,7 @@ def debug_operation( ) :
 
 ### MAIN ###
 
-override_params(argv[1:])                                                                               # check if parameters-override request
+override_params(argv[1:])                                                                               # check for parameters-override request
 while 1 :
     check_parameters()
     read_tab(TabId)
@@ -350,7 +350,7 @@ while 1 :
             parse_tab_cycle()
             wait_for_input_keys()
 
-L
+
 
 ### NOTES ###
 
@@ -370,7 +370,7 @@ L
 #    operation. For example:
 #    - "find ver bloom" to search for the pattern "bloom" throughout the tab VER;
 #    - "find sen better not" to search for the pattern "better not" throughout the tab SEN;
-#    Adding the extra option "--e", the NOTES columns can be added to the search (e.g. "find ver watch --e").
+#    Adding the extra option "--e", the NOTES columns can be included in the research (e.g. "find ver watch --e").
 
 # 3. Regarding the "LngId" parameter, "I" and "E" respectively stand for "Italian" and "English".
 

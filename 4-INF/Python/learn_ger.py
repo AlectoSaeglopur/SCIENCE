@@ -14,8 +14,8 @@ from sys import argv, platform                                                  
 ### PARAMETERS ###
 
 TabId = 'DLG'                                                                                           # excel sheet tab to be loaded (see allowed values in "valid_tabs")
-LngId = 'M2G'                                                                                           # language translation direction (see allowed values in "valid_lngs")
-ModId = 'SQF'                                                                                           # execution mode (see allowed values in "valid_mods")
+LngId = 'G2M'                                                                                           # language translation direction (see allowed values in "valid_lngs")
+ModId = 'RDS'                                                                                           # execution mode (see allowed values in "valid_mods")
 MinDlg = 1                                                                                              # lower dialogue number to be processed (NB: set "1" not to skip any lower dialogue)
 MaxDlg = 100                                                                                            # upper dialogue number to be processed (NB: set "100" not to skip any upper dialogue)
 LskNdl = 0                                                                                              # Number of lines to be skipped at the beginning of non-dialogue tab (NB: set "0" not to skip any lower line)
@@ -49,17 +49,17 @@ no_columns = 4                                                                  
 len_par = 3                                                                                             # number of characters of each parameter-entry (e.g. "VER", "SQF", etc)
 
 idx_session = {
-  "std": 0,                                                                                             # standard index session
-  "fnd": 1                                                                                              # find index session
+  "std": 0,                                                                                             # standard session index
+  "fnd": 1                                                                                              # "find"-session index
 }
 
 find_cmd = {
-    "id" : 'find',                                                                                      # find command ID
-    "ext_n" : ' --n'                                                                                    # find command extra for adding notes
+    "id" : 'find',                                                                                      # "find"-command ID
+    "ext_n" : ' --n'                                                                                    # "find"-command extra flag for including notes to results
 }
 
 update_cmd = {
-    "id" : 'update',                                                                                    # update command ID
+    "id" : 'update',                                                                                    # "update"-command ID
 }
 
 
@@ -79,7 +79,7 @@ find_arg = {
 ### FUNCTIONS ###
 
 def override_params( args ) :
-    """ Function to override parameters according to terminal extra arguments. """
+    """ Function to override parameters according to terminal extra arguments."""
     global TabId, LngId, ModId
     Nargs = len(args)
     if Nargs > 0 :
@@ -275,9 +275,9 @@ def check_update_request( keys ):
     msg_req = keys[0:len(update_cmd["id"])]
     msg_len = len(keys)
     space_idx = [i.start() for i in finditer(' ',keys)]
-    if len(space_idx) >= 2 and msg_req == update_cmd["id"] and len(keys) >= len(update_cmd["id"])+len_param+5:
-        param = keys[len(update_cmd["id"])+1:len(update_cmd["id"])+len_param+1].lower()
-        value = keys[len(update_cmd["id"])+len_param+2:].upper()
+    if len(space_idx) >= 2 and msg_req == update_cmd["id"] and len(keys) >= len(update_cmd["id"])+len_par+5:
+        param = keys[len(update_cmd["id"])+1:len(update_cmd["id"])+len_par+1].lower()
+        value = keys[len(update_cmd["id"])+len_par+2:].upper()
         if (param == 'tab') and (value in valid_tabs) :                                                 # to update "TabId"
             global TabId
             TabId = value
@@ -431,7 +431,7 @@ def debug_operation( ) :
 
 ### MAIN ###
 
-override_params(argv[1:])                                                                               # check if parameters-override request
+override_params(argv[1:])                                                                               # check for parameters-override request
 while 1 :
     check_parameters()
     read_tab(TabId)
@@ -448,7 +448,7 @@ while 1 :
                 parse_non_dialogue_tab_cycle()
             wait_for_input_keys()
 
-L
+
 
 ### NOTES ###
 
@@ -469,7 +469,7 @@ L
 #    operation. For example:
 #    - "find ver bleiben" to search for the pattern "bleiben" throughout the tab VER;
 #    - "find dlg wieder anfangen" to search for the pattern "wieder anfangen" throughout the tab DLG;
-#    Adding the extra option "--n", the NOTES columns can be added to the search (e.g. "find dlg bitte --n").
+#    Adding the extra option "--n", the NOTES columns can be included in the research (e.g. "find dlg bitte --n").
 
 # 3. Regarding the "LngId" parameter, "M" and "G" respectively stand for "Mother tongue" (i.e. italian of english) and "German".
 
