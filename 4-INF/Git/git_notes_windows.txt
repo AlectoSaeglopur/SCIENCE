@@ -25,7 +25,8 @@
 - configure Git username >> "git config --global user.name "Filippo Valmori"";
 - configure Git email >> "git config --global user.email "filippo.valmori@gmail.com"";
 - [for the last x2 commands, "--system" or "--local" could be used in place of "--global" to (however that's unusual, see Coursera's training for more details)];
-- readback set user's name and email >> "git config user.name" and "git config user.email" (or all at once via "git config --list").
+- readback set user's name and email >> "git config user.name" and "git config user.email" (or all at once via "git config [--global] --list");
+- to avoid line-ending issues among team members working with different OSs and automatically convert 'CRLF' (typical Windows) line-endings into 'LF' (typical of Linux and macOS) when adding a file to the index (and vice versa when it checks out code onto your filesystem) use "git config --global core.autocrlf true" (in particular, when set to 'true' on Windows machines, this converts 'LF' endings into 'CRLF' when you check out code).
 
 § To generate SSH key (using ED25519 algorithm) for encrypting/authenticating communication from/to server:
 - open Git bash (anywhere);
@@ -578,7 +579,7 @@ A -- D -- (diffAB) -- B' -(diffBC)- C'   [base-branch]
 - to get an overview of the most common commands >> "git help";
 - to get info about a specific command >> "git help [command]" or "git [command] -h" (e.g. git status -h");
 - to check current Git version installed >> "git --version";
-- to open Git GUI >> "git gui";
+- to open Git GUI >> "git gui" (NB: add "&" to open GUI and still be able to write commands on bash, i.e. "git gui&");
 - to display info about RR (associated to your LR) >> "git remote -v" (where "-v" = "--verbose"); 
 - to display differences inside project files between WT and index (i.e. unstaged changes) >> "git diff [--word-diff]" (or via Git GUI);
 - to display differences inside project files between staging area and LR (i.e. uncommitted changes) >> "git diff --cached [--word-diff]";

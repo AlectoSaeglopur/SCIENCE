@@ -18,8 +18,8 @@ from os.path import splitext
 
 ## PARAMETERS ##
 
-path = "H:/IMAGES/"                                                             # folder path (use '.' for current folder)
-ext_inc = ['.*']                                                                # file extensions to be included (use ['.*'] for all extensions)
+path = "H:/EBOOKS/"                                                             # folder path (use '.' for current folder)
+ext_inc = ['.epub','.pdf']                                                      # file extensions to be included (use ['.*'] for all extensions)
 ext_exc = ['.ini']                                                              # file extensions to be excluded (used only if "ext_inc = ['.*']")
 fcnt = '%4d'                                                                    # counter print-format
 pext = True                                                                     # flag to keep/remove extension in listed files name
@@ -31,7 +31,7 @@ frcu = False                                                                    
 
 dt = datetime.now()                                                             # get current date and time
 fid = open(path+'list.txt','w',encoding='utf-8')
-fid.write(' >> '+dt.strftime("%d-%b-%Y %H:%M:%S")+' [P] <<\n\n')
+fid.write(' >> '+dt.strftime("%d-%b-%Y %H:%M:%S")+' <<\n\n')
 if frcu :
     spath = '\**\*'                                                             # set sub-path according to recursive flag
 else :
@@ -71,5 +71,6 @@ print(stats)
 ## NOTES ##
 
 # 1. Examples:
-#    - music   -> path = "H:/MUSIC/"  | ext_inc = ['mp3','wav'] | ext_exc = []
-#    - images  -> path = "H:/IMAGES/" | ext_inc = ['.*']        | ext_exc = ['.ini','.txt']
+#    - music   -> path = "H:/MUSIC/"  | ext_inc = ['.mp3','.wav'] | ext_exc = []
+#    - images  -> path = "H:/IMAGES/" | ext_inc = ['.*']          | ext_exc = ['.ini','.txt']
+#    - books   -> path = "H:/EBOOKS/" | ext_inc = ['.epub','.pdf'] | ext_exc = []
