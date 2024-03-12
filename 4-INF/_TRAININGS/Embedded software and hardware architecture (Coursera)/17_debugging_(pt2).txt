@@ -1,0 +1,91 @@
+In this video,
+we will make a demo with the debugger. When we last left off, we introduced
+many features of the debugger. Now, we will go through a simple example,
+showing all of these different features. In general, the debug features we will discuss are not
+really unique to any one debugger. They exist in nearly every debugger. We'll be using Code Composer Studio Six
+for this, or CCS6 from Texas Instruments. CCS is based on the Eclipse IDE. And many of the micro controller IDEs
+out on the market do use Eclipse as their base. This means that most of the things
+you will see in this video, including the application itself,
+will be identical or look very similar to many
+other debugger applications. Let's start by explaining
+the program we have written. The program starts with a list of general
+includes of various header files, including the register definition file,
+msp.h. After the includes,
+we have some preprocessor defines used for some constant expressions in the program. Then we have a program declaration for
+a function, blink_led_forever(). This is a simple function that
+contains an infinite loop while flipping a port pen on and off. Next, there are two arrays
+defined in global memory. These two arrays are both uint8 arrays,
+each 16 bytes long. Jumping into the main, the first line
+of code disables the watchdog timer. This prevents the processor from auto
+restarting when the watchdog expires. We'll go over the watchdog in
+more detail later in the course. Next, we configure port 1 pin
+0 to an output direction. We then initialize our two arrays. Array1 is initialized to
+the values 0 through 15. Array2 uses our memset function to
+initialize all members to hex ff. I have added in two simple NOP commands that we will map the break points
+before and after the memmove operation. Finally, we call the blink_led_forever
+function, which just toggles on and off the port pin P1.0. We start compiling the project by
+clicking on the hammer build icon or through the project menu. Build output will be seen in
+the Console Output window on the bottom. You should make sure all your bugs
+are fixed before you can even move on to debugging. Here, we have missed a semicolon, and the console tells us that there is
+a missing semicolon on this line. This output should be familiar from our
+compilation assignment, as it's the output generated from an internally managed
+build system that uses make. You will notice that there is also
+an indicator of a red x on the line, with the error. In this case the error comes
+from the previous line of code. We will add the semicolon back in. Now that all errors are fixed,
+we will click the debug icon. And that looks like a little bug. This will move our view in the IDE from
+the CCS edit view into the CCS debug view. This operation will automatically rebuild
+your project, upload that project to our board, and additionally pause our
+program at the entry point domain. At this interpoint domain, none of our
+local variables have been initialized. You can open up the expressions window and
+add in the array1, the array2, and i variables. When looking at data, you often need to
+format in the way you wish to view it. Here, we will set it to
+appear as hex numbers. The arrays have valid addresses,
+whereas the variable i does not. The variable i has not been declared or
+initialized. The variable i could also be
+seen in the variables tab. If you switch over to the variables
+window, you can see the local variable i. We will set a watch point on this variable
+i to break when it has been changed. If you inspect the array values of
+the array elements in the expressions tab, you will see that they have
+all been initialized to zero, because they are declared
+in the BSS region. Now, I'm going to switch to the break
+points view and send a break point on the line of code where the P1.0
+pin is configured to be an output. I will press the play button, and let this
+code run until it hits that break point. You can now open the register's view, and we can look at the direction register
+before and after the configuration. From the list, select the P1 options and
+see all the port 1 registers. Now select P1 DUR. Reading this value before
+making the assignment, you can see that the register
+port pin 0 is set to a 0. We can now click the Step Over button,
+which is the arrow icon. And this will move our C program
+to the next line of C code. Now, re-reading the direction register,
+we can see that bit 1 has been set. You can actually manually change this
+value by clicking on the register and setting it to any valid
+value you're interested in. I will keep it set to
+the output direction. Next, I will disable my
+breakpoints on the direction line. I will now place a breakpoint
+on the memset function. In the memory browser,
+I will point the browser to the location of the array I want and
+format it to look like a list of uint8s. You can see the current content of
+array1 before the for loop executes. Both array1 and array 2 are all set to 0. After clicking the go button, the program will run to the first
+instance of the index i. This pauses because we have
+a watch point on i being changed. If we press continue again, it will run through the loop until
+i has been changed a second time. I will remove this watch point and
+press run. Now, we will run through the full loop
+until we get to the memset function. And as seen in our memory browser window, the array run region has been
+initialized to the value 0 through 15. We now click the step over button and the array2 element has been
+initialized to hexFF value. Now, let's set a new breakpoint
+at the second NOP function, and let's remove our previous ones. This then move operation is going to move
+eight bytes from array1 into array2. Clicking Run, we will see that data has
+been moved properly from array1 to array2. This feature of browsing memory
+will be important when we start coding data structures in later modules. Now, let's step through until we get
+to the blink_led_forever function. In this case,
+we're going to use the step into button. This will allow our program to move
+into a function instead of past it, and view what is happening on the inside. After doing so,
+we moved into this routine, and we can see that the bug view
+has moved into that function. Here we're using an XOR operator to
+simply toggle the BIT0 of port 1 to flip the pin on and off, and thus create our blinking program based
+on some arbitrary for loop iterator. Now, if we just press play,
+the program will blink a number of times. When you are satisfied with all the
+blinking, you can click the Stop button. This concludes our debug demo. There are many online resources and videos
+of many other Eclipse based IDEs and Code Composer that you can
+watch to get some more help or find other features that
+we did not discuss.

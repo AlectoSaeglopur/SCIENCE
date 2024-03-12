@@ -1,0 +1,122 @@
+In this video, we'll learn how to manipulate bits
+within variables and registers. In embedded software, we often have
+memory that we want to interact with that's smaller than a C
+programming data type. We usually need to read and
+modify these smaller bit values. This is referred to as bit manipulation. C programming provides us with special
+operators that allow us to do bit manipulation called bitwise operators. Interestingly, all arithmetic operations
+can be performed using only bitwise operations. In fact, the CPU core itself
+is composed entirely of logic gates doing lots of bitwise maths. Sometimes by using bitwise operations and
+specialized algorithms, we can find more efficient ways to
+perform certain CPU computations. Most importantly are the bits that
+make up the peripheral registers. Bit manipulations on peripheral registers
+is the method we need to use in order to configure and interact a microcontroller. Bitwise operators are essential
+to microcontroller configuration. To review,
+we have many bitwise operations. These include left shift,
+right shift, AND, OR, XOR, and NOT, which is also known as ones' complement. Bitwise operators require
+two arguments to operate on. The result of this operation means that
+one bit location should not affect a different bit location. For example, if I were to logically
+order two numbers together, the bit for location of number 1 should only affect
+the bit for location of number 2. Usually, we do not do bit manipulation
+with binary representations, but instead using hex numbers. This is because we can often
+introduce more bugs by creating long, unreadable lines of binary code used for
+bit manipulation. We can do better using hexidecimal. Bitwise operators can also be combined
+with the assignment operator. Typically, you will want
+to read a memory location, manipulate one or more bits and
+then write it back. This require you to do
+a read modify write. By using a combination
+of bit manipulation and assignment, we can simplify the code by
+removing the need to retype a variable. Let's look at a few examples
+Given an 8-bit unsigned variable foo which holds some initial
+value, you may want to set bits 4 and 5 at these variable, but not change
+the other bits with the variable. The bitwise OR
+operator will be used to set bits. To do this, we can read the value of foo
+and bitwise OR with the hex value 0x30. Then, you'll want to reassign
+the output of this operation back to the variable foo. Regardless of what the value of
+the variable foo was before, afterwards, the fourth and fifth bits will now be set. Now instead of writing the variable
+twice in one line, we can use the OR operator in conjunction with
+the assignment operator, a shorthand. Alternatively, you can also use the left
+shift operator to shift in a set of bits to a desired location in a variable. So here we can left shift in
+the value value 3 over 4 bits, so that we are left with x30 and
+then OR that with foo. Now, let's say you have the same variable
+foo and you want to clear bits 6 and 7 but not change any other bits. The bitwise & operator will
+be used to clear bits and sometimes in conjunction with
+the compliment operator. To do this,
+we can read the value of foo and then bitwise & it with the hex value 3f. This means that all bits are set
+to 1 except for bits 6 and 7. When you & that, the value 6 and
+7 get & with 0, and then therefore get cleared to 0. You will then want to reassign the output
+of this operation back to foo. Regardless of what the value foo
+had originally, the 6 and 7th bits will now be cleared and the remain
+bits will maintain their previous value. We can use the & operator in conjunction
+with the assignment operator for shorthand. Alternatively, I may want to specify
+the bits I want to clear in my statement. To do this, we can create a bit value of
+hex C0, which is the inverse of hex 3F. When we bit wise and
+foo with the complimented C0, we obtain the same result. One more example will be
+the toggle bit operation. Let's say you have the same variable, foo,
+and you want to toggle bits 1, 2 and 3. Toggle means hit their current value and
+inverse it. The bitwise XOR operator will
+be used to perform the toggle. To do this, we can read the value of foo,
+bitwise XOR with a hex value, 0 E. This means all bits with a 0 in
+the 0 E hex value will not toggle, and all bits with a 1 will toggle. Then you will want to reassign the output
+of this operation back to foo. Bits 1,2 3 will now have toggled, and the remaining bits will
+maintain the previous value. Again, the XOR operator can be used in
+conjunction with the assignment operator for short hand. All three of of these examples use
+some hand coded numbers to manipulate a piece of data. These are referred to as bit mask. You should never hand code any data and
+instead use pre-processor macros to help create a bit mask to
+hold this constant data item. This will make your code more readable. In addition, this is something
+you will regularly need to use to interface with a micro
+controller peripheral. In many register definition files, a
+manufacturer likely will have provided you with some premade bit masks to help
+with your peripheral interface. However, you do not have to use these. You likely will define many
+of your own bit masks for both peripherals and data memory. Taking our previous examples, we do not want to define arbitrary
+constants directly into code. Instead, you will use a bit mask
+defined as a pre-processor macro, to use in the set, clear,
+and toggle operations. Sometimes you might define general
+values to assign to a number. Others, you might use specific bit
+masks to do clear, toggle, or or with. Pre-processor defines you not
+take up codes based directly. So add as many as you like to help
+make your bit manipulation and bit masking operation as
+readable as possible. To complicate matters, we often need to do
+multiple types of bit manipulation with interacting with registers. For example, we may need to set
+a particular bit field to a certain value, which might involve clearing and
+setting bits. We cannot just use a direct assignment
+operator, because it's possible that we don't want to overwrite
+other bits within a register. Because of this, we will need to
+use a combination of the set and clear bit functionality just introduced,
+along with our load and store. Say we need to combine setting bits 4 and
+5 while clearing bits 6 and 7. This 4 bit region may comprise of
+a specific bit field than a register that needs to get set to the value 3. And to do this, we first move the variable
+which moves it into the CPU for execution. Then we can perform the clear
+operation with the & operator. Then, set needed bits with the or
+operator. And finally,
+we can store that data back to memory. This operation of setting a particular bit
+field to a value has now caused us to have multiple manipulation operations in the
+CPU before you write data back to memory. ARM architecture has provided a mechanism
+to reduce the overhead of a rate modify right for a limited amount of data
+in both SRAM and peripheral memory. This is referred to as
+the bit banded regions. Bit banded regions allow
+us to alias at bit fields to a particular address in memory. In ARM architecture,
+only the first megabyte of data and the first megabyte of peripheral
+memory are bit-banded. Everything else in that memory has to
+be accessed with a normal pointer and a normal read modify right. The bit band region is
+accessed via a bit band alias. Each bit in a supported bit band
+region has its own unique address, and we can access that bit using a pointer
+to its bit band alias location. The least significant bit in an alias
+location can be set or cleared, and that will be mapped to bit in the
+corresponding data or peripheral memory. Unfortunately, this would not
+help you if you need to write to multiple bit locations in memory. Bit banded operations only allow
+a single bit to be cleared or set. Our SRAM architecture may expand
+this to be able to do toggles. Bit bands can also be used to read
+just a single bit if you need. If you were designing your own
+architecture, a bit banded region would reduce the number of overall
+memory locations available for other functionality in your memory map. However, they reduce the number of
+instructions and the execution time for a single bit manipulation. Additionally, this is done atomically,
+meaning with one instruction. A read, modify,
+write can be done on any single bit. This atomic characteristics allows us for different programming threats
+to interact with the same bit or memory without fear of conflicts or
+corruption usually due to raise condition of the two instructions interacting
+with the same data unknowingly. Bit manipulation is very important for
+setting, clearing and toggling bit fields in a piece of data or
+registered memory. If you just use assignment, you'll overwrite any valid data in the bit
+field you're not trying to interact with. This concept is used
+regularly to configure in and interact with microcontroller
+peripheral registers.

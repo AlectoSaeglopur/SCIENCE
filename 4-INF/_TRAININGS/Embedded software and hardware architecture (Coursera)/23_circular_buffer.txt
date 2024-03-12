@@ -1,0 +1,94 @@
+In this video we'll introduce
+the circular buffer. Buffers are used in most embedded
+programs, either as a software or hardware implementation. An example could be an interrupt service
+routine that writes out serial data, similar to our print+f function. And a program that wants
+to print out a lot of data. To print data we often use a UART. This is being called behind the scenes
+in a lot of print+f functions. This will only write out
+a single byte per transaction and usually at a very slow rate
+like a 100 kilobits per second. Typically you wouldn't send just one byte,
+you would send numerous. And instead of sitting there blocking,
+sending byte after byte, you may have a small function
+that is totally responsible for shifting out bytes when we're ready. This would allow your main, or your main
+process, to focus on other processing. In this example,
+we would likely use a circular buffer, or a FIFO-like buffer,
+to store our character string to transmit. And an interrupt sub-routine
+to pull that data out. A circular buffer is also
+known as a ring buffer. Additionally, this type of
+buffer operates like a FIFO, or a first-in-first out-buffer. In contrast to the LIFO, a FIFO adds
+to one end and removes from the other. These two ends are referred to as
+the head and the tail, respectively. Data can be added and
+removed in any order. Meaning, we do not need to
+fix the tail to one end. It will move just like the head moves,
+as we add and remove. The head will continue to grow in
+one direction until it has reached the end of the allocated region. If more gets added at this point,
+the head will need to move back to the beginning of the region,
+thus, the circular operation. This means that the end boundary does not
+necessarily reflect the buffer being full. When declared, the circular
+buffer will have a set length. Let's look at an example. Assume we have a circular buffer
+size to be five items long. At point of initialization,
+the buffer is empty, the head and the tail point to each other at the base. When the buffer is full, the head points
+to the elements previous to the tail. If we were to add an item, we would copy
+the element to the current head position and then we would move
+the head forward one location. If were then to add two more elements, the head would copy those two elements in
+and head more forward two more spaces. The total number of elements in this case
+would be three, with two open spaces. If, at this point, we were to remove
+an item, we would need to copy out the data that the tail pointed to, and
+then move the tail forward one position. If now we are to add two more elements, the head would have reached
+the end of the boundary. At this point, we would need to move the head from
+the end of the buffer back to the front. This behavior is exactly why it's called
+the ring buffer or the circular buffer. The circular buffer data structure will
+look very similar to the LIFO data structure that we talked about previously. Here we have called
+the data structure CB_t. This structure has elements for the
+location of the buffer region and memory, the head pointer, the tail pointer,
+and the total length. In this example, we have decided that
+the circular buffer is of type uint8, so that all pointers are uint8,
+and they point to bytes. And the length of the buffer
+is application-dependent. But we will use a uint32 or
+a size of t for portability. You can design your circular buffer to
+operate a handful of different ways. Perhaps you do not care about
+overriding the oldest piece of data. In this case, you never need to prevent the buffer from
+adding an element, if the buffer is full. Instead, you may just move the head and the tail forward one position when we're
+full, and add that next new item in. Alternatively, you can have your buffer
+prevent overfilling, and return an error. Your buffer can be defined
+in a way to directly track a number of elements that have been added. By doing this, you can easily
+compare the current added count with the length of the buffer to check for
+fullness. Another option for your buffer would be
+to use array indices instead of pointers. This would simplify the logic for
+checking for empty or fullness. In this case, you would need to calculate
+the difference between the head and the tail index to determine if
+it's equal to the capacity. Now we are at a function that checks for
+the circular buffer being full. We first define a function
+called buffer full. That takes in a parameter,
+a pointer to a circular buffer structure. This structure will return
+an enumerated type called CB_Status, or circular buffer status. This will allow us to define specific
+states of the buffer in the enumeration like we've done before for
+full, empty or null. The first action we need to take in this
+function is to check if the buffer points to a non null pointer. If so, perhaps we need to return an error. In order to check for fullness, we have a slightly more complicated
+mechanism since we have two moving pieces. We can use an if, else if, and else statement to track
+these multiple conditions. First, if the head is in the element
+previous to the tail, we know we are full. Secondly, if the head is
+in the last position, and the tail is in the zeroth position,
+then we also know we are full. If either of these are true,
+we return that buffer full enum. If neither of those conditions are true, we can safely say that
+the buffer is not full. We can return an enumeration
+that the buffer is not full. The next function we'll introduce
+is the buffer add function. Similar to the buffer full function
+we need to pass in a buffer structure pointer, return a CB_Status type and
+additionally take in the parameter to add. We start by validating that we
+have a non null buffer pointer. Next we check to see
+if the buffer is full. Here we can use the function
+that we defined previously. If we're full and chose the do a non
+overriding buffer, we can simply return. If we're not full,
+we can not just directly add the element. We need to check to see
+where the current head is. If the head is the last position, or the
+end of the allocated region, we need to move the head back to the beginning
+before we can add in the next item. If the head is not in the last position, we can simply increment
+the head to the next location. Once the item has been added,
+and the head is incremented, we can return the buffer no
+error ennumeration status. The circular buffer is very similar
+to that of the LIFO buffer, except that they wrap
+around as you add elements. They're extremely useful when you need to
+pass data between two processing entities, while limiting the amount
+of memory that is reserved. This data structure with
+a little bit of overhead for the structure itself reuses its memory
+as new elements are added and removed.

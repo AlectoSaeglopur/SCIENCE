@@ -1,0 +1,107 @@
+In this video we'll introduce
+the linked lists data structure. Buffers are great data structures to act
+as an intermediate data stores location, especially if being shared between
+two processing entities or threats. This is especially true when the two
+threads are not running at the same speed. This buffer is used as a way
+to mediate the production and consumption of the data in our examples. However, buffers have one big side effect,
+and that is the fact that they need
+a continuous memory allocation. Depending on the application and
+the size of your buffer, you may not have enough memory
+to allocate for a large buffer. This leads us into the discussion
+of the linked list. The linked list allows us to
+make a scattered data structure that can be allocated to
+random locations in memory but have elements that
+are still linear in order. The linked list is a very important and
+simple data structure. The linked list is comprised of many
+independent structures called nodes. These nodes are independently
+allocated and are linked together. This is done via pointers. The first node will point
+to the second node, the second node points to the third node,
+and so on. This implementation is known
+as a singly linked list. The definition of a linked list is
+a simple structure called a node that contains two elements,
+a data item and a pointer item. The size of the linked list depends
+on both the architecture and the size of the data
+item you wish to soar. Similar to the buffer, there is a head
+node and a tail node to the linked list. To indicate which node is the tail, the tail node's next node
+pointer is set to null. If the link list is empty, the head
+note is null or isn't even allocated. Let us look at a definition
+of a node data structure. In this example the node
+data is a uint32 type. The second element is a structure
+node pointer called next. This should point to the next node when
+there is another node to point to. On a 32-bit architecture,
+this node would occupy eight bytes. A disadvantage for this implementation
+is that for every node and data item you wish to store, you also
+need to store a pointer to the next node. In this case, half of the data structure's
+memory allocation is dedicated to tracking the data structure. There are many different
+flavors of the linked list. Some include the doubly linked list,
+the ordered linked list, or the circularly linked list. Singly linked lists require you
+to keep track of the head node as long as the linked list is not empty. This is because there is no way to
+travel backwards in a singly linked list from the tail to the head. You can only search a linked
+list from the head to the tail. Alternatively, the doubly linked list
+does not require saving a head node, but rather just any of the nodes. This is because the doubly linked
+list points to both the next node and the previous node. This allows us to traverse
+the linked list in either direction, given the node in the list. Nodes are added and removed through
+the lifetime of the program as needed. Unlike the buffer data structure,
+the link list is a dynamic data structure. Meaning it can grow and shrink without
+statically allocating a certain size for the structure. To add a node,
+you typically call a method called insert. And to remove,
+you call a method to delete. These functions utilize dynamic memory
+calls to Malloc and Free when they add and remove. There is more you can do with
+a link list as inserting or deleting a node from the end
+is a pretty simple operation. You can have a special function
+that allows you to insert a node or delete a node somewhere in the middle
+of the list, like in the case of an ordered list where each node is ordered
+in a special way based on its data. This leads us to another
+drawback of the link list, and that is the inefficiency in finding,
+inserting, and deleting nodes. Because the link list is a set of
+nodes that point to one another, we have to start at one end and move
+through each node to find a specific item. This could lead to a significant amount of
+processing overhead if your list is long. Let us look at an implementation of
+the function that adds a node to the end. This function takes as an input the new
+data item to add and the head node. We'll start by creating
+a local node pointer variable to help us traverse this list to the end. Next we need to look at
+the current node and make sure that the node is a valid pointer
+so that we can proceed to add a node. Next we need to check that the head
+pointer is not simultaneously the tail. We can do that by checking the head node's
+next node pointer to see if it is a null. If it is a null,
+then we can simply add our node here. If it is not null, we need to move
+to the next node in the list. For this we need a loop. This loop will need to
+traverse from the current node to the next node until it finds
+a pointer that is a null pointer. Once that is found, we know we have
+found our last node, or the tail. Finally, we can allocate the memory
+on the heap for the next node. We can do this using malloc and the sizeof functions to help us
+allocate the correct number of bytes. We then cast that pointer and set this newly created node to
+the last node's next pointer. Next we need to set the last
+node's next pointer to null and set the value of the input data
+into the node's data element. Now we can simply return
+from the function and our node has been appended
+to the end of the list. One modification we can make to this
+implementation is to change the head pointer node parameter
+into a double pointer. This would allow us to create the head
+node in the event that the list has yet to be created. There would be minor differences in the
+implementation and where we would need to use double d references in the pointers
+to read and write new nodes. A drawback with the link list is
+the requirement of dynamic memory. Buffers do not necessarily need to use
+the malloc functions to reserve memory as they can be done In the code or
+in the linker file. However, link list nodes can be
+allocated at any location and they need to be valid as long as
+there is a member of the link list. This means we would need to
+dynamically create these and destroy them as they are added and
+removed. There are some positive and
+negative effects of this. One is that since a link list does not
+require a contiguous block of memory, it'll be easier to allocate. In heat memory we might
+see a lot of segmentation. So putting in nodes would be a little
+easier to do than a large group of memory. This comes with the drawback of the
+overhead to create and remove nodes using Malloc and Free in addition to the extra
+code needed to support those functions. Lastly, regular dynamic allocation could
+increase the possibility of a memory leak. While you would write a function to
+remove a link and free the memory, every user of your link list structure
+would have to remember to delete nodes when they're done. The link list is a regularly used
+data structure in the industry and often the focus of many
+software interviews. Link lists provide advantages with respect
+to easier use of segmented memory blocks, but the expense of extra overhead for allocating and de-allocating nodes and
+traversing the link lists. Link lists additionally have more
+memory overhead associated with each individual node as it needs to
+track other nodes with pointers. Regardless, link lists and
+buffers are excellent examples to learn about data structures in
+addition to having useful resources for programming an embedded system.

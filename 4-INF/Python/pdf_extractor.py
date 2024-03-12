@@ -9,7 +9,7 @@ from os import system                                                           
 ### PARAMETERS ###
 
 file_path = "H:/EBOOKS/BOOKS/"                                                      # file path
-file_name = "Le dieci leggi del potere (Noam Chomsky, 2017)"                        # name of PDF file to be scanned [NB: see NOTE#1]
+file_name = "L'invenzione della solitudine (Paul Auster, 1982)"                     # name of PDF file to be scanned [NB: see NOTE#1]
 annot_type = 'Underline'                                                            # annotations type to search (use 'Highlight' or 'Underline')
 delta = [3, 5]                                                                      # delta for annotations boundary for X-Y coordinates [NB: to be adjusted for specific file]
 sep_char = '\n\n'                                                                   # separation-characters added between consecutive annotations

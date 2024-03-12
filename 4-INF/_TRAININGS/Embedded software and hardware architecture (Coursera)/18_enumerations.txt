@@ -1,0 +1,78 @@
+In this video we will
+talk about enumerations. When you write software there are many
+important characteristics you need to keep in mind. Writing code that is portable,
+readable and maintainable are just a few. So far we have discussed numerous
+software tools that can help with this. Pre-processor directives and
+constants are two concepts that we use to help get rid of writing random,
+constant data all over our code. There are many problems with
+pre-processor directives, though. And that they are bug prone and
+they do not provide any type checking. Constants allocate memory,
+typically in your code region, which has a higher latency. Enumerations are an awesome alternative
+and they provide so many benefits. Enumerations are an enumerated type. For short they are more
+commonly called an enum. Enums are used to create
+an integer only data type. The enumeration uses the enum keyword,
+a set of brackets, and then a list of enumeration
+constants to make up the type. Enumerations can have default values
+provided from the compiler, or you can directly assign
+specific enum constant values. Enumerations will allow you to
+define multiple enum concepts with the same value as well. Here we have an enumeration
+example called month. There are 12 enumeration constants,
+one for each month. We can allocate an enum variable and
+assign it to any of these enumeration types by specifying the enum type and
+the variable name. The definition of enum does
+not take up any memory. They are just like a structure. Only if you choose to instantiate
+an enumerated variable will it allocate memory. Enumed sizes is architecture dependent. Typically, these are either signed or
+unsigned integers. Your architecture is ABI, or application binary interface, will usually
+list this size in its documentation. For the MSP 432,
+the enum is a four-byte signed integer. And just like our other
+user defined types, you can use the typedef key word
+with an enum to create a smaller, more consistent variable type decoration,
+much like our other variables. There are numerous good practices or style
+choices you can make with your enum type. Enums are usually defined in all capitals. This is a standard practice used for
+constant variables. Additionally, many times each enum member
+in a definition may have the same base name, meaning the beginning characters
+of the enum match across all the values. This helps reduce namespace issues
+if you use many typical names for your enum symbols. Let's say that you need to define
+a large quantity of enumerated types. Each with numerous enum values and each
+enumerated type had a value named error. Enum names have a global scope so
+this could cause an error. Instead you would add a small string to
+the beginning of this to indicate the type of enum this error belongs to. Here are some examples. For something called
+circular buffer status. Each of these enums start with
+a capital CB and an underscore. There are numerous values for
+which the CB status has in its enum. There's a CB_EMPTY, a CB_FULL,
+a CB_ERROR, and a CB_NULL. Some enumeration examples add a final
+enum define to the end of their list to indicate the last enum item. If your enum list was written in a way
+to auto-increment, then this last enum value can be used in software to loop
+over all possible enum values, or list the total number of
+enum constants in your type. This does not work if you
+manually number your enums or reuse a number in your definition. This is a good time to also bring up
+a different topic with naming conventions. Sometimes programmers like to indicate
+what type of particular variable is in the variable name. This technique is used with many different
+types across many different projects. You've seen something similar
+to this before with the _t in the standard types and
+standard int header file. This _t is used in many seed programming
+and posix standard libraries. Because of this,
+it may be that you might find some issues if you include some standard libraries,
+and you choose to name your variables or variable types with an _t,
+due to some name conflicts. In the case of enums, sometimes developers
+like to put an _e at the end of the enum variable, to indicate if this
+is an enum or an enum type. In C++, sometimes people like to indicate
+semaphores data types with an _s. U text devices with an _m and
+q's with an _q. This is really up to your
+team's coding guidelines but it is something you should be aware of. You need to be careful in cases when
+an enum is defined as a 32-bit signed constant. This is because some enum
+values could be negative. Some developers use enums to
+help index into an array. This could cause some issues because what
+does it mean to have a negative index in an array? Additionally, when enums
+are defined as a 4-byte integer, this might be an excessive amount of
+memory, depending on your use case. One way to get around this is that GCC
+provides a flag called short-enums. This tells the compiler to implement
+the enum in a smaller data type size. Here we have an example where we
+compiled with the fshort-enums flag. The enum here will be
+implemented as 1 byte. Without this flag the enum would
+be implemented as 4 bytes. Enumerations are a useful feature for
+writing readable and portable code. They provide the benefit of type-checking
+at compile time, but allow you to define any set of constant types you need
+and associate it with one enum type. Enums are especially useful for defining
+a set of status or error codes for a particular data structure. With which we will see
+in our following videos.

@@ -1,0 +1,96 @@
+In this video, we will introduce
+structures and encapsulation. Structures are used in nearly
+every software project today. They are very application dependent, but can be used to store general data
+to create messaging interfaces, or even control the flow and
+operation of your program. Typically, you design
+special functions that work with these specialized structures,
+oftentimes encapsulating the manipulation of that structure
+into the function itself. Data structures are a more
+complicated use of a structure. A data structure is just a general term
+that refers to how you can organize data. In order to effectively design one, we
+will need to learn more about how to use structures and functions to create
+our own abstract data structures. Structures require the use of the struct
+keyword, a unique struct type and a list of members. The members can be a variety
+of different types. This includes standard types, enumerated types, pointers, function
+pointers, and even other structures. Additionally, structures can have
+a special attribute to align or pack data and memory. In contrast to normal variables,
+you have to define the structure type. Depending on how you would use that type, you would put the definition in a header
+file, to make it a public definition. Or at the top of the implementation file, if you want to make it
+a private definition. Once a structure has been defined, you can declare numerous instances
+of that structure in your program. Structure variable declarations are just
+like other variable declarations. Depending on how they are declared,
+they can have varying lifetime or scope. Here we have an example with
+a structure related to the weather. When monitoring the weather you
+would think that you'd want to track numerous sensor outputs. This would include temperature,
+wind speed, wind direction, humidity, sunlight, and maybe even a timestamp for
+all that data. This structure we'll call WeatherSample,
+and it'll help us organize one set of all the data associated with
+one measurement at our weather station. We'll define it with some arbitrary
+sizes just to show you how it's created. We would need to take multiple
+weather samples throughout the day in order to track how the weather changed. We can expand this example by using
+the typedef keyword, which we used in a structure definition to create your
+own shorthand type for your structure. With this, you will not need to
+retype the struct keyword for every instance you declare. Here's an example where we
+use the typedef keyword to shorten our type to WeatherSample. Now we can declare as many
+instances of WeatherSample that we can fit within our memory, or
+pointers to other weather samples. We can write a function to print weather, that allows us to print a weather
+sample to standard output, by passing a structure pointer parameter
+into the function to a weather sample. This will not only allow us to simplify
+the number of arguments that we need to pass into this function, but also reduce the amount of
+overhead that goes into copying each data item into the function due to
+the architecture's calling convention. The print_weather function is
+a simple example of encapsulation. Encapsulation means to
+enclose the operation or interaction with a software construct
+with any processing entity. In this case,
+we encapsulate the operation and interaction of an associated
+structure into a function. This provides a much more portable and
+maintainable mechanism to use and design data structures. There is nothing stopping you from
+directly writing to the members of the structure or
+reading the members of the structure. However, if you were to change
+the underlying structure definition, you would then have to reflect that
+change everywhere in your code. A function will abstract that interface
+for you without the need to update so many parts of your software. The print_weather example is a very
+simple encapsulation example for just reading data. What about reading and
+writing specific members? Usually, a structure will require
+numerous correlated operations in order to interface with
+the associated structure. This makes reading and
+writing to members more complicated. You do not typically just
+use the members directly. Instead, you might hide the actual
+interface within a function to reduce certain accesses and prevent
+any incorrect use of the structure. For example, let's say you had a structure
+that was used to track the movement of a ball in space. We'd want to keep an array of x,y, and z coordinates to represent the ball's
+location at any point in time. We may also want to record that time
+in terms of when we got that position. We may also care about how many
+data points we have tracked. If we were to add a new data point to
+the structure, we would have to first add a new data point, x, y, and
+z information a time stamped, but also increment the number
+of data points tracked. All of these operations may
+be some what irritating to have to retype every time you
+want to get a new data point. This will also increase
+the chance of introducing a bug. This example of a ball's location
+is a very specific data structure. This cannot really be used for
+other applications. This is an example of
+a composite data structure. This means the members of the structure
+are created with the built-in C-types. However, there are other data
+structures that can be applied to generic applications. These are referred to
+as abstract data types. These abstract types are just
+like built-in types. They can be applied to any
+number of applications, however, these abstract data types require not
+only the definition of the structure, but also the interface to the structure. This interface is usually in
+the form of a set of functions, that take in a parameter from
+the structure then tends to operate on. Data structures are an example
+of these abstract types. They will utilize numerous
+general functions that act on an underlying structure
+as a way to interface with it. Examples could be adding or removing
+items, initializing, and clearing it. Each of these functions would take as a
+parameter a pointer to the structure that they want to operate on. Adding and removing information
+from that data structure is not as simple as just assigning
+values to structure members. There often is more control and
+manipulation of the underlying structure needed
+in order to interact with that data. There are some standard examples of
+abstract data structures that are used regularly in software engineering, such as
+buffers, linked lists, trees, and hashes. Structures and associated structure
+functions are extremely important for software development. No better example of this is
+the concept of a data structure. Data structures can be defined in an
+abstract way to be applied to any type of underlying data, in the same way
+that a variable type uses built-in C-types that can apply to any variable.
