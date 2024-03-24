@@ -9,20 +9,20 @@ from numpy import divide, multiply, zeros
 ## PARAMETERS ##
 
 init_house_cost = 300e3                                                     # initial house cost [€]
-pch_discount = 0e3                                                         # purchase discount applied by constructor / seller [€]
+pch_discount = 0e3                                                          # purchase discount applied by constructor / seller [€]
 
-vbonus_gross_disc = 0e3                                                    # various gross bonus discounts (e.g. antiseismic) [€]
+vbonus_gross_disc = 0e3                                                     # various gross bonus discounts (e.g. antiseismic) [€]
 vbonus_int_y = 4.5                                                          # bank interest on bonuses re-selling [%/year]
 vbonus_per = 5                                                              # bank duration on bonuses re-selling [year]
 
-agency_rate = 2.0                                                           # 3rd-party agency expenses percentage [%]
+agency_rate = 0.0                                                           # 3rd-party agency expenses percentage [%]
 iva_tax_rate = 4.0                                                          # IVA tax percentage [%]
 notar_exp = 5e3                                                             # notary expenses [€]
-util_exp = 5e3                                                              # utilities connection expenses (aka "allacciamento utenze") [€]
+util_exp = 0e3                                                              # utilities connection expenses (aka "allacciamento utenze") [€] (usually 4/5 k€)
 
 mg_init_pay = 100e3                                                         # mortgage initial payment / deposit [€]
-mg_inter_y = 3.8                                                            # bank yearly-interest on mortgage [%/year]
-mg_duration = 20                                                            # mortgage duration [year]
+mg_inter_y = 3.0                                                            # bank yearly-interest on mortgage [%/year]
+mg_duration = 25                                                            # mortgage duration [year]
 
 
 
