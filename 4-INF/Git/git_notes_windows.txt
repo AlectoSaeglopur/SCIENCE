@@ -225,7 +225,7 @@ Typically the user has to care only about commits and annotated tags, whereas tr
 - "rebase merge".
 
 § "Fast-forward" (FF) moves directly the source/base branch-label to the tip of the topic-branch and cannot cause conflicts (therefore, it's possible only if no commits have been added to the source/base-branch in the meanwhile). In this case, after merging both branches contain exactly the same commits, thus the base-branch inherits all the topic-branch commits (even if later the topic-branch gets deleted). With FF-merging the resulting commits-history (aka 'commits-graph') is linear, i.e. no commits have multiple parents (this can be checked via "git log --oneline --graph"). Commands to perform an FF-merging:
-- after pushing the final changes on the topic-branch (i.e. the "merge-from-branch"), switch to the base-branch (i.e. the "merge-to-branch") and pull (even if nothing is assumed to have changed) >> "git checkout <base_branch> && git pull" [NB: as said, 'pull' is theoretically not needed in this case since nothing is assumed to have changed in the meanwhile on the base-branch, but nonetheless it's always good practise];
+- after pushing the final changes on the topic-branch (i.e. the "merge-from-branch", aka "active" branch), switch to the base-branch (i.e. the "merge-to-branch", aka "passive" branch) and pull (even if nothing is assumed to have changed) >> "git checkout <base_branch> && git pull" [NB: as said, 'pull' is theoretically not needed in this case since nothing is assumed to have changed in the meanwhile on the base-branch, but nonetheless it's always good practise];
 - merge back topic-branch into base-branch (note FF is always the default type of merging attempted by Git at first) >> "git merge <topic_branch>" [NB: whenever using the command "merge", Git specifies the type of merging is trying to execute (e.g. by printing 'Fast-forward' on shell)];
 - verify your base-branch is now 'ahead of origin by 1 commit' and push merge-changes to RR >> "git status && git push";
 - [check the topic-branch commits have been added to the base-branch, HEAD points now to both branches, and commits-graph is linear >> "git log --oneline --graph"]; 
@@ -266,6 +266,13 @@ A -- C -- F   [base-branch]
 § "Rebase-merge" is treated in Section #15.
 
 § In case of long-running topic-branches, it's always a good practise to periodically merge back to the source base-branch, in order not to stray too much from the latter and avoid a potential huge number of conflicts in the end.
+
+§ To check the outcome of a merge without automatically generate a commit, use:
+- checkout to topic-branch >> "git checkout <base_branch>";
+- apply conditional merge >> "git merge --no-commit --no-ff <topic_branch>";
+- check the terminal outcome message to verifiy if conflicts happened;
+- open Git GUI and verify that merged files have been already staged but not committed yet;
+- (to revert the whole merge process >> "git merge --abort").
 
 ------------------------------------------------------------
 
@@ -367,6 +374,8 @@ Automatic merge failed; fix conflicts and then commit the result."
 "! [rejected]   master -> master (fetch first)
 'error: failed to push some refs to origin'
 ..."
+
+§ Remember to always execute "git status" after each "git pull", in order to check the updated state of the repo. This especially usefull in case the project contains submodules to check if any of them requires an update; in case run "git submodule update --recursive" (see Section #20).
 
 ------------------------------------------------------------
 
@@ -533,6 +542,12 @@ A -- D -- (diffAB) -- B' -(diffBC)- C'   [base-branch]
 - apply submodule changes from RR to WT >> "git submodule update --recursive --remote" [NB: this command actually updates all submodules used inside the parent project, not just one];
 - alternatively, submodules can be updated one by one by opening a bash inside each of their subfolders and executing "git fetch/pull" [NB: instead executing "git fetch/pull" at parent project level is not able to detect submodules updates from RR];
 - then stash, commit and push changes to update submodules references within the parent project >> "git add --all && git commit -m "submodules updated" && git push".
+
+§ To locally update a submodule whose remote path has been changed lately:
+- delete the related folder within LR's "source" folder;
+- delete the related folder within LR's ".git" folder;
+- open Git bash inside project main path and type "git submodule sync && git submodule update --recursive";
++ alternatively, you could simply delete the entire LR and clone it again from scratch.
 
 ------------------------------------------------------------
 
