@@ -18,9 +18,9 @@ from os.path import splitext
 
 ## PARAMETERS ##
 
-path = "H:/EBOOKS/"                                                             # folder path (use '.' for current folder)
-ext_inc = ['.epub','.pdf']                                                      # file extensions to be included (use ['.*'] for all extensions)
-ext_exc = ['.ini']                                                              # file extensions to be excluded (used only if "ext_inc = ['.*']")
+path = "H:/IMAGES/"                                                             # folder path (use '.' for current folder)
+ext_inc = ['.*']                                                                # file extensions to be included (use ['.*'] for all extensions)
+ext_exc = ['.ini','.txt']                                                       # file extensions to be excluded (used only if "ext_inc = ['.*']")
 fcnt = '%4d'                                                                    # counter print-format
 pext = True                                                                     # flag to keep/remove extension in listed files name
 frcu = False                                                                    # flag for extend export to sub-folders recursively

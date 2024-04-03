@@ -1,17 +1,36 @@
 
-import mouse                    # pip install mouse
-import time
+## LIBRARIES ##
 
-Xpos = [160, 210]               # X positions [px] (NB: to be adjusted in reference to display resolution!)
-Ypos = [840, 840]             # Y positions [px]
-Delay = 5                       # delay between each change [s]
-Trans = 0.5                     # transition time [s]
+from datetime import datetime
+from mouse import click, move                 # requires "pip install mouse"
+from time import sleep, time
 
-while( True ) :
-    mouse.move(Xpos[0],Ypos[0],absolute=True,duration=Trans)
-    time.sleep(Delay)
-    mouse.click('left')
-    mouse.move(Xpos[1],Ypos[1],absolute=True,duration=Trans)
-    time.sleep(Delay)
-    mouse.click('left')
-    
+
+## PARAMETERS ##
+
+step_delay = 5                                # step_delay between each change [sec] (NB: do not decrease too much, otherwise it's difficult to stop the execution)
+trans_time = 0.2                              # transition time [sec]
+tot_time = 30                                 # total execution time [min] (NB: use 'inf' for endless execution)
+points = [                                    # X-Y coordinates of all points to be covered sequentially [px] (NB: to be adjusted in reference to display resolution)
+  {'x': 160,  'y': 840},
+  {'x': 210,  'y': 840}]
+
+
+## PROCESSING ##
+
+dt = datetime.now()
+print(' Start >> '+dt.strftime("%d-%b-%Y %H:%M:%S"))
+loop_flag = True
+start_time = time()
+while( loop_flag ) :
+    for j in range(len(points)) :
+      move(points[j]['x'],points[j]['y'],absolute=True,duration=trans_time)
+      sleep(step_delay)
+      click('left')
+    if tot_time != 'inf' :
+      end_time = time()
+      if end_time-start_time > tot_time*60 :
+         loop_flag = False
+dt = datetime.now()
+print(' Final >> '+dt.strftime("%d-%b-%Y %H:%M:%S"))
+exit()

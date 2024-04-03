@@ -504,11 +504,11 @@ A -- D -- (diffAB) -- B' -(diffBC)- C'   [base-branch]
 - new files in WT that have not been staged yet (i.e. not part of the versioning yet) >> add the "-u" (where "-u" = "--include-untracked") option to include new untracked files (e.g. "git stash -u");
 - ignored files (i.e. part of the '.gitignore' file) >> add the "-a" (where "-a" = "--all") option to include changes to ignored files as well (e.g. "git stash -a").
 
-§ The user is not limited to a single stash at a time, but can run "git stash" multiple times to create multiple stashes in sequence. By default, stashes are identified simply as a 'WIP' (aka "Work In Progress") on top of the branch/commit you created the stash from. Then "git stash list" can be used to list all stashed currently stored. However, after a while it can be difficult to remember what each stash contains (since, for example, they are all listed as something like "stash@{0}: WIP on master: 2e16987" or "stash@{4}: WIP on develop: f955ab0"). To provide a clearer and more detailed tracking, it's recommended to include a stash description via the "save "message"" option (e.g. "git stash save "stashed changes on xyz.c"").
+§ The user is not limited to a single stash at a time, but can run "git stash" multiple times to create multiple stashes in sequence. By default, stashes are identified simply as a 'WIP' (aka "Work In Progress") on top of the branch/commit you created the stash from. Then "git stash list" can be used to list all stashed currently stored. However, after a while it can be difficult to remember what each stash contains (since, for example, they are all listed as something like "stash@{0}: WIP on master: 2e16987" or "stash@{4}: WIP on develop: f955ab0"). To provide a clearer and more detailed tracking, it's recommended to include a stash description via the "save "message"" option (e.g. "git stash save "stashed changes on xyz.c" [-u]").
 
 § To restore older changes use include the desired stash entry as additional argument (e.g. "git stash pop stash@{2}" or "git stash apply stash@{3}").
 
-§ To retrieve info about a specific stash, use "gist stash show stash@{n}" and add the "-p" option to display also all differences within modified files (e.g. "gist stash show -p stash@{1}").
+§ To retrieve info about a specific stash, use "git stash show stash@{n}" and add the "-p" option to display also all differences within modified files (e.g. "git stash show -p stash@{1}").
 
 § Use "git stash drop stash@{n}" to delete a specific stash, or "git stash clear" to delete all of them.
 
