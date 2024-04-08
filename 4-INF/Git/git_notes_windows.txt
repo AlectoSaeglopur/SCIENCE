@@ -26,7 +26,8 @@
 - configure Git email >> "git config --global user.email "filippo.valmori@gmail.com"";
 - [for the last x2 commands, "--system" or "--local" could be used in place of "--global" to (however that's unusual, see Coursera's training for more details)];
 - readback set user's name and email >> "git config user.name" and "git config user.email" (or all at once via "git config [--global] --list");
-- to avoid line-ending issues among team members working with different OSs and automatically convert 'CRLF' (typical Windows) line-endings into 'LF' (typical of Linux and macOS) when adding a file to the index (and vice versa when it checks out code onto your filesystem) use "git config --global core.autocrlf true" (in particular, when set to 'true' on Windows machines, this converts 'LF' endings into 'CRLF' when you check out code).
+- to avoid line-ending issues among team members working with different OSs and automatically convert 'CRLF' (aka "Carriage Return" or 
+typical Windows) line-endings into 'LF' (typical of Linux and macOS) when adding a file to the index (and vice versa when it checks out code onto your filesystem) use "git config --global core.autocrlf true" (in particular, when set to 'true' on Windows machines, this converts 'LF' endings into 'CRLF' when you check out code) [NB: "CR" = '\r' = "Carriage Return" character | "LF" = '\n' = "Line Feed" character].
 
 § To generate SSH key (using ED25519 algorithm) for encrypting/authenticating communication from/to server:
 - open Git bash (anywhere);
@@ -84,7 +85,7 @@ More in detail, "git command (-f|--flag) [<id>] [--] [<paths> ...]", where:
 - to verify WT and SA are now clean (at least of all committed files/directories) >> "git status";
 - to see the LR commit-history of the current branch >> "git log [--oneline] [-X]" (e.g. X=2 can be used to show only the x2 most recent commits instead of the whole history) [NB: press 'Enter' to show more log-lines or 'q' to exit].
 
-§ Not all modified/untracked files in the WT have to be staged and then part of the next commit/push. Typical examples are the .o/.map/.bin/.srec/.exe files generated after building, since only source files (.c/.h) are actually included in the versioning (assuming not to include them into the ".gitignore" file).
+§ Not all modified/untracked files in the WT have to be staged and then part of the next commit/push. Typical examples are the .o/.map/.bin/.srec/.exe files generated after building, since only source files (.c/.h) are actually included in the versioning (assuming not to include them in any ".gitignore" file).
 
 § To delete a current branch commit in LR use "git reset --hard <commit_id>" (e.g. "git reset --hard HEAD~X" to cancel last X commits, assuming HEAD is pointing to branch-label);
 
@@ -162,6 +163,8 @@ Typically the user has to care only about commits and annotated tags, whereas tr
 >> 9. GIT-IGNORE & RM <<
 
 § The purpose of the ".gitignore" file is to ensure that certain files not tracked by Git remain untracked. To stop tracking a file that is currently tracked, use "git rm --cached" to remove the file from the index. In particular, to keep some WT files/directories out of Git versioning since the beginning without removing them locally from the WT (e.g. build files generated after compilation, that usually are not versioned), add them to the ".gitignore" file present in the main page of the WT.
+
+§ It's possible to create additional .gitignore files inside project sub-folders to simplify the writing/handling of the path of the files to be ignored. For example, to exclude from versioning the file "./source/hal/adc.h" you can either add the line "source/hal/adc.h" within the main .gitignore file of the project or add the line "adc.h" within the additional .gitignore file created inside "./source/hal/".
 
 § To remove some files/directories which were already pushed to RR during previous commits from Git versioning (but still keeping them locally), it's not enough to add them to the ".gitignore" file, since even though you stop pushing them in future commits, they still remain stored in the RR. Thus, since they shall be removed from RR first. Follow the procedure hereafter:
 - be sure your local branch is up-to-date, there's nothing to commit, and the working tree is clean >> "git status";
@@ -268,7 +271,7 @@ A -- C -- F   [base-branch]
 § In case of long-running topic-branches, it's always a good practise to periodically merge back to the source base-branch, in order not to stray too much from the latter and avoid a potential huge number of conflicts in the end.
 
 § To check the outcome of a merge without automatically generate a commit, use:
-- checkout to topic-branch >> "git checkout <base_branch>";
+- checkout to base-branch >> "git checkout <base_branch>";
 - apply conditional merge >> "git merge --no-commit --no-ff <topic_branch>";
 - check the terminal outcome message to verifiy if conflicts happened;
 - open Git GUI and verify that merged files have been already staged but not committed yet;
@@ -299,6 +302,8 @@ A -- C -- F   [base-branch]
 ======
 ... <topic-branch> code ...
 >>>>>>
+
+§ To check which project files contain conflicts to be solved after a merge use "git diff --check" (if none or after solving all of them, the command simply returns no message). Plus, they are labeled as "unmerged" as a result of "git status".
 
 ------------------------------------------------------------
 
@@ -603,7 +608,7 @@ A -- D -- (diffAB) -- B' -(diffBC)- C'   [base-branch]
 - to display graphical commit-history of current branch >> "git log [--oneline] --graph";
 - to display commit-history of current branch including differences (i.e. files changes) >> "git log --diff [--oneline] [--graph]";
 - to display commit-history of all refs (stored in "refs/", i.e. of all branches plus stashes) >> "git log --all [--oneline] [--graph] [--diff]";
-- to show what commit and author last modified each line of a specific file >> "git blame [-L 2,5] [-w] <path>/<file>";
+- to show what commit and author last modified each line of a specific file >> "git blame [-L 2,5] [-w] <path>/<file>" ("-L" to specify the lines-range to check inside the file, and "-w" to ignore whitespace changes);
 - to set a Git command alias >> "git config --global alias.<custom_name> '<command_expression>'" (e.g. "git config --global alias.nwbr 'checkout -b'", thus from now on "git nwbr <branch_name>" is equivalent to "git checkout -b <branch_name>");
 - to list all existing Git command aliases >> "git config --get-regexp ^alias";
 - to delete an existing Git command alias >> "git config --global --unset alias.<custom_name>" ("git config --global --unset alias.nwbr");
