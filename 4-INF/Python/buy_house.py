@@ -8,22 +8,30 @@ from numpy import divide, multiply, zeros
 
 ## PARAMETERS ##
 
-init_house_cost = 300e3                                                     # initial house cost [€]
-pch_discount = 0e3                                                          # purchase discount applied by constructor / seller [€]
-
-vbonus_gross_disc = 0e3                                                     # various gross bonus discounts (e.g. antiseismic) [€]
-vbonus_int_y = 4.5                                                          # bank interest on bonuses re-selling [%/year]
-vbonus_per = 5                                                              # bank duration on bonuses re-selling [year]
-
-agency_rate = 0.0                                                           # 3rd-party agency expenses percentage [%]
-iva_tax_rate = 4.0                                                          # IVA tax percentage [%]
-notar_exp = 5e3                                                             # notary expenses [€]
-util_exp = 0e3                                                              # utilities connection expenses (aka "allacciamento utenze") [€] (usually 4/5 k€)
+net_house_cost = 300e3                                                      # net house cost [€]
 
 mg_init_pay = 100e3                                                         # mortgage initial payment / deposit [€]
 mg_inter_y = 3.0                                                            # bank yearly-interest on mortgage [%/year]
 mg_duration = 25                                                            # mortgage duration [year]
 
+agency_rate = 0.0                                                           # 3rd-party agency expenses percentage [%]
+iva_tax_rate = 4.0                                                          # IVA tax percentage on house purchase [%]
+notar_exp = 5.5e3                                                           # notary expenses [€]
+util_exp = 0e3                                                              # utilities connection expenses (aka "allacciamento utenze") [€]
+
+
+
+'''
+# SPESE EXTRA:
+roof_exp = 3.5e3*(1+0.15)                                                   # extra roof space for personal solar panels (IVA included) [€] -> @todo: which iva percentage to apply?? (assuming 15% here)
+personal_solar_panels = ?               # waiting for preventivo from Rinieri
+kitchen_living_furniture = ?            # waiting for preventivo from Lacchini
+bathroom_furniture = ?                  # waiting for preventivo from Visani
+
+my_budget = 110e3 (foreseen on 1st janury 2025)
+cuscinetto = 20e3
+dad_help = 50e3
+'''
 
 
 ## CONSTANTS ##
@@ -41,14 +49,11 @@ MG_IDX = dict([
 
 ## PROCESSING ##
 
-vbonus_net_disc = vbonus_gross_disc*(1-(vbonus_int_y/100)*vbonus_per)       # various net bonus discounts [€]
-final_house_cost = init_house_cost-vbonus_net_disc-pch_discount             # final house cost (NB: assuming bonuses are directly deducted from house cost) [€]                   
-
-iva_exp = final_house_cost*(iva_tax_rate/100)                               # iva-tax net expenses [€]
-agency_exp = final_house_cost*(agency_rate/100)                             # agency net expenses [€]
+iva_exp = net_house_cost*(iva_tax_rate/100)                                 # iva-tax net expenses [€]
+agency_exp = net_house_cost*(agency_rate/100)                               # agency net expenses [€]
 tot_init_payment = mg_init_pay+iva_exp+agency_exp+notar_exp+util_exp        # total initial payment (house deposit plus expenses) [€]
 
-mg_amount = final_house_cost-mg_init_pay                                    # mortgage amount requested to bank [€]
+mg_amount = net_house_cost-mg_init_pay                                      # mortgage amount requested to bank [€]
 mg_inter_m = (mg_inter_y/100)/mg_no_pay_per_year                            # bank monthly-interest on mortgage [(%/100)/mounth]
 mg_montly_pay = mg_amount/((1+1/mg_inter_m)*(1-1/((1+mg_inter_m) \
     **(mg_no_pay_per_year*mg_duration))))                                   # fixed mortgage monthly payment based on depreciation formula (aka "ammortamento") [€]
@@ -72,12 +77,8 @@ mg_tot_int_paid = mg_montly_pay*sum(mg_history[MG_IDX['int_m']][:])         # to
 
 ## RESULTS ##
 
-print('\n -- Initial house cost\t\t= '+str(round(init_house_cost/1e3,1))+' k€')
-print(' -- Purchase discount\t\t= -'+str(round(pch_discount/1e3,1))+' k€')
-print(' -- Various bonuses\t\t= -'+str(round(vbonus_net_disc/1e3,1))+' k€')
-print(' >> Final house cost\t\t= '+str(round(final_house_cost/1e3,1))+' k€')
-print(' --------------------')
-print(' -- Mortgage deposit ('+str(round(mg_init_pay/final_house_cost*100,1))+'%)\t= '+str(round(mg_init_pay/1e3,1))+' k€')
+print('\n -- Net house cost\t\t= '+str(round(net_house_cost/1e3,1))+' k€')
+print(' -- Mortgage deposit ('+str(round(mg_init_pay/net_house_cost*100,1))+'%)\t= '+str(round(mg_init_pay/1e3,1))+' k€')
 print(' -- IVA expenses ('+str(iva_tax_rate)+' %)\t= '+str(round(iva_exp/1e3,1))+' k€')
 print(' -- Agency expenses ('+str(agency_rate)+' %)\t= '+str(round(agency_exp/1e3,1))+' k€')
 print(' -- Notary expenses\t\t= '+str(round(notar_exp/1e3,1))+' k€')
@@ -90,7 +91,7 @@ print(' -- Mortgage duration\t\t= '+str(mg_duration)+' years')
 print(' >> Mortgage monthly payment\t= '+str(round(mg_montly_pay,2))+' €')
 print(' >> Overall mortgage interests\t= '+str(round(mg_montly_pay*sum(mg_history[MG_IDX['int_m']][:])/1e3,1))+' k€')
 
-
+'''
 fig, (ax1a, ax2) = mpl.subplots(1,2,num='HOUSE',dpi=100,figsize=(11,5))
 xtime = divide(range(mg_tot_no_payments),mg_no_pay_per_year)
 ymgc_m = multiply(mg_history[MG_IDX['mgc_m']][:],100)
@@ -111,7 +112,7 @@ ax1b.set_ylim((ylim1b_min,ylim1b_max))
 ax2.plot(xtime, divide(mg_history[MG_IDX['hcp_t']][:],1e3), label="House capital", color='limegreen', linestyle='-', linewidth=1.5, marker ='.',markersize=1.5)
 ax2.plot(xtime, divide(mg_history[MG_IDX['mgc_t']][:],1e3), label="Mortgage capital", color='blue', linestyle='-.', linewidth=1.5)
 ax2.plot(xtime, divide(mg_history[MG_IDX['int_t']][:],1e3), label="Mortgage interests", color='deepskyblue', linestyle='--', linewidth=1.5)
-ax2.plot(mg_duration,final_house_cost/1e3, color='limegreen', marker ='o',markersize=7)
+ax2.plot(mg_duration,net_house_cost/1e3, color='limegreen', marker ='o',markersize=7)
 ax2.plot(mg_duration,mg_amount/1e3, color='blue', marker ='o',markersize=7)
 ax2.plot(mg_duration,mg_tot_int_paid/1e3, color='deepskyblue', marker ='o',markersize=7)
 ax2.legend(loc='upper left')
@@ -125,3 +126,4 @@ mpl.show(block=False)                                                       # sh
 mpl.pause(0.001)                                                            # pause execution for 1 ms
 input("\nPress ENTER to exit")                                              # ask closing plots on terminal
 mpl.close('all')                                                            # close all plots
+'''
