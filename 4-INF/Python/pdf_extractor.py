@@ -5,11 +5,10 @@ import fitz                                                                     
 from os import system                                                               # to call "clear" or "cls" shell functions
 
 
-
 ### PARAMETERS ###
 
 file_path = "H:/EBOOKS/BOOKS/"                                                      # file path
-file_name = "L'invenzione della solitudine (Paul Auster, 1982)"                     # name of PDF file to be scanned [NB: see NOTE#1]
+file_name = "Cristo si è fermato a Eboli (Carlo Levi, 1945)"                        # name of PDF file to be scanned [NB: see NOTE#1]
 annot_type = 'Underline'                                                            # annotations type to search (use 'Highlight' or 'Underline')
 delta = [3, 5]                                                                      # delta for annotations boundary for X-Y coordinates [NB: to be adjusted for specific file]
 sep_char = '\n\n'                                                                   # separation-characters added between consecutive annotations
@@ -29,7 +28,6 @@ BRi = -1                                                                        
 
 X = 0                                                                               # X-coordinate index
 Y = 1                                                                               # Y-coordinate index
-
 
 
 ### FUNCTIONS ###
@@ -126,7 +124,6 @@ def check_end_condition( word_coords, annot_coords) :
     return outcome
 
 
-
 ### PROCESSING ###
 
 data = fitz.open(file_path+file_name+'.pdf')                                        # load data from pdf file
@@ -184,7 +181,6 @@ fid.write(ann_text_ov)                                                          
 fid.close()
 
 
-
 ### RESULTS ###
 
 system("cls")
@@ -193,7 +189,6 @@ print("\n -----------\n")
 print(" - Scanned file : "+file_name+'.pdf')
 print(" - Number of pages : "+str(n_pag))
 print(" - Number of "+annot_type.lower()+"s : "+str(ann_cnt_ov))
-
 
 
 ### NOTES ###
