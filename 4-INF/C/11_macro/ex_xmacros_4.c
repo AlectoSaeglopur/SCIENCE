@@ -8,10 +8,9 @@
 
 /*** CONSTANTS ***/
 
-#define ZONES_NUM_MIN     3                           // minimum number of zones for any configuration
-#define ZONES_NUM_MAX     5                           // maximum number of zones for any configuration
+#define ZONES_NUM_MAX     5                                           // maximum number of zones for any configuration
 
-#define AAA_BTN_Z3        0xA83                       // IDs of button widgets for each view/configuration combination
+#define AAA_BTN_Z3        0xA83                                       // IDs of button widgets for each view/configuration combination
 #define AAA_BTN_Z4        0xA84
 #define AAA_BTN_Z5        0xA85
 #define BBB_BTN_Z3        0xB83
@@ -24,7 +23,7 @@
 #define DDD_BTN_Z4        0xD84
 #define DDD_BTN_Z5        0xD85
 
-#define AAA_IMG_Z3_LF     0xA930                      // IDs of image widgets for each view/configuration combination
+#define AAA_IMG_Z3_LF     0xA930                                      // IDs of image widgets for each view/configuration combination
 #define AAA_IMG_Z3_LR     0xA931
 #define AAA_IMG_Z3_Rx     0xA932
 #define AAA_IMG_Z4_LF     0xA940
@@ -76,18 +75,23 @@
 
 /*** DEFINES ***/
 
-// Zone configurations list [see NOTE#2]
+// Zone-configurations list [see NOTE#2]
 #define LIST_OF_ZONE_CONFIGS(ENTRY1,ENTRY2,ENTRY3)    \
   ENTRY1( 3, ENTRY2, ENTRY3 ),                        \
   ENTRY1( 4, ENTRY2, ENTRY3 ),                        \
   ENTRY1( 5, ENTRY2, ENTRY3 )                         \
 
-// Zone configurations indexes enumerator
+// Zone-configurations indexes enumerator
 #define DEF_ZONE_CONFIGS(znum,...) CONFIG_IDX_Z##znum
 enum {
   LIST_OF_ZONE_CONFIGS(DEF_ZONE_CONFIGS,_,_),   \
   CONFIG_NUM_MAX
 };
+
+// Zone-configurations values vector (to automatically calculate "ZONES_NUM_MIN")
+#define DEF_ZONE_CONFIGS_VAL(znum,...) znum
+#define CONFIG_ZONES_VECTOR (uint8_t [CONFIG_NUM_MAX]){LIST_OF_ZONE_CONFIGS(DEF_ZONE_CONFIGS_VAL,_,_)}
+#define ZONES_NUM_MIN     CONFIG_ZONES_VECTOR[0]                      // minimum number of zones for any configuration
 
 // Views list [see NOTE#3]
 #define LIST_OF_VIEWS(ENTRY1,ENTRY2)  \
@@ -95,9 +99,9 @@ enum {
   ENTRY1( ENTRY2, BBB, false ),       \
   ENTRY1( ENTRY2, CCC, true  ),       \
   ENTRY1( ENTRY2, DDD, false )        \
- 
+
 // Views enumerator
-#define DEF_VIEWS(_,name,...) VIEW_IDX_##name         // NB: "_" is here used as 1st dummy arguments for the macro, whereas "..." tells the macro to skip all argument after the 2nd
+#define DEF_VIEWS(_,name,...) VIEW_IDX_##name                         // NB: "_" is here used as 1st dummy arguments for the macro, whereas "..." tells the macro to skip all argument after the 2nd
 enum {
   LIST_OF_VIEWS(DEF_VIEWS,_),         \
   VIEW_NUM_MAX
@@ -204,7 +208,8 @@ int main(void)
 
 // 2. To add a new zone-configuration insert a new line into "LIST_OF_ZONE_CONFIGS", for instance:
 //      ENTRY1( number_of_zones, ENTRY2, ENTRY3)
-//    where "number_of_zones" shall always range between ZONES_NUM_MIN and ZONES_NUM_MAX!
+//    where "number_of_zones" shall not be larger than ZONES_NUM_MAX and place maintainingthe increasing order of
+//    entries with the LIST_OF_ZONE_CONFIGS table (otherwise ZONES_NUM_MIN would be set to a wrong value)!
 //    Note during expansion ENTRY2 and ENTRY3 will represent respectively "view_name" and "is_active_value" options.
 
 
