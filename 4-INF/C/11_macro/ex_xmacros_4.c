@@ -97,7 +97,7 @@ enum {
   ENTRY1( ENTRY2, DDD, false )        \
  
 // Views enumerator
-#define DEF_VIEWS(_,name,...) VIEW_IDX_##name
+#define DEF_VIEWS(_,name,...) VIEW_IDX_##name         // NB: "_" is here used as 1st dummy arguments for the macro, whereas "..." tells the macro to skip all argument after the 2nd
 enum {
   LIST_OF_VIEWS(DEF_VIEWS,_),         \
   VIEW_NUM_MAX

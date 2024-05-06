@@ -303,7 +303,7 @@ A -- C -- F   [base-branch]
 ... <topic-branch> code ...
 >>>>>>
 
-§ To check which project files contain conflicts to be solved after a merge use "git diff --check" (if none or after solving all of them, the command simply returns no message). Plus, they are labeled as "unmerged" as a result of "git status".
+§ To check which project files contain conflicts to be solved after a merge use "git diff --check" (if none or after solving all of them, the command simply returns no message). Plus, they are labeled as "unmerged" as a result of "git status". Another way is to simply search for the string "<<< HEAD" identifying any pending conflict throughout the project.
 
 ------------------------------------------------------------
 
@@ -537,16 +537,15 @@ A -- D -- (diffAB) -- B' -(diffBC)- C'   [base-branch]
 
 § Useful commands for submodules:
 - to add a new submodule to an existing/main repository >> "git submodule add <url>" (then new submodule files have to be staged/committed/pushed in order to become a steady part of the main project) [NB: after pushing to RR, open GitHub website and check the submodule commit-reference (e.g. "@3e5a7c") has been added to the main project];
-- after cloning a remote repository containing submodules, remember these have to be also manually initialized (otherwise, submodule folders would remain empty) >> "git clone <url> && git submodule update --init --recursive";
-- to import/update submodule changes on parent project >> "git submodule update --recursive [--remote]" (see more details below);
-- to apply a standard Git command on all submodules of the parent project >> "git submodule foreach --recursive <command>" (e.g. "git submodule foreach --recursive git reset --hard" or "git submodule foreach --recursive git clean -dxf").
+- after cloning remote repositories containing submodules (or whenver new submodules are added to the project), remember these have to be also manually initialized (otherwise, submodule folders would remain empty) >> "git clone <url> && git submodule update --init --recursive";
+- to update changes for all submodules from RR to WT parent project >> "git submodule update --recursive [--remote]";
+- [alternatively, submodules can be updated one by one by opening a bash inside each of their subfolders and executing "git fetch/pull"];
+- to apply a standard Git command on all submodules of the parent project >> "git submodule foreach --recursive <command>" (e.g. "git submodule foreach --recursive git reset --hard" or "git submodule foreach --recursive git clean -dxf");
+- use "git status" at parent project level to verify if any submodule needs to be updated via the aforementioned command.
 
 § Once submodules are properly initialized and updated within a parent repository they can be utilized exactly like stand-alone repositories. This means that submodules have their own branches and history. When making changes to a submodule it is important to push submodule changes and then update the parent repositories reference to the submodule.
 
-§ Remember that changes on submodules cannot be made directly from the parent repository (since they cannot be staged/committed from the parent repo). To make changes on a submodule, just clone it locally as a standalone project and work on that as for any other repository (i.e. creating topic-branches, merging-back to base-branch, etc.). Then, to import submodule changes on the parent project:
-- apply submodule changes from RR to WT >> "git submodule update --recursive --remote" [NB: this command actually updates all submodules used inside the parent project, not just one];
-- alternatively, submodules can be updated one by one by opening a bash inside each of their subfolders and executing "git fetch/pull" [NB: instead executing "git fetch/pull" at parent project level is not able to detect submodules updates from RR];
-- then stash, commit and push changes to update submodules references within the parent project >> "git add --all && git commit -m "submodules updated" && git push".
+§ Remember that changes on submodules cannot be applied directly from the parent repository (since they cannot be staged/committed from the parent repo). To make changes on a submodule, first open a Git bash inside it and and create/checkout to a dedicated topic-branch for the changes (or fetch/checkout if already created remotely with Jira), modify the code, commit/push to topic-branch and then open the pull-request to merge back into submodule base-branch. Finally, to make the parent project point to the latest version of the submodule, just run "git checkout <base_branch> && git pull" at submodule level and then at parent project level simply add/commit/push the submodule update with a message like "updated XYZ submodule" (visible also through "git status"). 
 
 § To locally update a submodule whose remote path has been changed lately:
 - delete the related folder within LR's "source" folder;
