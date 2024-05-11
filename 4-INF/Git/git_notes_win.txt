@@ -270,12 +270,15 @@ A -- C -- F   [base-branch]
 
 § In case of long-running topic-branches, it's always a good practise to periodically merge back to the source base-branch, in order not to stray too much from the latter and avoid a potential huge number of conflicts in the end.
 
-§ To check the outcome of a merge without automatically generate a commit, use:
-- checkout to base-branch >> "git checkout <base_branch>";
-- apply conditional merge >> "git merge --no-commit --no-ff <topic_branch>";
-- check the terminal outcome message to verifiy if conflicts happened;
-- open Git GUI and verify that merged files have been already staged but not committed yet;
-- (to revert the whole merge process >> "git merge --abort").
+§ Practical case where base-branch (e.g. "develop") needs to be merged into completed "topic-branch" (e.g. "feature_423_combo_settings) to solve conflicts in advance locally in sight of pull-request opening:
+- work on topic-branch and commit/push final changes;
+- checkout to base-branch and pull latest state from RR >> "git checkout <base_branch> && git pull";
+- move back to topic-branch >> "git checkout <topic_branch>";
+- apply conditional merge >> "git merge --no-commit --no-ff <base_branch>";
+- solve conflicts, if any (see Section #12) - NB: in case any submodule reference is changed choose ;
+- update submodules (in case any reference has been changed within base-branch) >> "git submodule update --recursive";
+- open Git GUI (and verify that merged files have been already staged but not committed yet) and stage/commit/push all changes due to merge-process;
+- (NB: to revert the whole merge process >> "git merge --abort").
 
 ------------------------------------------------------------
 
@@ -522,7 +525,7 @@ A -- D -- (diffAB) -- B' -(diffBC)- C'   [base-branch]
 § Remember stashes are actually encoded locally as commit objects. The special ref at ".git/refs/stash" points to the most recent stash, and previous stashes are referenced by the stash ref's reflog. This is why you refer to stashes by stash@{n}, since you're actually referring to the n-th reflog entry for the stash ref.
 
 § Note "git stash ..." does not apply on submodules. Hereafter useful commands to handle changes on submodules for stashing in parallel:
-- stash all changes within both parent project and submodules >> "git stash save "MESSAGE" -u && git submodule foreach --recursive git stash save "MESSAGE" [-u]";
+- stash all changes within both parent project and submodules >> "git stash save "MESSAGE" -u && git submodule foreach --recursive git stash save "MESSAGE" -u";
 - reapply all changes stashed in the previous step to both parent project and submodules (NB: assuming they all have the save stash-index!) >> "git stash apply && git submodule foreach --recursive git stash apply";
 - clear all stashed changes for both parent project and submodules >> "git stash clear && git submodule foreach --recursive git stash clear".
 

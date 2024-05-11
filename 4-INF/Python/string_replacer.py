@@ -12,9 +12,9 @@ from os.path import join
 
 ## PARAMETERS ##
 
-dir_path = "C:\\Users\\Filippo\\Downloads\\TORRENT\\SCA\\exe"
-old_strings = ['[blue]', '[red]', 'yellow', '[green]', '[cyan]', '[purple]']
-new_string = '[white]'
+dir_path = "C:\\Users\\Filippo\\Downloads\\TORRENT\\_streaming_community_api"
+old_strings = ['blue', 'cyan', 'green', 'magenta', 'purple', 'red', 'yellow']
+new_string = 'white'
 file_ext = '.py'
 
 ## PROCESSING ##

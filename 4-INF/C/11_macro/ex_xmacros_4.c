@@ -8,7 +8,7 @@
 
 /*** CONSTANTS ***/
 
-#define ZONES_NUM_MAX     5                                           // maximum number of zones for any configuration
+#define ZONES_VAL_MAX     5                                           // maximum number of zones for any configuration
 
 #define AAA_BTN_Z3        0xA83                                       // IDs of button widgets for each view/configuration combination
 #define AAA_BTN_Z4        0xA84
@@ -75,57 +75,57 @@
 
 /*** DEFINES ***/
 
-// Zone-configurations list [see NOTE#2]
-#define LIST_OF_ZONE_CONFIGS(ENTRY1,ENTRY2,ENTRY3)    \
+// Zone-layouts list [see NOTE#2]
+#define LIST_OF_ZONE_LAYOUTS(ENTRY1,ENTRY2,ENTRY3)    \
   ENTRY1( 3, ENTRY2, ENTRY3 ),                        \
   ENTRY1( 4, ENTRY2, ENTRY3 ),                        \
-  ENTRY1( 5, ENTRY2, ENTRY3 )                         \
+  ENTRY1( 5, ENTRY2, ENTRY3 )
 
-// Zone-configurations indexes enumerator
-#define DEF_ZONE_CONFIGS(znum,...) CONFIG_IDX_Z##znum
+// Zone-layouts indexes enumerator
+#define DEF_ZONE_LAYOUT_IDX(znum,...) LAYOUT_IDX_Z##znum
 enum {
-  LIST_OF_ZONE_CONFIGS(DEF_ZONE_CONFIGS,_,_),   \
-  CONFIG_NUM_MAX
+  LIST_OF_ZONE_LAYOUTS(DEF_ZONE_LAYOUT_IDX,_,_),
+  LAYOUT_IDX_MAX
 };
 
-// Zone-configurations values vector (to automatically calculate "ZONES_NUM_MIN")
-#define DEF_ZONE_CONFIGS_VAL(znum,...) znum
-#define CONFIG_ZONES_VECTOR (uint8_t [CONFIG_NUM_MAX]){LIST_OF_ZONE_CONFIGS(DEF_ZONE_CONFIGS_VAL,_,_)}
-#define ZONES_NUM_MIN     CONFIG_ZONES_VECTOR[0]                      // minimum number of zones for any configuration
+// Zone-layouts values vector (to automatically calculate "ZONES_NUM_MIN")
+#define DEF_ZONE_LAYOUT_VAL(znum,...) znum
+#define DEF_ZONE_LAYOUT_VECTOR (uint8_t [LAYOUT_IDX_MAX]){LIST_OF_ZONE_LAYOUTS(DEF_ZONE_LAYOUT_VAL,_,_)}
+#define ZONES_NUM_MIN     DEF_ZONE_LAYOUT_VECTOR[0]                   // minimum number of zones for any configuration
 
 // Views list [see NOTE#3]
 #define LIST_OF_VIEWS(ENTRY1,ENTRY2)  \
   ENTRY1( ENTRY2, AAA, false ),       \
   ENTRY1( ENTRY2, BBB, false ),       \
   ENTRY1( ENTRY2, CCC, true  ),       \
-  ENTRY1( ENTRY2, DDD, false )        \
+  ENTRY1( ENTRY2, DDD, false )
 
 // Views enumerator
 #define DEF_VIEWS(_,name,...) VIEW_IDX_##name                         // NB: "_" is here used as 1st dummy arguments for the macro, whereas "..." tells the macro to skip all argument after the 2nd
-enum {
-  LIST_OF_VIEWS(DEF_VIEWS,_),         \
+typedef enum view_enum {
+  LIST_OF_VIEWS(DEF_VIEWS,_),
   VIEW_NUM_MAX
-};
+} view_t;
 
 // Macros to map zone-icons subfields to related widgets
-#define GET_BTN(zone_num,view_name,_)       [VIEW_IDX_##view_name][CONFIG_IDX_Z##zone_num].btn_widget  = view_name##_BTN_Z##zone_num
-#define GET_IMG(zone_num,view_name,_)       [VIEW_IDX_##view_name][CONFIG_IDX_Z##zone_num].img_widgets = {IMG_Z##zone_num(view_name)}
-#define GET_ACT(zone_num,view_name,flag)    [VIEW_IDX_##view_name][CONFIG_IDX_Z##zone_num].is_active   = flag
+#define GET_BTN(zone_num,view_name,_)       [VIEW_IDX_##view_name][LAYOUT_IDX_Z##zone_num].btn_widget  = view_name##_BTN_Z##zone_num
+#define GET_IMG(zone_num,view_name,_)       [VIEW_IDX_##view_name][LAYOUT_IDX_Z##zone_num].img_widgets = {IMG_Z##zone_num(view_name)}
+#define GET_ACT(zone_num,view_name,flag)    [VIEW_IDX_##view_name][LAYOUT_IDX_Z##zone_num].is_active   = flag
 
 #define IMG_Z3(view)    view##_IMG_Z3_LF, \
                         view##_IMG_Z3_LR, \
-                        view##_IMG_Z3_Rx  \
+                        view##_IMG_Z3_Rx
 
 #define IMG_Z4(view)    view##_IMG_Z4_LF, \
                         view##_IMG_Z4_LR, \
                         view##_IMG_Z4_RF, \
-                        view##_IMG_Z4_RR  \
+                        view##_IMG_Z4_RR
 
 #define IMG_Z5(view)    view##_IMG_Z5_LF, \
                         view##_IMG_Z5_LR, \
                         view##_IMG_Z5_RF, \
                         view##_IMG_Z5_RR, \
-                        view##_IMG_Z5_CT  \
+                        view##_IMG_Z5_CT
 
 
 /*** TYPEDEFS ***/
@@ -133,24 +133,23 @@ enum {
 typedef struct tab_struct
 {
   uint32_t btn_widget;
-  uint32_t img_widgets[ZONES_NUM_MAX];
+  uint32_t img_widgets[ZONES_VAL_MAX];
   bool is_active;
 } tab_t;
 
 
 /*** GLOBAL VARIABLES ***/
 
-static const tab_t all_icons_tables[VIEW_NUM_MAX][CONFIG_NUM_MAX] = \
+static const tab_t all_icons_tables[VIEW_NUM_MAX][LAYOUT_IDX_MAX] =
 {
-  LIST_OF_VIEWS(LIST_OF_ZONE_CONFIGS,GET_BTN),
-  LIST_OF_VIEWS(LIST_OF_ZONE_CONFIGS,GET_IMG),
-  LIST_OF_VIEWS(LIST_OF_ZONE_CONFIGS,GET_ACT)
+  LIST_OF_VIEWS(LIST_OF_ZONE_LAYOUTS,GET_BTN),
+  LIST_OF_VIEWS(LIST_OF_ZONE_LAYOUTS,GET_IMG),
+  LIST_OF_VIEWS(LIST_OF_ZONE_LAYOUTS,GET_ACT)
 };
 
 
 /*** FUNCTIONS ***/
 
-// macro-function to convert value into boolean string
 #define STRBOOL(x) (x == 0 ? "FALSE" : "TRUE")
 
 void debug_table_content(const tab_t *table, uint8_t zone_num)
@@ -180,7 +179,7 @@ void debug_table_size(const tab_t *table)
 
 int main(void)
 {
-  uint8_t my_view = VIEW_IDX_CCC;
+  view_t my_view = VIEW_IDX_CCC;
   uint8_t my_nzones = 5;
   tab_t my_table = all_icons_tables[my_view][my_nzones-ZONES_NUM_MIN];
   debug_table_content(&my_table,my_nzones);
@@ -208,7 +207,7 @@ int main(void)
 
 // 2. To add a new zone-configuration insert a new line into "LIST_OF_ZONE_CONFIGS", for instance:
 //      ENTRY1( number_of_zones, ENTRY2, ENTRY3)
-//    where "number_of_zones" shall not be larger than ZONES_NUM_MAX and place maintainingthe increasing order of
+//    where "number_of_zones" shall not be larger than ZONES_VAL_MAX and place maintainingthe increasing order of
 //    entries with the LIST_OF_ZONE_CONFIGS table (otherwise ZONES_NUM_MIN would be set to a wrong value)!
 //    Note during expansion ENTRY2 and ENTRY3 will represent respectively "view_name" and "is_active_value" options.
 
