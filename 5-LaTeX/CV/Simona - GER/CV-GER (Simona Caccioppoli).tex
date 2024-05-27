@@ -1,0 +1,295 @@
+%% SET FONT, FORMAT AND TYPE OF DOCUMENT %%
+\documentclass[10pt,a4paper]{moderncv}		% Formats: a4paper, letterpaper, a5paper, legalpaper, executivepaper, landscape
+
+%% SET STYLE AND COLOR %%
+\moderncvtheme[green]{classic}				% Color: blue, orange, green, red, purple, grey or black | Style: casual, classic, oldstyle, banking
+
+% ADD PACKAGES %%
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenx}
+\usepackage[scale=0.828,top=1cm, bottom=2cm]{geometry}
+
+\usepackage{color,soul}						% to use the highlight option (during debug)
+\usepackage{fontawesome}					% to use icons in the contacts section 
+%\moderncvicons{awesome}						% use "awesome" icons
+
+\usepackage{relsize}
+\usepackage{xspace}
+\usepackage{newtxmath}
+\newcommand{\Rplus}{\protect\hspace{+.01em}\protect\raisebox{.35ex}{\smaller{\smaller\textbf{+}}}}
+\newcommand{\Cpp}{\mbox{C\Rplus\Rplus}\xspace}
+
+\setlength{\hintscolumnwidth}{4cm}			% to extend the left column
+\AtBeginDocument{\recomputelengths}
+
+\pagenumbering{arabic}						% set page numbering style
+
+\renewcommand*{\homepagesymbol}{\faGlobe $ $ }		% or \faHome
+\RenewDocumentCommand{\social}{O{}O{}m}{%
+  \ifthenelse{\equal{#2}{}}{
+      \ifthenelse{\equal{#1}{linkedin}}{\collectionadd[linkedin]{socials}{#3}}{}
+      \ifthenelse{\equal{#1}{twitter}}{\collectionadd[twitter]{socials}{\protect\httplink[#3]{www.twitter.com/#3}}}{}
+      \ifthenelse{\equal{#1}{github}}{\collectionadd[github]{socials}{\protect\httplink[#3]{www.github.com/#3}}}{}
+      \ifthenelse{\equal{#1}{skype}}{\collectionadd[skype]{socials}{#3}}{}
+    }{\collectionadd[#1]{socials}{\protect\httplink[#3]{#2}}}}
+
+
+% PERSONAL INFO AND CONTACTS
+\firstname{\vspace{.2cm} \hspace{-0.8cm} {\fontsize{31}{35}\selectfont Simona Caccioppoli}}
+\familyname{}
+\title{\vspace{1cm} Lebenslauf}
+\address{\textbf{\vspace{0.1cm} Kontakte}}
+%\phone[mobile]{(+39)\,349\,683\,2687}
+\phone[fixed]{(+43)\,0670\,355\,8685}
+\email{simona.caccioppoli@gmail.com}
+\social[linkedin]{linkedin.com/in/caccioppolis}
+\social[skype]{simona\_c\_1992}
+
+\photo[100pt][0.6pt]{Photo.jpg}
+
+
+%% START OF DOCUMENT BODY %%
+
+\begin{document}
+\maketitle
+\pagestyle{empty}							% to disable page numbering
+
+
+\section{Profil}
+
+\cvline{}{Abschluss in Sprach- und Kulturvermittlung mit verschiedenen Berufserfahrungen als Dolmetscherin, Übersetzerin, Marketing- und Verkaufsassistentin in den Bereichen Tourismus, Gastronomie \& Wein, Textilien- und Industriebetrieb, Telekommunikation und IT. 
+Verantwortliche Positionen, Erfahrungen im internationalen Business.
+Entwicklung von Teamfähigkeit einschließlich der Kommunikation mit Kunden.
+In Bezug auf meinem Bildungs- und beruflichen Hintergrund sowie meiner Leidenschaft für internationale Kulturen bin ich sehr an internationalen Geschäftstätigkeiten interessiert, mit dem Ziel, langfristig beruflichen Wachstum zu erlangen.}
+\vspace{0.25cm}
+
+\section{Persönliche Daten}
+
+\cvline{\textit{Name und Nachname}}{Simona Angela Caccioppoli}
+\cvline{\textit{Datum und Geburtsort}}{1 Mai 1992 | Brindisi, Italien}
+\cvline{\textit{Wohnort}}{Krottenbachstraße 3, Wien, 1190, Österreich}
+\cvline{\textit{Staatsangehörigkeit}}{Italienisch}
+\cvline{\textit{Führerschein}}{Klasse B}
+\vspace{0.25cm}
+
+\section{Berufliche Erfahrungen}
+
+
+\cvline{Jul. 2022 - heute \:  $\bullet$}{\textbf{Sales Support} bei \textbf{Ingram Micro GmbH} (Wien,Österreich) \vspace{+0.01cm} \newline
+Beschäftigt im B2B-Vertrieb von Hardware- und Softwareprodukten
+im Bereich Informationstechnologie (IT) für den österreichischen Markt. Angestellt im Team Business Operations, mit Verwaltungstätigkeit und Geschäftsbeziehungen in Bezug auf Kundenbetreuung: 
+}
+\cvline{}{
+\begin{itemize}
+\item[--]Auftragsabwicklung in den Phasen zwischen After-Sales und Versand;
+\item[--]Bearbeitung der eingehenden Bestellungen und Weiterleitung an die zuständigen Abteilungen je nach Auftragsart und autonome Eingabe von komplexeren Aufträgen (Server und Komponenten);
+\item[--]Überprüfung des Auftragserfüllungsstatus;
+\item[--]Operative Korrektur von Fehlern bei über EDI eingegangenen und noch nicht erledigten Aufträgen auf dem CRM des Unternehmens;
+\item[--]Korrektur bereits versendeter Aufträge und entsprechende Rechnungsstellung;
+\item[--]Schnittstelle für Systemoperationen im Zusammenhang mit dem Schweizer Markt (Eingabe von Preislisten, Fakturierung von Aufträgen mit Fehlern und Sortierung von E-Mails in die entsprechenden Postfächer).
+\end{itemize}
+}
+
+
+
+\cvline{Apr. 2021 - Jun. 2022 \:  $\bullet$}{\textbf{Marketing Assistant} bei \textbf{Mass Response Service GmbH} (Wien, Österreich) \vspace{+0.01cm} \newline
+Angestellte im Telekommunikationssektor für die italienische Marke spusu S.r.l. und für diesen Markt zuständig. Aktiv in verschiedenen Bereichen:
+\begin{itemize}
+\item[--] Im Management von B2B Geschäftsbeziehungen: Verwaltung von Informations- und Angebotsanfragen, Übersetzung von Korrespondenz aus / ins Italienische und Deutsche, Organisation und Kontrolle von Preisausschreiben, Werbung in Online-Zeitungen, Beziehungen zu der italienischen Buchhaltung. 
+\item[--] Im Bereich Marketing: Erstellung des Redaktionsplans, des Redaktionskalenders und der damit verbundenen Verwaltung von Social Media zur Eingabe von Beiträgen, sowie Bearbeitung allgemeiner Informationsanfragen von Social Media Nutzern, Konkurrenzanalyse (Tarife, Presseaussenndungen und Sentiment-Beobachtung ihrer soziale Netzwerken) und Datenerhebung der Earned-Media, Paid-Media und Owned-Media, darunter Statistiken zur Kampagnenleistung, Vergleich von Metriken und Social Listening. 
+\item[--] Als Schnittstelle zur Problemlösung zwischen dem italienischen Kundenservice und dem österreichischen technischen Support tätig, zuständig für die Verwaltung von Verbesserungsvorschläge und Analyse deren Umsetzung sowie für die Fortsetzung der bestehenden Projekte und Übersetzung jeglichen Updates auf der italienischen Firmenwebsite.
+\end{itemize}}
+
+\vspace{0.4cm}
+
+\cvline{Okt. 2020 - Mär. 2021 \:  $\bullet$}{\textbf{Inside Sales Representative} bei \textbf{Mohwinckel S.r.l.} (Trezzano sul Naviglio, Italien) \vspace{+0.01cm} \newline
+Angestellte in einer chemisch-plastischen Industrie mit der direkten Verwaltung der Beziehungen zu den deutschsprachigen Lieferanten einerseits und direkte Betreuung der italienischen Kunden in der Verkaufs- und After-Sales-Phase andererseits. In vier Produktlinien aktiv: kolloidale Mühlen, Isolierplatten, Markierungsmaschinen, Markierungsfarben für Kupferkabel und optische Fasern. Zuständig für: 
+}
+
+\cvline{}{
+\begin{itemize}
+\item[--]Bearbeitung von Angebotsanfragen der Kunden
+\item[--]Bestandskontrolle
+\item[--]Beantragung der Kostenvoranschläge an den Lieferanten
+\item[--]Angebotserstellung an den Kunden (mit Margenberechnung) 
+\item[--]Bestellung an den Lieferanten und entsprechende Auftragsbestätigung an den Kunden 
+\item[--]Überprüfung des Auftragserfüllungsstatus 
+\item[--]Direkter Kontakt mit Versandabteilung  
+\item[--]Direkter Kontakt Buchhaltung für die Verwaltung der Zahlungserinnerungen.
+\end{itemize}}
+
+\vspace{0.4cm}
+
+\cvline{Jan. 2018 - Okt. 2020 \:  $\bullet$}{\textbf{Customer Success Assistent} bei \textbf{Payper Industrial Wear S.r.l.} (Fiumana, Italien) \vspace{0.06cm} \newline
+Ein auf Arbeits- und Unternehmensbekleidung spezialisiertes Textilunternehmen mit mehreren Niederlassungen in Italien und im Ausland (D, F, ES). 
+Die Hauptaufgaben waren hier die Auftragsabwicklung, Übersetzung von technisch-kommerziellen Formularen und Kundenbetreuung in der Verkaufs- / Nachverkaufsphase. Bis Dezember 2019 wurden die deutschsprachigen Kunden direkt von mir verwaltet, ab 2020 zuständig für die Schulung der deutschen Kollegen und als Unterstützung des Rückgabe- und RMA-Abteilung tätig.}
+
+\vspace{0.4cm}
+
+\cvline{Sep. 2016 - Dez. 2017 \:  $\bullet$}{\textbf{Junior Export Manager} bei \textbf{Cantina Sociale di Cesena} (Cesena, Italien) \vspace{0.06cm} \newline
+Gewinnerin einer regionalen Ausschreibung zwischen der Universität Bologna und der Handelskammer von Forlì für die Position eines temporären Exportmanagers. 
+Hier wurden unterschiedliche Berufserfahrung gesammelt in den Bereichen:
+\begin{itemize}
+\item[--]Business-to-Business (B2B)
+\item[--]Business-to-Customer (B2C) 
+\item[--]Kundenpflege (CRM, mit direkter Verwaltung von Kunden und potenziellen Kunden), \item[--]Kundensuche (Cold Calls)
+\item[--]Übersetzung von Dokumenten im Weinsektor 
+\item[--]Social Media Marketing und Content Marketing (Content Management auf Social Media und Unternehmenswebsite) 
+\item[--]Mailing List-Management (Italienisch, Englisch, Deutsch)
+\item[--]Marktforschung 
+\item[--] Organisation von Veranstaltungen innerhalb des Weinguts
+\item[--]Teilnahme an Schulungen in Marketing und internationalen Vertriebskanälen waren Bestandteil in den ersten sechs Monaten
+\end{itemize}}
+
+\vspace{0.4cm}
+
+\cvline{Jul. 2016 \:  $\bullet$}{\textbf{Dolmetscherin} bei \textbf{Fimeco S.r.l.} (Controguerra, Italien) \vspace{0.06cm} \newline
+Zwei-tägige Dolmetscherin einer mechatronische Firma für einen deutschen Kunden zu Besuch.}
+
+\vspace{0.4cm}
+
+\cvline{Mai 2016 - Sep. 2016 \:  $\bullet$}{\textbf{Rezeptionistin} bei \textbf{Socialturist S.r.l.} (Martinsicuro, Italien) \vspace{0.06cm} \newline
+Front-Office-Mitarbeiterin beim Empfang von italienischen und internationalen Gäste für den 4-Sterne-Campingplatz und Ferienresort \textit{Riva Nuova}.}
+
+\vspace{0.4cm}
+
+\cvline{Jul. 2015 - Aug. 2015 \:  $\bullet$}{\textbf{Aktivitäten Leiterin} bei \textbf{STS - Student Travel Schools} (Oxford, UK) \vspace{0.06cm} \newline
+Angestellt als Aktivitäten-Leiterin für eine Agentur, die auf Studienferien und kulturellen Austausch spezialisiert ist, in einem dreiwöchigen Bildungsprojekt für italienische Jugendliche in Oxford (UK). Meine Aufgaben schlossen Planungen im Bildungsbereich und Freizeitgestaltungen ein.}
+
+\vspace{0.4cm}
+
+\cvline{Jun. 2014 \:  $\bullet$}{\textbf{Universitätspraktikum} bei \textbf{PubliOne S.r.l.} (Forlì, Italien) \vspace{0.06cm} \newline
+Übersetzerin für Werbekampagnen  (auf Englisch und Deutsch) und Einstieg im Marketing- / Social-Media-Marketingbereich.}
+
+\vspace{0.4cm}
+
+\cvline{Jul. 2013 - Aug. 2013 \:  $\bullet$}{\textbf{Restaurantpersonal} bei \textbf{San Marco Eiscafé \& Bistrò} (Übach-Palenberg, Deutschland)\vspace{0.06cm} \newline
+Saisonangestellte im Gastgewerbe mit Aufgaben als Kellnerin und Eisverkäuferin während der Sommerferien.}
+
+\vspace{0.25cm}
+
+\section{Ausbildung}
+
+\cvline{Mär. 2016 \:  $\bullet$}{\textbf{Bachelor of Arts} in \textbf{Sprach- und Kulturvermittlung}%\newline
+\vspace{0.06cm}
+\begin{itemize}
+  \item[--] Universität Bologna (Sitz in Forl\`i)
+  \item[--] Abschlussnote 100/110
+  \item[--] Schwerpunkt: Deutsch, Englisch und Portugiesisch
+  \item[--] Bachelorarbeit: Übersetzung und Kommentar zum Theatertext \textit{„Leandro, Rei da Helíria“} aus dem Portuguiesischen ins Italienischen
+\end{itemize}}
+
+\vspace{-0.1cm}
+
+\cvline{Jun. 2015 \:  $\bullet$}{\textbf{Erasmus$+$}
+\vspace{0.06cm}
+\begin{itemize}
+  \item[--] Universität Porto (Portugal)
+  \item[--] Fachbereich  \textit{Sprachen, Literatur und Übersetzung}
+  \item[--] Aufenthalt 9 Monate
+\end{itemize}}
+
+\vspace{-0.1cm}
+
+\cvline{Jul. 2011 \:  $\bullet$}{\textbf{Abitur}
+\vspace{0.06cm}
+\begin{itemize}
+  \item[--] \textit{Anita Lichtenstein Gesamtschule} Geilenkirchen (Deutschland) 
+  \item[--] Schwerpunkt: Englisch, Erdkunde, Spanisch
+  \item[--] Abschlussnote 2.7
+\end{itemize}}
+
+%\vspace{0.25cm}
+
+\section{Sprachkenntnisse}
+\cvline{\textit{Italienisch}}{Muttersprache}
+\cvline{\textit{Englisch}}{Fließend}
+\cvline{\textit{Deutsch}}{Fließend}
+\cvline{\textit{Portugiesisch}}{Gute Kenntnisse}
+\cvline{\textit{Spanisch}}{Gute Kenntnisse}
+%\cvline{\textit{Französisch}}{Schulkenntnisse}
+%\cvline{\textit{Inglese}}{Conoscenza avanzata (con attestato B2).
+%\cvline{\textit{Inglese}}{Conoscenza avanzata (attestato B2), soprattutto in ambito tecnico:
+%\begin{itemize}
+%  \item[--] capacità di lettura e scrittura: professionale
+%  \item[--] capacità orale: buona
+%\end{itemize}}
+
+\vspace{0.25cm}
+
+\section{EDV-Kenntnisse}
+
+\cvline{\textit{Operating system}}{Windows, macOS}
+\cvline{\textit{Software}}{Outlook, Excel, Word, PowerPoint, Mago, Stealth}
+
+\vspace{0.25cm}
+
+\section{Soft Skills}
+\cvline{\textit{}}{
+\begin{itemize}
+  \item[--] Kundenorientierung und gute Kommunikationsfähigkeiten in multikulturellen Umfeld
+  \item[--] Motivation, Zielstrebigkeit, Ehrgeiz
+  \item[--] Flexibilität und Anpassungsfähigkeit in unterschiedlichsten Situationen
+  \item[--] Fähigkeit zur Problemlösung und Konfliktfähigkeit auch unter Zeitdruck und in Stresssituationen
+  \item[--] Teamfähigkeit sowie Selbstmanagement
+\end{itemize}}
+
+\vspace{0.25cm}
+
+\section{Teilnahmen}
+
+\cvline{$\cdot$}{Workshop \textit{Die Vier Jahreszeiten der Emilia-Romagna} | 23. Okt. 2017 |  München (Deutschland)}
+\cvline{$\cdot$}{Workshop \textit{Enjoy, it’s from Europe} | 2.- 5. Okt. 2017 |  New York (USA)}
+\cvline{$\cdot$}{Messe \textit{Vinitaly} | 9. - 12. April 2017 |  Verona (Italien)}
+\cvline{$\cdot$}{Messe \textit{Prowein} |19. - 21. März 2017 |  Düsseldorf (Deutschland)}
+\cvline{$\cdot$}{Workshop \textit{Simply Italian Great Wines} | 24. - 26. Okt. 2016 | New York - Los Angeles (USA)}
+\cvline{$\cdot$}{Konferenz \textit{H2O - More than just a drop} gefördert vom Europäischen Wissenschschaftsparlament | 24. - 25. März 2010 |  Aachen (Deutschland)}
+
+\vspace{0.25cm}
+
+
+\section{Extra Aktivitäten}
+
+\cvline{Nov. 2019 - Okt. 2020 \:  $\bullet$}{\textbf{Notfallpersonal} bei \textbf{Payper Industrial Wear S.r.l.} \vspace{0.06cm} \newline
+Ansprechpartner des Feuerwehr- und Sicherheitsteams des Unternehmens.}
+\vspace{0.4cm}
+
+\cvline{Sep. 2018 - Mär. 2021 \: $\bullet$}{\textbf{Freiwilligen Dienst} beim \textbf{Italienischen Roten Kreuz} \vspace{0.06cm} \newline
+Fokus: Katastrophenschutz- und Sozialhilfemaßnahmen für bedürftige Familien.}
+\vspace{0.4cm}
+
+\cvline{Aug. 2008 - Apr. 2011\:  $\bullet$}{\textbf{Erzieherassitentin} bei \textbf{NATO-Air Base} (Geilenkirchen, Deutschland) \vspace{0.06cm} \newline
+Freiwilligenarbeit im Bildungsprojekt Internationale Jugendaktivitäten mit Aufgaben wie z.B. Organisation von Freizeitaktivitäten, Begleitung bei außerschulischen Aktivitäten für englischsprachige und deutschsprachige Kinder.}
+\vspace{0.4cm}
+
+\cvline{Jan. 2010 - Feb. 2010\:  $\bullet$}{\textbf{Schulpraktikum} bei \textbf{NATO-Air Base} (Geilenkirchen, Germany) \vspace{0.06cm} \newline
+Tätigkeit innerhalb der spanischen militärischen Unterstützungseinheit als Sprachvermittler und Übersetzer der diplomatischen Dokumentation.}
+\vspace{0.4cm}
+
+\section{Hobbys}
+
+\cvline{$\cdot$}{Fotografie, Geschichte, reisen, tanzen, Tauchen (lizenziert \textit{PADI Open Water Diver}).}
+
+
+
+% voi aggiungete tutte le voci che ritenete opportune
+% nel caso abbiate delle pubblicazioni, dopo aver creato l'opportuno file .bib
+% NB: io ho disbilitato questi comandi
+%\nocite{*}
+%\bibliographystyle{plain}
+%\bibliography{nome_file.bib}
+
+% Ora ci resta solo che inserire la liberatoria per la privacy
+% Io ho scannerizzato direttamente la mia firma e l'ho inserita come
+% immagine. Nel caso vogliate mettere dei puntini e firmare personalmente
+% ogni CV dopo il “in fede” scrivere \makebox[9cm]{\dotfill}
+
+%\newpage
+\vspace{\fill}
+{\footnotesize\noindent
+
+In Übereinstimmung mit der DSGVO, ermächtige ich hiermit den Empfänger dieses Dokuments zur Verwendung und Verarbeitung meiner persönlichen Daten zum Zwecke der Einstellung und Auswahl von Mitarbeitern, und ich bestätige, über meine Daten informiert zu sein.}
+\vspace*{0.8cm}\\
+Vienna | \today\hfill Unterschrift: \makebox[4cm][b]{\includegraphics[scale=.155]{Signature.jpg}}
+
+\end{document}

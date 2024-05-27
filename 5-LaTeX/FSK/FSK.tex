@@ -1,0 +1,337 @@
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[twoside,twocolumn]{article}
+\usepackage{amssymb}
+\usepackage[tbtags]{amsmath}
+
+\usepackage{blindtext} % Package to generate dummy text throughout this template 
+
+\usepackage[sc]{mathpazo} % Use the Palatino font
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\linespread{1.05} % Line spacing - Palatino needs more space between lines
+\usepackage{microtype} % Slightly tweak font spacing for aesthetics
+
+\usepackage[english]{babel} % Language hyphenation and typographical rules
+
+\usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt,left=25mm]{geometry} % Document margins
+\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption} % Custom captions under/above floats in tables or figures
+\usepackage{booktabs} % Horizontal rules in tables
+
+\usepackage{lettrine} % The lettrine is the first enlarged letter at the beginning of the text
+
+\usepackage{enumitem} % Customized lists
+\setlist[itemize]{noitemsep} % Make itemize lists more compact
+
+\usepackage{abstract} % Allows abstract customization
+\renewcommand{\abstractnamefont}{\normalfont\bfseries} % Set the "Abstract" text to bold
+\renewcommand{\abstracttextfont}{\normalfont\small\itshape} % Set the abstract itself to small italic text
+
+\usepackage{titlesec} % Allows customization of titles
+\renewcommand\thesection{\Roman{section}} % Roman numerals for the sections
+\renewcommand\thesubsection{\roman{subsection}} % roman numerals for subsections
+\titleformat{\section}[block]{\large\scshape\centering}{\thesection.}{1em}{} % Change the look of the section titles
+\titleformat{\subsection}[block]{\large}{\thesubsection.}{1em}{} % Change the look of the section titles
+
+\usepackage{fancyhdr} % Headers and footers
+\pagestyle{fancy} % All pages have headers and footers
+\fancyhead{} % Blank out the default header
+\fancyfoot{} % Blank out the default footer
+\fancyhead[C]{Digital Modulations $\bullet$ May 2019 } % Custom header text
+\fancyfoot[C]{\thepage} % Custom footer text
+\usepackage{titling} % Customizing the title section
+
+
+
+\usepackage{verbatim}
+
+\usepackage{textcomp}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+
+\usepackage{circuitikz}
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\setlength{\droptitle}{-4\baselineskip} % Move the title up
+\pretitle{\begin{center}\Huge\bfseries} % Article title formatting
+\posttitle{\end{center}} % Article title closing formatting
+\title{Digital Modulations} % Article title
+\author{%
+\textsc{Filippo Valmori} \\ % Your name
+%\normalsize Alecto S\ae gl\'opur Mul.Dr. \\ % Your institution
+}
+\date{} % Leave empty to omit a date
+\renewcommand{\maketitlehookd}{%
+
+}
+
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\tikzstyle{int}=[draw, fill=white, minimum size=2em]
+\tikzstyle{init} = [pin edge={to-,thin,black}]
+
+
+% Print the title
+\maketitle
+
+%----------------------------------------------------------------------------------
+%	INTRODUCTION
+%----------------------------------------------------------------------------------
+
+\section{Introduction}
+The general form of a \textit{radio-frequency} (RF) modulated signal can be expressed as
+\begin{equation} \label{eq:GenRfMod}
+S_{\mathit{RF}}(t) = \alpha(t)cos\Big(2\pi t\big(F_c+\delta(t)\big)+\phi(t)\Big)
+\end{equation}
+ where $\alpha(t)$, $\delta(t)$ and $\phi(t)$ represent respectively the amplitude [V], frequency [Hz] and phase [rad] variations of the sinusoid in time and $F_c$ the carrier frequency [Hz].\\ %\par
+Another important equation relates the RF signal to its \textit{baseband} (BB) equivalent as
+\begin{equation} \label{eq:RfBbRel1}
+S_{\mathit{RF}}(t) = Re \Big\{ S_{\mathit{BB}}(t)e^{i2\pi F_ct} \Big\}
+\end{equation}
+While $S_{\mathit{RF}}(t)$ depicts the physical waveform travelling over the channel and therefore assumes only real ($\mathbb{R}$) values, $S_{\mathit{BB}}(t)$ is introduced as a mathematical representation of the RF signal before the \textit{in-phase/quadrature} (I/Q) up-conversion (i.e. the multiplication by the unmodulated RF sinusoid at frequency $F_c$ and by its 90$^\circ$ delayed version) and assumes complex ($\mathbb{C}$) values. Developing \textbf{Eq.\ref{eq:RfBbRel1}} by means of the Euler's formula (i.e. $e^{ix} = cos x+i\cdot sin x$), it gives
+\begin{align}
+S_{\mathit{BB}}(t) &\triangleq I(t) +i \cdot Q(t) \label{eq:RfBbRel2} \\
+S_{\mathit{RF}}(t) &= I(t)cos(2\pi F_ct)-Q(t)sin(2\pi F_ct) \nonumber
+\end{align}
+where $I(t)$ and $Q(t)$, both $\in \mathbb{R}$, are defined respectively as the real and imaginary part of $S_{\mathit{BB}}(t)$. An example of up-converter block diagram is depicted in \textbf{Fig.\ref{fig:Upconv}}.
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[node distance=2cm,auto,>=latex']
+    \node [int] (a) [node distance=1.7cm,text width=0.9cm] {$Re\{\cdot \}$\\$Im\{\cdot \}$};
+    \node (IN) [left of=a,node distance=1.7cm, coordinate] {};
+    \node [coordinate] (bRe) [right of=a, yshift=0.21cm, node distance=1.5cm]{};
+    \node [coordinate] (aRe) [left of=bRe, node distance=0.94cm]{};
+    \node [coordinate] (cRe) [above of=bRe, node distance=0.9cm]{};
+	\node [circle,draw,scale=0.85] (dRe) [right of=cRe,node distance=0.8cm] {$\times$};    
+   	\node [coordinate] (bIm) [right of=a, yshift=-0.21cm, node distance=1.5cm]{};
+    \node [coordinate] (aIm) [left of=bIm, node distance=0.94cm]{};
+    \node [coordinate] (cIm) [below of=bIm, node distance=0.9cm]{};
+    \node [circle,draw,scale=0.85] (dIm) [right of=cIm,node distance=0.8cm] {$\times$};
+    \node [oscillator,very thin,scale=0.55] (osc) [right of=a,yshift=0.8cm,node distance=6cm] {};
+    \node [draw=none,scale=0.85] (OscLabel) [below of=osc,xshift=0.2cm,node distance=0.58cm] {$cos(2\pi F_c t)$};
+    \node [int] (delay) [,scale=0.7,above of=dIm,node distance=1.3cm] {90$^\circ$};
+    \node (Fc) [below of=dRe,node distance=0.68cm, coordinate] {};
+    \node (Fc2) [right of=Fc,node distance=0.59cm, coordinate] {};
+    \node [circle,draw,scale=0.85] (sum) [right of=a,node distance=5.5cm] {$+$};
+    \node (RF1) [above of=sum,node distance=1.11cm,coordinate] {};
+    \node (RF2) [below of=sum,node distance=1.11cm,coordinate] {};
+    \node (OUT) [right of=sum,node distance=1.4cm, coordinate] {};
+
+    \path[o-stealth] (IN) edge node {$S_{\mathit{BB}}(t)$} (a);
+    \path[-] (aRe) edge node[above] {$\mathit{I(t)}$} (bRe);
+    \path[-] (bRe) edge node {} (cRe);
+    \path[-] (aIm) edge node[below] {$\mathit{Q(t)}$} (bIm);
+    \path[-] (bIm) edge node {} (cIm);
+    \path[->] (cIm) edge node {} (dIm);
+    \path[->] (cRe) edge node {} (dRe);
+    \path[<->] (delay) edge node {} (dRe);
+    \path[->] (delay) edge node {} (dIm);
+    \path[-] (Fc2) edge node {} (Fc);
+    \path[->] (sum) edge node {$S_{\mathit{RF}}(t)$} (OUT);  
+    \path[-] (RF1) edge node {} (dRe);
+    \path[->] (RF1) edge node[left] {$${\tiny$+$}$$} (sum);
+    \path[-] (RF2) edge node {} (dIm);
+    \path[->] (RF2) edge node[left] {$${\tiny$-$}$$} (sum);
+\end{tikzpicture}
+    \caption{Up-conversion scheme} \label{fig:Upconv}
+\end{figure}
+
+%--------------------------------------------------------------------------
+%	FSK
+%--------------------------------------------------------------------------
+
+\section{FSK}
+In case of \textit{Frequency Shift Keying} (FSK) modulation, the RF signal consists of a sinusoid with constant amplitude and phase but time-varying frequency, where the latter varies in correspondence of \textit{symbol period} ($T_s$) changes assuming discrete values as a function of the \textit{modulation order} ($M$), the \textit{inner deviation} ($dev_i$, i.e the shift absolute value [Hz] between $F_c$ and the closest tone among the $M$ available) and the input bits. In particular, the modulating parameters of \textbf{Eq.\ref{eq:GenRfMod}} for the FSK case become
+%\begin{align}
+%\alpha(t) &= 1 \label{eq:FSK1} \\[3pt]
+%\phi(t) &= 0 \nonumber \\
+%\delta(t) &= \pm \, \mathit{dev} \! \cdot \! \mathit{(M \, \text{-} \, 2j \,%\text{-} \, 1)} \qquad j \! \in \! \mathbb{N} \, | \, 0 \! \leq \! j \! < \! %\frac{M}{2} \nonumber
+%\end{align}
+\begin{align}
+\left\{
+\begin{array}{l} \nonumber
+\alpha(t) = 1  \\[3pt]
+\delta(t) = \pm \, \mathit{dev_i} \! \cdot \! \mathit{(M \, \text{-} \, 2j \, \text{-} \, 1)} \qquad \quad j \! \in \! \mathbb{N} \, | \, 0 \! \leq \! j \! < \! \frac{M}{2} \\[3pt]
+\phi(t) = 0
+\end{array}
+\right.
+\end{align}
+and so, keeping in mind the trigonometric relation $cos(x\! +\!y) = cosx\cdot cosy-sinx\cdot siny$, \textbf{Eq.\ref{eq:GenRfMod}} can be written as
+\begin{align}
+S_{\mathit{RF}}(t) = cos\Big(2\pi t\delta(t)\Big)\! \cdot cos\Big(2\pi F_c t\Big) \label{eq:FSK_BB} \\
+-\, sin\Big(2\pi t\delta(t)\Big)\! \cdot sin\Big(2\pi F_c t\Big) \nonumber
+\end{align}
+Now comparing \textbf{Eq.\ref{eq:FSK_BB}} and \textbf{Eq.\ref{eq:RfBbRel2}}, it can be easily found out that the FSK equivalent baseband signal has real and imaginary parts
+\begin{align}
+I(t) &= cos\Big(2\pi t\delta(t)\Big) \nonumber \\
+Q(t) &= sin\Big(2\pi t\delta(t)\Big) \nonumber
+\end{align}
+The scheme of a typical FSK modulator is shown in \textbf{Fig.\ref{fig:FSK}}, where the blocks \textit{MAP} and \textit{SMP} represent respectively the \textit{mapper} (to convert the input bits into constellation symbols, generally following a Gray coding) and \textit{resampler} (to pass from symbols to PCM samples by specifying the oversampling factor \textit{osf}) blocks, whereas the values within square brackets indicate the data rate at specific points of the diagram. In particular, $R_s$ represents the \textit{symbol rate} [S/s], in turn linked to the \textit{bit rate} [b/s] ($R_b$) and $T_s$ respectively by the relations $R_b$ = $R_s \cdot log_2(M)$ and $R_s$ = $1/T_s$.\\
+Clearly, at the expense of a wider bandwidth allocation (see \textbf{Eq.\ref{eq:Carson}}), the higher the deviation the more robust and reliable the link becomes, since the receiver can better distinguish the transmitted tones and counteract non-ideal effects, such as the Doppler shift.
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[node distance=2cm,auto,>=latex']
+    \node [int,pin={[init]above:$M$}] (a) {$\mathit{MAP}$};
+    \node (IN) [left of=a,node distance=1.7cm, coordinate] {};
+    \node [circle,draw,scale=0.85][pin={[init]above:$\mathit{dev_i}$}] (b) [right of=a,node distance=2.2cm] {$\times$};
+    \node [int,pin={[init]above:$\mathit{osf}$}] (c) [right of=b,node distance=1.7cm] {$\mathit{SMP}$};
+%    \node [int] (d) [below of=c,node distance=1.7cm] {$\int$};
+    \node [circle,draw,scale=0.85][pin={[init]below:$2\pi t$}] (e) [below of=c,node distance=1.9cm] {$\times$};
+    \node [int] (f) [left of=e,node distance=1.7cm,text width=0.85cm] {$cos(\cdot)$\\$sin(\cdot)$};
+    \node [coordinate] (OUT1) [left of=f, yshift=0.21cm, node distance=1.6cm]{};
+    \node [coordinate] (OUT1a) [right of=OUT1, node distance=1.05cm]{};
+    \node [coordinate] (OUT2) [left of=f, yshift=-0.21cm, node distance=1.6cm]{};
+    \node [coordinate] (OUT2a) [right of=OUT2, node distance=1.05cm]{};
+    \path[o-stealth] (IN) edge node {$[R_b]$} (a);
+    \path[->] (a) edge node {$[R_s]$} (b);
+    \path[->] (b) edge node {$\delta(t)$} (c);
+    \path[->] (c) edge node {$[F_s]$} (e);
+%    \path[->] (d) edge node {} (e);
+    \path[->] (e) edge node {} (f);
+    \path[->] (OUT1a) edge node[above] {$\mathit{I(t)}$} (OUT1);
+    \path[->] (OUT2a) edge node[below] {$\mathit{Q(t)}$} (OUT2);
+\end{tikzpicture}
+    \caption{FSK baseband modulator scheme} \label{fig:FSK}
+\end{figure}
+
+
+%--------------------------------------------------------------------------
+%	CPFSK
+%--------------------------------------------------------------------------
+
+\section{CPFSK}
+Another important parameter for digital modulations is the \textit{modulation index} ($h$), which specifically for frequency ones is defined as
+\begin{equation} \label{eq:ModIdx}
+h \triangleq \frac{2\mathit{dev_o}}{R_s}
+\end{equation}
+where $dev_o = (M-1)dev_i$ represents the outer deviation (i.e. the maximum frequency shift in case M > 2).
+By choosing $h\! \notin \! \mathbb{N}$, both baseband and bandpass FSK waveforms exhibit strong first-order phase discontinuities every $Ts$ seconds, causing an evident bandwidth widening. \textit{Continuous Phase Frequency Shift Keying} (CPFSK) modulation employs an integrator in order to assure phase continuity and reduce bandwidth occupation, as depicted from the modulator scheme of \textbf{Fig.\ref{fig:CPFSK}}. The real and imaginary parts of the CPFSK equivalent baseband signal can be expressed as
+\begin{align}
+I(t) &= cos\Big(2\pi \! \int \! \delta(t)dt\Big) \nonumber \\
+Q(t) &= sin\Big(2\pi \! \int \! \delta(t)dt\Big) \nonumber
+\end{align}
+By choosing $M \! = \! 2$ and $h \! = \! \frac{1}{2}$, a special case of CPFSK modulation occurs, known as \textit{Minimum Shift Keying} (MSK). The name stems from the fact that this is the frequency modulation with minimum tone spacing, and therefore best spectral efficiency, such that orthogonality is still guaranteed in case of coherent detection (i.e. carrying out carrier phase recovery) on RX side. In fact, the condition to assure orthogonality between the modulating tones, which is to say absence of \textit{intersymbol interference} (ISI) at the times that symbols are sampled, is respectively $2h\! \in \! \mathbb{N}$ and $h\! \in \! \mathbb{N}$ for coherent and non-coherent detection \textsuperscript{\cite{bib:Sklar}}.
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[node distance=2cm,auto,>=latex']
+    \node [int,pin={[init]above:$M$}] (a) {$\mathit{MAP}$};
+    \node (IN) [left of=a,node distance=1.7cm, coordinate] {};
+    \node [circle,draw,scale=0.85][pin={[init]above:$\mathit{dev_i}$}] (b) [right of=a,node distance=2.2cm] {$\times$};
+    \node [int,pin={[init]above:$\mathit{osf}$}] (c) [right of=b,node distance=1.7cm] {$\mathit{SMP}$};
+    \node [int] (d) [below of=c,node distance=1.7cm] {$\int$};
+    \node [circle,draw,scale=0.85][pin={[init]below:$2\pi$}] (e) [left of=d,node distance=1.8cm] {$\times$};
+    \node [int] (f) [left of=e,node distance=1.7cm,text width=0.85cm] {$cos(\cdot)$\\$sin(\cdot)$};
+    \node [coordinate] (OUT1) [left of=f, yshift=0.21cm, node distance=1.6cm]{};
+    \node [coordinate] (OUT1a) [right of=OUT1, node distance=1.05cm]{};
+    \node [coordinate] (OUT2) [left of=f, yshift=-0.21cm, node distance=1.6cm]{};
+    \node [coordinate] (OUT2a) [right of=OUT2, node distance=1.05cm]{};
+    \path[o-stealth] (IN) edge node {$[R_b]$} (a);
+    \path[->] (a) edge node {$[R_s]$} (b);
+    \path[->] (b) edge node {$\delta(t)$} (c);
+    \path[->] (c) edge node {$[F_s]$} (d);
+    \path[->] (d) edge node {} (e);
+    \path[->] (e) edge node {} (f);
+    \path[->] (OUT1a) edge node[above] {$\mathit{I(t)}$} (OUT1);
+    \path[->] (OUT2a) edge node[below] {$\mathit{Q(t)}$} (OUT2);
+\end{tikzpicture}
+    \caption{CPFSK baseband modulator scheme} \label{fig:CPFSK}
+\end{figure}
+
+
+%--------------------------------------------------------------------------
+%	GFSK
+%--------------------------------------------------------------------------
+
+\section{GFSK}
+In order to further compact the signal spectral components, an extra filtering stage can be added to the CPFSK modulator scheme of \textbf{Fig.\ref{fig:CPFSK}}, just before the integrator. This way, even the second-order discontinuities of the waveform are removed, causing a bandwidth restraint. A Gaussian filter (i.e. a filter with an approximately Gaussian shaped impulse response) is typically employed for this purpose, resulting in the corresponding modulation to be called \textit{Gaussian Frequency Shift Keying} (GFSK), whose scheme is summarized in \textbf{Fig.\ref{fig:GFSK}}.\\
+A basic parameter for the Gaussian filter design is the \textit{bandwidth-time product} (BT), which defines the relation between the period of each symbol $Ts$ and the bandwidth allocated to it (in terms of 3dB bandwidth). In particular, this indicates that each symbol will be spread over 1/BT symbol periods. Therefore, the lower the BT factor the narrower the bandwidth (due to a wider filter impulse response) at the expense of a stronger ISI. For instance, BT = 0.2 means that the waveform representation of every symbol will be spread over five consecutive symbol periods, causing interference to the four adjacent symbols. Typical BT factor values range from 0.3 to 0.5.\\
+The real and imaginary parts of the GFSK equivalent baseband signal can be expressed as
+\begin{align}
+I(t) &= cos\Big(2\pi \! \int \! \delta(t) \! \ast \! g(t) \, dt\Big) \nonumber \\
+Q(t) &= sin\Big(2\pi \! \int \! \delta(t) \! \ast \! g(t) \, dt\Big) \nonumber
+\end{align}
+where $g(t)$ is the impulse response of the Gaussian filter. It is worth noting that adding this Gaussian filtering stage to the aforementioned MSK modulation, the result is the \textit{Gaussian Minimum Shift Keying} (GMSK) modulation, popular for many applications such as GSM.\\
+The bandwidth occupation of a digital frequency modulation can be approximately estimated by means of the \textit{Carson's rule}, returning the spectral distance between the two main notches where about 98\% of the signal power is contained, as
+\begin{equation} \label{eq:Carson}
+\mathit{BW} = 2(R_{s} + dev_o)
+\end{equation}
+Originally the Carson's rule was derived for FM modulations as $BW = 2(\Delta f+ f_{m})$, where $\Delta f$ represents the peak frequency deviation and $f_{m}$ the modulating signal highest frequency. The conversion from the original analog expression to the digital of \textbf{Eq.\ref{eq:Carson}} is rather straightforward by considering that in the latter case $\Delta f = dev_o$ and $f_{m} = R_{s}$. Moreover, keep in mind the expression yields a slight overestimation of the actual occupied bandwidth in case of Gaussian filtering.
+\begin{figure}
+\centering
+\begin{tikzpicture}[node distance=2cm,auto,>=latex']
+    \node [int,pin={[init]above:$M$}] (a) {$\mathit{MAP}$};
+    \node (IN) [left of=a,node distance=1.8cm, coordinate] {};
+    \node [circle,draw,scale=0.85][pin={[init]above:$\mathit{dev_i}$}] (b) [right of=a,node distance=2.3cm] {$\times$};
+    \node [int,pin={[init]above:$\mathit{osf}$}] (c) [right of=b,node distance=1.8cm] {$\mathit{SMP}$};
+    \node [int] (d) [pin={[init]below:$BT$}] [below of=c,node distance=1.8cm,minimum size=0.9cm] {};
+    \node [int] (d2) [left of=d,node distance=1.6cm] {$\int$};
+    \node [circle,draw,scale=0.85][pin={[init]below:$2\pi$}] (e) [left of=d2,node distance=1.7cm] {$\times$};
+    \node [int] (f) [left of=e,node distance=1.6cm,text width=0.85cm] {$cos(\cdot)$\\$sin(\cdot)$};
+    \node [coordinate] (OUT1) [left of=f, yshift=0.21cm, node distance=1.6cm]{};
+    \node [coordinate] (OUT1a) [right of=OUT1, node distance=1.05cm]{};
+    \node [coordinate] (OUT2) [left of=f, yshift=-0.21cm, node distance=1.6cm]{};
+    \node [coordinate] (OUT2a) [right of=OUT2, node distance=1.05cm]{};
+    \path[o-stealth] (IN) edge node {$[R_b]$} (a);
+    \path[->] (a) edge node {$[R_s]$} (b);
+    \path[->] (b) edge node {$\delta(t)$} (c);
+    \path[->] (c) edge node {$[F_s]$} (d);
+    \path[->] (d) edge node {} (d2);
+    \path[->] (d2) edge node {} (e);
+    \path[->] (e) edge node {} (f);
+    \path[->] (OUT1a) edge node[above] {$\mathit{I(t)}$} (OUT1);
+    \path[->] (OUT2a) edge node[below] {$\mathit{Q(t)}$} (OUT2);  
+    \draw [domain=-0.75:0.75,samples=39,scale=0.5,xshift=7.5cm,yshift=-4.1cm] plot (\x,{e^(-12*(\x*\x))});
+\end{tikzpicture}
+    \caption{GFSK baseband modulator scheme} \label{fig:GFSK}
+\end{figure}
+Finally, it is important to remember that even though reducing the bandwidth occupation by avoiding waveform discontinuities (for a fixed $R_s$ and $dev_i$) is generally something desirable, this has the disadvantage of making the tone detection harder on RX side, since the symbol transitions within the waveform become smoother due to the filtering stages in transmission. Therefore, a trade-off between these two aspects must be always kept in mind.
+
+
+%--------------------------------------------------------------------------
+%	ANNEX
+%--------------------------------------------------------------------------
+
+\section{ANNEX}
+Hereafter a list of useful trigonometric relations.
+\begin{align}
+cos^{2}(x) + sin^{2} &= 1 \nonumber \\
+2sin(x)cos(x) &= sin(2x) \nonumber \\
+1 + cos(2x) &= 2cos^{2}(x) \nonumber \\
+cos(x \pm y) &= cos(x)cos(y) \mp sin(x)sin(y) \nonumber \\
+sin(x \pm y) &= sin(x)cos(y) \pm cos(x)sin(y) \nonumber
+\end{align}
+
+%----------------------------------------------------------------------------------------
+%	REFERENCE LIST
+%----------------------------------------------------------------------------------------
+
+\begin{thebibliography}{99} % Bibliography - this is intentionally simple in this template
+
+\bibitem[1]{bib:Sklar} B. Sklar, P. K. Ray, \textit{Digital Communications}, Chap. 4-9, Pearson Education, 2012.
+ 
+\end{thebibliography}
+
+
+
+
+% NB#1: MSK come caso di CPFSK [CPFSK]
+% NB#2: Schema circuitale da BB a RF [Intro]
+% NB#3: Schema circuitale per FSK e GFSK
+
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
+\grid

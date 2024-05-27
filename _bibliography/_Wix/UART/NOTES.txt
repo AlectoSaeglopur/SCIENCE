@@ -1,0 +1,13 @@
+
+- Eliminare LED da progetti FPGA + revisione @todo e commenti
+- UART_1 VHDL migliora calcolo di Time Chars con modulo!
+- Parlare di reti di conversione 5V/3.3V
+- UART lavora sempre in LSB sui singoli frame!
+
+parlare di sincronismo in FPGA (Nx)
+
+MCU half duplex ma FPGA full
+
+video-to-gif converter
+
+meccanismo di debouncer

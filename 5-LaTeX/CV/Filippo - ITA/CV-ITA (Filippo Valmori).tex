@@ -1,0 +1,203 @@
+%% SET FONT, FORMAT AND TYPE OF DOCUMENT %%
+\documentclass[10pt,a4paper]{moderncv}		% Formats: a4paper, letterpaper, a5paper, legalpaper, executivepaper, landscape
+
+%% SET STYLE AND COLOR %%
+\moderncvtheme[blue]{classic}				% Color: blue, orange, green, red, purple, grey or black | Style: casual, classic, oldstyle, banking
+
+% ADD PACKAGES %%
+\usepackage[italian]{babel}
+\usepackage[utf8]{inputenx}
+\usepackage[scale=0.828,top=1cm, bottom=2cm]{geometry}
+
+\usepackage{color,soul}						% to use the highlight option (during debug)
+\usepackage{fontawesome}					% to use icons in the contacts section 
+\moderncvicons{awesome}						% use "awesome" icons
+
+\usepackage{relsize}
+\usepackage{xspace}
+\usepackage{amssymb, amsmath}
+\newcommand{\Rplus}{\protect\hspace{+.01em}\protect\raisebox{.35ex}{\smaller{\smaller\textbf{+}}}}
+\newcommand{\Cpp}{\mbox{C\Rplus\Rplus}\xspace}
+
+\setlength{\hintscolumnwidth}{4cm}			% to extend the left column
+\AtBeginDocument{\recomputelengths}
+
+\pagenumbering{arabic}						% set page numbering style
+
+\newcommand*{\skypesocialsymbol}{\faSkype~}	% add social symbols
+\renewcommand*{\linkedinsocialsymbol}{\faLinkedinSquare}
+\RenewDocumentCommand{\social}{O{}O{}m}{%
+  \ifthenelse{\equal{#2}{}}{
+      \ifthenelse{\equal{#1}{linkedin}}{\collectionadd[linkedin]{socials}{#3}}{}
+      \ifthenelse{\equal{#1}{twitter}}{\collectionadd[twitter]{socials}{\protect\httplink[#3]{www.twitter.com/#3}}}{}
+      \ifthenelse{\equal{#1}{github}}{\collectionadd[github]{socials}{\protect\httplink[#3]{www.github.com/#3}}}{}
+      \ifthenelse{\equal{#1}{skype}}{\collectionadd[skype]{socials}{#3}}{}
+    }{\collectionadd[#1]{socials}{\protect\httplink[#3]{#2}}}}
+
+
+% PERSONAL INFO AND CONTACTS
+\firstname{\vspace{.2cm} \hspace{-0.8cm} {\fontsize{35}{35}\selectfont Filippo Valmori}}
+\familyname{}
+\title{\vspace{1cm} Curriculum Vitae}
+%\firstname{\vspace{0.5cm} Filippo Valmori}
+%\familyname{}
+%\title{\vspace{0.3cm} Curriculum Vitae}
+%\address{Via Campo degli Svizzeri 84/b}{Forl\`i (FC), 47121, Italia}
+\address{\textbf{\vspace{0.1cm} Contatti}}
+%\phone[mobile]{(+39)\,349\,683\,2687}
+\phone[fixed]{(+39)\,349\,683\,2687}
+\email{filippo.valmori@gmail.com}
+\homepage{filippovalmori.wixsite.com/eletlcdsp}
+\social[linkedin]{ linkedin.com/in/valmorif}
+\social[skype]{filippo.valmori}
+\photo[100pt][0.6pt]{Photo.jpg}
+
+
+%% START OF DOCUMENT BODY %%
+
+\begin{document}
+\maketitle
+\pagestyle{empty}							% to disable page numbering
+
+
+\section{Profilo}
+
+\cvline{}{Sono un laureato magistrale in Ingegneria Elettronica e Telecomunicazioni con attualmente pi\`u di 4 anni di esperienza lavorativa in campo aerospaziale, nei quali ho maturato competenze in programmazione firmware, design di circuiti elettrici, signal processing e sistemi a radiofrequenza, oltre a capacità di teamwork e problem solving individuale. Più in generale, sono pronto a imparare ed impegnarmi in progetti scientifici stimolanti e all'avanguardia con ruolo tecnico/R\&D in vista di un percorso di crescita professionale a lungo termine. Inoltre, nel corso degli anni ho sviluppato un sito web personale per l'approfondimento e la condivisione di vari progetti riguardanti elettronica (ELEC), telecomunicazioni (TLC), digital signal processing (DSP) e radio-frequenza (RF).}
+\vspace{0.25cm}
+
+
+\section{Informazioni personali}
+
+\cvline{\textit{nome e cognome}}{Filippo Valmori}
+% \cvline{\textit{cognome}}{Valmori}
+% \cvline{\textit{sesso}}{M}
+\cvline{\textit{data e luogo di nascita}}{24 novembre 1991 | Forl\`i, Italia}
+\cvline{\textit{residenza}}{via Ferrante Orselli 32, Forl\`i (FC), 47121, Italia}
+\cvline{\textit{cittadinanza}}{italiana}
+% \cvline{stato civile}{celibe}
+\cvline{\textit{patente di guida}}{cat. B}
+\vspace{0.25cm}
+
+\section{Esperienze lavorative}
+
+\cvline{\textit{luglio 2016 - presente}}{\textbf{Ingegnere ELEC \& TLC} presso \textbf{SITAEL S.p.A.} (Forl\`i, Italia) \vspace{0.06cm} \newline
+Impegnato nel settore aerospaziale nella progettazione e sviluppo di sistemi elettronici digitali e a radio-frequenza per piattaforme \textit{smallsat}, in particolare con compiti riguardanti:
+\begin{itemize}
+  \item[--] analisi e previsione della catena di telecomunicazione tra \textit{Spacecraft} (S/C) e \textit{Ground Station} (G/S) in termini di \textit{link budget}, gestione del relativo protocollo (\textit{es.} operazioni di scrambling, codifica, sincronizzazione, modulazione, etc.) per funzionalità di \textit{Telemetry, Tracking and Command} (TT\&C) e richiesta per allocazione frequenziale verso ITU,
+  \item[--] programmazione firmware embedded, basata su sistema operativo real-time RTEMS, di microcontrollore STM32 / ARM Cortex-M (dotati di ADC, DMA e interfaccie USART/SPI/CAN integrati), transceiver RF ed altri componenti quali memorie flash, sensori e watchdog,
+  \item[--] design e aggiornamento di schematici elettrici e PCB layout tramite software EDA (Altium e OrCAD), calibrazione delle sezioni di protezione (\textit{overvoltage} e \textit{overcurrent}), simulazione circuitale tramite SPICE, definizione di requisiti, analisi di derating e stress termico,
+  \item[--] implementazione signal processing della sezione RF/TLC di \textit{Electrical Ground Support Equipment} (EGSE) tramite \textit{Software Defined Radio} (SDR) USRP N210 e software LabVIEW / GNU Radio per la validazione dei requisiti di comunicazione onboard,
+  \item[--] stesura di documentazione tecnica per design, test procedure e test report,
+  \end{itemize}
+}
+ 
+\cvline{}{
+\begin{itemize}
+  \item[--] svolgimento di campagne di test sia lato S/C che G/S (\textit{es.} test di integrazione HW/SW, test di platform scenario, test RF, verifica di componenti COTS), 	% i.e. overvoltage/current (LCL) check, BER...
+  \item[--] supporto per operazioni post-lancio lato G/S con attività di analisi dati e post-processing.
+\end{itemize}
+}
+\vspace{-0.15cm}
+
+\cvline{}{Coinvolto nel corso degli anni in vari programmi in collaborazione con \textit{European Space Agency} (ESA), tra i quali:
+\begin{itemize}
+  \item[$\cdot$] ESEO, progetto lanciato a dicembre 2018 che ha previsto ampia attività di teamworking con varie università europee,
+  \item[$\cdot$] uHETsat, missione di validazione in orbita per thruster a effetto Hall HT-100,
+  \item[$\cdot$] SCAT, progetto focalizzato sulla realizzazione di un transceiver in banda C ad alta data-rate (fino a 50 Mb/s con protocollo DVB-S2) basato su FPGA per smallsats,
+  \item[$\cdot$] STRIVING, servizio commerciale rivolto ad aziende terze per integrazione e validazione in orbita di payload.
+\end{itemize}
+}
+
+
+\cvline{\textit{aprile - giugno 2016}}{\textbf{Ricercatore post-laurea} presso \textbf{Università di Bologna} (Cesena, Italia) \vspace{0.06cm} \newline
+Proseguimento e ulteriore sviluppo di tesi magistrale, finanziato da \textit{Consorzio Nazionale Interuniversitario per le Telecomunicazioni} (CNIT), in vista di partecipazione a \textit{International Conference on Ubiquitous Wireless Broadband} (ICUWB) e pubblicazione di articolo scientifico su rivista IEEE [1].}
+
+\vspace{0.25cm}
+
+
+\section{Titoli di studio}
+
+\cvline{\textit{marzo 2016}}{\textbf{Laurea Magistrale} in \textbf{Ingegneria Elettronica e Telecomunicazioni}%\newline
+\vspace{0.06cm}
+\begin{itemize}
+  \item[--] presso Universit\`a di Bologna (sede di Cesena),
+  \item[--] votazione 110/110 con lode,
+  \item[--] tesi di laurea sperimentale (in lingua inglese) su reti di sensori radar a banda ultra-larga (UWB) per localizzazione passiva e tracking in ambiente indoor.
+\end{itemize}}
+
+\cvline{\textit{ottobre 2013}}{\textbf{Laurea Triennale} in \textbf{Ingegneria Elettronica e Telecomunicazioni}
+\vspace{0.06cm}
+\begin{itemize}
+  \item[--] presso Universit\`a di Bologna (sede di Cesena),
+  \item[--] votazione 110/110 con lode,
+  \item[--] tesi di laurea sperimentale su \textit{flicker noise} e analisi di affidabilit\`a su dispositivi power-MOSFET sottoposti a stress e successivo recupero tramite processo di annealing.
+\end{itemize}}
+
+\cvline{\textit{giugno 2010}}{\textbf{Diploma di Maturità Scientifica}\newline
+presso liceo scientifico \textit{Fulcieri Paulucci di Calboli} di Forl\`i.}
+
+\vspace{0.25cm}
+%\newpage
+
+
+\section{Conoscenze linguistiche}
+
+\cvline{\textit{Italiano}}{Madrelingua}
+\cvline{\textit{Inglese}}{Avanzato}
+\cvline{\textit{Tedesco}}{Base}
+%\cvline{\textit{Inglese}}{Conoscenza avanzata (attestato B2), soprattutto in ambito tecnico:
+%\begin{itemize}
+%  \item[--] capacità di lettura e scrittura: professionale
+%  \item[--] capacità orale: buona
+%\end{itemize}}
+\vspace{0.25cm}
+
+
+\section{Competenze informatiche e lavorative}
+
+\cvline{\textit{Sistemi operativi}}{Windows, Linux (Ubuntu/Debian), RTEMS.}
+\cvline{\textit{Linguaggi software}}{C/\Cpp, Python, Java, VHDL, XML, HTML, LaTeX.}
+\cvline{\textit{Software scientifici}}{MATLAB, LabVIEW, GNU Radio, LTspice, Quartus, Altium Designer, OrCAD, CST, AWR, Excel, Eclipse, Git, TortoiseSVN, STK, SpaceCap.}
+ % CoDeSys, KiCad
+\cvline{\textit{Competenze ulteriori}}{Programmazione di sistemi embedded, DSP e Arduino - Prototipazione FPGA (Intel Cyclone e MAX 10) - Sviluppo di catene di telecomunicazione tramite SDR - Analisi e progetto di front-end a RF - Esperienza nell'utilizzo di strumentazione da laboratorio (\textit{es.} oscilloscopio, analizzatore di spettro, generatore di funzioni) - Programmazione di GUI (Tkinter e MATLAB) - Basi di saldatura - Principi di programmazione PLC - Conoscenze riguardanti antenne, guide d'onda, \textit{electromagnetic compatibility} (EMC), tecniche di modulazione analogiche e digitali, crittografia, codifica di sorgente e canale.}
+% Configurazione di reti cablate (\textit{es.} VLAN, router, firewall)
+\vspace{0.25cm}
+
+
+\section{Pubblicazioni}
+
+\cvline{[1]}{F. Valmori, A. Giorgetti, M. Mazzotti, E. Paolini, and M. Chiani, \emph{``Indoor Detection and Tracking of Human Targets with UWB Radar Sensor Networks''}, IEEE International Conference on Ubiquitous Wireless Broadband (ICUWB), Nanjing, China, Oct. 2016}
+\vspace{0.25cm}
+
+\section{Partecipazioni}
+
+\cvline{$\cdot$}{ESA Workshop on Aerospace EMC | 20-22 Maggio 2019 | Budapest, Ungheria.}
+\cvline{$\cdot$}{STK Comprehensive Training | 5-9 Febbraio 2018 | Mola di Bari, Italia.}
+\cvline{$\cdot$}{IEEE European School of Information Theory (ESIT) | 7-11 Maggio 2018 | Bertinoro, Italia.}
+\vspace{0.25cm}
+
+
+\section{Attività extra}
+
+\cvline{$\cdot$}{Sviluppatore di sito web personale per descrizione, implementazione e condivisione di progetti in ambito ELEC, TLC, DSP e RF (quali, ad esempio, 
+programmazione di MCU e FPGA, analisi e simulazione circuitale, PCB layout, codifica di canale e modulazioni) $\rightarrow$ \href{https://filippovalmori.wixsite.com/eletlcdsp}{\color{violet} \textit{filippovalmori.wixsite.com/eletlcdsp}}}
+\cvline{$\cdot$}{Volantario presso \textit{Croce Rossa Italiana}}
+\cvline{$\cdot$}{Appassionato di arte, storia e viaggi}
+\cvline{$\cdot$}{Donatore di sangue presso AVIS}
+
+
+%% BIBLIOGRAPHY %%
+%\nocite{*}
+%\bibliographystyle{plain}
+%\bibliography{nome_file.bib}
+
+
+%% PRIVACY POLICY AND SIGNATURE%%
+\vspace{\fill}
+{\footnotesize\noindent
+Il sottoscritto è a conoscenza che, ai sensi dell’art. 26 della legge italiana 15/68, le dichiarazioni mendaci, la falsità negli atti e l’uso di
+atti falsi sono puniti ai sensi del codice penale e delle leggi speciali. Inoltre, il sottoscritto autorizza al trattamento dei dati personali,
+in conformità alle disposizioni della legge sulla privacy (D.L.196/03 e regolamento UE 2016/679).}
+\vspace*{0.8cm}\\
+Forlì | \today\hfill Firma: \makebox[4cm][b]{\includegraphics[scale=.15]{Signature.jpg}}
+\end{document}

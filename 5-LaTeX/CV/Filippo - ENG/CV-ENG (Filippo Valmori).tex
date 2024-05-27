@@ -1,0 +1,229 @@
+
+%% SET FONT, FORMAT AND TYPE OF DOCUMENT %%
+
+\documentclass[10pt,a4paper]{moderncv}   		% Formats: a4paper, letterpaper, a5paper, legalpaper, executivepaper, landscape
+
+
+
+%% SET STYLE AND COLOR %%
+
+%\moderncvtheme[blue]{classic}					% Color: blue, orange, green, red, purple, grey or black | Style: casual, classic, oldstyle, banking
+\moderncvstyle{classic}
+\definecolor{cst_color}{RGB}{50,120,240}  		% RGB color map (each between 0 and 255)
+\colorlet{color1}{cst_color}
+
+
+
+% ADD PACKAGES %%
+
+\usepackage[english]{babel}						% to enable language checker
+\usepackage[utf8]{inputenx}
+\usepackage[scale=0.828,top=1cm, bottom=2cm]{geometry}
+\usepackage{color,soul}							% to use the highlight option (during debug)
+%\usepackage{fontawesome}						% to use icons in the contacts section 
+\usepackage{relsize}
+\usepackage{xspace}
+\usepackage{newtxmath}
+\newcommand{\Rplus}{\protect\hspace{+.01em}\protect\raisebox{.35ex}{\smaller{\smaller\textbf{+}}}}
+\newcommand{\Cpp}{\mbox{C\Rplus\Rplus}\xspace}
+\setlength{\hintscolumnwidth}{4cm}				% to extend the left column
+\AtBeginDocument{\recomputelengths}
+\renewcommand*{\homepagesymbol}{\faHome$ $ }
+\RenewDocumentCommand{\social}{O{}O{}m}{%
+  \ifthenelse{\equal{#2}{}}{
+      \ifthenelse{\equal{#1}{linkedin}}{\collectionadd[linkedin]{socials}{#3}}{}
+      \ifthenelse{\equal{#1}{twitter}}{\collectionadd[twitter]{socials}{\protect\httplink[#3]{www.twitter.com/#3}}}{}
+      \ifthenelse{\equal{#1}{github}}{\collectionadd[github]{socials}{\protect\httplink[#3]{www.github.com/#3}}}{}
+      \ifthenelse{\equal{#1}{skype}}{\collectionadd[skype]{socials}{#3}}{}
+    }{\collectionadd[#1]{socials}{\protect\httplink[#3]{#2}}}}
+
+\pagenumbering{Roman}							% configure page numbering style (from here on)
+\nopagenumbers									
+\AtEndPreamble{%
+  \AtBeginDocument{%
+          \newlength{\pagenumberwidth}%
+          \settowidth{\pagenumberwidth}{\color{color2}\addressfont\thepage}%
+          \fancypagestyle{plain}{%
+            \fancyfoot[C]{\thepage} }
+          \pagestyle{plain}}}
+
+
+%% PERSONAL INFO AND CONTACTS %%
+
+\firstname{\vspace{.2cm} \hspace{-0.8cm} {\fontsize{35}{35}\selectfont Filippo Valmori}}
+\familyname{}
+\title{\vspace{1cm} Curriculum Vitae}
+\address{\textbf{\vspace{0.1cm} Contacts}}
+\phone[fixed]{(+39)\,349\,683\,2687}
+\email{filippo.valmori@gmail.com}
+\homepage{filippovalmori.wixsite.com/eletlcdsp}
+\social[linkedin]{linkedin.com/in/valmorif}
+\social[skype]{filippo.valmori}
+\photo[100pt][0.6pt]{Photo.jpg}
+
+
+
+%% START OF DOCUMENT BODY %%
+
+\begin{document}
+\maketitle
+%\pagestyle{empty}								% uncomment to disable page numbering
+
+\section{Profile}
+
+\cvline{}{I am a master graduate in Electronics and Telecommunication Engineering, with currently more than 7 years of work experience in aerospace and industrial areas. Over the years I have acquired skills in embedded firmware programming (FW), hardware design (HW) and digital signal processing (DSP), besides solid teamwork and individual problem-solving abilities. Given my background, curious aptitude and passion for innovative scientific projects, I am especially interested in R\&D roles, with the aspiration of undertaking a stimulating career growth path.}
+
+\vspace{0.25cm}
+
+
+\section{Personal information}
+
+\cvline{\textit{name and surname}}{Filippo Valmori}
+%\cvline{\textit{sex}}{male}
+\cvline{\textit{date and place of birth}}{November 24, 1991 - Forl\`i, Italy}
+%\cvline{\textit{residence}}{Krottenbachstraße 3, Vienna, 1190, Austria}
+\cvline{\textit{residence}}{via Campo degli Svizzeri 84-b, Forl\`i (FC), 47121, Italy}
+\cvline{\textit{citizenship}}{italian}
+\cvline{\textit{driving license}}{cat. B}
+
+\vspace{0.25cm}
+
+\section{Work experience}
+
+\cvline{Nov. 2023 - present \:  $\bullet$}{\textbf{Embedded FW Engineer} at \textbf{Electrolux S.p.A.} (Forl\`i, Italy) \vspace{0.06cm} \newline
+Engaged within the food-preparation field, as part of the R\&D team, in the embedded firmware development of kitchen appliances (especially ovens, induction hobs and hoods), in particular with tasks concerning:
+\begin{itemize}
+  \item[$\cdot$] embedded firmware programming of 32-bit ARM Cortex-M0$+$ and -M7 microcontrollers for power and user-interfaces boards, with special focus on UI graphical design based on Figma/Zeplin;
+  \item[$\cdot$] dealing with connectivity (BLE, Wi-Fi and infra-red) and safety (POST/BIST mechanisms for class-B certification) topics.
+\end{itemize}
+}
+
+\cvline{Feb. 2021 - Oct. 2023 \:  $\bullet$}{\textbf{HW/FW Engineer} at \textbf{Eaton Industries GmbH} (Vienna, Austria) \vspace{0.06cm} \newline
+Engaged within the power electronics field, as part of the R\&D team, in the embedded hardware and firmware development of domotic, industrial and  automotive safety devices, in particular with tasks concerning:
+\begin{itemize}
+  \item[$\cdot$] embedded firmware programming of 16-bit dsPIC33 single/dual-core microcontrollers for solid-state \textit{circuit breaker} applications, included writing of hardware-specific \textit{board support package} (BSP), and with increasing interest in cyber-security mechanisms;
+  \item[$\cdot$] simulation and modelling of solid-state breakers \textit{overload} and \textit{short-circuit} algorithms, replicating the thermal/electro-magnetic behavior of standard mechanical devices;
+  \item[$\cdot$] development of GUI interface in Python for external monitoring of MCU board status registers and updating of its parameters at run-time;
+  \item[$\cdot$] design, choice of components and documentation drafting of MCU subsystems in terms of schematic, BoM, and firmware documentation;
+  \item[$\cdot$] stand-alone modules and platform integration testing.
+  %\item[$\cdot$] support to VHDL programming for CPLD/FPGA-based modules.
+\end{itemize}
+}
+
+\cvline{Oct. - Dec. 2020 \:  $\bullet$}{\textbf{DSP/RF Engineer} at \textbf{Leaf Space S.r.l.} (Lomazzo, Italy) \vspace{0.06cm} \newline
+Engaged within the aerospace field in the DSP and radio-frequency (RF) development of shared and distributed \textit{ground station} services, in particular with tasks concerning:
+\begin{itemize}
+  \item[$\cdot$] design of RF transmitting/receiving communication chains based on USRP B200 and N200 \textit{Software Defined Radio} (SDR) in GNU Radio / Linux environment for applications up to 10 Mb/s in the VHF, UHF, S and X bands;
+  \item[$\cdot$] implementation of ad hoc signal processing algorithms in Python and C/C++ (\textit{e.g.} about synchronization, filtering, modulation, channel coding, etc.);
+%\end{itemize}
+%}
+%\cvline{}{
+%\begin{itemize}
+  \item[$\cdot$] knowledge and adaptation of most popular RF protocols (\textit{e.g.} DVB-S, DVB-S2 and CCSDS) to customer's requests;
+  \item[$\cdot$] laboratory integration testing with customer's modules, included hardware setup and test reports;
+  \item[$\cdot$] support for operations and problem-solving during missions.
+\end{itemize}
+}
+
+\cvline{Jul. 2016 - Sep. 2020 \:  $\bullet$}{\textbf{ELE/TLC Engineer} at \textbf{SITAEL S.p.A.} (Forl\`i, Italy) \vspace{0.06cm} \newline
+Engaged within the aerospace field in the design and development of digital and RF electronic systems for \textit{smallsat} platforms in cooperation with the \textit{European Space Agency} (ESA), in particular with tasks concerning:
+\begin{itemize}
+  \item[$\cdot$] analysis and forecast of the telecommunication chain between \textit{Spacecraft} (S/C) and \textit{Ground Segment} (G/S) in terms of \textit{link budget}, management of the relative protocol (\textit{e.g.} operations of scrambling, coding, modulation, etc.) for \textit{Telemetry, Tracking and Command} (TT\&C) functionalities and frequency allocation request toward ITU;
+  \item[$\cdot$] embedded firmware programming of 32-bit STM32F4 microcontrollers based on RTEMS real-time operative system, mainly  focused on intra-platform communication and RF transceivers management;
+  \item[$\cdot$] desing and update of electrical schematics and PCB layout through Altium Designer, SPICE circuit simulation, requirements definition;
+  \item[$\cdot$] development of the \textit{Electrical Ground Support Equipment} (EGSE) radio-frequency and telecommunication section by means of USRP N210 SDR and LabVIEW / GNU Radio softwares for the validation of the onboard communication;
+  \item[$\cdot$] execution of test campaigns on both S/C and G/S side (\textit{e.g.} HW/SW integration tests, platform scenario tests, RF tests, check of COTS components);
+  \item[$\cdot$] drafting of technical documents for design, test procedures and test reports;
+  \item[$\cdot$] support for G/S post-launch operations with activities of data analysis and post-processing.
+\end{itemize}
+}
+
+\cvline{Apr. - Jun. 2016 \:  $\bullet$}{\textbf{Post-degree researcher} at \textbf{University of Bologna} (Cesena, Italy) \vspace{0.06cm} \newline
+Further development and finalization of Master's thesis, funded by \textit{Consorzio Nazionale Interuniversitario per le Telecomunicazioni} (CNIT), oriented towards the participation at \textit{International Conference on Ubiquitous Wireless Broadband} (ICUWB) and the publication of a scientific article in IEEE journal [1].}
+
+\vspace{0.25cm}
+
+
+\section{Educational qualifications}
+
+\cvline{Mar. 2016 \:  $\circ$}{\textbf{Master's degree} in \textbf{Electronics and Telecommunication Engineering}
+\begin{itemize}
+  \item[$\cdot$] at University of Bologna (Italy),
+  \item[$\cdot$] score of 110/110 with honors,
+  \item[$\cdot$] experimental degree thesis about ultra-wideband radar sensor networks for passive localization and tracking in indoor environment.
+\end{itemize}}
+
+\cvline{Oct. 2013 \:  $\circ$}{\textbf{Bachelor's degree} in \textbf{Electronics and Telecommunication Engineering}
+\begin{itemize}
+  \item[$\cdot$] at University of Bologna (Italy),
+  \item[$\cdot$] score of 110/110 with honors,
+  \item[$\cdot$] experimental degree thesis about \textit{flicker noise} and reliability study of power-MOSFET devices under stress and after subsequent annealing recovery.
+\end{itemize}}
+
+\vspace{-0.15cm}
+
+
+\section{Language abilities}
+\cvline{\textit{Italian}}{Mother tongue}
+\cvline{\textit{English}}{Proficient}
+\cvline{\textit{German}}{Basic}
+
+\newpage
+
+
+\section{Computer and working skills}
+
+\cvline{\textit{Operating systems}}{Windows, Linux, FreeRTOS, RTEMS.}
+\cvline{\textit{Software languages}}{C/\Cpp, Python, ASM, VHDL, XML, Java.}
+\cvline{\textit{Scientific softwares}}{MATLAB, LabVIEW, GNU Radio, LTspice, Quartus, Altium Designer, MPLAB, IAR, Eclipse, PlantUML, Doxygen, LaTeX, J-Link RTT.}
+\cvline{\textit{Further competences}}{
+\begin{itemize}
+  \item[$\cdot$] Proficient in firmware versioning tools (Git and TortoiseSVN) and MISRA static analysis validation (PC-Lint);
+  \item[$\cdot$] Proficient in communication protocols (e.g. UART, SPI, I2C, CAN, DMA);
+  \item[$\cdot$] Experience in optimized fixed-point arithmetic;  
+  \item[$\cdot$] Experience with EDA softwares (Altium Designer, KiCad);
+  \item[$\cdot$] FPGA prototyping (Intel Cyclone and MAX 10);
+  \item[$\cdot$] DSP development of RTX chains based on \textit{software-defined radio} and GNU Radio,
+  \item[$\cdot$] Proficient in laboratory instrumentation use (\textit{e.g.} oscilloscope, spectrum analyzer, function generator);
+  \item[$\cdot$] GUI programming based on Python (Qt/Tkinter);
+  \item[$\cdot$] Setup of test benches exploiting remote and automatic instrumentation controlling based on PyVISA;
+  \item[$\cdot$] Experience with Arduino and Raspberry Pi;
+  \item[$\cdot$] PCB soldering skills.
+\end{itemize}}
+
+%\vspace{0.15cm}
+
+
+\section{Publications}
+
+\cvline{[1]}{F. Valmori, A. Giorgetti, M. Mazzotti, E. Paolini, and M. Chiani, \emph{``Indoor Detection and Tracking of Human Targets with UWB Radar Sensor Networks''}, IEEE International Conference on Ubiquitous Wireless Broadband (ICUWB), Nanjing, China, Oct. 2016}
+
+\vspace{0.25cm}
+
+
+%\section{Participations}
+
+%\cvline{$\cdot$}{ESA Workshop on Aerospace EMC | 20-22 May 2019 | Budapest, Hungary.}
+%\cvline{$\cdot$}{STK Comprehensive Training | 5-9 February 2018 | Mola di Bari, Italy.}
+%\cvline{$\cdot$}{IEEE European School of Information Theory (ESIT) | 7-11 May 2018 | Bertinoro, Italy.}
+%\vspace{0.25cm}
+
+
+\section{Extra activities}
+
+\cvline{$\cdot$}{Creator of a personal website for the description, implementation and sharing of projects in the electronic, telecommunication and digital signal processing area (\textit{e.g.} MCU and FPGA programming, circuit analysis and simulation, channel coding and modulations) $\rightarrow$ \href{https://filippovalmori.wixsite.com/eletlcdsp}{\color{violet} \textit{filippovalmori.wixsite.com/eletlcdsp}}}
+\cvline{$\cdot$}{Passionate about art and history;}
+\cvline{$\cdot$}{\textit{Red Cross} volunteer.}
+%\cvline{$\cdot$}{AVIS blood donor.}
+
+
+%% PRIVACY POLICY AND SIGNATURE %%
+
+%\newpage
+\vspace{\fill}
+{\footnotesize\noindent
+In compliance with the EU GDPR law, I hereby authorize the recipient of this document to use and process my personal details for the purpose of recruiting and selecting staff and I confirm to be informed of my rights.}
+\vspace*{0.8cm}\\
+\today\hfill Signature: \makebox[4cm][b]{\includegraphics[scale=.15]{Signature.jpg}}
+
+\end{document}

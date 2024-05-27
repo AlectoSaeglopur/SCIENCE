@@ -1,0 +1,149 @@
+%% SET FONT, FORMAT AND TYPE OF DOCUMENT %%
+\documentclass[10pt,a4paper]{moderncv}		% Formats: a4paper, letterpaper, a5paper, legalpaper, executivepaper, landscape
+
+%% SET STYLE AND COLOR %%
+\moderncvtheme[purple]{classic}				% Color: blue, orange, green, red, purple, grey or black | Style: casual, classic, oldstyle, banking
+
+% ADD PACKAGES %%
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenx}
+\usepackage[scale=0.828,top=1cm, bottom=2cm]{geometry}
+
+\usepackage{color,soul}						% to use the highlight option (during debug)
+\usepackage{fontawesome}					% to use icons in the contacts section 
+%\moderncvicons{awesome}						% use "awesome" icons
+
+\usepackage{relsize}
+\usepackage{xspace}
+\usepackage{newtxmath}
+\newcommand{\Rplus}{\protect\hspace{+.01em}\protect\raisebox{.35ex}{\smaller{\smaller\textbf{+}}}}
+\newcommand{\Cpp}{\mbox{C\Rplus\Rplus}\xspace}
+
+\setlength{\hintscolumnwidth}{4cm}			% to extend the left column
+\AtBeginDocument{\recomputelengths}
+
+\pagenumbering{arabic}						% set page numbering style
+
+\renewcommand*{\homepagesymbol}{\faGlobe $ $ }		% or \faHome
+\RenewDocumentCommand{\social}{O{}O{}m}{%
+  \ifthenelse{\equal{#2}{}}{
+      \ifthenelse{\equal{#1}{linkedin}}{\collectionadd[linkedin]{socials}{#3}}{}
+      \ifthenelse{\equal{#1}{twitter}}{\collectionadd[twitter]{socials}{\protect\httplink[#3]{www.twitter.com/#3}}}{}
+      \ifthenelse{\equal{#1}{github}}{\collectionadd[github]{socials}{\protect\httplink[#3]{www.github.com/#3}}}{}
+      \ifthenelse{\equal{#1}{skype}}{\collectionadd[skype]{socials}{#3}}{}
+    }{\collectionadd[#1]{socials}{\protect\httplink[#3]{#2}}}}
+
+
+% PERSONAL INFO AND CONTACTS
+\firstname{\vspace{.2cm} \hspace{-0.8cm} {\fontsize{31}{35}\selectfont Angela Boccadamo}}
+\familyname{}
+\title{\vspace{1cm} Curriculum Vitae}
+\address{\textbf{\vspace{0.1cm} Contatti}}
+%\phone[mobile]{(+39)\,349\,683\,2687}
+\phone[fixed]{(+39)\,348\,407\,2956}
+\email{imma2110@hotmail.com}
+
+
+\photo[100pt][0.6pt]{Photo.jpg}
+
+
+%% START OF DOCUMENT BODY %%
+
+\begin{document}
+\maketitle
+\pagestyle{empty}							% to disable page numbering
+
+
+\section{Profilo}
+
+\cvline{}{Durante il mio percorso ho ricoperto ruoli di responsabilità,
+maturato esperienza internazionale e sviluppato capacità di teamworking e interfacciamento con i clienti principalmente nell'ambito GDO e ristorazione. Le mie principali qualità includono precisione, affidabilità e solarità.}
+
+\vspace{0.25cm}
+
+\section{Informazioni personali}
+
+\cvline{\textit{nome e cognome}}{Angela Boccadamo}
+\cvline{\textit{data e luogo di nascita}}{21 ottobre 1965 | Brindisi, Italia}
+\cvline{\textit{residenza}}{Via Felice Matteucci 9, 72100, Brindisi}
+\cvline{\textit{cittadinanza}}{italiana}
+\cvline{\textit{patente di guida}}{cat. B, automunita}
+%\cvline{\textit{patente di guida}}{automunita (cat. B)}
+
+\vspace{0.25cm}
+
+\section{Esperienze lavorative}
+
+\cvline{Giu. 2021 - Set. 2022 \:  $\bullet$}{\textbf{Chef de Rang} presso \textbf{Guna Beach} (Brindisi) \vspace{0.06cm} \newline
+Impiegata come responsabile ai tavoli con ruoli di coordinazione della sala, accoglienza clienti, servizio al tavolo, interprete per la clientela estera e training di colleghi junior.}
+
+\vspace{0.4cm}
+
+\cvline{Ott. 2020 - Mar. 2021 \:  $\bullet$}{\textbf{Banconista} presso \textbf{Supermercato DOK} (Brindisi) \vspace{0.06cm} \newline
+Impiegata come adddetta al reparto salumeria nel settore GDO.}
+\vspace{0.4cm}
+
+\cvline{Giu. 2018 - Set. 2019 \:  $\bullet$}{\textbf{Chef de Rang} presso \textbf{Ristorante-Pizzeria Le Pavoncelle} (Villasimius, Cagliari) \vspace{0.06cm} \newline
+Impiegata come responsabile ai tavoli con ruoli di coordinazione della sala, accoglienza clienti, servizio al tavolo, interprete per la clientela estera e training di colleghi junior.}
+\vspace{0.4cm}
+
+\cvline{Mar. 2016 - Ago. 2018 \:  $\bullet$}{\textbf{Cameriera} presso \textbf{Ristorante-Pizzeria Su Forreddu} (Villasimius, Cagliari) \vspace{0.06cm} \newline
+Impiegata come cameriera  addetta all'accoglienza clienti, servizio ai tavoli, sporzionatura di pesce e sommelier.}
+\vspace{0.4cm}
+
+\cvline{Mar. 2015 - Ott. 2015 \:  $\bullet$}{\textbf{Cameriera} presso \textbf{Ristorante-Pizzeria, Tiburon Beach} (Marsala, Trapani) \vspace{0.06cm} \newline
+Impiegata come cameriera  addetta all'accoglienza clienti, servizio ai tavoli e interprete verso turisti.}
+\vspace{0.4cm}
+
+\cvline{Mar. 2013 - Ago. 2013 \:  $\bullet$}{\textbf{Cameriera} presso \textbf{Ristorante – Pizzeria, Sale e Pepe} (Übach-Palenberg - Germania) \vspace{0.06cm} \newline
+Impiegata come cameriera  addetta all'accoglienza clienti, servizio ai tavoli e interprete verso turisti.}
+\vspace{0.4cm}
+
+\cvline{Gen. 2008 - Set. 2011 \:  $\bullet$}{\textbf{Responsabile di settore} presso \textbf{NATEX} (Geilenkirchen, Germania) \vspace{0.06cm} \newline
+Impiegata presso \textit{grocery store} all'interno di base NATO come manager e supervisore del settore italiano e internazione per acquisti, organizzazione di eventi culinari e presentazione in stand di nuovi prodotti finalizzata alla conoscenza del prodotto verso i clienti.}
+\vspace{0.4cm}
+
+\cvline{Mar. 2004 - Giu. 2007 \:  $\bullet$}{\textbf{Venditrice} presso \textbf{Star Dust} (Marsala, Trapani) \vspace{0.06cm} \newline
+Impiegata come rappresentante di vendita per prodotti di bellezza e cosmesi per la cura di viso e corpo.}
+\vspace{0.4cm}
+
+\cvline{Gen. 1989 - Mag. 1991 \:  $\bullet$}{\textbf{Banconista} presso \textbf{Supermercato Sidis} (Brindisi) \vspace{0.06cm} \newline
+Impiegata come adddetta al reparto salumeria nel settore GDO.}
+\vspace{0.4cm}
+
+\section{Titoli di studio}
+
+\cvline{Giu. 1980 \: $\circ$}{\textbf{Diploma di Scuola Media} presso \textbf{Scuola Media Dante Alighieri (Brindisi)}}
+
+\vspace{0.25cm}
+
+\section{Conoscenze linguistiche}
+
+\cvline{\textit{Italiano}}{Madrelingua}
+\cvline{\textit{Inglese}}{Intermedio}
+
+\vspace{0.25cm}
+
+\section{Competenze informatiche}
+
+\cvline{\textit{Sistemi operativi}}{Conoscenza di sistema operativo Windows e pacchetto Office (Word, Excel, etc).}
+
+\vspace{0.25cm}
+
+\section{Competenze extra}
+
+\cvline{$\cdot$}{Ottime competenze comunicative interne (versolo staff) ed esterne (verso clienti e turisti) acquisite durante le esperienza di venditrice e \textit{chef de rang}.}
+
+\cvline{$\cdot$}{Ottime competenze organizzative e predisposizione a lavorare in team, attitudine ai rapporti interpersonali, spirito di adattamento e flessibilità.}
+
+\section{Hobby}
+
+\cvline{$\cdot$}{Appassionata di storia, ballo e culture internazionali.}
+
+
+\vspace{\fill}
+{\footnotesize\noindent
+La sottoscritta è a conoscenza che, ai sensi dell'art. 26 della legge italiana 15/68, le dichiarazioni mendaci, la falsità negli atti e l'uso di atti falsi sono puniti ai sensi del codice penale e delle leggi speciali. Inoltre, la sottoscritta autorizza al trattamento dei dati personali, in conformità alle disposizioni della legge sulla privacy  (D.L.196/03 e regolamento UE 2016/679).}
+\vspace*{0.8cm}\\
+Brindisi | \today\hfill Firma: \makebox[4cm][b]{\includegraphics[scale=.155]{Signature.jpg}}
+\end{document}

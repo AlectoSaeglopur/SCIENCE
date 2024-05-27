@@ -1,0 +1,245 @@
+
+%% SET FONT, FORMAT AND TYPE OF DOCUMENT %%
+
+\documentclass[10pt,a4paper]{moderncv}		% Formats: a4paper, letterpaper, a5paper, legalpaper, executivepaper, landscape
+
+
+
+%% SET STYLE AND COLOR %%
+
+%\moderncvtheme[green]{classic}				    % Color: blue, orange, green, red, purple, grey or black | Style: casual, classic, oldstyle, banking
+\moderncvstyle{classic}
+\definecolor{cst_color}{RGB}{0,166,133}  % RGB color map (each between 0 and 255)
+\colorlet{color1}{cst_color}
+
+
+
+% ADD PACKAGES %%
+
+\usepackage[italian]{babel}
+\usepackage[utf8]{inputenx}
+\usepackage[scale=0.828,top=1cm, bottom=2cm]{geometry}
+\usepackage{color,soul}						        % to use the highlight option (during debug)
+%\usepackage{fontawesome}					        % to use icons in the contacts section 
+\usepackage{relsize}
+\usepackage{xspace}
+\usepackage{newtxmath}
+\newcommand{\Rplus}{\protect\hspace{+.01em}\protect\raisebox{.35ex}{\smaller{\smaller\textbf{+}}}}
+\newcommand{\Cpp}{\mbox{C\Rplus\Rplus}\xspace}
+\setlength{\hintscolumnwidth}{4cm}			  % to extend the left column
+\AtBeginDocument{\recomputelengths}
+\pagenumbering{arabic}						        % set page numbering style
+\renewcommand*{\homepagesymbol}{\faGlobe $ $ }
+\RenewDocumentCommand{\social}{O{}O{}m}{%
+  \ifthenelse{\equal{#2}{}}{
+      \ifthenelse{\equal{#1}{linkedin}}{\collectionadd[linkedin]{socials}{#3}}{}
+      \ifthenelse{\equal{#1}{twitter}}{\collectionadd[twitter]{socials}{\protect\httplink[#3]{www.twitter.com/#3}}}{}
+      \ifthenelse{\equal{#1}{github}}{\collectionadd[github]{socials}{\protect\httplink[#3]{www.github.com/#3}}}{}
+      \ifthenelse{\equal{#1}{skype}}{\collectionadd[skype]{socials}{#3}}{}
+    }{\collectionadd[#1]{socials}{\protect\httplink[#3]{#2}}}}
+
+
+
+% PERSONAL INFO AND CONTACTS
+
+\firstname{\vspace{.2cm} \hspace{-0.8cm} {\fontsize{31}{35}\selectfont Simona Caccioppoli}}
+\familyname{}
+\title{\vspace{1cm} Curriculum Vitae}
+\address{\textbf{\vspace{0.1cm} Contatti}}
+%\phone[mobile]{(+39)\,349\,683\,2687}
+\phone[fixed]{(+39)\,347\,187\,9991}
+\email{simona.caccioppoli@gmail.com}
+\social[linkedin]{linkedin.com/in/caccioppolis}
+\social[skype]{simona\_c\_1992}
+\photo[100pt][0.6pt]{Photo.jpg}
+
+
+
+%% START OF DOCUMENT BODY %%
+
+\begin{document}
+\maketitle
+\pagestyle{empty}							            % to disable page numbering
+
+\section{Profilo}
+
+\cvline{}{Sono laureata in Mediazione Linguistica Interculturale con varie esperienze lavorative come interprete-traduttrice e assistente commerciale in campo turistico, enogastronomico ed industriale. Durante il mio percorso ho ricoperto ruoli di responsabilità, maturato esperienza internazionale e sviluppato capacità di teamworking e interfacciamento con clienti e fornitori. Data la mia formazione, personalità solare e passione per le culture internazionali, sono interessata in particolare all'ambito commerciale estero, con l'aspirazione di intraprendere un percorso di crescita professionale stimolante.}
+
+\vspace{0.6cm}
+
+
+\section{Informazioni personali}
+
+\cvline{\textit{nome e cognome}}{Simona Angela Caccioppoli}
+\cvline{\textit{data e luogo di nascita}}{1 maggio 1992 $\mid$ Brindisi, Italia}
+\cvline{\textit{residenza}}{via Campo degli Svizzeri 84-b, Forlì, 47121, Italia}
+\cvline{\textit{cittadinanza}}{italiana}
+\cvline{\textit{patente di guida}}{cat. B (automunita)}
+
+\vspace{0.6cm}
+
+
+\section{Esperienze lavorative}
+
+\cvline{Nov. 2023 - Mag. 2024 \:  $\bullet$}{\textbf{Customer Service Officer} presso \textbf{Adapa Italy S.p.A.} (Forl\`i, Italia) \vspace{0.06cm} \newline
+{Impiegata nel settore chimico-industriale per gruppo multinazionale nella distribuzione B2B di prodotti plastici in \textit{film}, quali \textit{packaging} e \textit{labelling}. Tra le mansioni svolte:
+\begin{itemize}
+\item[$\cdot$]interfacciamento con le altre sedi del gruppo per richieste di prodotti nelle fasi di preventivo, campionatura, ordini, spedizioni e reclami;
+\item[$\cdot$]persona di riferimento per le richieste dei clienti con sede Italia per le linee di prodotto sviluppate dalle altre sedi (richiesta di preventivo, campionature e ordini).
+\end{itemize}}
+}
+
+\cvline{Giu. 2022 - Ott. 2023 \:  $\bullet$}{\textbf{Inside Sales} presso \textbf{Ingram Micro GmbH} (Vienna, Austria) \vspace{0.06cm} \newline
+Impiegata nel settore \textit{Information Technology} (IT) per la distribuzione B2B di prodotti hardware e software per il mercato austriaco e svizzero all'interno del team Business Channel Sales, con mansioni di:
+\begin{itemize}
+\item[$\cdot$] Gestione dei rapporti commerciali relativi al supporto clienti (processamento ordini nelle fasi tra post-vendita e spedizione e inoltro offerte, ed interfacciamento con clienti per richieste di informazioni sullo stato degli ordini);
+\item[$\cdot$] Gestione delle operazioni admin su gestionale (inserimento di listini prezzi, fatturazione di ordini, e correzione operativa di errori su ordini in sospeso o già spediti e relativa fatturazione).
+\end{itemize}
+}
+
+\cvline{Apr. 2021 - Giu. 2022 \:  $\bullet$}{\textbf{Marketing Assistant} presso \textbf{Mass Response Service GmbH} (Vienna, Austria) \vspace{0.06cm} \newline
+Impiegata nel settore telefonia per il marchio italiano \textit{spusu S.r.l.}, con mansioni di:
+\begin{itemize}
+\item[$\cdot$] Gestione dei rapporti commerciali B2B (richieste di preventivi, traduzione della corrispondenza tra italiano e tedesco, rapporti con la contabilità);
+\end{itemize}
+}
+\cvline{}{
+\begin{itemize}
+\item[$\cdot$] Pianificazione marketing (creazione del calendario editoriale, gestione dei social media, analisi della concorrenza, e raccolta dati earned/paid/owned-media, organizzazione di concorsi a premio, e pianificazione di pubblicità su quotidiani online);
+\item[$\cdot$] Coordinamento per la risoluzione di problemi tra il servizio clienti italiano e il supporto tecnico austriaco (richieste di migliorie, analisi di fattibilità, e traduzione di aggiornamenti su sito web).
+\end{itemize}
+}
+
+\cvline{Ott. 2020 - Mar. 2021 \:  $\bullet$}{\textbf{Customer Success \& Junior Account Manager} presso \textbf{Mohwinckel S.r.l.} (Trezzano sul Naviglio, Italia) \vspace{0.06cm} \newline
+Impiegata nel settore chimico-plastico industriale su quattro linee di prodotto (mulini colloidali, piastre isolanti, macchinari da marcatura e vernici da marcatura per cavi e fibre ottiche), con mansioni di interfacciamento con fornitori tedeschi e austriaci, ed assistenza verso clienti italiani nelle fasi tra vendita e post-vendita (richieste di preventivi, controllo dell'inventario, ordini a fornitore, controllo delle spedizioni e solleciti di pagamento).
+}
+
+\vspace{0.45cm}
+
+\cvline{Gen. 2018 - Ott. 2020 \:  $\bullet$}{\textbf{Sales Assistant} presso \textbf{Payper Industrial Wear S.r.l.} (Fiumana, Italia) \vspace{0.06cm} \newline
+Impiegata nel settore tessile-abbigliamento (workwear e corporate wear) con mansioni di back-office commerciale verso Italia, Germania, Austria e Svizzera (lavorazione ordini, assistenza clienti, traduzione della modulistica tecnico-commerciale, ed assistenza all'ufficio resi e reclami), formazione tecnico-gestionale verso le filiale tedesca, e referente aziendale per la squadra anti-incendio e sicurezza).}
+
+\vspace{0.45cm}
+
+\cvline{Set. 2016 - Dic. 2017 \: $\bullet$}{\textbf{Junior Export Manager} presso \textbf{Cantina Sociale di Cesena S.A.C.} (Cesena, Italia) \vspace{0.06cm} \newline
+Vincitrice di bando regionale tra Università di Bologna e Camera di Commercio di Forl\`i per la posizione di \textit{temporary export manager} con focus su Germania-Austria e America del Nord, con responsabilit\`a di:
+\begin{itemize}
+\item[$\cdot$]Gestione B2B (cura dei clienti e ricerca di potenziali nuovi, indagini di mercato e collaborazioni con piattaforme e-commerce, traduzione di schede tecniche e presenza a fiere e workshop nazionali ed internazionali);
+\item[$\cdot$]Pianificazione marketing (gestione di contenuti su social media, advertising, e mailing list in italiano, inglese e tedesco);
+\item[$\cdot$]Coordinamento B2C (organizzazione di eventi all'interno della cantina).
+\end{itemize}
+}
+
+\vspace{0.25cm}
+
+
+\section{Esperienze minori}
+
+\cvline{Lug. 2016 \: $\bullet$}{\textbf{Interprete} presso \textbf{Fimeco S.r.l.} (Controguerra, Italia) \vspace{0.06cm} \newline
+Interprete a chiamata per azienda abruzzese nel settore meccatronico verso cliente tedesco in visita.}
+
+\vspace{0.3cm}
+
+\cvline{Mag. 2016 - Set. 2016 \: $\bullet$}{\textbf{Receptionist} presso \textbf{Socialturist S.r.l.} (Martinsicuro, Italia) \vspace{0.06cm} \newline
+Impiegata nel settore turistico presso camping village Riva Nuova come front-office e accoglienza verso clienti italiani e stranieri.}
+
+\vspace{0.3cm}
+
+\cvline{Lug. 2015 - Ago. 2015 \: $\bullet$}{\textbf{Activity Leader} presso \textbf{STS - Student Travel Schools} (Oxford, UK) \vspace{0.06cm} \newline
+Impiegata per agenzia specializzata in vacanze studio e scambi culturali come mediatrice linguistica in progetto educativo di tre settimane rivolto a ragazzi italiani ad Oxford con responsabilità organizzative, formative e ricreative.}
+
+\vspace{0.3cm}
+
+\cvline{Giu. 2014 \: $\bullet$}{\textbf{Traduttrice} presso \textbf{PubliOne S.r.l.} (Forlì, Italia) \vspace{0.06cm} \newline
+Impiegata nell'ambito di tirocinio curricolare universitario per azienda di comunicazione come traduttrice di campagne pubblicitarie (in lingua inglese e tedesca) e collaboratrice marketing.}
+
+\vspace{0.3cm}
+
+\cvline{Ago. 2008 - Apr. 2011}{\textbf{Assistente educatrice} presso \textbf{Base NATO} (Geilenkirchen, Germania) \vspace{0.06cm} \newline
+Impegnata come volontaria nel progetto educativo \textit{International Youth Activities} con mansioni quali organizzatrice di attività ludiche, mediatrice linguistica, accompagnatrice e doposcuola in lingua inglese e tedesca.}
+
+%\vspace{0.6cm}
+%\newpage
+
+
+\section{Titoli di studio}
+
+\cvline{Mar. 2016 \: $\circ$}{\textbf{Laurea
+%Triennale
+}in \textbf{Mediazione Linguistica Interculturale}%\newline
+\vspace{0.06cm}
+\begin{itemize}
+  \item[$\cdot$] presso Universit\`a di Bologna (sede di Forl\`i),
+  \item[$\cdot$] votazione 100/110,
+  \item[$\cdot$] tesi di laurea su traduzione del testo teatrale \textit{Leandro, Rei da Helíria} dal portoghese all'italiano.
+\end{itemize}}
+\vspace{-0.1cm}
+
+\cvline{Giu. 2015 \: $\circ$}{\textbf{Erasmus$+$}
+\vspace{0.06cm}
+\begin{itemize}
+  \item[$\cdot$] presso Universidade do Porto (Portogallo),
+  \item[$\cdot$] facoltà di \textit{Lingue, letterature e traduzione},
+  \item[$\cdot$] durata 9 mesi.
+\end{itemize}}
+\vspace{-0.1cm}
+
+\cvline{Lug. 2011 \: $\circ$}{\textbf{Diploma di Liceo}
+\vspace{0.06cm}
+\begin{itemize}
+  \item[$\cdot$] presso \textit{Anita Lichtenstein Gesamtschule} di Geilenkirchen (Germania).
+%  \item[$\cdot$] votazione 2,7 (equivalente a 77/100)
+\end{itemize}}
+
+%\vspace{0.25cm}
+%\newpage
+
+\section{Conoscenze linguistiche}
+\cvline{\textit{Italiano}}{Madrelingua}
+\cvline{\textit{Inglese}}{Avanzato}
+\cvline{\textit{Tedesco}}{Avanzato}
+\cvline{\textit{Portoghese}}{Intermedio}
+\cvline{\textit{Spagnolo}}{Base}
+%\cvline{\textit{Inglese}}{Conoscenza avanzata (con attestato B2).
+%\cvline{\textit{Inglese}}{Conoscenza avanzata (attestato B2), soprattutto in ambito tecnico:
+%\begin{itemize}
+%  \item[--] capacità di lettura e scrittura: professionale
+%  \item[--] capacità orale: buona
+%\end{itemize}}
+
+\vspace{0.25cm}
+
+\section{Competenze informatiche}
+\cvline{\textit{Sistemi operativi}}{ Windows, macOS}
+\cvline{\textit{Software}}{Office pack, Mago, Stealth}
+
+\vspace{0.25cm}
+
+
+\section{Partecipazioni}
+
+\cvline{$\cdot$}{Workshop \textit{Die Vier Jahreszeiten der Emilia-Romagna} | 23 Ottobre 2017 |  Monaco di Baviera (Germania)}
+\cvline{$\cdot$}{Workshop \textit{Enjoy, it’s from Europe} | 2-5 Ottobre 2017 |  New York (USA)}
+\cvline{$\cdot$}{Fiera \textit{Vinitaly} | 9-12 Aprile 2017 |  Verona (Italia)}
+\cvline{$\cdot$}{Fiera \textit{Prowein} | 19-21 Marzo 2017 |  Düsseldorf (Germania)}
+\cvline{$\cdot$}{Workshop \textit{Simply Italian Great Wines} | 24-26 Ottobre 2016 | New York - Los Angeles (USA)}
+\cvline{$\cdot$}{Congresso \textit{H2O - More than just a drop} promosso da European Science Parliament | 24-25 Marzo 2010 |  Aquisgrana (Germania)}
+
+\vspace{0.25cm}
+
+
+\section{Attività extra}
+
+\cvline{$\cdot$}{Volontaria presso Croce Rossa Italiana in attività di protezione civile ed assistenza sociale a famiglie indigenti.}
+\cvline{$\cdot$}{Appassionata di fotografia, viaggi e ballo.}
+\cvline{$\cdot$}{Donatrice sangue AVIS.}
+
+
+%\newpage
+
+\vspace{\fill}
+{\footnotesize\noindent
+La sottoscritta è a conoscenza che, ai sensi dell'art. 26 della legge italiana 15/68, le dichiarazioni mendaci, la falsità negli atti e l'uso di atti falsi sono puniti ai sensi del codice penale e delle leggi speciali. Inoltre, la sottoscritta autorizza al trattamento dei dati personali, in conformità alle disposizioni della legge sulla privacy  (D.L.196/03 e regolamento UE 2016/679).}
+\vspace*{0.8cm}\\
+ Firma: \makebox[4cm][b]{\includegraphics[scale=.155]{Signature.jpg}}
+\end{document}
