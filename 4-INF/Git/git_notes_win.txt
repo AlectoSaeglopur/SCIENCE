@@ -15,7 +15,7 @@
 - select "Fast-forward or merge" as pull-command behavior;
 - select "Git Credential Manager";
 - tick "Enable file system caching";
-- skip the "experimental option" and start the installation.
+- skip the "experimental options" window and start the installation.
 
 ------------------------------------------------------------
 
