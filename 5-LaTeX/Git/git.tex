@@ -1,0 +1,162 @@
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+\documentclass[a4paper,portrait,10pt]{article}   % set single-column layout
+%\documentclass[twoside,twocolumn]{article}	  % set double-column layout
+\usepackage{amssymb}
+\usepackage[tbtags]{amsmath}
+
+\usepackage{blindtext}   % Package to generate dummy text throughout this template 
+
+\usepackage[sc]{mathpazo}   % Use the Palatino font
+\usepackage[T1]{fontenc}   % Use 8-bit encoding that has 256 glyphs
+\linespread{1.05}   % Line spacing - Palatino needs more space between lines
+\usepackage{microtype}   % Slightly tweak font spacing for aesthetics
+
+\usepackage[english]{babel}   % Language hyphenation and typographical rules
+
+\usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt,left=25mm]{geometry}   % Document margins
+\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption}   % Custom captions under/above floats in tables or figures
+\usepackage{booktabs}   % Horizontal rules in tables
+
+\usepackage{lettrine}   % The lettrine is the first enlarged letter at the beginning of the text
+
+\usepackage{enumitem}   % Customized lists
+\setlist[itemize]{noitemsep}   % Make itemize lists more compact
+
+\usepackage{abstract}   % Allows abstract customization
+\renewcommand{\abstractnamefont}{\normalfont\bfseries}   % Set the "Abstract" text to bold
+\renewcommand{\abstracttextfont}{\normalfont\small\itshape}   % Set the abstract itself to small italic text
+
+\usepackage{titlesec}   % Allows customization of titles
+\renewcommand\thesection{\Roman{section}}   % Roman numerals for the sections
+\renewcommand\thesubsection{\roman{subsection}}   % roman numerals for subsections
+\titleformat{\section}[block]{\large\scshape\centering}{\thesection.}{1em}{}   % Change the look of the section titles
+\titleformat{\subsection}[block]{\large}{\thesubsection.}{1em}{}   % Change the look of the section titles
+
+\usepackage{fancyhdr}   % Headers and footers
+\pagestyle{fancy}   % All pages have headers and footers
+\fancyhead{}   % Blank out the default header
+\fancyfoot{}   % Blank out the default footer
+\fancyhead[C]{Git Notes $\cdot$ June 2024 }   % Custom header text
+\fancyfoot[C]{\thepage}   % Custom footer text
+\usepackage{titling}   % Customizing the title section
+
+\usepackage{verbatim}
+\usepackage{textcomp}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+\usepackage{circuitikz}
+
+%----------------------------------------------------------------------------------------
+%	CUSTOM DEFINES
+%----------------------------------------------------------------------------------------
+
+\newcommand{\mydiv}{$\rightarrow$ }
+%\newcommand{\mydiv}{>> }
+
+\newcommand{\mysapo}[1]{\textquotesingle #1\textquotesingle }   % Single text apostrophe
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\setlength{\droptitle}{-4\baselineskip}   % Move the title up
+\pretitle{\begin{center}\Huge\bfseries}   % Article title formatting
+\posttitle{\end{center}}   % Article title closing formatting
+\title{Git Notes}   % Article title
+\author{
+  \textsc{Filippo Valmori} \\    % Author name
+  %\normalsize Alecto S\ae gl\'opur Mul.Dr. \\   % Your institution
+}
+\date{2\textsuperscript{nd} June 2024}   % Date (leave empty to omit a date)
+
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\tikzstyle{int}=[draw, fill=white, minimum size=2em]
+\tikzstyle{init} = [pin edge={to-,thin,black}]
+\maketitle   % Print title
+
+%----------------------------------------------------------------------------------
+%	INSTALLATION
+%----------------------------------------------------------------------------------
+
+\section{Installation}
+§ Installation procedure (tested on Windows 10 OS):
+\begin{itemize}
+  \item[$\cdot$] download and launch installer from Git website (free and open-source);
+  \item[$\cdot$] set \textit{C:\textbackslash Program Files\textbackslash Git} as installation path;
+  \item[$\cdot$] tick \textit{Open Git Bash here} and untick \textit{Open Git GUI here} within \textit{Windows Explorer integration};
+\item[$\cdot$] select \textit{Use Visual Studio Code as Git's default editor};
+\item[$\cdot$] select \textit{Let Git decide} about default branch naming;
+\item[$\cdot$] select \textit{Git from command line and also from 3rd-party software};
+\item[$\cdot$] select \textit{Use bundled OpenSSH};
+\item[$\cdot$] select \textit{Use the OpenSSL library};
+\item[$\cdot$] select \textit{Checkout Windows-style, commit Unix-style line endings};
+\item[$\cdot$] select \textit{Use MinTTY};
+\item[$\cdot$] select \textit{Fast-forward or merge} as pull-command behavior;
+\item[$\cdot$] select \textit{Git Credential Manager};
+\item[$\cdot$] tick \textit{Enable file system caching}
+\item[$\cdot$] skip the \textit{Experimental options} window and start the installation.
+\end{itemize}
+
+%--------------------------------------------------------------------------
+%	SETUP
+%--------------------------------------------------------------------------
+
+\section{SETUP}
+§ Configure user's name and email:
+\begin{itemize}
+  \item[$\cdot$] to configure Git username \mydiv \textit{git config -{}-global user.name "Filippo Valmori"};
+  \item[$\cdot$] to configure Git email \mydiv \textit{git config -{}-global user.email "filippo.valmori@gmail.com"};
+  \item[$\cdot$] NB \#1: for the last x2 commands, \textit{-{}-system} or \textit{-{}-local} could be used in place of \textit{--global} to (however that's in general not recommended, see Coursera's training for more details);
+  \item[$\cdot$] to readback set user's name and email \mydiv \textit{git config user.name} and \text{git config user.email} (or all at once via \textit{git config [-{}-global] -{}-list});
+  \item[$\cdot$] to avoid line-ending issues among team members working with different OSs and automatically convert \mysapo{CRLF} (typical of Windows) line-endings into \mysapo{LF} (typical of Linux and macOS) when adding a file to the index (and vice versa when it checks out code onto your filesystem) \mydiv \textit{git config -{}-global core.autocrlf true} (in particular, when asserted on Windows machines, this converts \mysapo{LF} endings into \mysapo{CRLF} when you check out code);
+  \item[$\cdot$] NB \#2: \mysapo{CR} = \mysapo{\textbackslash r} = \textit{Carriage Return} character | \mysapo{LF} = \mysapo{\textbackslash n} = \textit{Line Feed} character.
+\end{itemize}
+
+
+
+
+%--------------------------------------------------------------------------
+%	ANNEX
+%--------------------------------------------------------------------------
+
+\section{ANNEX}
+Hereafter a list of useful trigonometric relations.
+\begin{align}
+cos^{2}(x) + sin^{2} &= 1 \nonumber \\
+2sin(x)cos(x) &= sin(2x) \nonumber \\
+1 + cos(2x) &= 2cos^{2}(x) \nonumber \\
+cos(x \pm y) &= cos(x)cos(y) \mp sin(x)sin(y) \nonumber \\
+sin(x \pm y) &= sin(x)cos(y) \pm cos(x)sin(y) \nonumber
+\end{align}
+
+%----------------------------------------------------------------------------------------
+%	REFERENCE LIST
+%----------------------------------------------------------------------------------------
+
+\begin{thebibliography}{99} % Bibliography - this is intentionally simple in this template
+
+\bibitem[1]{bib:Sklar} B. Sklar, P. K. Ray, \textit{Digital Communications}, Chap. 4-9, Pearson Education, 2012.
+ 
+\end{thebibliography}
+
+
+
+
+% NB#1: MSK come caso di CPFSK [CPFSK]
+% NB#2: Schema circuitale da BB a RF [Intro]
+% NB#3: Schema circuitale per FSK e GFSK
+
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
+\grid

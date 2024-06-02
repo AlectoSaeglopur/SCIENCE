@@ -2,8 +2,8 @@
 >> 1. INSTALLATION <<
 
 § Installation procedure (tested on Windows 10 OS):
-- launch Git.exe installer (free and open-source);
-- use "C:\Program Files\Git" as installation path;
+- download and launch installer from Git website (free and open-source);
+- set "C:\Program Files\Git" as installation path;
 - tick "Open Git Bash here" and untick "Open Git GUI here" within "Windows Explorer integration";
 - select "Use Visual Studio Code as Git's default editor";
 - select "Let Git decide" about default branch naming;
@@ -15,19 +15,19 @@
 - select "Fast-forward or merge" as pull-command behavior;
 - select "Git Credential Manager";
 - tick "Enable file system caching";
-- skip the "experimental options" window and start the installation.
+- skip the "Experimental options" window and start the installation.
 
 ------------------------------------------------------------
 
 >> 2. SETUP <<
 
 § Configure user's name and email:
-- configure Git username >> "git config --global user.name "Filippo Valmori"";
-- configure Git email >> "git config --global user.email "filippo.valmori@gmail.com"";
-- [for the last x2 commands, "--system" or "--local" could be used in place of "--global" to (however that's unusual, see Coursera's training for more details)];
-- readback set user's name and email >> "git config user.name" and "git config user.email" (or all at once via "git config [--global] --list");
-- to avoid line-ending issues among team members working with different OSs and automatically convert 'CRLF' (aka "Carriage Return" or 
-typical Windows) line-endings into 'LF' (typical of Linux and macOS) when adding a file to the index (and vice versa when it checks out code onto your filesystem) use "git config --global core.autocrlf true" (in particular, when set to 'true' on Windows machines, this converts 'LF' endings into 'CRLF' when you check out code) [NB: "CR" = '\r' = "Carriage Return" character | "LF" = '\n' = "Line Feed" character].
+- to configure Git username >> "git config --global user.name "Filippo Valmori"";
+- to configure Git email >> "git config --global user.email "filippo.valmori@gmail.com"";
+- NB #1: for the last x2 commands, "--system" or "--local" could be used in place of "--global" to (however that's in general not recommended unusual, see Coursera's training for more details);
+- to readback set user's name and email >> "git config user.name" and "git config user.email" (or all at once via "git config [--global] --list");
+- to avoid line-ending issues among team members working with different OSs and automatically convert 'CRLF' (typical of Windows) line-endings into 'LF' (typical of Linux and macOS) when adding a file to the index (and vice versa when it checks out code onto your filesystem) >> "git config --global core.autocrlf true" (in particular, when asserted on Windows machines, this converts 'LF' endings into 'CRLF' when you check out code)
+- NB #2: 'CR' = '\r' = "Carriage Return" character | 'LF' = '\n' = "Line Feed" character.
 
 § To generate SSH key (using ED25519 algorithm) for encrypting/authenticating communication from/to server:
 - open Git bash (anywhere);
