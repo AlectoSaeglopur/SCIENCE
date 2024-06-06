@@ -30,8 +30,8 @@
 \renewcommand{\abstracttextfont}{\normalfont\small\itshape}   % Set the abstract itself to small italic text
 
 \usepackage{titlesec}   % Allows customization of titles
-\renewcommand\thesection{\Roman{section}}   % Roman numerals for the sections
-\renewcommand\thesubsection{\roman{subsection}}   % roman numerals for subsections
+\renewcommand\thesection{\arabic{section}}   % Roman numerals for the sections
+\renewcommand\thesubsection{\Roman{subsection}}   % roman numerals for subsections
 \titleformat{\section}[block]{\large\scshape\centering}{\thesection.}{1em}{}   % Change the look of the section titles
 \titleformat{\subsection}[block]{\large}{\thesubsection.}{1em}{}   % Change the look of the section titles
 
@@ -49,14 +49,23 @@
 \usetikzlibrary{shapes,arrows}
 \usepackage{circuitikz}
 
+\usepackage{hyperref}
+\hypersetup
+{
+  colorlinks=true,
+  linkcolor=violet,     
+  urlcolor=violet,
+}
+
+
 %----------------------------------------------------------------------------------------
 %	CUSTOM DEFINES
 %----------------------------------------------------------------------------------------
 
-\newcommand{\mydiv}{$\rightarrow$ }
 %\newcommand{\mydiv}{>> }
-
+\newcommand{\mydiv}{$\rightarrow$ }   % Divider
 \newcommand{\mysapo}[1]{\textquotesingle #1\textquotesingle }   % Single text apostrophe
+\newcommand{\mycmd}[1]{\textcolor{blue}{\textit{#1}}}   % Git command style
 
 %----------------------------------------------------------------------------------------
 %	TITLE SECTION
@@ -70,7 +79,7 @@
   \textsc{Filippo Valmori} \\    % Author name
   %\normalsize Alecto S\ae gl\'opur Mul.Dr. \\   % Your institution
 }
-\date{2\textsuperscript{nd} June 2024}   % Date (leave empty to omit a date)
+\date{9\textsuperscript{th} June 2024}   % Date (leave empty to omit a date)
 
 
 %----------------------------------------------------------------------------------------
@@ -88,10 +97,10 @@
 %----------------------------------------------------------------------------------
 
 \section{Installation}
-§ Installation procedure (tested on Windows 10 OS):
+$\circ$ Installation procedure (tested on \textit{Windows 10} OS):
 \begin{itemize}
   \item[$\cdot$] download and launch installer from Git website (free and open-source);
-  \item[$\cdot$] set \textit{C:\textbackslash Program Files\textbackslash Git} as installation path;
+  \item[$\cdot$] set \textit{C:$\backslash$Program Files$\backslash$Git} as installation path;
   \item[$\cdot$] tick \textit{Open Git Bash here} and untick \textit{Open Git GUI here} within \textit{Windows Explorer integration};
 \item[$\cdot$] select \textit{Use Visual Studio Code as Git's default editor};
 \item[$\cdot$] select \textit{Let Git decide} about default branch naming;
@@ -110,36 +119,59 @@
 %	SETUP
 %--------------------------------------------------------------------------
 
-\section{SETUP}
-§ Configure user's name and email:
+\section{Setup}
+$\circ$ User's name and email configuration:
 \begin{itemize}
-  \item[$\cdot$] to configure Git username \mydiv \textit{git config -{}-global user.name "Filippo Valmori"};
-  \item[$\cdot$] to configure Git email \mydiv \textit{git config -{}-global user.email "filippo.valmori@gmail.com"};
-  \item[$\cdot$] NB \#1: for the last x2 commands, \textit{-{}-system} or \textit{-{}-local} could be used in place of \textit{--global} to (however that's in general not recommended, see Coursera's training for more details);
-  \item[$\cdot$] to readback set user's name and email \mydiv \textit{git config user.name} and \text{git config user.email} (or all at once via \textit{git config [-{}-global] -{}-list});
-  \item[$\cdot$] to avoid line-ending issues among team members working with different OSs and automatically convert \mysapo{CRLF} (typical of Windows) line-endings into \mysapo{LF} (typical of Linux and macOS) when adding a file to the index (and vice versa when it checks out code onto your filesystem) \mydiv \textit{git config -{}-global core.autocrlf true} (in particular, when asserted on Windows machines, this converts \mysapo{LF} endings into \mysapo{CRLF} when you check out code);
-  \item[$\cdot$] NB \#2: \mysapo{CR} = \mysapo{\textbackslash r} = \textit{Carriage Return} character | \mysapo{LF} = \mysapo{\textbackslash n} = \textit{Line Feed} character.
+  \item[$\cdot$] to configure Git username \mydiv \mycmd{git config -{}-global user.name "Filippo Valmori"};
+  \item[$\cdot$] to configure Git email \mydiv \mycmd{git config -{}-global user.email "filippo.valmori@gmail.com"};
+  \item[$\cdot$] \textbf{NB \#1}: for the last x2 commands, \textit{-{}-system} or \textit{-{}-local} could be used in place of \textit{--global} to (however that's in general not recommended, see Coursera's training for more details);
+  \item[$\cdot$] to readback set user's name and email \mydiv \mycmd{git config user.name} and \text{git config user.email} (or all at once via \mycmd{git config [-{}-global] -{}-list});
+  \item[$\cdot$] to avoid line-ending issues among team members working with different OSs and automatically convert \mysapo{CRLF} (typical of Windows) line-endings into \mysapo{LF} (typical of Linux and macOS) when adding a file to the index (and vice versa when it checks out code onto your filesystem) \mydiv \mycmd{git config -{}-global core.autocrlf true} (in particular, when asserted on Windows machines, this converts \mysapo{LF} endings into \mysapo{CRLF} when you check out code);
+  \item[$\cdot$] \textbf{NB \#2}: \mysapo{CR} = \mysapo{\textbackslash r} = \textit{Carriage Return} character | \mysapo{LF} = \mysapo{\textbackslash n} = \textit{Line Feed} character.
+\end{itemize}
+\vspace{5pt}
+$\circ$ SSH key generation for encrypting and authenticating communication from/to server (assuming ED25519 algorithm):
+\begin{itemize}
+  \item[$\cdot$] open Git bash (anywhere);
+  \item[$\cdot$] type \mycmd{ssh-keygen -t ed25519 -C "filippo.valmori@gmail"} specifying your email;
+  \item[$\cdot$] empty-ENTER until completion;
+  \item[$\cdot$] check public (.pub) and private keys have been successfully created in the specified (hidden) folder \textit{.ssh} (e.g. \textit{C:$\backslash$Users$\backslash$Filippo$\backslash$.ssh});
+  \item[$\cdot$] from internet browser, go to \textit{github website > profile icon > settings/manage-account > ssh keys} and upload the authentication public-key just created (simply drag-and-drop it);
+  \item[$\cdot$] as a confirmation, type on bash \textit{git gui} to open Git GUI and here go to \textit{help > show ssh key} and verify the key has been successfully loaded.
+  \item[$\cdot$] \textbf{NB \#3}: setting up the SSH key is helpful because it allows to automatically authenticate yourself when accessing the remote server, thus without the need of supplying your username and password at each visit. For further details see 
+\href{https://confluence.atlassian.com/bitbucketserverkb/ssh-rsa-key-rejected-with-message-no-mutual-signature-algorithm-1026057701.html}{\underline{\textit{here}}}.
 \end{itemize}
 
-
-
-
 %--------------------------------------------------------------------------
-%	ANNEX
+%	LOCATIONS & SYNTAX
 %--------------------------------------------------------------------------
 
-\section{ANNEX}
-Hereafter a list of useful trigonometric relations.
-\begin{align}
-cos^{2}(x) + sin^{2} &= 1 \nonumber \\
-2sin(x)cos(x) &= sin(2x) \nonumber \\
-1 + cos(2x) &= 2cos^{2}(x) \nonumber \\
-cos(x \pm y) &= cos(x)cos(y) \mp sin(x)sin(y) \nonumber \\
-sin(x \pm y) &= sin(x)cos(y) \pm cos(x)sin(y) \nonumber
-\end{align}
+\section{Locations \& Syntax}
+$\circ$ Locally on each developer's PC the so-called \textit{project directory} folder contains:
+\begin{itemize}
+  \item[$\cdot$] \textbf{\textit{working tree}} (WT), where the actual project files and directories (relative to a single commit at each time) are placed and can be edited;
+  \item[$\cdot$] \textbf{\textit{staging area}} (SA, sometimes called also \textit{index}), where the file planned to be part of the next commit are stored (aka \textit{staged});
+  \item[$\cdot$] \textbf{\textit{local repository}} (LR), storing all the commits of the project (thus, representing its versioning history).
+\end{itemize}
+\vspace{5pt}
+$\circ$ Note locally SA and LR are located inside the hidden sub-directory \textit{.git}. Thus, removing this folder means removing all the project version history locally.
+\newline
+\newline
+$\circ$ The \textbf{\textit{remote repository}} (RR), unlike the other x3, is located remotely in a single data-center or cloud and represents the common interaction point among all developers (thus it identifies the official state of the project at any time). When LR and RR are synchronized, they contain exactly the same commits.
+\newline
+\newline
+$\circ$ The general syntax for commands is \mycmd{git [command] [-{}-flags] [arguments]} or, more in detail, \mycmd{git command (-f|-{}-flag) [<id>] [<paths> ...]}, where:
+\begin{itemize}
+  \item[$\cdot$] \textit{|} = alternative;
+  \item[$\cdot$] \textit{[]} = optional values;
+  \item[$\cdot$] \textit{-} or \textit{-{}-} = command flag or option;
+  \item[$\cdot$] \textit{<>} = required values (aka \textit{placeholder});
+  \item[$\cdot$] \textit{()} = grouping (for better clarity and disambiguation);
+  \item[$\cdot$] \textit{...} = multiple occurrences possible.
+\end{itemize}
 
 %----------------------------------------------------------------------------------------
-%	REFERENCE LIST
+%	REFERENCE
 %----------------------------------------------------------------------------------------
 
 \begin{thebibliography}{99} % Bibliography - this is intentionally simple in this template

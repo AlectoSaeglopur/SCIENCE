@@ -21,7 +21,7 @@
 
 >> 2. SETUP <<
 
-§ Configure user's name and email:
+§ User's name and email configuration:
 - to configure Git username >> "git config --global user.name "Filippo Valmori"";
 - to configure Git email >> "git config --global user.email "filippo.valmori@gmail.com"";
 - NB #1: for the last x2 commands, "--system" or "--local" could be used in place of "--global" to (however that's in general not recommended unusual, see Coursera's training for more details);
@@ -29,7 +29,7 @@
 - to avoid line-ending issues among team members working with different OSs and automatically convert 'CRLF' (typical of Windows) line-endings into 'LF' (typical of Linux and macOS) when adding a file to the index (and vice versa when it checks out code onto your filesystem) >> "git config --global core.autocrlf true" (in particular, when asserted on Windows machines, this converts 'LF' endings into 'CRLF' when you check out code)
 - NB #2: 'CR' = '\r' = "Carriage Return" character | 'LF' = '\n' = "Line Feed" character.
 
-§ To generate SSH key (using ED25519 algorithm) for encrypting/authenticating communication from/to server:
+§ SSH key generation for encrypting and authenticating communication from/to server (assuming ED25519 algorithm):
 - open Git bash (anywhere);
 - type "ssh-keygen -t ed25519 -C "filippo.valmori@gmail.com"" specifying your email;
 - empty-ENTER until completion;
@@ -45,20 +45,18 @@
 § Locally on each developer's PC the so-called "project directory" folder contains:
 - "working tree" (WT), where the actual project files and directories (relative to a single commit at each time) are placed and can be edited;
 - "staging area" (SA, sometimes called also "index"), where the file planned to be part of the next commit are stored (or "staged");
-- "local repository" (LR), storing all the commits of the project (thus, representing its version history).
+- "local repository" (LR), storing all the commits of the project (thus, representing its versioning history).
 
-§ Note that locally SA and LR are located inside the hidden sub-directory "/.git" (thus, removing this folder means removing all the project version history locally).
+§ Note that locally SA and LR are located inside the (hidden) sub-directory ".git". Thus, removing this folder means removing all the project version history locally.
 
 § The "remote repository" (RR), unlike the other x3, is located remotely in a single data-center/cloud and represents the common interaction point among all developers (thus it identifies the official state of the project at any time). When LR and RR are synchronized, they contain exactly the same commits.
 
-§ The general syntax for commands is "git [command] [--flags] [arguments]".
-More in detail, "git command (-f|--flag) [<id>] [--] [<paths> ...]", where:
-- '|' = or;
-- '[optional]' = optional values;
-- '-f' or '--flag' = command flag;
-- '<placeholder>' = required value;
-- '()' = grouping for clarity or disambiguation;
-- '--' = to disambiguate the command;
+§ The general syntax for commands is "git [command] [--flags] [arguments]" or, more in detail, "git command (-f|--flag) [<id>] [<paths> ...]", where:
+- '|' = alternative;
+- '[]' = optional values;
+- '-' or '--' = command flag or option;
+- '<>' = required value (aka placeholder);
+- '()' = grouping (for better clarity and disambiguation);
 - '...' = multiple occurrences possible.
 
 ------------------------------------------------------------
