@@ -51,7 +51,7 @@
 
 § The "remote repository" (RR), unlike the other x3, is located remotely in a single data-center/cloud and represents the common interaction point among all developers (thus it identifies the official state of the project at any time). When LR and RR are synchronized, they contain exactly the same commits.
 
-§ The general syntax for commands is "git [command] [--flags] [arguments]" or, more in detail, "git command (-f|--flag) [<id>] [<paths> ...]", where:
+§ The general syntax for commands is "git command [--flags] [arguments]" or, more in detail, "git command (-f|--flag) [<id>] [<paths> ...]", where:
 - '|' = alternative;
 - '[]' = optional values;
 - '-' or '--' = command flag or option;
@@ -61,14 +61,15 @@
 
 ------------------------------------------------------------
 
->> 4. CREATE NEW REPOSITORY LOCALLY <<
+>> 4. CREATE NEW LOCAL REPOSITORY <<
 
-§ If project repository does not exist yet remotely on GitHub website:
+§ If the repository does not exist remotely on GitHub website yet:
 - create a folder where to place all repositories (e.g. "repos_folder");
-- inside the aforementioned folder, create a sub-folder for the new project to be created (e.g. "proj_1");
-- here (e.g. \repos_folder\proj_1\) open a bash and initialize the LR >> "git init";
-- check the ".git/" hidden folder has been successfully >> "ls -a";
-- add/modify some files within the working tree...;
+- move inside the folder and create an empty sub-folder for the new project to be created (e.g. "proj_xyz");
+- move inside the sub-folder, open a bash and initialize the LR >> "git init";
+- verify the ".git/" hidden folder has been successfully >> "ls -a";
+- now work on the repository by adding, modifying and/or removing files;
+- NB #1: for new repositories it is good practise to add a "README.md" file to project main path (if not existing yet).
 
 ------------------------------------------------------------
 
@@ -76,16 +77,15 @@
 
 § Useful commands for committing:
 - to check if there are files/directories modified or untracked in respect of the last commit >> "git status [-s]";
-- to add desired untracked or modified files/directories (and in turn all files inside the latter) to SA >> "git add [files-or-directories];
-- NB: for new repositories it's good practise to add a "README.md" file to the project to the main page (if not existing yet);
-- alternatively, add all untracked/modified/deleted files/directories to SA without specifying them one by one >> "git add -A" (where "-A" == "--all");
-- to move all staged files/directories from SA to LR, thus adding a new snapshot/node (representing the current state of the project) to the version history >> "git commit -m "<comment>"" [NB: you can use "git commit -a -m "<comment>"" to combine "git add ." and "git commit -m "<comment>"", but keep in mind it does not work for untracked files];
-- to verify WT and SA are now clean (at least of all committed files/directories) >> "git status";
-- to see the LR commit-history of the current branch >> "git log [--oneline] [-X]" (e.g. X=2 can be used to show only the x2 most recent commits instead of the whole history) [NB: press 'Enter' to show more log-lines or 'q' to exit].
+- to add desired untracked or modified files/directories (and in turn all files inside the latter) to SA >> "git add <files-or-directories>;
+- alternatively, to add all untracked, modified and deleted files/directories to SA without specifying them one by one >> "git add --all/-A";
+- to move all staged files/directories from SA to LR (i.e. adding a new snapshot/node representing the current state of the project to the version history) >> "git commit -m "<comment>"";
+- to verify WT and SA have been cleaned of all committed files/directories >> "git status";
+- finally check the LR commit-history of the current branch via "git log".
 
-§ Not all modified/untracked files in the WT have to be staged and then part of the next commit/push. Typical examples are the .o/.map/.bin/.srec/.exe files generated after building, since only source files (.c/.h) are actually included in the versioning (assuming not to include them in any ".gitignore" file).
+§ Not all modified and untracked files in the WT have to be staged and then part of the next commit. Typical examples are the .o, .map, .bin, .srec or .exe files generated after building, since only .c and .h source files are actually included in the versioning (assuming HEAD is pointing to latest commit of the desired local branch).
 
-§ To delete a current branch commit in LR use "git reset --hard <commit_id>" (e.g. "git reset --hard HEAD~X" to cancel last X commits, assuming HEAD is pointing to branch-label);
+§ To delete a current branch commit in LR use "git reset --hard <commit_id>" (e.g. "git reset --hard HEAD~X" to cancel last X commits, assuming HEAD is pointing to branch-label).
 
 ------------------------------------------------------------
 
@@ -638,3 +638,13 @@ A -- D -- (diffAB) -- B' -(diffBC)- C'   [base-branch]
 § Extra tips:
 - Git always provides hints as a response for each command, read and follow them carefully;
 - see "https://git-scm.com/docs/" and "https://www.atlassian.com/git/tutorials" for additional documentation about Git.
+
+
+
+
+
+@todo:
+- split revert, restore, reset
+- add section for "git log" (retrieving from other chapters!)
+
+- to see the LR commit-history of the current branch >> "git log [--oneline] [-X]" (e.g. X=2 can be used to show only the x2 most recent commits instead of the whole history) [NB: press 'Enter' to show more log-lines or 'q' to exit].
