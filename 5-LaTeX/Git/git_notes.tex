@@ -53,23 +53,24 @@
 \hypersetup
 {
   colorlinks=true,
-  linkcolor=violet,     
-  urlcolor=violet,
+  linkcolor=red,   % color for references
+  urlcolor=violet,   % color for URLs
 }
-
 
 %----------------------------------------------------------------------------------------
 %	CUSTOM DEFINES
 %----------------------------------------------------------------------------------------
 
-%\newcommand{\mydiv}{>> }
-\newcommand{\mydiv}{$\rightarrow$ }   % Divider
-\newcommand{\mysapo}[1]{\textquotesingle #1\textquotesingle }   % Single text apostrophe
-\newcommand{\mycmd}[1]{\textcolor{blue}{\textit{#1}}}   % Git command style
-\newcommand{\myvspace}{\vspace{4mm}}   % Vertical space between sub-sections
-
+%\newcommand{\mydiv}{>> }   % divider #1
+\newcommand{\mydiv}{$\rightarrow$ }   % divider #2
+\newcommand{\mysapo}[1]{\textquotesingle #1\textquotesingle }   % single text apostrophe
+\newcommand{\mycmd}[1]{\textcolor{blue}{\textit{#1}}}   % git command style
+\newcommand{\myvspace}{\vspace{4mm}}   % vertical space between sub-sections
 \setlength{\leftmargini}{3.8mm}   % left margin for 1st-level itemize
 \setlength{\leftmarginii}{4mm}   % left margin for 2nd-level itemize
+%\newcommand{\mysecref}[1]{\hyperref[#1]{\textit{\ref{#1}. \nameref{#1}}}}   % section reference #1
+\newcommand{\mysecref}[1]{\hyperref[#1]{\ref{#1}.}}   % section reference #2
+\newcommand{\myurl}[2]{\href{{#1}}{\underline{\textit{#2}}}}   % url link
 
 %----------------------------------------------------------------------------------------
 %	TITLE SECTION
@@ -100,7 +101,7 @@
 %	1. INSTALLATION
 %----------------------------------------------------------------------------------
 
-\section{Installation}
+\section{Installation}   \label{sec:Install}
 
 \begin{itemize}
 \item[$\circ$] Installation procedure (tested on \textit{Windows 10} OS):
@@ -127,13 +128,13 @@
 %	2. SETUP
 %--------------------------------------------------------------------------
 
-\section{Setup}
+\section{Setup}   \label{sec:Setup}
 
 \begin{itemize}
 \item[$\circ$] User's name and email configuration:
 \begin{itemize}
-  \item[$\cdot$] to configure Git username \mydiv \mycmd{git config -{}-global user.name "Filippo Valmori"};
-  \item[$\cdot$] to configure Git email \mydiv \mycmd{git config -{}-global user.email "filippo.valmori@gmail.com"};
+  \item[$\cdot$] to configure Git username \mydiv \mycmd{git config -{}-global user.name "<name>"} (e.g. \textit{Filippo Valmori});
+  \item[$\cdot$] to configure Git email \mydiv \mycmd{git config -{}-global user.email "<email>"} (e.g. \textit{filippo.valmori@gmail.com});
   \item[$\cdot$] \textbf{NB \#1}: for the last x2 commands, \textit{-{}-system} or \textit{-{}-local} could be used in place of \textit{--global} to (however that's in general not recommended, see Coursera's training for more details);
   \item[$\cdot$] to readback set user's name and email \mydiv \mycmd{git config user.name} and \text{git config user.email} (or all at once via \mycmd{git config [-{}-global] -{}-list});
   \item[$\cdot$] to avoid line-ending issues among team members working with different OSs and automatically convert \mysapo{CRLF} (typical of Windows) line-endings into \mysapo{LF} (typical of Linux and macOS) when adding a file to the index (and vice versa when it checks out code onto your filesystem) \mydiv \mycmd{git config -{}-global core.autocrlf true} (in particular, when asserted on Windows machines, this converts \mysapo{LF} endings into \mysapo{CRLF} when you check out code);
@@ -144,13 +145,12 @@
 \item[$\circ$] SSH key generation for encrypting and authenticating communication from/to server (assuming ED25519 algorithm):
 \begin{itemize}
   \item[$\cdot$] open Git bash (anywhere);
-  \item[$\cdot$] type \mycmd{ssh-keygen -t ed25519 -C "filippo.valmori@gmail"} specifying your email;
+  \item[$\cdot$] type \mycmd{ssh-keygen -t ed25519 -C "<email>"};
   \item[$\cdot$] empty-ENTER until completion;
   \item[$\cdot$] check public (.pub) and private keys have been successfully created in the specified (hidden) folder \textit{.ssh} (e.g. \textit{C:$\backslash$Users$\backslash$Filippo$\backslash$.ssh});
   \item[$\cdot$] from internet browser, go to \textit{github website > profile icon > settings/manage-account > ssh keys} and upload the authentication public-key just created (simply drag-and-drop it);
-  \item[$\cdot$] as a confirmation, type on bash \textit{git gui} to open Git GUI and here go to \textit{help > show ssh key} and verify the key has been successfully loaded.
-  \item[$\cdot$] \textbf{NB \#3}: setting up the SSH key is helpful because it allows to automatically authenticate yourself when accessing the remote server, thus without the need of supplying your username and password at each visit. For further details see 
-\href{https://confluence.atlassian.com/bitbucketserverkb/ssh-rsa-key-rejected-with-message-no-mutual-signature-algorithm-1026057701.html}{\underline{\textit{here}}}.
+  \item[$\cdot$] as a confirmation, type on bash \textit{git gui} to open Git GUI and here go to \textit{help > show ssh key} and verify the key has been successfully loaded;
+  \item[$\cdot$] \textbf{NB \#3}: setting up the SSH key is helpful because it allows to automatically authenticate yourself when accessing the remote server, thus without the need of supplying your username and password at each visit. For further details see \myurl{https://confluence.atlassian.com/bitbucketserverkb/ssh-rsa-key-rejected-with-message-no-mutual-signature-algorithm-1026057701.html}{here}.
 \end{itemize}
 \end{itemize}
 \myvspace
@@ -159,7 +159,7 @@
 %	3. LOCATIONS & SYNTAX
 %--------------------------------------------------------------------------
 
-\section{Locations \& Syntax}
+\section{Locations \& Syntax}   \label{sec:LocatSyntax}
 
 \begin{itemize}
 \item[$\circ$] Locally on each developer's PC the so-called \textit{project directory} folder contains:
@@ -192,7 +192,7 @@
 %	4. CREATE NEW LOCAL REPOSITORY
 %--------------------------------------------------------------------------
 
-\section{Create new local repository}
+\section{Create new local repository}   \label{sec:NewLR}
 
 \begin{itemize}
 \item[$\circ$] If the repository does not exist remotely on GitHub website yet:
@@ -211,7 +211,7 @@
 %	5. COMMIT TO LOCAL REPOSITORY
 %--------------------------------------------------------------------------
 
-\section{Commit to local repository}
+\section{Commit to local repository}   \label{sec:CommitLR}
 
 \begin{itemize}
 \item[$\circ$] Useful commands for committing:
@@ -221,13 +221,9 @@
   \item[$\cdot$] alternatively, to add all untracked, modified and deleted files/directories to SA without specifying them one by one \mydiv \mycmd{git add -{}-all|-A};
   \item[$\cdot$] to move all staged files/directories from SA to LR (i.e. adding a new snapshot/node representing the current state of the project to the version history) \mydiv \mycmd{git commit -m "<comment>"};
   \item[$\cdot$] to verify WT and SA have been cleaned of all committed files/directories \mydiv \mycmd{git status};
-  
-  
-  \item[$\cdot$] to delete a current branch commit in LR \mydiv \mycmd{git reset -{}-hard <commit\_id>} (or \mycmd{git reset -{}-hard HEAD~X} to cancel last X commits, assuming HEAD is pointing to latest commit of the desired local branch).
-  
-  
-  
-  \item[$\cdot$] finally check the LR commit-history of the current branch via \textit{git log}.
+  \item[$\cdot$] finally check the LR commit-history of the current branch via \textit{git log} (see Section \mysecref{sec:GitLog});
+  \item[$\cdot$] \textbf{NB \#1}: to delete a current branch commit in LR \mydiv \mycmd{git reset -{}-hard <commit\_id>} (or \mycmd{git reset -{}-hard HEAD~X} to cancel last X commits, assuming HEAD is pointing to latest commit of the desired local branch);
+  \item[$\cdot$] \textbf{NB \#2}: to examine changes more in detail and select one by one the files to stage and commit use Git GUI (see Section \mysecref{sec:GitGui}).
 \end{itemize}
 \myvspace
 
@@ -235,6 +231,60 @@
 \end{itemize}
 \myvspace
 
+%--------------------------------------------------------------------------
+%	6. PUSH TO REMOTE REPOSITORY
+%--------------------------------------------------------------------------
+
+\section{Push to remote repository}   \label{sec:PushRR}
+
+\begin{itemize}
+\item[$\circ$] In case LR exists (see Section \mysecref{sec:NewLR} and \mysecref{sec:CommitLR}) and RR does not yet:
+\begin{itemize}
+  \item[$\cdot$] open an internet browser and create a new empty repository on GitHub website with the same name of that in your LR (e.g. \textit{proj\_xyz});
+  \item[$\cdot$] open bash inside LR and link it to RR through its URL address (retrievable at \textit{github website > prj\_xyz > code > HTTPS/SSH}) \mydiv \mycmd{git remote add <prj\_name> <url>} (e.g. \textit{<prj\_name>} = \textit{origin} or \textit{proj\_xyz}, and \textit{<url>} = \textit{https://github.com/AlectoSaeglopur/proj\_xyz} or \textit{git@github.com:AlectoSaeglopur/proj\_xyz.git});
+  \item[$\cdot$] \textbf{NB \#1}: using SSH addresses is always recommended if SSH key has been already generated and linked for the user (see Section \mysecref{sec:Setup})];
+  \item[$\cdot$] initialize RR according to current LR state \mydiv \mycmd{git push -u|-{}-set-upstream <rr\_name> <branch>} (e.g. \textit{git push -u origin master}, or more specifically \textit{git push -{}-set-upstream proj\_xyz master}).
+\end{itemize}
+\myvspace
+
+\item[$\circ$] In case RR already exists and LR does not yet:
+\begin{itemize}
+  \item[$\cdot$] clone RR to LR \mydiv \mycmd{git clone <url>} (as already mentioned, SSH addresses are recommended, thus use HTTPS only if SSH does not work);
+  \item[$\cdot$] now work on the repository by adding, modifying and/or removing files;
+  \item[$\cdot$] commit desired changes to LR (see Section \mysecref{sec:CommitLR});
+  \item[$\cdot$] push current LR state to RR \mydiv \mycmd{git push}.
+\end{itemize}
+\end{itemize}
+\myvspace
+
+%--------------------------------------------------------------------------
+%	7. OBJECTS & IDS
+%--------------------------------------------------------------------------
+
+\section{Objects \& IDs}   \label{sec:ObjIds}
+
+\begin{itemize}
+\item[$\circ$] Git provides x4 main types of objects:
+
+
+
+\end{itemize}
+\myvspace
+
+%--------------------------------------------------------------------------
+%	X. GIT LOG
+%--------------------------------------------------------------------------
+
+\section{Git Log}   \label{sec:GitLog}
+...
+
+%--------------------------------------------------------------------------
+%	X. GIT GUI
+%--------------------------------------------------------------------------
+
+\section{Git GUI}   \label{sec:GitGui}
+...
+  
 %----------------------------------------------------------------------------------------
 %	REFERENCE
 %----------------------------------------------------------------------------------------
@@ -248,9 +298,7 @@
 
 
 
-% NB#1: MSK come caso di CPFSK [CPFSK]
-% NB#2: Schema circuitale da BB a RF [Intro]
-% NB#3: Schema circuitale per FSK e GFSK
+
 
 
 %----------------------------------------------------------------------------------------

@@ -22,8 +22,8 @@
 >> 2. SETUP <<
 
 § User's name and email configuration:
-- to configure Git username >> "git config --global user.name "Filippo Valmori"";
-- to configure Git email >> "git config --global user.email "filippo.valmori@gmail.com"";
+- to configure Git username >> "git config --global user.name "<name>"" (e.g. Filippo Valmori);
+- to configure Git email >> "git config --global user.email "<email>"" (e.g. filippo.valmori@gmail.com);
 - NB #1: for the last x2 commands, "--system" or "--local" could be used in place of "--global" to (however that's in general not recommended unusual, see Coursera's training for more details);
 - to readback set user's name and email >> "git config user.name" and "git config user.email" (or all at once via "git config [--global] --list");
 - to avoid line-ending issues among team members working with different OSs and automatically convert 'CRLF' (typical of Windows) line-endings into 'LF' (typical of Linux and macOS) when adding a file to the index (and vice versa when it checks out code onto your filesystem) >> "git config --global core.autocrlf true" (in particular, when asserted on Windows machines, this converts 'LF' endings into 'CRLF' when you check out code)
@@ -31,7 +31,7 @@
 
 § SSH key generation for encrypting and authenticating communication from/to server (assuming ED25519 algorithm):
 - open Git bash (anywhere);
-- type "ssh-keygen -t ed25519 -C "filippo.valmori@gmail.com"" specifying your email;
+- type "ssh-keygen -t ed25519 -C "<email>"";
 - empty-ENTER until completion;
 - check public (.pub) and private keys have been successfully created in the specified (hidden) folder ".ssh" (e.g. "C:\Users\Filippo\.ssh\");
 - from internet browser, go to "github website > profile icon > settings/manage-account > ssh keys" and upload the authentication public-key just created (simply drag-and-drop it);
@@ -81,26 +81,26 @@
 - alternatively, to add all untracked, modified and deleted files/directories to SA without specifying them one by one >> "git add --all/-A";
 - to move all staged files/directories from SA to LR (i.e. adding a new snapshot/node representing the current state of the project to the version history) >> "git commit -m "<comment>"";
 - to verify WT and SA have been cleaned of all committed files/directories >> "git status";
-- finally check the LR commit-history of the current branch via "git log".
+- finally check the LR commit-history of the current branch via "git log";
+- NB #1: to delete a current branch commit in LR >> "git reset --hard <commit_id>" (or "git reset --hard HEAD~X" to cancel last X commits, assuming HEAD is pointing to latest commit of the desired local branch);
+- NB #2: to examine changes more in detail and select one by one the files to stage and commit use Git GUI.
 
 § Not all modified and untracked files in the WT have to be staged and then part of the next commit. Typical examples are the .o, .map, .bin, .srec or .exe files generated after building, since only .c and .h source files are actually included in the versioning (assuming HEAD is pointing to latest commit of the desired local branch).
-
-§ To delete a current branch commit in LR use "git reset --hard <commit_id>" (e.g. "git reset --hard HEAD~X" to cancel last X commits, assuming HEAD is pointing to branch-label).
 
 ------------------------------------------------------------
 
 >> 6. PUSH TO REMOTE REPOSITORY <<
 
 § In case LR exists (see Section #4 and #5) and RR does not yet:
-- open an internet browser and create a new empty repository on GitHub website with the same name of that in your LR (e.g. "proj_1");
-- open bash inside LR and link it to RR through its URL address (e.g. "github website > PROJECT > code > HTTPS/SSH") >> "git remote add <name> <url>" (e.g. <name> = 'origin' or 'proj_1', <url> = "https://github.com/AlectoSaeglopur/proj_1" or "git@github.com:AlectoSaeglopur/proj_1.git", i.e. "git remote add origin git@github.com:AlectoSaeglopur/proj_1.git");
-- [NB: using SSH addresses is always recommended if SSH key has been already generated and linked for the user (see Section #2)];
-- initialize RR according to current LR state >> "git push -u|--set-upstream <repo_name> <branch>" (e.g. "git push -u origin master", or more specifically "git push --set-upstream proj_1 master").
+- open an internet browser and create a new empty repository on GitHub website with the same name of that in your LR (e.g. "proj_xyz");
+- open bash inside LR and link it to RR through its URL address (retrievable at "github website > prj_xyz > code > HTTPS/SSH") >> "git remote add <name> <url>" (e.g. <name> = 'origin' or 'proj_xyz', and <url> = "https://github.com/AlectoSaeglopur/proj_xyz" or "git@github.com:AlectoSaeglopur/proj_xyz.git");
+- NB#1: using SSH addresses is always recommended if SSH key has been already generated and linked for the user (see Section #2);
+- initialize RR according to current LR state >> "git push -u|--set-upstream <rr_name> <branch>" (e.g. "git push -u origin master", or more specifically "git push --set-upstream proj_xyz master").
 
 § In case RR already exists and LR does not yet:
-- clone RR to LR >> "git clone <url>" [again, SSH addresses are recommended (use HTTPS only if SSH does not work)];
-- add/modify/remove some files within the working tree...;
-- commit desired changes to LR (see Section #5, e.g "git add --all && git commit -m "<comment>"";
+- clone RR to LR >> "git clone <url>" (as already mentioned, SSH addresses are recommended, thus use HTTPS only if SSH does not work);
+- now work on the repository by adding, modifying and/or removing files;
+- commit desired changes to LR (see Section #5);
 - push current LR state to RR >> "git push".
 
 ------------------------------------------------------------
@@ -111,12 +111,14 @@
 - commit, i.e. small text file;
 - annotated tag, i.e. permanent reference to a commit;
 - tree, i.e directories/filenames in the project;
-- blob, content of a file in the project.
-Typically the user has to care only about commits and annotated tags, whereas trees and blobs are handled internally and hiddenly by Git itself).
+- blob, where project files content is stored.
+Typically the user has to care only about commits and annotated tags, whereas trees and blobs are handled internally and hiddenly by Git itself.
 
 § The name of a Git object is called "ID", consisting of a 40-character hexadecimal string (aka "hash" or "checksum") generated through the SHA-1 encryption algorithm (e.g. the IDs of all commits related to a branch can be seen via "git log"). Often IDs are shortened to first x7 characters to be more user-friendly (e.g. with "git log --oneline").
 
-§ For each commit Git automatically create and associates a unique ID (aka hash), generated through an avalanche encryption-algorithm (i.e. producing huge changes on hashes even for small changes on repository files).
+
+
+§ For each commit Git automatically create and associates a unique ID (aka hash), generated through an avalanche encryption-algorithm (i.e. producing huge changes on hashes even for small changes on repository files) guaranteeing are consistency-checked so that they are incorruptible.
 
 ------------------------------------------------------------
 
