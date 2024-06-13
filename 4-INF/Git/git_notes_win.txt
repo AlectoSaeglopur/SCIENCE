@@ -49,7 +49,7 @@
 
 § Note that locally SA and LR are located inside the (hidden) sub-directory ".git". Thus, removing this folder means removing all the project version history locally.
 
-§ The "remote repository" (RR), unlike the other x3, is located remotely in a single data-center/cloud and represents the common interaction point among all developers (thus it identifies the official state of the project at any time). When LR and RR are synchronized, they contain exactly the same commits.
+§ The "remote repository" (RR), unlike the other x3 mentioned above, is located remotely in a single data-center/cloud and represents the common interaction point among all developers (thus it identifies the official state of the project at any time). When LR and RR are synchronized, they contain exactly the same commits.
 
 § The general syntax for commands is "git command [--flags] [arguments]" or, more in detail, "git command (-f|--flag) [<id>] [<paths> ...]", where:
 - '|' = alternative;
@@ -107,18 +107,16 @@
 
 >> 7. OBJECTS & IDS <<
 
-§ Git provides x4 main types of objects:
-- commit, i.e. small text file;
-- annotated tag, i.e. permanent reference to a commit;
-- tree, i.e directories/filenames in the project;
-- blob, where project files content is stored.
+§ Git provides x4 main types of so-called "objects":
+- commit -> representing a snapshot of the repository at a particular point in time;
+- annotated tag -> representing a permanent reference to a commit (typically used for software releases);
+- tree -> used to create the hierarchy between files and directories within a repository;
+- blob -> where the actual content of project files is stored.
 Typically the user has to care only about commits and annotated tags, whereas trees and blobs are handled internally and hiddenly by Git itself.
 
-§ The name of a Git object is called "ID", consisting of a 40-character hexadecimal string (aka "hash" or "checksum") generated through the SHA-1 encryption algorithm (e.g. the IDs of all commits related to a branch can be seen via "git log"). Often IDs are shortened to first x7 characters to be more user-friendly (e.g. with "git log --oneline").
+§ The specific name of a Git object is called "ID" (aka "hash" or "checksum"), consisting of a 40-character hexadecimal string generated through the SHA-1 encryption algorithm (e.g. the IDs of all commits related to a branch can be seen via "git log"). However, IDs are often shortened to the first x7 characters to make their visualization more user-friendly (e.g. as they are shown via "git log --oneline").
 
-
-
-§ For each commit Git automatically create and associates a unique ID (aka hash), generated through an avalanche encryption-algorithm (i.e. producing huge changes on hashes even for small changes on repository files) guaranteeing are consistency-checked so that they are incorruptible.
+§ For each commit Git automatically create and associates a unique ID (generated through an avalanche principle part of the SHA-1, i.e. producing massive differences on the hash value even for minimal changes on repository files), so to guarantee consistency-check.
 
 ------------------------------------------------------------
 
@@ -650,3 +648,16 @@ A -- D -- (diffAB) -- B' -(diffBC)- C'   [base-branch]
 - add section for "git log" (retrieving from other chapters!)
 
 - to see the LR commit-history of the current branch >> "git log [--oneline] [-X]" (e.g. X=2 can be used to show only the x2 most recent commits instead of the whole history) [NB: press 'Enter' to show more log-lines or 'q' to exit].
+
+- review OBJETCS chapter
+- say in caso di conflict con stash non c'è >>> HEAD ma >>> stash (verfica esatto testo)
+
+- open git gui submodule inside git gui main
+
+
+
+
+
+
+
+

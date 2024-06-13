@@ -135,7 +135,7 @@
 \begin{itemize}
   \item[$\cdot$] to configure Git username \mydiv \mycmd{git config -{}-global user.name "<name>"} (e.g. \textit{Filippo Valmori});
   \item[$\cdot$] to configure Git email \mydiv \mycmd{git config -{}-global user.email "<email>"} (e.g. \textit{filippo.valmori@gmail.com});
-  \item[$\cdot$] \textbf{NB \#1}: for the last x2 commands, \textit{-{}-system} or \textit{-{}-local} could be used in place of \textit{--global} to (however that's in general not recommended, see Coursera's training for more details);
+  \item[$\cdot$] \textbf{NB \#1}: for the last two commands, \textit{-{}-system} or \textit{-{}-local} could be used in place of \textit{--global} to (however that's in general not recommended, see Coursera's training for more details);
   \item[$\cdot$] to readback set user's name and email \mydiv \mycmd{git config user.name} and \text{git config user.email} (or all at once via \mycmd{git config [-{}-global] -{}-list});
   \item[$\cdot$] to avoid line-ending issues among team members working with different OSs and automatically convert \mysapo{CRLF} (typical of Windows) line-endings into \mysapo{LF} (typical of Linux and macOS) when adding a file to the index (and vice versa when it checks out code onto your filesystem) \mydiv \mycmd{git config -{}-global core.autocrlf true} (in particular, when asserted on Windows machines, this converts \mysapo{LF} endings into \mysapo{CRLF} when you check out code);
   \item[$\cdot$] \textbf{NB \#2}: \mysapo{CR} = \mysapo{\textbackslash r} = \textit{Carriage Return} character | \mysapo{LF} = \mysapo{\textbackslash n} = \textit{Line Feed} character.
@@ -173,7 +173,7 @@
 \item[$\circ$] Note locally SA and LR are located inside the hidden sub-directory \textit{.git}. Thus, removing this folder means removing all the project version history locally.
 \myvspace
 
-\item[$\circ$] The \textbf{\textit{remote repository}} (RR), unlike the other x3, is located remotely in a single data-center or cloud and represents the common interaction point among all developers (thus it identifies the official state of the project at any time). When LR and RR are synchronized, they contain exactly the same commits.
+\item[$\circ$] The \textbf{\textit{remote repository}} (RR), unlike the other three mentioned above, is located remotely in a single data-center or cloud and represents the common interaction point among all developers (thus it identifies the official state of the project at any time). When LR and RR are synchronized, they contain exactly the same commits.
 \myvspace
 
 \item[$\circ$] The general syntax for commands is \mycmd{git command [-{}-flags] [arguments]} or, more in detail, \mycmd{git command (-f|-{}-flag) [<id>] [<paths> ...]}, where:
@@ -264,12 +264,39 @@
 \section{Objects \& IDs}   \label{sec:ObjIds}
 
 \begin{itemize}
-\item[$\circ$] Git provides x4 main types of objects:
-
-
-
+\item[$\circ$] Git provides four main types of so-called \textit{objects}:
+\begin{itemize}
+  \item[$\cdot$] \textbf{\textit{commit}} \mydiv representing a snapshot of the repository at a particular point in time;
+  \item[$\cdot$] \textbf{\textit{annotated tag}} \mydiv representing a permanent reference to a commit (typically used for software releases);
+  \item[$\cdot$] \textbf{\textit{tree}} \mydiv used to create the hierarchy between files and directories within a repository;
+  \item[$\cdot$] \textbf{\textit{blob}} \mydiv where the actual content of project files is stored.
 \end{itemize}
 \myvspace
+  
+\item[$\circ$] Typically the user has to care only about commits and annotated tags, whereas trees and blobs are handled internally and hiddenly by Git itself.
+\myvspace
+
+\item[$\circ$] The specific name of a Git object is called \textit{ID} (aka \textit{hash} or \textit{checksum}), consisting of a 40-character hexadecimal string generated through the SHA-1 encryption algorithm (e.g. the IDs of all commits related to a branch can be seen via \textit{git log}). However, IDs are often shortened to the first seven characters to make their visualization more user-friendly (e.g. as they are shown via \textit{git log -{}-oneline}).
+\myvspace
+
+\item[$\circ$] For each commit Git automatically create and associates a unique ID (generated through an avalanche principle part of the SHA-1, i.e. producing massive differences on the hash value even for minimal changes on repository files), so to guarantee consistency-check.
+\end{itemize}
+\myvspace
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 %--------------------------------------------------------------------------
 %	X. GIT LOG
