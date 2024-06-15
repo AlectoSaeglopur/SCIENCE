@@ -62,7 +62,7 @@
 %----------------------------------------------------------------------------------------
 
 %\newcommand{\mydiv}{>> }   % divider #1
-\newcommand{\mydiv}{$\rightarrow$ }   % divider #2
+\newcommand{\mydiv}{$\Leftrightarrow$ }   % divider #2
 \newcommand{\mysapo}[1]{\textquotesingle #1\textquotesingle }   % single text apostrophe
 \newcommand{\mycmd}[1]{\textcolor{blue}{\textit{#1}}}   % git command style
 \newcommand{\myvspace}{\vspace{4mm}}   % vertical space between sub-sections
@@ -283,7 +283,63 @@
 \end{itemize}
 \myvspace
 
+%--------------------------------------------------------------------------
+%	8. REFERENCES & TAGS
+%--------------------------------------------------------------------------
 
+\section{References \& Tags}   \label{sec:RefsTags}
+
+\begin{itemize}
+\item[$\circ$] A commit can be associated with a \textbf{\textit{reference}}, namely a user-friendly name (e.g. \textit{HEAD} or \textit{master}) pointing to a commit hash (e.g. 64a0c2b...) or another reference (aka \textit{symbolic reference} in this latter case). Therefore, references can be used instead of hashes for simplicity's sake.
+\myvspace
+
+\item[$\circ$] Each branch is assigned with a so-called \textbf{\textit{branch-label}}, a reference with the same name of the branch (e.g. \textit{develop} or \textit{master}) pointing always to the most recent commit of that branch (aka \textit{tip of the branch}). Note that \textit{master} is the default name of the main branch in every repository (thus also the \textit{master}-reference does exist for any repository).
+\myvspace
+
+\item[$\circ$] All references are automatically stored and updated within \textit{.git$\backslash$refs$\backslash$heads$\backslash$} and they are nothing but files named after the corresponding local branch and containing inside their current local hash/commit value. The only exception is \textit{HEAD}, which is kept within \textit{.git$\backslash$}.
+\myvspace
+
+\item[$\circ$] The \textit{HEAD}-reference points to the branch-commit pair currently present in the WT (thus, it can exist only one \textit{HEAD} per repository). By default it is usually equal to the \textit{branch-label} (e.g. \textit{master} or \textit{develop}), but unlike the latter this can be also moved back to previous commits of the branch via \mycmd{git checkout <commit\_id>}. For example, assuming to be in the \textit{master} branch, if using \textit{git log -{}-oneline} returns that \textit{HEAD} points to \textit{master} (i.e. \textit{HEAD $\rightarrow$ master}), then using \textit{git checkout HEAD\textasciitilde} (i.e. \textit{git checkout <previous\_commit\_id>}) moves \textit{HEAD} one commit back and updates the WT accordingly (thus now \textit{master} becomes one commit ahead of \textit{HEAD}). Executing now \textit{git checkout master} resets \textit{HEAD} equal to \textit{master} (i.e. to the latest commit of the branch).
+\myvspace
+
+\item[$\circ$] The \mysapo{\textasciitilde} and \mysapo{\textasciicircum} characters can be used to refer to previous commits. In particular, \mysapo{\textasciitilde} allows to refer to single-parent commits, whereas \mysapo{\textasciicircum} to multiple-parent commits (i.e. in case of merge-commits). For example:
+\begin{itemize}
+  \item[$\cdot$] to show latest four commits of current branch (e.g. \textit{develop}) \mydiv \textit{git log -{}-online -4};
+  \item[$\cdot$] to print detailed info about last commit (assuming \textit{HEAD$\rightarrow$master}) \mydiv \textit{git show HEAD} (expected to return the same commit ID shown as 1\textsuperscript{st} entry by the aforementioned \textit{git log} command);
+\item[$\cdot$] to print detailed info about second-last commit \mydiv \textit{git show HEAD\textasciitilde 1} or \textit{git show HEAD\textasciitilde} (expected to return the same commit shown as 2\textsuperscript{nd} entry by the aforementioned \textit{git log} command);
+\item[$\cdot$] to print detailed info about third-last commit \mydiv \textit{git show HEAD\textasciitilde 2} or \textit{git show HEAD\textasciitilde\textasciitilde} (expected to return the same commit shown as 3\textsuperscript{rd} entry by the aforementioned \textit{git log} command);
+\item[$\cdot$] ...
+\end{itemize}
+\myvspace
+
+\item[$\circ$] \textbf{\textit{Tags}} are references attached to specific commits, acting as a sort of user-friendly labels for these commits. Thus, tags can be used in place of branch-labels or IDs for Git commands (verifiable via \textit{git show <tag\_name>}). There are two types of tags:
+\begin{itemize}
+  \item[$\cdot$] \textbf{\textit{lightweight}}, a simple reference to the commit (just like branch-labels or \textit{HEAD}) with no additional information;
+  \item[$\cdot$] \textbf{\textit{annotated}}, a full object referencing the commit (including tag's author, date, message and commit ID), which can be optionally even signed and verified via GPG (aka \textit{GNU Privacy Guard}), and typically used for code-releases.
+\end{itemize}
+\myvspace
+
+\item[$\circ$] Useful commands for tags:
+\begin{itemize}
+  \item[$\cdot$] to create a new \textit{lightweight tag} \mydiv \mycmd{git tag <tag\_name> [<commit\_id>]} (e.g. \textit{git tag v.3.1.8} automatically linked to \textit{HEAD});
+  \item[$\cdot$] to create a new \textit{annotated tag} \mydiv \mycmd{git tag -a [-m "<message>" | -F <file>] <tag\_name> [<commit\_id>]} (e.g. \textit{git tag -a -m "release for EMC tests" v.3.1.8} or \textit{git tag -a -F my\_message.txt v.3.1.8 f318bd7});
+  \item[$\cdot$] to check the tag has been successfully associated to the desired commit \mydiv \textit{git log -{}-oneline -{}-graph}; 
+  \item[$\cdot$] to delete a tag locally \mydiv \mycmd{git tag -d <tag\_name>} (e.g. \textit{git tag -d v.1.3.8});
+  \item[$\cdot$] to delete a tag remotely \mydiv \mycmd{git push <remote> -d <tag\_name>} (e.g. \textit{git push origin -d v.1.3.8});
+  \item[$\cdot$] \textbf{NB \#1}: if not specified, \textit{<commit\_id>} is always linked by default to \textit{HEAD} for all tag-commands;
+  \item[$\cdot$] to check details of the created tag \mydiv \textit{git show <tag\_name>};
+  \item[$\cdot$] to show all repository tags created \mydiv \mycmd{git tag}.
+\end{itemize}
+\myvspace
+
+\item[$\circ$] Keep in mind the \textit{git push} command does not automatically transfer tags to RR:
+\begin{itemize}
+  \item[$\cdot$] to transfer a single tag to RR \mydiv \mycmd{git push <remote> <tag\_name>} (e.g. \textit{git commit origin v.3.1.8});
+  \item[$\cdot$] to transfer all of your tags to RR \mydiv \textit{git push <remote> -{}-tags} [NOT RECOMMENDED];
+  \item[$\cdot$] note unfortunately tags are not show in GitHub network-graph, but can be displayed by clicking the dedicated button on the main page of the project (from here also formal releases can be created, giving the chance to add the corresponding binaries as well).
+\end{itemize}
+\end{itemize}
+\myvspace
 
 
 
