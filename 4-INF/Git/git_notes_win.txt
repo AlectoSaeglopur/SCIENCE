@@ -78,7 +78,7 @@
 § Useful commands for committing:
 - to check if there are files/directories modified or untracked in respect of the last commit >> "git status [-s]";
 - to add desired untracked or modified files/directories (and in turn all files inside the latter) to SA >> "git add <files-or-directories>;
-- alternatively, to add all untracked, modified and deleted files/directories to SA without specifying them one by one >> "git add --all/-A";
+- alternatively, to add all untracked, modified and deleted files/directories to SA without specifying them one by one >> "git add --all|-A";
 - to move all staged files/directories from SA to LR (i.e. adding a new snapshot/node representing the current state of the project to the version history) >> "git commit -m "<comment>"";
 - to verify WT and SA have been cleaned of all committed files/directories >> "git status";
 - finally check the LR commit-history of the current branch via "git log";
@@ -158,16 +158,16 @@ Typically the user has to care only about commits and annotated tags, whereas tr
 
 ------------------------------------------------------------
 
->> 9. GIT-IGNORE & RM <<
+>> 9. IGNORE <<
 
-§ The purpose of the ".gitignore" file is to ensure that certain files not tracked by Git remain untracked. To stop tracking a file that is currently tracked, use "git rm --cached" to remove the file from the index. In particular, to keep some WT files/directories out of Git versioning since the beginning without removing them locally from the WT (e.g. build files generated after compilation, that usually are not versioned), add them to the ".gitignore" file present in the main page of the WT.
+§ The purpose of the ".gitignore" file is to prevent specific files within the Git repository from being part of the versioning. In particular, to keep some WT files/directories out of Git versioning since the beginning of the project without removing them locally from the WT (e.g. build files generated after compilation, that usually are not versioned), add them as new lines to the ".gitignore" file present in the main page of the WT (e.g. "build/" or "source/test.log").
 
-§ It's possible to create additional .gitignore files inside project sub-folders to simplify the writing/handling of the path of the files to be ignored. For example, to exclude from versioning the file "./source/hal/adc.h" you can either add the line "source/hal/adc.h" within the main .gitignore file of the project or add the line "adc.h" within the additional .gitignore file created inside "./source/hal/".
+§ It is possible to create additional .gitignore files inside project sub-folders to simplify the handling of the files path to be ignored. For example, to exclude from versioning the file "source/hal/adc.h" you can either add the line "source/hal/adc.h" within the main .gitignore file of the project or add the line "adc.h" within the additional .gitignore file created inside "source/hal/".
 
-§ To remove some files/directories which were already pushed to RR during previous commits from Git versioning (but still keeping them locally), it's not enough to add them to the ".gitignore" file, since even though you stop pushing them in future commits, they still remain stored in the RR. Thus, since they shall be removed from RR first. Follow the procedure hereafter:
-- be sure your local branch is up-to-date, there's nothing to commit, and the working tree is clean >> "git status";
-- add files/directories to be excluded from versioning to ".gitignore";
-- remove files/directories to be excluded from versioning from RR >> "git rm -r --cached <directory>" or "git rm --cached <file>" (e.g. "git rm -r --cached bin/" or "git rm --cached xyz.c");
+§ To remove from versioning some files or directories which were already pushed to RR during previous commits (but still keeping them locally), remember it is not enough to add them to the ".gitignore" file, since, even though you stop pushing them in future commits, they still remain stored in the RR with their previous content. Thus, they shall be removed from RR first. Follow the overall procedure hereafter:
+- be sure your LR branch is up-to-date with RR, there's nothing to commit, and the working tree is clean >> "git fetch && git status";
+- add files or directories to be excluded from versioning as new entries inside ".gitignore" file;
+- remove files or directories to be excluded from versioning from RR >> "git rm -r --cached <directory|file>" (e.g. "git rm -r --cached bin/" or "git rm --cached source/xyz.c");
 - stage changes (i.e. files/directories excluded from versioning according to updated ".gitignore") >> "git add --all";
 - [NB: the previous command can be alternatively executed over the whole LR via "git rm -r cached .", but that's not recommended since it may create issues in case the project contains submodules];
 - commit changes >> "git commit -m "apply .gitignore updates"";

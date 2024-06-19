@@ -200,7 +200,7 @@
   \item[$\cdot$] create a folder where to place all repositories (e.g. \textit{repos\_ folder});
   \item[$\cdot$] move inside the folder and create an empty sub-folder named after the new project to be created (e.g. \textit{proj\_ xyz});
   \item[$\cdot$] move inside the sub-folder, open a bash and initialize the LR \mydiv \mycmd{git init};
-  \item[$\cdot$] verify the \textit{.git$\backslash$} hidden folder has been successfully \mydiv \mycmd{ls -a};
+  \item[$\cdot$] verify the \textit{.git/} hidden folder has been successfully \mydiv \mycmd{ls -a};
   \item[$\cdot$] now work on the repository by adding, modifying and/or removing files;
   \item[$\cdot$] \textbf{NB \#1}: for new repositories it is good practise to add a \textit{README.md} file to project main path (if not existing yet).
 \end{itemize}
@@ -296,7 +296,7 @@
 \item[$\circ$] Each branch is assigned with a so-called \textbf{\textit{branch-label}}, a reference with the same name of the branch (e.g. \textit{develop} or \textit{master}) pointing always to the most recent commit of that branch (aka \textit{tip of the branch}). Note that \textit{master} is the default name of the main branch in every repository (thus also the \textit{master}-reference does exist for any repository).
 \myvspace
 
-\item[$\circ$] All references are automatically stored and updated within \textit{.git$\backslash$refs$\backslash$heads$\backslash$} and they are nothing but files named after the corresponding local branch and containing inside their current local hash/commit value. The only exception is \textit{HEAD}, which is kept within \textit{.git$\backslash$}.
+\item[$\circ$] All references are automatically stored and updated within \textit{.git/refs/heads/} and they are nothing but files named after the corresponding local branch and containing inside their current local hash/commit value. The only exception is \textit{HEAD}, which is kept within \textit{.git/}.
 \myvspace
 
 \item[$\circ$] The \textit{HEAD}-reference points to the branch-commit pair currently present in the WT (thus, it can exist only one \textit{HEAD} per repository). By default it is usually equal to the \textit{branch-label} (e.g. \textit{master} or \textit{develop}), but unlike the latter this can be also moved back to previous commits of the branch via \mycmd{git checkout <commit\_id>}. For example, assuming to be in the \textit{master} branch, if using \textit{git log -{}-oneline} returns that \textit{HEAD} points to \textit{master} (i.e. \textit{HEAD $\rightarrow$ master}), then using \textit{git checkout HEAD\textasciitilde} (i.e. \textit{git checkout <previous\_commit\_id>}) moves \textit{HEAD} one commit back and updates the WT accordingly (thus now \textit{master} becomes one commit ahead of \textit{HEAD}). Executing now \textit{git checkout master} resets \textit{HEAD} equal to \textit{master} (i.e. to the latest commit of the branch).
@@ -341,16 +341,30 @@
 \end{itemize}
 \myvspace
 
+%--------------------------------------------------------------------------
+%	9. IGNORE & RM
+%--------------------------------------------------------------------------
 
+\section{Ignore}   \label{sec:Ignore}
 
+\begin{itemize}
+\item[$\circ$] The purpose of the \textbf{\textit{.gitignore}} file is to prevent specific files within the Git repository from being part of the versioning. In particular, to keep some WT files/directories out of Git versioning since the beginning of the project without removing them locally from the WT (e.g. build files generated after compilation, that usually are not versioned), add them as new lines to the \textit{.gitignore} file present in the main page of the WT (e.g. \textit{build/} or \textit{source/test.log}).
+\myvspace
 
+\item[$\circ$] It is possible to create additional \textit{.gitignore} files inside project sub-folders to simplify the handling of the files path to be ignored. For example, to exclude from versioning the file \textit{source/hal/adc.h} you can either add the entry \textit{source/hal/adc.h} within the main \textit{.gitignore} file of the project or add the entry \textit{adc.h} within the additional \textit{.gitignore} file created inside \textit{source/hal/}.
+\myvspace
 
+\item[$\circ$] To remove from versioning some files or directories which were already pushed to RR during previous commits (but still keeping them locally), remember it is not enough to add them to the \textit{.gitignore} file, since, even though you stop pushing them in future commits, they still remain stored in the RR with their previous content. Thus, they shall be removed from RR first. Follow the overall procedure hereafter:
+\begin{itemize}
+  \item[$\cdot$] be sure your LR branch is up-to-date with RR, there's nothing to commit, and the working tree is clean \mydiv \textit{git fetch \&\& git status};
+  \item[$\cdot$] add files or directories to be excluded from versioning as new entries inside \textit{.gitignore} file;
+  \item[$\cdot$] remove files or directories to be excluded from versioning from RR \mydiv \mycmd{git rm -r -{}-cached <files-or-directories>} (e.g. \textit{git rm -r -{}-cached bin/} or \textit{git rm -{}-cached source/xyz.c});
+  \item[$\cdot$] stage changes (i.e. files or directories excluded from versioning according to updated \textit{.gitignore}) \mydiv \textit{git add -{}-all};
+\end{itemize}
+\myvspace
 
-
-
-
-
-
+\end{itemize}
+\myvspace
 
 
 
