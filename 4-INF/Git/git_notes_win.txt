@@ -167,7 +167,7 @@ Typically the user has to care only about commits and annotated tags, whereas tr
 § To remove from versioning some files or directories which were already pushed to RR during previous commits (but still keeping them locally), remember it is not enough to add them to the ".gitignore" file, since, even though you stop pushing them in future commits, they still remain stored in the RR with their previous content. Thus, they shall be removed from RR first. Follow the overall procedure hereafter:
 - be sure your LR branch is up-to-date with RR, there's nothing to commit, and the working tree is clean >> "git fetch && git status";
 - add files or directories to be excluded from versioning as new entries inside ".gitignore" file;
-- remove files or directories to be excluded from versioning from RR >> "git rm -r --cached <directory|file>" (e.g. "git rm -r --cached bin/" or "git rm --cached source/xyz.c");
+- remove files or directories to be excluded from versioning from RR >> "git rm --cached <file>" or "git rm -r --cached <directory>" (e.g. "git rm --cached source/xyz.c" or "git rm -r --cached bin/");
 - stage changes (i.e. files/directories excluded from versioning according to updated ".gitignore") >> "git add --all";
 - [NB: the previous command can be alternatively executed over the whole LR via "git rm -r cached .", but that's not recommended since it may create issues in case the project contains submodules];
 - commit changes >> "git commit -m "apply .gitignore updates"";

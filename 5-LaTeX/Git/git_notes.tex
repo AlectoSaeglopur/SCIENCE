@@ -358,7 +358,10 @@
 \begin{itemize}
   \item[$\cdot$] be sure your LR branch is up-to-date with RR, there's nothing to commit, and the working tree is clean \mydiv \textit{git fetch \&\& git status};
   \item[$\cdot$] add files or directories to be excluded from versioning as new entries inside \textit{.gitignore} file;
-  \item[$\cdot$] remove files or directories to be excluded from versioning from RR \mydiv \mycmd{git rm -r -{}-cached <files-or-directories>} (e.g. \textit{git rm -r -{}-cached bin/} or \textit{git rm -{}-cached source/xyz.c});
+  \item[$\cdot$] remove files or directories to be excluded from versioning from RR \mydiv \mycmd{git rm -{}-cached <file>} or \mycmd{git rm -r -{}-cached <directory>} (e.g. \textit{git rm -{}-cached source/xyz.c} or \textit{git rm -r -{}-cached bin/});
+  
+  
+  
   \item[$\cdot$] stage changes (i.e. files or directories excluded from versioning according to updated \textit{.gitignore}) \mydiv \textit{git add -{}-all};
 \end{itemize}
 \myvspace
