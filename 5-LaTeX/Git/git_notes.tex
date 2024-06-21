@@ -222,7 +222,7 @@
   \item[$\cdot$] to move all staged files/directories from SA to LR (i.e. adding a new snapshot/node representing the current state of the project to the version history) \mydiv \mycmd{git commit -m "<comment>"};
   \item[$\cdot$] to verify WT and SA have been cleaned of all committed files/directories \mydiv \mycmd{git status};
   \item[$\cdot$] finally check the LR commit-history of the current branch via \textit{git log} (see Section \mysecref{sec:GitLog});
-  \item[$\cdot$] \textbf{NB \#1}: to delete a current branch commit in LR \mydiv \mycmd{git reset -{}-hard <commit\_id>} (or \mycmd{git reset -{}-hard HEAD~X} to cancel last X commits, assuming HEAD is pointing to latest commit of the desired local branch);
+  \item[$\cdot$] \textbf{NB \#1}: to delete a current branch commit in LR \mydiv \mycmd{git reset -{}-hard <commit\_id>} (or \mycmd{git reset -{}-hard HEAD\textasciitilde X} to cancel last X commits, assuming HEAD is pointing to latest commit of the desired local branch);
   \item[$\cdot$] \textbf{NB \#2}: to examine changes more in detail and select one by one the files to stage and commit use Git GUI (see Section \mysecref{sec:GitGui}).
 \end{itemize}
 \myvspace
@@ -348,7 +348,11 @@
 \section{Ignore}   \label{sec:Ignore}
 
 \begin{itemize}
-\item[$\circ$] The purpose of the \textbf{\textit{.gitignore}} file is to prevent specific files within the Git repository from being part of the versioning. In particular, to keep some WT files/directories out of Git versioning since the beginning of the project without removing them locally from the WT (e.g. build files generated after compilation, that usually are not versioned), add them as new lines to the \textit{.gitignore} file present in the main page of the WT (e.g. \textit{build/} or \textit{source/test.log}).
+\item[$\circ$] The purpose of the \textbf{\textit{.gitignore}} file is to prevent specific files within the Git repository from being part of the versioning. In particular, to keep some WT files/directories out of Git versioning since the beginning of the project without removing them locally from the WT (e.g. build files generated after compilation, that usually are not versioned), add them as new lines to the \textit{.gitignore} file present in the main page of the WT. For example:
+\begin{itemize}
+  \item[] \textit{build/}
+  \item[] \textit{source/test.log}
+\end{itemize}
 \myvspace
 
 \item[$\circ$] It is possible to create additional \textit{.gitignore} files inside project sub-folders to simplify the handling of the files path to be ignored. For example, to exclude from versioning the file \textit{source/hal/adc.h} you can either add the entry \textit{source/hal/adc.h} within the main \textit{.gitignore} file of the project or add the entry \textit{adc.h} within the additional \textit{.gitignore} file created inside \textit{source/hal/}.
@@ -359,15 +363,94 @@
   \item[$\cdot$] be sure your LR branch is up-to-date with RR, there's nothing to commit, and the working tree is clean \mydiv \textit{git fetch \&\& git status};
   \item[$\cdot$] add files or directories to be excluded from versioning as new entries inside \textit{.gitignore} file;
   \item[$\cdot$] remove files or directories to be excluded from versioning from RR \mydiv \mycmd{git rm -{}-cached <file>} or \mycmd{git rm -r -{}-cached <directory>} (e.g. \textit{git rm -{}-cached source/xyz.c} or \textit{git rm -r -{}-cached bin/});
-  
-  
-  
-  \item[$\cdot$] stage changes (i.e. files or directories excluded from versioning according to updated \textit{.gitignore}) \mydiv \textit{git add -{}-all};
+  \item[$\cdot$] \textbf{NB \#1}: the previous command can be alternatively executed over the whole LR via \textit{git rm -r cached .} [NOT RECOMMENDED, since it may create issues in case the project contains submodules];
+  \item[$\cdot$] stage changes (i.e. files or directories excluded from versioning according to updated \textit{.gitignore}) \mydiv \textit{git add -{}-all} (or more specifically \textit{git add <files-or-directories>});
+  \item[$\cdot$] commit changes \mydiv \textit{git commit -m "apply .gitignore updates"};
+  \item[$\cdot$] push changes to RR \mydiv \textit{git push};
+  \item[$\cdot$] open RR on GitHub website and verify the specified files OR directories have been removed from the project;
+  \item[$\cdot$] as a check, try to modify within WT a file just excluded from versioning and then verify via \textit{git status} that it is not reported anymore as \textit{modified}].  
 \end{itemize}
 \myvspace
 
+\item[$\circ$] The \textit{-{}-cached} option specifies the removal should happen only on the staging index, leaving WT files untouched. On the other hand, executing \textit{git rm <file>} without the \textit{-{}-cached} option physically deletes the files from WT and automatically stages the change (i.e. it is equivalent to delete the file manually and then execute \textit{git add <file>}).
+\myvspace
+
+\item[$\circ$] Instead, if some project files or directories are no more needed and thus can be completely deleted both locally and remotely, the procedure is easier and similar to usual commits:
+\begin{itemize}
+  \item[$\cdot$] delete files or directories (i.e. move to recycle bin);
+  \item[$\cdot$] stage changes \mydiv \textit{git add <files-or-directories>};
+  \item[$\cdot$] commit changes \mydiv \textit{git commit -m "files removed"};
+  \item[$\cdot$] push changes to RR \mydiv \textit{git push}.
 \end{itemize}
 \myvspace
+
+\item[$\circ$] To create exceptions for specific \textit{.gitignore} entries use the \mysapo{!} character. For example, adding the following two lines inside the \textit{.gitignore} file cause all \textit{.cpp} files within the repository to be excluded from versioning except for \textit{src/xyz.cpp}:
+\begin{itemize}
+  \item[] \textit{*.cpp}
+  \item[] \textit{!src/xyz.cpp}
+\end{itemize}
+\end{itemize}
+\myvspace
+
+%--------------------------------------------------------------------------
+%	10. BRANCHES
+%--------------------------------------------------------------------------
+
+\section{Branches}   \label{sec:Branches}
+
+\begin{itemize}
+\item[$\circ$] Every commit belongs to a specific branch (Git's default one is named \textit{master}), which contains the history of all commits related to that branch. Branches are created by reference and they are essential useful for code experimentation, testing, development within a team (since they allow concurrent and independent work on the same project without mutual interference), and for supporting multiple project-versions (in case of need for customization between different applications or clients).
+\myvspace
+
+\item[$\circ$] Branches can be of two types:
+\begin{itemize}
+  \item[$\cdot$] \textbf{\textit{long-lived}} (aka \textit{base}), related to stable and official versions of the project over time (such as \textit{master} or \textit{develop});
+  \item[$\cdot$] \textbf{\textit{short-lived}} (aka \textit{topic}), related to tickets that shortly merge back to a \textit{long-lived} branch (such as \textit{bugfix}, \textit{hotfix} or 'feature').
+\end{itemize}
+\myvspace
+
+\item[$\circ$] Useful commands for branches:
+\begin{itemize}
+  \item[$\cdot$] to show all local branches of the project \mydiv \mycmd{git branch};
+  \item[$\cdot$] \textbf{NB \#1}: among the results shown by executing \textit{git branch}, the branch marked with the \mysapo{*} character represents the one currently pointed by \textit{HEAD}, thus the one present within WT at that time;
+  \item[$\cdot$] to create a new branch locally \mydiv \mycmd{git branch <branch\_name>};
+  \item[$\cdot$] \textbf{NB \#2}: before creating a new branch (e.g. \textit{bugfix\_startup\_327}) be sure to checkout to the desired source branch (e.g. \textit{develop});
+  \item[$\cdot$] to push a new branch just created in LR to RR \mydiv \mycmd{git push -u origin <branch\_name>} (where \textit{-u} = \textit{-{}-set-upstream});
+  \item[$\cdot$] \textbf{NB \#3}: new branches can be also created on RR first (go to \textit{github website > project\_name > view all branches > new branch} and select the source branch), then locally use \textit{git fetch} to check and retrieve new branches from RR (and now by executing \textit{git branch} it can be verified the new branch is listed locally as well);
+  \item[$\cdot$] \textbf{NB \#4}: a new branch keeps inside also the whole previous history of its source branch (easily verifiable via \textit{git log}).
+\end{itemize}
+\myvspace
+
+\item[$\circ$] The \textit{checkout} command can be used to:
+\begin{itemize}
+  \item[$\cdot$] switch \textit{HEAD} from the current branch-commit pair to either the tip of another branch-label or another commit ID of the same branch-label \mydiv \mycmd{git checkout <branch>} or \mycmd{git checkout <commit\_id>};
+  \item[$\cdot$] update the WT with files and directories from the checked out branch or commit;
+  \item[$\cdot$] be allowed to commit for that branch locally and remotely (i.e. to both LR and RR);
+  \item[$\cdot$] \textbf{NB \#5}: the commands \textit{git branch <new\_branch> \&\& git checkout <new\_branch>} can be combined into a single one (assuming \textit{<new\_branch>} does not exist yet locally) \mydiv \mycmd{git checkout -b <new\_branch>}.
+\end{itemize}
+\myvspace
+
+\item[$\circ$] Whenever \textit{HEAD} within the current branch does not point to its branch-label (i.e. tip of the branch) but to one of its previous commits, that causes the so-called \textbf{\textit{detached HEAD}} situation. Keep in mind if you want to work restarting from a previous commit (e.g. \textit{HEAD\textasciitilde}) you shall first create a dedicated branch and checkout to that, otherwise it would create a \textit{HEAD-detached conflict}.
+\myvspace
+
+\item[$\circ$] Use \mycmd{git branch -d <branch\_name>} to locally delete a branch. Keep in mind deleting a branch actually means deleting its branch-label. Moreover, note the command fails if the branch to be deleted is the one currently pointed by \textit{HEAD} (thus checkout to another first) or is \textit{dangling} (i.e. it has commits which have not been merged back yet to any \textit{long-lived} branch). To solve the latter, you can decide to either merge it back or force its deletion via \textit{git branch -D <branch\_name>}. To revert an accidental branch deletion use \textit{git reflog} (showing LR list of recent HEAD commits) to read the commit ID of the deleted dangling branch to be restored and then use \textit{git checkout -b <branch\_name> <commit\_id>}. Remember that Git periodically checks in background withing the project the presence of dangling commits (i.e. commits not linked to a branch anymore, since the latter has been deleted) and delete (aka \textit{garbage collect}) them automatically. Finally, to delete the branch also remotely on RR use \mycmd{git push origin -d <branch\_name>} (where \textit{-d} = \textit{-{}-delete}).
+\end{itemize}
+\myvspace
+
+%--------------------------------------------------------------------------
+%	11. MERGING
+%--------------------------------------------------------------------------
+
+\section{Merging}   \label{sec:Merging}
+
+
+
+
+
+
+
+
+
 
 
 

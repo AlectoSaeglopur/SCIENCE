@@ -168,22 +168,24 @@ Typically the user has to care only about commits and annotated tags, whereas tr
 - be sure your LR branch is up-to-date with RR, there's nothing to commit, and the working tree is clean >> "git fetch && git status";
 - add files or directories to be excluded from versioning as new entries inside ".gitignore" file;
 - remove files or directories to be excluded from versioning from RR >> "git rm --cached <file>" or "git rm -r --cached <directory>" (e.g. "git rm --cached source/xyz.c" or "git rm -r --cached bin/");
-- stage changes (i.e. files/directories excluded from versioning according to updated ".gitignore") >> "git add --all";
-- [NB: the previous command can be alternatively executed over the whole LR via "git rm -r cached .", but that's not recommended since it may create issues in case the project contains submodules];
+- NB #1: the previous command can be alternatively executed over the whole LR via "git rm -r cached ." [NOT RECOMMENDED, since it may create issues in case the project contains submodules];
+- stage changes (i.e. files or directories excluded from versioning according to updated ".gitignore") >> "git add --all" (or more specifically "git add <files-or-directories>");
 - commit changes >> "git commit -m "apply .gitignore updates"";
 - push changes to RR >> "git push";
-- [open the RR on GitHub website and verify the specified files/directories have been removed from the project];
-- [try to modify in the WT a file just excluded from versioning and then verify via "git status" that it's not reported anymore as 'modified'].
+- open RR on GitHub website and verify the specified files/directories have been removed from the project;
+- as a check, modify within WT a file just excluded from versioning and then verify via "git status" that it is not reported anymore as 'modified'].
 
-§ Instead, if some project files/directories are no more needed and thus can be completely deleted both locally and remotely, the procedure is easier and similar to usual commits:
-- delete files/directories (i.e. move to recycle bin);
-- "git add --all" (or more specifically "git add <files/directories>");
-- "git commit -m "files removed"";
-- "git push".
+§ The "--cached" option specifies the removal should happen only on the staging index, leaving WT files untouched. On the other hand, executing "git rm <file>" without the "--cached" option physically deletes the files from WT and automatically stages the change (i.e. it is equivalent to delete the file manually and then execute "git add <file>").
 
-§ The "--cached" option specifies the removal should happen only on the staging index, leaving WT files untouched. On the other hand, executing "git rm <file>" without the "--cached" option physically deletes the files from the WT and automatically stages the change (i.e it's equivalent to delete the file manually and then execute "git add <file_removed>"), thus operates on the current branch only (the removal event is only applied to the working directory and staging index trees, whereas the file removal is not persisted to the repository history until a new commit is created).
+thus operates on the current branch only (the removal event is only applied to the working directory and staging index trees, whereas the file removal is not persisted to the repository history until a new commit is created).
 
-§ To create exceptions for specific ".gitignore" entries use the '!' character. For example, adding the following x2 lines inside the ".gitignore" file cause all '.cpp' files within the repo to be excluded from versioning except for 'src/xyz.cpp':
+§ Instead, if some project files or directories are no more needed and thus can be completely deleted both locally and remotely, the procedure is easier and similar to usual commits:
+- delete files or directories (i.e. move to recycle bin);
+- stage changes >> "git add <files-or-directories>";
+- commit changes >> "git commit -m "files removed"";
+- push changes to RR >> "git push".
+
+§ To create exceptions for specific ".gitignore" entries use the '!' character. For example, adding the following x2 lines inside the ".gitignore" file cause all '.cpp' files within the repository to be excluded from versioning except for 'src/xyz.cpp':
   *.cpp
   !src/xyz.cpp
 
@@ -191,29 +193,30 @@ Typically the user has to care only about commits and annotated tags, whereas tr
 
 >> 10. BRANCHES <<
 
-§ Every commit belongs to a specific branch (Git's default one is named 'master'), which contains the history of all commits related to that branch. Branches are created by reference and they are useful for code-experimentation/testing, for code development within a team (since they allow concurrent/independent work on the same project without mutual interference), and for supporting multiple project-versions (in case of customization between different applications/clients).
+§ Every commit belongs to a specific branch (Git's default one is named 'master'), which contains the history of all commits related to that branch. Branches are created by reference and they are essential useful for code experimentation, testing, development within a team (since they allow concurrent and independent work on the same project without mutual interference), and for supporting multiple project-versions (in case of need for customization between different applications or clients).
 
 § Branches can be of x2 types:
-- "long-lived" (aka "base", such as 'master', 'develop' or 'release'), related to stable and official versions of the project over time;
-- "short-lived" (aka "topic", such as 'bugfix', 'hotfix' or 'feature'), related to tickets that shortly merge back to a 'long-lived' branch.
+- "long-lived" (aka "base"), related to stable and official versions of the project over time (such as 'master' or 'develop');
+- "short-lived" (aka "topic"), related to tickets that shortly merge back to a 'long-lived' branch (such as 'bugfix', 'hotfix' or 'feature').
 
 § Useful commands for branches:
-- to show all branches of the project >> "git branch" (then the branch marked with the '*' character represents the one currently pointed by 'HEAD', i.e. the one present in the WT at that time) [NB: use "git fetch" before to be sure you're up-to-date with the RR];
-- to create a new branch in LR >> "git branch <branch_name>" (then check this has been successfully create via "git branch") [NB: before creating a new branch (e.g. 'bugfix_startup_327') be sure to checkout to the desired source branch (e.g. 'develop')];
-- to push a new branch (just created in LR) to RR >> "git push -u origin <branch_name>" [NB: '-u' = '--set-upstream'];
-- [NB: new branches can be also created first on RR as well (e.g. go to "github website > PROJECT > view all branches > new branch" and choose the source-branch), then locally use "git fetch" to check if new branches are present on RR (then after executing "git checkout <new_rr_branch> && git branch" the new branch is listed also locally)].
+- to show all local branches of the project >> "git branch";
+- NB #1: among the results shown by executing "git branch", the branch marked with the '*' character represents the one currently pointed by 'HEAD', i.e. the one present in the WT at that time;
+- to create a new branch locally >> "git branch <branch_name>";
+- NB #2: before creating a new branch (e.g. 'bugfix_startup_327') be sure to checkout to the desired source branch (e.g. 'develop');
+- to push a new branch just created in LR to RR >> "git push -u origin <branch_name>" [NB: '-u' = '--set-upstream'];
+- NB #3: new branches can be also created on RR first (go to "github website > PROJECT > view all branches > new branch" and select the source branch), then locally use "git fetch" to check and retrieve new branches from RR (now by executing "git branch" it can be verified the new branch is listed locally as well);
+- NB #4: a new branch keeps inside also the whole previous history of its source branch (easily verifiable via "git log").
 
 § The "checkout" command can be used to:
-- switch 'HEAD' from the current branch-commit pair to either the checked-out branch-label (i.e. to change branch >> "git checkout <branch>") or 'commit id' (i.e. to change commit on the same branch >> "git checkout <commit>");
-- update the WT with files/directories from the checked-out branch/commit;
-- be able to commit for that branch locally and remotely (i.e. to both LR and RR);
-- [NB: "git checkout -b <branch_name>" = "git branch <branch_name> && git checkout <branch_name>" (assuming <branch_name>-branch does not exist yet locally)].
+- switch 'HEAD' from the current branch-commit pair to either the tip of another branch-label or another commit id of the same branch-label >> "git checkout <branch>" or "git checkout <commit_id>";
+- update the WT with files and directories from the checked out branch or commit;
+- be allowed to commit for that branch locally and remotely (i.e. to both LR and RR);
+- NB #5: the commands "git branch <new_branch> && git checkout <new_branch>" can be combined into a single one (assuming <new_branch> does not exist yet locally) >> "git checkout -b <new_branch>".
 
-§ Whenever 'HEAD' within the current branch does not point to the branch-label but to one of its previous commits that's called "detached HEAD". Keep in mind if you want to work restarting on a previous commit (i.e. 'HEAD~') you have to first create a dedicated branch and checkout to this (otherwise it would create a so-called "HEAD-detached conflict").
+§ Whenever 'HEAD' within the current branch does not point to its branch-label (i.e. tip of the branch) but to one of its previous commits, that causes the so-called "detached HEAD" situation. Keep in mind if you want to work restarting from a previous commit (e.g. 'HEAD~') you shall first create a dedicated branch and checkout to that, otherwise it would create a "HEAD-detached conflict".
 
-§ Use "git branch -d <branch_name>" to locally delete a branch (then check the result with "git branch"). Keep in mind deleting a branch actually means deleting its branch-label. Moreover, note that the command fails if the branch to be deleted is "dangling" (i.e. it has commits which have not been merged back yet to any 'long-lived' branch). To solve this, you can decide to either merge it back or force its deletion via "git branch -D <branch_name>". To revert an accidental/unintended branch deletion use "git reflog" (showing LR list of recent HEAD commits) to read the commit-ID of the deleted dangling branch to be restored and then use "git checkout -b <branch_name> <commit_id>". Finally, remember that Git periodically checks in background withing the project the presence of dangling commits (i.e. commits not linked to a branch anymore, since the latter has been deleted) and delete (aka "garbage-collect") them automatically. Then, to delete the branch also remotely on RR use "git push origin -d <branch_name>" (where '-d' = '--delete').
-
-§ Note that a new branch keeps inside also the whole previous history of its source branch (this can be checked easily via "git log --oneline").
+§ Use "git branch -d <branch_name>" to locally delete a branch. Keep in mind deleting a branch actually means deleting its branch-label. Moreover, note the command fails if the branch to be deleted is the one currently pointed by 'HEAD' (thus checkout to another first) or is "dangling" (i.e. it has commits which have not been merged back yet to any 'long-lived' branch). To solve the latter, you can decide to either merge it back or force its deletion via "git branch -D <branch_name>". To revert an accidental branch deletion use "git reflog" (showing LR list of recent HEAD commits) to read the commit-ID of the deleted dangling branch to be restored and then use "git checkout -b <branch_name> <commit_id>". Remember that Git periodically checks in background withing the project the presence of dangling commits (i.e. commits not linked to a branch anymore, since the latter has been deleted) and delete (aka "garbage collect") them automatically. Finally, to delete the branch also remotely on RR use "git push origin -d <branch_name>" (where '-d' = '--delete').
 
 ------------------------------------------------------------
 
