@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.5.6)  21 JUN 2024 17:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.5.6)  22 JUN 2024 19:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1133,11 +1133,11 @@ Package rerunfilecheck Info: File `git_notes.out' has not changed.
 (rerunfilecheck)             Checksum: E6F92CDD7F50DBDFCC4915217E6E353D;1517.
  ) 
 Here is how much of TeX's memory you used:
- 46059 strings out of 476047
- 1060498 string characters out of 5794246
+ 46079 strings out of 476047
+ 1060681 string characters out of 5794246
  1872242 words of memory out of 5000000
  65435 multiletter control sequences out of 15000+600000
- 575249 words of font info for 418 fonts, out of 8000000 for 9000
+ 576282 words of font info for 433 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  102i,11n,104p,1206b,718s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/tex
@@ -1145,10 +1145,10 @@ live/2023/texmf-dist/fonts/type1/public/fpl/fplrc8a.pfb><c:/texlive/2023/texmf-
 dist/fonts/type1/urw/palatino/uplb8a.pfb><c:/texlive/2023/texmf-dist/fonts/type
 1/urw/palatino/uplbi8a.pfb><c:/texlive/2023/texmf-dist/fonts/type1/urw/palatino
 /uplr8a.pfb><c:/texlive/2023/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on git_notes.pdf (8 pages, 132969 bytes).
+Output written on git_notes.pdf (8 pages, 135844 bytes).
 PDF statistics:
- 149 PDF objects out of 1000 (max. 8388607)
- 125 compressed objects within 2 object streams
+ 151 PDF objects out of 1000 (max. 8388607)
+ 127 compressed objects within 2 object streams
  23 named destinations out of 1000 (max. 500000)
  76917 words of extra memory for PDF output out of 89155 (max. 10000000)
 

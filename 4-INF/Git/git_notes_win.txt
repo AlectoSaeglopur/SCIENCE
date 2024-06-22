@@ -228,18 +228,23 @@ thus operates on the current branch only (the removal event is only applied to t
 - "squash merge";
 - "rebase merge".
 
-§ "Fast-forward" (FF) moves directly the source/base branch-label to the tip of the topic-branch and cannot cause conflicts (therefore, it's possible only if no commits have been added to the source/base-branch in the meanwhile). In this case, after merging both branches contain exactly the same commits, thus the base-branch inherits all the topic-branch commits (even if later the topic-branch gets deleted). With FF-merging the resulting commits-history (aka 'commits-graph') is linear, i.e. no commits have multiple parents (this can be checked via "git log --oneline --graph"). Commands to perform an FF-merging:
-- after pushing the final changes on the topic-branch (i.e. the "merge-from-branch", aka "active" branch), switch to the base-branch (i.e. the "merge-to-branch", aka "passive" branch) and pull (even if nothing is assumed to have changed) >> "git checkout <base_branch> && git pull" [NB: as said, 'pull' is theoretically not needed in this case since nothing is assumed to have changed in the meanwhile on the base-branch, but nonetheless it's always good practise];
-- merge back topic-branch into base-branch (note FF is always the default type of merging attempted by Git at first) >> "git merge <topic_branch>" [NB: whenever using the command "merge", Git specifies the type of merging is trying to execute (e.g. by printing 'Fast-forward' on shell)];
-- verify your base-branch is now 'ahead of origin by 1 commit' and push merge-changes to RR >> "git status && git push";
-- [check the topic-branch commits have been added to the base-branch, HEAD points now to both branches, and commits-graph is linear >> "git log --oneline --graph"]; 
-- [delete the merged topic-branch both locally and remotely (see Section #10) - this is not mandatory, but recommended to save space on both disk and GitHub and keep project versioning cleaner (NB: a merged topic-branch is never deleted automatically by Git, it has to be done explicitly by the user via this command)].
+§ "Fast-forward" (FF) moves directly the source branch-label to the tip of the destination branch without causing conflicts (therefore, it is possible only if no overlapping commits or unstaged changes have been added to the destination branch in the meanwhile). In this case, after merging both branches contain exactly the same commits, thus the destination branch inherits all the source branch commits (even in case later the source branch gets deleted). With FF merging the resulting commit history (aka 'commit graph') is linear, namely no commits have multiple parents (verifiable visually via "git log --oneline --graph"). Hereafter the procedure to perform an FF merging:
+- commit and push the final changes on the destination branch (aka "active branch");
+- switch to the source one (aka "passive branch") and pull latest updates (this is always a good practise, even if nothing is expected to have changed) >> "git checkout <source_branch> && git pull";
+- checkout back to destination branch (i.e. where merging process is going to be applied);
+- merge source branch into destination branch >> "git merge <source_branch>";
+- NB #1: whenever using the command "merge", Git specifies the type of merging is trying to execute (e.g. by printing 'Fast-forward' on shell);
+- NB #2: FF is always the default type of merging attempted by Git at first;
+- verify your destination branch is now marked as 'ahead of origin by 1 commit' and push merge-changes to RR >> "git status && git push";
+- check the source branch commits have been added to the destination branch, HEAD points now to both branches, and commit graph is linear >> "git log --oneline --graph"; 
+- if not needed anymore, delete the merged source branch both locally and remotely (see Section #10) - this is not mandatory, but recommended to save space on both disk and GitHub and keep project versioning cleaner;
+- NB #3: a merged source branch is never deleted automatically by Git, it has to be done explicitly by the user via command line or GitHub website.
 
 § Fast-forward example:
-A   [base-branch]                         
-  \_ B -- C -- D   [topic-branch]
+A   [destination branch]
+  \_ B -- C   [source branch]
 => FAST-FORWARD =>
-A -- B -- C   [base-branch]
+A -- B -- C   [destination-branch]
 
 § "Merge-commit" (MC) combines the commits at the tips of the merged branches and places the result into the merge commit. In this case, the merged-commit has always multiple parents. Moreover, MC may cause conflicts if the two branches end up modifying the very same files of the project. The commands to perform an MC merging are the very same as for FF, with the only difference (assuming for the moment no conflicts occur) that when the 'merge'-command is executed Git automatically opens a file (e.g. named "MERGE_MSG") where to write (at the very first line by replacing the default message, if wanted) details/explanations about the merging. Note in this case the final merged-commit contains a combination of both branches, thus you have a non-linear commits-graph (check via "git log --oneline --graph").
 Finally, remember it's possible to create an MC even for simpler FF cases by using "git merge --no-ff <topic-branch>". This way, the merged-commit will keep track also of the topic-branch existence (thus, producing a non-linear commits-graph). This solution generates exactly the same project files as FF would, the only difference regards the project-history information. In particular, MC allows a more accurate history-tracking (since topic-branches are not concealed), whereas FF can help to keep the history-tracking cleaner; so usually it's a software team decision which policy to adopt.
@@ -658,3 +663,7 @@ A -- D -- (diffAB) -- B' -(diffBC)- C'   [base-branch]
 - info about git show command
 
 - open git gui submodule inside git gui main
+
+
+
+!!!!! BASE == SOURCE (@vkn: remove!) || TOPIC = DESTINATION

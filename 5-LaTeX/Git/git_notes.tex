@@ -443,9 +443,33 @@
 
 \section{Merging}   \label{sec:Merging}
 
+\begin{itemize}
+\item[$\circ$] Merging allows to combine the work of independent branches (usually from a \textit{short-lived} branch into a \textit{long-lived} one). There exist four types of merging:
+\begin{itemize}
+  \item[$\cdot$] \textit{fast-forward};
+  \item[$\cdot$] \textit{merge commit};
+  \item[$\cdot$] \textit{squash merge};
+  \item[$\cdot$] \textit{rebase merge}.
+\end{itemize}
+
+\item[$\circ$] \textbf{\textit{Fast-forward}} (FF) moves directly the source branch-label to the tip of the destination branch without causing conflicts (therefore, it is possible only if no overlapping commits or unstaged changes have been added to the source branch in the meanwhile). In this case, after merging both branches contain exactly the same commits, thus the destination branch inherits all the source branch commits (even in case later the destination branch gets deleted). With FF merging the resulting \textit{commit history} (aka \textit{commit graph}) is linear, namely no commits have multiple parents (verifiable visually via \textit{git log -{}-oneline -{}-graph}). Hereafter the procedure to perform an FF merging:
+\begin{itemize}
+  \item[$\cdot$] commit and push the final changes on the destination branch (aka \textit{active branch});
+  \item[$\cdot$] switch to the source one (aka \textit{passive branch}) and pull latest updates (this is always a good practise, even if nothing is expected to have changed) \mydiv \textit{git checkout <source\_branch> \&\& git pull};
+  \item[$\cdot$] checkout back to destination branch (i.e. where merging process is going to be applied);
+  \item[$\cdot$] merge source branch into destination branch \mydiv \textit{git merge <source\_branch>};
+  \item[$\cdot$] \textbf{NB \#1}: whenever using the command \textit{merge}, Git specifies the type of merging is trying to execute (e.g. by printing \textit{Fast-forward} on shell);
+  \item[$\cdot$] \textbf{NB \#2}: FF is always the default type of merging attempted by Git at first;
+  \item[$\cdot$] verify your destination branch is now marked as \textit{ahead of origin by 1 commit} and push merge-changes to RR \mydiv \textit{git status \&\& git push};
+  \item[$\cdot$] check the source branch commits have been added to the destination branch, \textit{HEAD} points now to both branches, and commit graph is linear \mydiv \textit{git log -{}-oneline -{}-graph};
+  \item[$\cdot$] if not needed anymore, delete the merged source branch both locally and remotely (see Section \mysecref{sec:Branches}) - this is not mandatory, but recommended to save space on both disk and GitHub and keep project versioning cleaner;
+  \item[$\cdot$] \textbf{NB \#3}: a merged source branch is never deleted automatically by Git, it has to be done explicitly by the user via command line or GitHub website.
+\end{itemize}
+\myvspace
 
 
-
+\end{itemize}
+\myvspace
 
 
 
