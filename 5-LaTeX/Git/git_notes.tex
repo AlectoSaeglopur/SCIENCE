@@ -72,6 +72,10 @@
 \newcommand{\mysecref}[1]{\hyperref[#1]{\ref{#1}.}}   % section reference #2
 \newcommand{\myurl}[2]{\href{{#1}}{\underline{\textit{#2}}}}   % url link
 
+\newcommand{\mytzbrcolor}{black!50!green}   % branch name color for tikz graphs
+\newcommand{\mytzdivcolor}{black!5!orange}   % divider color for tikz graphs
+\newcommand{\mytzbrdist}{1.75cm}   % distance between consecutive branches for tikz graphs
+
 %----------------------------------------------------------------------------------------
 %	TITLE SECTION
 %----------------------------------------------------------------------------------------
@@ -405,7 +409,7 @@
 \item[$\circ$] Branches can be of two types:
 \begin{itemize}
   \item[$\cdot$] \textbf{\textit{long-lived}} (aka \textit{base}), related to stable and official versions of the project over time (such as \textit{master} or \textit{develop});
-  \item[$\cdot$] \textbf{\textit{short-lived}} (aka \textit{topic}), related to tickets that shortly merge back to a \textit{long-lived} branch (such as \textit{bugfix}, \textit{hotfix} or 'feature').
+  \item[$\cdot$] \textbf{\textit{short-lived}} (aka \textit{topic}), related to tickets that shortly merge back to a \textit{long-lived} branch (such as \textit{bugfix}, \textit{hotfix} or \textit{feature}).
 \end{itemize}
 \myvspace
 
@@ -467,16 +471,227 @@
 \end{itemize}
 \myvspace
 
+\item[$\circ$] Commit graph example for FF:
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[node distance=2cm,auto,>=latex']
+    \node [circle,draw,scale=0.85] (A1) [] {A};
+    \node [circle,draw,scale=0.85] (B1) [right of = A1, node distance=\mytzbrdist, yshift=-1.5cm] {B};
+    \node [circle,draw,scale=0.85] (C1) [right of = B1, node distance=\mytzbrdist] {C};
+    \node [circle,draw,scale=0.85] (?) [right of = C1, node distance=\mytzbrdist, yshift=1.5cm] {};
+    
+	\node [draw=none,scale=0.85,\mytzbrcolor] (Src) [below of=C1,xshift=-0.1cm,node distance=0.7cm] {\textit{Source}};
+	\node [draw=none,scale=0.85,\mytzbrcolor] (Dst) [above of=A1,xshift=0.2cm,node distance=0.7cm] {\textit{Destination}};
 
+    \path[<-] (A1) edge node[below,align=center,sloped,font=\tiny] {\textit{git branch} \\ \textit{git commit}} (B1);
+    \path[<-] (B1) edge node {} (C1);
+    \path[<-] (C1) edge[dashed] node[below,sloped,font=\tiny] {} (?);
+    \path[<-] (A1) edge[dashed] node[above,font=\tiny] {\textit{git merge}} (?);
+    
+    \node [circle,draw,scale=0.85] (A2) [right of = ?, node distance=3.5cm] {A};
+    \node [circle,draw,scale=0.85] (B2) [right of = A2, node distance=\mytzbrdist] {B};
+    \node [circle,draw,scale=0.85] (C2) [right of = B2, node distance=\mytzbrdist] {C};
+    
+    \path[<-] (A2) edge node {} (B2);
+    \path[<-] (B2) edge node {} (C2);
+    
+    \node [draw=none,scale=0.85,\mytzbrcolor] (Mrg) [below of=B2,xshift=0.5cm,node distance=0.7cm] {\textit{Destination $\equiv$ Source}};
+    
+    \draw[->,double,shorten <=4mm,shorten >=4mm,\mytzdivcolor] (?) -- (A2);
+\end{tikzpicture}
+\end{figure}
+
+\item[$\circ$] \textbf{\textit{Merge-commit}} (MC) combines the commits at the tips of the two branches to be merged and saves the result into a new commit. A \textit{merge-commit} has always multiple parents, since represents a combination of both branches (and so generating a non-linear commit graph, verifiable via \textit{git log -{}-oneline -{}-graph}). Moreover, MC may cause conflicts if the two branches end up modifying the very same files of the project. The commands to perform an MC merge are the very same already mentioned for FF, with the only difference (assuming, for the moment, that no conflicts occur) that now a new commit is created as a result of the merging process, generating also a default commit message (modifiable if desired) explaining the specific merge details. Finally, remember it is possible to create an MC even for simpler FF cases by using \mycmd{git merge -{}-no-ff <source\_branch>}. This way, the \textit{merge-commit} will keep track also of the source branch existence. This solution generates exactly the same project files as FF would, the only difference regards the project history information. In particular, MC allows a more accurate history tracking (since source branches are not concealed), whereas FF can help to keep the history tracking cleaner. So usually it is a software team decision which policy to adopt.
+\myvspace
+
+\item[$\circ$] Commit graph example for MC (where commit \mysapo{M} contains info from \mysapo{B} and \mysapo{C} as well and these are included within destination branch history):
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[node distance=2cm,auto,>=latex']
+    \node [circle,draw,scale=0.85] (A1) [] {A};
+    \node [circle,draw,scale=0.85] (B1) [right of = A1, node distance=\mytzbrdist, yshift=-1.5cm] {B};
+    \node [circle,draw,scale=0.85] (C1) [right of = B1, node distance=\mytzbrdist] {C};
+    \node [circle,draw,scale=0.85] (D1) [right of = A1, node distance=\mytzbrdist] {D};
+    \node [circle,draw,scale=0.85] (E1) [right of = D1, node distance=\mytzbrdist] {E};
+    \node [circle,draw,scale=0.85] (?) [right of = E1, node distance=\mytzbrdist] {};
+    
+    \node [draw=none,scale=0.85,\mytzbrcolor] (Src) [below of=C1,xshift=-0.1cm,node distance=0.7cm] {\textit{Source}};
+	\node [draw=none,scale=0.85,\mytzbrcolor] (Dst) [above of=E1,xshift=-0.1cm,node distance=0.7cm] {\textit{Destination}};
+    
+    \path[<-] (A1) edge node {} (D1);
+    \path[<-] (D1) edge node {} (E1);
+    \path[<-] (E1) edge[dashed] node[above,font=\tiny] {\textit{git merge}} (?);
+    \path[<-] (A1) edge node[below,align=center,sloped,font=\tiny] {\textit{git branch} \\ \textit{git commit}} (B1);
+    \path[<-] (B1) edge node {} (C1);
+    \path[<-] (C1) edge[dashed] node {} (?);
+    
+    \node [circle,draw,scale=0.85] (A2) [right of = ?, node distance=3.5cm] {A};
+    \node [circle,draw,scale=0.85] (B2) [right of = A2, node distance=\mytzbrdist, yshift=-1.5cm] {B};
+    \node [circle,draw,scale=0.85] (C2) [right of = B2, node distance=\mytzbrdist] {C};
+    \node [circle,draw,scale=0.85] (D2) [right of = A2, node distance=\mytzbrdist] {D};
+    \node [circle,draw,scale=0.85] (E2) [right of = D2, node distance=\mytzbrdist] {E};
+    \node [circle,draw,scale=0.85] (M) [right of = E2, node distance=\mytzbrdist] {M};
+    
+    \path[<-] (A2) edge node {} (D2);
+    \path[<-] (D2) edge node {} (E2);
+    \path[<-] (E2) edge node {} (M);
+    \path[<-] (A2) edge node {} (B2);
+    \path[<-] (B2) edge node {} (C2);
+    \path[<-] (C2) edge node {} (M);
+
+    \node [draw=none,scale=0.85,\mytzbrcolor] (Src) [below of=C2,xshift=-0.1cm,node distance=0.7cm] {\textit{Source}};
+	\node [draw=none,scale=0.85,\mytzbrcolor] (Dst) [above of=M,xshift=-0.1cm,node distance=0.7cm] {\textit{Destination}};
+    
+    \draw[->,double,shorten <=4mm,shorten >=4mm,\mytzdivcolor] (?) -- (A2);
+\end{tikzpicture}
+\end{figure}
+
+\item[$\circ$] \textbf{\textit{Squash-merge}} (SM) merges the source branch tip into the destination branch one (thus, conflict may arise in this case too). The content of the WT after SM is exactly the same as for MC, the only difference regards the final destination branch commit history. In fact, in this case the destination branch discards the source branch history after merging and considers the new commit as a single-parent one. This can help keeping the commit history cleaner, but also means losing detailed tracking information about the destination branch development. Note SM is a form of \textit{history-rewriting}. Hereafter the procedure for SM:
+\begin{itemize}
+  \item[$\cdot$] follow the same preliminary steps already described for FF;
+  \item[$\cdot$] checkout to destination branch \mydiv \textit{git checkout <destination\_branch>};
+  \item[$\cdot$] apply SM \mydiv \mycmd{git merge -{}-squash <source\_branch>};
+  \item[$\cdot$] commit (deciding also whether to accept or modify the default SM message prompted).
 \end{itemize}
 \myvspace
 
+\item[$\circ$] Commit graph example for SM (where commit \mysapo{S} contains info from \mysapo{B} and \mysapo{C} as well, but these are not included within destination branch history):
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[node distance=2cm,auto,>=latex']
+    \node [circle,draw,scale=0.85] (A1) [] {A};
+    \node [circle,draw,scale=0.85] (B1) [right of = A1, node distance=\mytzbrdist, yshift=-1.5cm] {B};
+    \node [circle,draw,scale=0.85] (C1) [right of = B1, node distance=\mytzbrdist] {C};
+    \node [circle,draw,scale=0.85] (D1) [right of = A1, node distance=\mytzbrdist] {D};
+    \node [circle,draw,scale=0.85] (E1) [right of = D1, node distance=\mytzbrdist] {E};
+    \node [circle,draw,scale=0.85] (?) [right of = E1, node distance=\mytzbrdist] {};
+    
+    \node [draw=none,scale=0.85,\mytzbrcolor] (Src) [below of=C1,xshift=-0.1cm,node distance=0.7cm] {\textit{Source}};
+	\node [draw=none,scale=0.85,\mytzbrcolor] (Dst) [above of=E1,xshift=-0.1cm,node distance=0.7cm] {\textit{Destination}};
+    
+    \path[<-] (A1) edge node {} (D1);
+    \path[<-] (D1) edge node {} (E1);
+    \path[<-] (E1) edge[dashed] node[above,font=\tiny] {\textit{git merge}} (?);
+    \path[<-] (A1) edge node[below,align=center,sloped,font=\tiny] {\textit{git branch} \\ \textit{git commit}} (B1);
+    \path[<-] (B1) edge node {} (C1);
+    \path[<-] (C1) edge[dashed] node {} (?);
+    
+    \node [circle,draw,scale=0.85] (A2) [right of = ?, node distance=3.5cm] {A};
+    \node [circle,draw,scale=0.85] (B2) [right of = A2, node distance=\mytzbrdist, yshift=-1.5cm] {B};
+    \node [circle,draw,scale=0.85] (C2) [right of = B2, node distance=\mytzbrdist] {C};
+    \node [circle,draw,scale=0.85] (D2) [right of = A2, node distance=\mytzbrdist] {D};
+    \node [circle,draw,scale=0.85] (E2) [right of = D2, node distance=\mytzbrdist] {E};
+    \node [circle,draw,scale=0.85] (S) [right of = E2, node distance=\mytzbrdist] {S};
+    
+    \path[<-] (A2) edge node {} (D2);
+    \path[<-] (D2) edge node {} (E2);
+    \path[<-] (E2) edge node {} (S);
+    \path[<-] (A2) edge node {} (B2);
+    \path[<-] (B2) edge node {} (C2);
+
+    \node [draw=none,scale=0.85,\mytzbrcolor] (Src) [below of=C2,xshift=-0.1cm,node distance=0.7cm] {\textit{Source}};
+	\node [draw=none,scale=0.85,\mytzbrcolor] (Dst) [above of=M,xshift=-0.1cm,node distance=0.7cm] {\textit{Destination}};
+    
+    \draw[->,double,shorten <=4mm,shorten >=4mm,\mytzdivcolor] (?) -- (A2);
+\end{tikzpicture}
+\end{figure}
+
+\item[$\circ$] \textbf{\textit{Rebase-merge}} (RM) is treated in Section \mysecref{sec:Rebase}.
+\myvspace
+
+\item[$\circ$] In case of long-running topic-branches, it is always a good practice to periodically merge back to the related base-branches in order not to stray too much from development progression of the latter and avoid a potentially large number of conflicts and operation mismatches.
+\myvspace
+
+\item[$\circ$] Practical case where base-branch (e.g. \textit{develop} acting as source branch) needs to be merged into a completed topic-branch (e.g. \textit{feature\_423\_bootloader} acting as destination branch) to solve conflicts locally in advance in sight of pull-request opening:
+\begin{itemize}
+  \item[$\cdot$] work on topic-branch, then commit and push final changes;
+  \item[$\cdot$] checkout to base-branch and pull latest state from RR \mydiv \textit{git checkout <base\_branch> \&\& git pull};
+  \item[$\cdot$] move back to topic-branch \mydiv \textit{git checkout <topic\_branch>};
+  \item[$\cdot$] apply conditional merge (i.e. forcing MC without automatic commit) \mydiv \mycmd{git merge -{}-no-commit -{}-no-ff <base\_branch>};
+  \item[$\cdot$] solve conflicts, if any (see Section \mysecref{sec:Conflicts});
+  \item[$\cdot$] update submodules (only in case any reference has been changed within base-branch) \mydiv \textit{git submodule update -{}-recursive};
+  \item[$\cdot$] \textbf{NB \#1}: avoid executing the previous command for submodules just updated within the topic-branch (if any, or alternatively remember to execute an additional git pull on these submodules), since topic-branch reference is supposed to be the most recent (otherwise it would mean to revert part of the topic-branch work);
+  \item[$\cdot$] open Git GUI (and verify that merged files have been already staged but not committed yet), then stage, commit and push all merge changes;
+  \item[$\cdot$] \textbf{NB \#2}: to revert the whole merge process (in case of any error) \mydiv \mycmd{git merge -{}-abort}.
+\end{itemize}
+\end{itemize}
+\myvspace
+
+%--------------------------------------------------------------------------
+%	12. CONFLICTS
+%--------------------------------------------------------------------------
+
+\section{Conflicts}   \label{sec:Conflicts}
+
+\begin{itemize}
+\item[$\circ$] Conflicts arise when trying to merge branches that have modified the same sections (aka \textit{hunks}) of the same files. So, in this case the user is asked to make a decision on what to keep exactly. Note that no conflicts arise if changes have been made on separate files or even on separate hunks of the same files, since Git usually manages to resolve them autonomously.
+\myvspace
+
+\item[$\circ$] Procedure to resolve conflicts:
+\begin{itemize}
+  \item[$\cdot$] after merging source branch into destination one via \textit{git merge} command, if conflicts have been detected Git shows a message reporting all the project files inside which there are conflicts that cannot be automatically resolved (e.g. \textit{CONFLICT: Merge conflict in file xyz.c}), and modifies the content of these files in the WT to highlight the conflicting sections (see below);
+  \item[$\cdot$] by checking now the current state of LR branch via \textit{git status} Git should answer \textit{You have unmerged paths} (giving you also the chance to abort the merge attempt via \textit{git merge -{}-abort}, which restores the WT state to the latest LR destination branch commit);
+  \item[$\cdot$] to manually resolve the conflicts open corresponding files one by one with your editor (e.g. \textit{Visual Studio Code}) and solve them by deciding which branch version to keep for each unmerged section, then save and close;
+  \item[$\cdot$] stage and commit the fixed files (e.g. via Git GUI);
+  \item[$\cdot$] by checking now the current state of LR branch via \textit{git status} Git should answer that WT is clean and LR ahead of origin by 2 commits;
+  \item[$\cdot$] push changes to RR;
+  \item[$\cdot$] check via \textit{git log -{}-oneline -{}-graph} and in GitHub's \textit{Network graph} the merge has been executed successfully;
+  \item[$\cdot$] optionally delete merged source branch (see Section \mysecref{sec:Branches} and \mysecref{sec:Merging});
+\end{itemize}
+\myvspace
+
+\item[$\circ$] Git marks files where conflicts occurred while merging as follows:
+\begin{itemize}
+  \item[] \textit{<{}<{}<{}<{}<{}<{}<}
+  \item[] \textit{... section \#1 ... \: $\rightarrow$\: destination branch / HEAD}
+  \item[] \textit{======= \;\;\;\;\;\;\:\:\: $\rightarrow$\: conflict divider}
+  \item[] \textit{... section \#2 ... \: $\rightarrow$\: source branch}
+  \item[] \textit{>{}>{}>{}>{}>{}>{}>}
+\end{itemize}
+\myvspace
+
+\item[$\circ$] To check which project files contain conflicts to be solved after a merge use \mycmd{git diff -{}-check} (if none or after solving all of them, the command simply returns no message). Plus, they are labeled as \textit{unmerged} as a result of \textit{git status}. Another way is to simply search for the string \textcolor{teal}{\textit{<{}<{}<{}<{}<{}<{}< HEAD}} identifying any pending conflict throughout the project. Note conflicts can arise also due to \textit{git stash pop|apply} commands (see Section \mysecref{sec:Stash}); in this case look for the string \textcolor{teal}{\textit{>{}>{}>{}>{}>{}>{}> Stashed changes}} instead.
+\end{itemize}
+\myvspace
+
+%--------------------------------------------------------------------------
+%	13. TRACKING-BRANCHES
+%--------------------------------------------------------------------------
+
+\section{Tracking-Branches}   \label{sec:TrackingBranches}
+
+\begin{itemize}
+\item[$\circ$] \textbf{\textit{Tracking-branches}} (TB) are local branches representing remote branches. They are named \textit{<remote>/<branch>} (e.g. \textit{origin/master}, where \textit{origin} is a shortcut for remote repository URL/SSH address). Just after cloning a repository, the remote \textit{master} branch on GitHub and the local TB \textit{origin/master} are synchronized (i.e. containing the very same commits). However, remember TBs shall be then updated explicitly by the user to keep the synchronization. For instance, if after cloning the repository another user pushes a new commit on the same branch, RR becomes 1 commit ahead of your LR (aka \textit{decoupled}), but you cannot know this locally (e.g. via \textit{git status}) until you execute a \textit{fetch} or \textit{pull} command, since your \textit{origin/master} TB still points to the previous commit. The opposite example is when you create a new commit locally which has not been pushed yet to RR, where executing \textit{git status} returns \textit{Your branch is ahead of origin/master by 1 commit}.
+\myvspace
+
+\item[$\circ$] By default the command \textit{git branch} shows only the LR branches. Use \mycmd{git branch -{}-all} to show TBs as well, which are all unique branches stored within \textit{.git/refs/remotes/origin/} except for \textit{HEAD} (by default \textit{remotes/origin/HEAD $\rightarrow$ origin/master}). The latter is actually a symbolic reference specifying the TB related to the currently checked out branch and allowing to type only \textit{<remote>} instead of the whole \textit{<remote>/<branch>} in Git commands (e.g. \textit{origin} instead of \textit{origin/master}).
+\myvspace
+
+\item[$\circ$] Useful commands related to TBs:
+\begin{itemize}
+  \item[$\cdot$] to show commit-history of a remote branch (again, tracked only indirectly via the corresponding tracking-branch) \mydiv \mycmd{git log origin/<branch> [-{}-oneline]} (equivalent to simply \textit{git log origin [-{}-oneline]} if \textit{<branch>}, for instance \textit{master}, is set as default remote TB);
+  \item[$\cdot$] to change locally the default remote tracking-branch (e.g. from \textit{master} to \textit{develop}, since that is usually the one where the bulk of the work is done by the team) \mydiv \mycmd{git remote set-head <remote> <branch>} (e.g. \textit{git remote set-head origin develop}, so from now on the command \textit{git log origin [-{}-oneline]} will refer to \textit{develop} commits and \textit{git branch -{}-all} will show \textit{remotes/origin/HEAD $\rightarrow$ origin/develop});
+\end{itemize}
+\myvspace
+
+\item[$\circ$] The initial default TB (e.g. corresponding to the default branch when cloning the project) can be changed for all users through \textit{github website > settings > general > default branch}. Note this is always set by default to \textit{master} for any new repository.
+\myvspace
+
+\item[$\circ$] As already mentioned above, the \textit{git status} and \textit{git log -{}-oneline -{}-graph -{}-all} commands include info about TBs status and inform you if the local branch and the corresponding TB are out of sync or not (e.g. \textit{Your branch is up-to-date with origin/master}).
+\end{itemize}
+\myvspace
+
+%--------------------------------------------------------------------------
+%	14. FETCH, PULL & PUSH
+%--------------------------------------------------------------------------
+
+\section{Fetch, Pull \& Push}   \label{sec:FetchPullPush}
+...
 
 
 
 
-
-
+% label section 15 as "Rebase" + "Stash" !!!
 
 %--------------------------------------------------------------------------
 %	X. GIT LOG

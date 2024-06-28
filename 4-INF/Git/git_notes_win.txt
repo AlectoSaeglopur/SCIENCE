@@ -228,7 +228,7 @@ thus operates on the current branch only (the removal event is only applied to t
 - "squash merge";
 - "rebase merge".
 
-§ "Fast-forward" (FF) moves directly the source branch-label to the tip of the destination branch without causing conflicts (therefore, it is possible only if no overlapping commits or unstaged changes have been added to the destination branch in the meanwhile). In this case, after merging both branches contain exactly the same commits, thus the destination branch inherits all the source branch commits (even in case later the source branch gets deleted). With FF merging the resulting commit history (aka 'commit graph') is linear, namely no commits have multiple parents (verifiable visually via "git log --oneline --graph"). Hereafter the procedure to perform an FF merging:
+§ "Fast-forward" (FF) moves directly the source branch-label to the tip of the destination branch without causing conflicts (therefore, it is possible only if no overlapping commits or unstaged changes have been added to the destination branch in the meanwhile). In this case, after merging both branches contain exactly the same commits, thus the destination branch inherits all the source branch commits (even in case later the source branch gets deleted) and no new commits are created. With FF merging the resulting commit history (aka 'commit graph') is linear, namely no commits have multiple parents (verifiable visually via "git log --oneline --graph"). Hereafter the procedure to perform an FF merging:
 - commit and push the final changes on the destination branch (aka "active branch");
 - switch to the source one (aka "passive branch") and pull latest updates (this is always a good practise, even if nothing is expected to have changed) >> "git checkout <source_branch> && git pull";
 - checkout back to destination branch (i.e. where merging process is going to be applied);
@@ -240,99 +240,94 @@ thus operates on the current branch only (the removal event is only applied to t
 - if not needed anymore, delete the merged source branch both locally and remotely (see Section #10) - this is not mandatory, but recommended to save space on both disk and GitHub and keep project versioning cleaner;
 - NB #3: a merged source branch is never deleted automatically by Git, it has to be done explicitly by the user via command line or GitHub website.
 
-§ Fast-forward example:
-A   [destination branch]
-  \_ B -- C   [source branch]
+§ Commit graph example for FF:
+A   [destination]
+  \_ B -- C   [source]
 => FAST-FORWARD =>
-A -- B -- C   [destination-branch]
+A -- B -- C   [destination = source]
 
-§ "Merge-commit" (MC) combines the commits at the tips of the merged branches and places the result into the merge commit. In this case, the merged-commit has always multiple parents. Moreover, MC may cause conflicts if the two branches end up modifying the very same files of the project. The commands to perform an MC merging are the very same as for FF, with the only difference (assuming for the moment no conflicts occur) that when the 'merge'-command is executed Git automatically opens a file (e.g. named "MERGE_MSG") where to write (at the very first line by replacing the default message, if wanted) details/explanations about the merging. Note in this case the final merged-commit contains a combination of both branches, thus you have a non-linear commits-graph (check via "git log --oneline --graph").
-Finally, remember it's possible to create an MC even for simpler FF cases by using "git merge --no-ff <topic-branch>". This way, the merged-commit will keep track also of the topic-branch existence (thus, producing a non-linear commits-graph). This solution generates exactly the same project files as FF would, the only difference regards the project-history information. In particular, MC allows a more accurate history-tracking (since topic-branches are not concealed), whereas FF can help to keep the history-tracking cleaner; so usually it's a software team decision which policy to adopt.
+§ "Merge-commit" (MC) combines the commits at the tips of the two branches to be merged and saves the result into a new commit. A "merge-commit" has always multiple parents, since represents a combination of both branches (and so generating a non-linear commit graph, verifiable via "git log --oneline --graph"). Moreover, MC may cause conflicts if the two branches end up modifying the very same files of the project. The commands to perform an MC merge are the very same already mentioned for FF, with the only difference (assuming, for the moment, that no conflicts occur) that now a new commit is created as a result of the merging process, generating also a default commit message (modifiable if desired) explaining the specific merge details. Finally, remember it is possible to create an MC even for simpler FF cases by using "git merge --no-ff <source_branch>". This way, the merge-commit will keep track also of the source branch existence. This solution generates exactly the same project files as FF would, the only difference regards the project history information. In particular, MC allows a more accurate history tracking (since source branches are not concealed), whereas FF can help to keep the history tracking cleaner. So usually it is a software team decision which policy to adopt.
 
-§ Merge-commit example:
-A -- D -- E   [base-branch]                         
-  \_ B -- C   [topic-branch]
+§ Commit graph example for MC (where commit 'M' contains info from 'B' and 'C' as well and these are included within destination branch history):
+A -- D -- E   [destination]
+  \_ B -- C   [source]
 => MERGE-COMMIT =>
-A -- D -- E -- M   [base-branch]
-  \_ B -- C _/
-[i.e. the base-branch commit-history after merging keeps track of also all topic-branch commits (even if topic-branch is later deleted)]
+A -- D -- E -- M   [destination]
+  \_ B -- C _/   [source]
 
-§ "Squash-merge" (SM) merges the topic-branch tip into the base-branch tip (thus, conflict may arise in this case too). This can help keeping the commit history cleaner, but also means the base-branch loses/discards the topic-branch history after merging (see the graphical example below). Therefore, SM is a form of 'history-rewriting'.
+§ "Squash-merge" (SM) merges the source branch tip into the destination branch one (thus, conflict may arise in this case too). The content of the WT after SM is exactly the same as for MC, the only difference regards the final destination branch commit history. In fact, in this case the destination branch discards the source branch history after merging and considers the new commit as a single-parent one. This can help keeping the commit history cleaner, but also means losing detailed tracking information about the destination branch development. Note SM is a form of 'history-rewriting'. Hereafter the procedure for SM:
+- follow the same preliminary steps already described for FF;
+- checkout to destination branch >> "git checkout <destination_branch>";
+- apply SM >> "git merge --squash <source_branch>";
+- commit (deciding also whether to accept or modify the default SM message prompted).
 
-§ Procedure for squash-merging:
-- checkout to base-branch >> "git checkout <base_branch>";
-- apply SM >> "git merge --squash <topic_branch>";
-- commit (and then decided wheter to accept or modify the squash message prompted) >> "git commit";
-- [remove topic-branch after merging >> "git branch -D <topic-branch>"].
-
-§ Squash-merge example:
-A -- C   [base-branch]                         
-  \_ B -- D -- E   [topic-branch]
+§ Commit graph example for SM (where commit 'S' contains info from 'B' and 'C' as well, but these are not included within destination branch history):
+A -- D --E   [destination]
+ \_ B -- C   [source]
 => SQUASH =>
-A -- C -- F   [base-branch]
-[i.e. commits B/D/E are lost in the base-branch, since only the already-merged commit F is saved]
+A -- C -- E -- S   [destination]
+ \_ B -- C   [source]
 
 § "Rebase-merge" is treated in Section #15.
 
-§ In case of long-running topic-branches, it's always a good practise to periodically merge back to the source base-branch, in order not to stray too much from the latter and avoid a potential huge number of conflicts in the end.
+§ In case of long-running topic-branches, it is always a good practice to periodically merge back to the related base-branches in order not to stray too much from development progression of the latter and avoid a potentially large number of conflicts and operation mismatches.
 
-§ Practical case where base-branch (e.g. "develop") needs to be merged into completed "topic-branch" (e.g. "feature_423_combo_settings) to solve conflicts in advance locally in sight of pull-request opening:
-- work on topic-branch and commit/push final changes;
+§ Practical case where base-branch (e.g. "develop" acting as source branch) needs to be merged into a completed topic-branch (e.g. "feature_423_bootloader" acting as destination branch) to solve conflicts locally in advance in sight of pull-request opening:
+- work on topic-branch, then commit and push final changes;
 - checkout to base-branch and pull latest state from RR >> "git checkout <base_branch> && git pull";
 - move back to topic-branch >> "git checkout <topic_branch>";
-- apply conditional merge >> "git merge --no-commit --no-ff <base_branch>";
-- solve conflicts, if any (see Section #12) - NB: in case any submodule reference is changed choose ;
-- update submodules (in case any reference has been changed within base-branch) >> "git submodule update --recursive";
-- open Git GUI (and verify that merged files have been already staged but not committed yet) and stage/commit/push all changes due to merge-process;
-- (NB: to revert the whole merge process >> "git merge --abort").
+- apply conditional merge (i.e. forcing MC without automatic commit) >> "git merge --no-commit [--no-ff] <base_branch>";
+- solve conflicts, if any (see Section #12);
+- update submodules (only in case any reference has been changed within base-branch) >> "git submodule update --recursive";
+- NB #1: avoid executing the previous command for submodules just updated within the topic-branch (if any, or alternatively remember to execute an additional git pull on these submodules), since topic-branch reference is supposed to be the most recent (otherwise it would mean to revert part of the topic-branch work);
+- open Git GUI (and verify that merged files have been already staged but not committed yet), then stage, commit and push all merge changes;
+- NB #2: to revert the whole merge process (in case of any error) >> "git merge --abort".
 
 ------------------------------------------------------------
 
 >> 12. CONFLICTS <<
 
-§ Conflicts arise when trying to merge branches that have modified the same parts (aka "hunks") within the same files. Thus, in this case the user is asked to make a decision on what to save exactly. Note that no conflicts arise if changes have been made on separate files or even on separate hunks of the same files, since Git usually manages to resolve them autonomously.
+§ Conflicts arise when trying to merge branches that have modified the same sections (aka "hunks") of the same files. So, in this case the user is asked to make a decision on what to keep exactly. Note that no conflicts arise if changes have been made on separate files or even on separate hunks of the same files, since Git usually manages to resolve them autonomously.
 
 § Procedure to resolve conflicts:
-- checkout to base-branch (see Section #11 for more details) >> "git checkout <base_branch>";
-- try merging topic-branch into base-branch >> "git merge <topic-branch>";
-- at this point, if conflicts have been detected Git, shows a message reporting all the project files inside which there are conflicts that cannot be automatically resolved (e.g. 'CONFLICT: Merge conflict in file xyz.c'), and modifies the content of these files in the WT to highlight the conflicting sections;
-- [by checking now the current state of LR branch via "git status", Git should answer 'You have unmerged paths', giving you also the chance to abort the merge attempt via "git merge --abort" (restoring the WT state to the latest LR base-branch commit)];
-- to manually resolve the conflicts, open these files one by one with your editor (e.g. Visual Studio Code) and solve the conflicts (i.e. the section of which branch to keep), then save and close them;
-- stage the merge-solved files >> e.g. "git add xyz.c";
-- commit to LR >> "git commit" (comment is usually not essential in this case) [NB: see details in Section #11 about MC-merging for the text file prompted automatically by Git at this point];
-- [by checking now the current state of LR branch via "git status", Git should answer that LR and WT are clean and your base-branch is ahead of origin by 2 commits];
-- push changes to RR >> "git push";
-- [check via "git log --oneline -- graph" and in GitHub's 'Network graph' the merge has been executed successfully];
-- [delete merged topic-branch (see Section #10 and #11)];
+- after merging source branch into destination one via "git merge" command, if conflicts have been detected Git shows a message reporting all the project files inside which there are conflicts that cannot be automatically resolved (e.g. 'CONFLICT: Merge conflict in file xyz.c'), and modifies the content of these files in the WT to highlight the conflicting sections (see below);
+- by checking now the current state of LR branch via "git status" Git should answer 'You have unmerged paths' (giving you also the chance to abort the merge attempt via "git merge --abort", which restores the WT state to the latest LR destination branch commit);
+- to manually resolve the conflicts open corresponding files one by one with your editor (e.g. Visual Studio Code) and solve them by deciding which branch version to keep for each unmerged section, then save and close;
+- stage and commit the fixed files (e.g. via Git GUI);
+- by checking now the current state of LR branch via "git status" Git should answer that WT is clean and LR ahead of origin by 2 commits;
+- push changes to RR;
+- check via "git log --oneline --graph" and in GitHub's 'Network graph' the merge has been executed successfully;
+- optionally delete merged source branch (see Section #10 and #11);
 
-§ Git marks files where conflicts occurred while trying to merge as follows:
-<<<<<<
-... <base-branch>/HEAD code ...
-======
-... <topic-branch> code ...
->>>>>>
+§ Git marks files where conflicts occurred while merging as follows:
+<<<<<<< 
+  ... section #1 ... -> destination branch / HEAD
+=======              -> conflict divider
+  ... section #2 ... -> source branch
+>>>>>>>
 
-§ To check which project files contain conflicts to be solved after a merge use "git diff --check" (if none or after solving all of them, the command simply returns no message). Plus, they are labeled as "unmerged" as a result of "git status". Another way is to simply search for the string "<<< HEAD" identifying any pending conflict throughout the project.
+§ To check which project files contain conflicts to be solved after a merge use "git diff --check" (if none or after solving all of them, the command simply returns no message). Plus, they are labeled as "unmerged" as a result of "git status". Another way is to simply search for the string "<<<<<<< HEAD" identifying any pending conflict throughout the project. Note conflicts can arise also due to "git stash pop|apply" commands (see Section #19); in this case look for the string ">>>>>>> Stashed changes" instead.
 
 ------------------------------------------------------------
 
 >> 13. TRACKING-BRANCHES <<
 
-§ "Tracking-branches" are local branches representing remote branches. They are named "<remote>/<branch>" (e.g. "origin/master", where 'origin' is a shortcut for remote repository URL/SSH address). Just after cloning a repository, the remote 'master' branch on GitHub and the local tracking-branch 'origin/master' are actually synchronized (i.e. containing the very same commits). However, remember tracking-branches shall be then updated explicitly by the user to keep the synchronization! For instance, if after cloning the repository another user pushes a new commit on the same branch, RR becomes 1 commit ahead of your LR (aka "decoupled"), but you cannot know this locally (via "git status") until you perform a 'fetch/pull' command (since your 'origin/master' tracking-branch still points to the previous commit). The opposite example is when you create a new commit locally (e.g. on branch 'master') which has not been pushed yet to RR, where executing "git status" returns 'Your branch is ahead of 'origin/master' by 1 commit'.
+§ "Tracking-branches" (TB) are local branches representing remote branches. They are named "<remote>/<branch>" (e.g. "origin/master", where 'origin' is a shortcut for remote repository URL/SSH address). Just after cloning a repository, the remote 'master' branch on GitHub and the local TB 'origin/master' are synchronized (i.e. containing the very same commits). However, remember TBs shall be then updated explicitly by the user to keep the synchronization. For instance, if after cloning the repository another user pushes a new commit on the same branch, RR becomes 1 commit ahead of your LR (aka "decoupled"), but you cannot know this locally (e.g. via "git status") until you execute a 'fetch' or 'pull' command, since your 'origin/master' TB still points to the previous commit. The opposite example is when you create a new commit locally which has not been pushed yet to RR, where executing "git status" returns 'Your branch is ahead of 'origin/master' by 1 commit'.
 
-§ By default the command "git branch" shows only the LR branches. Instead, "git branch --all" shows also all tracking-branches (representing remote branches), which are all unique branches except for 'remotes/origin/HEAD' (by default 'remotes/origin/HEAD -> origin/master'). The latter is actually a symbolic reference specifying the default remote tracking-branch and allows to only type '<remote>' instead of the whole '<remote>/<branch>' in Git commands (e.g. 'origin' instead of 'origin/master') in Git commands [NOT ESSENTIAL].
+§ By default the command "git branch" shows only the LR branches. Use "git branch --all" to show TBs as well, which are all unique branches stored within 
+".git/refs/remotes/origin/" except for 'HEAD' (by default 'remotes/origin/HEAD -> origin/master'). The latter is actually a symbolic reference specifying the TB related to the currently checked-out branch and allowing to type only '<remote>' instead of the whole '<remote>/<branch>' in Git commands (e.g. 'origin' instead of 'origin/master').
 
-§ Useful commands related to tracking-branches:
-- to show commit-history of a remote branch (again, tracked only indirectly via the corresponding tracking-branch) >> "git log origin/master [--oneline]" (equivalent to simply "git log origin [--oneline]" if 'master' is set as default remote tracking-branch);
-- to change locally the default remote tracking-branch (e.g. to 'develop', since that's usually the one where the bulk of the work is done by the team) >> "git remote set-head <remote> <branch>" (e.g. "git remote set-head origin develop", so from now on "git log origin [--oneline]" will refer to 'develop' commits and "git branch --all" will show 'remotes/origin/HEAD -> origin/develop');
+§ Useful commands related to TBs:
+- to show commit-history of a remote branch (again, tracked only indirectly via the corresponding tracking-branch) >> "git log origin/<branch> [--oneline]" (equivalent to simply "git log origin [--oneline]" if <branch>, for instance 'master', is set as default remote TB);
+- to change locally the default remote tracking-branch (e.g. from 'master' to 'develop', since that is usually the one where the bulk of the work is done by the team) >> "git remote set-head <remote> <branch>" (e.g. "git remote set-head origin develop", so from now on the "git log origin" command will refer to 'develop' commits and "git branch --all" will show 'remotes/origin/HEAD -> origin/develop').
 
-§ The initial default tracking-branch (e.g. corresponding to the default branch while cloning) can be changed for all users through "github website > settings > general > default branch". Note this is always set by default to 'master' for new repositories.
+§ The initial default TB (e.g. corresponding to the default branch when cloning the project) can be changed for all users through "github website > settings > general > default branch". Note this is always set by default to 'master' for any new repository.
 
-§ As already said above, the "git status" and "git log --oneline --graph --all" commands include info about tracking-brances status and inform you if the local branch and the corresponding tracking-branch are out of synch or not (e.g. 'Your branch is up-to-date with origin/master'). 
+§ As already mentioned above, the "git status" and "git log --oneline --graph --all" commands include info about TBs status and inform you if the currently checked out local branch and the corresponding TB are out of sync or not (e.g. 'Your branch is up-to-date with origin/master').
 
 ------------------------------------------------------------
 
->> 14. FETCH, PULL & PUSH COMMANDS <<
+>> 14. FETCH, PULL & PUSH  <<
 
 § Most Git commands interacts with LR only, but there are also x4 main "network-commands" in charge of communicating with the RR:
 - "clone" >> to copy a remote repository locally;
@@ -600,6 +595,11 @@ A -- D -- (diffAB) -- B' -(diffBC)- C'   [base-branch]
 - to actually remove untracked/ignored files/directories from WT, include the "-f" flag (where "-f" = "--force") >> "git clean -f <file/directory>" or "git clean -dxf" (most general, i.e. applied on the whole repo);
 - to use the command in interactive mode (i.e. decide actions file by file), include the "-i" option >> "git clean -i".
 
+
+
+
+git clean -nd to see all that would be removed as untracked -> git clean -df to execute! (execute git clean -df one more time to remove also the now empty untracked folders!)
+
 ------------------------------------------------------------
 
 >> 22. VARIOUS <<
@@ -656,9 +656,6 @@ A -- D -- (diffAB) -- B' -(diffBC)- C'   [base-branch]
 - add section for "git log" (retrieving from other chapters!)
 
 - to see the LR commit-history of the current branch >> "git log [--oneline] [-X]" (e.g. X=2 can be used to show only the x2 most recent commits instead of the whole history) [NB: press 'Enter' to show more log-lines or 'q' to exit].
-
-- review OBJETCS chapter
-- say in caso di conflict con stash non c'è >>> HEAD ma >>> stash (verfica esatto testo)
 
 - info about git show command
 
