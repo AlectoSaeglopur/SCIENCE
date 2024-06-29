@@ -246,7 +246,7 @@
 \begin{itemize}
   \item[$\cdot$] open an internet browser and create a new empty repository on GitHub website with the same name of that in your LR (e.g. \textit{proj\_xyz});
   \item[$\cdot$] open bash inside LR and link it to RR through its URL address (retrievable at \textit{github website > prj\_xyz > code > HTTPS/SSH}) \mydiv \mycmd{git remote add <prj\_name> <url>} (e.g. \textit{<prj\_name>} = \textit{origin} or \textit{proj\_xyz}, and \textit{<url>} = \textit{https://github.com/AlectoSaeglopur/proj\_xyz} or \textit{git@github.com:AlectoSaeglopur/proj\_xyz.git});
-  \item[$\cdot$] \textbf{NB \#1}: using SSH addresses is always recommended if SSH key has been already generated and linked for the user (see Section \mysecref{sec:Setup})];
+  \item[$\cdot$] \textbf{NB \#1}: using SSH addresses is always recommended if SSH key has been already generated and linked for the user (see Section \mysecref{sec:Setup});
   \item[$\cdot$] initialize RR according to current LR state \mydiv \mycmd{git push -u|-{}-set-upstream <rr\_name> <branch>} (e.g. \textit{git push -u origin master}, or more specifically \textit{git push -{}-set-upstream proj\_xyz master}).
 \end{itemize}
 \myvspace

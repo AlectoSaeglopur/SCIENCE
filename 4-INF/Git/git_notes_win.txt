@@ -652,14 +652,28 @@ git clean -nd to see all that would be removed as untracked -> git clean -df to 
 
 
 @todo:
+
 - split revert, restore, reset
+
 - add section for "git log" (retrieving from other chapters!)
 
 - to see the LR commit-history of the current branch >> "git log [--oneline] [-X]" (e.g. X=2 can be used to show only the x2 most recent commits instead of the whole history) [NB: press 'Enter' to show more log-lines or 'q' to exit].
 
 - info about git show command
 
-- open git gui submodule inside git gui main
+- open git gui submodule inside git gui main!
+
+- try cherry-pick 
+
+- hooks ?
+
+- "git checkout -" to move to previous branch
+
+- "git log --decorate"
+
+- "git commit --amend"
+
+- bisect ?
 
 
 
