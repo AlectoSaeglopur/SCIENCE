@@ -69,7 +69,7 @@
 - move inside the sub-folder, open a bash and initialize the LR >> "git init";
 - verify the ".git/" hidden folder has been successfully >> "ls -a";
 - now work on the repository by adding, modifying and/or removing files;
-- NB #1: for new repositories it is good practise to add a "README.md" file to project main path (if not existing yet).
+- NB #1: for new repositories it is good practice to add a "README.md" file to project main path (if not existing yet).
 
 ------------------------------------------------------------
 
@@ -230,7 +230,7 @@ thus operates on the current branch only (the removal event is only applied to t
 
 § "Fast-forward" (FF) moves directly the source branch-label to the tip of the destination branch without causing conflicts (therefore, it is possible only if no overlapping commits or unstaged changes have been added to the destination branch in the meanwhile). In this case, after merging both branches contain exactly the same commits, thus the destination branch inherits all the source branch commits (even in case later the source branch gets deleted) and no new commits are created. With FF merging the resulting commit history (aka 'commit graph') is linear, namely no commits have multiple parents (verifiable visually via "git log --oneline --graph"). Hereafter the procedure to perform an FF merging:
 - commit and push the final changes on the destination branch (aka "active branch");
-- switch to the source one (aka "passive branch") and pull latest updates (this is always a good practise, even if nothing is expected to have changed) >> "git checkout <source_branch> && git pull";
+- switch to the source one (aka "passive branch") and pull latest updates (this is always a good practice, even if nothing is expected to have changed) >> "git checkout <source_branch> && git pull";
 - checkout back to destination branch (i.e. where merging process is going to be applied);
 - merge source branch into destination branch >> "git merge <source_branch>";
 - NB #1: whenever using the command "merge", Git specifies the type of merging is trying to execute (e.g. by printing 'Fast-forward' on shell);
@@ -329,31 +329,33 @@ A -- C -- E -- S   [destination]
 
 >> 14. FETCH, PULL & PUSH  <<
 
-§ Most Git commands interacts with LR only, but there are also x4 main "network-commands" in charge of communicating with the RR:
+§ Most Git commands interacts with LR only, but there are also x4 main "network commands" in charge of communicating with the RR:
 - "clone" >> to copy a remote repository locally;
-- "fetch" >> to retrieve locally new objects and references from RR;
+- "fetch" >> to retrieve new objects and references from RR to LR;
 - "pull" >> to fetch and merge commits locally;
-- "push" >> to add new object and reference to RR.
+- "push" >> to add new object and reference from LR to RR.
 
-§ The "fetch" command allows to update local tracking-branches with info from RR without merging changes/updates immediately into WT (thus WT is never modified as a result of "git fetch"), thus does not affect you LR labels and just makes the user aware of the actual/current RR state (see Section #13). In case LR is already up-to-date with RR, no info is displayed on shell after executing the command. Plus, executing "git status" before and after a "git fetch" command allows to understand if and how LR and RR are out of sync (and gives also suggestions, e.g. if branch can be fast-forwarded on not in case RR is ahead by some commits). This command is also essential/recommended to get aware of and retrieve info about new branches pushed remotely by other users.
+§ The "git fetch" command allows to update local tracking-branches with info from RR without merging the changes immediately into WT (so WT is never modified as a result of a "fetch" command), thus does not affect you LR labels and just makes the user aware of the latest RR state (see Section #13). In case LR is already up-to-date with RR, no info is displayed on shell after executing the command. Plus, executing "git status" before and after "git fetch" allows to understand if and how LR and RR are out of sync (giving also helpful suggestions, e.g. if branch can be fast-forwarded or not in case RR is ahead by some commits). This command is also essential to get aware of and retrieve info about new branches created remotely from scratch by any user or pushed remotely by other users.
 
-§ The "pull" command combines "git fetch" and "git merge FETCH_HEAD". If any object is fetched, the tracking-branch is merged into LR/WT. Thus, it may create conflicts. Hereafter some useful merge-options for the "pull" command are listed:
-- "--ff" >> fast-forward if possible, otherwise perform a merge-commit (default);
-- "--no-ff" >> always include a merge-commit (formal);
-- "--ff-only" >> cancel instead of doing a merge-commit (abort if fast-forward not possible);
-- "--rebase [--preserve-merges]" >> (see Section #15).
+§ The "git pull" command combines "git fetch" and "git merge FETCH_HEAD". If any object is fetched, the tracking-branch is updated and the changes merged automatically into WT (so it may cause conflicts). Hereafter some useful merge options for the "git pull" command are listed:
+- "--ff" >> to fast-forward if possible, otherwise merge-commit (default if no option specified);
+- "--no-ff" >> to always merge commit (even when fast-forward would be possible);
+- "--ff-only" >> to abort if fast-forward is not possible (i.e. avoiding merge-commit);
+- "--rebase [--preserve-merges]" >> see Section #15.
+
+§ Remember to always execute "git status" after each "git pull", in order to check the refreshed state of the repo. This is especially useful in case the project contains submodules to verify if any of them requires to be updated (in case, run "git submodule update --recursive", see Section #20).
 
 § There can be multiple situations when executing "git pull":
 - LR and RR in sync, without WT unstanged/uncommitted/unpushed changes >> no effect;
-- LR and RR in sync, with WT unstanged/uncommitted/unpushed changes >> no effect;
+- LR and RR in sync, with WT unstanged/uncommitted/unpushed changes >> no effect (WT changes preserved);
 - LR ahead of RR, without WT unstanged/uncommitted/unpushed changes >> no effect;
-- LR ahead of RR, with WT unstanged/uncommitted/unpushed changes >> no effect;
-- RR ahead of LR, without WT unstanged/uncommitted/unpushed changes >> fast-forward pull update (no conflicts);
-- RR ahead of LR, with WT unstanged/uncommitted changes not conflicting with latest RR commits >> fast-forward pull update (no conflicts) with previous WT unstanged/uncommitted changes preserved;
+- LR ahead of RR, with WT unstanged/uncommitted/unpushed changes >> no effect (WT changes preserved);
+- RR ahead of LR, without WT unstanged/uncommitted/unpushed changes >> fast-forward (no conflicts);
+- RR ahead of LR, with WT unstanged/uncommitted changes not conflicting with latest RR commits >> fast-forward pull update (no conflicts and WT changes preserved);
 - RR ahead of LR, with WT unstanged/uncommitted changes conflicting with latest RR commits >> pull aborted [see 'PULL MESSAGE #1'];
-- RR ahead of LR, with LR unpushed commits having no conflicts with latest RR commits >> merge-commit (no conflicts) [see 'PULL MESSAGE #2'] - i.e. in this case it's created a new local commit which is the automatic combination of the latest RR commit and the unpushed LR commit (plus, a message is prompted asking the user to provide a comment for the merge), a checking now the local state via "git status" inform you that LR is ahead of 'origin/master' by 2 commits (i.e. pull-merge is just local for the moment) - note this case has many similarities with the topic-to-base-branch merging already discussed in Section #11;
-- RR ahead of LR, with LR unpushed commits having conflicts with latest RR commits >> merge conflict to solve [see 'PULL MESSAGE #3'] - in this case you Git automatically marks the issues on the conflicting files (e.g. 'xyz.c') as already reported in Section #11, waiting for the user to manually resolve them (then 'add' + 'commit' = 'Your branch is ahead of 'origin/master' by 2 commits' + 'push' = merge-branch created in RR as if you created a topic-branch to solve the conflict) or abort the pull/merge ("git merge --abort");
-- [NB: always try to avoid the last situations listed above (i.e. generating merge-conflicts) and perform "git pull" with WT clean and no unpushed commits on LR (i.e. create a new topic-branch whenever a bugfix/feature-addition is needed, do not work directly on the base-branch)].
+- RR ahead of LR, with LR unpushed commits having no conflicts with latest RR commits >> merge-commit (no conflicts) [see 'PULL MESSAGE #2'] - so in this case a new local commit is created representing the automatic combination of the latest RR commit and the unpushed LR commits (plus, a message is prompted asking the user to provide a comment for the merge), and by checking now the local state via "git status" Git informs you that LR is ahead of 'origin/master' by 2 commits (i.e. the "pull-merge" is just local for the moment);
+- RR ahead of LR, with LR unpushed commits having conflicts with latest RR commits >> merge conflict to solve [see 'PULL MESSAGE #3'] - so in this case Git automatically marks the issues on the conflicting files as already reported in Section #11, waiting for the user to manually resolve them (then add, commit and push) or abort the "pull-merge" (again via "git merge --abort");
+- NB #1: always try to avoid the last situations listed above (namely generating "pull-merge" conflicts) and perform "git pull" with WT clean and no LR unpushed commits (thus create a new topic branch whenever a new bugfix or feature has to be added and never work directly on the base branch).
 
 § PULL MESSAGE #1 - Pull aborting:
 "Updating b7b6353..bbb97e7
@@ -362,33 +364,31 @@ error: Your local changes to the following files would be overwritten by merge:
 Please, commit your changes or stash them before you can merge.
 Aborting"
 
-§ PULL MESSAGE #2 - Pull merge-commit:
+§ PULL MESSAGE #2 - Merge-commit:
 "remote: Enumerating objects: 5, done.
 remote: Counting objects: 100% (5/5), done.
 remote: Compressing objects: 100% (1/1), done.
 remote: Total 3 (delta 2), reused 3 (delta 2), pack-reused 0
 Unpacking objects: 100% (3/3), done.
 From https://github.com/AlectoSaeglopur/proj_16
-   4f83692..badcf67  master     -> origin/master
+  4f83692..badcf67  master -> origin/master
 Merge made by the 'recursive' strategy.
  xyz.c | 1 +
  1 file changed, 1 insertion(+)"
 
-§ PULL MESSAGE #3 - Pull merge-conflict:
-"Auto-merging mas1.txt
+§ PULL MESSAGE #3 - Conflicts:
+"Auto-merging abc.txt
 CONFLICT (content): Merge conflict in xyz.c
 Automatic merge failed; fix conflicts and then commit the result."
 
-§ The "push" command allows to add/forward current branch commits from LR to RR. Its basic syntax is "git push [-u|--set-upstream] [<repository>] [<branch>]" (see Section #6 for more details). Keep in mind it's always good practise to fetch/pull before pushing in order to be aware of the most recent RR state for that branch. In fact, trying to push when RR is ahead of LR by some commits fails (NB: that's why the work on a single topic-branch should be done by one user only at a time for simplicity's sake) returning the following error:
+§ The "git push" command allows to forward commits from LR to RR for the current branch. Its basic syntax is "git push [-u|--set-upstream] [<repository>] [<branch>]" (see Section #6 for more details). Keep in mind it is always good practice to fetch/pull before pushing in order to be aware of the latest RR state for that branch. In fact, trying to push when RR is ahead of LR by some commits simply fails (and that's why the work on a single topic branch should be done by one user only at a time for simplicity's sake) returning the following error:
 "! [rejected]   master -> master (fetch first)
 'error: failed to push some refs to origin'
 ..."
 
-§ Remember to always execute "git status" after each "git pull", in order to check the updated state of the repo. This especially usefull in case the project contains submodules to check if any of them requires an update; in case run "git submodule update --recursive" (see Section #20).
-
 ------------------------------------------------------------
 
->> 15. REBASING & REWRITING HISTORY <<
+>> 15. REBASE & HISTORY REWRITING <<
 
 § "Rebasing" means moving commits to a new parent, i.e. the unique commits of a topic-branch are reapplied to the tip of the base-branch. Since ancestor chain has changed, each of the reapplied commits has now a different commit ID. An advantage is that after rebasing the merging from topic-branch to base-branch can be fast-forward (and not merge-commit), thus easier.
 Remember that Git actually works by estimating and versioning only the differences between consecutive commits (known as "diff" or "patch"). Rebasing means reapplying the 'diffs' to the new parent commits (process called "reapplying commits"). Of course, since reapplying commits is a form of merging, that's susceptible to merge-conflicts (e.g. if commits 'B' and 'D' modify the same sections of the same files, considering the rebasing example hereafter).
@@ -455,7 +455,7 @@ A -- D -- (diffAB) -- B' -(diffBC)- C'   [base-branch]
 
 § MR-pull-requests involve a 'fork-repository' merging back to its 'upstream-repository', and can be done either via GitHub website or Git bash (see more details in Section #17).
 
-§ Note if you open a pull-request to merge a topic-branch into a base-branch without checking for conflicts before, this may cause the pull-request to be opened and approved twice. In fact, after approving the 1st pull-request the actual merging is executed remotely, then if conflicts are detected the user is asked to solve them and open another pull-request to get the conflicts-resolution approved too. Thus, it's always good practise to avoid conflicts on pull-requests. Hereafter the procedure to handle topic-branch-to-base-branch merge-conflicts locally before opening pull-request (so that pull-request on GitHub will be surely conflicts-free):
+§ Note if you open a pull-request to merge a topic-branch into a base-branch without checking for conflicts before, this may cause the pull-request to be opened and approved twice. In fact, after approving the 1st pull-request the actual merging is executed remotely, then if conflicts are detected the user is asked to solve them and open another pull-request to get the conflicts-resolution approved too. Thus, it's always good practice to avoid conflicts on pull-requests. Hereafter the procedure to handle topic-branch-to-base-branch merge-conflicts locally before opening pull-request (so that pull-request on GitHub will be surely conflicts-free):
 - checkout and pull on base-branch (e.g. 'develop') >> "git checkout develop && git pull";
 - create and checkout to new topic-brach (e.g. 'xyz') >> "git checkout -b xyz";
 - make changes on WT for topic-branch...

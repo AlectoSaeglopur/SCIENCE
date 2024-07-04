@@ -76,6 +76,9 @@
 \newcommand{\mytzdivcolor}{black!5!orange}   % divider color for tikz graphs
 \newcommand{\mytzbrdist}{1.75cm}   % distance between consecutive branches for tikz graphs
 
+\newcommand{\mytextfilecolor}{teal}   % color to highlight text sections within extra files
+
+
 %----------------------------------------------------------------------------------------
 %	TITLE SECTION
 %----------------------------------------------------------------------------------------
@@ -354,12 +357,12 @@
 \begin{itemize}
 \item[$\circ$] The purpose of the \textbf{\textit{.gitignore}} file is to prevent specific files within the Git repository from being part of the versioning. In particular, to keep some WT files/directories out of Git versioning since the beginning of the project without removing them locally from the WT (e.g. build files generated after compilation, that usually are not versioned), add them as new lines to the \textit{.gitignore} file present in the main page of the WT. For example:
 \begin{itemize}
-  \item[] \textit{build/}
-  \item[] \textit{source/test.log}
+  \item[] \textcolor{\mytextfilecolor}{\textit{build/}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{source/test.log}}
 \end{itemize}
 \myvspace
 
-\item[$\circ$] It is possible to create additional \textit{.gitignore} files inside project sub-folders to simplify the handling of the files path to be ignored. For example, to exclude from versioning the file \textit{source/hal/adc.h} you can either add the entry \textit{source/hal/adc.h} within the main \textit{.gitignore} file of the project or add the entry \textit{adc.h} within the additional \textit{.gitignore} file created inside \textit{source/hal/}.
+\item[$\circ$] It is possible to create additional \textit{.gitignore} files inside project sub-folders to simplify the handling of the files path to be ignored. For example, to exclude from versioning the file \textit{source/hal/adc.h} you can either add the entry \textcolor{\mytextfilecolor}{\textit{source/hal/adc.h}} within the main \textit{.gitignore} file of the project or add the entry \textcolor{\mytextfilecolor}{\textit{adc.h}} within the additional \textit{.gitignore} file created inside \textit{source/hal/}.
 \myvspace
 
 \item[$\circ$] To remove from versioning some files or directories which were already pushed to RR during previous commits (but still keeping them locally), remember it is not enough to add them to the \textit{.gitignore} file, since, even though you stop pushing them in future commits, they still remain stored in the RR with their previous content. Thus, they shall be removed from RR first. Follow the overall procedure hereafter:
@@ -390,8 +393,8 @@
 
 \item[$\circ$] To create exceptions for specific \textit{.gitignore} entries use the \mysapo{!} character. For example, adding the following two lines inside the \textit{.gitignore} file cause all \textit{.cpp} files within the repository to be excluded from versioning except for \textit{src/xyz.cpp}:
 \begin{itemize}
-  \item[] \textit{*.cpp}
-  \item[] \textit{!src/xyz.cpp}
+  \item[] \textcolor{\mytextfilecolor}{\textit{*.cpp}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{!src/xyz.cpp}}
 \end{itemize}
 \end{itemize}
 \myvspace
@@ -642,15 +645,15 @@
 
 \item[$\circ$] Git marks files where conflicts occurred while merging as follows:
 \begin{itemize}
-  \item[] \textit{<{}<{}<{}<{}<{}<{}<}
-  \item[] \textit{... section \#1 ... \: $\rightarrow$\: destination branch / HEAD}
-  \item[] \textit{======= \;\;\;\;\;\;\:\:\: $\rightarrow$\: conflict divider}
-  \item[] \textit{... section \#2 ... \: $\rightarrow$\: source branch}
-  \item[] \textit{>{}>{}>{}>{}>{}>{}>}
+  \item[] \textcolor{\mytextfilecolor}{\textit{<{}<{}<{}<{}<{}<{}<}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{... section \#1 ... \: $\rightarrow$\: destination branch / HEAD}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{======= \;\;\;\;\;\;\:\:\: $\rightarrow$\: conflict divider}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{... section \#2 ... \: $\rightarrow$\: source branch}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{>{}>{}>{}>{}>{}>{}>}}
 \end{itemize}
 \myvspace
 
-\item[$\circ$] To check which project files contain conflicts to be solved after a merge use \mycmd{git diff -{}-check} (if none or after solving all of them, the command simply returns no message). Plus, they are labeled as \textit{unmerged} as a result of \textit{git status}. Another way is to simply search for the string \textcolor{teal}{\textit{<{}<{}<{}<{}<{}<{}< HEAD}} identifying any pending conflict throughout the project. Note conflicts can arise also due to \textit{git stash pop|apply} commands (see Section \mysecref{sec:Stash}); in this case look for the string \textcolor{teal}{\textit{>{}>{}>{}>{}>{}>{}> Stashed changes}} instead.
+\item[$\circ$] To check which project files contain conflicts to be solved after a merge use \mycmd{git diff -{}-check} (if none or after solving all of them, the command simply returns no message). Plus, they are labeled as \textit{unmerged} as a result of \textit{git status}. Another way is to simply search for the string \textcolor{\mytextfilecolor}{\textit{<{}<{}<{}<{}<{}<{}< HEAD}} identifying any pending conflict throughout the project. Note conflicts can arise also due to \textit{git stash pop|apply} commands (see Section \mysecref{sec:Stash}); in this case look for the string \textcolor{teal}{\textit{>{}>{}>{}>{}>{}>{}> Stashed changes}} instead.
 \end{itemize}
 \myvspace
 
@@ -670,7 +673,7 @@
 \item[$\circ$] Useful commands related to TBs:
 \begin{itemize}
   \item[$\cdot$] to show commit-history of a remote branch (again, tracked only indirectly via the corresponding tracking-branch) \mydiv \mycmd{git log origin/<branch> [-{}-oneline]} (equivalent to simply \textit{git log origin [-{}-oneline]} if \textit{<branch>}, for instance \textit{master}, is set as default remote TB);
-  \item[$\cdot$] to change locally the default remote tracking-branch (e.g. from \textit{master} to \textit{develop}, since that is usually the one where the bulk of the work is done by the team) \mydiv \mycmd{git remote set-head <remote> <branch>} (e.g. \textit{git remote set-head origin develop}, so from now on the command \textit{git log origin [-{}-oneline]} will refer to \textit{develop} commits and \textit{git branch -{}-all} will show \textit{remotes/origin/HEAD $\rightarrow$ origin/develop});
+  \item[$\cdot$] to change locally the default remote tracking-branch (e.g. from \textit{master} to \textit{develop}, since that is usually the one where the bulk of the work is done by the team) \mydiv \mycmd{git remote set-head <remote> <branch>} (e.g. \textit{git remote set-head origin develop}, so from now on the command \textit{git log origin [-{}-oneline]} will refer to \textit{develop} commits and \textit{git branch -{}-all} will show \textit{remotes/origin/HEAD $\rightarrow$ origin/develop}).
 \end{itemize}
 \myvspace
 
@@ -686,12 +689,107 @@
 %--------------------------------------------------------------------------
 
 \section{Fetch, Pull \& Push}   \label{sec:FetchPullPush}
-...
+
+\begin{itemize}
+\item[$\circ$] Most Git commands interacts with LR only, but there are also four main \textit{network commands} in charge of communicating with the RR:
+\begin{itemize}
+  \item[$\cdot$] \textbf{\textit{clone}} \mydiv to copy a remote repository locally;
+  \item[$\cdot$] \textbf{\textit{fetch}} \mydiv to retrieve new objects and references from RR to LR;
+  \item[$\cdot$] \textbf{\textit{pull}} \mydiv to fetch and merge commits locally;
+  \item[$\cdot$] \textbf{\textit{push}} \mydiv to add new object and reference from LR to RR.
+\end{itemize}
+\myvspace
+
+\item[$\circ$] The \mycmd{git fetch} command allows to update local \textit{tracking-branches} with info from RR without merging the changes immediately into WT (so WT is never modified as a result of a \textit{fetch} command), thus does not affect you LR labels and just makes the user aware of the latest RR state (see Section \mysecref{sec:TrackingBranches}). In case LR is already up-to-date with RR, no info is displayed on shell after executing the command. Plus, executing \textit{git status} before and after \textit{git fetch} command allows to understand if and how LR and RR are out of sync (giving also helpful suggestions, e.g. if branch can be fast-forwarded or not in case RR is ahead by some commits). This command is also essential to get aware of and retrieve info about new branches created remotely from scratch by any user or pushed remotely by other users.
+\myvspace
+
+\item[$\circ$] The \mycmd{git pull} command combines \textit{git fetch} and \textit{git merge FETCH\_HEAD}. If any object is fetched, the tracking-branch is updated and the changes merged automatically into WT (so it may cause conflicts). Hereafter some useful merge options for the \textit{git pull} command are listed:
+\begin{itemize}
+  \item[$\cdot$] \textit{-{}-ff} \mydiv to fast-forward if possible, otherwise \textit{merge commit} (default if no option specified);
+  \item[$\cdot$] \textit{-{}-no-ff} \mydiv to always \textit{merge commit} (even when fast-forward would be possible);
+  \item[$\cdot$] \textit{-{}-ff-only} \mydiv to abort if fast-forward is not possible (i.e. avoiding merge-commit);
+  \item[$\cdot$] \textit{-{}-rebase [-{}-preserve-merges]} \mydiv see Section \mysecref{sec:Rebase}.
+\end{itemize}
+\myvspace
+
+\item[$\circ$] Remember to always execute \textit{git status} after each \textit{git pull}, in order to check the refreshed state of the repo. This is especially useful in case the project contains submodules to verify if any of them requires to be updated (in case, run \textit{git submodule update -{}-recursive}, see Section \mysecref{sec:Submodules}).
+\myvspace
+
+\item[$\circ$] There can be multiple situations when executing \textit{git pull}:
+\begin{itemize}
+  \item[$\cdot$] LR and RR in sync, without WT unstanged/uncommitted/unpushed changes \mydiv no effect;
+  \item[$\cdot$] LR and RR in sync, with WT unstanged/uncommitted/unpushed changes \mydiv no effect (WT changes preserved);
+  \item[$\cdot$] LR ahead of RR, without WT unstanged/uncommitted/unpushed changes \mydiv no effect;
+  \item[$\cdot$] LR ahead of RR, with WT unstanged/uncommitted/unpushed changes \mydiv no effect (WT changes preserved);
+  \item[$\cdot$] RR ahead of LR, without WT unstanged/uncommitted/unpushed changes \mydiv fast-forward (no conflicts);
+  \item[$\cdot$] RR ahead of LR, with WT unstanged/uncommitted changes not conflicting with latest RR commits \mydiv fast-forward pull update (no conflicts and WT changes preserved);
+  \item[$\cdot$] RR ahead of LR, with WT unstanged/uncommitted changes conflicting with latest RR commits \mydiv pull aborted [see \textit{PULL MESSAGE \#1}];
+  \item[$\cdot$] RR ahead of LR, with LR unpushed commits having no conflicts with latest RR commits \mydiv merge-commit (no conflicts) [see \textit{PULL MESSAGE \#2}] - so in this case a new local commit is created representing the automatic combination of the latest RR commit and the unpushed LR commits (plus, a message is prompted asking the user to provide a comment for the merge), and by checking now the local state via \textit{git status} Git informs you that LR is ahead of \textit{origin/master} by 2 commits (i.e. the \textit{pull-merge} is just local for the moment);
+  \item[$\cdot$] RR ahead of LR, with LR unpushed commits having conflicts with latest RR commits \mydiv merge conflict to solve [see \textit{PULL MESSAGE \#3}] - so in this case Git automatically marks the issues on the conflicting files as already reported in Section \mysecref{sec:Merging}, waiting for the user to manually resolve them (then add, commit and push) or abort the \textit{pull-merge} (again via \textit{git merge -{}-abort});
+  \item[$\cdot$] \textbf{NB \#1}: always try to avoid the last situations listed above (namely generating \textit{pull-merge} conflicts) and perform \textit{git pull} with WT clean and no LR unpushed commits (thus create a new topic branch whenever a new bugfix or feature has to be added and never work directly on the base branch).
+\end{itemize}
+\myvspace
+
+\item[$\circ$] \textbf{PULL MESSAGE \#1} - Aborting:
+\begin{itemize}
+  \item[] \textit{Updating b7b6353..bbb97e7}
+  \item[] \textit{error: Your local changes to the following files would be overwritten by merge:}
+  \item[] \:\: \textit{xyz.c}
+  \item[] \textit{Please, commit your changes or stash them before you can merge.}
+  \item[] \textit{Aborting}
+\end{itemize}
+\myvspace
+
+\item[$\circ$] \textbf{PULL MESSAGE \#2} - Merge commit:
+\begin{itemize}
+  \item[] \textit{remote: Enumerating objects: 5, done.}
+  \item[] \textit{remote: Counting objects: 100\% (5/5), done.}
+  \item[] \textit{remote: Compressing objects: 100\% (1/1), done.}
+  \item[] \textit{remote: Total 3 (delta 2), reused 3 (delta 2), pack-reused 0}
+  \item[] \textit{Unpacking objects: 100\% (3/3), done.}
+  \item[] \textit{From https://github.com/AlectoSaeglopur/proj\_16}
+  \item[] \:\: \textit{4f83692..badcf67  master $\rightarrow$ origin/master}
+  \item[] \textit{Merge made by the 'recursive' strategy.}
+  \item[] \:\: \textit{xyz.c | 1 +}
+  \item[] \:\: \textit{1 file changed, 1 insertion(+)}
+\end{itemize}
+\myvspace
+
+\item[$\circ$] \textbf{PULL MESSAGE \#3} - Conflicts:
+\begin{itemize}
+  \item[] \textit{Auto-merging abc.txt}
+  \item[] \textit{CONFLICT (content): Merge conflict in xyz.c}
+  \item[] \textit{Automatic merge failed; fix conflicts and then commit the result.}
+\end{itemize}
+\myvspace
+
+\item[$\circ$] The \mycmd{git push} command allows to forward commits from LR to RR for the current branch. Its basic syntax is \textit{git push [-u|-{}-set-upstream] [<repository>] [<branch>]} (see Section \mysecref{sec:PushRR} for more details). Keep in mind it is always good practice to fetch/pull before pushing in order to be aware of the latest RR state for that branch. In fact, trying to push when RR is ahead of LR by some commits simply fails (and that's why the work on a single topic branch should be done by one user only at a time for simplicity's sake) returning the following error:
+\begin{itemize}
+  \item[] \textit{! [rejected]   master $\rightarrow$ master (fetch first)}
+  \item[] \textit{'error: failed to push some refs to origin'}
+  \item[] \textit{...}
+\end{itemize}
+\end{itemize}
+\myvspace
+
+%--------------------------------------------------------------------------
+%	15. REBASE & HISTORY REWRITING
+%--------------------------------------------------------------------------
+
+\section{Rebase \& History Rewriting}   \label{sec:Rebase}
+
+\begin{itemize}
+\item[$\circ$] ...
+
+\end{itemize}
+\myvspace
 
 
 
 
-% label section 15 as "Rebase" + "Stash" !!!
+
+
+% section label to 19 as "Stash" + 20 as "Submodules" !!!
 
 %--------------------------------------------------------------------------
 %	X. GIT LOG
