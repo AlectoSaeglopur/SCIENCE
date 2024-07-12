@@ -779,17 +779,110 @@
 \section{Rebase \& History Rewriting}   \label{sec:Rebase}
 
 \begin{itemize}
+\item[$\circ$] \textbf{\textit{Rebasing}} means moving commits to a new parent, namely unique commits of a branch (source) are reapplied to the tip of another branch (destination). Since ancestor chain has changed, each of the reapplied commits has now a different commit ID. An advantage is that after rebasing the merging process from source branch to destination branch can be fast-forward, thus easier. Note that since Git actually works by estimating and versioning only the differences between consecutive commits (known as \textit{diff} or \textit{patch}), rebasing means reapplying the differences to the new parent commits (process called \textit{commits reapplying}). Of course, since reapplying commits is a form of merging, this is susceptible to conflicts (e.g. if commits \mysapo{B} and \mysapo{D} modified the same sections of the same files, see the example below).
+\myvspace
+
+\item[$\circ$] Rebasing has both pros and cons:
+\begin{itemize}
+  \item[+] allows to incorporate changes from parent branch more easily;
+  \item[+] avoids potentially "unnecessary" commits (thus history is cleaner);
+  \item[--] solved conflicts are harder to track;
+  \item[--] severe issues if commits are shared with other users;
+  \item[--] does not preserve the actual commits sequence (thus history is less accurate).
+\end{itemize}
+\myvspace
+
+\item[$\circ$] Commit graph example for rebasing (aka RM) (where commits \mysapo{\={B}} and \mysapo{\={C}} add respectively the \textit{diff\textsubscript{AB}} and \textit{diff\textsubscript{BC}} changes from source to destination branch and are treated as completely separate commits from the original ones in terms of history):
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[node distance=2cm,auto,>=latex']
+    \node [circle,draw,scale=0.85] (A1) [] {A};
+    \node [circle,draw,scale=0.85] (B1) [right of = A1, node distance=\mytzbrdist, yshift=-1.5cm] {B};
+    \node [circle,draw,scale=0.85] (C1) [right of = B1, node distance=\mytzbrdist] {C};
+    \node [circle,draw,scale=0.85] (D1) [right of = A1, node distance=\mytzbrdist] {D};
+    \node [circle,draw,scale=0.85] (E1) [right of = D1, node distance=\mytzbrdist] {E};
+    \node [circle,draw,scale=0.85] (?) [right of = E1, node distance=\mytzbrdist] {};
+    
+    \node [draw=none,scale=0.85,\mytzbrcolor] (Src) [below of=C1,xshift=-0.1cm,node distance=0.7cm] {\textit{Source}};
+	\node [draw=none,scale=0.85,\mytzbrcolor] (Dst) [above of=E1,xshift=-0.1cm,node distance=0.7cm] {\textit{Destination}};
+    
+    \path[<-] (A1) edge node {} (D1);
+    \path[<-] (D1) edge node {} (E1);
+    \path[<-] (E1) edge[dashed] node[above,font=\tiny] {\textit{git rebase}} (?);
+    \path[<-] (A1) edge node[below,align=center,sloped,font=\tiny] {\textit{git branch} \\ \textit{git commit}} (B1);
+    \path[<-] (B1) edge node {} (C1);
+    \path[<-] (C1) edge[dashed] node {} (?);
+    
+    \node [circle,draw,scale=0.85] (A2) [right of = ?, node distance=3.5cm] {A};
+    \node [circle,draw,scale=0.85] (B2) [right of = A2, node distance=\mytzbrdist, yshift=-1.5cm] {B};
+    \node [circle,draw,scale=0.85] (C2) [right of = B2, node distance=\mytzbrdist] {C};
+    \node [circle,draw,scale=0.85] (D2) [right of = A2, node distance=\mytzbrdist] {D};
+    \node [circle,draw,scale=0.85] (E2) [right of = D2, node distance=\mytzbrdist] {E};
+    \node [circle,draw,scale=0.85] (B3) [right of = E2, node distance=\mytzbrdist] {\=B};
+    \node [circle,draw,scale=0.85] (C3) [right of = B3, node distance=\mytzbrdist] {\=C};
+    
+    \path[<-] (A2) edge node {} (D2);
+    \path[<-] (D2) edge node {} (E2);
+    \path[<-] (E2) edge node {} (B3);
+    \path[<-] (B3) edge node {} (C3);
+    \path[<-] (A2) edge node {} (B2);
+    \path[<-] (B2) edge node {} (C2);
+
+    \node [draw=none,scale=0.85,\mytzbrcolor] (Src) [below of=C2,xshift=-0.1cm,node distance=0.7cm] {\textit{Source}};
+	\node [draw=none,scale=0.85,\mytzbrcolor] (Dst) [above of=M,xshift=-0.1cm,node distance=0.7cm] {\textit{Destination}};
+    
+    \draw[->,double,shorten <=4mm,shorten >=4mm,\mytzdivcolor] (?) -- (A2);
+\end{tikzpicture}
+\end{figure}
+
+\item[$\circ$] There are two types of rebasing:
+\begin{itemize}
+  \item[$\cdot$] \textbf{\textit{regular rebase}}, which is the one discussed so far;
+  \item[$\cdot$] \textbf{\textit{interactive rebase}}, which allows to rebase (by adding the \textit{-i} option) a series of commits belonging to a specific branch - here commits can be edited, stopped, dropped/deleted, squashed (i.e. combining a specific commit with the previous one into a new single commit, combining also the related messages), fixed-up (like squash, but discarding the comment of the newer commit), reordered, etc.
+\end{itemize}
+\myvspace
+
+\item[$\circ$] Useful commands for \textit{regular rebasing}:
+\begin{itemize}
+  \item[$\cdot$] to rebase source branch to destination branch (could be even a remote one) \mydiv \mycmd{git checkout <source\_branch> \&\& git rebase <destination\_branch>} (e.g. \textit{git checkout bugfix\_358 \&\& git rebase develop});
+  \item[$\cdot$] in case of conflict you can either solve them manually (see Section \mysecref{sec:Conflicts} and finally complete the rebase via \mycmd{git rebase -{}-continue}, instead of the usual \textit{git commit ...}) or abort it (via \mycmd{git rebase -{}-abort}).
+\end{itemize}
+\myvspace
+
+\item[$\circ$] Useful commands for \textit{interactive rebasing}:
+\begin{itemize}
+  \item[$\cdot$] to list current branch commits (starting from a specified one) in an editor in order to be modified (e.g. you might want to combine the two most recent commits \mysapo{B} and \mysapo{C} into a new single one \mysapo{Z}) \mydiv \mycmd{git rebase -i <commit\_id\_after\_which\_start>};
+  \item[$\cdot$] \textbf{NB \#1}: for more details refer to Coursera's lesson \#16.
+\end{itemize}
+\myvspace
+
+\item[$\circ$] Git gives also the possibility to modify (or simply slightly adjust) the most recent commit (in terms of files, comment, etc) through the \textbf{\textit{-{}-amend}} option. Note this also modifies the commit ID associated to that commit as well, thus rewrites history. Use the procedure hereafter to amend the most recent commit:
+\begin{itemize}
+  \item[$\cdot$] work on the WT by adding, modifying and/or removing files;
+  \item[$\cdot$] stage changes \mydiv \textit{git add <files-or-directories>};
+  \item[$\cdot$] amend commit \mydiv \mycmd{git commit -{}-amend -m "new\_comment"} or \mycmd{git commit -{}-amend -{}-no-edit} (with the \textit{-{}-no-edit} option the original message is preserved).
+\end{itemize}
+\myvspace
+
+\item[$\circ$] \textbf{\underline{CAUTION}}: never rewrite history that is shared with other users!
+\end{itemize}
+\myvspace
+
+%--------------------------------------------------------------------------
+%	16. PULL REQUEST
+%--------------------------------------------------------------------------
+
+\section{Pull Request}   \label{sec:PullRequest}
+
+\begin{itemize}
 \item[$\circ$] ...
 
 \end{itemize}
 \myvspace
 
 
-
-
-
-
 % section label to 19 as "Stash" + 20 as "Submodules" !!!
+
 
 %--------------------------------------------------------------------------
 %	X. GIT LOG

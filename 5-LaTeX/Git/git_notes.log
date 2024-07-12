@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.5.6)  4 JUL 2024 09:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.5.6)  12 JUL 2024 21:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1144,19 +1144,28 @@ ine 715.
 LaTeX Warning: Reference `sec:Submodules' on page 12 undefined on input line 71
 5.
 
-[12] [13] (./git_notes.aux)
+[12] [13] [14] [15] (./git_notes.aux)
 
 LaTeX Warning: There were undefined references.
 
-Package rerunfilecheck Info: File `git_notes.out' has not changed.
-(rerunfilecheck)             Checksum: 952AD2226403DBED0344E47D19A26828;2071.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `git_notes.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `git_notes.out':
+(rerunfilecheck)             Before: 952AD2226403DBED0344E47D19A26828;2071
+(rerunfilecheck)             After:  7BFACB812120074FFFC3AC8F98ADF37D;2179.
  ) 
 Here is how much of TeX's memory you used:
- 46372 strings out of 476047
- 1065244 string characters out of 5794246
+ 46431 strings out of 476047
+ 1065880 string characters out of 5794246
  1884242 words of memory out of 5000000
- 65661 multiletter control sequences out of 15000+600000
- 582668 words of font info for 473 fonts, out of 8000000 for 9000
+ 65679 multiletter control sequences out of 15000+600000
+ 586196 words of font info for 500 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  102i,11n,104p,1411b,1087s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/tex
@@ -1164,10 +1173,10 @@ live/2023/texmf-dist/fonts/type1/public/fpl/fplrc8a.pfb><c:/texlive/2023/texmf-
 dist/fonts/type1/urw/palatino/uplb8a.pfb><c:/texlive/2023/texmf-dist/fonts/type
 1/urw/palatino/uplbi8a.pfb><c:/texlive/2023/texmf-dist/fonts/type1/urw/palatino
 /uplr8a.pfb><c:/texlive/2023/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on git_notes.pdf (13 pages, 163833 bytes).
+Output written on git_notes.pdf (15 pages, 172408 bytes).
 PDF statistics:
- 209 PDF objects out of 1000 (max. 8388607)
- 180 compressed objects within 2 object streams
- 35 named destinations out of 1000 (max. 500000)
- 85141 words of extra memory for PDF output out of 89155 (max. 10000000)
+ 224 PDF objects out of 1000 (max. 8388607)
+ 193 compressed objects within 2 object streams
+ 39 named destinations out of 1000 (max. 500000)
+ 91285 words of extra memory for PDF output out of 106986 (max. 10000000)
 

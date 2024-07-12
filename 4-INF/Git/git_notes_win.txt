@@ -390,44 +390,45 @@ Automatic merge failed; fix conflicts and then commit the result."
 
 >> 15. REBASE & HISTORY REWRITING <<
 
-§ "Rebasing" means moving commits to a new parent, i.e. the unique commits of a topic-branch are reapplied to the tip of the base-branch. Since ancestor chain has changed, each of the reapplied commits has now a different commit ID. An advantage is that after rebasing the merging from topic-branch to base-branch can be fast-forward (and not merge-commit), thus easier.
-Remember that Git actually works by estimating and versioning only the differences between consecutive commits (known as "diff" or "patch"). Rebasing means reapplying the 'diffs' to the new parent commits (process called "reapplying commits"). Of course, since reapplying commits is a form of merging, that's susceptible to merge-conflicts (e.g. if commits 'B' and 'D' modify the same sections of the same files, considering the rebasing example hereafter).
-Rebase has both pros and cons:
-+ allows to incorporate changes from parent branch;
-+ avoids "unnecessary" commits (cleaner history);
-- merge-conflicts may arise;
+§ "Rebasing" means moving commits to a new parent, namely unique commits of a branch (source) are reapplied to the tip of another branch (destination). Since ancestor chain has changed, each of the reapplied commits has now a different commit ID. An advantage is that after rebasing the merging process from source branch to destination branch can be fast-forward, thus easier. Note that since Git actually works by estimating and versioning only the differences between consecutive commits (known as "diff" or "patch"), rebasing means reapplying the differences to the new parent commits (process called "commits reapplying"). Of course, since reapplying commits is a form of merging, this is susceptible to conflicts (e.g. if commits 'B' and 'D' modified the same sections of the same files, see the example below).
+
+§ Rebasing has both pros and cons:
++ allows to incorporate changes from parent branch more easily;
++ avoids potentially "unnecessary" commits (thus history is cleaner);
+- solved conflicts are harder to track;
 - severe issues if commits are shared with other users;
-- does not preserve the actual commits sequence (less accurate history).
+- does not preserve the actual commits sequence (thus history is less accurate).
 
-§ Rebasing example:
-A -- D   [base-branch]                         
-  \_ (diffAB) -- B -- C   [topic-branch]
+§ Commit graph example for rebasing (aka RM) (where commits 'B'' and 'C'' add respectively the diffAB and diffBC changes from source to destination branch and are treated as completely separate commits from the original ones in terms of history):
+A -- D -- E   [destination]
+  \_ -- B -- C   [source]
 => REBASING =>
-A -- D -- (diffAB) -- B' -(diffBC)- C'   [base-branch]
-
-§ CAUTION: do not rewrite history that's shared with other users!
+A -- D -- E -- B' -- C'   [destination]
 
 § There are x2 types of rebasing:
-- "regular rebase", i.e. the one discussed so far;
-- "interactive rebase", to rebase (by adding the "-i" option) a series of commits belonging to a specific branch - here commits can be edited, stopped, dropped/deleted, squashed (i.e. combining a specific commit with the previous one into a new single commit, combining also messages), fixed-up (just like squash, but discarding the comment of the newer commit), reordered, etc.
+- "regular rebase", which is the one discussed so far;
+- "interactive rebase", which allows to rebase (by adding the "-i" option) a series of commits belonging to a specific branch - here commits can be edited, stopped, dropped/deleted, squashed (i.e. combining a specific commit with the previous one into a new single commit, combining also the related messages), fixed-up (like squash, but discarding the comment of the newer commit), reordered, etc.
 
-§ Useful commands for regular-rebasing:
-- to checkout topic-branch parent to upstream/base-branch >> "git rebase <upstream> <branch>" (e.g. "git rebase develop bugfix_358") [NB: equivalent to "git checkout <topic-branch> && git rebase <upstream>"].
-- in case of conflict, you can either solve them (check conflicting files by "git status", manually resolve conflicts as usual through editor, stage changes via "git add <resolved_files>" and complete rebase via "git rebase --continue") or abort it (via "git rebase --abort"). 
+§ Useful commands for regular rebasing:
+- to rebase source branch to destination branch (could be even a remote one) >>  "git checkout <source_branch> && git rebase <destination_branch>" (e.g. "git checkout bugfix_358 && git rebase develop");
+- in case of conflict you can either solve them manually (see Section #12 and finally complete the rebase via "git rebase --continue", instead of the usual "git commit ...") or abort it (via "git rebase --abort").
 
-§ Useful commands for interactive-rebasing:
-- to list current branch commits (after the specified one) in an editor in order to be modified (e.g. the two most recent commits B and C can be combined into B') >> "git rebase -i <after-this-commit>" [NB: for more details refer to Coursera lesson #16].
+§ Useful commands for interactive rebasing:
+- to list current branch commits (starting from a specified one) in an editor in order to be modified (e.g. you might want to combine the two most recent commits B and C into a new single one Z) >> "git rebase -i <commit_id_after_which_start>";
+- NB #1: for more details refer to Coursera's lesson #16.
 
-§ Git gives the possibility to modify/adjust the most recent commit (files, comment, etc) through the "amend" command. This also modifies the commit ID associated to that commit, thus rewrites history. Use the procedure hereafter to amend the most recent commit:
-- add/modify/remove some files within the working tree (if needed)...;
-- stage changes >> "git add <amended_files>"
-- amend commit >> "git commit --amend -m "new_comment"" or "git commit --amend --no-edit" (not to modify the original message);
+§ Git gives also the possibility to modify (or simply slightly adjust) the most recent commit (in terms of files, comment, etc) through the "--amend" option. Note this also modifies the commit ID associated to that commit as well, thus rewrites history. Use the procedure hereafter to amend the most recent commit:
+- work on the WT by adding, modifying and/or removing files;
+- stage changes >> "git add <files-or-directories>";
+- amend commit >> "git commit --amend -m "new_comment"" or "git commit --amend --no-edit" (with the "--no-edit" option the original message is preserved).
+
+§ CAUTION: never rewrite history that is shared with other users!
 
 ------------------------------------------------------------
 
->> 16. PULL-REQUEST <<
+>> 16. PULL REQUEST <<
 
-§ "Pull-request" is a feature provided by most Git hosting services/sites (such as GitHub or BitBucket). Its ultimate goal is again to merge a topic-branch into a base-branch, but improving team communication related to the topic-branch work as well (e.g. team members can send notifications to each others, leave comments/feedbacks, review code and approval/decline its content for merging). Note since pull-request is a feature provided basically by the hosting services (as already said), it's not possible to handle this directly via Git bash.
+§ "Pull request" is a feature provided by most Git hosting services/sites (such as GitHub or BitBucket). Its ultimate goal is again to merge a topic-branch into a base-branch, but improving team communication related to the topic-branch work as well (e.g. team members can send notifications to each others, leave comments/feedbacks, review code and approval/decline its content for merging). Note since pull-request is a feature provided basically by the hosting services (as already said), it's not possible to handle this directly via Git bash.
 
 § Pull-requests can be actually opened at any time of the topic-branch life:
 - at the very beginning to allow topic-branch creation;
@@ -671,7 +672,7 @@ git clean -nd to see all that would be removed as untracked -> git clean -df to 
 
 - "git log --decorate"
 
-- "git commit --amend"
+- "git commit --amend"  >> già spiegato sopra, provalo in pratica!
 
 - bisect ?
 
