@@ -272,7 +272,7 @@ A -- C -- E -- S   [destination]
 
 § In case of long-running topic-branches, it is always a good practice to periodically merge back to the related base-branches in order not to stray too much from development progression of the latter and avoid a potentially large number of conflicts and operation mismatches.
 
-§ Practical case where base-branch (e.g. "develop" acting as source branch) needs to be merged into a completed topic-branch (e.g. "feature_423_bootloader" acting as destination branch) to solve conflicts locally in advance in sight of pull-request opening:
+§ Practical case where base-branch (e.g. "develop" acting as source branch) needs to be merged into a completed topic-branch (e.g. "feature_423_bootloader" acting as destination branch) to solve conflicts locally in advance in sight of PR opening:
 - work on topic-branch, then commit and push final changes;
 - checkout to base-branch and pull latest state from RR >> "git checkout <base_branch> && git pull";
 - move back to topic-branch >> "git checkout <topic_branch>";
@@ -428,108 +428,102 @@ A -- D -- E -- B' -- C'   [destination]
 
 >> 16. PULL REQUEST <<
 
-§ "Pull request" is a feature provided by most Git hosting services/sites (such as GitHub or BitBucket). Its ultimate goal is again to merge a topic-branch into a base-branch, but improving team communication related to the topic-branch work as well (e.g. team members can send notifications to each others, leave comments/feedbacks, review code and approval/decline its content for merging). Note since pull-request is a feature provided basically by the hosting services (as already said), it's not possible to handle this directly via Git bash.
+§ "Pull request" (PR) is a feature provided by most Git hosting services (such as GitHub or BitBucket). Its ultimate goal is to improve team communication and development reliability during a source-to-destination-branch (usually a topic-to-base-branch) merging process. In particular, team members can send notifications to each others, leave comments or feedbacks, review code and approval or decline its content for merging. Note since pull-request is a feature provided basically by the hosting services (thus not a Git built-in functionality), it is not possible to handle that directly via Git bash.
 
-§ Pull-requests can be actually opened at any time of the topic-branch life:
-- at the very beginning to allow topic-branch creation;
-- whenever comments/feedbacks on the current progress of the topic-branch is needed;
-- when branch is ready to be reviewed and merged back.
+§ Pull requests can be actually opened at any time of a branch life:
+- at the very beginning to allow branch creation;
+- whenever comments or feedbacks on the current progress of the branch is needed;
+- when branch is ready to be reviewed and merged.
 
 § There exist x2 pull-request cases depending on the repositories configuration:
-- "single repository" (SR), where topic-branch merges back to base-branch of the same repository (i.e. the usual case, with only x1 RR is involved);
-- "multi-repository" (MR), where 'fork-repository' merges back to 'upstream-repository' (i.e. x2 RRs are involved).
+- "single-repository" (SR), where a source-branch merges back to a destination-branch of the same repository (i.e. the usual case where only x1 RR is involved);
+- "multi-repository" (MR), where a 'fork-repository' merges back to the 'upstream-repository' (thus x2 RRs are involved).
 
-§ Procedure for SR-pull-request:
-- create and checkout to new topic-branch (or fetch and checkout ifcreated remotely via Jira/BitBucket) >> "git branch <topic_branch> && git checkout <topic_branch>";
-- add/modify/remove some files within the working tree...;
-- stage changes >> "git add --all";
-- commit to LR >> git commit -m "comment";
-- push commit to RR >> "git push [-u origin <topic_branch>]";
-- open GitHub website and go to "PROJECT > Pull requests > New pull request";
-- here select the merging direction for branches (i.e. 'master <- bugfix_352') and click "Create pull request" (plus, here you can also select the desired merging strategy, e.g. merge-commit, squash, etc);
-- then on the right-side of the webpage you can add other team members as reviewers;
-- [in case there are conflicts, you can solve them directly on GitHub website on the same 'Pull requests' page and then click "Merge commit"];
-- now wait for other members to review/approve;
-+ on the other hand, the reviewer has to open the same "Pull requests" page on GitHub, click on "Add your review", and decide whether to comment/approve/request-changes and click "Submit";
-- then any team member can click "Merge pull request > Confirm merge" to complete the merging procedure (pull request is then automatically closed);
-- finally all users shall checkout to the base-branch and execute "git pull" to retrieve the latest commit locally.
+§ Procedure for SR pull requests on GitHub:
+- create (or fetch) and checkout to new topic branch (e.g. 'bugfix_123');
+- work on WT, then stage/commit/push final changes;
+- open project on GitHub website and go to "Pull requests > New pull request";
+- here select the merging direction for branches (e.g. 'develop <- bugfix_123') and click "Create pull request" (plus, you can also select the desired merging strategy, e.g. merge-commit, squash, etc);
+- then on the right side of the webpage you can add other team members as reviewers;
+- in case there are conflicts, you can solve them directly on GitHub website on the same 'Pull requests' page and then click "Merge commit";
+- now wait for other members to review and approve;
++ on the other hand, the reviewer has to open the same "Pull requests" page on GitHub, click on "Add your review", and decide whether to comment, approve or request changes and click "Submit";
+- once approved (depending on the team PR strategy), any team member can click "Merge pull request > Confirm merge" to complete the merging procedure (PR is then automatically closed);
+- finally all users should checkout to the base branch and pull locally the latest changes just merged.
 
-§ MR-pull-requests involve a 'fork-repository' merging back to its 'upstream-repository', and can be done either via GitHub website or Git bash (see more details in Section #17).
+§ MR pull requests can be handled either via GitHub website or Git bash (see Section #17).
 
-§ Note if you open a pull-request to merge a topic-branch into a base-branch without checking for conflicts before, this may cause the pull-request to be opened and approved twice. In fact, after approving the 1st pull-request the actual merging is executed remotely, then if conflicts are detected the user is asked to solve them and open another pull-request to get the conflicts-resolution approved too. Thus, it's always good practice to avoid conflicts on pull-requests. Hereafter the procedure to handle topic-branch-to-base-branch merge-conflicts locally before opening pull-request (so that pull-request on GitHub will be surely conflicts-free):
-- checkout and pull on base-branch (e.g. 'develop') >> "git checkout develop && git pull";
-- create and checkout to new topic-brach (e.g. 'xyz') >> "git checkout -b xyz";
-- make changes on WT for topic-branch...
-- add, commit and push changes >> "git add --all && git commit -m "<comment> && git push [-u origin xyz]";
-- checkout and pull again on base-branch (assuming other team members pushed other commits in the meanwhile) >> "git checkout develop && git pull";
-- checkout to topic-branch >> "git checkout xyz";
-- merge base-branch into topic-branch locally (so to update with latest changes) >> "git merge develop";
-- resolve conflicts locally (if any);
-- add, commit and push merge-update/conflicts-solving >> "git add -A && git commit -m "<comment> && git push";
-- open pull request on GitHub from topic-branch to base-branch (e.g. "develop <- vkn").
+§ Note that opening a PR without checking for conflicts in advance may cause it to be opened and approved twice (depending on the team PR strategy). In fact, after approving the 1st PR the actual merging process is executed remotely and, if conflicts are detected, the user is asked to solve them and open another PR to get the resolution of conflicts approved too. Thus, it is always a good practice to check and solve conflicts locally and in advance before opening the PR. Hereafter the preliminary procedure to handle topic-to-base-branch merge conflicts is reported, so that the PR on GitHub will surely result conflict-free (see also Section #11 for further details):
+- create (or fetch) and checkout to new topic branch (e.g. 'bugfix_123');
+- work on WT, then stage/commit/push final changes;
+- checkout to base branch (e.g. 'develop') and pull latest changes;
+- checkout back to topic branch;
+- merge base branch into topic branch and resolve conflicts locally (if any);
+- stage/commit/push merge changes;
+- open topic-to-base-branch conflict-free PR on GitHub (as described above).
 
 ------------------------------------------------------------
 
 >> 17. FORKING <<
 
-§ "Forking" means copying an existing remote repository to your own GitHub account, ending up to create a second remote repository (besides the original one, which is usually referred to as the 'source of truth'). Forking workflows is common for open-source projects, so that topic-branches do not need to be shared (thus, for example, rebasing is way easier). However, you shall always pay attention to manually keep the upstream and fork repositories in sync to avoid issues (since this is not handled automatically by Git).
+§ "Forking" means copying an existing remote repository (usually referred to as the 'source of truth') to your own GitHub account and ending up to create a second parallel remote repository. Forking workflows is common for open-source projects, so that topic-branches do not need to be shared (thus, for example, rebasing is way easier). However, you shall always pay attention to manually keep the upstream and fork repositories in sync to avoid issues, since this is not handled automatically by Git.
 
 § A fork can be used for several reasons:
 - make experiments with or learn from the upstream repository without affecting its official workflow;
-- work independently on the same project and issue pull-requests only for merging back to the upstream repository;
+- work independently on the same project and issue PRs only for merging back to the upstream repository;
 - switch to a different source of truth for the project.
 
-§ Useful commands for forking:
-- to create a new fork, go to 'github website > PROJECT > Fork this repo';
-- to synchronize a fork with the latest upstream repo commits, go to 'github website > PROJECT > Sync no' (NB: this creates a merge-commit on the fork repo, then update the LR via "git pull").
+§ Useful tips for forking:
+- to create a new fork, open the project page on GitHub website and click 'Fork this repo';
+- to synchronize a fork with the latest upstream repo commits, open the project page on GitHub website and click 'Sync fork' (this creates a merge-commit on the fork RR, so then remember to update you LR as well via "git pull").
 
 ------------------------------------------------------------
 
 >> 18. WORKFLOWS <<
 
-§ "Gitflow" is the standard/official versioning workflow that allows safe and continuous releases of the project. For example, the project versioning should include:
-- two main base-branches, such as 'master' (whose tagged commits contain firmware versions to release to customers) and 'develop';
-- any number of topic-branches for each new task to fulfill (hotfix_XYZ/bugfix_XYZ/feature_XYZ/release_XYZ)
-- [for more details see '19_git_workflows.mp4' from 3:30 on].
+§ The term "Gitflow" refers to the standard/official versioning workflow that allows safe and continuous releases of the project. For example, the project versioning should include:
+- two main base-branches, such as 'master' (whose tagged commits contain firmware versions to release to customers) and 'develop' (for main code development);
+- any number of topic-branches for each new task to fulfill (e.g. 'hotfix_123', 'bugfix_345', 'feature_456', 'release_002', etc);
+- for more details see video '19_workflows.mp4' from minute 3:30 on.
 
 § Some Gitflow recommendations:
-- perform only merge-commits on 'master' branch;
+- perform only merge-commits on 'master' branch (and more in general on every base branch);
 - commit to 'master' branch only from 'release' or 'hotfix' branches;
-- after committing to 'master' branch, merge the same changes into 'develop' branch too (in order not to lose track of updates/patches applied during release/hotfix phase);
-- no direct work shall be done on 'master'.
+- after committing to 'master' branch, merge the same changes into 'develop' branch too (in order not to lose track of the updates/patches applied during the release/hotfix phase);
+- no direct work shall be done on 'master' (and more in general on any base branch).
 
 ------------------------------------------------------------
 
 >> 19. STASH <<
 
-§ The "git stash" commands allow to take WT uncommitted changes (both staged and unstaged), save them away for later use, and then restore them to WT:
-- to stash uncommitted changes away >> "git stash" (equivalent to "git stash push") [NB: after this command, execute "git status" and check WT is now clean];
-- to restore latest stashed changes to WT and remove them from stashing-area >> "git stash pop" [NB: 'latest changes' means the stash-entry labeled as 'stash@{0}'];
-- to restore latest stashed changes to WT but keep them in stashing-area (for example, this is useful if you need to apply the same stashed changes to multiple branches) >> "git stash apply".
+§ "Stash" commands allow to take WT uncommitted changes (both staged and unstaged), store them away for later use, and restore them to WT later:
+- to stash uncommitted changes >> "git stash [push]";
+- NB #1: after pushing a new stash entry, execute "git status" and check WT is now clean;
+- to restore latest stashed changes (linked to the stash entry labeled as 'stash@{0}') to WT and remove them from the stashing area >> "git stash pop";
+- to restore latest stashed changes to WT but keep them in the stashing area (useful if you need to apply the same stashed changes to multiple branches) >> "git stash apply";
+- to restore older changes use include the desired stash entry as additional argument >> "git stash pop|apply stash@{<num>}" (.e.g. "git stash apply stash@{3}").
 
-§ Note that by default the "git stash" command stores:
-- staged changes (i.e. changes that have been added to your index);
+§ Note that by default the "git stash [push]" command stores:
+- staged changes (i.e. the changes that have been added to your index);
 - unstaged changes (i.e. changes made to files that are currently tracked by Git);
 ...but does not store:
-- new files in WT that have not been staged yet (i.e. not part of the versioning yet) >> add the "-u" (where "-u" = "--include-untracked") option to include new untracked files (e.g. "git stash -u");
-- ignored files (i.e. part of the '.gitignore' file) >> add the "-a" (where "-a" = "--all") option to include changes to ignored files as well (e.g. "git stash -a").
+- new files adde within WT that have not been staged yet (aka "untracked", i.e. not part of the versioning yet) >> add the "-u|--include-untracked" option to include untracked files as well, namely "git stash -u";
+- ignored files (i.e. part of the '.gitignore' file) >> add the "-a|--all" option to include both untracked files and changes to ignored files as well, namely "git stash -a".
 
-§ The user is not limited to a single stash at a time, but can run "git stash" multiple times to create multiple stashes in sequence. By default, stashes are identified simply as a 'WIP' (aka "Work In Progress") on top of the branch/commit you created the stash from. Then "git stash list" can be used to list all stashed currently stored. However, after a while it can be difficult to remember what each stash contains (since, for example, they are all listed as something like "stash@{0}: WIP on master: 2e16987" or "stash@{4}: WIP on develop: f955ab0"). To provide a clearer and more detailed tracking, it's recommended to include a stash description via the "save "message"" option (e.g. "git stash save "stashed changes on xyz.c" [-u]").
+§ The user is not limited to a single stash at a time, but can push multiple times to create multiple stash entries in sequence. By default, stash entries are identified simply with a 'WIP' (aka "Work In Progress") label linked to the branch-commit pair the stash entry was generated from. The "git stash list" command can be used to list all stash entries currently stored within the stashing area. However, after a while it can be difficult to remember what each stash entry contains, because each of them is identified with a string like "stash@{0}: WIP on bugfix_123: 2e16987" or "stash@{4}: WIP on develop: f955ab0". To provide a clearer and more detailed tracking, it is recommended to include a description to each stash entry through the "save "<message>"" option, namely "git stash save "<message>"" (e.g. "git stash save "stashed changes on xyz.c" -u").
 
-§ To restore older changes use include the desired stash entry as additional argument (e.g. "git stash pop stash@{2}" or "git stash apply stash@{3}").
+§ To retrieve info about a specific stash, use the "git stash show stash@{<num>}" command and add the "-p" option to display also all differences within modified files (e.g. "git stash show -p stash@{1}").
 
-§ To retrieve info about a specific stash, use "git stash show stash@{n}" and add the "-p" option to display also all differences within modified files (e.g. "git stash show -p stash@{1}").
+§ Use "git stash drop stash@{<num>}" to delete a specific stash entry or "git stash clear" to delete all of them at once.
 
-§ Use "git stash drop stash@{n}" to delete a specific stash, or "git stash clear" to delete all of them.
+§ Of course restoring stashed changes via 'pop' or 'apply' commands can generate conflicts if in the meanwhile the same sections of the same files have been modified. In this case, just resolve manually the conflicts on each file and then stage the changes as usual (see Section #12).
 
-§ Of course, restoring stashed changes via "pop/apply" can generate conflicts if in the meanwhile the same sections of the same files have been modified. In this case, just resolve manually the conflicts on each file and then stage the changes as usual.
+§ Remember stash entries are actually encoded locally as commit objects. The special reference at ".git/refs/stash" points to the most recent stash, and previous stashes are referenced by the corresponding stash ref's reflogs. This is why you refer to each stash entry as stash@{<num>}, since you're actually referring to the n-th reflog entry of the stash ref.
 
-§ Remember stashes are actually encoded locally as commit objects. The special ref at ".git/refs/stash" points to the most recent stash, and previous stashes are referenced by the stash ref's reflog. This is why you refer to stashes by stash@{n}, since you're actually referring to the n-th reflog entry for the stash ref.
-
-§ Note "git stash ..." does not apply on submodules. Hereafter useful commands to handle changes on submodules for stashing in parallel:
-- stash all changes within both parent project and submodules >> "git stash save "MESSAGE" -u && git submodule foreach --recursive git stash save "MESSAGE" -u";
-- reapply all changes stashed in the previous step to both parent project and submodules (NB: assuming they all have the save stash-index!) >> "git stash apply && git submodule foreach --recursive git stash apply";
-- clear all stashed changes for both parent project and submodules >> "git stash clear && git submodule foreach --recursive git stash clear".
+§ Note stash commands do not apply by default on submodules too. Hereafter some useful commands to stash changes on submodules in parallel (see Section #20 for more details):
+- to stash all changes within both parent project and submodules >> "git stash save "<message>" -u && git submodule foreach --recursive git stash save "<message>" -u";
+- to reapply all changes stashed in the previous step to both parent project and submodules >> "git stash apply && git submodule foreach --recursive git stash apply" -> CAUTION: working only if they all have the same stash index;
+- clear all stash entries for both parent project and submodules >> "git stash clear && git submodule foreach --recursive git stash clear".
 
 ------------------------------------------------------------
 
