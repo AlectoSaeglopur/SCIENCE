@@ -94,4 +94,4 @@ conv:
 
 # 3. For further details, see Module#2/Lesson#8 of Coursera training.
 
-# 4. Remember to rename the makefile you want to use exactly as "Makefile".
+# 4. Remember the makefile shall be named exactly "Makefile" (with no extension).
