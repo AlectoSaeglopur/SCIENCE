@@ -46,7 +46,7 @@ int main( void )
   print_divider(sCnt++);
   run_modulation_tests();                                                     // run tests on "modulation.c" functions
   //while (1){};                                                              // do NOT loop
-  return 0;
+    return 0;
 }
 
 

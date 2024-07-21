@@ -1035,11 +1035,124 @@ but does NOT store:
 \section{Submodules}   \label{sec:Submodules}
 
 \begin{itemize}
-\item[$\circ$] ...
+\item[$\circ$] Git submodules allow to keep an existing Git repository as a subdirectory within another main Git repository. Submodules are simply a reference to another repository at a particular snapshot in time, and enable a Git repository to incorporate and track version history of external code.
+\myvspace
 
+\item[$\circ$] A Git submodule is a record within a host Git repository that points to a specific commit within another external repository. Submodules are static and only track specific commits. Submodules do not track Git refs or branches and are not automatically updated when the host repository is updated. When adding a submodule to a repository a new \textit{.gitmodules} file is created. The \textit{.gitmodules} file contains metadata about the mapping between the submodule project's URL and local directory. If the parent repository has multiple submodules, the \textit{.gitmodules} file has an entry for each submodule.
+\myvspace
+
+\item[$\circ$] Typical submodule use cases:
+\begin{itemize}
+  \item[$\cdot$] to lock a code section to a specific commit for your own safety in case an external component or subproject is changing too fast or upcoming changes might break some APIs;
+  \item[$\cdot$] when you have a component that is not updated very often and you want to track it as a vendor dependency;
+  \item[$\cdot$] when you are delegating a piece of the project to a third party and you want to integrate their work at a specific time or release (assuming updates are not too frequent);
+  \item[$\cdot$] more in general to increase projects modularity and reusability.
+\end{itemize}
+\myvspace
+
+\item[$\circ$] Useful commands for submodules:
+\begin{itemize}
+  \item[$\cdot$] to add a new and remote submodule to a local parent repository \mydiv \mycmd{git submodule add <url>} and then changes shall be staged/committed/pushed in order for the submodule to become a steady part of the parent project (after pushing to RR open GitHub website and check the submodule commit-reference (e.g. \textit{@3e5a7cd}) has been added to the parent project);
+  \item[$\cdot$] after cloning a remote repository containing submodules remember to manually initialize these (otherwise, submodules folders would remain empty) \mydiv \mycmd{git submodule update -{}-init -{}-recursive};
+  \item[$\cdot$] to update changes on all project submodules from RR to WT \mydiv \mycmd{git submodule update -{}-recursive [-{}-remote]};
+  \item[$\cdot$] use \textit{git status} from the parent project to verify if any submodule (in case, marked as \textit{new commits}) needs to be updated via the aforementioned command;
+  \item[$\cdot$] alternatively, submodules can be updated one by one by opening a bash inside each of their subfolders and executing the usual \textit{git pull} command;
+  \item[$\cdot$] to apply a standard Git command on all submodules from the parent project \mydiv \mycmd{git submodule foreach -{}-recursive <command>} (e.g. \textit{git submodule foreach -{}-recursive git reset -{}-hard} or \textit{git submodule foreach -{}-recursive git clean -df});
+  \item[$\cdot$] to show a list of all project submodules and their currently checked out commit \mydiv \mycmd{git submodule status}.
+\end{itemize}
+\myvspace
+
+\item[$\circ$] Once submodules are properly initialized and updated within a parent repository they can treated as usual stand-alone repositories, meaning they have their own branches and history. When making changes to a submodule it is important to push submodule changes and then update the parent repositories reference to that submodule.
+\myvspace
+
+\item[$\circ$] § Remember that changes on submodules cannot be staged/committed/pushed directly from the parent repository. To apply changes on a submodule, open a Git bash inside its subfolder, create and checkout to a dedicated topic branch for the changes to be made (or fetch and checkout if already created remotely, for instance via Jira), modify the code, stage/commit/push the changes and then open a PR to merge back into submodule base branch. Finally, to make the parent project point to the latest version of the submodule, at submodule level checkout to base branch (the destination one of the aforementioned PR) and pull, then at parent project level simply add/commit/push the submodule reference update (with a message like \textit{"updated submodule reference"}).
+\myvspace
+
+\item[$\circ$] To locally update a submodule whose remote path has been lately changed:
+\begin{itemize}
+  \item[$\cdot$] delete the related folder within LR's source folder;
+  \item[$\cdot$] delete the related folder within LR's \textit{.git} folder;
+  \item[$\cdot$] open Git bash at parent project level and type \mycmd{git submodule sync \&\& git submodule update -{}-recursive};
+  \item[$\cdot$] alternatively, you could simply delete the entire WT/LR and clone it again from scratch.
+\end{itemize}
+\end{itemize}
+\myvspace
+
+%--------------------------------------------------------------------------
+%	21. RESET
+%--------------------------------------------------------------------------
+
+\section{Reset}   \label{sec:Reset}
+
+\begin{itemize}
+\item[$\circ$] The \textbf{\textit{reset}} operation primarily undoes one or multiple commits and reverts back to a previous state of the project by removing all subsequent commits, thus literally resets \textit{HEAD} to the specified state.
+\myvspace
+
+\item[$\circ$] Useful reset commands:
+\begin{itemize}
+  \item[$\cdot$] to unstage specific files or directories (i.e. to undo previous \textit{git add} commands) within current branch \mydiv \mycmd{git reset <file-or-directory>} (e.g. \textit{git reset xyz.c});
+  \item[$\cdot$] to unstage all files and directories within current branch \mydiv \mycmd{git reset};
+  \item[$\cdot$] to unstage all files and directories and also reset WT to latest commit state (i.e. cancel all staged and unstaged changes) \mydiv \mycmd{git reset -{}-hard};
+  \item[$\cdot$] to locally delete latest commits, move back to a previous specified commit and reset WT to that previous commit state (thus causing to lose all deleted commits changes) \mydiv \mycmd{git reset -{}-hard <commit\_id>};
+  \item[$\cdot$] to locally delete latest commits, move back to a previous specified commit but preserving all deleted commits changes inside staging area \mydiv \mycmd{git reset -{}-soft <commit\_id>};
+  \item[$\cdot$] to locally delete latest commits, move back to a previous specified commit but preserving all deleted commits changes inside WT \mydiv \mycmd{git reset <commit\_id>}.
+\end{itemize}
+\end{itemize}
+\myvspace
+
+%--------------------------------------------------------------------------
+%	22. REVERT
+%--------------------------------------------------------------------------
+
+\section{Revert}   \label{sec:Revert}
+
+\begin{itemize}
+\item[$\circ$] The \textbf{\textit{revert}} operation inverses the changes from a specified commit and creates a new revert-commit. The ref pointers are then updated to point at the new revert commit making it the tip of the branch.
+\myvspace
+
+\item[$\circ$] The \textit{revert} command has two important advantages over the \textit{reset} one:
+\begin{itemize}
+  \item[$\cdot$] it does not change the project history, therefore safer for commits that have been already pushed to a shared remote repository (so can be used on public history too);
+  \item[$\cdot$] it is able to target an individual commit at an arbitrary point in the history, whereas \textit{reset} can only work backward from the current commit and delete latest commits until the desired one.
+\end{itemize}
+\myvspace
+
+\item[$\circ$] Useful revert commands:
+\begin{itemize}
+  \item[$\cdot$] to revert a branch to some previous commit \mydiv \mycmd{git revert <commit\_id\_to\_revert>} (e.g. \textit{git revert HEAD} to create a new commit reverting the very last commit only, i.e. restoring the second-to-last commit).
+\end{itemize}
+\end{itemize}
+\myvspace
+
+%--------------------------------------------------------------------------
+%	23. RESTORE
+%--------------------------------------------------------------------------
+
+\section{Restore}   \label{sec:Restore}
+
+\begin{itemize}
+\item[$\circ$] The \textbf{\textit{restore}} operation undoes unstaged changes within the WT.
+
+\item[$\circ$] Useful restore commands:
+\begin{itemize}
+  \item[$\cdot$] to revert unstaged changes on specific files or directories within WT \mydiv \mycmd{git restore <file-or-directory>} (e.g. \textit{git restore xyz.c});
+  \item[$\cdot$] to revert all unstaged changes within WT (i.e. move back WT to latest commit state) \mydiv \mycmd{git restore .}.
+\end{itemize}
+\end{itemize}
+\myvspace
+
+%--------------------------------------------------------------------------
+%	24. CLEAN
+%--------------------------------------------------------------------------
+
+\section{Clean}   \label{sec:Clean}
+
+\begin{itemize}
+\item[$\circ$] ...
 
 \end{itemize}
 \myvspace
+
 
 
 

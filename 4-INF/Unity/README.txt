@@ -20,31 +20,12 @@
 
 § To setup unit tests on a new project:
   - compile manually all files via GCC on shell (e.g. for the 1st example use "cls && gcc main.c test_list\test.c func_ut\fibonacci.c unity_engine\unity.c -o asd && asd";
-  - setup a compilation chain via Make.
+  - setup a compilation chain via Make (see 2nd example within "ex2_tlc_chain_project\").
   
-  
+  ------------------------------------------------------------
 
+>> 4. NOTES <<
 
->> fai Make per invocare easy il test!!
+§ The "setup" function inside "umain.c" can be used to execute a set of actions just before each test method is called. If a "setup" method fails or throws an exception, the test is not executed and a failure or error is reported.
 
-
-
-// in alternativa al metodo di Ex2 (1 Makefile e multipli build type), si potrebbe anche usare l'approccio di un Makefile per ogni  build type (i.e. uno per sottocartella, in questo caso  src e test) ma meno elegante!
-
-
-  
-  
-  //>> TEARDOWN
-//This attribute is used inside a TestFixture to provide a common set of functions that are performed after each test method.
-//
-//TearDown methods may be either static or instance methods and you may define more than one of them in a fixture. Normally, multiple TearDown methods are only defined at different levels of an //inheritance hierarchy, as explained below.
-//
-//So long as any SetUp method runs without error, the TearDown method is guaranteed to run. For example, it is not guaranteed to run if a SetUp method fails or throws an exception.
-//
-//
-//>> SETUP
-//This attribute is used inside a TestFixture to provide a common set of functions that are performed just before each test method is called.
-//
-//SetUp methods may be either static or instance methods and you may define more than one of them in a fixture. Normally, multiple SetUp methods are only defined at different levels of an //inheritance hierarchy, as explained below.
-//
-//If a SetUp method fails or throws an exception, the test is not executed and a failure or error is reported.
+§ The "teardown" function inside "umain.c" can be used to execute a set of actions after each test method. So long as any "setup" method runs without error, the "teardown" method is guaranteed to run.

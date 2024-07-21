@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.5.6)  18 JUL 2024 22:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.5.6)  21 JUL 2024 19:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1129,19 +1129,25 @@ File: ts1pplx.fd 2004/09/06 font definitions for TS1/pplx.
 {c:/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/texlive/2023/
 texmf-dist/fonts/enc/dvips/base/8r.enc}] [2] [3] [4] [5] [6] [7] [8] [9] [10] [
 11] [12] [13]
-[14] [15] [16] [17] [18] (./git_notes.aux)
+[14] [15] [16] [17] [18] [19] [20] (./git_notes.aux)
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package rerunfilecheck Info: File `git_notes.out' has not changed.
-(rerunfilecheck)             Checksum: 91187CD01DE4618CF570C0255815A435;2514.
+
+Package rerunfilecheck Warning: File `git_notes.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `git_notes.out':
+(rerunfilecheck)             Before: FB63AA80944544B5ABA3C386700CB48E;2739
+(rerunfilecheck)             After:  61CCAAE29BDC3F0F4F81AA3B82B8A571;2809.
  ) 
 Here is how much of TeX's memory you used:
- 46478 strings out of 476047
- 1066331 string characters out of 5794246
+ 46502 strings out of 476047
+ 1066567 string characters out of 5794246
  1884242 words of memory out of 5000000
- 65687 multiletter control sequences out of 15000+600000
- 587967 words of font info for 524 fonts, out of 8000000 for 9000
+ 65693 multiletter control sequences out of 15000+600000
+ 588649 words of font info for 533 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  102i,11n,104p,1411b,1087s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/tex
@@ -1149,10 +1155,10 @@ live/2023/texmf-dist/fonts/type1/public/fpl/fplrc8a.pfb><c:/texlive/2023/texmf-
 dist/fonts/type1/urw/palatino/uplb8a.pfb><c:/texlive/2023/texmf-dist/fonts/type
 1/urw/palatino/uplbi8a.pfb><c:/texlive/2023/texmf-dist/fonts/type1/urw/palatino
 /uplr8a.pfb><c:/texlive/2023/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on git_notes.pdf (18 pages, 184703 bytes).
+Output written on git_notes.pdf (20 pages, 192681 bytes).
 PDF statistics:
- 269 PDF objects out of 1000 (max. 8388607)
- 234 compressed objects within 3 object streams
- 46 named destinations out of 1000 (max. 500000)
- 91325 words of extra memory for PDF output out of 106986 (max. 10000000)
+ 292 PDF objects out of 1000 (max. 8388607)
+ 255 compressed objects within 3 object streams
+ 52 named destinations out of 1000 (max. 500000)
+ 91349 words of extra memory for PDF output out of 106986 (max. 10000000)
 

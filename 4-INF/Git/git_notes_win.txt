@@ -529,59 +529,78 @@ A -- D -- E -- B' -- C'   [destination]
 
 >> 20. SUBMODULES <<
 
-§ Git submodules allow you to keep a Git repository as a subdirectory of another Git repository. Submodules are simply a reference to another repository at a particular snapshot in time, and enable a Git repository to incorporate and track version history of external code.
+§ Git submodules allow to keep an existing Git repository as a subdirectory within another main Git repository. Submodules are simply a reference to another repository at a particular snapshot in time, and enable a Git repository to incorporate and track version history of external code.
 
-§ A Git submodule is a record within a host Git repository that points to a specific commit in another external repository. Submodules are very static and only track specific commits. Submodules do not track Git refs or branches and are not automatically updated when the host repository is updated. When adding a submodule to a repository a new ".gitmodules" file will be created. The ".gitmodules" file contains meta-data about the mapping between the submodule project's URL and local directory. If the parent repository has multiple submodules, the ".gitmodules" file has an entry for each submodule.
+§ A Git submodule is a record within a host Git repository that points to a specific commit within another external repository. Submodules are static and only track specific commits. Submodules do not track Git refs or branches and are not automatically updated when the host repository is updated. When adding a submodule to a repository a new ".gitmodules" file is created. The ".gitmodules" file contains metadata about the mapping between the submodule project's URL and local directory. If the parent repository has multiple submodules, the ".gitmodules" file has an entry for each submodule.
 
-§ Using submodules is especially useful:
-- when an external component or subproject is changing too fast or upcoming changes will break the API, you can lock the code to a specific commit for your own safety;
+§ Typical submodule use cases:
+- to lock a code section to a specific commit for your own safety in case an external component or subproject is changing too fast or upcoming changes might break some APIs;
 - when you have a component that is not updated very often and you want to track it as a vendor dependency;
 - when you are delegating a piece of the project to a third party and you want to integrate their work at a specific time or release (assuming updates are not too frequent);
-- in general, to increase projects modularity and reusability.
+- more in general to increase projects modularity and reusability.
 
 § Useful commands for submodules:
-- to add a new submodule to an existing/main repository >> "git submodule add <url>" (then new submodule files have to be staged/committed/pushed in order to become a steady part of the main project) [NB: after pushing to RR, open GitHub website and check the submodule commit-reference (e.g. "@3e5a7c") has been added to the main project];
-- after cloning remote repositories containing submodules (or whenver new submodules are added to the project), remember these have to be also manually initialized (otherwise, submodule folders would remain empty) >> "git clone <url> && git submodule update --init --recursive";
-- to update changes for all submodules from RR to WT parent project >> "git submodule update --recursive [--remote]";
-- [alternatively, submodules can be updated one by one by opening a bash inside each of their subfolders and executing "git fetch/pull"];
-- to apply a standard Git command on all submodules of the parent project >> "git submodule foreach --recursive <command>" (e.g. "git submodule foreach --recursive git reset --hard" or "git submodule foreach --recursive git clean -dxf");
-- use "git status" at parent project level to verify if any submodule needs to be updated via the aforementioned command.
+- to add a new and remote submodule to a local parent repository >> "git submodule add <url>" and then changes shall be staged/committed/pushed in order for the submodule to become a steady part of the parent project (after pushing to RR open GitHub website and check the submodule commit-reference (e.g. "@3e5a7cd") has been added to the parent project);
+- after cloning a remote repository containing submodules remember to manually initialize these (otherwise, submodules folders would remain empty) >> "git submodule update --init --recursive";
+- to update changes on all project submodules from RR to WT >> "git submodule update --recursive [--remote]";
+- use "git status" from the parent project to verify if any submodule (in case, marked as "new commits") needs to be updated via the aforementioned command;
+- alternatively, submodules can be updated one by one by opening a bash inside each of their subfolders and executing the usual "git pull" command;
+- to apply a standard Git command on all submodules from the parent project >> "git submodule foreach --recursive <command>" (e.g. "git submodule foreach --recursive git reset --hard" or "git submodule foreach --recursive git clean -df");
+- to show a list of all project submodules and their currently checked out commit >> "git submodule status".
 
-§ Once submodules are properly initialized and updated within a parent repository they can be utilized exactly like stand-alone repositories. This means that submodules have their own branches and history. When making changes to a submodule it is important to push submodule changes and then update the parent repositories reference to the submodule.
+§ Once submodules are properly initialized and updated within a parent repository they can treated as usual stand-alone repositories, meaning they have their own branches and history. When making changes to a submodule it is important to push submodule changes and then update the parent repositories reference to that submodule.
 
-§ Remember that changes on submodules cannot be applied directly from the parent repository (since they cannot be staged/committed from the parent repo). To make changes on a submodule, first open a Git bash inside it and and create/checkout to a dedicated topic-branch for the changes (or fetch/checkout if already created remotely with Jira), modify the code, commit/push to topic-branch and then open the pull-request to merge back into submodule base-branch. Finally, to make the parent project point to the latest version of the submodule, just run "git checkout <base_branch> && git pull" at submodule level and then at parent project level simply add/commit/push the submodule update with a message like "updated XYZ submodule" (visible also through "git status"). 
+§ Remember that changes on submodules cannot be staged/committed/pushed directly from the parent repository. To apply changes on a submodule, open a Git bash inside its subfolder, create and checkout to a dedicated topic branch for the changes to be made (or fetch and checkout if already created remotely, for instance via Jira), modify the code, stage/commit/push the changes and then open a PR to merge back into submodule base branch. Finally, to make the parent project point to the latest version of the submodule, at submodule level checkout to base branch (the destination one of the aforementioned PR) and pull, then at parent project level simply add/commit/push the submodule reference update (with a message like "updated submodule reference"). 
 
-§ To locally update a submodule whose remote path has been changed lately:
-- delete the related folder within LR's "source" folder;
+§ To locally update a submodule whose remote path has been lately changed:
+- delete the related folder within LR's source folder;
 - delete the related folder within LR's ".git" folder;
-- open Git bash inside project main path and type "git submodule sync && git submodule update --recursive";
-+ alternatively, you could simply delete the entire LR and clone it again from scratch.
+- open Git bash at parent project level and type "git submodule sync && git submodule update --recursive";
++ alternatively, you could simply delete the entire WT/LR and clone it again from scratch.
 
 ------------------------------------------------------------
 
->> 21. REVERT, RESET, RESTORE & CLEAN <<
+>> 21. RESET <<
 
-§ In Git a 'reset'-operation undoes one or multiple commits and reverts back to a previous state of a project by removing all subsequent commits (literally resets current HEAD to the specified state). Instead, a 'revert'-operation takes the specified commit, inverse the changes from that commit, and creates a new revert-commit. The ref pointers are then updated to point at the new revert commit making it the tip of the branch.
+§ The "reset" operation primarily undoes one or multiple commits and reverts back to a previous state of the project by removing all subsequent commits, thus literally resets 'HEAD' to the specified state.
 
-§ 'Reverting' has two important advantages over 'resetting':
-- it does not change the project history (therefore safer for commits that have already been published to a shared repository);
-- it is able to target an individual commit at an arbitrary point in the history, whereas "git reset" can only work backward from the current commit and delete latest commits until the desired one;
-- unlike 'reset', 'revert' can be used on public history.
+§ Useful reset commands:
+- to unstage specific files or directories (i.e. to undo previous "git add" commands) within current branch >> "git reset <file-or-directory>" (e.g. "git reset xyz.c");
+- to unstage all files and directories within current branch >> "git reset";
+- to unstage all files and directories and also reset WT to latest commit state (i.e. cancel all staged and unstaged changes) >> "git reset --hard";
+- to locally delete latest commits, move back to a previous specified commit and reset WT to that previous commit state (thus causing to lose all deleted commits changes) >> "git reset --hard <commit_id>";
+- to locally delete latest commits, move back to a previous specified commit but preserving all deleted commits changes inside staging area >> "git reset --soft <commit_id>";
+- to locally delete latest commits, move back to a previous specified commit but preserving all deleted commits changes inside WT >> "git reset <commit_id>".
 
-§ Useful 'revert' commands:
-- to revert a branch to some previous commit >> "git revert <older_commit_id_to_revert>" (e.g. "git revert HEAD" to create a new commit reverting the very last commit only, i.e. restoring the second-to-last commit).
+------------------------------------------------------------
 
-§ Useful 'reset' commands:
-- to unstage specific files/directories (i.e. undo "git add" commands) within current branch >> "git reset <file/directory>" (e.g. "git reset xyz.c");
-- to unstage all files/directories within current branch >> "git reset";
-- to unstage all files/directories and also reset WT to latest commit state (i.e. cancel all staged and unstaged changes) >> "git reset --hard";
-- to locally delete latest commits, move back to a previous specified commit and reset WT to that previous commit state (i.e. all deleted-commits changes get lost) >> "git reset --hard <commit_id>";
-- to locally delete latest commits, move back to a previous specified commit but preserving all deleted-commits changes inside staging area >> "git reset --soft <commit_id>";
-- to locally delete latest commits, move back to a previous specified commit but preserving all deleted-commits changes inside WT >> "git reset <commit_id>".
+>> 22. REVERT <<
 
-§ The 'restore' command allows to undo/remove unstaged changes within the WT. Useful 'restore' commands:
-- to revert all WT unstaged changes (i.e. move back WT to latest commit) >> "git restore .";
-- to revert WT unstaged changes on specific files/directories (i.e. move back WT to latest commit) >> "git restore <file/directory>" (e.g. "git restore xyz.c").
+§ The "revert" operation inverses the changes from a specified commit and creates a new revert-commit. The ref pointers are then updated to point at the new revert commit making it the tip of the branch.
+
+§ The 'revert' command has two important advantages over the 'reset' one:
+- it does not change the project history, therefore safer for commits that have been already pushed to a shared remote repository (so can be used on public history too);
+- it is able to target an individual commit at an arbitrary point in the history, whereas 'reset' can only work backward from the current commit and delete latest commits until the desired one.
+
+§ Useful revert commands:
+- to revert a branch to some previous commit >> "git revert <commit_id_to_revert>" (e.g. "git revert HEAD" to create a new commit reverting the very last commit only, i.e. restoring the second-to-last commit).
+
+------------------------------------------------------------
+
+>> 23. RESTORE
+
+§ The "restore" operation undoes unstaged changes within the WT.
+
+§ Useful restore commands:
+- to revert unstaged changes on specific files or directories within WT >> "git restore <file-or-directory>" (e.g. "git restore xyz.c");
+- to revert all unstaged changes within WT (i.e. move back WT to latest commit state) >> "git restore .".
+
+------------------------------------------------------------
+
+>> 24. CLEAN <<
+
+@vkn: restart from here!!!!!!!!
+
 
 § The clean command allows to undo/remove untracked changes within the WT. Useful 'clean' commands:
 - to just display untracked files that could be removed from WT, include the "-n" flag >> "git clean -n" or "git clean -n src/";
@@ -670,6 +689,10 @@ git clean -nd to see all that would be removed as untracked -> git clean -df to 
 
 - bisect ?
 
+- "git config --get remote.origin.url" to retrieve URL associated to RR
+
 
 
 !!!!! BASE == SOURCE (@vkn: remove!) || TOPIC = DESTINATION
+
+
