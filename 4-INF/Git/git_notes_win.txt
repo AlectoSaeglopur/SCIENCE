@@ -81,7 +81,7 @@
 - alternatively, to add all untracked, modified and deleted files/directories to SA without specifying them one by one >> "git add --all|-A";
 - to move all staged files/directories from SA to LR (i.e. adding a new snapshot/node representing the current state of the project to the version history) >> "git commit -m "<comment>"";
 - to verify WT and SA have been cleaned of all committed files/directories >> "git status";
-- finally check the LR commit-history of the current branch via "git log";
+- finally check the LR commit history of the current branch via "git log";
 - NB #1: to delete a current branch commit in LR >> "git reset --hard <commit_id>" (or "git reset --hard HEAD~X" to cancel last X commits, assuming HEAD is pointing to latest commit of the desired local branch);
 - NB #2: to examine changes more in detail and select one by one the files to stage and commit use Git GUI.
 
@@ -318,7 +318,7 @@ A -- C -- E -- S   [destination]
 ".git/refs/remotes/origin/" except for 'HEAD' (by default 'remotes/origin/HEAD -> origin/master'). The latter is actually a symbolic reference specifying the TB related to the currently checked-out branch and allowing to type only '<remote>' instead of the whole '<remote>/<branch>' in Git commands (e.g. 'origin' instead of 'origin/master').
 
 § Useful commands related to TBs:
-- to show commit-history of a remote branch (again, tracked only indirectly via the corresponding tracking-branch) >> "git log origin/<branch> [--oneline]" (equivalent to simply "git log origin [--oneline]" if <branch>, for instance 'master', is set as default remote TB);
+- to show commit history of a remote branch (again, tracked only indirectly via the corresponding tracking-branch) >> "git log origin/<branch> [--oneline]" (equivalent to simply "git log origin [--oneline]" if <branch>, for instance 'master', is set as default remote TB);
 - to change locally the default remote tracking-branch (e.g. from 'master' to 'develop', since that is usually the one where the bulk of the work is done by the team) >> "git remote set-head <remote> <branch>" (e.g. "git remote set-head origin develop", so from now on the "git log origin" command will refer to 'develop' commits and "git branch --all" will show 'remotes/origin/HEAD -> origin/develop').
 
 § The initial default TB (e.g. corresponding to the default branch when cloning the project) can be changed for all users through "github website > settings > general > default branch". Note this is always set by default to 'master' for any new repository.
@@ -576,7 +576,7 @@ A -- D -- E -- B' -- C'   [destination]
 
 >> 22. REVERT <<
 
-§ The "revert" operation inverses the changes from a specified commit and creates a new revert-commit. The ref pointers are then updated to point at the new revert commit making it the tip of the branch.
+§ The "revert" operation inverts the changes from a specified commit and creates a new revert-commit. The ref pointers are then updated to point at the new revert commit making it the tip of the branch.
 
 § The 'revert' command has two important advantages over the 'reset' one:
 - it does not change the project history, therefore safer for commits that have been already pushed to a shared remote repository (so can be used on public history too);
@@ -593,30 +593,39 @@ A -- D -- E -- B' -- C'   [destination]
 
 § Useful restore commands:
 - to revert unstaged changes on specific files or directories within WT >> "git restore <file-or-directory>" (e.g. "git restore xyz.c");
-- to revert all unstaged changes within WT (i.e. move back WT to latest commit state) >> "git restore .".
+- to revert all unstaged changes within WT (i.e. move back WT to latest commit state) >> "git restore ." (similar to "git reset --hard", but without affecting staged changes).
 
 ------------------------------------------------------------
 
 >> 24. CLEAN <<
 
-@vkn: restart from here!!!!!!!!
+§ The "clean" operation primarily undoes untracked changes within the WT.
 
-
-§ The clean command allows to undo/remove untracked changes within the WT. Useful 'clean' commands:
-- to just display untracked files that could be removed from WT, include the "-n" flag >> "git clean -n" or "git clean -n src/";
-- to apply the command recursively on subdirectories, include the "-d" flag >> "git clean -d <path>" or "git clean -nd";
-- to force the removal of ignored files as well (i.e. still present locally within WT but no more part of the versioning), include the "-x" flag >> "git clean -nx" or "git clean -nx <path>";
-- to actually remove untracked/ignored files/directories from WT, include the "-f" flag (where "-f" = "--force") >> "git clean -f <file/directory>" or "git clean -dxf" (most general, i.e. applied on the whole repo);
-- to use the command in interactive mode (i.e. decide actions file by file), include the "-i" option >> "git clean -i".
-
-
-
-
-git clean -nd to see all that would be removed as untracked -> git clean -df to execute! (execute git clean -df one more time to remove also the now empty untracked folders!)
+§ Useful clean commands:
+- add the "-n" flag to just display WT untracked files that could be removed;
+- add the "-d" flag to apply the command recursively on subdirectories too;
+- add the "-x" flag to apply the command on ignored files too (i.e. those files still present locally within WT but no more part of the versioning);
+- add the "-f" flag to actually force the removal of the selected WT untracked/ignored files or directories;
+- NB #1: as a rule of thumb, use "git clean -nd[x] [<subpath>]" to check which files would be removed, and "git clean -df[x] [<subpath>]" to actually execute the action;
+- add the "-i" option to use the command in interactive mode (i.e. to decide actions file by file) >> "git clean -i [<subpath>]".
 
 ------------------------------------------------------------
 
->> 22. VARIOUS <<
+>> 25. LOG <<
+
+§ The "log" command shows information about the current branch commit history. By default it provides a limited and detailed list of commits (i.e. including hash, author, message, etc) in reverse time order, which can be further lengthened or stopped by pressing respectively the 'Enter' or 'q' key.
+
+§ Useful log commands:
+- add the "--oneline" flag to display the history in a more concise way by ignoring most commit details;
+- add the "--graph" flag to display the commit history as a graph tree (and not simply as a list);
+- add the "-<X>" flag to display only the X latest commits instead of the whole list >> "git log [--oneline] -X" (e.g. "git log --oneline -5");
+- add the "--skip=<Y>" not to display the Y latest commits;
+- add the "--since="<date-or-time>"" to display only commits from the specified date or time frame onwards (e.g. "git log --since="1 day ago"");
+- add the "--before"<date-or-time>"" to display only commits from the specified date or time frame backwards (e.g. "git log --before"4 hours ago"").
+
+------------------------------------------------------------
+
+>> XX. VARIOUS <<
 
 § Useful Linux commands:
 - "ls -a" to show all files and directories within current folder (including hidden ones);
@@ -632,9 +641,6 @@ git clean -nd to see all that would be removed as untracked -> git clean -df to 
 - to display differences inside project files between staging area and LR (i.e. uncommitted changes) >> "git diff --cached [--word-diff]";
 - to display differences inside project files between LR and RR (i.e. unpushed changes) >> "git diff <remote>/<branch> [--word-diff]" (e.g. "git diff origin/develop --word-diff");
 - to checkout to another branch discarding all current unstanged WT changes >> "git checkout -f <branch>";
-- to display graphical commit-history of current branch >> "git log [--oneline] --graph";
-- to display commit-history of current branch including differences (i.e. files changes) >> "git log --diff [--oneline] [--graph]";
-- to display commit-history of all refs (stored in "refs/", i.e. of all branches plus stashes) >> "git log --all [--oneline] [--graph] [--diff]";
 - to show what commit and author last modified each line of a specific file >> "git blame [-L 2,5] [-w] <path>/<file>" ("-L" to specify the lines-range to check inside the file, and "-w" to ignore whitespace changes);
 - to set a Git command alias >> "git config --global alias.<custom_name> '<command_expression>'" (e.g. "git config --global alias.nwbr 'checkout -b'", thus from now on "git nwbr <branch_name>" is equivalent to "git checkout -b <branch_name>");
 - to list all existing Git command aliases >> "git config --get-regexp ^alias";
@@ -667,13 +673,7 @@ git clean -nd to see all that would be removed as untracked -> git clean -df to 
 
 @todo:
 
-- split revert, restore, reset
-
-- add section for "git log" (retrieving from other chapters!)
-
-- to see the LR commit-history of the current branch >> "git log [--oneline] [-X]" (e.g. X=2 can be used to show only the x2 most recent commits instead of the whole history) [NB: press 'Enter' to show more log-lines or 'q' to exit].
-
-- info about git show command
+- info about git show command (e.g. to check changes of specific commit)
 
 - open git gui submodule inside git gui main!
 
@@ -683,16 +683,20 @@ git clean -nd to see all that would be removed as untracked -> git clean -df to 
 
 - "git checkout -" to move to previous branch
 
-- "git log --decorate"
-
 - "git commit --amend"  >> già spiegato sopra, provalo in pratica!
 
 - bisect ?
 
 - "git config --get remote.origin.url" to retrieve URL associated to RR
 
+- add section about git GUI
+
+- add the final VARIOUS section to latex!
 
 
-!!!!! BASE == SOURCE (@vkn: remove!) || TOPIC = DESTINATION
-
+LATEX
+% crea macro per Lv1 e Lv2 bullets usati in itemize!
+% prova a creare table of content (?)
+% update bibliography!
+% add linux_git notes as well!
 

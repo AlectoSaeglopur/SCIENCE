@@ -190,6 +190,10 @@ int main(void)
 
 /*** NOTES ***/
 
+// 0. Execution:
+//    - to compile and execute >> "cls && gcc ex_xmacros_4.c -o xmacro4.exe && xmacro4.exe";
+//    - to compile and generate the corresponding .i pre-processor file (where xmacro expansion is applied by GCC) >> "cls && gcc -E ex_xmacros_4.c -o xmacro4.i".
+
 // 1. This example is inspired by Peacock2 GPU project. Assuming a certain number of views and zone-configurations
 //    are needed (in this case x4 and x3 respectively) and that the respective widget-IDs are already available
 //    throughout the project (here simply added within the CONSTANTS section), the purpose of the script is to
