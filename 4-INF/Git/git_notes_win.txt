@@ -103,6 +103,10 @@
 - commit desired changes to LR (see Section #5);
 - push current LR state to RR >> "git push".
 
+§ To display info about the RR associated to current LR use "git remote -v|--verbose";
+
+§ To retrieve GitHub or BitBucket URL associated to RR use "git config --get remote.origin.url".
+
 ------------------------------------------------------------
 
 >> 7. OBJECTS & IDS <<
@@ -212,7 +216,9 @@ thus operates on the current branch only (the removal event is only applied to t
 - switch 'HEAD' from the current branch-commit pair to either the tip of another branch-label or another commit id of the same branch-label >> "git checkout <branch>" or "git checkout <commit_id>";
 - update the WT with files and directories from the checked out branch or commit;
 - be allowed to commit for that branch locally and remotely (i.e. to both LR and RR);
-- NB #5: the commands "git branch <new_branch> && git checkout <new_branch>" can be combined into a single one (assuming <new_branch> does not exist yet locally) >> "git checkout -b <new_branch>".
+- NB #5: the commands "git branch <new_branch> && git checkout <new_branch>" can be combined into a single one (assuming <new_branch> does not exist yet locally) >> "git checkout -b <new_branch>";
+- NB #6: use the shortcut command "git checkout -" to automatically move back to the last checked out local branch (with no need to type again its full name);
+- NB #7: use "git checkout -f <branch>" to checkout to another branch discarding all unstanged WT changes.
 
 § Whenever 'HEAD' within the current branch does not point to its branch-label (i.e. tip of the branch) but to one of its previous commits, that causes the so-called "detached HEAD" situation. Keep in mind if you want to work restarting from a previous commit (e.g. 'HEAD~') you shall first create a dedicated branch and checkout to that, otherwise it would create a "HEAD-detached conflict".
 
@@ -422,7 +428,7 @@ A -- D -- E -- B' -- C'   [destination]
 - stage changes >> "git add <files-or-directories>";
 - amend commit >> "git commit --amend -m "new_comment"" or "git commit --amend --no-edit" (with the "--no-edit" option the original message is preserved).
 
-§ CAUTION: never rewrite history that is shared with other users!
+§ CAUTION: never rewrite history that has been already pushed and shared with other users!
 
 ------------------------------------------------------------
 
@@ -625,47 +631,99 @@ A -- D -- E -- B' -- C'   [destination]
 
 ------------------------------------------------------------
 
->> XX. VARIOUS <<
+>> 26. SHOW <<
 
-§ Useful Linux commands:
-- "ls -a" to show all files and directories within current folder (including hidden ones);
-- "clear" to clear shell/bash.
+§ The "show" command displays details (e.g. author, date, messages, etc) about specified Git objects (i.e. commits, tags, blobs and trees).
+
+§ Useful show commands:
+- add the "--oneline" flag to most object details >> "git show <obj_id> [--oneline]" (e.g. "git show HEAD --oneline" or "git show 05ffe6e3").
+
+------------------------------------------------------------
+
+>> 27. DIFF <<
+
+§ The "diff" command shows changes file by file between x2 specified data sets (such as WT, commit, index, etc).
+
+§ Useful diff commands:
+- to display all differences between WT and index (i.e. unstaged changes) >> "git diff";
+- to display all differences between index and LR (i.e. uncommitted changes) >> "git diff --cached";
+- to display all differences between LR and RR (i.e. unpushed changes) >> "git diff <remote/branch>" (e.g. "git diff origin/develop");
+- to display all differences between two commits >> "git diff <older_commit_id> <newer_commit_id>" (e.g. "git diff a7db725b~ a7db725b");
+- to display differences only on a single file, add its path and name as additional argument >> "git diff [...] <path/file>";
+- add the flag "--submodule=diff" to display changes on submodules files too;
+- add the "--word-diff=plain" flag to display changes with inline format;
+- add the "--ignore-space-at-eol" flag to ignore end-of-line whitespace changes;
+- NB #1: untracked files are not detected by 'diff'.
+
+------------------------------------------------------------
+
+>> 28. ALIAS <<
+
+§ Aliases provide custom shortcuts to standard Git commands.
+
+§ Useful alias commands:
+- to create a new alias >> "git config --global alias.<custom_command> '<git_expression>'" (e.g. after defining "git config --global alias.newbr 'checkout -b'", from now on the command "git newbr <branch>" becomes equivalent to "git checkout -b <branch>");
+- to list all existing aliases >> "git config --get-regexp ^alias";
+- to delete an existing alias >> "git config --global --unset alias.<custom_command>" (e.g. "git config --global --unset alias.newbr").
+
+------------------------------------------------------------
+
+>> 29. GUI <<
+
+§  Git GUI is a straightforward alternative to the standard bash for some specific actions. In particular, this can come in handy:
+- to quickly check differences between WT and index (and decide whether to stage or revert specific hunks, if needed);
+- to easily handle stage, commit and push operations.
+
+§ Useful GUI tips:
+- to open it type "git gui" on bash (to open GUI and still be able to write commands on bash, type "git gui&" instead);
+- NB #1: inside the GUI the top-left and bottom-left boxes represents respectively WT and index;
+- to stage/unstage a single file changes, just left-click on that file within the top-left box (the file is then moved automatically to index/WT);
+- to create a commit, add a message in the bottom-right box and click the button 'Commit';
+- to push new LR commits to RR, click the button 'Push';
+- to display unstaged changes within a submodule, right-click on it and select 'Start Git GUI in the submodule';
+- to stage or revert only single sections of a file, right-click on it and select respectively 'Stage hunk for commit' or 'Revert hunk';
+- in case a hunk has been mistakenly reverted, undo the revert by clicking on it and selecting 'Undo last revert' (note this works only on the very last hunk reverted).
+
+------------------------------------------------------------
+
+>> 30. VARIOUS <<
+
+§ Useful Linux commands the can be used on Git bash as well:
+- to show all files and directories within current folder (including hidden ones) >> "ls -a";
+- to clear shell >> "clear".
 
 § Additional useful Git commands:
 - to get an overview of the most common commands >> "git help";
-- to get info about a specific command >> "git help [command]" or "git [command] -h" (e.g. git status -h");
+- to get info about a specific command >> "git help <command>" or "git <command> -h" (e.g. "git status -h");
 - to check current Git version installed >> "git --version";
-- to open Git GUI >> "git gui" (NB: add "&" to open GUI and still be able to write commands on bash, i.e. "git gui&");
-- to display info about RR (associated to your LR) >> "git remote -v" (where "-v" = "--verbose"); 
-- to display differences inside project files between WT and index (i.e. unstaged changes) >> "git diff [--word-diff]" (or via Git GUI);
-- to display differences inside project files between staging area and LR (i.e. uncommitted changes) >> "git diff --cached [--word-diff]";
-- to display differences inside project files between LR and RR (i.e. unpushed changes) >> "git diff <remote>/<branch> [--word-diff]" (e.g. "git diff origin/develop --word-diff");
-- to checkout to another branch discarding all current unstanged WT changes >> "git checkout -f <branch>";
-- to show what commit and author last modified each line of a specific file >> "git blame [-L 2,5] [-w] <path>/<file>" ("-L" to specify the lines-range to check inside the file, and "-w" to ignore whitespace changes);
-- to set a Git command alias >> "git config --global alias.<custom_name> '<command_expression>'" (e.g. "git config --global alias.nwbr 'checkout -b'", thus from now on "git nwbr <branch_name>" is equivalent to "git checkout -b <branch_name>");
-- to list all existing Git command aliases >> "git config --get-regexp ^alias";
-- to delete an existing Git command alias >> "git config --global --unset alias.<custom_name>" ("git config --global --unset alias.nwbr");
-- to solve the 'HEAD detached' issue on current LR branch, just checkout to another branch and then back again to the original one (this always resets 'HEAD' to the latest commit).
+- to solve the 'HEAD detached' issue on current branch (assuming no relevant untracked changes present), just checkout to the same branch in order to reset 'HEAD' to its latest commit.
 
 § Git wildcards:
-- you can add an additional path to commands in order to apply actions only on a specific LR subfolder >> e.g. "git status src/" or "git add settings/";
-- you can apply commands only on files with a specified extension >> e.g. "git status \src/*.c" (to check the status of all '.c' files within 'src' subfolder) or "git add \*.c \*.h" (to only stage changes of all '.c' and '.h' files within the repo);
-- to match a specific file pattern with any path inside LR >> "git add **/xyz.c" (to stage changes on one or multiple files named 'xyz.c' in any position within the repo) or "git add **/xyz.*" (to stage changes on all files named 'xyz.' with any extension in any position within the repo, e.g. useful to include at same both '.h' and '.c' files of the same module);
-- for more details about pattern-matching and wildcards see "ignore_wildcard_patterns.pdf".
+- to apply actions only on a specific project subfolder, add an extra path to commands >> e.g. "git status src";
+- to apply actions only on files with a specified extension, use the '*' wildcard >> e.g. "git status src\*.c" (to check the status of all '.c' files within 'src' subfolder) or "git add \*.c \*.h" (to stage only changes of all '.c' and '.h' files within the whole project);
+- to apply actions on all files matching a specific name pattern regardless of their path within project, use the '**' wildcard >> "git add **\xyz.c" (to stage changes on one or multiple files named 'xyz.c' in any position within the project) or "git add **\xyz.*" (to stage changes on all files named 'xyz' with any extension in any position within the project, e.g. useful to include at same time both '.h' and '.c' files of the same module);
+- for more details about pattern-matching and wildcards, see "ignore_wildcard_patterns.pdf".
 
 § GitHub tips:
-- to change repository visibility (public/private), transfer repository ownership or delete repository, go to "github website > PROJECT > settings > (scroll down) > danger zone";
+- to change repository visibility (public or private), transfer repository ownership or delete repository, go to "github website > project > settings > (scroll down) > danger zone";
 - the versioning 'graph-view' (see "github website > insights > network") is enabled only for paid versions (e.g. 'Enterprise') or if the repository is kept public;
-- to add branch protection rules, go to "github website > settings > branches >> add branch protection rule" >> for example, set 'Branch name pattern' to 'master', tick 'Require a pull-request before merging' and below 'Require approvals', set 'Required number of approvals' (e.g. x1), and finally tick 'Do not allow bypassing the above settings';
-§ to give access to a repository you own to another team member (so that he/she can gain pull/push rights on that), the latter be set as "collaborator" of the project (note this shall be repeated also for all submodules included in the parent repo) >> go to "github website > PROJECT > settings > collaborators > add people", then he/she shall accept the invitation received on GitHub website [NB: Keep in mind that if the repository is set as "public" by the owner, this makes it visible and clonable by any GitHub user; however only if users added as collaborators can also push. Otherwise, if the owner sets the repository as private, the only way for another user to clone/push is to be included as a collaborator of the project];
-§ Regarding the different kinds of topic-branches that you can create on GitHub:
-- "feature-branch", implementing new features (e.g. adding Bluetooth connectivity to the project);
-- "bugfix-branch", fixing a bug during firmware development/testing;
-- "hotfix-branch", fixing a bug on firmware version already release on the market.
+- to add branch protection rules, go to "github website > project > settings > branches > add branch protection rule" (for example, set 'Branch name pattern' to 'master', tick 'Require a pull-request before merging', then below tick 'Require approvals' and set 'Required number of approvals' as desired, and finally tick 'Do not allow bypassing the above settings');
+- to give access to a repository you own to another team members (so that they can gain pull/push rights on that), the latter shall be set as "collaborator" of the project (note this shall be repeated also for all submodules included in the parent repo) by going to "github website > project > settings > collaborators > add people", then they shall accept the invitation received on GitHub website;
+- NB #1: A repository set as public by the owner is visible and clonable by any GitHub user, however only if users are added as collaborators can push too - otherwise, if the owner sets the repository as private, the only way for another user to clone/push is to be included as a collaborator of the project;
+- to check the differences between two remtoe branches, go to "github website > project > branch (different from 'master' one) > contribute > compare" and select the two branches  to compare in the upper bar.
 
-§ Extra tips:
-- Git always provides hints as a response for each command, read and follow them carefully;
-- see "https://git-scm.com/docs/" and "https://www.atlassian.com/git/tutorials" for additional documentation about Git.
+§ Regarding the different kinds of topic branches that you can create on GitHub:
+- "feature branch", implementing new features (e.g. adding Bluetooth connectivity to the project);
+- "bugfix branch", fixing a bug during firmware development or testing;
+- "hotfix branch", fixing a bug on firmware version already release on the market.
+
+------------------------------------------------------------
+
+>> REFERENCES <<
+
+§ For further documentation visit:
+- "https://git-scm.com/docs/";
+- "https://www.atlassian.com/git/tutorials".
 
 
 
@@ -673,30 +731,13 @@ A -- D -- E -- B' -- C'   [destination]
 
 @todo:
 
-- info about git show command (e.g. to check changes of specific commit)
+- to show what commit and author last modified each line of a specific file >> "git blame [-L 2,5] [-w] <path>/<file>" ("-L" to specify the lines-range to check inside the file, and "-w" to ignore whitespace changes);
 
-- open git gui submodule inside git gui main!
-
-- try cherry-pick 
+- try and explain cherry-pick
 
 - hooks ?
 
-- "git checkout -" to move to previous branch
-
-- "git commit --amend"  >> già spiegato sopra, provalo in pratica!
-
 - bisect ?
 
-- "git config --get remote.origin.url" to retrieve URL associated to RR
-
-- add section about git GUI
-
-- add the final VARIOUS section to latex!
-
-
-LATEX
-% crea macro per Lv1 e Lv2 bullets usati in itemize!
-% prova a creare table of content (?)
-% update bibliography!
-% add linux_git notes as well!
+- add linux_git notes as well!
 
