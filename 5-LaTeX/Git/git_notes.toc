@@ -26,6 +26,7 @@
 \contentsline {section}{\numberline {25}Log}{20}{section.25}%
 \contentsline {section}{\numberline {26}Show}{21}{section.26}%
 \contentsline {section}{\numberline {27}Diff}{21}{section.27}%
-\contentsline {section}{\numberline {28}Alias}{21}{section.28}%
-\contentsline {section}{\numberline {29}GUI}{22}{section.29}%
-\contentsline {section}{\numberline {30}Various}{22}{section.30}%
+\contentsline {section}{\numberline {28}Blame}{21}{section.28}%
+\contentsline {section}{\numberline {29}Alias}{22}{section.29}%
+\contentsline {section}{\numberline {30}GUI}{22}{section.30}%
+\contentsline {section}{\numberline {31}Various}{22}{section.31}%

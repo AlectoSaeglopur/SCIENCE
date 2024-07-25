@@ -1259,7 +1259,27 @@ but does NOT store:
 \myvspace
 
 %--------------------------------------------------------------------------
-%	28. ALIAS
+%	28. BLAME
+%--------------------------------------------------------------------------
+
+\section{Blame}   \label{sec:Blame}
+
+\begin{itemize}
+\item[\mybulletlvA] The \textbf{\textit{blame}} command is a versatile troubleshooting utility that examines line by line the content of project files and for each line reports the author, commit ID and date of its last modification. This command is often exploited online via graphical GUIs on Git hosting.
+\myvspace
+
+\item[\mybulletlvA] Useful blame commands:
+\begin{itemize}
+  \item[\mybulletlvB] to show information about last line by line modifications within a file \mydiv \mycmd{git blame <path/file>};
+  \item[\mybulletlvB] add the \textit{-e} flag to display author's email instead of username;
+  \item[\mybulletlvB] add the \textit{-L <start\_line>,<final\_line>} to limit the line-range to show (e.g. \textit{git blame src/xyz.c -L 4,20});
+  \item[\mybulletlvB] add the \textit{-w} flag to ignore whitespace changes.
+\end{itemize}
+\end{itemize}
+\myvspace
+
+%--------------------------------------------------------------------------
+%	29. ALIAS
 %--------------------------------------------------------------------------
 
 \section{Alias}   \label{sec:Alias}
@@ -1278,7 +1298,7 @@ but does NOT store:
 \myvspace
 
 %--------------------------------------------------------------------------
-%	29. GUI
+%	30. GUI
 %--------------------------------------------------------------------------
 
 \section{GUI}   \label{sec:GUI}
@@ -1306,7 +1326,7 @@ but does NOT store:
 \myvspace
 
 %--------------------------------------------------------------------------
-%	30. VARIOUS
+%	31. VARIOUS
 %--------------------------------------------------------------------------
 
 \section{Various}   \label{sec:Various}

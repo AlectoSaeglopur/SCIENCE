@@ -657,7 +657,19 @@ A -- D -- E -- B' -- C'   [destination]
 
 ------------------------------------------------------------
 
->> 28. ALIAS <<
+>> 28. BLAME <<
+
+§ The "blame" command is a versatile troubleshooting utility that examines line by line the content of project files and for each line reports the author, commit ID and date of its last modification. This command is often exploited online via graphical GUIs on Git hosting.
+
+§ Useful blame commands:
+- to show information about last line by line modifications within a file >> "git blame <path/file>";
+- add the "-e" flag to display author's email instead of username;
+- add the "-L <start_line>,<final_line>" to limit the line-range to show (e.g. "git blame src/xyz.c -L 4,20");
+- add the "-w" flag to ignore whitespace changes.
+
+------------------------------------------------------------
+
+>> 29. ALIAS <<
 
 § Aliases provide custom shortcuts to standard Git commands.
 
@@ -668,7 +680,7 @@ A -- D -- E -- B' -- C'   [destination]
 
 ------------------------------------------------------------
 
->> 29. GUI <<
+>> 30. GUI <<
 
 §  Git GUI is a straightforward alternative to the standard bash for some specific actions. In particular, this can come in handy:
 - to quickly check differences between WT and index (and decide whether to stage or revert specific hunks, if needed);
@@ -686,7 +698,7 @@ A -- D -- E -- B' -- C'   [destination]
 
 ------------------------------------------------------------
 
->> 30. VARIOUS <<
+>> 31. VARIOUS <<
 
 § Useful Linux commands the can be used on Git bash as well:
 - to show all files and directories within current folder (including hidden ones) >> "ls -a";
@@ -731,8 +743,6 @@ A -- D -- E -- B' -- C'   [destination]
 
 @todo:
 
-- to show what commit and author last modified each line of a specific file >> "git blame [-L 2,5] [-w] <path>/<file>" ("-L" to specify the lines-range to check inside the file, and "-w" to ignore whitespace changes);
-
 - try and explain cherry-pick
 
 - hooks ?
@@ -741,3 +751,6 @@ A -- D -- E -- B' -- C'   [destination]
 
 - add linux_git notes as well!
 
+- set extra vspace between sections ?
+
+- use "git checkout HEAD~" in loop to move back one commit at a time! (head detached)
