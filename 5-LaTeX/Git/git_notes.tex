@@ -470,7 +470,7 @@
 \item[\mybulletlvA] Whenever \textit{HEAD} within the current branch does not point to its branch-label (i.e. tip of the branch) but to one of its previous commits, that causes the so-called \textbf{\textit{detached HEAD}} situation. Keep in mind if you want to work restarting from a previous commit (e.g. \textit{HEAD\textasciitilde}) you shall first create a dedicated branch and checkout to that, otherwise it would create a \textit{HEAD-detached conflict}.
 \myvspace
 
-\item[\mybulletlvA] Use \mycmd{git branch -d <branch\_name>} to locally delete a branch. Keep in mind deleting a branch actually means deleting its branch-label. Moreover, note the command fails if the branch to be deleted is the one currently pointed by \textit{HEAD} (thus checkout to another first) or is \textit{dangling} (i.e. it has commits which have not been merged back yet to any \textit{long-lived} branch). To solve the latter, you can decide to either merge it back or force its deletion via \textit{git branch -D <branch\_name>}. To revert an accidental branch deletion use \textit{git reflog} (showing LR list of recent HEAD commits) to read the commit ID of the deleted dangling branch to be restored and then use \textit{git checkout -b <branch\_name> <commit\_id>}. Remember that Git periodically checks in background withing the project the presence of dangling commits (i.e. commits not linked to a branch anymore, since the latter has been deleted) and delete (aka \textit{garbage collect}) them automatically. Finally, to delete the branch also remotely on RR use \mycmd{git push origin -d <branch\_name>} (where \textit{-d} = \textit{-{}-delete}).
+\item[\mybulletlvA] Use \mycmd{git branch -d <branch\_name>} to locally delete a branch. Keep in mind deleting a branch actually means deleting its branch-label. Moreover, note the command fails if the branch to be deleted is the one currently pointed by \textit{HEAD} (thus checkout to another first) or is \textit{dangling} (i.e. it has commits which have not been merged back yet to any \textit{long-lived} branch). To solve the latter, you can decide to either merge it back or force its deletion via \textit{git branch -D <branch\_name>}. To revert an accidental branch deletion use \textit{git reflog} (showing LR list of recent HEAD commits) to read the commit ID of the deleted dangling branch to be restored and then use \textit{git checkout -b <branch\_name> <commit\_id>}. Remember that Git periodically checks in background withing the project the presence of dangling commits (i.e. commits not linked to a branch anymore, since the latter has been deleted) and delete (aka \textit{garbage collect}) them automatically. Finally, to delete the branch also remotely on RR use \mycmd{git push origin -d|-{}-delete <branch\_name>}.
 \end{itemize}
 \myvspace
 
@@ -1279,7 +1279,83 @@ but does NOT store:
 \myvspace
 
 %--------------------------------------------------------------------------
-%	29. ALIAS
+%	29. CHERRY PICK
+%--------------------------------------------------------------------------
+
+\section{Cherry Pick}   \label{sec:CherryPick}
+
+\begin{itemize}
+\item[\mybulletlvA] The \textbf{\textit{cherry-pick}} command picks an arbitrary commit from a branch and applies it to the \textit{HEAD} of another branch. This command can be useful for undoing changes (e.g. if a commit has been accidentally applied to a wrong branch, you can simply checkout to correct branch and then cherry-pick the commit) or copying some project changes to another independent branch (e.g. after solving a bug on a hotfix branch, to apply the changes on the official \textit{develop} branch too). However, note this may not be always a best practice, since cherry-picking can cause duplicate commits and in many scenarios traditional merges are preferred.
+\myvspace
+
+\item[\mybulletlvA] Useful cherry-pick commands:
+\begin{itemize}
+  \item[\mybulletlvB] to apply another branch's commit to the currently checked out branch's \textit{HEAD} \mydiv \mycmd{git cherry-pick <commit\_id>} (e.g. \textit{git cherry-pick 30b2665});
+  \item[\mybulletlvB] add the \textit{-n|-{}-no-commit} flag to prevent the command from automatically creating a new commit;
+  \item[\mybulletlvB] add the \textit{-e|-{}-edit} flag to force Git to prompt for a commit message before applying the cherry-pick operation (otherwise the message is the same as the original by default);
+  \item[\mybulletlvB] in case of conflicts you can either decide to solve them and then stage/commit/push or aborting the command via \textit{git cherry-pick -{}-abort} (available only if the \textit{-{}-no-commit} flag has not been added to the previous command).
+\end{itemize}
+\myvspace
+
+\item[\mybulletlvA] Commit graph example for cherry-pick (where commit \mysapo{C} from source branch is applied to \textit{HEAD} of destination branch, becoming part of its history as well):
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[node distance=2cm,auto,>=latex']
+    \node [circle,draw,scale=0.85] (A1) [] {A};
+    \node [circle,draw,scale=0.85] (B1) [right of = A1, node distance=\mytzbrdist, yshift=-1.5cm] {B};
+    \node [circle,draw,scale=0.85] (C1) [right of = B1, node distance=\mytzbrdist] {C};
+    \node [circle,draw,scale=0.85] (D1) [right of = C1, node distance=\mytzbrdist] {D};
+    
+    \node [circle,draw,scale=0.85] (E1) [right of = A1, node distance=\mytzbrdist] {E};
+    \node [circle,draw,scale=0.85] (F1) [right of = E1, node distance=\mytzbrdist] {F};
+    \node [circle,draw,scale=0.85] (?) [right of = F1, node distance=\mytzbrdist+.5cm] {};
+    
+    \node [draw=none,scale=0.85,\mytzbrcolor] (Src) [below of=D1,xshift=-0.1cm,node distance=0.7cm] {\textit{Source}};
+	\node [draw=none,scale=0.85,\mytzbrcolor] (Dst) [above of=F1,xshift=-0.1cm,node distance=0.7cm] {\textit{Destination}};
+    
+    \path[<-] (A1) edge node {} (E1);
+    \path[<-] (E1) edge node {} (F1);
+    \path[<-] (F1) edge[dashed] node[above,font=\tiny] {\textit{git cherry-pick}} (?);
+    \path[<-] (A1) edge node[below,align=center,sloped,font=\tiny] {\textit{git branch} \\ \textit{git commit}} (B1);
+    \path[<-] (B1) edge node {} (C1);
+    \path[<-] (C1) edge node {} (D1);
+    \path[<-] (C1) edge[dashed] node {} (?);
+
+    \node [circle,draw,scale=0.85] (A2) [right of = ?, node distance=3.5cm] {A};
+    \node [circle,draw,scale=0.85] (B2) [right of = A2, node distance=\mytzbrdist, yshift=-1.5cm] {B};
+    \node [circle,draw,scale=0.85] (C2) [right of = B2, node distance=\mytzbrdist] {C};
+    \node [circle,draw,scale=0.85] (D2) [right of = C2, node distance=\mytzbrdist] {D};
+    \node [circle,draw,scale=0.85] (E2) [right of = A2, node distance=\mytzbrdist] {E};
+    \node [circle,draw,scale=0.85] (F2) [right of = E2, node distance=\mytzbrdist] {F};
+    \node [circle,draw,scale=0.85] (C3) [right of = F2, node distance=\mytzbrdist] {C};
+    
+    \path[<-] (A2) edge node {} (E2);
+    \path[<-] (E2) edge node {} (F2);
+    \path[<-] (F2) edge node {} (C3);
+    \path[<-] (A2) edge node {} (B2);
+    \path[<-] (B2) edge node {} (C2);
+    \path[<-] (C2) edge node {} (D2);
+
+    \node [draw=none,scale=0.85,\mytzbrcolor] (Src) [below of=D2,xshift=-0.1cm,node distance=0.7cm] {\textit{Source}};
+	\node [draw=none,scale=0.85,\mytzbrcolor] (Dst) [above of=C3,xshift=-0.1cm,node distance=0.7cm] {\textit{Destination}};
+    
+    \draw[->,double,shorten <=4mm,shorten >=4mm,\mytzdivcolor] (?) -- (A2);
+\end{tikzpicture}
+\end{figure}
+
+\item[\mybulletlvA] Potential conflicts are marked as follows:
+\begin{itemize}
+  \item[] \textcolor{\mytextfilecolor}{\textit{<{}<{}<{}<{}<{}<{}< HEAD}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{...}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{=======}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{...}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{>{}>{}>{}>{}>{}>{}> <commit\_id> (<commit\_message>)}}
+\end{itemize}
+\end{itemize}
+\myvspace
+
+%--------------------------------------------------------------------------
+%	30. ALIAS
 %--------------------------------------------------------------------------
 
 \section{Alias}   \label{sec:Alias}
@@ -1298,7 +1374,7 @@ but does NOT store:
 \myvspace
 
 %--------------------------------------------------------------------------
-%	30. GUI
+%	31. GUI
 %--------------------------------------------------------------------------
 
 \section{GUI}   \label{sec:GUI}
@@ -1326,7 +1402,7 @@ but does NOT store:
 \myvspace
 
 %--------------------------------------------------------------------------
-%	31. VARIOUS
+%	32. VARIOUS
 %--------------------------------------------------------------------------
 
 \section{Various}   \label{sec:Various}
@@ -1378,7 +1454,7 @@ but does NOT store:
 \myvspace
   
 %----------------------------------------------------------------------------------------
-%	A. REFERENCES
+%	REFERENCES
 %----------------------------------------------------------------------------------------
 
 \begin{thebibliography}{99} % Bibliography - this is intentionally simple in this template

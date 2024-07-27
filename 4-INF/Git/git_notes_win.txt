@@ -222,7 +222,7 @@ thus operates on the current branch only (the removal event is only applied to t
 
 § Whenever 'HEAD' within the current branch does not point to its branch-label (i.e. tip of the branch) but to one of its previous commits, that causes the so-called "detached HEAD" situation. Keep in mind if you want to work restarting from a previous commit (e.g. 'HEAD~') you shall first create a dedicated branch and checkout to that, otherwise it would create a "HEAD-detached conflict".
 
-§ Use "git branch -d <branch_name>" to locally delete a branch. Keep in mind deleting a branch actually means deleting its branch-label. Moreover, note the command fails if the branch to be deleted is the one currently pointed by 'HEAD' (thus checkout to another first) or is "dangling" (i.e. it has commits which have not been merged back yet to any 'long-lived' branch). To solve the latter, you can decide to either merge it back or force its deletion via "git branch -D <branch_name>". To revert an accidental branch deletion use "git reflog" (showing LR list of recent HEAD commits) to read the commit-ID of the deleted dangling branch to be restored and then use "git checkout -b <branch_name> <commit_id>". Remember that Git periodically checks in background withing the project the presence of dangling commits (i.e. commits not linked to a branch anymore, since the latter has been deleted) and delete (aka "garbage collect") them automatically. Finally, to delete the branch also remotely on RR use "git push origin -d <branch_name>" (where '-d' = '--delete').
+§ Use "git branch -d <branch_name>" to locally delete a branch. Keep in mind deleting a branch actually means deleting its branch-label. Moreover, note the command fails if the branch to be deleted is the one currently pointed by 'HEAD' (thus checkout to another first) or is "dangling" (i.e. it has commits which have not been merged back yet to any 'long-lived' branch). To solve the latter, you can decide to either merge it back or force its deletion via "git branch -D <branch_name>". To revert an accidental branch deletion use "git reflog" (showing LR list of recent HEAD commits) to read the commit-ID of the deleted dangling branch to be restored and then use "git checkout -b <branch_name> <commit_id>". Remember that Git periodically checks in background withing the project the presence of dangling commits (i.e. commits not linked to a branch anymore, since the latter has been deleted) and delete (aka "garbage collect") them automatically. Finally, to delete the branch also remotely on RR use "git push origin -d|--delete <branch_name>".
 
 ------------------------------------------------------------
 
@@ -282,7 +282,7 @@ A -- C -- E -- S   [destination]
 - work on topic-branch, then commit and push final changes;
 - checkout to base-branch and pull latest state from RR >> "git checkout <base_branch> && git pull";
 - move back to topic-branch >> "git checkout <topic_branch>";
-- apply conditional merge (i.e. forcing MC without automatic commit) >> "git merge --no-commit [--no-ff] <base_branch>";
+- apply conditional merge (i.e. forcing MC without automatic commit) >> "git merge --no-commit --no-ff <base_branch>";
 - solve conflicts, if any (see Section #12);
 - update submodules (only in case any reference has been changed within base-branch) >> "git submodule update --recursive";
 - NB #1: avoid executing the previous command for submodules just updated within the topic-branch (if any, or alternatively remember to execute an additional git pull on these submodules), since topic-branch reference is supposed to be the most recent (otherwise it would mean to revert part of the topic-branch work);
@@ -669,7 +669,33 @@ A -- D -- E -- B' -- C'   [destination]
 
 ------------------------------------------------------------
 
->> 29. ALIAS <<
+>> 29. CHERRY PICK <<
+
+§ The "cherry-pick" command picks an arbitrary commit from a branch and applies it to the 'HEAD' of another branch. This command can be useful for undoing changes (e.g. if a commit has been accidentally applied to a wrong branch, you can simply checkout to correct branch and then cherry-pick the commit) or copying some project changes to another independent branch (e.g. after solving a bug on a hotfix branch, to apply the changes on the official 'develop' branch too). However, note this may not be always a best practice, since cherry-picking can cause duplicate commits and in many scenarios traditional merges are preferred.
+
+§ Useful cherry-pick commands:
+- to apply another branch's commit to the currently checked out branch's 'HEAD' >> "git cherry-pick <commit_id>" (e.g. "git cherry-pick 30b2665");
+- add the "-n|--no-commit" flag to prevent the command from automatically creating a new commit;
+- add the "-e|--edit" flag to force Git to prompt for a commit message before applying the cherry-pick operation (otherwise the message is the same as the original by default);
+- in case of conflicts you can either decide to solve them and then stage/commit/push or aborting the command via "git cherry-pick --abort" (available only if the "--no-commit" flag has not been added to the previous command).
+
+§ Commit graph example for cherry-pick (where commit 'C' from source branch is applied to 'HEAD' of destination branch, becoming part of its history as well):
+A -- E -- F   [destination]
+  \_ B -- C -- D   [source]
+=> CHERRY-PICK =>
+A -- E -- F -- C   [destination]
+  \_ B -- C -- D   [source]
+
+§ Potential conflicts are marked as follows:
+  <<<<<<< HEAD
+  ...
+  =======
+  ...
+  >>>>>>> <commit_id> (<commit_message>)
+
+------------------------------------------------------------
+
+>> 30. ALIAS <<
 
 § Aliases provide custom shortcuts to standard Git commands.
 
@@ -680,7 +706,7 @@ A -- D -- E -- B' -- C'   [destination]
 
 ------------------------------------------------------------
 
->> 30. GUI <<
+>> 31. GUI <<
 
 §  Git GUI is a straightforward alternative to the standard bash for some specific actions. In particular, this can come in handy:
 - to quickly check differences between WT and index (and decide whether to stage or revert specific hunks, if needed);
@@ -698,7 +724,7 @@ A -- D -- E -- B' -- C'   [destination]
 
 ------------------------------------------------------------
 
->> 31. VARIOUS <<
+>> 32. VARIOUS <<
 
 § Useful Linux commands the can be used on Git bash as well:
 - to show all files and directories within current folder (including hidden ones) >> "ls -a";
@@ -742,8 +768,6 @@ A -- D -- E -- B' -- C'   [destination]
 
 
 @todo:
-
-- try and explain cherry-pick
 
 - hooks ?
 
