@@ -8,7 +8,7 @@
 \contentsline {section}{\numberline {7}Objects \& IDs}{4}{section.7}%
 \contentsline {section}{\numberline {8}References \& Tags}{4}{section.8}%
 \contentsline {section}{\numberline {9}Ignore}{5}{section.9}%
-\contentsline {section}{\numberline {10}Branches}{6}{section.10}%
+\contentsline {section}{\numberline {10}Branches}{7}{section.10}%
 \contentsline {section}{\numberline {11}Merging}{8}{section.11}%
 \contentsline {section}{\numberline {12}Conflicts}{10}{section.12}%
 \contentsline {section}{\numberline {13}Tracking-Branches}{11}{section.13}%
@@ -20,14 +20,15 @@
 \contentsline {section}{\numberline {19}Stash}{17}{section.19}%
 \contentsline {section}{\numberline {20}Submodules}{18}{section.20}%
 \contentsline {section}{\numberline {21}Reset}{19}{section.21}%
-\contentsline {section}{\numberline {22}Revert}{19}{section.22}%
+\contentsline {section}{\numberline {22}Revert}{20}{section.22}%
 \contentsline {section}{\numberline {23}Restore}{20}{section.23}%
 \contentsline {section}{\numberline {24}Clean}{20}{section.24}%
-\contentsline {section}{\numberline {25}Log}{20}{section.25}%
+\contentsline {section}{\numberline {25}Log}{21}{section.25}%
 \contentsline {section}{\numberline {26}Show}{21}{section.26}%
 \contentsline {section}{\numberline {27}Diff}{21}{section.27}%
-\contentsline {section}{\numberline {28}Blame}{21}{section.28}%
+\contentsline {section}{\numberline {28}Blame}{22}{section.28}%
 \contentsline {section}{\numberline {29}Cherry Pick}{22}{section.29}%
-\contentsline {section}{\numberline {30}Alias}{22}{section.30}%
+\contentsline {section}{\numberline {30}Alias}{23}{section.30}%
 \contentsline {section}{\numberline {31}GUI}{23}{section.31}%
-\contentsline {section}{\numberline {32}Various}{23}{section.32}%
+\contentsline {section}{\numberline {32}Hooks}{23}{section.32}%
+\contentsline {section}{\numberline {33}Various}{24}{section.33}%

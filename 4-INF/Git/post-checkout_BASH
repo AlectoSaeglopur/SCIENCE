@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# EXAMPLE OF POST-CHECKOUT HOOK IN BASH LANGUAGE
+# NB: to be successfully executed, the file shall be renamed exactly as "post-checkout" (with no extension)
+
+echo " >> start of bash hook..."
+git status
+git log --oneline -5
+echo " >> end of bash hook..."

@@ -90,7 +90,8 @@
 \newcommand{\mysapo}[1]{\textquotesingle #1\textquotesingle }   % single text apostrophe
 
 \newcommand{\mycmd}[1]{\textcolor{blue}{\textit{#1}}}   % git command style
-\newcommand{\myvspace}{\vspace{4mm}}   % vertical space between sub-sections
+\newcommand{\myparvspace}{\vspace{4mm}}   % vertical space between paragraphs
+\newcommand{\mysecvspace}{\vspace{6mm}}   % vertical space between sections
 
 %\newcommand{\mysecref}[1]{\hyperref[#1]{\textit{\ref{#1}. \nameref{#1}}}}   % section reference #1
 \newcommand{\mysecref}[1]{\hyperref[#1]{\ref{#1}.}}   % section reference #2
@@ -125,6 +126,7 @@
 \tikzstyle{int}=[draw, fill=white, minimum size=2em]
 \tikzstyle{init} = [pin edge={to-,thin,black}]
 \maketitle   % Print title
+\myparvspace
 
 %----------------------------------------------------------------------------------
 %	1. INSTALLATION
@@ -151,7 +153,7 @@
   \item[\mybulletlvB] skip the \textit{Experimental options} window and start the installation.
 \end{itemize}
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	2. SETUP
@@ -169,7 +171,7 @@
   \item[\mybulletlvB] to avoid line-ending issues among team members working with different OSs and automatically convert \mysapo{CRLF} (typical of Windows) line-endings into \mysapo{LF} (typical of Linux and macOS) when adding a file to the index (and vice versa when it checks out code onto your filesystem) \mydiv \mycmd{git config -{}-global core.autocrlf true} (in particular, when asserted on Windows machines, this converts \mysapo{LF} endings into \mysapo{CRLF} when you check out code);
   \item[\mybulletlvB] \textbf{NB \#2}: \mysapo{CR} = \mysapo{\textbackslash r} = \textit{Carriage Return} character | \mysapo{LF} = \mysapo{\textbackslash n} = \textit{Line Feed} character.
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] SSH key generation for encrypting and authenticating communication from/to server (assuming ED25519 algorithm):
 \begin{itemize}
@@ -182,7 +184,7 @@
   \item[\mybulletlvB] \textbf{NB \#3}: setting up the SSH key is helpful because it allows to automatically authenticate yourself when accessing the remote server, thus without the need of supplying your username and password at each visit. For further details see \myurl{https://confluence.atlassian.com/bitbucketserverkb/ssh-rsa-key-rejected-with-message-no-mutual-signature-algorithm-1026057701.html}{here}.
 \end{itemize}
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	3. LOCATIONS & SYNTAX
@@ -197,13 +199,13 @@
   \item[\mybulletlvB] \textbf{\textit{staging area}} (SA, sometimes called also \textit{index}), where the file planned to be part of the next commit are stored (aka \textit{staged});
   \item[\mybulletlvB] \textbf{\textit{local repository}} (LR), storing all the commits of the project (thus, representing its versioning history).
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Note locally SA and LR are located inside the hidden sub-directory \textit{.git}. Thus, removing this folder means removing all the project version history locally.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] The \textbf{\textit{remote repository}} (RR), unlike the other three mentioned above, is located remotely in a single data-center or cloud and represents the common interaction point among all developers (thus it identifies the official state of the project at any time). When LR and RR are synchronized, they contain exactly the same commits.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] The general syntax for commands is \mycmd{git command [-{}-flags] [arguments]} or, more in detail, \mycmd{git command (-f|-{}-flag) [<id>] [<paths> ...]}, where:
 \begin{itemize}
@@ -215,7 +217,7 @@
   \item[\mybulletlvB] \textit{...} = multiple occurrences possible.
 \end{itemize}
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	4. CREATE NEW LOCAL REPOSITORY
@@ -234,7 +236,7 @@
   \item[\mybulletlvB] \textbf{NB \#1}: for new repositories it is good practise to add a \textit{README.md} file to project main path (if not existing yet).
 \end{itemize}
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	5. COMMIT TO LOCAL REPOSITORY
@@ -254,11 +256,11 @@
   \item[\mybulletlvB] \textbf{NB \#1}: to delete a current branch commit in LR \mydiv \mycmd{git reset -{}-hard <commit\_id>} (or \mycmd{git reset -{}-hard HEAD\textasciitilde X} to cancel last X commits, assuming HEAD is pointing to latest commit of the desired local branch);
   \item[\mybulletlvB] \textbf{NB \#2}: to examine changes more in detail and select one by one the files to stage and commit use Git GUI (see Section \mysecref{sec:GUI}).
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Not all modified and untracked files in the WT have to be staged and then part of the next commit. Typical examples are the \textit{.o}, \textit{.map}, \textit{.bin}, \textit{.srec} or \textit{.exe} files generated after building, since only \textit{.c} and \textit{.h} source files are actually included in the versioning (assuming not to include them in any \textit{.gitignore} file).
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	6. PUSH TO REMOTE REPOSITORY
@@ -274,7 +276,7 @@
   \item[\mybulletlvB] \textbf{NB \#1}: using SSH addresses is always recommended if SSH key has been already generated and linked for the user (see Section \mysecref{sec:Setup});
   \item[\mybulletlvB] initialize RR according to current LR state \mydiv \mycmd{git push -u|-{}-set-upstream <rr\_name> <branch>} (e.g. \textit{git push -u origin master}, or more specifically \textit{git push -{}-set-upstream proj\_xyz master}).
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] In case RR already exists and LR does not yet:
 \begin{itemize}
@@ -283,14 +285,14 @@
   \item[\mybulletlvB] commit desired changes to LR (see Section \mysecref{sec:CommitLR});
   \item[\mybulletlvB] push current LR state to RR \mydiv \mycmd{git push}.
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] To display info about the RR associated to current LR use \mycmd{git remote -v|-{}-verbose};
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] To retrieve GitHub or BitBucket URL associated to RR use \mycmd{git config -{}-get remote.origin.url}.
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	7. OBJECTS & IDS
@@ -306,17 +308,17 @@
   \item[\mybulletlvB] \textbf{\textit{tree}} \mydiv used to create the hierarchy between files and directories within a repository;
   \item[\mybulletlvB] \textbf{\textit{blob}} \mydiv where the actual content of project files is stored.
 \end{itemize}
-\myvspace
+\myparvspace
   
 \item[\mybulletlvA] Typically the user has to care only about commits and annotated tags, whereas trees and blobs are handled internally and hiddenly by Git itself.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] The specific name of a Git object is called \textit{ID} (aka \textit{hash} or \textit{checksum}), consisting of a 40-character hexadecimal string generated through the SHA-1 encryption algorithm (e.g. the IDs of all commits related to a branch can be seen via \textit{git log}). However, IDs are often shortened to the first seven characters to make their visualization more user-friendly (e.g. as they are shown via \textit{git log -{}-oneline}).
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] For each commit Git automatically create and associates a unique ID (generated through an avalanche principle part of the SHA-1, i.e. producing massive differences on the hash value even for minimal changes on repository files), so to guarantee consistency-check.
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	8. REFERENCES & TAGS
@@ -326,16 +328,16 @@
 
 \begin{itemize}
 \item[\mybulletlvA] A commit can be associated with a \textbf{\textit{reference}}, namely a user-friendly name (e.g. \textit{HEAD} or \textit{master}) pointing to a commit hash (e.g. 64a0c2b...) or another reference (aka \textit{symbolic reference} in this latter case). Therefore, references can be used instead of hashes for simplicity's sake.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Each branch is assigned with a so-called \textbf{\textit{branch-label}}, a reference with the same name of the branch (e.g. \textit{develop} or \textit{master}) pointing always to the most recent commit of that branch (aka \textit{tip of the branch}). Note that \textit{master} is the default name of the main branch in every repository (thus also the \textit{master}-reference does exist for any repository).
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] All references are automatically stored and updated within \textit{.git/refs/heads/} and they are nothing but files named after the corresponding local branch and containing inside their current local hash/commit value. The only exception is \textit{HEAD}, which is kept within \textit{.git/}.
-\myvspace
+\myparvspace
 
-\item[\mybulletlvA] The \textit{HEAD}-reference points to the branch-commit pair currently present in the WT (thus, it can exist only one \textit{HEAD} per repository). By default it is usually equal to the \textit{branch-label} (e.g. \textit{master} or \textit{develop}), but unlike the latter this can be also moved back to previous commits of the branch via \mycmd{git checkout <commit\_id>}. For example, assuming to be in the \textit{master} branch, if using \textit{git log -{}-oneline} returns that \textit{HEAD} points to \textit{master} (i.e. \textit{HEAD $\rightarrow$ master}), then using \textit{git checkout HEAD\textasciitilde} (i.e. \textit{git checkout <previous\_commit\_id>}) moves \textit{HEAD} one commit back and updates the WT accordingly (thus now \textit{master} becomes one commit ahead of \textit{HEAD}). Executing now \textit{git checkout master} resets \textit{HEAD} equal to \textit{master} (i.e. to the latest commit of the branch).
-\myvspace
+\item[\mybulletlvA] The \textit{HEAD}-reference points to the branch-commit pair currently present in the WT (thus, it can exist only one \textit{HEAD} per repository). By default it is usually equal to the \textit{branch-label} (e.g. \textit{master} or \textit{develop}), but unlike the latter this can be also moved back to previous commits of the branch via \mycmd{git checkout <commit\_id>}. For example, assuming to be in the \textit{master} branch, if using \textit{git log -{}-oneline} returns that \textit{HEAD} points to \textit{master} (i.e. \textit{HEAD $\rightarrow$ master}), then executing \textit{git checkout HEAD\textasciitilde} (equivalent to \textit{git checkout <previous\_commit\_id>}) moves \textit{HEAD} one commit backward at a time and updates the WT accordingly (thus now \textit{master} becomes one commit ahead of original \textit{HEAD}). Executing now \textit{git checkout master} resets \textit{HEAD} equal to \textit{master} (i.e. to the latest commit of the branch).
+\myparvspace
 
 \item[\mybulletlvA] The \mysapo{\textasciitilde} and \mysapo{\textasciicircum} characters can be used to refer to previous commits. In particular, \mysapo{\textasciitilde} allows to refer to single-parent commits, whereas \mysapo{\textasciicircum} to multiple-parent commits (i.e. in case of merge-commits). For example:
 \begin{itemize}
@@ -345,14 +347,14 @@
 \item[\mybulletlvB] to print detailed info about third-last commit \mydiv \textit{git show HEAD\textasciitilde 2} or \textit{git show HEAD\textasciitilde\textasciitilde} (expected to return the same commit shown as 3\textsuperscript{rd} entry by the aforementioned \textit{git log} command);
 \item[\mybulletlvB] ...
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] \textbf{\textit{Tags}} are references attached to specific commits, acting as a sort of user-friendly labels for these commits. Thus, tags can be used in place of branch-labels or IDs for Git commands (verifiable via \textit{git show <tag\_name>}). There are two types of tags:
 \begin{itemize}
   \item[\mybulletlvB] \textbf{\textit{lightweight}}, a simple reference to the commit (just like branch-labels or \textit{HEAD}) with no additional information;
   \item[\mybulletlvB] \textbf{\textit{annotated}}, a full object referencing the commit (including tag's author, date, message and commit ID), which can be optionally even signed and verified via GPG (aka \textit{GNU Privacy Guard}), and typically used for code-releases.
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Useful commands for tags:
 \begin{itemize}
@@ -365,7 +367,7 @@
   \item[\mybulletlvB] to check details of the created tag \mydiv \textit{git show <tag\_name>};
   \item[\mybulletlvB] to show all repository tags created \mydiv \mycmd{git tag}.
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Keep in mind the \textit{git push} command does not automatically transfer tags to RR:
 \begin{itemize}
@@ -374,7 +376,7 @@
   \item[\mybulletlvB] note unfortunately tags are not show in GitHub network-graph, but can be displayed by clicking the dedicated button on the main page of the project (from here also formal releases can be created, giving the chance to add the corresponding binaries as well).
 \end{itemize}
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	9. IGNORE & RM
@@ -388,10 +390,10 @@
   \item[] \textcolor{\mytextfilecolor}{\textit{build/}}
   \item[] \textcolor{\mytextfilecolor}{\textit{source/test.log}}
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] It is possible to create additional \textit{.gitignore} files inside project sub-folders to simplify the handling of the files path to be ignored. For example, to exclude from versioning the file \textit{source/hal/adc.h} you can either add the entry \textcolor{\mytextfilecolor}{\textit{source/hal/adc.h}} within the main \textit{.gitignore} file of the project or add the entry \textcolor{\mytextfilecolor}{\textit{adc.h}} within the additional \textit{.gitignore} file created inside \textit{source/hal/}.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] To remove from versioning some files or directories which were already pushed to RR during previous commits (but still keeping them locally), remember it is not enough to add them to the \textit{.gitignore} file, since, even though you stop pushing them in future commits, they still remain stored in the RR with their previous content. Thus, they shall be removed from RR first. Follow the overall procedure hereafter:
 \begin{itemize}
@@ -405,10 +407,10 @@
   \item[\mybulletlvB] open RR on GitHub website and verify the specified files OR directories have been removed from the project;
   \item[\mybulletlvB] as a check, try to modify within WT a file just excluded from versioning and then verify via \textit{git status} that it is not reported anymore as \textit{modified}].  
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] The \textit{-{}-cached} option specifies the removal should happen only on the staging index, leaving WT files untouched. On the other hand, executing \textit{git rm <file>} without the \textit{-{}-cached} option physically deletes the files from WT and automatically stages the change (i.e. it is equivalent to delete the file manually and then execute \textit{git add <file>}).
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Instead, if some project files or directories are no more needed and thus can be completely deleted both locally and remotely, the procedure is easier and similar to usual commits:
 \begin{itemize}
@@ -417,7 +419,7 @@
   \item[\mybulletlvB] commit changes \mydiv \textit{git commit -m "files removed"};
   \item[\mybulletlvB] push changes to RR \mydiv \textit{git push}.
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] To create exceptions for specific \textit{.gitignore} entries use the \mysapo{!} character. For example, adding the following two lines inside the \textit{.gitignore} file cause all \textit{.cpp} files within the repository to be excluded from versioning except for \textit{src/xyz.cpp}:
 \begin{itemize}
@@ -425,7 +427,7 @@
   \item[] \textcolor{\mytextfilecolor}{\textit{!src/xyz.cpp}}
 \end{itemize}
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	10. BRANCHES
@@ -435,14 +437,14 @@
 
 \begin{itemize}
 \item[\mybulletlvA] Every commit belongs to a specific branch (Git's default one is named \textit{master}), which contains the history of all commits related to that branch. Branches are created by reference and they are essential useful for code experimentation, testing, development within a team (since they allow concurrent and independent work on the same project without mutual interference), and for supporting multiple project-versions (in case of need for customization between different applications or clients).
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Branches can be of two types:
 \begin{itemize}
   \item[\mybulletlvB] \textbf{\textit{long-lived}} (aka \textit{base}), related to stable and official versions of the project over time (such as \textit{master} or \textit{develop});
   \item[\mybulletlvB] \textbf{\textit{short-lived}} (aka \textit{topic}), related to tickets that shortly merge back to a \textit{long-lived} branch (such as \textit{bugfix}, \textit{hotfix} or \textit{feature}).
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Useful commands for branches:
 \begin{itemize}
@@ -454,7 +456,7 @@
   \item[\mybulletlvB] \textbf{NB \#3}: new branches can be also created on RR first (go to \textit{github website > project\_name > view all branches > new branch} and select the source branch), then locally use \textit{git fetch} to check and retrieve new branches from RR (and now by executing \textit{git branch} it can be verified the new branch is listed locally as well);
   \item[\mybulletlvB] \textbf{NB \#4}: a new branch keeps inside also the whole previous history of its source branch (easily verifiable via \textit{git log}).
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] The \textit{checkout} command can be used to:
 \begin{itemize}
@@ -465,14 +467,14 @@
   \item[\mybulletlvB] \textbf{NB \#6}: use the shortcut command \mycmd{git checkout -} to automatically move back to the last checked out local branch (with no need to type again its full name);
   \item[\mybulletlvB] \textbf{NB \#7}: use \mycmd{git checkout -f <branch>} to checkout to another branch discarding all unstanged WT changes.
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Whenever \textit{HEAD} within the current branch does not point to its branch-label (i.e. tip of the branch) but to one of its previous commits, that causes the so-called \textbf{\textit{detached HEAD}} situation. Keep in mind if you want to work restarting from a previous commit (e.g. \textit{HEAD\textasciitilde}) you shall first create a dedicated branch and checkout to that, otherwise it would create a \textit{HEAD-detached conflict}.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Use \mycmd{git branch -d <branch\_name>} to locally delete a branch. Keep in mind deleting a branch actually means deleting its branch-label. Moreover, note the command fails if the branch to be deleted is the one currently pointed by \textit{HEAD} (thus checkout to another first) or is \textit{dangling} (i.e. it has commits which have not been merged back yet to any \textit{long-lived} branch). To solve the latter, you can decide to either merge it back or force its deletion via \textit{git branch -D <branch\_name>}. To revert an accidental branch deletion use \textit{git reflog} (showing LR list of recent HEAD commits) to read the commit ID of the deleted dangling branch to be restored and then use \textit{git checkout -b <branch\_name> <commit\_id>}. Remember that Git periodically checks in background withing the project the presence of dangling commits (i.e. commits not linked to a branch anymore, since the latter has been deleted) and delete (aka \textit{garbage collect}) them automatically. Finally, to delete the branch also remotely on RR use \mycmd{git push origin -d|-{}-delete <branch\_name>}.
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	11. MERGING
@@ -502,7 +504,7 @@
   \item[\mybulletlvB] if not needed anymore, delete the merged source branch both locally and remotely (see Section \mysecref{sec:Branches}) - this is not mandatory, but recommended to save space on both disk and GitHub and keep project versioning cleaner;
   \item[\mybulletlvB] \textbf{NB \#3}: a merged source branch is never deleted automatically by Git, it has to be done explicitly by the user via command line or GitHub website.
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Commit graph example for FF:
 \begin{figure}[h!]
@@ -535,7 +537,7 @@
 \end{figure}
 
 \item[\mybulletlvA] \textbf{\textit{Merge-commit}} (MC) combines the commits at the tips of the two branches to be merged and saves the result into a new commit. A \textit{merge-commit} has always multiple parents, since represents a combination of both branches (and so generating a non-linear commit graph, verifiable via \textit{git log -{}-oneline -{}-graph}). Moreover, MC may cause conflicts if the two branches end up modifying the very same files of the project. The commands to perform an MC merge are the very same already mentioned for FF, with the only difference (assuming, for the moment, that no conflicts occur) that now a new commit is created as a result of the merging process, generating also a default commit message (modifiable if desired) explaining the specific merge details. Finally, remember it is possible to create an MC even for simpler FF cases by using \mycmd{git merge -{}-no-ff <source\_branch>}. This way, the \textit{merge-commit} will keep track also of the source branch existence. This solution generates exactly the same project files as FF would, the only difference regards the project history information. In particular, MC allows a more accurate history tracking (since source branches are not concealed), whereas FF can help to keep the history tracking cleaner. So usually it is a software team decision which policy to adopt.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Commit graph example for MC (where commit \mysapo{M} contains info from \mysapo{B} and \mysapo{C} as well and these are included within destination branch history):
 \begin{figure}[h!]
@@ -586,7 +588,7 @@
   \item[\mybulletlvB] apply SM \mydiv \mycmd{git merge -{}-squash <source\_branch>};
   \item[\mybulletlvB] commit (deciding also whether to accept or modify the default SM message prompted).
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Commit graph example for SM (where commit \mysapo{S} contains info from \mysapo{B} and \mysapo{C} as well, but these are not included within destination branch history):
 \begin{figure}[h!]
@@ -630,10 +632,10 @@
 \end{figure}
 
 \item[\mybulletlvA] \textbf{\textit{Rebase-merge}} (RM) is treated in Section \mysecref{sec:Rebase}.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] In case of long-running topic-branches, it is always a good practice to periodically merge back to the related base-branches in order not to stray too much from development progression of the latter and avoid a potentially large number of conflicts and operation mismatches.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Practical case where base-branch (e.g. \textit{develop} acting as source branch) needs to be merged into a completed topic-branch (e.g. \textit{feature\_423\_bootloader} acting as destination branch) to solve conflicts locally in advance in sight of PR opening:
 \begin{itemize}
@@ -648,7 +650,7 @@
   \item[\mybulletlvB] \textbf{NB \#2}: to revert the whole merge process (in case of any error) \mydiv \mycmd{git merge -{}-abort}.
 \end{itemize}
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	12. CONFLICTS
@@ -658,7 +660,7 @@
 
 \begin{itemize}
 \item[\mybulletlvA] Conflicts arise when trying to merge branches that have modified the same sections (aka \textit{hunks}) of the same files. So, in this case the user is asked to make a decision on what to keep exactly. Note that no conflicts arise if changes have been made on separate files or even on separate hunks of the same files, since Git usually manages to resolve them autonomously.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Procedure to resolve conflicts:
 \begin{itemize}
@@ -671,7 +673,7 @@
   \item[\mybulletlvB] check via \textit{git log -{}-oneline -{}-graph} and in GitHub's \textit{Network graph} the merge has been executed successfully;
   \item[\mybulletlvB] optionally delete merged source branch (see Section \mysecref{sec:Branches} and \mysecref{sec:Merging});
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Git marks files where conflicts occurred while merging as follows:
 \begin{itemize}
@@ -681,11 +683,11 @@
   \item[] \textcolor{\mytextfilecolor}{\textit{... section \#2 ... \: $\rightarrow$\: source branch}}
   \item[] \textcolor{\mytextfilecolor}{\textit{>{}>{}>{}>{}>{}>{}>}}
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] To check which project files contain conflicts to be solved after a merge use \mycmd{git diff -{}-check} (if none or after solving all of them, the command simply returns no message). Plus, they are labeled as \textit{unmerged} as a result of \textit{git status}. Another way is to simply search for the string \textcolor{\mytextfilecolor}{\textit{<{}<{}<{}<{}<{}<{}< HEAD}} identifying any pending conflict throughout the project. Note conflicts can arise also due to \textit{git stash pop|apply} commands (see Section \mysecref{sec:Stash}); in this case look for the string \textcolor{teal}{\textit{>{}>{}>{}>{}>{}>{}> Stashed changes}} instead.
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	13. TRACKING-BRANCHES
@@ -695,24 +697,24 @@
 
 \begin{itemize}
 \item[\mybulletlvA] \textbf{\textit{Tracking-branches}} (TB) are local branches representing remote branches. They are named \textit{<remote>/<branch>} (e.g. \textit{origin/master}, where \textit{origin} is a shortcut for remote repository URL/SSH address). Just after cloning a repository, the remote \textit{master} branch on GitHub and the local TB \textit{origin/master} are synchronized (i.e. containing the very same commits). However, remember TBs shall be then updated explicitly by the user to keep the synchronization. For instance, if after cloning the repository another user pushes a new commit on the same branch, RR becomes 1 commit ahead of your LR (aka \textit{decoupled}), but you cannot know this locally (e.g. via \textit{git status}) until you execute a \textit{fetch} or \textit{pull} command, since your \textit{origin/master} TB still points to the previous commit. The opposite example is when you create a new commit locally which has not been pushed yet to RR, where executing \textit{git status} returns \textit{Your branch is ahead of origin/master by 1 commit}.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] By default the command \textit{git branch} shows only the LR branches. Use \mycmd{git branch -{}-all} to show TBs as well, which are all unique branches stored within \textit{.git/refs/remotes/origin/} except for \textit{HEAD} (by default \textit{remotes/origin/HEAD $\rightarrow$ origin/master}). The latter is actually a symbolic reference specifying the TB related to the currently checked out branch and allowing to type only \textit{<remote>} instead of the whole \textit{<remote>/<branch>} in Git commands (e.g. \textit{origin} instead of \textit{origin/master}).
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Useful commands related to TBs:
 \begin{itemize}
   \item[\mybulletlvB] to show commit history of a remote branch (again, tracked only indirectly via the corresponding tracking-branch) \mydiv \mycmd{git log origin/<branch> [-{}-oneline]} (equivalent to simply \textit{git log origin [-{}-oneline]} if \textit{<branch>}, for instance \textit{master}, is set as default remote TB);
   \item[\mybulletlvB] to change locally the default remote tracking-branch (e.g. from \textit{master} to \textit{develop}, since that is usually the one where the bulk of the work is done by the team) \mydiv \mycmd{git remote set-head <remote> <branch>} (e.g. \textit{git remote set-head origin develop}, so from now on the command \textit{git log origin [-{}-oneline]} will refer to \textit{develop} commits and \textit{git branch -{}-all} will show \textit{remotes/origin/HEAD $\rightarrow$ origin/develop}).
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] The initial default TB (e.g. corresponding to the default branch when cloning the project) can be changed for all users through \textit{github website > settings > general > default branch}. Note this is always set by default to \textit{master} for any new repository.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] As already mentioned above, the \textit{git status} and \textit{git log -{}-oneline -{}-graph -{}-all} commands include info about TBs status and inform you if the local branch and the corresponding TB are out of sync or not (e.g. \textit{Your branch is up-to-date with origin/master}).
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	14. FETCH, PULL & PUSH
@@ -728,10 +730,10 @@
   \item[\mybulletlvB] \textbf{\textit{pull}} \mydiv to fetch and merge commits locally;
   \item[\mybulletlvB] \textbf{\textit{push}} \mydiv to add new object and reference from LR to RR.
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] The \mycmd{git fetch} command allows to update local \textit{tracking-branches} with info from RR without merging the changes immediately into WT (so WT is never modified as a result of a \textit{fetch} command), thus does not affect you LR labels and just makes the user aware of the latest RR state (see Section \mysecref{sec:TrackingBranches}). In case LR is already up-to-date with RR, no info is displayed on shell after executing the command. Plus, executing \textit{git status} before and after \textit{git fetch} command allows to understand if and how LR and RR are out of sync (giving also helpful suggestions, e.g. if branch can be fast-forwarded or not in case RR is ahead by some commits). This command is also essential to get aware of and retrieve info about new branches created remotely from scratch by any user or pushed remotely by other users.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] The \mycmd{git pull} command combines \textit{git fetch} and \textit{git merge FETCH\_HEAD}. If any object is fetched, the tracking-branch is updated and the changes merged automatically into WT (so it may cause conflicts). Hereafter some useful merge options for the \textit{git pull} command are listed:
 \begin{itemize}
@@ -740,10 +742,10 @@
   \item[\mybulletlvB] \textit{-{}-ff-only} \mydiv to abort if fast-forward is not possible (i.e. avoiding merge-commit);
   \item[\mybulletlvB] \textit{-{}-rebase [-{}-preserve-merges]} \mydiv see Section \mysecref{sec:Rebase}.
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Remember to always execute \textit{git status} after each \textit{git pull}, in order to check the refreshed state of the repo. This is especially useful in case the project contains submodules to verify if any of them requires to be updated (in case, run \textit{git submodule update -{}-recursive}, see Section \mysecref{sec:Submodules}).
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] There can be multiple situations when executing \textit{git pull}:
 \begin{itemize}
@@ -758,7 +760,7 @@
   \item[\mybulletlvB] RR ahead of LR, with LR unpushed commits having conflicts with latest RR commits \mydiv merge conflict to solve [see \textit{PULL MESSAGE \#3}] - so in this case Git automatically marks the issues on the conflicting files as already reported in Section \mysecref{sec:Merging}, waiting for the user to manually resolve them (then add, commit and push) or abort the \textit{pull-merge} (again via \textit{git merge -{}-abort});
   \item[\mybulletlvB] \textbf{NB \#1}: always try to avoid the last situations listed above (namely generating \textit{pull-merge} conflicts) and perform \textit{git pull} with WT clean and no LR unpushed commits (thus create a new topic branch whenever a new bugfix or feature has to be added and never work directly on the base branch).
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] \textbf{PULL MESSAGE \#1} - Aborting:
 \begin{itemize}
@@ -768,7 +770,7 @@
   \item[] \textit{Please, commit your changes or stash them before you can merge.}
   \item[] \textit{Aborting}
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] \textbf{PULL MESSAGE \#2} - Merge commit:
 \begin{itemize}
@@ -783,7 +785,7 @@
   \item[] \:\: \textit{xyz.c | 1 +}
   \item[] \:\: \textit{1 file changed, 1 insertion(+)}
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] \textbf{PULL MESSAGE \#3} - Conflicts:
 \begin{itemize}
@@ -791,7 +793,7 @@
   \item[] \textit{CONFLICT (content): Merge conflict in xyz.c}
   \item[] \textit{Automatic merge failed; fix conflicts and then commit the result.}
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] The \mycmd{git push} command allows to forward commits from LR to RR for the current branch. Its basic syntax is \textit{git push [-u|-{}-set-upstream] [<repository>] [<branch>]} (see Section \mysecref{sec:PushRR} for more details). Keep in mind it is always good practice to fetch/pull before pushing in order to be aware of the latest RR state for that branch. In fact, trying to push when RR is ahead of LR by some commits simply fails (and that's why the work on a single topic branch should be done by one user only at a time for simplicity's sake) returning the following error:
 \begin{itemize}
@@ -800,7 +802,7 @@
   \item[] \textit{...}
 \end{itemize}
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	15. REBASE & HISTORY REWRITING
@@ -810,7 +812,7 @@
 
 \begin{itemize}
 \item[\mybulletlvA] \textbf{\textit{Rebasing}} means moving commits to a new parent, namely unique commits of a branch (source) are reapplied to the tip of another branch (destination). Since ancestor chain has changed, each of the reapplied commits has now a different commit ID. An advantage is that after rebasing the merging process from source branch to destination branch can be fast-forward, thus easier. Note that since Git actually works by estimating and versioning only the differences between consecutive commits (known as \textit{diff} or \textit{patch}), rebasing means reapplying the differences to the new parent commits (process called \textit{commits reapplying}). Of course, since reapplying commits is a form of merging, this is susceptible to conflicts (e.g. if commits \mysapo{B} and \mysapo{D} modified the same sections of the same files, see the example below).
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Rebasing has both pros and cons:
 \begin{itemize}
@@ -820,7 +822,7 @@
   \item[--] severe issues if commits are shared with other users;
   \item[--] does not preserve the actual commits sequence (thus history is less accurate).
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Commit graph example for rebasing (aka RM) (where commits \mysapo{\={B}} and \mysapo{\={C}} add respectively the \textit{diff\textsubscript{AB}} and \textit{diff\textsubscript{BC}} changes from source to destination branch and are treated as completely separate commits from the original ones in terms of history):
 \begin{figure}[h!]
@@ -870,21 +872,21 @@
   \item[\mybulletlvB] \textbf{\textit{regular rebase}}, which is the one discussed so far;
   \item[\mybulletlvB] \textbf{\textit{interactive rebase}}, which allows to rebase (by adding the \textit{-i} option) a series of commits belonging to a specific branch - here commits can be edited, stopped, dropped/deleted, squashed (i.e. combining a specific commit with the previous one into a new single commit, combining also the related messages), fixed-up (like squash, but discarding the comment of the newer commit), reordered, etc.
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Useful commands for \textit{regular rebasing}:
 \begin{itemize}
   \item[\mybulletlvB] to rebase source branch to destination branch (could be even a remote one) \mydiv \mycmd{git checkout <source\_branch> \&\& git rebase <destination\_branch>} (e.g. \textit{git checkout bugfix\_358 \&\& git rebase develop});
   \item[\mybulletlvB] in case of conflict you can either solve them manually (see Section \mysecref{sec:Conflicts} and finally complete the rebase via \mycmd{git rebase -{}-continue}, instead of the usual \textit{git commit ...}) or abort it (via \mycmd{git rebase -{}-abort}).
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Useful commands for \textit{interactive rebasing}:
 \begin{itemize}
   \item[\mybulletlvB] to list current branch commits (starting from a specified one) in an editor in order to be modified (e.g. you might want to combine the two most recent commits \mysapo{B} and \mysapo{C} into a new single one \mysapo{Z}) \mydiv \mycmd{git rebase -i <commit\_id\_after\_which\_start>};
   \item[\mybulletlvB] \textbf{NB \#1}: for more details refer to Coursera's lesson \#16.
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Git gives also the possibility to modify (or simply slightly adjust) the most recent commit (in terms of files, comment, etc) through the \textbf{\textit{-{}-amend}} option. Note this also modifies the commit ID associated to that commit as well, thus rewrites history. Use the procedure hereafter to amend the most recent commit:
 \begin{itemize}
@@ -892,11 +894,11 @@
   \item[\mybulletlvB] stage changes \mydiv \textit{git add <files-or-directories>};
   \item[\mybulletlvB] amend commit \mydiv \mycmd{git commit -{}-amend -m "new\_comment"} or \mycmd{git commit -{}-amend -{}-no-edit} (with the \textit{-{}-no-edit} option the original message is preserved).
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] \textbf{\underline{CAUTION}}: never rewrite history that has been already pushed and shared with other users!
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	16. PULL REQUEST
@@ -906,7 +908,7 @@
 
 \begin{itemize}
 \item[\mybulletlvA] \textbf{\textit{Pull request}} (PR) is a feature provided by most Git hosting services (such as GitHub or BitBucket). Its ultimate goal is to improve team communication and development reliability during a source-to-destination-branch (usually a topic-to-base-branch) merging process. In particular, team members can send notifications to each others, leave comments or feedbacks, review code and approval or decline its content for merging. Note since pull-request is a feature provided basically by the hosting services (thus not a Git built-in functionality), it is not possible to handle that directly via Git bash.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Pull requests can be actually opened at any time of a branch life:
 \begin{itemize}
@@ -914,14 +916,14 @@
   \item[\mybulletlvB] whenever comments or feedbacks on the current progress of the branch is needed;
   \item[\mybulletlvB] when branch is ready to be reviewed and merged.
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] There exist two pull request cases depending on the repositories configuration:
 \begin{itemize}
   \item[\mybulletlvB] \textbf{\textit{single-repository}} (SR), where a source branch merges back to a destination branch of the same repository (i.e. the usual case where only one RR is involved);
   \item[\mybulletlvB] \textbf{\textit{multi repository}} (MR), where a \textit{fork-repository} merges back to the \textit{upstream-repository} (thus two RRs are involved).
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Procedure for SR pull request on GitHub:
 \begin{itemize}
@@ -936,10 +938,10 @@
   \item[\mybulletlvB] once approved (depending on the team PR strategy), any team member can click \textit{merge pull request > confirm merge} to complete the merging procedure (PR is then automatically closed);
   \item[\mybulletlvB] finally all users should checkout to the base branch and pull locally the latest changes just merged.
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] MR pull requests can be handled either via GitHub website or Git bash (see Section \mysecref{sec:Forking}).
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Note that opening a PR without checking for conflicts in advance may cause it to be opened and approved twice (depending on the team PR strategy). In fact, after approving the 1st PR the actual merging process is executed remotely and, if conflicts are detected, the user is asked to solve them and open another PR to get the resolution of conflicts approved too. Thus, it is always a good practice to check and solve conflicts locally and in advance before opening the PR. Hereafter the preliminary procedure to handle topic-to-base-branch merge conflicts is reported, so that the PR on GitHub will surely result conflict-free (see also Section \mysecref{sec:Merging} for further details):
 \begin{itemize}
@@ -952,7 +954,7 @@
   \item[\mybulletlvB] open topic-to-base-branch conflict-free PR on GitHub (as described above).
 \end{itemize}
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	17. FORKING
@@ -962,7 +964,7 @@
 
 \begin{itemize}
 \item[\mybulletlvA] \textit{Forking} means copying an existing remote repository (usually referred to as the \textit{source of truth}) to your own GitHub account and ending up to create a second parallel remote repository. Forking workflows is common for open-source projects, so that topic-branches do not need to be shared (thus, for example, rebasing is way easier). However, you shall always pay attention to manually keep the upstream and fork repositories in sync to avoid issues, since this is not handled automatically by Git.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] A fork can be used for several reasons:
 \begin{itemize}
@@ -970,7 +972,7 @@
   \item[\mybulletlvB] work independently on the same project and issue PRs only for merging back to the upstream repository;
   \item[\mybulletlvB] switch to a different source of truth for the project.
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Useful tips for forking:
 \begin{itemize}
@@ -978,7 +980,7 @@
   \item[\mybulletlvB] to synchronize a fork with the latest upstream repo commits, open the project page on GitHub website and click \textit{sync fork} (this creates a merge-commit on the fork RR, so then remember to update you LR as well via \textit{git pull}).
 \end{itemize}
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	18. WORKFLOWS
@@ -993,7 +995,7 @@
   \item[\mybulletlvB] any number of topic-branches for each new task to fulfill (e.g. \textit{hotfix\_123}, \textit{bugfix\_345}, \textit{feature\_456}, \textit{release\_002}, etc);
   \item[\mybulletlvB] for more details see video \textit{19\_git\_workflows.mp4} from minute 3:30 on.
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Some Gitflow recommendations:
 \begin{itemize}
@@ -1003,7 +1005,7 @@
   \item[\mybulletlvB] no direct work shall be done on \textit{master} (and more in general on any base branch).
 \end{itemize}
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	19. STASH
@@ -1020,7 +1022,7 @@
   \item[\mybulletlvB] to restore latest stashed changes to WT but keep them in the stashing area (useful if you need to apply the same stashed changes to multiple branches) \mydiv \mycmd{git stash apply};
   \item[\mybulletlvB] to restore older changes use include the desired stash entry as additional argument \mydiv \mycmd{git stash pop|apply stash@\{<num>\}} (.e.g. \textit{git stash apply stash@\{3\}}).
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Note that by default the \textit{git stash [push]} command stores:
 \begin{itemize}
@@ -1032,22 +1034,25 @@ but does NOT store:
   \item[\mybulletlvB] new files adde within WT that have not been staged yet (aka \textit{untracked}, i.e. not part of the versioning yet) \mydiv add the \textit{-u|-{}-include-untracked} option to include untracked files as well, namely \mycmd{git stash -u};
   \item[\mybulletlvB] ignored files (i.e. part of the \textit{.gitignore} file) \mydiv add the \textit{-a|-{}-all} option to include both untracked files and changes to ignored files as well, namely \mycmd{git stash -a}.
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] The user is not limited to a single stash at a time, but can push multiple times to create multiple stash entries in sequence. By default, stash entries are identified simply with a \textit{WIP} (aka \textit{Work In Progress}) label linked to the branch-commit pair the stash entry was generated from. The \mycmd{git stash list} command can be used to list all stash entries currently stored within the stashing area. However, after a while it can be difficult to remember what each stash entry contains, because each of them is identified with a string like \textit{stash@\{0\}: WIP on bugfix\_123: 2e16987} or \textit{stash@\{4\}: WIP on develop: f955ab0}. To provide a clearer and more detailed tracking, it is recommended to include a description to each stash entry through the \textit{save "<message>"} option, namely \mycmd{git stash save "<message>"} (e.g. \textit{git stash save "stashed changes on xyz.c" -u}).
-\myvspace
+\myparvspace
+
+\item[\mybulletlvA] Note it is even possible to stash only specific modified files instead of them all. To do so, use \mycmd{git stash push <files-or-directories> -m "<message>"}.
+\myparvspace
 
 \item[\mybulletlvA] To retrieve info about a specific stash, use the \mycmd{git stash show stash@\{<num>\}} command and add the \textit{-p} option to display also all differences within modified files (e.g. \textit{git stash show -p stash@\{1\}}).
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Use \mycmd{git stash drop stash@\{<num>\}} to delete a specific stash entry or \mycmd{git stash clear} to delete all of them at once.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Of course restoring stashed changes via \textit{pop} or \textit{apply} commands can generate conflicts if in the meanwhile the same sections of the same files have been modified. In this case, just resolve manually the conflicts on each file and then stage the changes as usual (see Section \mysecref{sec:Conflicts}).
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Remember stash entries are actually encoded locally as commit objects. The special reference at \textit{.git/refs/stash} points to the most recent stash, and previous stashes are referenced by the corresponding stash \textit{ref}'s reflogs. This is why you refer to each stash entry as \textit{stash@\{<num>\}}, since you're actually referring to the n-th reflog entry of the stash \textit{ref}.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Note stash commands do not apply by default on submodules too. Hereafter some useful commands to stash changes on submodules in parallel (see Section \mysecref{sec:Submodules} for more details):
 \begin{itemize}
@@ -1056,7 +1061,7 @@ but does NOT store:
   \item[\mybulletlvB] clear all stash entries for both parent project and submodules \mydiv \mycmd{git stash clear \&\& git submodule foreach -{}-recursive git stash clear}.
 \end{itemize}
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	20. SUBMODULES
@@ -1066,10 +1071,10 @@ but does NOT store:
 
 \begin{itemize}
 \item[\mybulletlvA] Git submodules allow to keep an existing Git repository as a subdirectory within another main Git repository. Submodules are simply a reference to another repository at a particular snapshot in time, and enable a Git repository to incorporate and track version history of external code.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] A Git submodule is a record within a host Git repository that points to a specific commit within another external repository. Submodules are static and only track specific commits. Submodules do not track Git refs or branches and are not automatically updated when the host repository is updated. When adding a submodule to a repository a new \textit{.gitmodules} file is created. The \textit{.gitmodules} file contains metadata about the mapping between the submodule project's URL and local directory. If the parent repository has multiple submodules, the \textit{.gitmodules} file has an entry for each submodule.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Typical submodule use cases:
 \begin{itemize}
@@ -1078,7 +1083,7 @@ but does NOT store:
   \item[\mybulletlvB] when you are delegating a piece of the project to a third party and you want to integrate their work at a specific time or release (assuming updates are not too frequent);
   \item[\mybulletlvB] more in general to increase projects modularity and reusability.
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Useful commands for submodules:
 \begin{itemize}
@@ -1090,13 +1095,13 @@ but does NOT store:
   \item[\mybulletlvB] to apply a standard Git command on all submodules from the parent project \mydiv \mycmd{git submodule foreach -{}-recursive <command>} (e.g. \textit{git submodule foreach -{}-recursive git reset -{}-hard} or \textit{git submodule foreach -{}-recursive git clean -df});
   \item[\mybulletlvB] to show a list of all project submodules and their currently checked out commit \mydiv \mycmd{git submodule status}.
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Once submodules are properly initialized and updated within a parent repository they can treated as usual stand-alone repositories, meaning they have their own branches and history. When making changes to a submodule it is important to push submodule changes and then update the parent repositories reference to that submodule.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] § Remember that changes on submodules cannot be staged/committed/pushed directly from the parent repository. To apply changes on a submodule, open a Git bash inside its subfolder, create and checkout to a dedicated topic branch for the changes to be made (or fetch and checkout if already created remotely, for instance via Jira), modify the code, stage/commit/push the changes and then open a PR to merge back into submodule base branch. Finally, to make the parent project point to the latest version of the submodule, at submodule level checkout to base branch (the destination one of the aforementioned PR) and pull, then at parent project level simply add/commit/push the submodule reference update (with a message like \textit{"updated submodule reference"}).
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] To locally update a submodule whose remote path has been lately changed:
 \begin{itemize}
@@ -1106,7 +1111,7 @@ but does NOT store:
   \item[\mybulletlvB] alternatively, you could simply delete the entire WT/LR and clone it again from scratch.
 \end{itemize}
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	21. RESET
@@ -1116,7 +1121,7 @@ but does NOT store:
 
 \begin{itemize}
 \item[\mybulletlvA] The \textbf{\textit{reset}} operation primarily undoes one or multiple commits and reverts back to a previous state of the project by removing all subsequent commits, thus literally resets \textit{HEAD} to the specified state.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Useful reset commands:
 \begin{itemize}
@@ -1128,7 +1133,7 @@ but does NOT store:
   \item[\mybulletlvB] to locally delete latest commits, move back to a previous specified commit but preserving all deleted commits changes inside WT \mydiv \mycmd{git reset <commit\_id>}.
 \end{itemize}
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	22. REVERT
@@ -1138,21 +1143,21 @@ but does NOT store:
 
 \begin{itemize}
 \item[\mybulletlvA] The \textbf{\textit{revert}} operation inverts the changes from a specified commit and creates a new revert-commit. The ref pointers are then updated to point at the new revert commit making it the tip of the branch.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] The \textit{revert} command has two important advantages over the \textit{reset} one:
 \begin{itemize}
   \item[\mybulletlvB] it does not change the project history, therefore safer for commits that have been already pushed to a shared remote repository (so can be used on public history too);
   \item[\mybulletlvB] it is able to target an individual commit at an arbitrary point in the history, whereas \textit{reset} can only work backward from the current commit and delete latest commits until the desired one.
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Useful revert commands:
 \begin{itemize}
   \item[\mybulletlvB] to revert a branch to some previous commit \mydiv \mycmd{git revert <commit\_id\_to\_revert>} (e.g. \textit{git revert HEAD} to create a new commit reverting the very last commit only, i.e. restoring the second-to-last commit).
 \end{itemize}
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	23. RESTORE
@@ -1162,7 +1167,7 @@ but does NOT store:
 
 \begin{itemize}
 \item[\mybulletlvA] The \textbf{\textit{restore}} operation undoes unstaged changes within the WT.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Useful restore commands:
 \begin{itemize}
@@ -1170,7 +1175,7 @@ but does NOT store:
   \item[\mybulletlvB] to revert all unstaged changes within WT (i.e. move back WT to latest commit state) \mydiv \mycmd{git restore .} (similar to \textit{git reset -{}-hard}, but without affecting staged changes);
 \end{itemize}
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	24. CLEAN
@@ -1180,7 +1185,7 @@ but does NOT store:
 
 \begin{itemize}
 \item[\mybulletlvA] The \textbf{\textit{clean}} operation primarily undoes untracked changes within the WT.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Useful clean commands:
 \begin{itemize}
@@ -1192,7 +1197,7 @@ but does NOT store:
   \item[\mybulletlvB] add the \textit{-i} option to use the command in interactive mode (i.e. to decide actions file by file) \mydiv \textit{git clean -i [<subpath>]}.
 \end{itemize}
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	25. LOG
@@ -1202,7 +1207,7 @@ but does NOT store:
 
 \begin{itemize}
 \item[\mybulletlvA] The \textbf{\textit{log}} command shows information about the current branch commit history. By default it provides a limited and detailed list of commits (i.e. including hash, author, message, etc) in reverse time order, which can be further lengthened or stopped by pressing respectively the \textit{Enter} or \textit{q} key.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Useful log commands:
 \begin{itemize}
@@ -1214,7 +1219,7 @@ but does NOT store:
   \item[\mybulletlvB] add the \textit{-{}-before="<date-or-time>"} to display only commits from the specified date or time frame backwards (e.g. \textit{git log -{}-before"4 hours ago"}).
 \end{itemize}
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	26. SHOW
@@ -1224,14 +1229,14 @@ but does NOT store:
 
 \begin{itemize}
 \item[\mybulletlvA] The \textbf{\textit{show}} command displays details (e.g. author, date, messages, etc) about specified Git objects (i.e. commits, tags, blobs and trees).
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Useful show commands:
 \begin{itemize}
   \item[\mybulletlvB] add the \textit{-{}-oneline} flag to most object details \mydiv \mycmd{git show <obj\_id> -{}-oneline} (e.g. \textit{git show HEAD -{}-oneline} or \textit{git show 05ffe6e3}).
 \end{itemize}
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	27. DIFF
@@ -1241,7 +1246,7 @@ but does NOT store:
 
 \begin{itemize}
 \item[\mybulletlvA] The \textbf{\textit{diff}} command shows changes file by file between two specified data sets (such as WT, commit, index, etc).
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Useful diff commands:
 \begin{itemize}
@@ -1256,7 +1261,7 @@ but does NOT store:
   \item[\mybulletlvB] \textbf{NB \#1}: untracked files are not detected by \textit{diff}.
 \end{itemize}
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	28. BLAME
@@ -1266,7 +1271,7 @@ but does NOT store:
 
 \begin{itemize}
 \item[\mybulletlvA] The \textbf{\textit{blame}} command is a versatile troubleshooting utility that examines line by line the content of project files and for each line reports the author, commit ID and date of its last modification. This command is often exploited online via graphical GUIs on Git hosting.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Useful blame commands:
 \begin{itemize}
@@ -1276,7 +1281,7 @@ but does NOT store:
   \item[\mybulletlvB] add the \textit{-w} flag to ignore whitespace changes.
 \end{itemize}
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	29. CHERRY PICK
@@ -1286,7 +1291,7 @@ but does NOT store:
 
 \begin{itemize}
 \item[\mybulletlvA] The \textbf{\textit{cherry-pick}} command picks an arbitrary commit from a branch and applies it to the \textit{HEAD} of another branch. This command can be useful for undoing changes (e.g. if a commit has been accidentally applied to a wrong branch, you can simply checkout to correct branch and then cherry-pick the commit) or copying some project changes to another independent branch (e.g. after solving a bug on a hotfix branch, to apply the changes on the official \textit{develop} branch too). However, note this may not be always a best practice, since cherry-picking can cause duplicate commits and in many scenarios traditional merges are preferred.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Useful cherry-pick commands:
 \begin{itemize}
@@ -1295,7 +1300,7 @@ but does NOT store:
   \item[\mybulletlvB] add the \textit{-e|-{}-edit} flag to force Git to prompt for a commit message before applying the cherry-pick operation (otherwise the message is the same as the original by default);
   \item[\mybulletlvB] in case of conflicts you can either decide to solve them and then stage/commit/push or aborting the command via \textit{git cherry-pick -{}-abort} (available only if the \textit{-{}-no-commit} flag has not been added to the previous command).
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Commit graph example for cherry-pick (where commit \mysapo{C} from source branch is applied to \textit{HEAD} of destination branch, becoming part of its history as well):
 \begin{figure}[h!]
@@ -1352,7 +1357,7 @@ but does NOT store:
   \item[] \textcolor{\mytextfilecolor}{\textit{>{}>{}>{}>{}>{}>{}> <commit\_id> (<commit\_message>)}}
 \end{itemize}
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	30. ALIAS
@@ -1362,7 +1367,7 @@ but does NOT store:
 
 \begin{itemize}
 \item[\mybulletlvA] \textbf{\textit{Aliases}} provide custom shortcuts to standard Git commands.
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Useful alias commands:
 \begin{itemize}
@@ -1371,7 +1376,7 @@ but does NOT store:
   \item[\mybulletlvB] to delete an existing alias \mydiv \mycmd{git config -{}-global -{}-unset alias.<custom\_command>} (e.g. \textit{git config -{}-global -{}-unset alias.newbr}).
 \end{itemize}
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
 %	31. GUI
@@ -1385,7 +1390,7 @@ but does NOT store:
   \item[\mybulletlvB] to quickly check differences between WT and index (and decide whether to stage or revert specific hunks, if needed);
   \item[\mybulletlvB] to easily handle stage, commit and push operations.
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Useful GUI tips:
 \begin{itemize}
@@ -1399,10 +1404,54 @@ but does NOT store:
   \item[\mybulletlvB] in case a hunk has been mistakenly reverted, undo the revert by clicking on it and selecting \textit{Undo last revert} (note this works only on the very last hunk reverted).
 \end{itemize}
 \end{itemize}
-\myvspace
+\mysecvspace
 
 %--------------------------------------------------------------------------
-%	32. VARIOUS
+%	32. HOOKS
+%--------------------------------------------------------------------------
+
+\section{Hooks}   \label{sec:Hooks}
+
+\begin{itemize}
+\item[\mybulletlvA] Git \textbf{\textit{hooks}} are scripts that run automatically every time a specific event occurs within the repository. They let you customize Git’s internal behavior and can be used to automate or optimize virtually any aspect of your development workflow. Hooks reside in the \textit{.git/hooks} directory of every repository, which Git automatically populates with example scripts during the project initialization and that represent most of the available hooks. As long as their extension is \textit{.sample} they are prevented from being executed, thus to make a hook effective just remove any extension and assure its name matches exactly one of the available Git hooks. A hook with an arbitrary name (e.g. created from scratch by the user, such as \textit{pre-checkout}) not matching one of the available one will not be recognized and in turn executed, since not supported by Git.
+\myparvspace
+
+\item[\mybulletlvA] The built-in scripts are mostly shell scripts, but you can use any scripting language you like as long as it can be run as an executable. The shebang line (which shall be placed at the very 1st line of the script and by default is \textit{\#!/bin/sh}) in each script defines how your file should be interpreted. So, to use a different language just change it to the path of your interpreter (e.g. \textit{\#!/usr/bin/env python} to have a Python hook). The body of the hook script can contain any kind of actions supported (e.g. printing on shell, executing Git commands, parsing of data, etc).
+\myparvspace
+
+\item[\mybulletlvA] Remember hooks are local for any repository (thus not copied when cloning the latter) and not part of the project versioning.
+\myparvspace
+
+\item[\mybulletlvA] For practical examples see the sample \textit{post-checkout\_BASH} and \textit{post-checkou\_PYTHON} files, representing a hook executed automatically after any call of the \textit{git checkout} command in both bash and Python language. To make them effective just copy them to the \textit{.git/hooks} directory of your current repository and rename them simply as \textit{post-checkout} (one at a time), then execute any \textit{git checkout} command to check they are been correctly launched.
+\myparvspace
+
+\item[\mybulletlvA] Example of bash hook script:
+\begin{itemize}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\#!/bin/sh}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{echo " >{}> start of bash hook..."}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{git status}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{git log -{}-oneline -5}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{echo " >{}> end of bash hook..."}}
+\end{itemize}
+\myparvspace
+
+\item[\mybulletlvA] Example of Python hook script:
+\begin{itemize}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\#!/usr/bin/env python}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{import sys}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{hook\_name = sys.argv[0]}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{print(">{}> start of python hook...")}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{print("executing " + hook\_name)}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{print(">{}> end of python hook...")}}
+\end{itemize}
+\myparvspace
+
+\item[\mybulletlvA] For the official list of all the available Git hooks see \myurl{https://git-scm.com/docs/githooks}{here}.
+\end{itemize}
+\mysecvspace
+
+%--------------------------------------------------------------------------
+%	33. VARIOUS
 %--------------------------------------------------------------------------
 
 \section{Various}   \label{sec:Various}
@@ -1413,7 +1462,7 @@ but does NOT store:
   \item[\mybulletlvB] to show all files and directories within current folder (including hidden ones) \mydiv \mycmd{ls -a};
   \item[\mybulletlvB] to clear shell \mydiv \mycmd{clear}.
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Additional useful Git commands:
 \begin{itemize}
@@ -1422,7 +1471,7 @@ but does NOT store:
   \item[\mybulletlvB] to check current Git version installed \mydiv \mycmd{git -{}-version};
   \item[\mybulletlvB] to solve the \textit{HEAD detached} issue on current branch (assuming no relevant untracked changes present), just checkout to the same branch in order to reset \textit{HEAD}.
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Git wildcards:
 \begin{itemize}
@@ -1431,7 +1480,7 @@ but does NOT store:
   \item[\mybulletlvB] to apply actions on all files matching a specific name pattern regardless of their path within project, use the \mysapo{**} wildcard \mydiv \textit{git add **\textbackslash xyz.c} (to stage changes on one or multiple files named \textit{xyz.c} in any position within the project) or \textit{git add **\textbackslash xyz.*} (to stage changes on all files named \textit{xyz} with any extension in any position within the project, e.g. useful to include at same time both \textit{.h} and \textit{.c} files of the same module);
   \item[\mybulletlvB] for more details about pattern-matching and wildcards, see \textit{ignore\_wildcard\_patterns.pdf}.
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] GitHub tips:
 \begin{itemize}
@@ -1442,7 +1491,7 @@ but does NOT store:
   \item[\mybulletlvB] \textbf{NB \#1}: A repository set as public by the owner is visible and clonable by any GitHub user, however only if users are added as collaborators can push too - otherwise, if the owner sets the repository as private, the only way for another user to clone/push is to be included as a collaborator of the project;
   \item[\mybulletlvB] to check the differences between two remote branches, go to \textit{github website > project > branch (different from \mysapo{master} one) > contribute > compare} and select the two branches to compare in the upper bar.
 \end{itemize}
-\myvspace
+\myparvspace
 
 \item[\mybulletlvA] Regarding the different kinds of topic branches that you can create on GitHub:
 \begin{itemize}
@@ -1451,7 +1500,7 @@ but does NOT store:
   \item[\mybulletlvB] \textit{hotfix branch}, fixing a bug on firmware version already release on the market.
 \end{itemize}
 \end{itemize}
-\myvspace
+\mysecvspace
   
 %----------------------------------------------------------------------------------------
 %	REFERENCES
@@ -1466,7 +1515,7 @@ but does NOT store:
 \bibitem[3]{bib:Coursera} Coursera website $\rightarrow$ \myurl{https://www.coursera.org/learn/version-control-with-git}{https://www.coursera.org/learn/version-control-with-git}
 
 \end{thebibliography}
-\myvspace
+\mysecvspace
 
 
 %----------------------------------------------------------------------------------------

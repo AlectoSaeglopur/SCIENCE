@@ -132,7 +132,7 @@ Typically the user has to care only about commits and annotated tags, whereas tr
 
 § All references are automatically stored and updated within ".git\refs\heads\" and they are nothing but files named after the corresponding local branch and containing inside their current local hash/commit value. The only exception is 'HEAD', which is kept within ".git\".
 
-§ The 'HEAD'-reference points to the branch-commit pair currently present in the WT (thus, it can exist only one 'HEAD' per repository). By default it is usually equal to the "label branch" (e.g. 'master' or 'develop'), but unlike the latter this can be also moved back to previous commits of the branch using the "git checkout <commit-id>". For example, assuming to be in the 'master' branch, if using "git log --oneline" returns that 'HEAD' points to 'master' (i.e. 'HEAD->master'), then using "git checkout HEAD~" (i.e. "git checkout <previous_commit_id>") moves 'HEAD' one commit back and updates the WT accordingly (thus now 'master' becomes one commit ahead of 'HEAD'). Executing now "git checkout master" resets 'HEAD' equal to 'master' (i.e. to the latest commit of the branch).
+§ The 'HEAD'-reference points to the branch-commit pair currently present in the WT (thus, it can exist only one 'HEAD' per repository). By default it is usually equal to the "label branch" (e.g. 'master' or 'develop'), but unlike the latter this can be also moved back to previous commits of the branch using the "git checkout <commit-id>". For example, assuming to be in the 'master' branch, if using "git log --oneline" returns that 'HEAD' points to 'master' (i.e. 'HEAD->master'), then executing "git checkout HEAD~" (equivalent to "git checkout <previous_commit_id>") moves 'HEAD' one commit backward at a time and updates the WT accordingly (thus now 'master' becomes one commit ahead of original 'HEAD'). Executing now "git checkout master" resets 'HEAD' equal to 'master' (i.e. to the latest commit of the branch).
 
 § The '~' and '^' characters can be used to refer to previous commits. In particular, '~' allows to refer to single-parent commits, whereas '^' to multiple-parent commits in a merge-commit (i.e. in case of merge-commits). For example:
 - to show latest x4 commits of current branch (e.g. 'develop') >> "git log --online -4";
@@ -518,6 +518,8 @@ A -- D -- E -- B' -- C'   [destination]
 
 § The user is not limited to a single stash at a time, but can push multiple times to create multiple stash entries in sequence. By default, stash entries are identified simply with a 'WIP' (aka "Work In Progress") label linked to the branch-commit pair the stash entry was generated from. The "git stash list" command can be used to list all stash entries currently stored within the stashing area. However, after a while it can be difficult to remember what each stash entry contains, because each of them is identified with a string like "stash@{0}: WIP on bugfix_123: 2e16987" or "stash@{4}: WIP on develop: f955ab0". To provide a clearer and more detailed tracking, it is recommended to include a description to each stash entry through the "save "<message>"" option, namely "git stash save "<message>"" (e.g. "git stash save "stashed changes on xyz.c" -u").
 
+§ Note it is even possible to stash only specific modified files instead of them all. To do so, use "git stash push <files-or-directories> -m "<message>"".
+
 § To retrieve info about a specific stash, use the "git stash show stash@{<num>}" command and add the "-p" option to display also all differences within modified files (e.g. "git stash show -p stash@{1}").
 
 § Use "git stash drop stash@{<num>}" to delete a specific stash entry or "git stash clear" to delete all of them at once.
@@ -695,7 +697,79 @@ A -- E -- F -- C   [destination]
 
 ------------------------------------------------------------
 
->> 30. ALIAS <<
+>> 30. BISECT <<
+
+§ The "bisect" operation is a powerful debug feature exploiting a binary search algorithm to find which commit in the project history introduced a known bug. After marking the first known 'bad' commit (i.e. where the issue has been first detected) and the last 'good' commit (i.e. where the issues not present yet), the command picks the mid-commit between those two endpoints and asks the user whether the selected commit is faulty or not. Then it continues narrowing down the range until it finds the exact commit that introduced the bug. If the search range is of N commits, we should expect to test just 1+log2(N) commits thanks to this approach, instead of roughly N/2 i ncase of a linear search.
+
+§ Note at each step of the bisect session Git automatically checks out to a new commit within the specified range and the 'good/bad' outcome shall be given by the user after building and testing the project at that apecific commit.
+
+§ Info about the latest bisect section are stored into the folder ".git/refs/bisect/".
+
+§ Useful bisect commands:
+- to start the bisect session >> "git bisect start";
+- to set the initial search range >> "git bisect bad [<first_bad_commit_id>]" (if not specified, the commit ID is assumed to be the current HEAD) and "git bisect good <last_good_commit_id>";
+- to mark the correctness of the currently checked out commit at each bisect step >> "git bisect good|bad";
+- to skip one or more commits within the search range (for instance, helpful to avoid making a decision on commits that for some reason cannot be tested) >> "git bisect skip [<commit_id>]" (if not specified, the commit ID is assumed to be the one currently checked out) or "git bisect skip <commitA_id>..<commitB_id>";
+- to recap what has been done so far in the bisect session >> "git bisect log";
+- to close (once the faulty commit has been detected) or abort the bisect session by cleaning up the bisect state and moving WT to the original HEAD >> "git bisect reset";
+- NB#1: if you have a script able to tell if the currently checkout out commit code is good or bad (e.g. exploiting unit test scripts), you can automate the bisect session via "git bisect run <script> [<arguments>].
+
+§ Example of bisect session:
+
+ValmoFil@ITFRLrmcwqD4Wlz MINGW64 /c/git_projects/ETO_SWFW_Projects/FPP_Peacock_HUI (develop)
+$ git log --oneline -7
+2720f1b7 (HEAD -> develop, origin/develop, origin/HEAD) Pull request #100: Porting build fix from SUPEX
+333ce58a Porting build fix from SUPEX
+9e3405b4 Pull request #99: PRJPEA2 557 peacock release hui 8.0
+69202fd4 (origin/PRJPEA2-557-peacock-release-hui-8.0, PRJPEA2-557-peacock-release-hui-8.0) updated release notes
+b86dbbee new cfg for 285_145: C017
+0db8e5b2 updated version V08T00
+ea2d9b5b Pull request #98: Bugfix/PRJPEA2 547 liquid food sensor no power at wait load phase
+
+ValmoFil@ITFRLrmcwqD4Wlz MINGW64 /c/git_projects/ETO_SWFW_Projects/FPP_Peacock_HUI (develop)
+$ git bisect start
+status: waiting for both good and bad commits
+
+ValmoFil@ITFRLrmcwqD4Wlz MINGW64 /c/git_projects/ETO_SWFW_Projects/FPP_Peacock_HUI (develop|BISECTING)
+$ git bisect bad
+status: waiting for good commit(s), bad commit known
+
+ValmoFil@ITFRLrmcwqD4Wlz MINGW64 /c/git_projects/ETO_SWFW_Projects/FPP_Peacock_HUI (develop|BISECTING)
+$ git bisect good ea2d9b5b
+Bisecting: 2 revisions left to test after this (roughly 2 steps)
+[69202fd4266bf2a3b2abb72f08958aee7c793fe9] updated release notes
+
+ValmoFil@ITFRLrmcwqD4Wlz MINGW64 /c/git_projects/ETO_SWFW_Projects/FPP_Peacock_HUI ((69202fd4...)|BISECTING)
+$ git bisect good
+Bisecting: 0 revisions left to test after this (roughly 1 step)
+[333ce58a5596b5f92dc1db69c25dd1c08da75eb1] Porting build fix from SUPEX
+
+ValmoFil@ITFRLrmcwqD4Wlz MINGW64 /c/git_projects/ETO_SWFW_Projects/FPP_Peacock_HUI ((333ce58a...)|BISECTING)
+$ git bisect bad
+Bisecting: 0 revisions left to test after this (roughly 0 steps)
+[9e3405b4c17f778180388203c9e17c5530281a07] Pull request #99: PRJPEA2 557 peacock release hui 8.0
+
+ValmoFil@ITFRLrmcwqD4Wlz MINGW64 /c/git_projects/ETO_SWFW_Projects/FPP_Peacock_HUI ((9e3405b4...)|BISECTING)
+$ git bisect good
+333ce58a5596b5f92dc1db69c25dd1c08da75eb1 is the first bad commit
+commit 333ce58a5596b5f92dc1db69c25dd1c08da75eb1
+Author: Dario Esposito <dario.esposito@electrolux.com>
+Date:   Fri Jun 28 14:29:58 2024 +0200
+
+    Porting build fix from SUPEX
+
+ ProjectSpecificPostBuild.cmake | 2 ++
+ 1 file changed, 2 insertions(+)
+ 
+ValmoFil@ITFRLrmcwqD4Wlz MINGW64 /c/git_projects/ETO_SWFW_Projects/FPP_Peacock_HUI ((9e3405b4...)|BISECTING)
+$ git bisect reset
+Previous HEAD position was 9e3405b4 Pull request #99: PRJPEA2 557 peacock release hui 8.0
+Switched to branch 'develop'
+Your branch is up to date with 'origin/develop'.
+
+------------------------------------------------------------
+
+>> 31. ALIAS <<
 
 § Aliases provide custom shortcuts to standard Git commands.
 
@@ -706,7 +780,7 @@ A -- E -- F -- C   [destination]
 
 ------------------------------------------------------------
 
->> 31. GUI <<
+>> 32. GUI <<
 
 §  Git GUI is a straightforward alternative to the standard bash for some specific actions. In particular, this can come in handy:
 - to quickly check differences between WT and index (and decide whether to stage or revert specific hunks, if needed);
@@ -724,7 +798,36 @@ A -- E -- F -- C   [destination]
 
 ------------------------------------------------------------
 
->> 32. VARIOUS <<
+>> 33. HOOKS <<
+
+§ Git "hooks" are scripts that run automatically every time a specific event occurs within the repository. They let you customize Git’s internal behavior and can be used to automate or optimize virtually any aspect of your development workflow. Hooks reside in the '.git/hooks' directory of every repository, which Git automatically populates with example scripts during the project initialization and that represent most of the available hooks. As long as their extension is '.sample' they are prevented from being executed, thus to make a hook effective just remove any extension and assure its name matches exactly one of the available Git hooks. A hook with an arbitrary name (e.g. created from scratch by the user, such as "pre-checkout") not matching one of the available one will not be recognized and in turn executed, since not supported by Git.
+
+§ The built-in scripts are mostly shell scripts, but you can use any scripting language you like as long as it can be run as an executable. The shebang line (which shall be placed at the very 1st line of the script and by default is "#!/bin/sh") in each script defines how your file should be interpreted. So, to use a different language just change it to the path of your interpreter (e.g. "#!/usr/bin/env python" to have a Python hook). The body of the hook script can contain any kind of actions supported (e.g. printing on shell, executing Git commands, parsing of data, etc).
+
+§ Remember hooks are local for any repository (thus not copied when cloning the latter) and not part of the project versioning.
+
+§ For practical examples see the sample "post-checkout_BASH" and "post-checkout_PYTHON" files, representing a hook executed automatically after any call of the 'git checkout' command in both bash and Python language. To make them effective just copy them to the '.git/hooks' directory of your current repository and rename them simply as 'post-checkout' (one at a time), then execute any 'git checkout' command to check they are been correctly launched.
+
+§ Example of bash hook script:
+#!/bin/sh
+echo " >> start of bash hook..."
+git status
+git log --oneline -5
+echo " >> end of bash hook..."
+
+§ Example of Python hook script:
+#!/usr/bin/env python
+import sys
+hook_name = sys.argv[0]
+print(">> start of python hook...")
+print("executing " + hook_name)
+print(">> end of python hook...")
+
+§ For the official list oF all the available Git hooks see here: https://git-scm.com/docs/githooks
+
+------------------------------------------------------------
+
+>> 34. VARIOUS <<
 
 § Useful Linux commands the can be used on Git bash as well:
 - to show all files and directories within current folder (including hidden ones) >> "ls -a";
@@ -762,19 +865,3 @@ A -- E -- F -- C   [destination]
 § For further documentation visit:
 - "https://git-scm.com/docs/";
 - "https://www.atlassian.com/git/tutorials".
-
-
-
-
-
-@todo:
-
-- hooks ?
-
-- bisect ?
-
-- add linux_git notes as well!
-
-- set extra vspace between sections ?
-
-- use "git checkout HEAD~" in loop to move back one commit at a time! (head detached)

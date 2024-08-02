@@ -1,0 +1,11 @@
+#!/usr/bin/env python
+
+# EXAMPLE OF POST-CHECKOUT HOOK IN PYTHON LANGUAGE
+# NB: to be successfully executed, the file shall be renamed exactly as "post-checkout" (with no extension)
+
+import sys
+
+hook_name = sys.argv[0]
+print(">> start of python hook...")
+print("executing " + hook_name)
+print(">> end of python hook...")
