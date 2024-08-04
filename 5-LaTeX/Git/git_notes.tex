@@ -103,6 +103,8 @@
 
 \newcommand{\mytextfilecolor}{teal}   % color to highlight text sections within extra files
 
+\newcommand{\myexfont}{\small}   % font size for example code or shell text
+
 %----------------------------------------------------------------------------------------
 %	TITLE SECTION
 %----------------------------------------------------------------------------------------
@@ -1360,7 +1362,90 @@ but does NOT store:
 \mysecvspace
 
 %--------------------------------------------------------------------------
-%	30. ALIAS
+%	30. BISECT
+%--------------------------------------------------------------------------
+
+\section{Bisect}   \label{sec:Bisect}
+
+\begin{itemize}
+\item[\mybulletlvA] The \textbf{\textit{bisect}} operation is a powerful debug feature exploiting a binary search algorithm to find which commit in the project history introduced a known bug. After marking the first known \textit{bad} commit (i.e. where the issue has been first detected) and the last \textit{good} commit (i.e. where the issues not present yet), the command picks the mid-commit between those two endpoints and asks the user whether the selected commit is faulty or not. Then it continues narrowing down the range until it finds the exact commit that introduced the bug. If the search range is of $N$ commits, we should expect to test just $1+\log_2 N$ commits thanks to this approach, instead of roughly $\frac{N}{2}$ in case of a linear search.
+\myparvspace
+
+\item[\mybulletlvA] Note at each step of the bisect session Git automatically checks out to a new commit within the specified range and the good/bad outcome shall be given by the user after building and testing the project at that specific commit.
+\myparvspace
+
+\item[\mybulletlvA] Info about the latest bisect section are stored into the project subfolder \textit{.git/refs/bisect}.
+\myparvspace
+
+\item[\mybulletlvA] Useful bisect commands:
+\begin{itemize}
+  \item[\mybulletlvB] to start the bisect session \mydiv \mycmd{git bisect start};
+  \item[\mybulletlvB] to set the initial search range \mydiv \mycmd{git bisect bad [<first\_bad\_commit\_id>]} (if not specified, the commit ID is assumed to be the current HEAD) and \mycmd{git bisect good <last\_good\_commit\_id>};
+  \item[\mybulletlvB] to mark the correctness of the currently checked out commit at each step \mydiv \mycmd{git bisect good|bad};
+  \item[\mybulletlvB] to skip one or more commits within the search range (for instance, helpful to avoid making a decision on commits that for some reason cannot be tested) \mydiv \mycmd{git bisect skip [<commit\_id>]} (if not specified, the commit ID is assumed to be the one currently checked out) or \mycmd{git bisect skip <commitA\_id>..<commitB\_id>};
+  \item[\mybulletlvB] to recap what has been done so far in the bisect session \mydiv \mycmd{git bisect log};
+  \item[\mybulletlvB] to close (once the faulty commit has been detected) or abort the bisect session by cleaning up the bisect state and moving WT to the original HEAD \mydiv \mycmd{git bisect reset};
+\item[\mybulletlvB] \textbf{NB \#1}: if you have a script able to tell if the currently checkout out commit code is good or bad (e.g. exploiting unit test scripts), you can automate the bisect session via \textit{git bisect run <script> [<arguments>]}.
+\end{itemize}
+\myparvspace
+
+\item[\mybulletlvA] Example of bisect session:
+
+\begin{itemize}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont ValmoFil@zBookG10 MINGW64 /c/git\_projects/ETO\_SWFW\_Projects/FPP\_Peacock\_HUI (develop)}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont \$ git log -{}-oneline -7}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont 2720f1b7 (HEAD $\rightarrow$ develop, origin/develop, origin/HEAD) Pull request \#100: Porting build fix from SUPEX}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont 333ce58a Porting build fix from SUPEX}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont 9e3405b4 Pull request \#99: PRJPEA2 557 peacock release hui 8.0}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont 69202fd4 (origin/PRJPEA2-557-peacock-release-hui-8.0, PRJPEA2-557-peacock-release-hui-8.0) updated notes}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont b86dbbee new cfg for 285\_145: C017}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont 0db8e5b2 updated version V08T00}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont ea2d9b5b Pull request \#98: Bugfix/PRJPEA2 547 liquid food sensor no power at wait load phase}}
+  \item[]
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont ValmoFil@zBookG10 MINGW64 /c/git\_projects/ETO\_SWFW\_Projects/FPP\_Peacock\_HUI (develop)}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont \$ git bisect start}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont status: waiting for both good and bad commits}}
+  \item[]
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont ValmoFil@zBookG10 MINGW64 /c/git\_projects/ETO\_SWFW\_Projects/FPP\_Peacock\_HUI (develop|BISECTING)}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont \$ git bisect bad}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont status: waiting for good commit(s), bad commit known}}
+  \item[]
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont ValmoFil@zBookG10 MINGW64 /c/git\_projects/ETO\_SWFW\_Projects/FPP\_Peacock\_HUI (develop|BISECTING)}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont \$ git bisect good ea2d9b5b}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont Bisecting: 2 revisions left to test after this (roughly 2 steps)}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont [69202fd4266bf2a3b2abb72f08958aee7c793fe9] updated release notes}}
+  \item[]
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont ValmoFil@zBookG10 MINGW64 /c/git\_projects/ETO\_SWFW\_Projects/FPP\_Peacock\_HUI ((69202fd4...)|BISECTING)}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont \$ git bisect good}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont Bisecting: 0 revisions left to test after this (roughly 1 step)}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont [333ce58a5596b5f92dc1db69c25dd1c08da75eb1] Porting build fix from SUPEX}}
+  \item[]
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont ValmoFil@zBookG10 MINGW64 /c/git\_projects/ETO\_SWFW\_Projects/FPP\_Peacock\_HUI ((333ce58a...)|BISECTING)}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont \$ git bisect bad}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont Bisecting: 0 revisions left to test after this (roughly 0 steps)}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont [9e3405b4c17f778180388203c9e17c5530281a07] Pull request \#99: PRJPEA2 557 peacock release hui 8.0}}
+  \item[]
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont ValmoFil@zBookG10 MINGW64 /c/git\_projects/ETO\_SWFW\_Projects/FPP\_Peacock\_HUI ((9e3405b4...)|BISECTING)}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont \$ git bisect good}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont 333ce58a5596b5f92dc1db69c25dd1c08da75eb1 is the first bad commit}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont commit 333ce58a5596b5f92dc1db69c25dd1c08da75eb1}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont Author: Dario Esposito <dario.esposito@electrolux.com>}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont Date:   Fri Jun 28 14:29:58 2024 +0200}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont \;\;\;\; Porting build fix from SUPEX}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont \;\;\;\; ProjectSpecificPostBuild.cmake | 2 ++}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont \;\;\;\; 1 file changed, 2 insertions(+)}}
+  \item[]
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont ValmoFil@zBookG10 MINGW64 /c/git\_projects/ETO\_SWFW\_Projects/FPP\_Peacock\_HUI ((9e3405b4...)|BISECTING)}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont \$ git bisect reset}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont Previous HEAD position was 9e3405b4 Pull request \#99: PRJPEA2 557 peacock release hui 8.0}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont Switched to branch 'develop'}}
+  \item[] \textcolor{\mytextfilecolor}{\textit{\myexfont Your branch is up to date with 'origin/develop'.}}
+\end{itemize}
+\end{itemize}
+\mysecvspace
+
+%--------------------------------------------------------------------------
+%	31. ALIAS
 %--------------------------------------------------------------------------
 
 \section{Alias}   \label{sec:Alias}
@@ -1379,7 +1464,7 @@ but does NOT store:
 \mysecvspace
 
 %--------------------------------------------------------------------------
-%	31. GUI
+%	32. GUI
 %--------------------------------------------------------------------------
 
 \section{GUI}   \label{sec:GUI}
@@ -1407,7 +1492,7 @@ but does NOT store:
 \mysecvspace
 
 %--------------------------------------------------------------------------
-%	32. HOOKS
+%	33. HOOKS
 %--------------------------------------------------------------------------
 
 \section{Hooks}   \label{sec:Hooks}
@@ -1451,7 +1536,7 @@ but does NOT store:
 \mysecvspace
 
 %--------------------------------------------------------------------------
-%	33. VARIOUS
+%	34. VARIOUS
 %--------------------------------------------------------------------------
 
 \section{Various}   \label{sec:Various}

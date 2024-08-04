@@ -699,20 +699,20 @@ A -- E -- F -- C   [destination]
 
 >> 30. BISECT <<
 
-§ The "bisect" operation is a powerful debug feature exploiting a binary search algorithm to find which commit in the project history introduced a known bug. After marking the first known 'bad' commit (i.e. where the issue has been first detected) and the last 'good' commit (i.e. where the issues not present yet), the command picks the mid-commit between those two endpoints and asks the user whether the selected commit is faulty or not. Then it continues narrowing down the range until it finds the exact commit that introduced the bug. If the search range is of N commits, we should expect to test just 1+log2(N) commits thanks to this approach, instead of roughly N/2 i ncase of a linear search.
+§ The "bisect" operation is a powerful debug feature exploiting a binary search algorithm to find which commit in the project history introduced a known bug. After marking the first known 'bad' commit (i.e. where the issue has been first detected) and the last 'good' commit (i.e. where the issues not present yet), the command picks the mid-commit between those two endpoints and asks the user whether the selected commit is faulty or not. Then it continues narrowing down the range until it finds the exact commit that introduced the bug. If the search range is of N commits, we should expect to test just 1+log2(N) commits thanks to this approach, instead of roughly N/2 in case of a linear search.
 
-§ Note at each step of the bisect session Git automatically checks out to a new commit within the specified range and the 'good/bad' outcome shall be given by the user after building and testing the project at that apecific commit.
+§ Note at each step of the bisect session Git automatically checks out to a new commit within the specified range and the good/bad outcome shall be given by the user after building and testing the project at that specific commit.
 
-§ Info about the latest bisect section are stored into the folder ".git/refs/bisect/".
+§ Info about the latest bisect section are stored into the project subfolder ".git/refs/bisect".
 
 § Useful bisect commands:
 - to start the bisect session >> "git bisect start";
 - to set the initial search range >> "git bisect bad [<first_bad_commit_id>]" (if not specified, the commit ID is assumed to be the current HEAD) and "git bisect good <last_good_commit_id>";
-- to mark the correctness of the currently checked out commit at each bisect step >> "git bisect good|bad";
+- to mark the correctness of the currently checked out commit at each step >> "git bisect good|bad";
 - to skip one or more commits within the search range (for instance, helpful to avoid making a decision on commits that for some reason cannot be tested) >> "git bisect skip [<commit_id>]" (if not specified, the commit ID is assumed to be the one currently checked out) or "git bisect skip <commitA_id>..<commitB_id>";
 - to recap what has been done so far in the bisect session >> "git bisect log";
 - to close (once the faulty commit has been detected) or abort the bisect session by cleaning up the bisect state and moving WT to the original HEAD >> "git bisect reset";
-- NB#1: if you have a script able to tell if the currently checkout out commit code is good or bad (e.g. exploiting unit test scripts), you can automate the bisect session via "git bisect run <script> [<arguments>].
+- NB #1: if you have a script able to tell if the currently checkout out commit code is good or bad (e.g. exploiting unit test scripts), you can automate the bisect session via "git bisect run <script> [<arguments>]".
 
 § Example of bisect session:
 
@@ -721,7 +721,7 @@ $ git log --oneline -7
 2720f1b7 (HEAD -> develop, origin/develop, origin/HEAD) Pull request #100: Porting build fix from SUPEX
 333ce58a Porting build fix from SUPEX
 9e3405b4 Pull request #99: PRJPEA2 557 peacock release hui 8.0
-69202fd4 (origin/PRJPEA2-557-peacock-release-hui-8.0, PRJPEA2-557-peacock-release-hui-8.0) updated release notes
+69202fd4 (origin/PRJPEA2-557-peacock-release-hui-8.0, PRJPEA2-557-peacock-release-hui-8.0) updated notes
 b86dbbee new cfg for 285_145: C017
 0db8e5b2 updated version V08T00
 ea2d9b5b Pull request #98: Bugfix/PRJPEA2 547 liquid food sensor no power at wait load phase
@@ -755,11 +755,9 @@ $ git bisect good
 commit 333ce58a5596b5f92dc1db69c25dd1c08da75eb1
 Author: Dario Esposito <dario.esposito@electrolux.com>
 Date:   Fri Jun 28 14:29:58 2024 +0200
-
-    Porting build fix from SUPEX
-
- ProjectSpecificPostBuild.cmake | 2 ++
- 1 file changed, 2 insertions(+)
+  Porting build fix from SUPEX
+  ProjectSpecificPostBuild.cmake | 2 ++
+  1 file changed, 2 insertions(+)
  
 ValmoFil@ITFRLrmcwqD4Wlz MINGW64 /c/git_projects/ETO_SWFW_Projects/FPP_Peacock_HUI ((9e3405b4...)|BISECTING)
 $ git bisect reset

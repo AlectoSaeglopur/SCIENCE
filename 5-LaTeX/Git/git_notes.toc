@@ -28,7 +28,8 @@
 \contentsline {section}{\numberline {27}Diff}{21}{section.27}%
 \contentsline {section}{\numberline {28}Blame}{22}{section.28}%
 \contentsline {section}{\numberline {29}Cherry Pick}{22}{section.29}%
-\contentsline {section}{\numberline {30}Alias}{23}{section.30}%
-\contentsline {section}{\numberline {31}GUI}{23}{section.31}%
-\contentsline {section}{\numberline {32}Hooks}{23}{section.32}%
-\contentsline {section}{\numberline {33}Various}{24}{section.33}%
+\contentsline {section}{\numberline {30}Bisect}{23}{section.30}%
+\contentsline {section}{\numberline {31}Alias}{24}{section.31}%
+\contentsline {section}{\numberline {32}GUI}{24}{section.32}%
+\contentsline {section}{\numberline {33}Hooks}{25}{section.33}%
+\contentsline {section}{\numberline {34}Various}{26}{section.34}%
