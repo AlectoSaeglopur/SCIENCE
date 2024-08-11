@@ -1038,7 +1038,7 @@ but does NOT store:
 \end{itemize}
 \myparvspace
 
-\item[\mybulletlvA] The user is not limited to a single stash at a time, but can push multiple times to create multiple stash entries in sequence. By default, stash entries are identified simply with a \textit{WIP} (aka \textit{Work In Progress}) label linked to the branch-commit pair the stash entry was generated from. The \mycmd{git stash list} command can be used to list all stash entries currently stored within the stashing area. However, after a while it can be difficult to remember what each stash entry contains, because each of them is identified with a string like \textit{stash@\{0\}: WIP on bugfix\_123: 2e16987} or \textit{stash@\{4\}: WIP on develop: f955ab0}. To provide a clearer and more detailed tracking, it is recommended to include a description to each stash entry through the \textit{save "<message>"} option, namely \mycmd{git stash save "<message>"} (e.g. \textit{git stash save "stashed changes on xyz.c" -u}).
+\item[\mybulletlvA] The user is not limited to a single stash at a time, but can push multiple times to create multiple stash entries in sequence. By default, stash entries are identified simply with a \textit{WIP} (aka \textit{Work In Progress}) label linked to the branch-commit pair the stash entry was generated from. The \mycmd{git stash list} command can be used to list all stash entries currently stored within the stashing area. However, after a while it can be difficult to remember what each stash entry contains, because each of them is identified with a string like \textit{stash@\{0\}: WIP on bugfix\_123: 2e16987} or \textit{stash@\{4\}: WIP on develop: f955ab0}. To provide a clearer and more detailed tracking, it is recommended to include a description to each stash entry through the \textit{-m|save "<message>"} option, namely \mycmd{git stash -m|save "<message>"} (e.g. \textit{git stash -m "stashed changes on xyz.c" -u}).
 \myparvspace
 
 \item[\mybulletlvA] Note it is even possible to stash only specific modified files instead of them all. To do so, use \mycmd{git stash push <files-or-directories> -m "<message>"}.
@@ -1058,7 +1058,7 @@ but does NOT store:
 
 \item[\mybulletlvA] Note stash commands do not apply by default on submodules too. Hereafter some useful commands to stash changes on submodules in parallel (see Section \mysecref{sec:Submodules} for more details):
 \begin{itemize}
-  \item[\mybulletlvB] to stash all changes within both parent project and submodules \mydiv \mycmd{git stash save "<message>" -u \&\& git submodule foreach -{}-recursive git stash save "<message>" -u};
+  \item[\mybulletlvB] to stash all changes within both parent project and submodules \mydiv \mycmd{git stash -m "<message>" -u \&\& git submodule foreach -{}-recursive git stash -m "<message>" -u};
   \item[\mybulletlvB] to reapply all changes stashed in the previous step to both parent project and submodules \mydiv \mycmd{git stash apply \&\& git submodule foreach -{}-recursive git stash apply} $\rightarrow$ \textbf{\underline{CAUTION}}: working only if they all have the same stash index;
   \item[\mybulletlvB] clear all stash entries for both parent project and submodules \mydiv \mycmd{git stash clear \&\& git submodule foreach -{}-recursive git stash clear}.
 \end{itemize}
