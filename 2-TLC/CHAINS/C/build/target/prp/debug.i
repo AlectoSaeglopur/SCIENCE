@@ -1977,7 +1977,5 @@ static
               ;
   }
 
-
-
   return bRet;
 }

@@ -613,9 +613,9 @@ LFB23:
 	.loc 1 321 0
 	movb	$1, -1(%ebp)
 L52:
-	.loc 1 326 0
+	.loc 1 324 0
 	movzbl	-1(%ebp), %eax
-	.loc 1 327 0
+	.loc 1 325 0
 	leave
 	.cfi_restore 5
 	.cfi_def_cfa 4, 4

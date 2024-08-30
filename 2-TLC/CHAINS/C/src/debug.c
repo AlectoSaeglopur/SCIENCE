@@ -321,8 +321,6 @@ static bool IsSrcLenValid( len_t lenBy )
     bRet = true;
   }
 
-
-
   return bRet;
 }
 

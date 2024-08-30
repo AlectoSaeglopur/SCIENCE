@@ -1583,7 +1583,15 @@ typedef enum
 # 62 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 19 "src\\channel.h" 2
-# 35 "src\\channel.h"
+# 27 "src\\channel.h"
+typedef enum
+{
+  CHAN_BSC = 0,
+  CHAN_AWGN,
+
+  CHAN_NUM
+} channel_t;
+# 50 "src\\channel.h"
 error_t Channel_BSC( const uint8_t * inBuffer, uint8_t *outBuffer, uint32_t ioLen, float Peb, const uint32_t * pSeed );
 # 24 "src\\main.c" 2
 # 1 "src\\convolutional.h" 1
@@ -1727,10 +1735,18 @@ int main( void )
   CnvCod_Encoder(txSrcBytes,sizeof(txSrcBytes),txCcBytes,
     sizeof(txCcBytes),&ccParams,&ccEncoderInfo,&ccPuncLen);
   Debug_PrintBytes(txCcBytes,ccPuncLen,PID_TX_CNVCOD);
-  Channel_BSC(txCcBytes,rxCcBytes,ccPuncLen,(float)(3.1E-2),
-# 68 "src\\main.c" 3 4
+  if (CHAN_BSC == ((channel_t) CHAN_BSC))
+  {
+    Channel_BSC(txCcBytes,rxCcBytes,ccPuncLen,((float) 3.1E-2),
+# 70 "src\\main.c" 3 4
+                                                     ((void *)0)
+# 70 "src\\main.c"
+                                                         );
+  }
+  Channel_BSC(txCcBytes,rxCcBytes,ccPuncLen,((float) 3.1E-2),
+# 72 "src\\main.c" 3 4
                                                    ((void *)0)
-# 68 "src\\main.c"
+# 72 "src\\main.c"
                                                        );
   Debug_PrintBytes(rxCcBytes,ccPuncLen,PID_RX_CNVCOD);
   Debug_CheckWrongBits(txCcBytes,rxCcBytes,ccPuncLen,PID_RX_CNVCOD);
@@ -1740,13 +1756,13 @@ int main( void )
   printf(" >> Execution completed successfully!\n");
 
 if ((
-# 76 "src\\main.c" 3 4
+# 80 "src\\main.c" 3 4
    0
-# 76 "src\\main.c"
+# 80 "src\\main.c"
    ))
 {
   Debug_WriteBytesToCsv(txSrcBytes,sizeof(txSrcBytes),PID_TX_SRC);
 }
-# 131 "src\\main.c"
+# 135 "src\\main.c"
   return 0;
 }

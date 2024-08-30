@@ -31,8 +31,8 @@
 /*** PARAMETERS ***/
 /******************/
 
-#define LEN_SRC_BY        ((len_t) 250)                   //!< source info stream length [B] (NB: Max value = 1000)
-#define LEN_CC_UNP_BY     ((CC_NBRANCHES*LEN_SRC_BY))     //!< unpunctured convolutional coded stream length [B]
+#define LEN_SRC_BY        ((len_t) 250)                           //!< source info stream length [B] (NB: Max value = 1000)
+#define LEN_CC_UNP_BY     ((len_t) (CC_NBRANCHES*LEN_SRC_BY))     //!< unpunctured convolutional coded stream length [B]
 
 
 
@@ -65,6 +65,10 @@ int main( void )
   CnvCod_Encoder(txSrcBytes,sizeof(txSrcBytes),txCcBytes,
     sizeof(txCcBytes),&ccParams,&ccEncoderInfo,&ccPuncLen);               /** -# convolutional encoding */
   Debug_PrintBytes(txCcBytes,ccPuncLen,PID_TX_CNVCOD);                    /** -# print tx convolutional coded buffer content */
+  if (CHAN_BSC == CHANNEL_TYPE)
+  {
+    Channel_BSC(txCcBytes,rxCcBytes,ccPuncLen,PEB_BSC,NULL);              /** -# apply bsc channel corruption */
+  }
   Channel_BSC(txCcBytes,rxCcBytes,ccPuncLen,PEB_BSC,NULL);                /** -# apply bsc channel corruption */
   Debug_PrintBytes(rxCcBytes,ccPuncLen,PID_RX_CNVCOD);                    /** -# print rx convolutional coded buffer content */
   Debug_CheckWrongBits(txCcBytes,rxCcBytes,ccPuncLen,PID_RX_CNVCOD);      /** -# check number of corrupted bits at convolutional coding level */

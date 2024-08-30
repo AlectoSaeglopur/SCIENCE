@@ -1583,7 +1583,15 @@ typedef enum
 # 62 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 19 "src\\channel.h" 2
-# 35 "src\\channel.h"
+# 27 "src\\channel.h"
+typedef enum
+{
+  CHAN_BSC = 0,
+  CHAN_AWGN,
+
+  CHAN_NUM
+} channel_t;
+# 50 "src\\channel.h"
 error_t Channel_BSC( const uint8_t * inBuffer, uint8_t *outBuffer, uint32_t ioLen, float Peb, const uint32_t * pSeed );
 # 17 "src\\channel.c" 2
 # 31 "src\\channel.c"

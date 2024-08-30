@@ -20,11 +20,26 @@
 
 
 
+/*************/
+/*** ENUMS ***/
+/*************/
+
+typedef enum
+{
+  CHAN_BSC = 0,                                         /** - BSC channel ID */
+  CHAN_AWGN,                                            /** - AWGN channel ID */
+  // keep NUM as final entry
+  CHAN_NUM
+} channel_t;
+
+
+
 /******************/
 /*** PARAMETERS ***/
 /******************/
 
-#define PEB_BSC           (float)(3.1E-2)
+#define CHANNEL_TYPE      ((channel_t) CHAN_BSC)
+#define PEB_BSC           ((float) 3.1E-2)
 
 
 
