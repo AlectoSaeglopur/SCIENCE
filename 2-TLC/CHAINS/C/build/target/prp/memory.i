@@ -1,9 +1,11 @@
-# 1 "src\\error.c"
+# 1 "src\\memory.c"
 # 1 "H:\\SCIENCE\\2-TLC\\CHAINS\\C//"
 # 1 "<built-in>"
 # 1 "<command-line>"
-# 1 "src\\error.c"
-# 16 "src\\error.c"
+# 1 "src\\memory.c"
+# 16 "src\\memory.c"
+# 1 "src\\memory.h" 1
+# 19 "src\\memory.h"
 # 1 "src\\error.h" 1
 # 18 "src\\error.h"
 # 1 "src\\system.h" 1
@@ -1581,30 +1583,78 @@ typedef enum
 } alarm_t;
 # 63 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
-# 17 "src\\error.c" 2
-# 31 "src\\error.c"
-error_t Error_HandleErr( error_t inErr )
+# 20 "src\\memory.h" 2
+# 28 "src\\memory.h"
+typedef struct _byte_stream_t
 {
-  if (ERR_NONE != inErr)
-  {
-    switch (((alarm_t) ALARM_STOP))
-    {
-      case ALARM_PRINT:
-        printf("\n >> WARNING: DETECTED ALARM #%d\n",inErr);
-        break;
-      case ALARM_STOP:
-        printf("\n >> ERROR: DETECTED ALARM #%d\n",inErr);
-        exit(
-# 42 "src\\error.c" 3
-            1
-# 42 "src\\error.c"
-                        );
-        break;
-      default:
+  uint8_t * pBuf;
+  uint32_t len;
+} byte_stream_t;
 
-        break;
+
+
+
+
+
+
+error_t Memory_AllocateByteBuffer( byte_stream_t * ioStream, uint32_t size );
+error_t Memory_FreeByteBuffer( byte_stream_t * ioStream );
+# 17 "src\\memory.c" 2
+# 32 "src\\memory.c"
+error_t Memory_AllocateByteBuffer( byte_stream_t * ioStream, uint32_t size )
+{
+  error_t retErr = ERR_NONE;
+
+  if (
+# 36 "src\\memory.c" 3 4
+     ((void *)0) 
+# 36 "src\\memory.c"
+          != ioStream)
+  {
+    ioStream->pBuf = calloc(size,sizeof(uint8_t));
+    ioStream->len = size;
+    if (
+# 40 "src\\memory.c" 3 4
+       ((void *)0) 
+# 40 "src\\memory.c"
+            == ioStream->pBuf)
+    {
+      retErr = ERR_INV_DYNAMIC_ALLOC;
     }
   }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
 
-  return inErr;
+  return Error_HandleErr(retErr);
+}
+# 61 "src\\memory.c"
+error_t Memory_FreeByteBuffer( byte_stream_t * ioStream )
+{
+  error_t retErr = ERR_NONE;
+
+  if ((
+# 65 "src\\memory.c" 3 4
+      ((void *)0) 
+# 65 "src\\memory.c"
+           != ioStream) && (
+# 65 "src\\memory.c" 3 4
+                            ((void *)0) 
+# 65 "src\\memory.c"
+                                 != ioStream->pBuf))
+  {
+    free(ioStream->pBuf);
+    ioStream->pBuf = 
+# 68 "src\\memory.c" 3 4
+                    ((void *)0)
+# 68 "src\\memory.c"
+                        ;
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
 }

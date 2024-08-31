@@ -4,6 +4,8 @@
 # 1 "<command-line>"
 # 1 "src\\debug.c"
 # 16 "src\\debug.c"
+# 1 "src\\debug.h" 1
+# 18 "src\\debug.h"
 # 1 "src\\convolutional.h" 1
 # 18 "src\\convolutional.h"
 # 1 "src\\error.h" 1
@@ -1549,14 +1551,6 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 # 931 "c:\\mingw\\include\\math.h" 3
 
 # 27 "src\\system.h" 2
-# 54 "src\\system.h"
-
-# 54 "src\\system.h"
-typedef struct _byte_buf_t
-{
-  uint8_t * pBuf;
-  uint32_t len;
-} byte_buf_t;
 # 19 "src\\error.h" 2
 
 
@@ -1565,6 +1559,8 @@ typedef struct _byte_buf_t
 
 
 
+
+# 26 "src\\error.h"
 typedef enum
 {
   ERR_NONE = 0,
@@ -1573,6 +1569,7 @@ typedef enum
   ERR_INV_CNVCOD_RATE,
   ERR_INV_CNVCOD_KLEN,
   ERR_INV_BUFFER_SIZE,
+  ERR_INV_DYNAMIC_ALLOC,
 
   ERR_NUM
 } error_t;
@@ -1586,10 +1583,27 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 62 "src\\error.h"
+# 63 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 19 "src\\convolutional.h" 2
-# 36 "src\\convolutional.h"
+# 1 "src\\memory.h" 1
+# 28 "src\\memory.h"
+typedef struct _byte_stream_t
+{
+  uint8_t * pBuf;
+  uint32_t len;
+} byte_stream_t;
+
+
+
+
+
+
+
+error_t Memory_AllocateByteBuffer( byte_stream_t * ioStream, uint32_t size );
+error_t Memory_FreeByteBuffer( byte_stream_t * ioStream );
+# 20 "src\\convolutional.h" 2
+# 37 "src\\convolutional.h"
 typedef enum
 {
   CC_RATE_12 = 1, CC_RATE_23 = 2, CC_RATE_34 = 3, CC_RATE_56 = 5, CC_RATE_78 = 7
@@ -1627,7 +1641,7 @@ typedef enum
 
   CC_VITDM_NUM
 } cc_dec_method_t;
-# 111 "src\\convolutional.h"
+# 112 "src\\convolutional.h"
 typedef struct _cc_par_t
 {
   cc_rate_t cRate;
@@ -1672,11 +1686,10 @@ typedef struct _cc_hard_dec_info_t
 
 error_t CnvCod_ListParameters( cc_par_t * ioParams );
 error_t CnvCod_GetConnectorPuncturationVectors( cc_encoder_info_t * ioInfo, const cc_par_t * inParams );
-error_t CnvCod_Encoder( const uint8_t * inBuffer, uint32_t inLenBy, uint8_t * outBuffer, uint32_t outLenBy, const cc_par_t * pParams, const cc_encoder_info_t * pEncInfo, uint32_t * pPunLenBy );
-error_t CnvCod_HardDecoder( uint8_t * inBuffer, uint32_t inLenBy, uint8_t * outBuffer, uint32_t outLenBy, const cc_par_t * pParams, const cc_encoder_info_t * pEncInfo );
-# 17 "src\\debug.c" 2
-# 1 "src\\debug.h" 1
-# 37 "src\\debug.h"
+error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams, const cc_encoder_info_t * pEncInfo );
+error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams, const cc_encoder_info_t * pEncInfo );
+# 19 "src\\debug.h" 2
+# 38 "src\\debug.h"
 typedef enum
 {
   PID_TX_SRC = 0,
@@ -1694,11 +1707,11 @@ typedef enum
 
 
 error_t Debug_PrintParameters( uint32_t len );
-error_t Debug_GenerateRandomBytes( uint8_t * ioBuffer, uint32_t len, const uint32_t * pSeed );
-error_t Debug_PrintBytes( const uint8_t * inBuffer, uint32_t len, print_label_t label );
-error_t Debug_CheckWrongBits( const uint8_t * inBufferA, const uint8_t * inBufferB, uint32_t byteLen, print_label_t label );
-error_t Debug_WriteBytesToCsv( const uint8_t * inBuffer, uint32_t len, print_label_t label );
-# 18 "src\\debug.c" 2
+error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed );
+error_t Debug_PrintBytes( const byte_stream_t * inStream, print_label_t label );
+error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label );
+error_t Debug_WriteBytesToCsv( const byte_stream_t * inStream, print_label_t label );
+# 17 "src\\debug.c" 2
 
 
 
@@ -1707,32 +1720,36 @@ error_t Debug_WriteBytesToCsv( const uint8_t * inBuffer, uint32_t len, print_lab
 
 
 static 
-# 25 "src\\debug.c" 3 4
+# 24 "src\\debug.c" 3 4
       _Bool 
-# 25 "src\\debug.c"
+# 24 "src\\debug.c"
            IsSrcLenValid( uint32_t lenBy );
-# 42 "src\\debug.c"
-error_t Debug_GenerateRandomBytes( uint8_t * ioBuffer, uint32_t len, const uint32_t * pSeed )
+# 41 "src\\debug.c"
+error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed )
 {
  uint32_t j;
   error_t retErr = ERR_NONE;
 
-  if (
-# 47 "src\\debug.c" 3 4
-     ((void *)0) 
-# 47 "src\\debug.c"
-          != ioBuffer)
+  if ((
+# 46 "src\\debug.c" 3 4
+      ((void *)0) 
+# 46 "src\\debug.c"
+           != ioStream) && ((
+# 46 "src\\debug.c" 3 4
+                             ((void *)0) 
+# 46 "src\\debug.c"
+                                  != ioStream->pBuf)))
   {
     if (
-# 49 "src\\debug.c" 3 4
+# 48 "src\\debug.c" 3 4
        ((void *)0) 
-# 49 "src\\debug.c"
+# 48 "src\\debug.c"
             == pSeed)
     {
       srand(time(
-# 51 "src\\debug.c" 3 4
+# 50 "src\\debug.c" 3 4
                 ((void *)0)
-# 51 "src\\debug.c"
+# 50 "src\\debug.c"
                     ));
     }
     else
@@ -1740,9 +1757,9 @@ error_t Debug_GenerateRandomBytes( uint8_t * ioBuffer, uint32_t len, const uint3
       srand(*pSeed);
     }
 
-    for (j=0; j<len; j++)
+    for (j=0; j<ioStream->len; j++)
     {
-      ioBuffer[j] = (uint8_t)rand();
+      ioStream->pBuf[j] = (uint8_t)rand();
     }
   }
   else
@@ -1752,41 +1769,51 @@ error_t Debug_GenerateRandomBytes( uint8_t * ioBuffer, uint32_t len, const uint3
 
   return Error_HandleErr(retErr);
 }
-# 81 "src\\debug.c"
-error_t Debug_PrintBytes( const uint8_t * inBuffer, uint32_t len, print_label_t label )
+# 80 "src\\debug.c"
+error_t Debug_PrintBytes( const byte_stream_t * inStream, print_label_t label )
 {
   error_t retErr = ERR_NONE;
 
-  switch (label)
+  if ((
+# 84 "src\\debug.c" 3 4
+      ((void *)0) 
+# 84 "src\\debug.c"
+           != inStream) && (
+# 84 "src\\debug.c" 3 4
+                            ((void *)0) 
+# 84 "src\\debug.c"
+                                 != inStream->pBuf))
   {
-    case PID_TX_SRC:
-      printf(" * TX SOURCE BYTES (%d)\n\t",len);
-      break;
+    switch (label)
+    {
+      case PID_TX_SRC:
+        printf(" * TX SOURCE BYTES (%d)\n\t",inStream->len);
+        break;
 
-    case PID_RX_SRC:
-      printf(" * RX SOURCE BYTES (%d)\n\t",len);
-      break;
+      case PID_RX_SRC:
+        printf(" * RX SOURCE BYTES (%d)\n\t",inStream->len);
+        break;
 
-    case PID_TX_CNVCOD:
-      printf(" * TX CONVOLUTIONAL CODED BYTES (%d)\n\t",len);
-      break;
+      case PID_TX_CNVCOD:
+        printf(" * TX CONVOLUTIONAL CODED BYTES (%d)\n\t",inStream->len);
+        break;
 
-    case PID_RX_CNVCOD:
-      printf(" * RX CONVOLUTIONAL CODED BYTES (%d)\n\t",len);
-      break;
+      case PID_RX_CNVCOD:
+        printf(" * RX CONVOLUTIONAL CODED BYTES (%d)\n\t",inStream->len);
+        break;
 
-    default:
-      retErr = ERR_INV_PRINTID;
-      break;
-  }
+      default:
+        retErr = ERR_INV_PRINTID;
+        break;
+    }
 
 
  uint32_t j;
 
- for (j=0; j<len; j++)
+ for (j=0; j<inStream->len; j++)
   {
-  printf("%2X ",inBuffer[j]);
-  if (((20u -1) == (j%20u)) && (j<(len-1)))
+  printf("%2X ",inStream->pBuf[j]);
+  if (((20u -1) == (j%20u)) && (j<(inStream->len-1)))
     {
    printf("\n\t");
   }
@@ -1795,10 +1822,15 @@ error_t Debug_PrintBytes( const uint8_t * inBuffer, uint32_t len, print_label_t 
 
 
  printf("\n");
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
 
   return Error_HandleErr(retErr);
 }
-# 135 "src\\debug.c"
+# 141 "src\\debug.c"
 error_t Debug_PrintParameters( uint32_t len )
 {
   error_t retErr = ERR_NONE;
@@ -1823,7 +1855,7 @@ error_t Debug_PrintParameters( uint32_t len )
       printf("N/A");
     }
     printf("\n    * Modulation : \n");
-# 167 "src\\debug.c"
+# 173 "src\\debug.c"
     printf("\n\n");
   }
   else
@@ -1833,12 +1865,12 @@ error_t Debug_PrintParameters( uint32_t len )
 
   return Error_HandleErr(retErr);
 }
-# 188 "src\\debug.c"
-error_t Debug_CheckWrongBits( const uint8_t * inBufferA, const uint8_t * inBufferB, uint32_t byteLen, print_label_t label )
+# 193 "src\\debug.c"
+error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label )
 {
   error_t retErr = ERR_NONE;
+  const uint32_t bitLen = inStreamA->len<<3u;
   uint32_t bitErrCnt = 0;
-  uint32_t bitLen = byteLen<<3u;
   uint32_t minErrDist = bitLen;
   uint32_t curErrDist = 0;
   uint32_t j;
@@ -1846,50 +1878,66 @@ error_t Debug_CheckWrongBits( const uint8_t * inBufferA, const uint8_t * inBuffe
  uint8_t bitIdx;
 
  if ((
-# 199 "src\\debug.c" 3 4
+# 204 "src\\debug.c" 3 4
      ((void *)0) 
-# 199 "src\\debug.c"
-          != inBufferA) && (
-# 199 "src\\debug.c" 3 4
+# 204 "src\\debug.c"
+          != inStreamA) && (
+# 204 "src\\debug.c" 3 4
                             ((void *)0) 
-# 199 "src\\debug.c"
-                                 != inBufferB))
+# 204 "src\\debug.c"
+                                 != inStreamA->pBuf) && (
+# 204 "src\\debug.c" 3 4
+                                                         ((void *)0) 
+# 204 "src\\debug.c"
+                                                              != inStreamB) && (
+# 204 "src\\debug.c" 3 4
+                                                                                ((void *)0) 
+# 204 "src\\debug.c"
+                                                                                     != inStreamB->pBuf))
   {
-  for (j=0; j<bitLen; j++)
+    if (inStreamA->len == inStreamB->len)
     {
-   byteIdx = j>>3u;
-   bitIdx = (uint8_t)(j&((uint32_t) 0x0007));
-      curErrDist++;
-   if ((((inBufferA[byteIdx])>>((8u -1)-bitIdx))&((uint8_t) 0x01)) != (((inBufferB[byteIdx])>>((8u -1)-bitIdx))&((uint8_t) 0x01)))
+      for (j=0; j<bitLen; j++)
       {
-    bitErrCnt++;
-        if ((bitErrCnt > 1) && (curErrDist < minErrDist))
+        byteIdx = j>>3u;
+        bitIdx = (uint8_t)(j&((uint32_t) 0x0007));
+        curErrDist++;
+        if ((((inStreamA->pBuf[byteIdx])>>((8u -1)-bitIdx))&((uint8_t) 0x01)) !=
+            (((inStreamB->pBuf[byteIdx])>>((8u -1)-bitIdx))&((uint8_t) 0x01)))
         {
-          minErrDist = curErrDist;
+          bitErrCnt++;
+          if ((bitErrCnt > 1) && (curErrDist < minErrDist))
+          {
+            minErrDist = curErrDist;
+          }
+          curErrDist = 0;
         }
-        curErrDist = 0;
-   }
-  }
-    if (bitErrCnt < 2)
-    {
-      minErrDist = 0;
+      }
+      if (bitErrCnt < 2)
+      {
+        minErrDist = 0;
+      }
+
+      switch (label)
+      {
+        case PID_TX_CNVCOD:
+        case PID_RX_CNVCOD:
+          printf(" * Errors at convolutional encoding level: %u out of %u bits (MD = %u)\n\n",bitErrCnt,bitLen,minErrDist);
+          break;
+
+        case PID_TX_SRC:
+        case PID_RX_SRC:
+          printf(" * Errors at source level: %u out of %u bits (MD = %u)\n\n",bitErrCnt,bitLen,minErrDist);
+          break;
+
+        default:
+          retErr = ERR_INV_PRINTID;
+          break;
+      }
     }
-
-    switch (label)
+    else
     {
-      case PID_TX_CNVCOD:
-      case PID_RX_CNVCOD:
-        printf(" * Errors at convolutional encoding level: %u out of %u bits (MD = %u)\n\n",bitErrCnt,bitLen,minErrDist);
-        break;
-
-      case PID_TX_SRC:
-      case PID_RX_SRC:
-        printf(" * Errors at source level: %u out of %u bits (MD = %u)\n\n",bitErrCnt,bitLen,minErrDist);
-        break;
-
-      default:
-        retErr = ERR_INV_PRINTID;
-        break;
+      retErr = ERR_INV_BUFFER_SIZE;
     }
  }
   else
@@ -1899,22 +1947,26 @@ error_t Debug_CheckWrongBits( const uint8_t * inBufferA, const uint8_t * inBuffe
 
   return Error_HandleErr(retErr);
 }
-# 256 "src\\debug.c"
-error_t Debug_WriteBytesToCsv( const uint8_t * inBuffer, uint32_t len, print_label_t label )
+# 268 "src\\debug.c"
+error_t Debug_WriteBytesToCsv( const byte_stream_t * inStream, print_label_t label )
 {
   error_t retErr = ERR_NONE;
   FILE * fid = 
-# 259 "src\\debug.c" 3 4
+# 271 "src\\debug.c" 3 4
               ((void *)0)
-# 259 "src\\debug.c"
+# 271 "src\\debug.c"
                   ;
  uint32_t j;
 
-  if (
-# 262 "src\\debug.c" 3 4
-     ((void *)0) 
-# 262 "src\\debug.c"
-          != inBuffer)
+  if ((
+# 274 "src\\debug.c" 3 4
+      ((void *)0) 
+# 274 "src\\debug.c"
+           != inStream) && (
+# 274 "src\\debug.c" 3 4
+                            ((void *)0) 
+# 274 "src\\debug.c"
+                                 != inStream->pBuf))
   {
     switch (label)
     {
@@ -1932,15 +1984,15 @@ error_t Debug_WriteBytesToCsv( const uint8_t * inBuffer, uint32_t len, print_lab
     }
 
     if ((ERR_NONE == retErr) && (
-# 279 "src\\debug.c" 3 4
+# 291 "src\\debug.c" 3 4
                                 ((void *)0) 
-# 279 "src\\debug.c"
+# 291 "src\\debug.c"
                                      != fid))
     {
-      for (j=0; j<len; j++)
+      for (j=0; j<inStream->len; j++)
       {
-        fprintf(fid,"%d",inBuffer[j]);
-        if (j < len-1)
+        fprintf(fid,"%d",inStream->pBuf[j]);
+        if (j < inStream->len-1)
         {
           fprintf(fid,",");
         }
@@ -1955,21 +2007,21 @@ error_t Debug_WriteBytesToCsv( const uint8_t * inBuffer, uint32_t len, print_lab
 
   return retErr;
 }
-# 313 "src\\debug.c"
+# 325 "src\\debug.c"
 static 
-# 313 "src\\debug.c" 3 4
+# 325 "src\\debug.c" 3 4
       _Bool 
-# 313 "src\\debug.c"
+# 325 "src\\debug.c"
            IsSrcLenValid( uint32_t lenBy )
 {
   
-# 315 "src\\debug.c" 3 4
+# 327 "src\\debug.c" 3 4
  _Bool 
-# 315 "src\\debug.c"
+# 327 "src\\debug.c"
       bRet = 
-# 315 "src\\debug.c" 3 4
+# 327 "src\\debug.c" 3 4
              0
-# 315 "src\\debug.c"
+# 327 "src\\debug.c"
                   ;
   uint32_t lenBi = lenBy<<3u;
 
@@ -1977,9 +2029,9 @@ static
       (((lenBi/CC_RATE_23*(1+CC_RATE_23))%8u) == 0))
   {
     bRet = 
-# 321 "src\\debug.c" 3 4
+# 333 "src\\debug.c" 3 4
           1
-# 321 "src\\debug.c"
+# 333 "src\\debug.c"
               ;
   }
 

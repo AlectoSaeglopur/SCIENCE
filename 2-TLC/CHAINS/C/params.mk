@@ -30,6 +30,7 @@ COM_FIL = channel.c					\
 					convolutional.c		\
        		debug.c           \
 					error.c           \
+					memory.c					\
        		modulation.c
 
 

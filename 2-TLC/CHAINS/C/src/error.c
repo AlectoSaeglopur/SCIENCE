@@ -5,7 +5,7 @@
  * @ingroup TLC_CHAIN
  * @brief Error library
  * 
- * Library containing all error handling functions.
+ * Library containing error handling functions.
  */
 
 

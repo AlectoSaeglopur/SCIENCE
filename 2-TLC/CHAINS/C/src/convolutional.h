@@ -16,6 +16,7 @@
 /****************/
 
 #include "error.h"                                      /** - import error library */
+#include "memory.h"                                     /** - import memory library */
 #include "system.h"                                     /** - import system library */
 
 
@@ -152,8 +153,8 @@ typedef struct _cc_hard_dec_info_t
 
 error_t CnvCod_ListParameters( cc_par_t * ioParams );
 error_t CnvCod_GetConnectorPuncturationVectors( cc_encoder_info_t * ioInfo, const cc_par_t * inParams );
-error_t CnvCod_Encoder( const uint8_t * inBuffer, len_t inLenBy, uint8_t * outBuffer, len_t outLenBy, const cc_par_t * pParams, const cc_encoder_info_t * pEncInfo, len_t * pPunLenBy );
-error_t CnvCod_HardDecoder( uint8_t * inBuffer, len_t inLenBy, uint8_t * outBuffer, len_t outLenBy, const cc_par_t * pParams, const cc_encoder_info_t * pEncInfo );
+error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams, const cc_encoder_info_t * pEncInfo );
+error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams, const cc_encoder_info_t * pEncInfo );
 
 
 #endif

@@ -15,7 +15,9 @@
 /*** INCLUDES ***/
 /****************/
 
+#include "convolutional.h"                              /** - import convolutional library */
 #include "error.h"                                      /** - import error library */
+#include "memory.h"                                     /** - import memory library */
 #include "system.h"                                     /** - import system library */
 
 
@@ -25,7 +27,6 @@
 /***************/
 
 #define PID_NCOLS           20u                         //!< Number of columns per row to print before wrapping
-
 #define IS_CSV_ENABLED      (false)
 
 
@@ -51,10 +52,10 @@ typedef enum
 /******************/
 
 error_t Debug_PrintParameters( len_t len );
-error_t Debug_GenerateRandomBytes( uint8_t * ioBuffer, len_t len, const uint32_t * pSeed );
-error_t Debug_PrintBytes( const uint8_t * inBuffer, len_t len, print_label_t label );
-error_t Debug_CheckWrongBits( const uint8_t * inBufferA, const uint8_t * inBufferB, len_t byteLen, print_label_t label );
-error_t Debug_WriteBytesToCsv( const uint8_t * inBuffer, len_t len, print_label_t label );
+error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed );
+error_t Debug_PrintBytes( const byte_stream_t * inStream, print_label_t label );
+error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label );
+error_t Debug_WriteBytesToCsv( const byte_stream_t * inStream, print_label_t label );
 
 
 #endif

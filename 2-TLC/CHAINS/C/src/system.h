@@ -5,7 +5,7 @@
  * @ingroup TLC_CHAIN
  * @brief System header
  * 
- * Header file containing all common libraries and definitions for project files.
+ * Header file containing project common libraries and definitions.
  */
 
 
@@ -27,14 +27,6 @@
 
 
 
-/****************/
-/*** TYPEDEFS ***/
-/****************/
-
-#define len_t                   uint32_t              //!< bit/byte buffer length type
-
-
-
 /***************/
 /*** DEFINES ***/
 /***************/
@@ -49,13 +41,20 @@
 
 
 
+/****************/
+/*** TYPEDEFS ***/
+/****************/
+
+#define len_t                   uint32_t              //!< bit/byte buffer length type
 
 
-typedef struct _byte_buf_t
-{
-  uint8_t * pBuf;
-  len_t len;
-} byte_buf_t;
+
+
+
+
+
+
+
 
 
 

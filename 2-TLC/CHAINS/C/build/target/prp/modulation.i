@@ -1549,14 +1549,6 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 # 931 "c:\\mingw\\include\\math.h" 3
 
 # 27 "src\\system.h" 2
-# 54 "src\\system.h"
-
-# 54 "src\\system.h"
-typedef struct _byte_buf_t
-{
-  uint8_t * pBuf;
-  uint32_t len;
-} byte_buf_t;
 # 19 "src\\error.h" 2
 
 
@@ -1565,6 +1557,8 @@ typedef struct _byte_buf_t
 
 
 
+
+# 26 "src\\error.h"
 typedef enum
 {
   ERR_NONE = 0,
@@ -1573,6 +1567,7 @@ typedef enum
   ERR_INV_CNVCOD_RATE,
   ERR_INV_CNVCOD_KLEN,
   ERR_INV_BUFFER_SIZE,
+  ERR_INV_DYNAMIC_ALLOC,
 
   ERR_NUM
 } error_t;
@@ -1586,7 +1581,7 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 62 "src\\error.h"
+# 63 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 19 "src\\modulation.h" 2
 # 27 "src\\modulation.h"

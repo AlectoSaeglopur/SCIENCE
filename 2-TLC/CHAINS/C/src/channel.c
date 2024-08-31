@@ -5,7 +5,7 @@
  * @ingroup TLC_CHAIN
  * @brief Channel library
  * 
- * c
+* Library containing channel functions.
  */
 
 
@@ -22,43 +22,56 @@
 /************************/
 
 /**
- * @brief Function for simulating a Binary Symmetric Channel (BSC).
- * @param InByt : Input byte stream before channel.
- * @param OutByt : Output byte stream after channel.
- * @param Peb : Channel error probability.
- * @return none
+ * @brief Function for applying Binary Symmetric Channel (BSC) corruption.
+ * 
+ * @param inStream : input stream
+ * @param outStream : output stream
+ * @param Peb : bit error probability
+ * @param pSeed : poiter to seed value
+ * 
+ * @return error ID
  */
-error_t Channel_BSC( const uint8_t * inBuffer, uint8_t *outBuffer, uint32_t ioLen, float Peb, const uint32_t * pSeed )
+error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, float Peb, const uint32_t * pSeed )
 {
   error_t retErr = ERR_NONE;
   uint32_t j;
 	uint32_t byteIdx;
 	uint8_t bitIdx;
 
-	if ((NULL != inBuffer) && (NULL != outBuffer))
+	if ((NULL != inStream) && (NULL != inStream->pBuf) && (NULL != outStream) && (NULL != outStream->pBuf))
   {
-		memcpy(outBuffer,inBuffer,ioLen);
-    if (NULL == pSeed)
+    if (inStream->len == outStream->len)
     {
-      srand(time(NULL));															/** link random seed to current time */
+      memcpy(outStream->pBuf,inStream->pBuf,inStream->len);
+      if (NULL == pSeed)
+      {
+        srand(time(NULL));															  /** link random seed to current time */
+      }
+      else
+      {
+        srand(*pSeed);                                    /** link random seed to provided argument */
+      }
+      for (j=0; j<inStream->len; j++)
+      {
+        if ((float)rand()/RAND_MAX < Peb)
+        {
+          byteIdx = (j>>BY2BI_SHIFT);
+          bitIdx  = BITIDX_1LAST-(uint8_t)(j&LSBYTE_MASK);
+          if (outStream->pBuf[byteIdx] & (LSBIT_MASK<<bitIdx))
+          {
+            outStream->pBuf[byteIdx] &= ~(LSBIT_MASK<<bitIdx);
+          }
+          else
+          {
+            outStream->pBuf[byteIdx] |= (LSBIT_MASK<<bitIdx);
+          }
+        }
+      }
     }
     else
     {
-      srand(*pSeed);                                  /** link random seed to provided argument */
+      retErr = ERR_INV_BUFFER_SIZE;
     }
-		for (j=0; j<ioLen; j++)
-    {
-			if (((float)rand()/RAND_MAX) < Peb)
-      {
-				byteIdx = (j>>BY2BI_SHIFT);
-				bitIdx  = BITIDX_1LAST-(uint8_t)(j&LSBYTE_MASK);
-				if ( outBuffer[byteIdx] & (LSBIT_MASK<<bitIdx) ){
-					outBuffer[byteIdx] &= ~(LSBIT_MASK<<bitIdx);
-				} else {
-					outBuffer[byteIdx] |= (LSBIT_MASK<<bitIdx);
-				}
-			}
-		}
 	}
   else
   {

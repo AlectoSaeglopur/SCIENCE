@@ -1549,14 +1549,6 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 # 931 "c:\\mingw\\include\\math.h" 3
 
 # 27 "src\\system.h" 2
-# 54 "src\\system.h"
-
-# 54 "src\\system.h"
-typedef struct _byte_buf_t
-{
-  uint8_t * pBuf;
-  uint32_t len;
-} byte_buf_t;
 # 19 "src\\error.h" 2
 
 
@@ -1565,6 +1557,8 @@ typedef struct _byte_buf_t
 
 
 
+
+# 26 "src\\error.h"
 typedef enum
 {
   ERR_NONE = 0,
@@ -1573,6 +1567,7 @@ typedef enum
   ERR_INV_CNVCOD_RATE,
   ERR_INV_CNVCOD_KLEN,
   ERR_INV_BUFFER_SIZE,
+  ERR_INV_DYNAMIC_ALLOC,
 
   ERR_NUM
 } error_t;
@@ -1586,10 +1581,27 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 62 "src\\error.h"
+# 63 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 19 "src\\channel.h" 2
-# 27 "src\\channel.h"
+# 1 "src\\memory.h" 1
+# 28 "src\\memory.h"
+typedef struct _byte_stream_t
+{
+  uint8_t * pBuf;
+  uint32_t len;
+} byte_stream_t;
+
+
+
+
+
+
+
+error_t Memory_AllocateByteBuffer( byte_stream_t * ioStream, uint32_t size );
+error_t Memory_FreeByteBuffer( byte_stream_t * ioStream );
+# 20 "src\\channel.h" 2
+# 28 "src\\channel.h"
 typedef enum
 {
   CHAN_BSC = 0,
@@ -1597,11 +1609,11 @@ typedef enum
 
   CHAN_NUM
 } channel_t;
-# 51 "src\\channel.h"
-error_t Channel_BSC( const uint8_t * inBuffer, uint8_t *outBuffer, uint32_t ioLen, float Peb, const uint32_t * pSeed );
+# 52 "src\\channel.h"
+error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t * outStream, float Peb, const uint32_t * pSeed );
 # 17 "src\\channel.c" 2
-# 31 "src\\channel.c"
-error_t Channel_BSC( const uint8_t * inBuffer, uint8_t *outBuffer, uint32_t ioLen, float Peb, const uint32_t * pSeed )
+# 34 "src\\channel.c"
+error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, float Peb, const uint32_t * pSeed )
 {
   error_t retErr = ERR_NONE;
   uint32_t j;
@@ -1609,49 +1621,67 @@ error_t Channel_BSC( const uint8_t * inBuffer, uint8_t *outBuffer, uint32_t ioLe
  uint8_t bitIdx;
 
  if ((
-# 38 "src\\channel.c" 3 4
-     ((void *)0) 
-# 38 "src\\channel.c"
-          != inBuffer) && (
-# 38 "src\\channel.c" 3 4
-                           ((void *)0) 
-# 38 "src\\channel.c"
-                                != outBuffer))
-  {
-  memcpy(outBuffer,inBuffer,ioLen);
-    if (
 # 41 "src\\channel.c" 3 4
-       ((void *)0) 
+     ((void *)0) 
 # 41 "src\\channel.c"
-            == pSeed)
+          != inStream) && (
+# 41 "src\\channel.c" 3 4
+                           ((void *)0) 
+# 41 "src\\channel.c"
+                                != inStream->pBuf) && (
+# 41 "src\\channel.c" 3 4
+                                                       ((void *)0) 
+# 41 "src\\channel.c"
+                                                            != outStream) && (
+# 41 "src\\channel.c" 3 4
+                                                                              ((void *)0) 
+# 41 "src\\channel.c"
+                                                                                   != outStream->pBuf))
+  {
+    if (inStream->len == outStream->len)
     {
-      srand(time(
-# 43 "src\\channel.c" 3 4
-                ((void *)0)
-# 43 "src\\channel.c"
-                    ));
+      memcpy(outStream->pBuf,inStream->pBuf,inStream->len);
+      if (
+# 46 "src\\channel.c" 3 4
+         ((void *)0) 
+# 46 "src\\channel.c"
+              == pSeed)
+      {
+        srand(time(
+# 48 "src\\channel.c" 3 4
+                  ((void *)0)
+# 48 "src\\channel.c"
+                      ));
+      }
+      else
+      {
+        srand(*pSeed);
+      }
+      for (j=0; j<inStream->len; j++)
+      {
+        if ((float)rand()/
+# 56 "src\\channel.c" 3
+                         0x7FFF 
+# 56 "src\\channel.c"
+                                  < Peb)
+        {
+          byteIdx = (j>>3u);
+          bitIdx = (8u -1)-(uint8_t)(j&((uint32_t) 0x0007));
+          if (outStream->pBuf[byteIdx] & (((uint8_t) 0x01)<<bitIdx))
+          {
+            outStream->pBuf[byteIdx] &= ~(((uint8_t) 0x01)<<bitIdx);
+          }
+          else
+          {
+            outStream->pBuf[byteIdx] |= (((uint8_t) 0x01)<<bitIdx);
+          }
+        }
+      }
     }
     else
     {
-      srand(*pSeed);
+      retErr = ERR_INV_BUFFER_SIZE;
     }
-  for (j=0; j<ioLen; j++)
-    {
-   if (((float)rand()/
-# 51 "src\\channel.c" 3
-                     0x7FFF
-# 51 "src\\channel.c"
-                             ) < Peb)
-      {
-    byteIdx = (j>>3u);
-    bitIdx = (8u -1)-(uint8_t)(j&((uint32_t) 0x0007));
-    if ( outBuffer[byteIdx] & (((uint8_t) 0x01)<<bitIdx) ){
-     outBuffer[byteIdx] &= ~(((uint8_t) 0x01)<<bitIdx);
-    } else {
-     outBuffer[byteIdx] |= (((uint8_t) 0x01)<<bitIdx);
-    }
-   }
-  }
  }
   else
   {

@@ -35,7 +35,7 @@ static bool IsRateValid( cc_rate_t val );
 static bool IsKlenValid( cc_klen_t val );
 static uint8_t ComputeEncBit( uint8_t cState, uint8_t cvVal, cc_klen_t kLen );
 static error_t ComputeTrellisDiagram( cc_trellis_t * ioTrellisDiagr, const uint8_t * conVect, const cc_par_t * pParams );
-static error_t HardDepuncturer( uint8_t * IoBuffer, len_t inLenBi, len_t outLenBi, const uint8_t * punctVect, const cc_par_t * pParams );
+static error_t HardDepuncturer( uint8_t * ioBuffer, len_t inLenBi, len_t outLenBi, const uint8_t * punctVect, const cc_par_t * pParams );
 static uint8_t CountByteOnes( uint8_t InByte );
 static uint8_t FindMinSurvPathHard( const cc_hard_dec_info_t * inPaths );
 
@@ -137,59 +137,56 @@ error_t CnvCod_GetConnectorPuncturationVectors( cc_encoder_info_t * ioInfo, cons
 
 
 /**
- * @brief Function for convolutional encoding a byte stream.
+ * @brief Function for convolutional encoding (including puncturing).
  * 
- * @param inBuffer : input buffer
- * @param inLenBy : input buffer length [B]
- * @param outBuffer : output buffer
- * @param outLenBy : output buffer length [B]
+ * @param inStream : input/source stream
+ * @param outStream : output/encoded stream
  * @param pParams : pointer to parameters structure
  * @param pEncInfo : pointer to encoder connector and puncturation structure
- * @param pPunLenBy : pointer to output punctured length [B]
  * 
  * @return errod ID
  */
-error_t CnvCod_Encoder( const uint8_t * inBuffer, len_t inLenBy, uint8_t * outBuffer, len_t outLenBy, const cc_par_t * pParams, const cc_encoder_info_t * pEncInfo, len_t * pPunLenBy )
+error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams, const cc_encoder_info_t * pEncInfo )
 {
   error_t retErr = ERR_NONE;
-  uint32_t unpLenBy = inLenBy*CC_NBRANCHES;                                         /** unpunctured coded length [B] */
-  uint32_t unpLenBi = unpLenBy<<BY2BI_SHIFT;                                        /** unpunctured coded length [b] */
-  uint32_t inLenBi = inLenBy<<BY2BI_SHIFT;                                          /** input buffer length [b] */
-  uint32_t wrIdx = 0;
-  uint32_t byteIdx;
-  uint32_t j;
+  const len_t unpLenBy = CC_NBRANCHES*inStream->len;                                /** unpunctured coded length [B] */
+  const len_t unpLenBi = unpLenBy<<BY2BI_SHIFT;                                     /** unpunctured coded length [b] */
+  const len_t inLenBi = inStream->len<<BY2BI_SHIFT;                                 /** input buffer length [b] */
+  const len_t punLenBi = inLenBi*(pParams->cRate+1)/pParams->cRate;                 /** expected punctured coded length [b] */
+  len_t wrIdx = 0;
+  len_t byteIdx;
+  len_t j;
   uint8_t encState = 0;
   uint8_t bitIdx;
   uint8_t rdBit;
 
-  if ((NULL != inBuffer) || (NULL != outBuffer) || (NULL != pParams) || (NULL != pEncInfo))
+  if ((NULL != inStream) && (NULL != inStream->pBuf) && (NULL != outStream) &&
+      (NULL != outStream->pBuf) && (NULL != pParams) && (NULL != pEncInfo))
   {
-    if (outLenBy == unpLenBy)
+    if (unpLenBy == outStream->len)
     {
-      memset(outBuffer,0,unpLenBy);                                                 /** clear output buffer content */
-
       for (j=0; j<inLenBi; j++)
       {
         byteIdx = j>>BY2BI_SHIFT;                                                   /** update byte index for reading input buffer */
         bitIdx = (uint8_t)(j&LSBYTE_MASK);                                          /** update bit index for reading input buffer */
         encState >>= 1;
-        encState |= ((inBuffer[byteIdx]>>(BITIDX_1LAST-bitIdx))&LSBIT_MASK)
+        encState |= ((inStream->pBuf[byteIdx]>>(BITIDX_1LAST-bitIdx))&LSBIT_MASK)
           <<(pParams->kLen-1);                                                      /** update encoder state with latest input bit */
         byteIdx = (CC_NBRANCHES*j)>>BY2BI_SHIFT;                                    /** update byte index for output stream writing */
         bitIdx = (CC_NBRANCHES*j)&LSBYTE_MASK;                                      /** update bit index for output stream writing */
-        outBuffer[byteIdx] |= (ComputeEncBit(encState,pEncInfo->connVect[0],
+        outStream->pBuf[byteIdx] |= (ComputeEncBit(encState,pEncInfo->connVect[0],
           pParams->kLen)<<(BITIDX_1LAST-bitIdx));
-        outBuffer[byteIdx] |= (ComputeEncBit(encState,pEncInfo->connVect[1],
+        outStream->pBuf[byteIdx] |= (ComputeEncBit(encState,pEncInfo->connVect[1],
           pParams->kLen)<<(BITIDX_2LAST-bitIdx));
       }
-      *pPunLenBy = outLenBy;
+
       if (CC_RATE_12 != pParams->cRate)
       {                                                                              /**  apply puncturing if selected Rc is higher than 1/2 */
         for (j=0; j<unpLenBi; j++)
         {
           byteIdx = j>>BY2BI_SHIFT;
           bitIdx = j&LSBYTE_MASK;
-          rdBit = (outBuffer[byteIdx]>>(BITIDX_1LAST-bitIdx))&LSBIT_MASK;           /** j-th bit of unpunctured output stream */
+          rdBit = (outStream->pBuf[byteIdx]>>(BITIDX_1LAST-bitIdx))&LSBIT_MASK;     /** j-th bit of unpunctured output stream */
           if (pEncInfo->puncVect[j%(CC_NBRANCHES*pParams->cRate)])                  /** check if puncturation has to applied now */
           {
             byteIdx = wrIdx>>BY2BI_SHIFT;
@@ -197,15 +194,22 @@ error_t CnvCod_Encoder( const uint8_t * inBuffer, len_t inLenBy, uint8_t * outBu
             wrIdx++;
             if (0 == rdBit)
             {
-              outBuffer[byteIdx] &= ~(LSBIT_MASK<<bitIdx);
+              outStream->pBuf[byteIdx] &= ~(LSBIT_MASK<<bitIdx);
             }
             else
             {
-              outBuffer[byteIdx] |= (LSBIT_MASK<<bitIdx);
+              outStream->pBuf[byteIdx] |= (LSBIT_MASK<<bitIdx);
             }
           }
         }
-        *pPunLenBy = wrIdx>>BY2BI_SHIFT;
+        if (punLenBi == wrIdx)                                                      /** check if computed and theoretical punctured length match */
+        {
+          outStream->len = wrIdx>>BY2BI_SHIFT;                                      /** update output buffer length (from default unpuntured one to actual punctured one) */
+        }
+        else
+        {
+          retErr = ERR_INV_BUFFER_SIZE;
+        }
       }
     }
     else
@@ -223,24 +227,29 @@ error_t CnvCod_Encoder( const uint8_t * inBuffer, len_t inLenBy, uint8_t * outBu
 
 
 /**
- * @brief Function for convolutionally decoding a byte stream (and depuncturing as well) by implementing Viterbi hard algorithm.
- * @param EncByt : Input encoded byte stream.
- * @param DecByt : Output decoded byte stream.
- * @param CodeDiagr : Trellis diagram.
- * @param PunctVect : Puncturing vector.
+ * @brief Function for convolutional hard-decoding by implementing Viterbi algorithm (including depuncturing).
+ * 
+ * @param inStream : input/encoded stream
+ * @param outStream : output/decoded stream
+ * @param pParams : coding parameters
+ * @param pEncInfo : encoder info
+ * 
  * @return error ID
  */
-error_t CnvCod_HardDecoder( uint8_t * inBuffer, len_t inLenBy, uint8_t * outBuffer, len_t outLenBy, const cc_par_t * pParams, const cc_encoder_info_t * pEncInfo )
+error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams, const cc_encoder_info_t * pEncInfo )
 {
   error_t retErr = ERR_NONE;
+  const len_t outLenBi = outStream->len<<BY2BI_SHIFT;
+  const len_t inLenBi = inStream->len<<BY2BI_SHIFT;
+  const len_t unpLenBy = CC_NBRANCHES*inStream->len*pParams->cRate/(pParams->cRate+1);
+  const len_t unpLenBi = unpLenBy<<BY2BI_SHIFT;
   cc_hard_dec_info_t curPaths = {.iter={0}, .dist={0}, .path={{0}}};
   cc_hard_dec_info_t prevPaths;
   cc_trellis_t trDiagr;
-  len_t outLenBi = outLenBy<<BY2BI_SHIFT;
-  len_t inLenBi = inLenBy<<BY2BI_SHIFT;
   uint32_t byteIdx, inIdx, wrIdx, finIdx;
   uint32_t candDist;
   uint32_t i;
+  uint8_t tmpStream[unpLenBy];
   uint8_t nextSt, minDistSt, depSt, arrSt;
   uint8_t bitIdx, hypIdx;
   uint8_t cycleBits;
@@ -248,10 +257,11 @@ error_t CnvCod_HardDecoder( uint8_t * inBuffer, len_t inLenBy, uint8_t * outBuff
   uint8_t erasMask;
   uint8_t j;
   
-  if ((NULL != inBuffer) && (NULL != outBuffer))
+  if ((NULL != inStream) && (NULL != inStream->pBuf) && (NULL != outStream) && (NULL != outStream->pBuf))
   {
     ComputeTrellisDiagram(&trDiagr,pEncInfo->connVect,pParams);                                 /** compute convolutional decoder trellis diagram */
     curPaths.iter[0] = 1;                                                                       /** enable only all-zero state at the beginning */
+    memcpy(tmpStream,inStream->pBuf,inStream->len);
 
     if (CC_RATE_12 == pParams->cRate)                                                           /** check if depuncturing is needed */
     {
@@ -259,7 +269,7 @@ error_t CnvCod_HardDecoder( uint8_t * inBuffer, len_t inLenBy, uint8_t * outBuff
     }
     else
     {
-      HardDepuncturer(inBuffer,inLenBi,outLenBi*CC_NBRANCHES,pEncInfo->puncVect,pParams);
+      HardDepuncturer(tmpStream,inLenBi,unpLenBi,pEncInfo->puncVect,pParams);
     }
 
     for (i=CC_NBRANCHES; i<outLenBi+CC_NBRANCHES; i++)
@@ -267,7 +277,7 @@ error_t CnvCod_HardDecoder( uint8_t * inBuffer, len_t inLenBy, uint8_t * outBuff
       inIdx = CC_NBRANCHES*(i-CC_NBRANCHES);
       byteIdx = (inIdx>>BY2BI_SHIFT);
       bitIdx = (uint8_t)(inIdx&LSBYTE_MASK);
-      cycleBits = (inBuffer[byteIdx]>>(BITIDX_2LAST-bitIdx))&CC_INMASK;                         /** current pair of input bits */
+      cycleBits = (tmpStream[byteIdx]>>(BITIDX_2LAST-bitIdx))&CC_INMASK;                        /** current pair of input bits */
       prevPaths = curPaths;
       if (CC_RATE_12 != pParams->cRate)                                                         /** retrieve erasure mask in case depuncturing has been applied */
       {
@@ -352,11 +362,11 @@ error_t CnvCod_HardDecoder( uint8_t * inBuffer, len_t inLenBy, uint8_t * outBuff
           bitIdx = (uint8_t)((outLenBi-finIdx+wrIdx)&LSBYTE_MASK);
           if (trDiagr.trSt[depSt].nextSt[0] == arrSt)
           {
-            outBuffer[byteIdx] &= ~(LSBIT_MASK<<(BITIDX_1LAST-bitIdx));                         /** set output bit to '0' */
+            outStream->pBuf[byteIdx] &= ~(LSBIT_MASK<<(BITIDX_1LAST-bitIdx));                         /** set output bit to '0' */
           }
           else
           {
-            outBuffer[byteIdx] |= (LSBIT_MASK<<(BITIDX_1LAST-bitIdx));                          /** set output bit to '1' */
+            outStream->pBuf[byteIdx] |= (LSBIT_MASK<<(BITIDX_1LAST-bitIdx));                          /** set output bit to '1' */
           }
         }
       }
@@ -369,11 +379,11 @@ error_t CnvCod_HardDecoder( uint8_t * inBuffer, len_t inLenBy, uint8_t * outBuff
         bitIdx = (uint8_t)((i-CC_MEM_DIM-1)&LSBYTE_MASK);
         if (trDiagr.trSt[depSt].nextSt[0] == arrSt)
         {
-          outBuffer[byteIdx] &= ~(LSBIT_MASK<<(BITIDX_1LAST-bitIdx));
+          outStream->pBuf[byteIdx] &= ~(LSBIT_MASK<<(BITIDX_1LAST-bitIdx));
         }
         else
         {
-          outBuffer[byteIdx] |= (LSBIT_MASK<<(BITIDX_1LAST-bitIdx));
+          outStream->pBuf[byteIdx] |= (LSBIT_MASK<<(BITIDX_1LAST-bitIdx));
         }
         for (j=0; j<CC_NTRELSTATES; j++)
         {
@@ -531,14 +541,15 @@ static error_t ComputeTrellisDiagram( cc_trellis_t * ioTrellisDiagr, const uint8
 /**
  * @brief Function to depuncture a byte stream to base code rate.
  * 
- * @param IoBuffer : I/O buffer
- * @param inLenBi : input length [b]
- * @param outLenBi : output length [b]
- * @param PunctVect : Puncturing vector.
+ * @param ioBuffer : i/o buffer
+ * @param inLenBi : input/punctured length [b]
+ * @param outLenBi : output/unpunctured length [b]
+ * @param punctVect : puncturing vector
+ * @param pParams : coding parameters
  * 
  * @return error ID
  */
-static error_t HardDepuncturer( uint8_t * IoBuffer, len_t inLenBi, len_t outLenBi, const uint8_t * punctVect, const cc_par_t * pParams )
+static error_t HardDepuncturer( uint8_t * ioBuffer, len_t inLenBi, len_t outLenBi, const uint8_t * punctVect, const cc_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
   uint32_t rdIdx = inLenBi-1;                                             /** final bit index of input stream length */
@@ -548,7 +559,7 @@ static error_t HardDepuncturer( uint8_t * IoBuffer, len_t inLenBi, len_t outLenB
   uint8_t bitIdx;
   uint8_t rdBit;
 
-  if (NULL != IoBuffer)
+  if (NULL != ioBuffer)
   {
     for (j=outLenBi; j>0; j--)
     {
@@ -556,7 +567,7 @@ static error_t HardDepuncturer( uint8_t * IoBuffer, len_t inLenBi, len_t outLenB
       {
         byteIdx = rdIdx>>BY2BI_SHIFT;
         bitIdx = (uint8_t)(BITIDX_1LAST-(rdIdx&LSBYTE_MASK));
-        rdBit = IoBuffer[byteIdx]&(LSBIT_MASK<<bitIdx);
+        rdBit = ioBuffer[byteIdx]&(LSBIT_MASK<<bitIdx);
         rdIdx--;
       }
       else
@@ -575,11 +586,11 @@ static error_t HardDepuncturer( uint8_t * IoBuffer, len_t inLenBi, len_t outLenB
       bitIdx = (uint8_t)(BITIDX_1LAST-((j-1)&LSBYTE_MASK));
       if (0 == rdBit)
       {
-        IoBuffer[byteIdx] &= ~(LSBIT_MASK<<bitIdx);                       /** set output bit to '0' */
+        ioBuffer[byteIdx] &= ~(LSBIT_MASK<<bitIdx);                       /** set output bit to '0' */
       }
       else
       {
-        IoBuffer[byteIdx] |= (LSBIT_MASK<<bitIdx);                        /** set output bit to '1' */
+        ioBuffer[byteIdx] |= (LSBIT_MASK<<bitIdx);                        /** set output bit to '1' */
       }
     }
   }

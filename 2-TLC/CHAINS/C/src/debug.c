@@ -13,7 +13,6 @@
 /*** INCLUDES ***/
 /****************/
 
-#include "convolutional.h"
 #include "debug.h"
 
 
@@ -33,18 +32,18 @@ static bool IsSrcLenValid( len_t lenBy );
 /**
  * @brief <i> Function for filling input buffer with random bytes. </i>
  * 
- * @param ioBuffer: i/o buffer to be filled
+ * @param ioStream: i/o stream to be filled
  * @param len: i/o buffer length [B]
  * @param pSeed: poiter to seed value
  * 
  * @return error ID
  */
-error_t Debug_GenerateRandomBytes( uint8_t * ioBuffer, len_t len, const uint32_t * pSeed )
+error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed )
 {
 	uint32_t j;
   error_t retErr = ERR_NONE;
 
-  if (NULL != ioBuffer)
+  if ((NULL != ioStream) && ((NULL != ioStream->pBuf)))
   {
     if (NULL == pSeed)
     {
@@ -55,9 +54,9 @@ error_t Debug_GenerateRandomBytes( uint8_t * ioBuffer, len_t len, const uint32_t
       srand(*pSeed);                                  /** link random seed to provided argument */
     }
     
-    for (j=0; j<len; j++)
+    for (j=0; j<ioStream->len; j++)
     {
-      ioBuffer[j] = (uint8_t)rand();
+      ioStream->pBuf[j] = (uint8_t)rand();
     }
   }
   else
@@ -78,40 +77,42 @@ error_t Debug_GenerateRandomBytes( uint8_t * ioBuffer, len_t len, const uint32_t
  * 
  * @return error ID
  */
-error_t Debug_PrintBytes( const uint8_t * inBuffer, len_t len, print_label_t label )
+error_t Debug_PrintBytes( const byte_stream_t * inStream, print_label_t label )
 {
   error_t retErr = ERR_NONE;
 
-  switch (label)
+  if ((NULL != inStream) && (NULL != inStream->pBuf))
   {
-    case PID_TX_SRC:
-      printf(" * TX SOURCE BYTES (%d)\n\t",len);
-      break;
+    switch (label)
+    {
+      case PID_TX_SRC:
+        printf(" * TX SOURCE BYTES (%d)\n\t",inStream->len);
+        break;
 
-    case PID_RX_SRC:
-      printf(" * RX SOURCE BYTES (%d)\n\t",len);
-      break;
+      case PID_RX_SRC:
+        printf(" * RX SOURCE BYTES (%d)\n\t",inStream->len);
+        break;
 
-    case PID_TX_CNVCOD:
-      printf(" * TX CONVOLUTIONAL CODED BYTES (%d)\n\t",len);
-      break;
+      case PID_TX_CNVCOD:
+        printf(" * TX CONVOLUTIONAL CODED BYTES (%d)\n\t",inStream->len);
+        break;
 
-    case PID_RX_CNVCOD:
-      printf(" * RX CONVOLUTIONAL CODED BYTES (%d)\n\t",len);
-      break;
+      case PID_RX_CNVCOD:
+        printf(" * RX CONVOLUTIONAL CODED BYTES (%d)\n\t",inStream->len);
+        break;
 
-    default:
-      retErr = ERR_INV_PRINTID;
-      break;
-  }
+      default:
+        retErr = ERR_INV_PRINTID;
+        break;
+    }
 
 #ifdef VERBOSE
-	uint32_t j;
+	len_t j;
 
-	for (j=0; j<len; j++)
+	for (j=0; j<inStream->len; j++)
   {
-		printf("%2X ",inBuffer[j]);
-		if (((PID_NCOLS-1) == (j%PID_NCOLS)) && (j<(len-1)))
+		printf("%2X ",inStream->pBuf[j]);
+		if (((PID_NCOLS-1) == (j%PID_NCOLS)) && (j<(inStream->len-1)))
     {
 			printf("\n\t");
 		}
@@ -120,6 +121,11 @@ error_t Debug_PrintBytes( const uint8_t * inBuffer, len_t len, print_label_t lab
 #endif
 
 	printf("\n");
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
 
   return Error_HandleErr(retErr);
 }
@@ -176,63 +182,70 @@ error_t Debug_PrintParameters( len_t len )
 
 
 /**
- * @brief Function for estimating and printing on terminal the number of mismatched bits between two byte buffers.
+ * @brief Function for estimating and printing on terminal the number of mismatched bits between two byte streams.
  * 
- * @param inBufferA : 1st input buffer
- * @param Stream_B : 2nd input buffer
- * @param len : buffers length [B]
+ * @param inStreamA : 1st input stream
+ * @param inStreamB : 2nd input stream
  * @param label : label ID
  * 
  * @return error ID
  */
-error_t Debug_CheckWrongBits( const uint8_t * inBufferA, const uint8_t * inBufferB, len_t byteLen, print_label_t label )
+error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label )
 {
   error_t retErr = ERR_NONE;
+  const len_t bitLen = inStreamA->len<<BY2BI_SHIFT;
   len_t bitErrCnt = 0;
-  len_t bitLen = byteLen<<BY2BI_SHIFT;
   len_t minErrDist = bitLen;
   len_t curErrDist = 0;
   len_t j;
   len_t byteIdx;
 	uint8_t bitIdx;
 
-	if ((NULL != inBufferA) && (NULL != inBufferB))
+	if ((NULL != inStreamA) && (NULL != inStreamA->pBuf) && (NULL != inStreamB) && (NULL != inStreamB->pBuf))
   {
-		for (j=0; j<bitLen; j++)
+    if (inStreamA->len == inStreamB->len)
     {
-			byteIdx = j>>BY2BI_SHIFT;
-			bitIdx = (uint8_t)(j&LSBYTE_MASK);
-      curErrDist++;
-			if ((((inBufferA[byteIdx])>>(BITIDX_1LAST-bitIdx))&LSBIT_MASK) != (((inBufferB[byteIdx])>>(BITIDX_1LAST-bitIdx))&LSBIT_MASK))
+      for (j=0; j<bitLen; j++)
       {
-				bitErrCnt++;
-        if ((bitErrCnt > 1) && (curErrDist < minErrDist))
+        byteIdx = j>>BY2BI_SHIFT;
+        bitIdx = (uint8_t)(j&LSBYTE_MASK);
+        curErrDist++;
+        if ((((inStreamA->pBuf[byteIdx])>>(BITIDX_1LAST-bitIdx))&LSBIT_MASK) !=
+            (((inStreamB->pBuf[byteIdx])>>(BITIDX_1LAST-bitIdx))&LSBIT_MASK))
         {
-          minErrDist = curErrDist;
+          bitErrCnt++;
+          if ((bitErrCnt > 1) && (curErrDist < minErrDist))
+          {
+            minErrDist = curErrDist;
+          }
+          curErrDist = 0;
         }
-        curErrDist = 0;
-			}
-		}
-    if (bitErrCnt < 2)
-    {
-      minErrDist = 0;
+      }
+      if (bitErrCnt < 2)
+      {
+        minErrDist = 0;
+      }
+
+      switch (label)
+      {
+        case PID_TX_CNVCOD:
+        case PID_RX_CNVCOD:
+          printf(" * Errors at convolutional encoding level: %u out of %u bits (MD = %u)\n\n",bitErrCnt,bitLen,minErrDist);
+          break;
+
+        case PID_TX_SRC:
+        case PID_RX_SRC:
+          printf(" * Errors at source level: %u out of %u bits (MD = %u)\n\n",bitErrCnt,bitLen,minErrDist);
+          break;
+
+        default:
+          retErr = ERR_INV_PRINTID;
+          break;
+      }
     }
-
-    switch (label)
+    else
     {
-      case PID_TX_CNVCOD:
-      case PID_RX_CNVCOD:
-        printf(" * Errors at convolutional encoding level: %u out of %u bits (MD = %u)\n\n",bitErrCnt,bitLen,minErrDist);
-        break;
-
-      case PID_TX_SRC:
-      case PID_RX_SRC:
-        printf(" * Errors at source level: %u out of %u bits (MD = %u)\n\n",bitErrCnt,bitLen,minErrDist);
-        break;
-
-      default:
-        retErr = ERR_INV_PRINTID;
-        break;
+      retErr = ERR_INV_BUFFER_SIZE;
     }
 	}
   else
@@ -247,19 +260,18 @@ error_t Debug_CheckWrongBits( const uint8_t * inBufferA, const uint8_t * inBuffe
 /**
  * @brief Function for writing byte buffer content into CSV file.
  * 
- * @param inBuffer : input buffer
- * @param len : buffer length [B]
+ * @param inStream : input stream
  * @param label : label ID
  * 
  * @return error ID
  */
-error_t Debug_WriteBytesToCsv( const uint8_t * inBuffer, len_t len, print_label_t label )
+error_t Debug_WriteBytesToCsv( const byte_stream_t * inStream, print_label_t label )
 {
   error_t retErr = ERR_NONE;
   FILE * fid = NULL;
 	len_t j;
   
-  if (NULL != inBuffer)
+  if ((NULL != inStream) && (NULL != inStream->pBuf))
   {
     switch (label)
     {
@@ -278,10 +290,10 @@ error_t Debug_WriteBytesToCsv( const uint8_t * inBuffer, len_t len, print_label_
 
     if ((ERR_NONE == retErr) && (NULL != fid))
     {
-      for (j=0; j<len; j++)
+      for (j=0; j<inStream->len; j++)
       {
-        fprintf(fid,"%d",inBuffer[j]);
-        if (j < len-1)
+        fprintf(fid,"%d",inStream->pBuf[j]);
+        if (j < inStream->len-1)
         {
           fprintf(fid,",");
         }

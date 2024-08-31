@@ -5,7 +5,7 @@
  * @ingroup TLC_CHAIN
  * @brief Modulation library
  * 
- * Library containing all modulation functions.
+ * Library containing modulation functions.
  */
 
 

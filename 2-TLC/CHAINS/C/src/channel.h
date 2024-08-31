@@ -16,6 +16,7 @@
 /****************/
 
 #include "error.h"                                      /** - import error library */
+#include "memory.h"                                     /** - import memory library */
 #include "system.h"                                     /** - import system library */
 
 
@@ -48,7 +49,7 @@ typedef enum
 /*** PUBLIC PROTOTYPES ***/
 /*************************/
 
-error_t Channel_BSC( const uint8_t * inBuffer, uint8_t *outBuffer, uint32_t ioLen, float Peb, const uint32_t * pSeed );
+error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t * outStream, float Peb, const uint32_t * pSeed );
 
 
 #endif

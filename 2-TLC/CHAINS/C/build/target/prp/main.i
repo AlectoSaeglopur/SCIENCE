@@ -1549,14 +1549,6 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 # 931 "c:\\mingw\\include\\math.h" 3
 
 # 27 "src\\system.h" 2
-# 54 "src\\system.h"
-
-# 54 "src\\system.h"
-typedef struct _byte_buf_t
-{
-  uint8_t * pBuf;
-  uint32_t len;
-} byte_buf_t;
 # 19 "src\\error.h" 2
 
 
@@ -1565,6 +1557,8 @@ typedef struct _byte_buf_t
 
 
 
+
+# 26 "src\\error.h"
 typedef enum
 {
   ERR_NONE = 0,
@@ -1573,6 +1567,7 @@ typedef enum
   ERR_INV_CNVCOD_RATE,
   ERR_INV_CNVCOD_KLEN,
   ERR_INV_BUFFER_SIZE,
+  ERR_INV_DYNAMIC_ALLOC,
 
   ERR_NUM
 } error_t;
@@ -1586,10 +1581,27 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 62 "src\\error.h"
+# 63 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 19 "src\\channel.h" 2
-# 27 "src\\channel.h"
+# 1 "src\\memory.h" 1
+# 28 "src\\memory.h"
+typedef struct _byte_stream_t
+{
+  uint8_t * pBuf;
+  uint32_t len;
+} byte_stream_t;
+
+
+
+
+
+
+
+error_t Memory_AllocateByteBuffer( byte_stream_t * ioStream, uint32_t size );
+error_t Memory_FreeByteBuffer( byte_stream_t * ioStream );
+# 20 "src\\channel.h" 2
+# 28 "src\\channel.h"
 typedef enum
 {
   CHAN_BSC = 0,
@@ -1597,11 +1609,11 @@ typedef enum
 
   CHAN_NUM
 } channel_t;
-# 51 "src\\channel.h"
-error_t Channel_BSC( const uint8_t * inBuffer, uint8_t *outBuffer, uint32_t ioLen, float Peb, const uint32_t * pSeed );
+# 52 "src\\channel.h"
+error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t * outStream, float Peb, const uint32_t * pSeed );
 # 24 "src\\main.c" 2
 # 1 "src\\convolutional.h" 1
-# 36 "src\\convolutional.h"
+# 37 "src\\convolutional.h"
 typedef enum
 {
   CC_RATE_12 = 1, CC_RATE_23 = 2, CC_RATE_34 = 3, CC_RATE_56 = 5, CC_RATE_78 = 7
@@ -1639,7 +1651,7 @@ typedef enum
 
   CC_VITDM_NUM
 } cc_dec_method_t;
-# 111 "src\\convolutional.h"
+# 112 "src\\convolutional.h"
 typedef struct _cc_par_t
 {
   cc_rate_t cRate;
@@ -1684,11 +1696,11 @@ typedef struct _cc_hard_dec_info_t
 
 error_t CnvCod_ListParameters( cc_par_t * ioParams );
 error_t CnvCod_GetConnectorPuncturationVectors( cc_encoder_info_t * ioInfo, const cc_par_t * inParams );
-error_t CnvCod_Encoder( const uint8_t * inBuffer, uint32_t inLenBy, uint8_t * outBuffer, uint32_t outLenBy, const cc_par_t * pParams, const cc_encoder_info_t * pEncInfo, uint32_t * pPunLenBy );
-error_t CnvCod_HardDecoder( uint8_t * inBuffer, uint32_t inLenBy, uint8_t * outBuffer, uint32_t outLenBy, const cc_par_t * pParams, const cc_encoder_info_t * pEncInfo );
+error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams, const cc_encoder_info_t * pEncInfo );
+error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams, const cc_encoder_info_t * pEncInfo );
 # 25 "src\\main.c" 2
 # 1 "src\\debug.h" 1
-# 37 "src\\debug.h"
+# 38 "src\\debug.h"
 typedef enum
 {
   PID_TX_SRC = 0,
@@ -1706,11 +1718,12 @@ typedef enum
 
 
 error_t Debug_PrintParameters( uint32_t len );
-error_t Debug_GenerateRandomBytes( uint8_t * ioBuffer, uint32_t len, const uint32_t * pSeed );
-error_t Debug_PrintBytes( const uint8_t * inBuffer, uint32_t len, print_label_t label );
-error_t Debug_CheckWrongBits( const uint8_t * inBufferA, const uint8_t * inBufferB, uint32_t byteLen, print_label_t label );
-error_t Debug_WriteBytesToCsv( const uint8_t * inBuffer, uint32_t len, print_label_t label );
+error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed );
+error_t Debug_PrintBytes( const byte_stream_t * inStream, print_label_t label );
+error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label );
+error_t Debug_WriteBytesToCsv( const byte_stream_t * inStream, print_label_t label );
 # 26 "src\\main.c" 2
+
 
 # 1 "src\\modulation.h" 1
 # 27 "src\\modulation.h"
@@ -1743,12 +1756,29 @@ typedef struct _mod_par_t
 } mod_par_t;
 # 78 "src\\modulation.h"
 error_t Modulation_ListParameters( mod_par_t * ioParams );
-# 28 "src\\main.c" 2
-# 46 "src\\main.c"
-static uint8_t txSrcBytes[((uint32_t) 250)];
-static uint8_t rxSrcBytes[((uint32_t) 250)];
-static uint8_t txCcBytes[((uint32_t) (2u*((uint32_t) 250)))];
-static uint8_t rxCcBytes[((uint32_t) (2u*((uint32_t) 250)))];
+# 29 "src\\main.c" 2
+# 53 "src\\main.c"
+static byte_stream_t txSrcBytes = {.pBuf = 
+# 53 "src\\main.c" 3 4
+                                          ((void *)0)
+# 53 "src\\main.c"
+                                              };
+static byte_stream_t rxSrcBytes = {.pBuf = 
+# 54 "src\\main.c" 3 4
+                                          ((void *)0)
+# 54 "src\\main.c"
+                                              };
+static byte_stream_t txCcBytes = {.pBuf = 
+# 55 "src\\main.c" 3 4
+                                         ((void *)0)
+# 55 "src\\main.c"
+                                             };
+static byte_stream_t rxCcBytes = {.pBuf = 
+# 56 "src\\main.c" 3 4
+                                         ((void *)0)
+# 56 "src\\main.c"
+                                             };
+
 
 
 
@@ -1757,67 +1787,60 @@ static uint8_t rxCcBytes[((uint32_t) (2u*((uint32_t) 250)))];
 static cc_par_t ccParams;
 static cc_encoder_info_t ccEncoderInfo;
 static mod_par_t modParams;
-
-static uint32_t ccPuncLen = 0;
-
-
-
-
-
-
-
+# 75 "src\\main.c"
 int main( void )
 {
+  Memory_AllocateByteBuffer(&txSrcBytes,((uint32_t) 100));
+  Memory_AllocateByteBuffer(&rxSrcBytes,((uint32_t) 100));
+  Memory_AllocateByteBuffer(&txCcBytes,((uint32_t) (2u*((uint32_t) 100))));
+  Memory_AllocateByteBuffer(&rxCcBytes,((uint32_t) (((uint32_t) (2u*((uint32_t) 100)))/2u*(CC_RATE_23+1)/CC_RATE_23)));
 
 
 
 
-  Debug_PrintParameters(((uint32_t) 250));
-  Debug_GenerateRandomBytes(txSrcBytes,sizeof(txSrcBytes),
-# 74 "src\\main.c" 3 4
-                                                         ((void *)0)
-# 74 "src\\main.c"
-                                                             );
-  Debug_PrintBytes(txSrcBytes,sizeof(txSrcBytes),PID_TX_SRC);
+  Debug_PrintParameters(((uint32_t) 100));
+  Debug_GenerateRandomBytes(&txSrcBytes,
+# 86 "src\\main.c" 3 4
+                                       ((void *)0)
+# 86 "src\\main.c"
+                                           );
+  Debug_PrintBytes(&txSrcBytes,PID_TX_SRC);
   CnvCod_ListParameters(&ccParams);
   CnvCod_GetConnectorPuncturationVectors(&ccEncoderInfo,&ccParams);
-  CnvCod_Encoder(txSrcBytes,sizeof(txSrcBytes),txCcBytes,
-    sizeof(txCcBytes),&ccParams,&ccEncoderInfo,&ccPuncLen);
-  Debug_PrintBytes(txCcBytes,ccPuncLen,PID_TX_CNVCOD);
+  CnvCod_Encoder(&txSrcBytes,&txCcBytes,&ccParams,&ccEncoderInfo);
+  Debug_PrintBytes(&txCcBytes,PID_TX_CNVCOD);
   if (CHAN_BSC == ((channel_t) CHAN_BSC))
   {
-    Channel_BSC(txCcBytes,rxCcBytes,ccPuncLen,((float) 3.1E-2),
-# 83 "src\\main.c" 3 4
-                                                     ((void *)0)
-# 83 "src\\main.c"
-                                                         );
+    Channel_BSC(&txCcBytes,&rxCcBytes,((float) 3.1E-2),
+# 94 "src\\main.c" 3 4
+                                             ((void *)0)
+# 94 "src\\main.c"
+                                                 );
   }
   else if (CHAN_AWGN == ((channel_t) CHAN_BSC))
   {
     Modulation_ListParameters(&modParams);
   }
-
-
-  Debug_PrintBytes(rxCcBytes,ccPuncLen,PID_RX_CNVCOD);
-  Debug_CheckWrongBits(txCcBytes,rxCcBytes,ccPuncLen,PID_RX_CNVCOD);
-  CnvCod_HardDecoder(rxCcBytes,ccPuncLen,rxSrcBytes,((uint32_t) 250),
-    &ccParams,&ccEncoderInfo);
-  Debug_CheckWrongBits(txSrcBytes,rxSrcBytes,((uint32_t) 250),PID_RX_SRC);
-
-
+  Debug_PrintBytes(&rxCcBytes,PID_RX_CNVCOD);
+  Debug_CheckWrongBits(&txCcBytes,&rxCcBytes,PID_RX_CNVCOD);
+  CnvCod_HardDecoder(&rxCcBytes,&rxSrcBytes,&ccParams,&ccEncoderInfo);
+  Debug_CheckWrongBits(&txSrcBytes,&rxSrcBytes,PID_RX_SRC);
 
   if ((
-# 99 "src\\main.c" 3 4
+# 105 "src\\main.c" 3 4
      0
-# 99 "src\\main.c"
+# 105 "src\\main.c"
      ))
   {
-    Debug_WriteBytesToCsv(txSrcBytes,sizeof(txSrcBytes),PID_TX_SRC);
+    Debug_WriteBytesToCsv(&txSrcBytes,PID_TX_SRC);
   }
 
-
+  Memory_FreeByteBuffer(&txSrcBytes);
+  Memory_FreeByteBuffer(&rxSrcBytes);
+  Memory_FreeByteBuffer(&txCcBytes);
+  Memory_FreeByteBuffer(&rxCcBytes);
 
   printf(" >> Execution completed successfully!\n");
-# 156 "src\\main.c"
+# 165 "src\\main.c"
   return 0;
 }

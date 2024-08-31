@@ -24,6 +24,7 @@
 #include "convolutional.h"                                /** - import convolutional coding library */
 #include "debug.h"                                        /** - import debug library */
 #include "error.h"                                        /** - import error library */
+#include "memory.h"                                       /** - import memory library */
 #include "modulation.h"                                   /** - import modulation library */
 
 
@@ -32,10 +33,10 @@
 /*** PARAMETERS ***/
 /******************/
 
-#define LEN_SRC_BY        ((len_t) 250)                           //!< source info stream length [B] (NB: Max value = 1000)
+#define LEN_SRC_BY        ((len_t) 100)                           //!< source info stream length [B] (NB: Max value = 1000)
 #define LEN_CC_UNP_BY     ((len_t) (CC_NBRANCHES*LEN_SRC_BY))     //!< unpunctured convolutional coded stream length [B]
+#define LEN_CC_PUN_BY     ((len_t) (LEN_CC_UNP_BY/CC_NBRANCHES*(CC_RATE+1)/CC_RATE))     //!< punctured convolutional coded stream length [B]
 #define LEN_MOD_SY        ((len_t) (LEN_CC_UNP_BY/MOD_BPS))
-
 
 
 /*****************/
@@ -43,20 +44,27 @@
 /*****************/
 
 
-static uint8_t txSrcBytes[LEN_SRC_BY];                    //!< tx source info stream
-static uint8_t rxSrcBytes[LEN_SRC_BY];                    //!< rx source info stream
-static uint8_t txCcBytes[LEN_CC_UNP_BY];                  //!< tx convolutional coded stream
-static uint8_t rxCcBytes[LEN_CC_UNP_BY];                  //!< rx convolutional coded stream
+//static uint8_t txSrcBytes[LEN_SRC_BY];                    //!< tx source info stream
+//static uint8_t rxSrcBytes[LEN_SRC_BY];                    //!< rx source info stream
+//static uint8_t txCcBytes[LEN_CC_UNP_BY];                  //!< tx convolutional coded stream
+//static uint8_t rxCcBytes[LEN_CC_UNP_BY];                  //!< rx convolutional coded stream
 
-//static uint8_t * txSrcBytes = NULL;                       //!< tx source info stream
-//static uint8_t * rxSrcBytes = NULL;                       //!< rx source info stream
+
+static byte_stream_t txSrcBytes = {.pBuf = NULL};              //!< tx source buffer
+static byte_stream_t rxSrcBytes = {.pBuf = NULL};              //!< rx source buffer
+static byte_stream_t txCcBytes = {.pBuf = NULL};               //!< tx convolutional coded buffer
+static byte_stream_t rxCcBytes = {.pBuf = NULL};               //!< rx convolutional coded buffer
+
+
+
+
 //static complex_t txModSymbols[LEN_MOD_SY];
 
 static cc_par_t ccParams;
 static cc_encoder_info_t ccEncoderInfo;
 static mod_par_t modParams;
 
-static len_t ccPuncLen = 0;
+//static len_t ccPuncLen = 0; >>> = txCcBytes.len !!
 
 
 
@@ -66,47 +74,48 @@ static len_t ccPuncLen = 0;
 
 int main( void )
 {
-//  txSrcBytes = calloc(LEN_SRC_BY,sizeof(uint8_t));
-//  rxSrcBytes = calloc(LEN_SRC_BY,sizeof(uint8_t));
+  Memory_AllocateByteBuffer(&txSrcBytes,LEN_SRC_BY);
+  Memory_AllocateByteBuffer(&rxSrcBytes,LEN_SRC_BY);
+  Memory_AllocateByteBuffer(&txCcBytes,LEN_CC_UNP_BY);
+  Memory_AllocateByteBuffer(&rxCcBytes,LEN_CC_PUN_BY);
+  
 
 
-  Debug_PrintParameters(LEN_SRC_BY);                                      /** -# print all simulation parameters */
-  Debug_GenerateRandomBytes(txSrcBytes,sizeof(txSrcBytes),NULL);          /** -# fill tx source buffer with random bytes */
-  Debug_PrintBytes(txSrcBytes,sizeof(txSrcBytes),PID_TX_SRC);             /** -# print tx source buffer content */
-  CnvCod_ListParameters(&ccParams);                                       /** -# list convolutional coding parameters */
-  CnvCod_GetConnectorPuncturationVectors(&ccEncoderInfo,&ccParams);       /** -# retrieve convolutional encoder info */
-  CnvCod_Encoder(txSrcBytes,sizeof(txSrcBytes),txCcBytes,
-    sizeof(txCcBytes),&ccParams,&ccEncoderInfo,&ccPuncLen);               /** -# convolutional encoding */
-  Debug_PrintBytes(txCcBytes,ccPuncLen,PID_TX_CNVCOD);                    /** -# print tx convolutional coded buffer content */
+
+  Debug_PrintParameters(LEN_SRC_BY);                                        /** -# print all simulation parameters */
+  Debug_GenerateRandomBytes(&txSrcBytes,NULL);                              /** -# fill tx source buffer with random bytes */
+  Debug_PrintBytes(&txSrcBytes,PID_TX_SRC);                                 /** -# print tx source buffer content */
+  CnvCod_ListParameters(&ccParams);                                         /** -# list convolutional coding parameters */
+  CnvCod_GetConnectorPuncturationVectors(&ccEncoderInfo,&ccParams);         /** -# retrieve convolutional encoder info */
+  CnvCod_Encoder(&txSrcBytes,&txCcBytes,&ccParams,&ccEncoderInfo);          /** -# convolutional encoding */
+  Debug_PrintBytes(&txCcBytes,PID_TX_CNVCOD);                               /** -# print tx convolutional coded buffer content */
   if (CHAN_BSC == CHAN_TYPE)
   {
-    Channel_BSC(txCcBytes,rxCcBytes,ccPuncLen,BSC_PEB,NULL);              /** -# apply bsc channel corruption */
+    Channel_BSC(&txCcBytes,&rxCcBytes,BSC_PEB,NULL);                        /** -# apply bsc channel corruption */
   }
   else if (CHAN_AWGN == CHAN_TYPE)
   {
-    Modulation_ListParameters(&modParams);                                /** -# list modulation parameters */
+    Modulation_ListParameters(&modParams);                                  /** -# list modulation parameters */
   }
-
-
-  Debug_PrintBytes(rxCcBytes,ccPuncLen,PID_RX_CNVCOD);                    /** -# print rx convolutional coded buffer content */
-  Debug_CheckWrongBits(txCcBytes,rxCcBytes,ccPuncLen,PID_RX_CNVCOD);      /** -# check number of corrupted bits at convolutional coding level */
-  CnvCod_HardDecoder(rxCcBytes,ccPuncLen,rxSrcBytes,LEN_SRC_BY,
-    &ccParams,&ccEncoderInfo);                                            /** -# convolutional decoding */
-  Debug_CheckWrongBits(txSrcBytes,rxSrcBytes,LEN_SRC_BY,PID_RX_SRC);      /** -# check number of corrupted bits at source level */
-
-  
+  Debug_PrintBytes(&rxCcBytes,PID_RX_CNVCOD);                               /** -# print rx convolutional coded buffer content */
+  Debug_CheckWrongBits(&txCcBytes,&rxCcBytes,PID_RX_CNVCOD);                /** -# check number of corrupted bits at convolutional coding level */
+  CnvCod_HardDecoder(&rxCcBytes,&rxSrcBytes,&ccParams,&ccEncoderInfo);      /** -# convolutional decoding */
+  Debug_CheckWrongBits(&txSrcBytes,&rxSrcBytes,PID_RX_SRC);                 /** -# check number of corrupted bits at source level */
 
   if (IS_CSV_ENABLED)
   {
-    Debug_WriteBytesToCsv(txSrcBytes,sizeof(txSrcBytes),PID_TX_SRC);        /** -# write tx source buffer content into csv file */
+    Debug_WriteBytesToCsv(&txSrcBytes,PID_TX_SRC);                          /** -# write tx source buffer content into csv file */
   }
 
-//  free(txSrcBytes);
-//  free(rxSrcBytes);
+  Memory_FreeByteBuffer(&txSrcBytes);
+  Memory_FreeByteBuffer(&rxSrcBytes);
+  Memory_FreeByteBuffer(&txCcBytes);
+  Memory_FreeByteBuffer(&rxCcBytes);
+
   printf(" >> Execution completed successfully!\n");
 
 
-
+  //printf("\n\n>> DEBUG2 !!!!!\n\n");
 
 
 
@@ -175,3 +184,11 @@ int main( void )
 
 // add CC with rate lower than 1/2 (e.g 1/3!)
 // add checks on parameters
+// aggiungi check a LEN_SRC anche rispetto a ordine di modulazione!
+// sistema Makefile (print, utest, etc..)
+// usa byte_buf_t per tutti array di byte (e stesso per complessi poi)
+
+// alloca "txCcBytes" su PUN_LEN (non UNP_LEN) per risparmiare memoria (richiede aggiornamento in encoder!)
+// alloca/free di tutti i buffer in un'unica funzione a inizio/fine esecuzione!
+// sposta "CnvCod_GetConnectorPuncturationVectors" dentro encoder/decoder e rendila statica
+// aggiungi ".vscode" a .gitignore
