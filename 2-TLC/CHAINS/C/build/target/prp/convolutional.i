@@ -1549,6 +1549,14 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 # 931 "c:\\mingw\\include\\math.h" 3
 
 # 27 "src\\system.h" 2
+# 54 "src\\system.h"
+
+# 54 "src\\system.h"
+typedef struct _byte_buf_t
+{
+  uint8_t * pBuf;
+  uint32_t len;
+} byte_buf_t;
 # 19 "src\\error.h" 2
 
 
@@ -1557,8 +1565,6 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 
 
 
-
-# 26 "src\\error.h"
 typedef enum
 {
   ERR_NONE = 0,

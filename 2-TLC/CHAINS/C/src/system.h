@@ -51,13 +51,14 @@
 
 
 
+typedef struct _byte_buf_t
+{
+  uint8_t * pBuf;
+  len_t len;
+} byte_buf_t;
 
 
 
-
-//#define ModType      PSK                              /** Modulation type */
-//#define M        (uint8_t)4u                          /** Modulation order */
-//#define EbN0      (float)5                          /** Energy-per-bit-to-noise-power-spectral-density ratio over AWGN channel [dB] (NB: SNR=Eb/N0*log2(M)/sps) */
 //#define PunBytLen    (uint32_t)(LEN_SRC_BY*(Rc+1)/Rc)                /** Punctured convolutional coded byte-length [B] */
 
 
@@ -65,12 +66,8 @@
 /*** MACROS ***/
 /**************/
 
-//#define L        (uint8_t)log2(M)                      /** Number of modulated bits per symbol */
-//#define PhOfst      (float)(M_PI/M)                                       /** Constellation phase offset [rad] */
 //#define SymLen      (uint32_t)PunBitLen/L                    /** Mapped stream symbol-length [S] */
-//#define PSK       (uint8_t)30                          /** PSK modulation ID */
-//#define QAM       (uint8_t)31                          /** QAM modulation type */
-//
+
 //#define SrcBitLen     (uint32_t)(LEN_SRC_BY<<3)                  /** Source info stream bit-length [b] */
 //#define DepBytLen    (uint32_t)(2*LEN_SRC_BY)                    /** Depunctured convolutional coded byte-length [B] */
 //#define DepBitLen    (uint32_t)(DepBytLen<<3)                  /** Depunctured convolutional coded bit-length [b] */
@@ -83,11 +80,6 @@
 /*** TYPEDEFS ***/
 /****************/
 
-//
-//typedef struct TD5 {
-//  float Re;
-//  float Im;
-//} complex;
 //
 //typedef struct TD6 {
 //  uint8_t Bits[M];

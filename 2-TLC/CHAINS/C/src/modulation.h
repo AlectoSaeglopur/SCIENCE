@@ -15,13 +15,67 @@
 /*** INCLUDES ***/
 /****************/
 
+#include "error.h"                                      /** - import error library */
 #include "system.h"                                     /** - import system library */
 
 
 
+/*************/
+/*** ENUMS ***/
+/*************/
+
+typedef enum
+{
+  MOD_PSK = 0,                                          /** - PSK modulation ID */
+  MOD_QAM,                                              /** - QAM modulation ID */
+  // keep NUM as final entry
+  MOD_NUM
+} modulation_t;
+
+
+
+/****************/
+/*** TYPEDEFS ***/
+/****************/
+
+typedef struct _complex_t
+{
+  float re;
+  float im;
+} complex_t;
+
+typedef struct _mod_par_t
+{
+  modulation_t type;                                  /** - modulation type */
+  uint8_t order;                                      /** - modulation order (aka "M") */
+  uint8_t bps;                                        /** - number of bits per symbol (aka "L") */
+  float phOfst;                                       /** - constellation phase offset [rad] */
+} mod_par_t;
+
+
+
 /******************/
-/*** PROTOTYPES ***/
+/*** PARAMETERS ***/
 /******************/
+
+#define MOD_TYPE          ((modulation_t) MOD_PSK)      //!< modulation type
+#define MOD_ORDER         ((uint8_t) 4u)                //!< modulation order
+
+
+
+/******************/
+/*** PARAMETERS ***/
+/******************/
+
+#define MOD_BPS           (log2(MOD_ORDER))   //!< modulation number of bits per symbol [b/Sy]
+
+
+
+/*************************/
+/*** PUBLIC PROTOTYPES ***/
+/*************************/
+
+error_t Modulation_ListParameters( mod_par_t * ioParams );
 
 //void GetPskTable( phasemap *IoTable );
 //void GetQamTable( phasemap *IoTable );

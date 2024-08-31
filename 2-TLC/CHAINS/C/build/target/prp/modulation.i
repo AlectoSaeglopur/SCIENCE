@@ -6,6 +6,8 @@
 # 16 "src\\modulation.c"
 # 1 "src\\modulation.h" 1
 # 18 "src\\modulation.h"
+# 1 "src\\error.h" 1
+# 18 "src\\error.h"
 # 1 "src\\system.h" 1
 # 20 "src\\system.h"
 # 1 "c:\\mingw\\include\\stdio.h" 1 3
@@ -1547,5 +1549,101 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 # 931 "c:\\mingw\\include\\math.h" 3
 
 # 27 "src\\system.h" 2
+# 54 "src\\system.h"
+
+# 54 "src\\system.h"
+typedef struct _byte_buf_t
+{
+  uint8_t * pBuf;
+  uint32_t len;
+} byte_buf_t;
+# 19 "src\\error.h" 2
+
+
+
+
+
+
+
+typedef enum
+{
+  ERR_NONE = 0,
+  ERR_INV_NULL_POINTER,
+  ERR_INV_PRINTID,
+  ERR_INV_CNVCOD_RATE,
+  ERR_INV_CNVCOD_KLEN,
+  ERR_INV_BUFFER_SIZE,
+
+  ERR_NUM
+} error_t;
+
+
+typedef enum
+{
+  ALARM_NONE = 0,
+  ALARM_PRINT,
+  ALARM_STOP,
+
+  ALARM_NUM
+} alarm_t;
+# 62 "src\\error.h"
+error_t Error_HandleErr( error_t inErr );
 # 19 "src\\modulation.h" 2
+# 27 "src\\modulation.h"
+typedef enum
+{
+  MOD_PSK = 0,
+  MOD_QAM,
+
+  MOD_NUM
+} modulation_t;
+
+
+
+
+
+
+
+typedef struct _complex_t
+{
+  float re;
+  float im;
+} complex_t;
+
+typedef struct _mod_par_t
+{
+  modulation_t type;
+  uint8_t order;
+  uint8_t bps;
+  float phOfst;
+} mod_par_t;
+# 78 "src\\modulation.h"
+error_t Modulation_ListParameters( mod_par_t * ioParams );
 # 17 "src\\modulation.c" 2
+# 31 "src\\modulation.c"
+error_t Modulation_ListParameters( mod_par_t * ioParams )
+{
+  error_t retErr = ERR_NONE;
+
+  if (
+# 35 "src\\modulation.c" 3 4
+     ((void *)0) 
+# 35 "src\\modulation.c"
+          != ioParams)
+  {
+    ioParams->type = ((modulation_t) MOD_PSK);
+    ioParams->order = ((uint8_t) 4u);
+    ioParams->bps = (log2(((uint8_t) 4u)));
+    ioParams ->phOfst = (float)(
+# 40 "src\\modulation.c" 3
+                               3.14159265358979323846
+# 40 "src\\modulation.c"
+                                   /((uint8_t) 4u));
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
+}

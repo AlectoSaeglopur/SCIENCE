@@ -46,7 +46,7 @@ static uint8_t FindMinSurvPathHard( const cc_hard_dec_info_t * inPaths );
 /************************/
 
 /**
- * @brief Function for retrieving and listing parameters into dedicated structure.
+ * @brief Function for retrieving and listing convolution encoding parameters into dedicated structure.
  * 
  * @param ioParams : pointer to I/O parameters structure to be filled
  * 

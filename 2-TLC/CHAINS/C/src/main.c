@@ -24,6 +24,7 @@
 #include "convolutional.h"                                /** - import convolutional coding library */
 #include "debug.h"                                        /** - import debug library */
 #include "error.h"                                        /** - import error library */
+#include "modulation.h"                                   /** - import modulation library */
 
 
 
@@ -33,6 +34,7 @@
 
 #define LEN_SRC_BY        ((len_t) 250)                           //!< source info stream length [B] (NB: Max value = 1000)
 #define LEN_CC_UNP_BY     ((len_t) (CC_NBRANCHES*LEN_SRC_BY))     //!< unpunctured convolutional coded stream length [B]
+#define LEN_MOD_SY        ((len_t) (LEN_CC_UNP_BY/MOD_BPS))
 
 
 
@@ -40,13 +42,20 @@
 /*** VARIABLES ***/
 /*****************/
 
+
 static uint8_t txSrcBytes[LEN_SRC_BY];                    //!< tx source info stream
 static uint8_t rxSrcBytes[LEN_SRC_BY];                    //!< rx source info stream
 static uint8_t txCcBytes[LEN_CC_UNP_BY];                  //!< tx convolutional coded stream
 static uint8_t rxCcBytes[LEN_CC_UNP_BY];                  //!< rx convolutional coded stream
 
-static cc_encoder_info_t ccEncoderInfo;
+//static uint8_t * txSrcBytes = NULL;                       //!< tx source info stream
+//static uint8_t * rxSrcBytes = NULL;                       //!< rx source info stream
+//static complex_t txModSymbols[LEN_MOD_SY];
+
 static cc_par_t ccParams;
+static cc_encoder_info_t ccEncoderInfo;
+static mod_par_t modParams;
+
 static len_t ccPuncLen = 0;
 
 
@@ -57,6 +66,10 @@ static len_t ccPuncLen = 0;
 
 int main( void )
 {
+//  txSrcBytes = calloc(LEN_SRC_BY,sizeof(uint8_t));
+//  rxSrcBytes = calloc(LEN_SRC_BY,sizeof(uint8_t));
+
+
   Debug_PrintParameters(LEN_SRC_BY);                                      /** -# print all simulation parameters */
   Debug_GenerateRandomBytes(txSrcBytes,sizeof(txSrcBytes),NULL);          /** -# fill tx source buffer with random bytes */
   Debug_PrintBytes(txSrcBytes,sizeof(txSrcBytes),PID_TX_SRC);             /** -# print tx source buffer content */
@@ -65,41 +78,49 @@ int main( void )
   CnvCod_Encoder(txSrcBytes,sizeof(txSrcBytes),txCcBytes,
     sizeof(txCcBytes),&ccParams,&ccEncoderInfo,&ccPuncLen);               /** -# convolutional encoding */
   Debug_PrintBytes(txCcBytes,ccPuncLen,PID_TX_CNVCOD);                    /** -# print tx convolutional coded buffer content */
-  if (CHAN_BSC == CHANNEL_TYPE)
+  if (CHAN_BSC == CHAN_TYPE)
   {
-    Channel_BSC(txCcBytes,rxCcBytes,ccPuncLen,PEB_BSC,NULL);              /** -# apply bsc channel corruption */
+    Channel_BSC(txCcBytes,rxCcBytes,ccPuncLen,BSC_PEB,NULL);              /** -# apply bsc channel corruption */
   }
-  Channel_BSC(txCcBytes,rxCcBytes,ccPuncLen,PEB_BSC,NULL);                /** -# apply bsc channel corruption */
+  else if (CHAN_AWGN == CHAN_TYPE)
+  {
+    Modulation_ListParameters(&modParams);                                /** -# list modulation parameters */
+  }
+
+
   Debug_PrintBytes(rxCcBytes,ccPuncLen,PID_RX_CNVCOD);                    /** -# print rx convolutional coded buffer content */
   Debug_CheckWrongBits(txCcBytes,rxCcBytes,ccPuncLen,PID_RX_CNVCOD);      /** -# check number of corrupted bits at convolutional coding level */
   CnvCod_HardDecoder(rxCcBytes,ccPuncLen,rxSrcBytes,LEN_SRC_BY,
     &ccParams,&ccEncoderInfo);                                            /** -# convolutional decoding */
-  Debug_CheckWrongBits(txSrcBytes,rxSrcBytes,LEN_SRC_BY,PID_RX_SRC);      /** -# check number of corrupted bits at source level */ 
+  Debug_CheckWrongBits(txSrcBytes,rxSrcBytes,LEN_SRC_BY,PID_RX_SRC);      /** -# check number of corrupted bits at source level */
+
+  
+
+  if (IS_CSV_ENABLED)
+  {
+    Debug_WriteBytesToCsv(txSrcBytes,sizeof(txSrcBytes),PID_TX_SRC);        /** -# write tx source buffer content into csv file */
+  }
+
+//  free(txSrcBytes);
+//  free(rxSrcBytes);
   printf(" >> Execution completed successfully!\n");
 
-if (IS_CSV_ENABLED)
-{
-  Debug_WriteBytesToCsv(txSrcBytes,sizeof(txSrcBytes),PID_TX_SRC);        /** -# write tx source buffer content into csv file */
-}
+
+
+
+
+
+
+
+
 
 
 
 
 
 //  phasemap ModTable;                                /** Constellation mapping table */
-//  uint8_t ConVect[2];                               /** Convolutional connector vector */
-//  uint8_t PunctVect[2*Rc];                            /** Convolutional puncturing vector */
-//  uint8_t TxConvByt[DepBytLen], DemByt[DepBytLen];                /** TX and RX convolutional depunctured stream */
 //  float SoftLLR[DepBitLen];                            /** RX soft LLR stream */
 //  complex ChSym[SymLen];                              /** Complex modulated symbol stream passing through channel */
-
-
-
-  
-//  // WriteBytCsv(tx_src_bytes,LEN_SRC_BY,TXINFOB);                      /** Write TX source info stream into .csv file */
-//
-//  
-
 //
 //  switch( ModType ){
 //    case PSK:

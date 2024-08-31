@@ -17,9 +17,86 @@
 
 
 
-/*****************/
-/*** FUNCTIONS ***/
-/*****************/
+/************************/
+/*** PUBLIC FUNCTIONS ***/
+/************************/
+
+/**
+ * @brief Function for retrieving and listing modulation parameters into dedicated structure.
+ * 
+ * @param ioParams : pointer to I/O parameters structure to be filled
+ * 
+ * @return error ID
+ */
+error_t Modulation_ListParameters( mod_par_t * ioParams )
+{
+  error_t retErr = ERR_NONE;
+
+  if (NULL != ioParams)
+  {
+    ioParams->type = MOD_TYPE;
+    ioParams->order = MOD_ORDER;
+    ioParams->bps = MOD_BPS;
+    ioParams ->phOfst = (float)(M_PI/MOD_ORDER);
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
+}
+
+
+/**
+ * @brief Function to map an input byte stream into the specified constellation symbols.
+ * @param InByt : Input byte stream.
+ * @param OutSymbs : Output symbol stream.
+ * @param Table : Constellation mapping table.
+ * @return none
+ */
+//void Modulation_Mapper( uint8_t *InByt, complex *OutSymbs, phasemap *Table ){
+////void Mapper( uint8_t *InByt, complex *OutSymbs, phasemap *Table ){
+//	uint8_t i, BitIdx;
+//	uint32_t ByteIdx;
+//	uint32_t j = 0;
+//	int8_t CurBits = 0;
+//	uint8_t SymbIdx = 0;
+//	uint8_t Mask = 0x01;
+//	while ( j < PunBitLen ){
+//		SymbIdx++;
+//		ByteIdx = j>>3;
+//		BitIdx = (uint8_t)(7-(j&0x0007));
+//		CurBits |= ((InByt[ByteIdx]>>BitIdx)&Mask)<<(L-SymbIdx);
+//		if ( SymbIdx == L ){
+//			for ( i=0; i<M; i++ ){
+//				if ( Table->Bits[i] == CurBits ){
+//					OutSymbs[(j+1)/L-1] = Table->Symbs[i];
+//					break;
+//				}
+//			}
+//			SymbIdx = 0;
+//			CurBits = 0;
+//		}
+//		j++;
+//	}
+//}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * @brief Function to retrieve mapping table between bits and PSK symbols (with Gray coding).
@@ -88,38 +165,7 @@
 //}
 
 
-/**
- * @brief Function to map an input byte stream into the specified constellation symbols.
- * @param InByt : Input byte stream.
- * @param OutSymbs : Output symbol stream.
- * @param Table : Constellation mapping table.
- * @return none
- */
-//void Mapper( uint8_t *InByt, complex *OutSymbs, phasemap *Table ){
-//	uint8_t i, BitIdx;
-//	uint32_t ByteIdx;
-//	uint32_t j = 0;
-//	int8_t CurBits = 0;
-//	uint8_t SymbIdx = 0;
-//	uint8_t Mask = 0x01;
-//	while ( j < PunBitLen ){
-//		SymbIdx++;
-//		ByteIdx = j>>3;
-//		BitIdx = (uint8_t)(7-(j&0x0007));
-//		CurBits |= ((InByt[ByteIdx]>>BitIdx)&Mask)<<(L-SymbIdx);
-//		if ( SymbIdx == L ){
-//			for ( i=0; i<M; i++ ){
-//				if ( Table->Bits[i] == CurBits ){
-//					OutSymbs[(j+1)/L-1] = Table->Symbs[i];
-//					break;
-//				}
-//			}
-//			SymbIdx = 0;
-//			CurBits = 0;
-//		}
-//		j++;
-//	}
-//}
+
 
 
 /**

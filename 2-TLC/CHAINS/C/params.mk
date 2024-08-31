@@ -19,7 +19,8 @@ BLD_FPT = build
 BLD_FLD = $(addprefix $(BLD_FPT)\,$(TMP_NAM))
 
 # compiler flags
-CMP_FLG = -Wall -Werror -g -O0 -D VERBOSE
+#CMP_FLG = -Wall -Werror -g -O0 -D VERBOSE
+CMP_FLG = -Wall -g -O0 -D VERBOSE
 
 # compiler version
 CMP_VRS = gcc

@@ -38,8 +38,9 @@ typedef enum
 /*** PARAMETERS ***/
 /******************/
 
-#define CHANNEL_TYPE      ((channel_t) CHAN_BSC)
-#define PEB_BSC           ((float) 3.1E-2)
+#define CHAN_TYPE         ((channel_t) CHAN_BSC)        //!< channel type
+#define BSC_PEB           ((float) 3.1E-2)              //!< BSC channel bit-error probability
+#define AWGN_EBN0         ((float) 5.0)                 //!< AWGN channel energy-per-bit-to-noise-power-spectral-density ratio [dB] (NB: SNR=Eb/N0*log2(M)/sps)
 
 
 

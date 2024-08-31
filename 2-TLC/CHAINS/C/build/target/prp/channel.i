@@ -1549,6 +1549,14 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 # 931 "c:\\mingw\\include\\math.h" 3
 
 # 27 "src\\system.h" 2
+# 54 "src\\system.h"
+
+# 54 "src\\system.h"
+typedef struct _byte_buf_t
+{
+  uint8_t * pBuf;
+  uint32_t len;
+} byte_buf_t;
 # 19 "src\\error.h" 2
 
 
@@ -1557,8 +1565,6 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 
 
 
-
-# 26 "src\\error.h"
 typedef enum
 {
   ERR_NONE = 0,
@@ -1591,7 +1597,7 @@ typedef enum
 
   CHAN_NUM
 } channel_t;
-# 50 "src\\channel.h"
+# 51 "src\\channel.h"
 error_t Channel_BSC( const uint8_t * inBuffer, uint8_t *outBuffer, uint32_t ioLen, float Peb, const uint32_t * pSeed );
 # 17 "src\\channel.c" 2
 # 31 "src\\channel.c"

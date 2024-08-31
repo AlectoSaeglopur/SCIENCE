@@ -5,8 +5,9 @@ Ltext0:
 .lcomm _rxSrcBytes,250,32
 .lcomm _txCcBytes,500,32
 .lcomm _rxCcBytes,500,32
-.lcomm _ccEncoderInfo,6,4
 .lcomm _ccParams,16,4
+.lcomm _ccEncoderInfo,6,4
+.lcomm _modParams,12,4
 .lcomm _ccPuncLen,4,4
 	.def	___main;	.scl	2;	.type	32;	.endef
 	.section .rdata,"dr"
@@ -19,7 +20,7 @@ LC1:
 _main:
 LFB18:
 	.file 1 "src/main.c"
-	.loc 1 59 0
+	.loc 1 68 0
 	.cfi_startproc
 	pushl	%ebp
 	.cfi_def_cfa_offset 8
@@ -28,30 +29,30 @@ LFB18:
 	.cfi_def_cfa_register 5
 	andl	$-16, %esp
 	subl	$32, %esp
-	.loc 1 59 0
+	.loc 1 68 0
 	call	___main
 LVL0:
-	.loc 1 60 0
+	.loc 1 73 0
 	movl	$250, (%esp)
 	call	_Debug_PrintParameters
-	.loc 1 61 0
+	.loc 1 74 0
 	movl	$0, 8(%esp)
 	movl	$250, 4(%esp)
 	movl	$_txSrcBytes, (%esp)
 	call	_Debug_GenerateRandomBytes
-	.loc 1 62 0
+	.loc 1 75 0
 	movl	$0, 8(%esp)
 	movl	$250, 4(%esp)
 	movl	$_txSrcBytes, (%esp)
 	call	_Debug_PrintBytes
-	.loc 1 63 0
+	.loc 1 76 0
 	movl	$_ccParams, (%esp)
 	call	_CnvCod_ListParameters
-	.loc 1 64 0
+	.loc 1 77 0
 	movl	$_ccParams, 4(%esp)
 	movl	$_ccEncoderInfo, (%esp)
 	call	_CnvCod_GetConnectorPuncturationVectors
-	.loc 1 65 0
+	.loc 1 78 0
 	movl	$_ccPuncLen, 24(%esp)
 	movl	$_ccEncoderInfo, 20(%esp)
 	movl	$_ccParams, 16(%esp)
@@ -60,13 +61,13 @@ LVL0:
 	movl	$250, 4(%esp)
 	movl	$_txSrcBytes, (%esp)
 	call	_CnvCod_Encoder
-	.loc 1 67 0
+	.loc 1 80 0
 	movl	_ccPuncLen, %eax
 	movl	$2, 8(%esp)
 	movl	%eax, 4(%esp)
 	movl	$_txCcBytes, (%esp)
 	call	_Debug_PrintBytes
-	.loc 1 70 0
+	.loc 1 83 0
 	movl	_ccPuncLen, %eax
 	movl	$0, 16(%esp)
 	flds	LC0
@@ -75,29 +76,20 @@ LVL0:
 	movl	$_rxCcBytes, 4(%esp)
 	movl	$_txCcBytes, (%esp)
 	call	_Channel_BSC
-	.loc 1 72 0
-	movl	_ccPuncLen, %eax
-	movl	$0, 16(%esp)
-	flds	LC0
-	fstps	12(%esp)
-	movl	%eax, 8(%esp)
-	movl	$_rxCcBytes, 4(%esp)
-	movl	$_txCcBytes, (%esp)
-	call	_Channel_BSC
-	.loc 1 73 0
+	.loc 1 91 0
 	movl	_ccPuncLen, %eax
 	movl	$3, 8(%esp)
 	movl	%eax, 4(%esp)
 	movl	$_rxCcBytes, (%esp)
 	call	_Debug_PrintBytes
-	.loc 1 74 0
+	.loc 1 92 0
 	movl	_ccPuncLen, %eax
 	movl	$3, 12(%esp)
 	movl	%eax, 8(%esp)
 	movl	$_rxCcBytes, 4(%esp)
 	movl	$_txCcBytes, (%esp)
 	call	_Debug_CheckWrongBits
-	.loc 1 75 0
+	.loc 1 93 0
 	movl	_ccPuncLen, %eax
 	movl	$_ccEncoderInfo, 20(%esp)
 	movl	$_ccParams, 16(%esp)
@@ -106,18 +98,18 @@ LVL0:
 	movl	%eax, 4(%esp)
 	movl	$_rxCcBytes, (%esp)
 	call	_CnvCod_HardDecoder
-	.loc 1 77 0
+	.loc 1 95 0
 	movl	$1, 12(%esp)
 	movl	$250, 8(%esp)
 	movl	$_rxSrcBytes, 4(%esp)
 	movl	$_txSrcBytes, (%esp)
 	call	_Debug_CheckWrongBits
-	.loc 1 78 0
+	.loc 1 106 0
 	movl	$LC1, (%esp)
 	call	_puts
-	.loc 1 135 0
+	.loc 1 156 0
 	movl	$0, %eax
-	.loc 1 136 0
+	.loc 1 157 0
 	leave
 	.cfi_restore 5
 	.cfi_def_cfa 4, 4
@@ -137,9 +129,10 @@ Letext0:
 	.file 6 "src/channel.h"
 	.file 7 "src/convolutional.h"
 	.file 8 "src/debug.h"
+	.file 9 "src/modulation.h"
 	.section	.debug_info,"dr"
 Ldebug_info0:
-	.long	0x6a4
+	.long	0x75e
 	.word	0x4
 	.secrel32	Ldebug_abbrev0
 	.byte	0x4
@@ -587,9 +580,70 @@ Ldebug_info0:
 	.ascii "PID_NUM\0"
 	.byte	0x4
 	.byte	0
+	.uleb128 0xc
+	.byte	0x4
+	.long	0x6e
+	.byte	0x9
+	.byte	0x1c
+	.long	0x5f5
+	.uleb128 0xd
+	.ascii "MOD_PSK\0"
+	.byte	0
+	.uleb128 0xd
+	.ascii "MOD_QAM\0"
+	.byte	0x1
+	.uleb128 0xd
+	.ascii "MOD_NUM\0"
+	.byte	0x2
+	.byte	0
+	.uleb128 0x6
+	.ascii "modulation_t\0"
+	.byte	0x9
+	.byte	0x21
+	.long	0x5ca
+	.uleb128 0x2
+	.byte	0x4
+	.byte	0x4
+	.ascii "float\0"
+	.uleb128 0x3
+	.ascii "_mod_par_t\0"
+	.byte	0xc
+	.byte	0x9
+	.byte	0x2f
+	.long	0x65c
+	.uleb128 0x4
+	.ascii "type\0"
+	.byte	0x9
+	.byte	0x31
+	.long	0x5f5
+	.byte	0
+	.uleb128 0x4
+	.ascii "order\0"
+	.byte	0x9
+	.byte	0x32
+	.long	0x17f
+	.byte	0x4
+	.uleb128 0x4
+	.ascii "bps\0"
+	.byte	0x9
+	.byte	0x33
+	.long	0x17f
+	.byte	0x5
+	.uleb128 0x4
+	.ascii "phOfst\0"
+	.byte	0x9
+	.byte	0x34
+	.long	0x609
+	.byte	0x8
+	.byte	0
+	.uleb128 0x6
+	.ascii "mod_par_t\0"
+	.byte	0x9
+	.byte	0x35
+	.long	0x612
 	.uleb128 0x7
 	.long	0x17f
-	.long	0x5da
+	.long	0x67d
 	.uleb128 0xb
 	.long	0x2cc
 	.byte	0xf9
@@ -597,22 +651,22 @@ Ldebug_info0:
 	.uleb128 0xe
 	.ascii "txSrcBytes\0"
 	.byte	0x1
-	.byte	0x2b
-	.long	0x5ca
+	.byte	0x2e
+	.long	0x66d
 	.uleb128 0x5
 	.byte	0x3
 	.long	_txSrcBytes
 	.uleb128 0xe
 	.ascii "rxSrcBytes\0"
 	.byte	0x1
-	.byte	0x2c
-	.long	0x5ca
+	.byte	0x2f
+	.long	0x66d
 	.uleb128 0x5
 	.byte	0x3
 	.long	_rxSrcBytes
 	.uleb128 0x7
 	.long	0x17f
-	.long	0x61b
+	.long	0x6be
 	.uleb128 0xf
 	.long	0x2cc
 	.word	0x1f3
@@ -620,39 +674,47 @@ Ldebug_info0:
 	.uleb128 0xe
 	.ascii "txCcBytes\0"
 	.byte	0x1
-	.byte	0x2d
-	.long	0x60a
+	.byte	0x30
+	.long	0x6ad
 	.uleb128 0x5
 	.byte	0x3
 	.long	_txCcBytes
 	.uleb128 0xe
 	.ascii "rxCcBytes\0"
 	.byte	0x1
-	.byte	0x2e
-	.long	0x60a
+	.byte	0x31
+	.long	0x6ad
 	.uleb128 0x5
 	.byte	0x3
 	.long	_rxCcBytes
 	.uleb128 0xe
-	.ascii "ccEncoderInfo\0"
-	.byte	0x1
-	.byte	0x30
-	.long	0x560
-	.uleb128 0x5
-	.byte	0x3
-	.long	_ccEncoderInfo
-	.uleb128 0xe
 	.ascii "ccParams\0"
 	.byte	0x1
-	.byte	0x31
+	.byte	0x37
 	.long	0x4f2
 	.uleb128 0x5
 	.byte	0x3
 	.long	_ccParams
 	.uleb128 0xe
+	.ascii "ccEncoderInfo\0"
+	.byte	0x1
+	.byte	0x38
+	.long	0x560
+	.uleb128 0x5
+	.byte	0x3
+	.long	_ccEncoderInfo
+	.uleb128 0xe
+	.ascii "modParams\0"
+	.byte	0x1
+	.byte	0x39
+	.long	0x65c
+	.uleb128 0x5
+	.byte	0x3
+	.long	_modParams
+	.uleb128 0xe
 	.ascii "ccPuncLen\0"
 	.byte	0x1
-	.byte	0x32
+	.byte	0x3b
 	.long	0x1bc
 	.uleb128 0x5
 	.byte	0x3
@@ -660,7 +722,7 @@ Ldebug_info0:
 	.uleb128 0x10
 	.ascii "main\0"
 	.byte	0x1
-	.byte	0x3a
+	.byte	0x43
 	.long	0xb1
 	.long	LFB18
 	.long	LFE18-LFB18

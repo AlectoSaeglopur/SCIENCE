@@ -1549,6 +1549,14 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 # 931 "c:\\mingw\\include\\math.h" 3
 
 # 27 "src\\system.h" 2
+# 54 "src\\system.h"
+
+# 54 "src\\system.h"
+typedef struct _byte_buf_t
+{
+  uint8_t * pBuf;
+  uint32_t len;
+} byte_buf_t;
 # 19 "src\\error.h" 2
 
 
@@ -1557,8 +1565,6 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 
 
 
-
-# 26 "src\\error.h"
 typedef enum
 {
   ERR_NONE = 0,
@@ -1591,7 +1597,7 @@ typedef enum
 
   CHAN_NUM
 } channel_t;
-# 50 "src\\channel.h"
+# 51 "src\\channel.h"
 error_t Channel_BSC( const uint8_t * inBuffer, uint8_t *outBuffer, uint32_t ioLen, float Peb, const uint32_t * pSeed );
 # 24 "src\\main.c" 2
 # 1 "src\\convolutional.h" 1
@@ -1705,14 +1711,53 @@ error_t Debug_PrintBytes( const uint8_t * inBuffer, uint32_t len, print_label_t 
 error_t Debug_CheckWrongBits( const uint8_t * inBufferA, const uint8_t * inBufferB, uint32_t byteLen, print_label_t label );
 error_t Debug_WriteBytesToCsv( const uint8_t * inBuffer, uint32_t len, print_label_t label );
 # 26 "src\\main.c" 2
-# 43 "src\\main.c"
+
+# 1 "src\\modulation.h" 1
+# 27 "src\\modulation.h"
+typedef enum
+{
+  MOD_PSK = 0,
+  MOD_QAM,
+
+  MOD_NUM
+} modulation_t;
+
+
+
+
+
+
+
+typedef struct _complex_t
+{
+  float re;
+  float im;
+} complex_t;
+
+typedef struct _mod_par_t
+{
+  modulation_t type;
+  uint8_t order;
+  uint8_t bps;
+  float phOfst;
+} mod_par_t;
+# 78 "src\\modulation.h"
+error_t Modulation_ListParameters( mod_par_t * ioParams );
+# 28 "src\\main.c" 2
+# 46 "src\\main.c"
 static uint8_t txSrcBytes[((uint32_t) 250)];
 static uint8_t rxSrcBytes[((uint32_t) 250)];
-static uint8_t txCcBytes[((2u*((uint32_t) 250)))];
-static uint8_t rxCcBytes[((2u*((uint32_t) 250)))];
+static uint8_t txCcBytes[((uint32_t) (2u*((uint32_t) 250)))];
+static uint8_t rxCcBytes[((uint32_t) (2u*((uint32_t) 250)))];
 
-static cc_encoder_info_t ccEncoderInfo;
+
+
+
+
 static cc_par_t ccParams;
+static cc_encoder_info_t ccEncoderInfo;
+static mod_par_t modParams;
+
 static uint32_t ccPuncLen = 0;
 
 
@@ -1723,11 +1768,15 @@ static uint32_t ccPuncLen = 0;
 
 int main( void )
 {
+
+
+
+
   Debug_PrintParameters(((uint32_t) 250));
   Debug_GenerateRandomBytes(txSrcBytes,sizeof(txSrcBytes),
-# 61 "src\\main.c" 3 4
+# 74 "src\\main.c" 3 4
                                                          ((void *)0)
-# 61 "src\\main.c"
+# 74 "src\\main.c"
                                                              );
   Debug_PrintBytes(txSrcBytes,sizeof(txSrcBytes),PID_TX_SRC);
   CnvCod_ListParameters(&ccParams);
@@ -1738,31 +1787,37 @@ int main( void )
   if (CHAN_BSC == ((channel_t) CHAN_BSC))
   {
     Channel_BSC(txCcBytes,rxCcBytes,ccPuncLen,((float) 3.1E-2),
-# 70 "src\\main.c" 3 4
+# 83 "src\\main.c" 3 4
                                                      ((void *)0)
-# 70 "src\\main.c"
+# 83 "src\\main.c"
                                                          );
   }
-  Channel_BSC(txCcBytes,rxCcBytes,ccPuncLen,((float) 3.1E-2),
-# 72 "src\\main.c" 3 4
-                                                   ((void *)0)
-# 72 "src\\main.c"
-                                                       );
+  else if (CHAN_AWGN == ((channel_t) CHAN_BSC))
+  {
+    Modulation_ListParameters(&modParams);
+  }
+
+
   Debug_PrintBytes(rxCcBytes,ccPuncLen,PID_RX_CNVCOD);
   Debug_CheckWrongBits(txCcBytes,rxCcBytes,ccPuncLen,PID_RX_CNVCOD);
   CnvCod_HardDecoder(rxCcBytes,ccPuncLen,rxSrcBytes,((uint32_t) 250),
     &ccParams,&ccEncoderInfo);
   Debug_CheckWrongBits(txSrcBytes,rxSrcBytes,((uint32_t) 250),PID_RX_SRC);
-  printf(" >> Execution completed successfully!\n");
 
-if ((
-# 80 "src\\main.c" 3 4
-   0
-# 80 "src\\main.c"
-   ))
-{
-  Debug_WriteBytesToCsv(txSrcBytes,sizeof(txSrcBytes),PID_TX_SRC);
-}
-# 135 "src\\main.c"
+
+
+  if ((
+# 99 "src\\main.c" 3 4
+     0
+# 99 "src\\main.c"
+     ))
+  {
+    Debug_WriteBytesToCsv(txSrcBytes,sizeof(txSrcBytes),PID_TX_SRC);
+  }
+
+
+
+  printf(" >> Execution completed successfully!\n");
+# 156 "src\\main.c"
   return 0;
 }

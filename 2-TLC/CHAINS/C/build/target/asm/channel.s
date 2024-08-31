@@ -411,12 +411,15 @@ Ldebug_info0:
 	.byte	0xc
 	.byte	0x4
 	.ascii "long double\0"
+	.uleb128 0x5
+	.byte	0x4
+	.long	0x182
 	.uleb128 0xd
 	.byte	0x4
 	.long	0x71
 	.byte	0x6
 	.byte	0x1b
-	.long	0x3bc
+	.long	0x3c2
 	.uleb128 0xe
 	.ascii "ERR_NONE\0"
 	.byte	0
@@ -443,22 +446,22 @@ Ldebug_info0:
 	.ascii "error_t\0"
 	.byte	0x6
 	.byte	0x24
-	.long	0x32f
+	.long	0x335
 	.uleb128 0xf
 	.ascii "Channel_BSC\0"
 	.byte	0x1
 	.byte	0x1f
-	.long	0x3bc
+	.long	0x3c2
 	.long	LFB18
 	.long	LFE18-LFB18
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x482
+	.long	0x488
 	.uleb128 0x10
 	.ascii "inBuffer\0"
 	.byte	0x1
 	.byte	0x1f
-	.long	0x482
+	.long	0x488
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
@@ -466,7 +469,7 @@ Ldebug_info0:
 	.ascii "outBuffer\0"
 	.byte	0x1
 	.byte	0x1f
-	.long	0x488
+	.long	0x32f
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 4
@@ -498,7 +501,7 @@ Ldebug_info0:
 	.ascii "retErr\0"
 	.byte	0x1
 	.byte	0x21
-	.long	0x3bc
+	.long	0x3c2
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
@@ -530,9 +533,6 @@ Ldebug_info0:
 	.uleb128 0x5
 	.byte	0x4
 	.long	0x191
-	.uleb128 0x5
-	.byte	0x4
-	.long	0x182
 	.uleb128 0x2
 	.byte	0x4
 	.byte	0x4
