@@ -1566,6 +1566,7 @@ typedef enum
   ERR_INV_CNVCOD_KLEN,
   ERR_INV_BUFFER_SIZE,
   ERR_INV_DYNAMIC_ALLOC,
+  ERR_INV_STREAM_TYPE,
 
   ERR_NUM
 } error_t;
@@ -1579,7 +1580,7 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 63 "src\\error.h"
+# 64 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 17 "src\\error.c" 2
 # 31 "src\\error.c"

@@ -37,8 +37,8 @@ typedef struct _byte_stream_t
 /*** PUBLIC PROTOTYPES ***/
 /*************************/
 
-error_t Memory_AllocateByteBuffer( byte_stream_t * ioStream, len_t size );
-error_t Memory_FreeByteBuffer( byte_stream_t * ioStream );
+error_t Memory_AllocateStream( void * ioStream, len_t len, size_t size );
+error_t Memory_FreeStream( void * ioStream, size_t size );
 
 
 #endif

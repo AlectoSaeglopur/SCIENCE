@@ -1568,6 +1568,7 @@ typedef enum
   ERR_INV_CNVCOD_KLEN,
   ERR_INV_BUFFER_SIZE,
   ERR_INV_DYNAMIC_ALLOC,
+  ERR_INV_STREAM_TYPE,
 
   ERR_NUM
 } error_t;
@@ -1581,7 +1582,7 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 63 "src\\error.h"
+# 64 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 19 "src\\modulation.h" 2
 # 27 "src\\modulation.h"
@@ -1612,7 +1613,7 @@ typedef struct _mod_par_t
   uint8_t bps;
   float phOfst;
 } mod_par_t;
-# 78 "src\\modulation.h"
+# 82 "src\\modulation.h"
 error_t Modulation_ListParameters( mod_par_t * ioParams );
 # 17 "src\\modulation.c" 2
 # 31 "src\\modulation.c"
@@ -1627,13 +1628,13 @@ error_t Modulation_ListParameters( mod_par_t * ioParams )
           != ioParams)
   {
     ioParams->type = ((modulation_t) MOD_PSK);
-    ioParams->order = ((uint8_t) 4u);
-    ioParams->bps = (log2(((uint8_t) 4u)));
+    ioParams->order = (0x01<<2u);
+    ioParams->bps = 2u;
     ioParams ->phOfst = (float)(
 # 40 "src\\modulation.c" 3
                                3.14159265358979323846
 # 40 "src\\modulation.c"
-                                   /((uint8_t) 4u));
+                                   /(0x01<<2u));
   }
   else
   {

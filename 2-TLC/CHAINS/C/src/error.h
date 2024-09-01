@@ -32,6 +32,7 @@ typedef enum
   ERR_INV_CNVCOD_KLEN,                                /** - invalid convolutional coding constaint length error ID */
   ERR_INV_BUFFER_SIZE,                                /** - invalid buffer size error ID */
   ERR_INV_DYNAMIC_ALLOC,                              /** - invalid dynamic memory allocation error ID */
+  ERR_INV_STREAM_TYPE,                                /** - invalid stream type error ID */
   // keep NUM as final entry
   ERR_NUM
 } error_t;

@@ -62,7 +62,7 @@ Letext0:
 	.file 7 "src/modulation.h"
 	.section	.debug_info,"dr"
 Ldebug_info0:
-	.long	0x4c6
+	.long	0x4dc
 	.word	0x4
 	.secrel32	Ldebug_abbrev0
 	.byte	0x4
@@ -304,7 +304,7 @@ Ldebug_info0:
 	.long	0x74
 	.byte	0x6
 	.byte	0x1b
-	.long	0x3bd
+	.long	0x3d3
 	.uleb128 0xd
 	.ascii "ERR_NONE\0"
 	.byte	0
@@ -327,20 +327,23 @@ Ldebug_info0:
 	.ascii "ERR_INV_DYNAMIC_ALLOC\0"
 	.byte	0x6
 	.uleb128 0xd
-	.ascii "ERR_NUM\0"
+	.ascii "ERR_INV_STREAM_TYPE\0"
 	.byte	0x7
+	.uleb128 0xd
+	.ascii "ERR_NUM\0"
+	.byte	0x8
 	.byte	0
 	.uleb128 0x6
 	.ascii "error_t\0"
 	.byte	0x6
-	.byte	0x25
+	.byte	0x26
 	.long	0x318
 	.uleb128 0xc
 	.byte	0x4
 	.long	0x74
 	.byte	0x7
 	.byte	0x1c
-	.long	0x3f7
+	.long	0x40d
 	.uleb128 0xd
 	.ascii "MOD_PSK\0"
 	.byte	0
@@ -355,7 +358,7 @@ Ldebug_info0:
 	.ascii "modulation_t\0"
 	.byte	0x7
 	.byte	0x21
-	.long	0x3cc
+	.long	0x3e2
 	.uleb128 0x2
 	.byte	0x4
 	.byte	0x4
@@ -365,12 +368,12 @@ Ldebug_info0:
 	.byte	0xc
 	.byte	0x7
 	.byte	0x2f
-	.long	0x45e
+	.long	0x474
 	.uleb128 0x4
 	.ascii "type\0"
 	.byte	0x7
 	.byte	0x31
-	.long	0x3f7
+	.long	0x40d
 	.byte	0
 	.uleb128 0x4
 	.ascii "order\0"
@@ -388,29 +391,29 @@ Ldebug_info0:
 	.ascii "phOfst\0"
 	.byte	0x7
 	.byte	0x34
-	.long	0x40b
+	.long	0x421
 	.byte	0x8
 	.byte	0
 	.uleb128 0x6
 	.ascii "mod_par_t\0"
 	.byte	0x7
 	.byte	0x35
-	.long	0x414
+	.long	0x42a
 	.uleb128 0xe
 	.ascii "Modulation_ListParameters\0"
 	.byte	0x1
 	.byte	0x1f
-	.long	0x3bd
+	.long	0x3d3
 	.long	LFB18
 	.long	LFE18-LFB18
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x4c3
+	.long	0x4d9
 	.uleb128 0xf
 	.ascii "ioParams\0"
 	.byte	0x1
 	.byte	0x1f
-	.long	0x4c3
+	.long	0x4d9
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
@@ -418,14 +421,14 @@ Ldebug_info0:
 	.ascii "retErr\0"
 	.byte	0x1
 	.byte	0x21
-	.long	0x3bd
+	.long	0x3d3
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
 	.byte	0
 	.uleb128 0x5
 	.byte	0x4
-	.long	0x45e
+	.long	0x474
 	.byte	0
 	.section	.debug_abbrev,"dr"
 Ldebug_abbrev0:

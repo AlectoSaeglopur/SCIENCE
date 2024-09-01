@@ -59,7 +59,11 @@ typedef struct _mod_par_t
 /******************/
 
 #define MOD_TYPE          ((modulation_t) MOD_PSK)      //!< modulation type
-#define MOD_ORDER         ((uint8_t) 4u)                //!< modulation order
+#define MOD_BPS           2u                            //!< modulation number of bits per symbol [b/Sy]
+
+
+
+
 
 
 
@@ -67,7 +71,7 @@ typedef struct _mod_par_t
 /*** PARAMETERS ***/
 /******************/
 
-#define MOD_BPS           (log2(MOD_ORDER))   //!< modulation number of bits per symbol [b/Sy]
+#define MOD_ORDER         (0x01<<MOD_BPS)               //!< modulation order
 
 
 

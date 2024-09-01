@@ -1568,6 +1568,7 @@ typedef enum
   ERR_INV_CNVCOD_KLEN,
   ERR_INV_BUFFER_SIZE,
   ERR_INV_DYNAMIC_ALLOC,
+  ERR_INV_STREAM_TYPE,
 
   ERR_NUM
 } error_t;
@@ -1581,7 +1582,7 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 63 "src\\error.h"
+# 64 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 20 "src\\memory.h" 2
 # 28 "src\\memory.h"
@@ -1597,29 +1598,40 @@ typedef struct _byte_stream_t
 
 
 
-error_t Memory_AllocateByteBuffer( byte_stream_t * ioStream, uint32_t size );
-error_t Memory_FreeByteBuffer( byte_stream_t * ioStream );
+error_t Memory_AllocateStream( void * ioStream, uint32_t len, size_t size );
+error_t Memory_FreeStream( void * ioStream, size_t size );
 # 17 "src\\memory.c" 2
-# 32 "src\\memory.c"
-error_t Memory_AllocateByteBuffer( byte_stream_t * ioStream, uint32_t size )
+
+
+
+
+
+
+
+static error_t AllocateByteStream( byte_stream_t * ioStream, uint32_t len );
+static error_t FreeByteStream( byte_stream_t * ioStream );
+# 42 "src\\memory.c"
+error_t Memory_AllocateStream( void * ioStream, uint32_t len, size_t size )
 {
   error_t retErr = ERR_NONE;
+  byte_stream_t * tmpStream;
 
   if (
-# 36 "src\\memory.c" 3 4
+# 47 "src\\memory.c" 3 4
      ((void *)0) 
-# 36 "src\\memory.c"
+# 47 "src\\memory.c"
           != ioStream)
   {
-    ioStream->pBuf = calloc(size,sizeof(uint8_t));
-    ioStream->len = size;
-    if (
-# 40 "src\\memory.c" 3 4
-       ((void *)0) 
-# 40 "src\\memory.c"
-            == ioStream->pBuf)
+    switch(size)
     {
-      retErr = ERR_INV_DYNAMIC_ALLOC;
+      case sizeof(byte_stream_t):
+        tmpStream = (byte_stream_t *) ioStream;
+        AllocateByteStream(tmpStream,len);
+        break;
+
+      default:
+        retErr = ERR_INV_STREAM_TYPE;
+        break;
     }
   }
   else
@@ -1629,27 +1641,91 @@ error_t Memory_AllocateByteBuffer( byte_stream_t * ioStream, uint32_t size )
 
   return Error_HandleErr(retErr);
 }
-# 61 "src\\memory.c"
-error_t Memory_FreeByteBuffer( byte_stream_t * ioStream )
+# 78 "src\\memory.c"
+error_t Memory_FreeStream( void * ioStream, size_t size )
+{
+  error_t retErr = ERR_NONE;
+  byte_stream_t * tmpStream;
+
+  if (
+# 83 "src\\memory.c" 3 4
+     ((void *)0) 
+# 83 "src\\memory.c"
+          != ioStream)
+  {
+    switch(size)
+    {
+      case sizeof(byte_stream_t):
+        tmpStream = (byte_stream_t *) ioStream;
+        FreeByteStream(tmpStream);
+        break;
+
+      default:
+        retErr = ERR_INV_STREAM_TYPE;
+        break;
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
+}
+# 119 "src\\memory.c"
+static error_t AllocateByteStream( byte_stream_t * ioStream, uint32_t len )
+{
+  error_t retErr = ERR_NONE;
+
+  if (
+# 123 "src\\memory.c" 3 4
+     ((void *)0) 
+# 123 "src\\memory.c"
+          != ioStream)
+  {
+    ioStream->pBuf = calloc(len,sizeof(uint8_t));
+    if (
+# 126 "src\\memory.c" 3 4
+       ((void *)0) 
+# 126 "src\\memory.c"
+            == ioStream->pBuf)
+    {
+      retErr = ERR_INV_DYNAMIC_ALLOC;
+    }
+    else
+    {
+      ioStream->len = len;
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
+}
+# 151 "src\\memory.c"
+static error_t FreeByteStream( byte_stream_t * ioStream )
 {
   error_t retErr = ERR_NONE;
 
   if ((
-# 65 "src\\memory.c" 3 4
+# 155 "src\\memory.c" 3 4
       ((void *)0) 
-# 65 "src\\memory.c"
+# 155 "src\\memory.c"
            != ioStream) && (
-# 65 "src\\memory.c" 3 4
+# 155 "src\\memory.c" 3 4
                             ((void *)0) 
-# 65 "src\\memory.c"
+# 155 "src\\memory.c"
                                  != ioStream->pBuf))
   {
     free(ioStream->pBuf);
     ioStream->pBuf = 
-# 68 "src\\memory.c" 3 4
+# 158 "src\\memory.c" 3 4
                     ((void *)0)
-# 68 "src\\memory.c"
+# 158 "src\\memory.c"
                         ;
+    ioStream->len = 0;
   }
   else
   {
