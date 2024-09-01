@@ -47,16 +47,17 @@
                                     (CC_RATE+1)/CC_RATE))                   //!< punctured convolutional coded stream length [B]
 #define LEN_MOD_SY        ((len_t) (LEN_CC_UNP_BY/MOD_BPS))
 
-// list of streams
-#define LIST_OF_STREAMS(ENTRY)        \
-  ENTRY( txSrc, byte, LEN_SRC_BY    ) \
-  ENTRY( rxSrc, byte, LEN_SRC_BY    ) \
-  ENTRY( txCc,  byte, LEN_CC_UNP_BY ) \
-  ENTRY( rxCc,  byte, LEN_CC_PUN_BY )
+// list of streams (name, type, length)
+#define LIST_OF_STREAMS(ENTRY)           \
+  ENTRY( txSrc, byte,    LEN_SRC_BY    ) \
+  ENTRY( rxSrc, byte,    LEN_SRC_BY    ) \
+  ENTRY( txCc,  byte,    LEN_CC_UNP_BY ) \
+  ENTRY( rxCc,  byte,    LEN_CC_PUN_BY ) \
+  ENTRY( txMod, complex, LEN_MOD_SY    )
 
-#define DEF_STREAM_DECLARE(name,size,length) size##_stream_t name##Stream = {.pBuf = NULL, .len = 0};
-#define DEF_STREAM_ALLOCATE(name,size,length) Memory_AllocateStream(&name##Stream,length,sizeof(size##_stream_t));
-#define DEF_STREAM_FREE(name,size,length) Memory_FreeStream(&name##Stream,sizeof(size##_stream_t));
+#define DEF_STREAM_DECLARE(name,type,length) type##_stream_t name##Stream = {.pBuf = NULL, .len = 0, .id = memory_type_##type};
+#define DEF_STREAM_ALLOCATE(name,type,length) Memory_AllocateStream(&name##Stream,length,name##Stream.id);
+#define DEF_STREAM_FREE(name,type,length) Memory_FreeStream(&name##Stream,memory_type_##type);
 
 
 
@@ -104,13 +105,6 @@ int main( void )
   }
   LIST_OF_STREAMS(DEF_STREAM_FREE);                                         /** -# free memory for all streams */
   printf(" >> Execution completed successfully!\n");
-
-
-
-
-
-  //printf("\n\n>> DEBUG2 !!!!!\n\n");
-
 
 
 

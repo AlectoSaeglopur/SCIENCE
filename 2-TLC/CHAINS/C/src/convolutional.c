@@ -35,8 +35,8 @@ static bool IsRateValid( cc_rate_t val );
 static bool IsKlenValid( cc_klen_t val );
 static uint8_t ComputeEncBit( uint8_t cState, uint8_t cvVal, cc_klen_t kLen );
 static error_t ComputeTrellisDiagram( cc_trellis_t * ioTrellisDiagr, const uint8_t * conVect, const cc_par_t * pParams );
-static error_t HardDepuncturer( uint8_t * ioBuffer, len_t inLenBi, len_t outLenBi, const uint8_t * punctVect, const cc_par_t * pParams );
-static uint8_t CountByteOnes( uint8_t InByte );
+static error_t HardDepuncturer( byte_t * ioBuffer, len_t inLenBi, len_t outLenBi, const uint8_t * punctVect, const cc_par_t * pParams );
+static uint8_t CountByteOnes( byte_t InByte );
 static uint8_t FindMinSurvPathHard( const cc_hard_dec_info_t * inPaths );
 
 
@@ -549,7 +549,7 @@ static error_t ComputeTrellisDiagram( cc_trellis_t * ioTrellisDiagr, const uint8
  * 
  * @return error ID
  */
-static error_t HardDepuncturer( uint8_t * ioBuffer, len_t inLenBi, len_t outLenBi, const uint8_t * punctVect, const cc_par_t * pParams )
+static error_t HardDepuncturer( byte_t * ioBuffer, len_t inLenBi, len_t outLenBi, const uint8_t * punctVect, const cc_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
   uint32_t rdIdx = inLenBi-1;                                             /** final bit index of input stream length */
@@ -610,7 +610,7 @@ static error_t HardDepuncturer( uint8_t * ioBuffer, len_t inLenBi, len_t outLenB
  * 
  * @return number of '1's
  */
-static uint8_t CountByteOnes( uint8_t inByte )
+static uint8_t CountByteOnes( byte_t inByte )
 {
   uint8_t j;
   uint8_t cnt = 0;

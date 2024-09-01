@@ -47,7 +47,7 @@ Letext0:
 	.file 5 "src/error.h"
 	.section	.debug_info,"dr"
 Ldebug_info0:
-	.long	0x44d
+	.long	0x456
 	.word	0x4
 	.secrel32	Ldebug_abbrev0
 	.byte	0x4
@@ -279,12 +279,16 @@ Ldebug_info0:
 	.byte	0xc
 	.byte	0x4
 	.ascii "long double\0"
+	.uleb128 0x2
+	.byte	0x4
+	.byte	0x4
+	.ascii "float\0"
 	.uleb128 0xc
 	.byte	0x4
 	.long	0x6f
 	.byte	0x5
 	.byte	0x1b
-	.long	0x3bf
+	.long	0x3c8
 	.uleb128 0xd
 	.ascii "ERR_NONE\0"
 	.byte	0
@@ -317,13 +321,13 @@ Ldebug_info0:
 	.ascii "error_t\0"
 	.byte	0x5
 	.byte	0x26
-	.long	0x304
+	.long	0x30d
 	.uleb128 0xc
 	.byte	0x4
 	.long	0x6f
 	.byte	0x5
 	.byte	0x2a
-	.long	0x40f
+	.long	0x418
 	.uleb128 0xd
 	.ascii "ALARM_NONE\0"
 	.byte	0
@@ -341,12 +345,12 @@ Ldebug_info0:
 	.ascii "alarm_t\0"
 	.byte	0x5
 	.byte	0x30
-	.long	0x3ce
+	.long	0x3d7
 	.uleb128 0xe
 	.ascii "Error_HandleErr\0"
 	.byte	0x1
 	.byte	0x1f
-	.long	0x3bf
+	.long	0x3c8
 	.long	LFB18
 	.long	LFE18-LFB18
 	.uleb128 0x1
@@ -355,7 +359,7 @@ Ldebug_info0:
 	.ascii "inErr\0"
 	.byte	0x1
 	.byte	0x1f
-	.long	0x3bf
+	.long	0x3c8
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0

@@ -197,7 +197,7 @@ Letext0:
 	.file 7 "src/memory.h"
 	.section	.debug_info,"dr"
 Ldebug_info0:
-	.long	0x504
+	.long	0x55a
 	.word	0x4
 	.secrel32	Ldebug_abbrev0
 	.byte	0x4
@@ -441,12 +441,16 @@ Ldebug_info0:
 	.byte	0xc
 	.byte	0x4
 	.ascii "long double\0"
+	.uleb128 0x2
+	.byte	0x4
+	.byte	0x4
+	.ascii "float\0"
 	.uleb128 0xd
 	.byte	0x4
 	.long	0x71
 	.byte	0x6
 	.byte	0x1b
-	.long	0x3e5
+	.long	0x3ee
 	.uleb128 0xe
 	.ascii "ERR_NONE\0"
 	.byte	0
@@ -479,25 +483,49 @@ Ldebug_info0:
 	.ascii "error_t\0"
 	.byte	0x6
 	.byte	0x26
-	.long	0x32a
+	.long	0x333
+	.uleb128 0xd
+	.byte	0x4
+	.long	0x71
+	.byte	0x7
+	.byte	0x1d
+	.long	0x433
+	.uleb128 0xe
+	.ascii "memory_type_byte\0"
+	.byte	0
+	.uleb128 0xe
+	.ascii "memory_type_complex\0"
+	.byte	0x1
+	.byte	0
+	.uleb128 0x6
+	.ascii "memory_type_t\0"
+	.byte	0x7
+	.byte	0x20
+	.long	0x3fd
 	.uleb128 0x3
 	.ascii "_byte_stream_t\0"
-	.byte	0x8
+	.byte	0xc
 	.byte	0x7
-	.byte	0x1c
-	.long	0x425
+	.byte	0x23
+	.long	0x484
 	.uleb128 0x4
 	.ascii "pBuf\0"
 	.byte	0x7
-	.byte	0x1e
-	.long	0x425
+	.byte	0x25
+	.long	0x484
 	.byte	0
 	.uleb128 0x4
 	.ascii "len\0"
 	.byte	0x7
-	.byte	0x1f
+	.byte	0x26
 	.long	0x1af
 	.byte	0x4
+	.uleb128 0x4
+	.ascii "id\0"
+	.byte	0x7
+	.byte	0x27
+	.long	0x433
+	.byte	0x8
 	.byte	0
 	.uleb128 0x5
 	.byte	0x4
@@ -505,25 +533,25 @@ Ldebug_info0:
 	.uleb128 0x6
 	.ascii "byte_stream_t\0"
 	.byte	0x7
-	.byte	0x20
-	.long	0x3f4
+	.byte	0x28
+	.long	0x448
 	.uleb128 0xa
-	.long	0x42b
+	.long	0x48a
 	.uleb128 0xf
 	.ascii "Channel_BSC\0"
 	.byte	0x1
 	.byte	0x22
-	.long	0x3e5
+	.long	0x3ee
 	.long	LFB18
 	.long	LFE18-LFB18
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x4ec
+	.long	0x54b
 	.uleb128 0x10
 	.ascii "inStream\0"
 	.byte	0x1
 	.byte	0x22
-	.long	0x4ec
+	.long	0x54b
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
@@ -531,7 +559,7 @@ Ldebug_info0:
 	.ascii "outStream\0"
 	.byte	0x1
 	.byte	0x22
-	.long	0x4f2
+	.long	0x551
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 4
@@ -539,7 +567,7 @@ Ldebug_info0:
 	.ascii "Peb\0"
 	.byte	0x1
 	.byte	0x22
-	.long	0x4f8
+	.long	0x32a
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 8
@@ -547,7 +575,7 @@ Ldebug_info0:
 	.ascii "pSeed\0"
 	.byte	0x1
 	.byte	0x22
-	.long	0x501
+	.long	0x557
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 12
@@ -555,7 +583,7 @@ Ldebug_info0:
 	.ascii "retErr\0"
 	.byte	0x1
 	.byte	0x24
-	.long	0x3e5
+	.long	0x3ee
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
@@ -586,14 +614,10 @@ Ldebug_info0:
 	.byte	0
 	.uleb128 0x5
 	.byte	0x4
-	.long	0x440
+	.long	0x49f
 	.uleb128 0x5
 	.byte	0x4
-	.long	0x42b
-	.uleb128 0x2
-	.byte	0x4
-	.byte	0x4
-	.ascii "float\0"
+	.long	0x48a
 	.uleb128 0x5
 	.byte	0x4
 	.long	0x1bf

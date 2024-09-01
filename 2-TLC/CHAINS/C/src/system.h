@@ -27,9 +27,9 @@
 
 
 
-/***************/
-/*** DEFINES ***/
-/***************/
+/*****************/
+/*** CONSTANTS ***/
+/*****************/
 
 #define BY2BI_SHIFT             3u                    //!< number of bit shifts to convert byte into bit value
 #define LSBIT_MASK              ((uint8_t) 0x01)
@@ -46,19 +46,15 @@
 /****************/
 
 #define len_t                   uint32_t              //!< bit/byte buffer length type
+#define byte_t                  uint8_t               //!< byte type
+
+typedef struct _complex_t
+{
+  float re;                                             /** - real part */
+  float im;                                             /** - imaginary part */
+} complex_t;
 
 
-
-
-
-
-
-
-
-
-
-
-//#define PunBytLen    (uint32_t)(LEN_SRC_BY*(Rc+1)/Rc)                /** Punctured convolutional coded byte-length [B] */
 
 
 /**************/

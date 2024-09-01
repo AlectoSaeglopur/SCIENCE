@@ -22,18 +22,18 @@
 
 
 
-/***************/
-/*** DEFINES ***/
-/***************/
+/******************/
+/*** PARAMETERS ***/
+/******************/
 
 #define PID_NCOLS           20u                         //!< Number of columns per row to print before wrapping
 #define IS_CSV_ENABLED      (false)
 
 
 
-/*************/
-/*** ENUMS ***/
-/*************/
+/****************/
+/*** TYPEDEFS ***/
+/****************/
 
 typedef enum
 {

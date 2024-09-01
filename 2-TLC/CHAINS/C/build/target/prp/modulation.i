@@ -1549,6 +1549,14 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 # 931 "c:\\mingw\\include\\math.h" 3
 
 # 27 "src\\system.h" 2
+# 51 "src\\system.h"
+
+# 51 "src\\system.h"
+typedef struct _complex_t
+{
+  float re;
+  float im;
+} complex_t;
 # 19 "src\\error.h" 2
 
 
@@ -1557,8 +1565,6 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 
 
 
-
-# 26 "src\\error.h"
 typedef enum
 {
   ERR_NONE = 0,
@@ -1600,12 +1606,6 @@ typedef enum
 
 
 
-typedef struct _complex_t
-{
-  float re;
-  float im;
-} complex_t;
-
 typedef struct _mod_par_t
 {
   modulation_t type;
@@ -1613,7 +1613,7 @@ typedef struct _mod_par_t
   uint8_t bps;
   float phOfst;
 } mod_par_t;
-# 82 "src\\modulation.h"
+# 72 "src\\modulation.h"
 error_t Modulation_ListParameters( mod_par_t * ioParams );
 # 17 "src\\modulation.c" 2
 # 31 "src\\modulation.c"

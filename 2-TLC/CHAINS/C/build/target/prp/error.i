@@ -1547,6 +1547,14 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 # 931 "c:\\mingw\\include\\math.h" 3
 
 # 27 "src\\system.h" 2
+# 51 "src\\system.h"
+
+# 51 "src\\system.h"
+typedef struct _complex_t
+{
+  float re;
+  float im;
+} complex_t;
 # 19 "src\\error.h" 2
 
 
@@ -1555,8 +1563,6 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 
 
 
-
-# 26 "src\\error.h"
 typedef enum
 {
   ERR_NONE = 0,

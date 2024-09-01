@@ -1549,6 +1549,14 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 # 931 "c:\\mingw\\include\\math.h" 3
 
 # 27 "src\\system.h" 2
+# 51 "src\\system.h"
+
+# 51 "src\\system.h"
+typedef struct _complex_t
+{
+  float re;
+  float im;
+} complex_t;
 # 19 "src\\error.h" 2
 
 
@@ -1557,8 +1565,6 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 
 
 
-
-# 26 "src\\error.h"
 typedef enum
 {
   ERR_NONE = 0,
@@ -1587,20 +1593,30 @@ error_t Error_HandleErr( error_t inErr );
 # 19 "src\\channel.h" 2
 # 1 "src\\memory.h" 1
 # 28 "src\\memory.h"
+typedef enum
+{
+  memory_type_byte = 0,
+  memory_type_complex
+} memory_type_t;
+
+
 typedef struct _byte_stream_t
 {
   uint8_t * pBuf;
   uint32_t len;
+  memory_type_t id;
 } byte_stream_t;
 
 
-
-
-
-
-
-error_t Memory_AllocateStream( void * ioStream, uint32_t len, size_t size );
-error_t Memory_FreeStream( void * ioStream, size_t size );
+typedef struct _complex_stream_t
+{
+  complex_t * pBuf;
+  uint32_t len;
+  memory_type_t id;
+} complex_stream_t;
+# 59 "src\\memory.h"
+error_t Memory_AllocateStream( void * ioStream, uint32_t len, memory_type_t type );
+error_t Memory_FreeStream( void * ioStream, memory_type_t type );
 # 20 "src\\channel.h" 2
 # 28 "src\\channel.h"
 typedef enum
@@ -1618,26 +1634,26 @@ error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, f
 {
   error_t retErr = ERR_NONE;
   uint32_t j;
- uint32_t byteIdx;
- uint8_t bitIdx;
+  uint32_t byteIdx;
+  uint8_t bitIdx;
 
- if ((
+  if ((
 # 41 "src\\channel.c" 3 4
-     ((void *)0) 
+      ((void *)0) 
 # 41 "src\\channel.c"
-          != inStream) && (
+           != inStream) && (
 # 41 "src\\channel.c" 3 4
-                           ((void *)0) 
+                            ((void *)0) 
 # 41 "src\\channel.c"
-                                != inStream->pBuf) && (
+                                 != inStream->pBuf) && (
 # 41 "src\\channel.c" 3 4
-                                                       ((void *)0) 
+                                                        ((void *)0) 
 # 41 "src\\channel.c"
-                                                            != outStream) && (
+                                                             != outStream) && (
 # 41 "src\\channel.c" 3 4
-                                                                              ((void *)0) 
+                                                                               ((void *)0) 
 # 41 "src\\channel.c"
-                                                                                   != outStream->pBuf))
+                                                                                    != outStream->pBuf))
   {
     if (inStream->len == outStream->len)
     {
@@ -1683,7 +1699,7 @@ error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, f
     {
       retErr = ERR_INV_BUFFER_SIZE;
     }
- }
+  }
   else
   {
     retErr = ERR_INV_NULL_POINTER;

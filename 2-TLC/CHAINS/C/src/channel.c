@@ -35,17 +35,17 @@ error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, f
 {
   error_t retErr = ERR_NONE;
   uint32_t j;
-	uint32_t byteIdx;
-	uint8_t bitIdx;
+  uint32_t byteIdx;
+  uint8_t bitIdx;
 
-	if ((NULL != inStream) && (NULL != inStream->pBuf) && (NULL != outStream) && (NULL != outStream->pBuf))
+  if ((NULL != inStream) && (NULL != inStream->pBuf) && (NULL != outStream) && (NULL != outStream->pBuf))
   {
     if (inStream->len == outStream->len)
     {
       memcpy(outStream->pBuf,inStream->pBuf,inStream->len);
       if (NULL == pSeed)
       {
-        srand(time(NULL));															  /** link random seed to current time */
+        srand(time(NULL));                                /** link random seed to current time */
       }
       else
       {
@@ -72,7 +72,7 @@ error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, f
     {
       retErr = ERR_INV_BUFFER_SIZE;
     }
-	}
+  }
   else
   {
     retErr = ERR_INV_NULL_POINTER;
@@ -88,24 +88,24 @@ error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, f
  * @return none
  */
 //void ChanAWGN( complex *IoStream ){
-//	uint32_t j;
-//	float U1, U2;																/** Random variables uniformly distributed between 0 and 1 */
-//	float ReN, ImN;																/** Random variables normally distributed as (Mu,SqSigma) */
-//	float Mu = 0;																/** Noise mean value */
-//	float SgnPwr = GetCpxSgnPower(IoStream,SymLen);								/** Signal mean power (linear) */
-//	float SNR = EbN0+10*log10(L);												/** Signal-to-noise-ratio [dB] */
-//	float SqSigma = SgnPwr*pow(10,-SNR/10);										/** Target noise variance (N0) */
-//	srand(time(NULL));															/** Link random seed to current time */
-//	for ( j=0; j<SymLen; j++ ){		
-//		U1 = rand()*(1.0/RAND_MAX);
-//		U2 = rand()*(1.0/RAND_MAX);
-//		ReN = sqrt(-2*log(U1))*cos(2*M_PI*U2)*sqrt(SqSigma/2)+Mu;
-//		ImN = sqrt(-2*log(U1))*sin(2*M_PI*U2)*sqrt(SqSigma/2)+Mu;
-//		if ( (fabs(ReN) != INFINITY) && (fabs(ImN) != INFINITY) ){
-//			IoStream[j].Re += ReN;
-//			IoStream[j].Im += ImN;
-//		}
-//	}
+//  uint32_t j;
+//  float U1, U2;                                /** Random variables uniformly distributed between 0 and 1 */
+//  float ReN, ImN;                                /** Random variables normally distributed as (Mu,SqSigma) */
+//  float Mu = 0;                                /** Noise mean value */
+//  float SgnPwr = GetCpxSgnPower(IoStream,SymLen);                /** Signal mean power (linear) */
+//  float SNR = EbN0+10*log10(L);                        /** Signal-to-noise-ratio [dB] */
+//  float SqSigma = SgnPwr*pow(10,-SNR/10);                    /** Target noise variance (N0) */
+//  srand(time(NULL));                              /** Link random seed to current time */
+//  for ( j=0; j<SymLen; j++ ){    
+//    U1 = rand()*(1.0/RAND_MAX);
+//    U2 = rand()*(1.0/RAND_MAX);
+//    ReN = sqrt(-2*log(U1))*cos(2*M_PI*U2)*sqrt(SqSigma/2)+Mu;
+//    ImN = sqrt(-2*log(U1))*sin(2*M_PI*U2)*sqrt(SqSigma/2)+Mu;
+//    if ( (fabs(ReN) != INFINITY) && (fabs(ImN) != INFINITY) ){
+//      IoStream[j].Re += ReN;
+//      IoStream[j].Im += ImN;
+//    }
+//  }
 //}
 
 
@@ -116,10 +116,10 @@ error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, f
  * @return signal power
  */
 //float GetCpxSgnPower( complex *Stream, uint32_t Len ){
-//	uint32_t j;
-//	float Energy = 0;
-//	for ( j=0; j<Len; j++ ){
-//		Energy += pow(Stream[j].Re,2)+pow(Stream[j].Im,2);
-//	}
-//	return Energy/(float)Len;
+//  uint32_t j;
+//  float Energy = 0;
+//  for ( j=0; j<Len; j++ ){
+//    Energy += pow(Stream[j].Re,2)+pow(Stream[j].Im,2);
+//  }
+//  return Energy/(float)Len;
 //}

@@ -21,9 +21,40 @@
 
 
 
-/*************/
-/*** ENUMS ***/
-/*************/
+/******************/
+/*** PARAMETERS ***/
+/******************/
+
+#define CC_RATE                 CC_RATE_23                  /** Convolutional code rate */
+#define CC_KLEN                 CC_KLEN_7                   /** Convolutional constrain length */
+#define CC_MEMFACT              10u                         /** Viterbi decoder memory factor */
+#define CC_VITDM                CC_VITDM_HARD               /** Viterbi decoding method */
+
+
+
+/*****************/
+/*** CONSTANTS ***/
+/*****************/
+
+#define CC_NBRANCHES            2u
+#define CC_INMASK               ((LSBIT_MASK<<CC_NBRANCHES)-1)
+#define CC_PUNCTLEN             (CC_NBRANCHES*CC_RATE)
+#define CC_NTRELSTATES          (1<<(CC_KLEN-1))                                /** Number of trellis states */
+#define CC_MEM_DIM              (CC_NTRELSTATES*CC_MEMFACT)                     /** Viterbi decoder memory dimension for survivor paths storage */ 
+
+#define CC_CVMATRIX             ((uint8_t[][CC_NBRANCHES]) {{7,5},{15,11}, \
+                                  {23,25},{47,53},{79,109},{159,229}})          /** Connector vectors for each K */
+
+#define CC_PUNC_VECT_23         ((uint8_t[]) {1,1,0,1})                         /** Puncturing vector for Rc = 2/3 */
+#define CC_PUNC_VECT_34         ((uint8_t[]) {1,1,0,1,1,0})                     /** Puncturing vector for Rc = 3/4 */
+#define CC_PUNC_VECT_56         ((uint8_t[]) {1,1,0,1,1,0,0,1,1,0})             /** Puncturing vector for Rc = 5/6 */
+#define CC_PUNC_VECT_78         ((uint8_t[]) {1,1,0,1,0,1,0,1,1,0,0,1,1,0})     /** Puncturing vector for Rc = 7/8 */
+
+
+
+/****************/
+/*** TYPEDEFS ***/
+/****************/
 
 // code rates (specify numerator and denominator of each code rate entry)
 #define LIST_OF_CC_RATES(ENTRY) \
@@ -72,42 +103,6 @@ typedef enum
   CC_VITDM_NUM
 } cc_dec_method_t;
 
-
-
-/******************/
-/*** PARAMETERS ***/
-/******************/
-
-#define CC_RATE                 CC_RATE_23                  /** Convolutional code rate */
-#define CC_KLEN                 CC_KLEN_7                   /** Convolutional constrain length */
-#define CC_MEMFACT              10u                         /** Viterbi decoder memory factor */
-#define CC_VITDM                CC_VITDM_HARD               /** Viterbi decoding method */
-
-
-
-/*****************/
-/*** CONSTANTS ***/
-/*****************/
-
-#define CC_NBRANCHES            2u
-#define CC_INMASK               ((LSBIT_MASK<<CC_NBRANCHES)-1)
-#define CC_PUNCTLEN             (CC_NBRANCHES*CC_RATE)
-#define CC_NTRELSTATES          (1<<(CC_KLEN-1))                                /** Number of trellis states */
-#define CC_MEM_DIM              (CC_NTRELSTATES*CC_MEMFACT)                     /** Viterbi decoder memory dimension for survivor paths storage */ 
-
-#define CC_CVMATRIX             ((uint8_t[][CC_NBRANCHES]) {{7,5},{15,11}, \
-                                  {23,25},{47,53},{79,109},{159,229}})          /** Connector vectors for each K */
-
-#define CC_PUNC_VECT_23         ((uint8_t[]) {1,1,0,1})                         /** Puncturing vector for Rc = 2/3 */
-#define CC_PUNC_VECT_34         ((uint8_t[]) {1,1,0,1,1,0})                     /** Puncturing vector for Rc = 3/4 */
-#define CC_PUNC_VECT_56         ((uint8_t[]) {1,1,0,1,1,0,0,1,1,0})             /** Puncturing vector for Rc = 5/6 */
-#define CC_PUNC_VECT_78         ((uint8_t[]) {1,1,0,1,0,1,0,1,1,0,0,1,1,0})     /** Puncturing vector for Rc = 7/8 */
-
-
-
-/****************/
-/*** TYPEDEFS ***/
-/****************/
 
 typedef struct _cc_par_t
 {

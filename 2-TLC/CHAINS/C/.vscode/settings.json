@@ -1,8 +1,0 @@
-{
-  "files.associations": {
-    "debug.h": "c",
-    "memory.h": "c",
-    "convolutional.h": "c",
-    "channel.h": "c"
-  }
-}

@@ -38,12 +38,6 @@ typedef enum
 /*** TYPEDEFS ***/
 /****************/
 
-typedef struct _complex_t
-{
-  float re;
-  float im;
-} complex_t;
-
 typedef struct _mod_par_t
 {
   modulation_t type;                                  /** - modulation type */
@@ -63,13 +57,9 @@ typedef struct _mod_par_t
 
 
 
-
-
-
-
-/******************/
-/*** PARAMETERS ***/
-/******************/
+/*****************/
+/*** CONSTANTS ***/
+/*****************/
 
 #define MOD_ORDER         (0x01<<MOD_BPS)               //!< modulation order
 

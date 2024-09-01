@@ -25,11 +25,30 @@
 /*** TYPEDEFS ***/
 /****************/
 
+typedef enum
+{
+  memory_type_byte = 0,                                 /** - byte stream ID */
+  memory_type_complex                                   /** - complex stream ID */
+} memory_type_t;
+
+
 typedef struct _byte_stream_t
 {
-  uint8_t * pBuf;                                       /** - buffer pointer */
+  byte_t * pBuf;                                        /** - buffer pointer */
   len_t len;                                            /** - buffer length [B] */
+  memory_type_t id;
 } byte_stream_t;
+
+
+typedef struct _complex_stream_t
+{
+  complex_t * pBuf;                                     /** - buffer pointer */
+  len_t len;                                            /** - buffer length [B] */
+  memory_type_t id;
+} complex_stream_t;
+
+
+
 
 
 
@@ -37,8 +56,8 @@ typedef struct _byte_stream_t
 /*** PUBLIC PROTOTYPES ***/
 /*************************/
 
-error_t Memory_AllocateStream( void * ioStream, len_t len, size_t size );
-error_t Memory_FreeStream( void * ioStream, size_t size );
+error_t Memory_AllocateStream( void * ioStream, len_t len, memory_type_t type );
+error_t Memory_FreeStream( void * ioStream, memory_type_t type );
 
 
 #endif

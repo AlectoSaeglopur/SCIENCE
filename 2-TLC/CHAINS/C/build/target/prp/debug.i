@@ -1551,6 +1551,14 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 # 931 "c:\\mingw\\include\\math.h" 3
 
 # 27 "src\\system.h" 2
+# 51 "src\\system.h"
+
+# 51 "src\\system.h"
+typedef struct _complex_t
+{
+  float re;
+  float im;
+} complex_t;
 # 19 "src\\error.h" 2
 
 
@@ -1559,8 +1567,6 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 
 
 
-
-# 26 "src\\error.h"
 typedef enum
 {
   ERR_NONE = 0,
@@ -1589,22 +1595,32 @@ error_t Error_HandleErr( error_t inErr );
 # 19 "src\\convolutional.h" 2
 # 1 "src\\memory.h" 1
 # 28 "src\\memory.h"
+typedef enum
+{
+  memory_type_byte = 0,
+  memory_type_complex
+} memory_type_t;
+
+
 typedef struct _byte_stream_t
 {
   uint8_t * pBuf;
   uint32_t len;
+  memory_type_t id;
 } byte_stream_t;
 
 
-
-
-
-
-
-error_t Memory_AllocateStream( void * ioStream, uint32_t len, size_t size );
-error_t Memory_FreeStream( void * ioStream, size_t size );
+typedef struct _complex_stream_t
+{
+  complex_t * pBuf;
+  uint32_t len;
+  memory_type_t id;
+} complex_stream_t;
+# 59 "src\\memory.h"
+error_t Memory_AllocateStream( void * ioStream, uint32_t len, memory_type_t type );
+error_t Memory_FreeStream( void * ioStream, memory_type_t type );
 # 20 "src\\convolutional.h" 2
-# 37 "src\\convolutional.h"
+# 68 "src\\convolutional.h"
 typedef enum
 {
   CC_RATE_12 = 1, CC_RATE_23 = 2, CC_RATE_34 = 3, CC_RATE_56 = 5, CC_RATE_78 = 7
@@ -1642,7 +1658,8 @@ typedef enum
 
   CC_VITDM_NUM
 } cc_dec_method_t;
-# 112 "src\\convolutional.h"
+
+
 typedef struct _cc_par_t
 {
   cc_rate_t cRate;
