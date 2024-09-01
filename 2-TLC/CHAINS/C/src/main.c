@@ -54,7 +54,7 @@
   ENTRY( txCc,  byte, LEN_CC_UNP_BY ) \
   ENTRY( rxCc,  byte, LEN_CC_PUN_BY )
 
-#define DEF_STREAM_DECLARE(name,size,length) size##_stream_t name##Stream = {.pBuf = NULL, .len = length};
+#define DEF_STREAM_DECLARE(name,size,length) size##_stream_t name##Stream = {.pBuf = NULL, .len = 0};
 #define DEF_STREAM_ALLOCATE(name,size,length) Memory_AllocateStream(&name##Stream,length,sizeof(size##_stream_t));
 #define DEF_STREAM_FREE(name,size,length) Memory_FreeStream(&name##Stream,sizeof(size##_stream_t));
 

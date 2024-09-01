@@ -1775,19 +1775,19 @@ int main( void )
 # 79 "src\\main.c" 3 4
  ((void *)0)
 # 79 "src\\main.c"
- , .len = 100}; byte_stream_t rxSrcStream = {.pBuf = 
+ , .len = 0}; byte_stream_t rxSrcStream = {.pBuf = 
 # 79 "src\\main.c" 3 4
  ((void *)0)
 # 79 "src\\main.c"
- , .len = 100}; byte_stream_t txCcStream = {.pBuf = 
+ , .len = 0}; byte_stream_t txCcStream = {.pBuf = 
 # 79 "src\\main.c" 3 4
  ((void *)0)
 # 79 "src\\main.c"
- , .len = ((uint32_t) (2u*100))}; byte_stream_t rxCcStream = {.pBuf = 
+ , .len = 0}; byte_stream_t rxCcStream = {.pBuf = 
 # 79 "src\\main.c" 3 4
  ((void *)0)
 # 79 "src\\main.c"
- , .len = ((uint32_t) (((uint32_t) (2u*100))/2u* (CC_RATE_23+1)/CC_RATE_23))};;
+ , .len = 0};;
   Memory_AllocateStream(&txSrcStream,100,sizeof(byte_stream_t)); Memory_AllocateStream(&rxSrcStream,100,sizeof(byte_stream_t)); Memory_AllocateStream(&txCcStream,((uint32_t) (2u*100)),sizeof(byte_stream_t)); Memory_AllocateStream(&rxCcStream,((uint32_t) (((uint32_t) (2u*100))/2u* (CC_RATE_23+1)/CC_RATE_23)),sizeof(byte_stream_t));;
   Debug_PrintParameters(100);
   Debug_GenerateRandomBytes(&txSrcStream,

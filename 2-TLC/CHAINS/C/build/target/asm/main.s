@@ -29,13 +29,13 @@ LFB18:
 LVL0:
 	.loc 1 79 0
 	movl	$0, 40(%esp)
-	movl	$100, 44(%esp)
+	movl	$0, 44(%esp)
 	movl	$0, 32(%esp)
-	movl	$100, 36(%esp)
+	movl	$0, 36(%esp)
 	movl	$0, 24(%esp)
-	movl	$200, 28(%esp)
+	movl	$0, 28(%esp)
 	movl	$0, 16(%esp)
-	movl	$150, 20(%esp)
+	movl	$0, 20(%esp)
 	.loc 1 80 0
 	movl	$8, 8(%esp)
 	movl	$100, 4(%esp)
