@@ -1,8 +1,0 @@
-{
-  "files.associations": {
-    "type_traits": "c",
-    "typeinfo": "c",
-    "system.h": "c",
-    "error.h": "c"
-  }
-}
