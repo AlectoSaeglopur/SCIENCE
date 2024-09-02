@@ -34,10 +34,10 @@
 #define BY2BI_SHIFT             3u                    //!< number of bit shifts to convert byte into bit value
 #define LSBIT_MASK              ((uint8_t) 0x01)
 #define LSBYTE_MASK             ((uint32_t) 0x0007)
-
 #define NUM_BITS_PER_BYTE       8u
 #define BITIDX_1LAST            (NUM_BITS_PER_BYTE-1)
 #define BITIDX_2LAST            (BITIDX_1LAST-1)
+#define MATH_PI                 3.14159f
 
 
 
@@ -53,6 +53,33 @@ typedef struct _complex_t
   float re;                                             /** - real part */
   float im;                                             /** - imaginary part */
 } complex_t;
+
+
+
+
+/**************/
+/*** MACROS ***/
+/**************/
+
+//#define SymLen      (uint32_t)PunBitLen/L                    /** Mapped stream symbol-length [S] */
+
+//#define SrcBitLen     (uint32_t)(LEN_SRC_BY<<3)                  /** Source info stream bit-length [b] */
+//#define DepBytLen    (uint32_t)(2*LEN_SRC_BY)                    /** Depunctured convolutional coded byte-length [B] */
+//#define DepBitLen    (uint32_t)(DepBytLen<<3)                  /** Depunctured convolutional coded bit-length [b] */
+//#define PunBytLen    (uint32_t)(LEN_SRC_BY*(Rc+1)/Rc)                /** Punctured convolutional coded byte-length [B] */
+//#define PunBitLen    (uint32_t)(PunBytLen<<3)                  /** Punctured convolutional coded bit-length [b] */
+
+
+
+/****************/
+/*** TYPEDEFS ***/
+/****************/
+
+//
+//typedef struct TD6 {
+//  uint8_t Bits[M];
+//  complex Symbs[M];
+//} phasemap;
 
 
 #endif

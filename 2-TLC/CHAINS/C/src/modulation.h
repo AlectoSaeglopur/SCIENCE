@@ -16,7 +16,6 @@
 /****************/
 
 #include "error.h"                                      /** - import error library */
-#include "memory.h"                                     /** - import memory library */
 #include "system.h"                                     /** - import system library */
 
 
@@ -32,6 +31,20 @@ typedef enum
   // keep NUM as final entry
   MOD_NUM
 } modulation_t;
+
+
+
+/****************/
+/*** TYPEDEFS ***/
+/****************/
+
+typedef struct _mod_par_t
+{
+  modulation_t type;                                  /** - modulation type */
+  uint8_t order;                                      /** - modulation order (aka "M") */
+  uint8_t bps;                                        /** - number of bits per symbol (aka "L") */
+  float phOfst;                                       /** - constellation phase offset [rad] */
+} mod_par_t;
 
 
 

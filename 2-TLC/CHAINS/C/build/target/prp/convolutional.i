@@ -1576,6 +1576,7 @@ typedef enum
   ERR_INV_DYNAMIC_ALLOC,
   ERR_INV_STREAM_TYPE,
   ERR_INV_MODULATION,
+  ERR_INV_CHANNEL_TYPE,
 
   ERR_NUM
 } error_t;
@@ -1589,7 +1590,7 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 65 "src\\error.h"
+# 66 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 19 "src\\convolutional.h" 2
 # 1 "src\\memory.h" 1
@@ -1694,13 +1695,7 @@ typedef struct _cc_hard_dec_info_t
   uint32_t dist[(1<<(CC_KLEN_7-1))];
   uint8_t path[(1<<(CC_KLEN_7-1))][((1<<(CC_KLEN_7-1))*10u)];
 } cc_hard_dec_info_t;
-
-
-
-
-
-
-
+# 158 "src\\convolutional.h"
 error_t CnvCod_ListParameters( cc_par_t * ioParams );
 error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
 error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );

@@ -141,6 +141,15 @@ typedef struct _cc_hard_dec_info_t
 } cc_hard_dec_info_t;
 
 
+/****************/
+/*** TYPEDEFS ***/
+/****************/
+
+#define CC_VDM_STR(x)   ((x == CC_VITDM_HARD) ? "Hard" : \
+                         (x == CC_VITDM_SOFT) ? "Soft" : \
+                         "N/A")                       //!< macro to convert decoding method value into string
+
+
 
 /*************************/
 /*** PUBLIC PROTOTYPES ***/

@@ -348,7 +348,7 @@ Letext0:
 	.file 8 "src/memory.h"
 	.section	.debug_info,"dr"
 Ldebug_info0:
-	.long	0x76b
+	.long	0x782
 	.word	0x4
 	.secrel32	Ldebug_abbrev0
 	.byte	0x4
@@ -623,7 +623,7 @@ Ldebug_info0:
 	.long	0x70
 	.byte	0x7
 	.byte	0x1b
-	.long	0x438
+	.long	0x44f
 	.uleb128 0xd
 	.ascii "ERR_NONE\0"
 	.byte	0
@@ -652,20 +652,23 @@ Ldebug_info0:
 	.ascii "ERR_INV_MODULATION\0"
 	.byte	0x8
 	.uleb128 0xd
-	.ascii "ERR_NUM\0"
+	.ascii "ERR_INV_CHANNEL_TYPE\0"
 	.byte	0x9
+	.uleb128 0xd
+	.ascii "ERR_NUM\0"
+	.byte	0xa
 	.byte	0
 	.uleb128 0x6
 	.ascii "error_t\0"
 	.byte	0x7
-	.byte	0x27
+	.byte	0x28
 	.long	0x368
 	.uleb128 0xc
 	.byte	0x4
 	.long	0x70
 	.byte	0x8
 	.byte	0x1d
-	.long	0x47d
+	.long	0x494
 	.uleb128 0xd
 	.ascii "memory_type_byte\0"
 	.byte	0
@@ -677,18 +680,18 @@ Ldebug_info0:
 	.ascii "memory_type_t\0"
 	.byte	0x8
 	.byte	0x20
-	.long	0x447
+	.long	0x45e
 	.uleb128 0x3
 	.ascii "_byte_stream_t\0"
 	.byte	0xc
 	.byte	0x8
 	.byte	0x23
-	.long	0x4ce
+	.long	0x4e5
 	.uleb128 0x4
 	.ascii "pBuf\0"
 	.byte	0x8
 	.byte	0x25
-	.long	0x4ce
+	.long	0x4e5
 	.byte	0
 	.uleb128 0x4
 	.ascii "len\0"
@@ -700,7 +703,7 @@ Ldebug_info0:
 	.ascii "id\0"
 	.byte	0x8
 	.byte	0x27
-	.long	0x47d
+	.long	0x494
 	.byte	0x8
 	.byte	0
 	.uleb128 0x5
@@ -710,18 +713,18 @@ Ldebug_info0:
 	.ascii "byte_stream_t\0"
 	.byte	0x8
 	.byte	0x28
-	.long	0x492
+	.long	0x4a9
 	.uleb128 0x3
 	.ascii "_complex_stream_t\0"
 	.byte	0xc
 	.byte	0x8
 	.byte	0x2b
-	.long	0x528
+	.long	0x53f
 	.uleb128 0x4
 	.ascii "pBuf\0"
 	.byte	0x8
 	.byte	0x2d
-	.long	0x528
+	.long	0x53f
 	.byte	0
 	.uleb128 0x4
 	.ascii "len\0"
@@ -733,7 +736,7 @@ Ldebug_info0:
 	.ascii "id\0"
 	.byte	0x8
 	.byte	0x2f
-	.long	0x47d
+	.long	0x494
 	.byte	0x8
 	.byte	0
 	.uleb128 0x5
@@ -743,22 +746,22 @@ Ldebug_info0:
 	.ascii "complex_stream_t\0"
 	.byte	0x8
 	.byte	0x30
-	.long	0x4e9
+	.long	0x500
 	.uleb128 0xe
 	.ascii "FreeComplexStream\0"
 	.byte	0x1
 	.byte	0xe0
-	.long	0x438
+	.long	0x44f
 	.long	LFB23
 	.long	LFE23-LFB23
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x58a
+	.long	0x5a1
 	.uleb128 0xf
 	.secrel32	LASF0
 	.byte	0x1
 	.byte	0xe0
-	.long	0x58a
+	.long	0x5a1
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
@@ -766,29 +769,29 @@ Ldebug_info0:
 	.secrel32	LASF1
 	.byte	0x1
 	.byte	0xe2
-	.long	0x438
+	.long	0x44f
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
 	.byte	0
 	.uleb128 0x5
 	.byte	0x4
-	.long	0x52e
+	.long	0x545
 	.uleb128 0xe
 	.ascii "FreeByteStream\0"
 	.byte	0x1
 	.byte	0xc6
-	.long	0x438
+	.long	0x44f
 	.long	LFB22
 	.long	LFE22-LFB22
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x5d1
+	.long	0x5e8
 	.uleb128 0xf
 	.secrel32	LASF0
 	.byte	0x1
 	.byte	0xc6
-	.long	0x5d1
+	.long	0x5e8
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
@@ -796,29 +799,29 @@ Ldebug_info0:
 	.secrel32	LASF1
 	.byte	0x1
 	.byte	0xc8
-	.long	0x438
+	.long	0x44f
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
 	.byte	0
 	.uleb128 0x5
 	.byte	0x4
-	.long	0x4d4
+	.long	0x4eb
 	.uleb128 0xe
 	.ascii "AllocateComplexStream\0"
 	.byte	0x1
 	.byte	0xa6
-	.long	0x438
+	.long	0x44f
 	.long	LFB21
 	.long	LFE21-LFB21
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x62d
+	.long	0x644
 	.uleb128 0xf
 	.secrel32	LASF0
 	.byte	0x1
 	.byte	0xa6
-	.long	0x58a
+	.long	0x5a1
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
@@ -834,7 +837,7 @@ Ldebug_info0:
 	.secrel32	LASF1
 	.byte	0x1
 	.byte	0xa8
-	.long	0x438
+	.long	0x44f
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
@@ -843,17 +846,17 @@ Ldebug_info0:
 	.ascii "AllocateByteStream\0"
 	.byte	0x1
 	.byte	0x85
-	.long	0x438
+	.long	0x44f
 	.long	LFB20
 	.long	LFE20-LFB20
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x680
+	.long	0x697
 	.uleb128 0xf
 	.secrel32	LASF0
 	.byte	0x1
 	.byte	0x85
-	.long	0x5d1
+	.long	0x5e8
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
@@ -869,7 +872,7 @@ Ldebug_info0:
 	.secrel32	LASF1
 	.byte	0x1
 	.byte	0x87
-	.long	0x438
+	.long	0x44f
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
@@ -878,17 +881,17 @@ Ldebug_info0:
 	.ascii "Memory_FreeStream\0"
 	.byte	0x1
 	.byte	0x56
-	.long	0x438
+	.long	0x44f
 	.long	LFB19
 	.long	LFE19-LFB19
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x6ef
+	.long	0x706
 	.uleb128 0xf
 	.secrel32	LASF0
 	.byte	0x1
 	.byte	0x56
-	.long	0x6ef
+	.long	0x706
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
@@ -896,7 +899,7 @@ Ldebug_info0:
 	.ascii "type\0"
 	.byte	0x1
 	.byte	0x56
-	.long	0x47d
+	.long	0x494
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 4
@@ -904,7 +907,7 @@ Ldebug_info0:
 	.secrel32	LASF1
 	.byte	0x1
 	.byte	0x58
-	.long	0x438
+	.long	0x44f
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
@@ -912,7 +915,7 @@ Ldebug_info0:
 	.secrel32	LASF2
 	.byte	0x1
 	.byte	0x59
-	.long	0x5d1
+	.long	0x5e8
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -24
@@ -920,7 +923,7 @@ Ldebug_info0:
 	.secrel32	LASF3
 	.byte	0x1
 	.byte	0x5a
-	.long	0x58a
+	.long	0x5a1
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -28
@@ -931,7 +934,7 @@ Ldebug_info0:
 	.ascii "Memory_AllocateStream\0"
 	.byte	0x1
 	.byte	0x2c
-	.long	0x438
+	.long	0x44f
 	.long	LFB18
 	.long	LFE18-LFB18
 	.uleb128 0x1
@@ -940,7 +943,7 @@ Ldebug_info0:
 	.secrel32	LASF0
 	.byte	0x1
 	.byte	0x2c
-	.long	0x6ef
+	.long	0x706
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
@@ -956,7 +959,7 @@ Ldebug_info0:
 	.ascii "type\0"
 	.byte	0x1
 	.byte	0x2c
-	.long	0x47d
+	.long	0x494
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 8
@@ -964,7 +967,7 @@ Ldebug_info0:
 	.secrel32	LASF1
 	.byte	0x1
 	.byte	0x2e
-	.long	0x438
+	.long	0x44f
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
@@ -972,7 +975,7 @@ Ldebug_info0:
 	.secrel32	LASF2
 	.byte	0x1
 	.byte	0x2f
-	.long	0x5d1
+	.long	0x5e8
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -24
@@ -980,7 +983,7 @@ Ldebug_info0:
 	.secrel32	LASF3
 	.byte	0x1
 	.byte	0x30
-	.long	0x58a
+	.long	0x5a1
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -28

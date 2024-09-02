@@ -18,6 +18,7 @@
 #include "convolutional.h"                              /** - import convolutional library */
 #include "error.h"                                      /** - import error library */
 #include "memory.h"                                     /** - import memory library */
+#include "modulation.h"                                 /** - import modulation library */
 #include "system.h"                                     /** - import system library */
 
 

@@ -58,6 +58,7 @@
 
 static cc_par_t ccParams;
 static mod_par_t modParams;
+static chan_par_t chanParams;
 
 // list of streams (name, type, length)
 #define LIST_OF_STREAMS(ENTRY)           \
@@ -83,9 +84,10 @@ int main( void )
   CnvCod_ListParameters(&ccParams);                                         /** -# list convolutional coding parameters */
   CnvCod_Encoder(&txSrcStream,&txCcStream,&ccParams);                       /** -# convolutional encoding */
   Debug_PrintBytes(&txCcStream,PID_TX_CNVCOD);                              /** -# print tx convolutional coded buffer content */
+  Channel_ListParameters(&chanParams);                                      /** -# list channel parameters */
   if (CHAN_BSC == CHAN_TYPE)
   {
-    Channel_BSC(&txCcStream,&rxCcStream,BSC_PEB,NULL);                      /** -# apply bsc channel corruption */
+    Channel_BSC(&txCcStream,&rxCcStream,&chanParams);                       /** -# apply bsc channel corruption */
   }
   else if (CHAN_AWGN == CHAN_TYPE)
   {
@@ -181,3 +183,7 @@ int main( void )
 // sposta "CnvCod_GetConnectorPuncturationVectors" dentro encoder/decoder e rendila statica
 // aggiungi ".vscode" a .gitignore
 // aggiungi interleaver + RS + scrambler
+// rendi funzioni sempre operanti su parametri passati come argomenti, non su macro globali!!!
+// sistema print di parametri (una riga per tipo) e aggiungi parametri di canale
+// prova CC_STR tramite XMACRO!
+/// rimpiazza MATH_PI ovunque

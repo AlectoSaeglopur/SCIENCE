@@ -145,28 +145,13 @@ error_t Debug_PrintParameters( len_t len )
   if (IsSrcLenValid(len))
   {
     printf("\n # PARAMETERS");
-    printf("\n    * Convolutional Coding : \n");
-    printf("      - Klen = %d\n",CC_KLEN);
-    printf("      - Rc = %d/%d\n",CC_RATE,CC_RATE+1);
-    printf("      - VDM = ");
-    if ( CC_VITDM == CC_VITDM_HARD )
-    {
-      printf("Hard");
-    }
-    else if ( CC_VITDM == CC_VITDM_HARD )
-    {
-      printf("Soft");
-    }
-    else
-    {
-      printf("N/A");
-    }
-    printf("\n    * Modulation : \n");
-  //  if ( ModType == PSK )
-  //  	printf("PSK | ");
-  //  else if ( ModType == QAM )
-  //  	printf("QAM | ");
-  //  printf("M = %d",M);
+    printf("\n    * Convolutional Coding:");
+    printf(" kLen = %d",CC_KLEN);
+    printf(" | Rc = %d/%d",CC_RATE,CC_RATE+1);
+    printf(" | DM = %s\n",CC_VDM_STR(CC_VITDM));
+    printf("    * Modulation : ");
+    printf(" %u-%s",MOD_ORDER,MOD_TYPE_STR(MOD_TYPE));
+
   //  printf("\n\t- Channel : ");
   //  printf("AWGN | ");
   //  printf("Eb/N0 = %1.1f dB",EbN0);
@@ -395,8 +380,8 @@ static bool IsSrcLenValid( len_t lenBy )
 //	for ( j=0; j<SymLen; j++ ){		
 //		U1 = rand()*(1.0/RAND_MAX);
 //		U2 = rand()*(1.0/RAND_MAX);
-//		ReN = sqrt(-2*log(U1))*cos(2*M_PI*U2)*sqrt(SqSigma/2)+Mu;
-//		ImN = sqrt(-2*log(U1))*sin(2*M_PI*U2)*sqrt(SqSigma/2)+Mu;
+//		ReN = sqrt(-2*log(U1))*cos(2*MATH_PI*U2)*sqrt(SqSigma/2)+Mu;
+//		ImN = sqrt(-2*log(U1))*sin(2*MATH_PI*U2)*sqrt(SqSigma/2)+Mu;
 //		if ( (fabs(ReN) != INFINITY) && (fabs(ImN) != INFINITY) ){
 //			IoStream[j].Re += ReN;
 //			IoStream[j].Im += ImN;

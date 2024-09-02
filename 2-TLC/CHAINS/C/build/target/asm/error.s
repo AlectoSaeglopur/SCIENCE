@@ -47,7 +47,7 @@ Letext0:
 	.file 5 "src/error.h"
 	.section	.debug_info,"dr"
 Ldebug_info0:
-	.long	0x46b
+	.long	0x482
 	.word	0x4
 	.secrel32	Ldebug_abbrev0
 	.byte	0x4
@@ -288,7 +288,7 @@ Ldebug_info0:
 	.long	0x6f
 	.byte	0x5
 	.byte	0x1b
-	.long	0x3dd
+	.long	0x3f4
 	.uleb128 0xd
 	.ascii "ERR_NONE\0"
 	.byte	0
@@ -317,20 +317,23 @@ Ldebug_info0:
 	.ascii "ERR_INV_MODULATION\0"
 	.byte	0x8
 	.uleb128 0xd
-	.ascii "ERR_NUM\0"
+	.ascii "ERR_INV_CHANNEL_TYPE\0"
 	.byte	0x9
+	.uleb128 0xd
+	.ascii "ERR_NUM\0"
+	.byte	0xa
 	.byte	0
 	.uleb128 0x6
 	.ascii "error_t\0"
 	.byte	0x5
-	.byte	0x27
+	.byte	0x28
 	.long	0x30d
 	.uleb128 0xc
 	.byte	0x4
 	.long	0x6f
 	.byte	0x5
-	.byte	0x2b
-	.long	0x42d
+	.byte	0x2c
+	.long	0x444
 	.uleb128 0xd
 	.ascii "ALARM_NONE\0"
 	.byte	0
@@ -347,13 +350,13 @@ Ldebug_info0:
 	.uleb128 0x6
 	.ascii "alarm_t\0"
 	.byte	0x5
-	.byte	0x31
-	.long	0x3ec
+	.byte	0x32
+	.long	0x403
 	.uleb128 0xe
 	.ascii "Error_HandleErr\0"
 	.byte	0x1
 	.byte	0x1f
-	.long	0x3dd
+	.long	0x3f4
 	.long	LFB18
 	.long	LFE18-LFB18
 	.uleb128 0x1
@@ -362,7 +365,7 @@ Ldebug_info0:
 	.ascii "inErr\0"
 	.byte	0x1
 	.byte	0x1f
-	.long	0x3dd
+	.long	0x3f4
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0

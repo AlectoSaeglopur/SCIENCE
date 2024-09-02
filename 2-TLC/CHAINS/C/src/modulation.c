@@ -48,7 +48,7 @@ error_t Modulation_ListParameters( mod_par_t * ioParams )
     ioParams->type = MOD_TYPE;
     ioParams->order = MOD_ORDER;
     ioParams->bps = MOD_BPS;
-    ioParams ->phOfst = (float)(M_PI/MOD_ORDER);
+    ioParams ->phOfst = (float)(MATH_PI/MOD_ORDER);
   }
   else
   {

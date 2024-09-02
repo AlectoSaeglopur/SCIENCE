@@ -1576,6 +1576,7 @@ typedef enum
   ERR_INV_DYNAMIC_ALLOC,
   ERR_INV_STREAM_TYPE,
   ERR_INV_MODULATION,
+  ERR_INV_CHANNEL_TYPE,
 
   ERR_NUM
 } error_t;
@@ -1589,7 +1590,7 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 65 "src\\error.h"
+# 66 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 19 "src\\channel.h" 2
 # 1 "src\\memory.h" 1
@@ -1619,7 +1620,33 @@ typedef struct _complex_stream_t
 error_t Memory_AllocateStream( void * ioStream, uint32_t len, memory_type_t type );
 error_t Memory_FreeStream( void * ioStream, memory_type_t type );
 # 20 "src\\channel.h" 2
-# 28 "src\\channel.h"
+# 1 "src\\modulation.h" 1
+# 27 "src\\modulation.h"
+typedef enum
+{
+  MOD_PSK = 0,
+  MOD_QAM,
+
+  MOD_NUM
+} modulation_t;
+
+
+
+
+
+
+
+typedef struct _mod_par_t
+{
+  modulation_t type;
+  uint8_t order;
+  uint8_t bps;
+  float phOfst;
+} mod_par_t;
+# 75 "src\\modulation.h"
+error_t Modulation_ListParameters( mod_par_t * ioParams );
+# 21 "src\\channel.h" 2
+# 29 "src\\channel.h"
 typedef enum
 {
   CHAN_BSC = 0,
@@ -1627,11 +1654,65 @@ typedef enum
 
   CHAN_NUM
 } channel_t;
-# 52 "src\\channel.h"
-error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t * outStream, float Peb, const uint32_t * pSeed );
+
+
+typedef struct _chan_par_t
+{
+  uint32_t seed;
+  channel_t type;
+  uint8_t bps;
+  union
+  {
+    float Peb;
+    float EbN0;
+  };
+} chan_par_t;
+# 74 "src\\channel.h"
+error_t Channel_ListParameters( chan_par_t * ioParams );
+error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, const chan_par_t * pParams );
+error_t Channel_AWGN( const complex_stream_t * inStream, complex_stream_t * outStream, const chan_par_t * pParams );
 # 17 "src\\channel.c" 2
-# 34 "src\\channel.c"
-error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, float Peb, const uint32_t * pSeed )
+
+
+
+
+
+
+
+static float GetComplexSgnPower( const complex_stream_t * inStream );
+# 39 "src\\channel.c"
+error_t Channel_ListParameters( chan_par_t * ioParams )
+{
+  error_t retErr = ERR_NONE;
+
+  if (
+# 43 "src\\channel.c" 3 4
+     ((void *)0) 
+# 43 "src\\channel.c"
+          != ioParams)
+  {
+    ioParams->type = ((channel_t) CHAN_BSC);
+    ioParams->bps = 2u;
+    ioParams->seed = ((uint32_t) 52);
+
+    if (CHAN_BSC == ((channel_t) CHAN_BSC))
+    {
+      ioParams->Peb = ((float) 2.8E-2);
+    }
+    else
+    {
+      ioParams->EbN0 = ((float) 5.0);
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
+}
+# 77 "src\\channel.c"
+error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, const chan_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
   uint32_t j;
@@ -1639,61 +1720,68 @@ error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, f
   uint8_t bitIdx;
 
   if ((
-# 41 "src\\channel.c" 3 4
+# 84 "src\\channel.c" 3 4
       ((void *)0) 
-# 41 "src\\channel.c"
+# 84 "src\\channel.c"
            != inStream) && (
-# 41 "src\\channel.c" 3 4
+# 84 "src\\channel.c" 3 4
                             ((void *)0) 
-# 41 "src\\channel.c"
+# 84 "src\\channel.c"
                                  != inStream->pBuf) && (
-# 41 "src\\channel.c" 3 4
+# 84 "src\\channel.c" 3 4
                                                         ((void *)0) 
-# 41 "src\\channel.c"
+# 84 "src\\channel.c"
                                                              != outStream) && (
-# 41 "src\\channel.c" 3 4
+# 84 "src\\channel.c" 3 4
                                                                                ((void *)0) 
-# 41 "src\\channel.c"
+# 84 "src\\channel.c"
                                                                                     != outStream->pBuf))
   {
     if (inStream->len == outStream->len)
     {
-      memcpy(outStream->pBuf,inStream->pBuf,inStream->len);
-      if (
-# 46 "src\\channel.c" 3 4
-         ((void *)0) 
-# 46 "src\\channel.c"
-              == pSeed)
+      if (CHAN_BSC == pParams->type)
       {
-        srand(time(
-# 48 "src\\channel.c" 3 4
-                  ((void *)0)
-# 48 "src\\channel.c"
-                      ));
+        memcpy(outStream->pBuf,inStream->pBuf,inStream->len);
+        if (
+# 91 "src\\channel.c" 3
+           0xffffffffUL 
+# 91 "src\\channel.c"
+                     == pParams->seed)
+        {
+          srand(time(
+# 93 "src\\channel.c" 3 4
+                    ((void *)0)
+# 93 "src\\channel.c"
+                        ));
+        }
+        else
+        {
+          srand(pParams->seed);
+        }
+        for (j=0; j<inStream->len; j++)
+        {
+          if ((float)rand()/
+# 101 "src\\channel.c" 3
+                           0x7FFF 
+# 101 "src\\channel.c"
+                                    < pParams->Peb)
+          {
+            byteIdx = (j>>3u);
+            bitIdx = (8u -1)-(uint8_t)(j&((uint32_t) 0x0007));
+            if (outStream->pBuf[byteIdx] & (((uint8_t) 0x01)<<bitIdx))
+            {
+              outStream->pBuf[byteIdx] &= ~(((uint8_t) 0x01)<<bitIdx);
+            }
+            else
+            {
+              outStream->pBuf[byteIdx] |= (((uint8_t) 0x01)<<bitIdx);
+            }
+          }
+        }
       }
       else
       {
-        srand(*pSeed);
-      }
-      for (j=0; j<inStream->len; j++)
-      {
-        if ((float)rand()/
-# 56 "src\\channel.c" 3
-                         0x7FFF 
-# 56 "src\\channel.c"
-                                  < Peb)
-        {
-          byteIdx = (j>>3u);
-          bitIdx = (8u -1)-(uint8_t)(j&((uint32_t) 0x0007));
-          if (outStream->pBuf[byteIdx] & (((uint8_t) 0x01)<<bitIdx))
-          {
-            outStream->pBuf[byteIdx] &= ~(((uint8_t) 0x01)<<bitIdx);
-          }
-          else
-          {
-            outStream->pBuf[byteIdx] |= (((uint8_t) 0x01)<<bitIdx);
-          }
-        }
+        retErr = ERR_INV_CHANNEL_TYPE;
       }
     }
     else
@@ -1707,4 +1795,115 @@ error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, f
   }
 
   return Error_HandleErr(retErr);
+}
+# 145 "src\\channel.c"
+error_t Channel_AWGN( const complex_stream_t * inStream, complex_stream_t * outStream, const chan_par_t * pParams )
+{
+  error_t retErr = ERR_NONE;
+  const float mu = 0;
+  const float sgnPwr = GetComplexSgnPower(inStream);
+  const float SNR = pParams->EbN0+10*log10(pParams->bps);
+  const float SqSigma = sgnPwr*pow(10,-SNR/10);
+  float nU1, nU2;
+  float nReN, nIm;
+  uint32_t j;
+
+  if ((
+# 156 "src\\channel.c" 3 4
+      ((void *)0) 
+# 156 "src\\channel.c"
+           != inStream) && (
+# 156 "src\\channel.c" 3 4
+                            ((void *)0) 
+# 156 "src\\channel.c"
+                                 != inStream->pBuf) && (
+# 156 "src\\channel.c" 3 4
+                                                        ((void *)0) 
+# 156 "src\\channel.c"
+                                                             != outStream) && (
+# 156 "src\\channel.c" 3 4
+                                                                               ((void *)0) 
+# 156 "src\\channel.c"
+                                                                                    != outStream->pBuf))
+  {
+    if (inStream->len == outStream->len)
+    {
+      if (CHAN_AWGN == pParams->type)
+      {
+        memcpy(outStream->pBuf,inStream->pBuf,inStream->len);
+        if (
+# 163 "src\\channel.c" 3
+           0xffffffffUL 
+# 163 "src\\channel.c"
+                     == pParams->seed)
+        {
+          srand(time(
+# 165 "src\\channel.c" 3 4
+                    ((void *)0)
+# 165 "src\\channel.c"
+                        ));
+        }
+        else
+        {
+          srand(pParams->seed);
+        }
+        for (j=0; j<inStream->len; j++)
+        {
+          nU1 = rand()*(1.0/
+# 173 "src\\channel.c" 3
+                           0x7FFF
+# 173 "src\\channel.c"
+                                   );
+          nU2 = rand()*(1.0/
+# 174 "src\\channel.c" 3
+                           0x7FFF
+# 174 "src\\channel.c"
+                                   );
+          nReN = sqrt(-2*log(nU1))*cos(2*3.14159f*nU2)*sqrt(SqSigma/2)+mu;
+          nIm = sqrt(-2*log(nU1))*sin(2*3.14159f*nU2)*sqrt(SqSigma/2)+mu;
+          if ((
+# 177 "src\\channel.c" 3
+              __builtin_inf() 
+# 177 "src\\channel.c"
+                       != fabs(nReN)) && (
+# 177 "src\\channel.c" 3
+                                          __builtin_inf() 
+# 177 "src\\channel.c"
+                                                   !=fabs(nIm)))
+          {
+            outStream->pBuf[j].re += nReN;
+            outStream->pBuf[j].im += nIm;
+          }
+        }
+      }
+      else
+      {
+        retErr = ERR_INV_CHANNEL_TYPE;
+      }
+    }
+    else
+    {
+      retErr = ERR_INV_BUFFER_SIZE;
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
+}
+# 216 "src\\channel.c"
+static float GetComplexSgnPower( const complex_stream_t * inStream )
+{
+  float energy = 0;
+  uint32_t j;
+
+  for (j=0; j<inStream->len; j++)
+  {
+    energy += inStream->pBuf[j].re*inStream->pBuf[j].re+
+              inStream->pBuf[j].im*inStream->pBuf[j].im;
+  }
+
+  return (energy/inStream->len);
 }

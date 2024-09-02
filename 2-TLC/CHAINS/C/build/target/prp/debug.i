@@ -1578,6 +1578,7 @@ typedef enum
   ERR_INV_DYNAMIC_ALLOC,
   ERR_INV_STREAM_TYPE,
   ERR_INV_MODULATION,
+  ERR_INV_CHANNEL_TYPE,
 
   ERR_NUM
 } error_t;
@@ -1591,7 +1592,7 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 65 "src\\error.h"
+# 66 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 19 "src\\convolutional.h" 2
 # 1 "src\\memory.h" 1
@@ -1696,18 +1697,40 @@ typedef struct _cc_hard_dec_info_t
   uint32_t dist[(1<<(CC_KLEN_7-1))];
   uint8_t path[(1<<(CC_KLEN_7-1))][((1<<(CC_KLEN_7-1))*10u)];
 } cc_hard_dec_info_t;
-
-
-
-
-
-
-
+# 158 "src\\convolutional.h"
 error_t CnvCod_ListParameters( cc_par_t * ioParams );
 error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
 error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
 # 19 "src\\debug.h" 2
-# 38 "src\\debug.h"
+
+
+# 1 "src\\modulation.h" 1
+# 27 "src\\modulation.h"
+typedef enum
+{
+  MOD_PSK = 0,
+  MOD_QAM,
+
+  MOD_NUM
+} modulation_t;
+
+
+
+
+
+
+
+typedef struct _mod_par_t
+{
+  modulation_t type;
+  uint8_t order;
+  uint8_t bps;
+  float phOfst;
+} mod_par_t;
+# 75 "src\\modulation.h"
+error_t Modulation_ListParameters( mod_par_t * ioParams );
+# 22 "src\\debug.h" 2
+# 39 "src\\debug.h"
 typedef enum
 {
   PID_TX_SRC = 0,
@@ -1856,24 +1879,16 @@ error_t Debug_PrintParameters( uint32_t len )
   if (IsSrcLenValid(len))
   {
     printf("\n # PARAMETERS");
-    printf("\n    * Convolutional Coding : \n");
-    printf("      - Klen = %d\n",CC_KLEN_7);
-    printf("      - Rc = %d/%d\n",CC_RATE_23,CC_RATE_23+1);
-    printf("      - VDM = ");
-    if ( CC_VITDM_HARD == CC_VITDM_HARD )
-    {
-      printf("Hard");
-    }
-    else if ( CC_VITDM_HARD == CC_VITDM_HARD )
-    {
-      printf("Soft");
-    }
-    else
-    {
-      printf("N/A");
-    }
-    printf("\n    * Modulation : \n");
-# 173 "src\\debug.c"
+    printf("\n    * Convolutional Coding:");
+    printf(" kLen = %d",CC_KLEN_7);
+    printf(" | Rc = %d/%d",CC_RATE_23,CC_RATE_23+1);
+    printf(" | DM = %s\n",((CC_VITDM_HARD == CC_VITDM_HARD) ? "Hard" : (CC_VITDM_HARD == CC_VITDM_SOFT) ? "Soft" : "N/A"));
+    printf("    * Modulation : ");
+    printf(" %u-%s",(0x01<<2u),((((modulation_t) MOD_PSK) == MOD_PSK) ? "PSK" : (((modulation_t) MOD_PSK) == MOD_QAM) ? "QAM" : "N/A"));
+
+
+
+
     printf("\n\n");
   }
   else
@@ -1883,7 +1898,7 @@ error_t Debug_PrintParameters( uint32_t len )
 
   return Error_HandleErr(retErr);
 }
-# 193 "src\\debug.c"
+# 178 "src\\debug.c"
 error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label )
 {
   error_t retErr = ERR_NONE;
@@ -1896,21 +1911,21 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
  uint8_t bitIdx;
 
  if ((
-# 204 "src\\debug.c" 3 4
+# 189 "src\\debug.c" 3 4
      ((void *)0) 
-# 204 "src\\debug.c"
+# 189 "src\\debug.c"
           != inStreamA) && (
-# 204 "src\\debug.c" 3 4
+# 189 "src\\debug.c" 3 4
                             ((void *)0) 
-# 204 "src\\debug.c"
+# 189 "src\\debug.c"
                                  != inStreamA->pBuf) && (
-# 204 "src\\debug.c" 3 4
+# 189 "src\\debug.c" 3 4
                                                          ((void *)0) 
-# 204 "src\\debug.c"
+# 189 "src\\debug.c"
                                                               != inStreamB) && (
-# 204 "src\\debug.c" 3 4
+# 189 "src\\debug.c" 3 4
                                                                                 ((void *)0) 
-# 204 "src\\debug.c"
+# 189 "src\\debug.c"
                                                                                      != inStreamB->pBuf))
   {
     if (inStreamA->len == inStreamB->len)
@@ -1965,25 +1980,25 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
 
   return Error_HandleErr(retErr);
 }
-# 268 "src\\debug.c"
+# 253 "src\\debug.c"
 error_t Debug_WriteBytesToCsv( const byte_stream_t * inStream, print_label_t label )
 {
   error_t retErr = ERR_NONE;
   FILE * fid = 
-# 271 "src\\debug.c" 3 4
+# 256 "src\\debug.c" 3 4
               ((void *)0)
-# 271 "src\\debug.c"
+# 256 "src\\debug.c"
                   ;
  uint32_t j;
 
   if ((
-# 274 "src\\debug.c" 3 4
+# 259 "src\\debug.c" 3 4
       ((void *)0) 
-# 274 "src\\debug.c"
+# 259 "src\\debug.c"
            != inStream) && (
-# 274 "src\\debug.c" 3 4
+# 259 "src\\debug.c" 3 4
                             ((void *)0) 
-# 274 "src\\debug.c"
+# 259 "src\\debug.c"
                                  != inStream->pBuf))
   {
     switch (label)
@@ -2002,9 +2017,9 @@ error_t Debug_WriteBytesToCsv( const byte_stream_t * inStream, print_label_t lab
     }
 
     if ((ERR_NONE == retErr) && (
-# 291 "src\\debug.c" 3 4
+# 276 "src\\debug.c" 3 4
                                 ((void *)0) 
-# 291 "src\\debug.c"
+# 276 "src\\debug.c"
                                      != fid))
     {
       for (j=0; j<inStream->len; j++)
@@ -2025,21 +2040,21 @@ error_t Debug_WriteBytesToCsv( const byte_stream_t * inStream, print_label_t lab
 
   return retErr;
 }
-# 325 "src\\debug.c"
+# 310 "src\\debug.c"
 static 
-# 325 "src\\debug.c" 3 4
+# 310 "src\\debug.c" 3 4
       _Bool 
-# 325 "src\\debug.c"
+# 310 "src\\debug.c"
            IsSrcLenValid( uint32_t lenBy )
 {
   
-# 327 "src\\debug.c" 3 4
+# 312 "src\\debug.c" 3 4
  _Bool 
-# 327 "src\\debug.c"
+# 312 "src\\debug.c"
       bRet = 
-# 327 "src\\debug.c" 3 4
+# 312 "src\\debug.c" 3 4
              0
-# 327 "src\\debug.c"
+# 312 "src\\debug.c"
                   ;
   uint32_t lenBi = lenBy<<3u;
 
@@ -2047,9 +2062,9 @@ static
       (((lenBi/CC_RATE_23*(1+CC_RATE_23))%8u) == 0))
   {
     bRet = 
-# 333 "src\\debug.c" 3 4
+# 318 "src\\debug.c" 3 4
           1
-# 333 "src\\debug.c"
+# 318 "src\\debug.c"
               ;
   }
 

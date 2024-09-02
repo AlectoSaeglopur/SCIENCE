@@ -34,6 +34,7 @@ typedef enum
   ERR_INV_DYNAMIC_ALLOC,                              /** - invalid dynamic memory allocation error ID */
   ERR_INV_STREAM_TYPE,                                /** - invalid stream type error ID */
   ERR_INV_MODULATION,                                 /** - invalid modulation type error ID */
+  ERR_INV_CHANNEL_TYPE,                               /** - invalid channel type error ID */
   // keep NUM as final entry
   ERR_NUM
 } error_t;
