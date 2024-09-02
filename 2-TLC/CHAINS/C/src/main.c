@@ -41,19 +41,10 @@
 /*** CONSTANTS ***/
 /*****************/
 
-
 #define LEN_CC_UNP_BY     ((len_t) (CC_NBRANCHES*LEN_SRC_BY))               //!< unpunctured convolutional coded stream length [B]
 #define LEN_CC_PUN_BY     ((len_t) (LEN_CC_UNP_BY/CC_NBRANCHES* \
                                     (CC_RATE+1)/CC_RATE))                   //!< punctured convolutional coded stream length [B]
-#define LEN_MOD_SY        ((len_t) (LEN_CC_UNP_BY/MOD_BPS))
-
-// list of streams (name, type, length)
-#define LIST_OF_STREAMS(ENTRY)           \
-  ENTRY( txSrc, byte,    LEN_SRC_BY    ) \
-  ENTRY( rxSrc, byte,    LEN_SRC_BY    ) \
-  ENTRY( txCc,  byte,    LEN_CC_UNP_BY ) \
-  ENTRY( rxCc,  byte,    LEN_CC_PUN_BY ) \
-  ENTRY( txMod, complex, LEN_MOD_SY    )
+#define LEN_MOD_SY        ((len_t) (LEN_CC_UNP_BY/MOD_BPS))                 //!< modulated symbol stream length [Sy]
 
 #define DEF_STREAM_DECLARE(name,type,length) type##_stream_t name##Stream = {.pBuf = NULL, .len = 0, .id = memory_type_##type};
 #define DEF_STREAM_ALLOCATE(name,type,length) Memory_AllocateStream(&name##Stream,length,name##Stream.id);
@@ -66,8 +57,15 @@
 /*****************/
 
 static cc_par_t ccParams;
-static cc_encoder_info_t ccEncoderInfo;
 static mod_par_t modParams;
+
+// list of streams (name, type, length)
+#define LIST_OF_STREAMS(ENTRY)           \
+  ENTRY( txSrc, byte,    LEN_SRC_BY    ) \
+  ENTRY( rxSrc, byte,    LEN_SRC_BY    ) \
+  ENTRY( txCc,  byte,    LEN_CC_UNP_BY ) \
+  ENTRY( rxCc,  byte,    LEN_CC_PUN_BY ) \
+  ENTRY( txMod, complex, LEN_MOD_SY    )
 
 
 
@@ -83,8 +81,7 @@ int main( void )
   Debug_GenerateRandomBytes(&txSrcStream,NULL);                             /** -# fill tx source buffer with random bytes */
   Debug_PrintBytes(&txSrcStream,PID_TX_SRC);                                /** -# print tx source buffer content */
   CnvCod_ListParameters(&ccParams);                                         /** -# list convolutional coding parameters */
-  CnvCod_GetConnectorPuncturationVectors(&ccEncoderInfo,&ccParams);         /** -# retrieve convolutional encoder info */
-  CnvCod_Encoder(&txSrcStream,&txCcStream,&ccParams,&ccEncoderInfo);        /** -# convolutional encoding */
+  CnvCod_Encoder(&txSrcStream,&txCcStream,&ccParams);                       /** -# convolutional encoding */
   Debug_PrintBytes(&txCcStream,PID_TX_CNVCOD);                              /** -# print tx convolutional coded buffer content */
   if (CHAN_BSC == CHAN_TYPE)
   {
@@ -93,10 +90,11 @@ int main( void )
   else if (CHAN_AWGN == CHAN_TYPE)
   {
     Modulation_ListParameters(&modParams);                                  /** -# list modulation parameters */
+    Modulation_Mapper(&txCcStream,&txModStream,&modParams);                 /** -# modulation mapper */
   }
   Debug_PrintBytes(&rxCcStream,PID_RX_CNVCOD);                              /** -# print rx convolutional coded buffer content */
   Debug_CheckWrongBits(&txCcStream,&rxCcStream,PID_RX_CNVCOD);              /** -# check number of corrupted bits at convolutional coding level */
-  CnvCod_HardDecoder(&rxCcStream,&rxSrcStream,&ccParams,&ccEncoderInfo);    /** -# convolutional decoding */
+  CnvCod_HardDecoder(&rxCcStream,&rxSrcStream,&ccParams);                   /** -# convolutional decoding */
   Debug_CheckWrongBits(&txSrcStream,&rxSrcStream,PID_RX_SRC);               /** -# check number of corrupted bits at source level */
 
   if (IS_CSV_ENABLED)
@@ -166,7 +164,9 @@ int main( void )
 
 
 
-
+// MOD: non usare macro globali ma info di pParams!!
+// MOD: add header for all functions
+// MOD: add checks on parameters validity
 
 // test add doxygen generation
 

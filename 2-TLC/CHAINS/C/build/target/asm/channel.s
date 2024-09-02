@@ -197,7 +197,7 @@ Letext0:
 	.file 7 "src/memory.h"
 	.section	.debug_info,"dr"
 Ldebug_info0:
-	.long	0x55a
+	.long	0x56f
 	.word	0x4
 	.secrel32	Ldebug_abbrev0
 	.byte	0x4
@@ -450,7 +450,7 @@ Ldebug_info0:
 	.long	0x71
 	.byte	0x6
 	.byte	0x1b
-	.long	0x3ee
+	.long	0x403
 	.uleb128 0xe
 	.ascii "ERR_NONE\0"
 	.byte	0
@@ -476,20 +476,23 @@ Ldebug_info0:
 	.ascii "ERR_INV_STREAM_TYPE\0"
 	.byte	0x7
 	.uleb128 0xe
-	.ascii "ERR_NUM\0"
+	.ascii "ERR_INV_MODULATION\0"
 	.byte	0x8
+	.uleb128 0xe
+	.ascii "ERR_NUM\0"
+	.byte	0x9
 	.byte	0
 	.uleb128 0x6
 	.ascii "error_t\0"
 	.byte	0x6
-	.byte	0x26
+	.byte	0x27
 	.long	0x333
 	.uleb128 0xd
 	.byte	0x4
 	.long	0x71
 	.byte	0x7
 	.byte	0x1d
-	.long	0x433
+	.long	0x448
 	.uleb128 0xe
 	.ascii "memory_type_byte\0"
 	.byte	0
@@ -501,18 +504,18 @@ Ldebug_info0:
 	.ascii "memory_type_t\0"
 	.byte	0x7
 	.byte	0x20
-	.long	0x3fd
+	.long	0x412
 	.uleb128 0x3
 	.ascii "_byte_stream_t\0"
 	.byte	0xc
 	.byte	0x7
 	.byte	0x23
-	.long	0x484
+	.long	0x499
 	.uleb128 0x4
 	.ascii "pBuf\0"
 	.byte	0x7
 	.byte	0x25
-	.long	0x484
+	.long	0x499
 	.byte	0
 	.uleb128 0x4
 	.ascii "len\0"
@@ -524,7 +527,7 @@ Ldebug_info0:
 	.ascii "id\0"
 	.byte	0x7
 	.byte	0x27
-	.long	0x433
+	.long	0x448
 	.byte	0x8
 	.byte	0
 	.uleb128 0x5
@@ -534,24 +537,24 @@ Ldebug_info0:
 	.ascii "byte_stream_t\0"
 	.byte	0x7
 	.byte	0x28
-	.long	0x448
+	.long	0x45d
 	.uleb128 0xa
-	.long	0x48a
+	.long	0x49f
 	.uleb128 0xf
 	.ascii "Channel_BSC\0"
 	.byte	0x1
 	.byte	0x22
-	.long	0x3ee
+	.long	0x403
 	.long	LFB18
 	.long	LFE18-LFB18
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x54b
+	.long	0x560
 	.uleb128 0x10
 	.ascii "inStream\0"
 	.byte	0x1
 	.byte	0x22
-	.long	0x54b
+	.long	0x560
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
@@ -559,7 +562,7 @@ Ldebug_info0:
 	.ascii "outStream\0"
 	.byte	0x1
 	.byte	0x22
-	.long	0x551
+	.long	0x566
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 4
@@ -575,7 +578,7 @@ Ldebug_info0:
 	.ascii "pSeed\0"
 	.byte	0x1
 	.byte	0x22
-	.long	0x557
+	.long	0x56c
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 12
@@ -583,7 +586,7 @@ Ldebug_info0:
 	.ascii "retErr\0"
 	.byte	0x1
 	.byte	0x24
-	.long	0x3ee
+	.long	0x403
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
@@ -614,10 +617,10 @@ Ldebug_info0:
 	.byte	0
 	.uleb128 0x5
 	.byte	0x4
-	.long	0x49f
+	.long	0x4b4
 	.uleb128 0x5
 	.byte	0x4
-	.long	0x48a
+	.long	0x49f
 	.uleb128 0x5
 	.byte	0x4
 	.long	0x1bf

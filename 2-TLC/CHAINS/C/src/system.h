@@ -55,31 +55,4 @@ typedef struct _complex_t
 } complex_t;
 
 
-
-
-/**************/
-/*** MACROS ***/
-/**************/
-
-//#define SymLen      (uint32_t)PunBitLen/L                    /** Mapped stream symbol-length [S] */
-
-//#define SrcBitLen     (uint32_t)(LEN_SRC_BY<<3)                  /** Source info stream bit-length [b] */
-//#define DepBytLen    (uint32_t)(2*LEN_SRC_BY)                    /** Depunctured convolutional coded byte-length [B] */
-//#define DepBitLen    (uint32_t)(DepBytLen<<3)                  /** Depunctured convolutional coded bit-length [b] */
-//#define PunBytLen    (uint32_t)(LEN_SRC_BY*(Rc+1)/Rc)                /** Punctured convolutional coded byte-length [B] */
-//#define PunBitLen    (uint32_t)(PunBytLen<<3)                  /** Punctured convolutional coded bit-length [b] */
-
-
-
-/****************/
-/*** TYPEDEFS ***/
-/****************/
-
-//
-//typedef struct TD6 {
-//  uint8_t Bits[M];
-//  complex Symbs[M];
-//} phasemap;
-
-
 #endif

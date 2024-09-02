@@ -33,6 +33,7 @@ const cc_rate_t CC_RATE_ARRAY[CC_RATE_NUM] =
 
 static bool IsRateValid( cc_rate_t val );
 static bool IsKlenValid( cc_klen_t val );
+static error_t RetrieveConnectorPuncturationVectors( cc_encoder_info_t * ioInfo, const cc_par_t * inParams );
 static uint8_t ComputeEncBit( uint8_t cState, uint8_t cvVal, cc_klen_t kLen );
 static error_t ComputeTrellisDiagram( cc_trellis_t * ioTrellisDiagr, const uint8_t * conVect, const cc_par_t * pParams );
 static error_t HardDepuncturer( byte_t * ioBuffer, len_t inLenBi, len_t outLenBi, const uint8_t * punctVect, const cc_par_t * pParams );
@@ -61,7 +62,7 @@ error_t CnvCod_ListParameters( cc_par_t * ioParams )
     ioParams->cRate = CC_RATE;
     ioParams->kLen = CC_KLEN;
     ioParams->memFact = CC_MEMFACT;
-    ioParams ->vitDM = CC_VITDM;
+    ioParams->vitDM = CC_VITDM;
   }
   else
   {
@@ -80,7 +81,7 @@ error_t CnvCod_ListParameters( cc_par_t * ioParams )
  * 
  * @return error ID
  */
-error_t CnvCod_GetConnectorPuncturationVectors( cc_encoder_info_t * ioInfo, const cc_par_t * inParams )
+static error_t RetrieveConnectorPuncturationVectors( cc_encoder_info_t * ioInfo, const cc_par_t * inParams )
 {
   error_t retErr = ERR_NONE;
 
@@ -123,7 +124,6 @@ error_t CnvCod_GetConnectorPuncturationVectors( cc_encoder_info_t * ioInfo, cons
     }
     else
     {
-      printf("CHECK %d\n",inParams->cRate);
       retErr = ERR_INV_CNVCOD_RATE;
     }
   }
@@ -146,13 +146,14 @@ error_t CnvCod_GetConnectorPuncturationVectors( cc_encoder_info_t * ioInfo, cons
  * 
  * @return errod ID
  */
-error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams, const cc_encoder_info_t * pEncInfo )
+error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
   const len_t unpLenBy = CC_NBRANCHES*inStream->len;                                /** unpunctured coded length [B] */
   const len_t unpLenBi = unpLenBy<<BY2BI_SHIFT;                                     /** unpunctured coded length [b] */
   const len_t inLenBi = inStream->len<<BY2BI_SHIFT;                                 /** input buffer length [b] */
   const len_t punLenBi = inLenBi*(pParams->cRate+1)/pParams->cRate;                 /** expected punctured coded length [b] */
+  cc_encoder_info_t encInfo;
   len_t wrIdx = 0;
   len_t byteIdx;
   len_t j;
@@ -161,8 +162,10 @@ error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStrea
   uint8_t rdBit;
 
   if ((NULL != inStream) && (NULL != inStream->pBuf) && (NULL != outStream) &&
-      (NULL != outStream->pBuf) && (NULL != pParams) && (NULL != pEncInfo))
+      (NULL != outStream->pBuf) && (NULL != pParams))
   {
+    RetrieveConnectorPuncturationVectors(&encInfo,pParams);                         /** retrieve convolutional encoder info */
+
     if (unpLenBy == outStream->len)
     {
       for (j=0; j<inLenBi; j++)
@@ -174,9 +177,9 @@ error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStrea
           <<(pParams->kLen-1);                                                      /** update encoder state with latest input bit */
         byteIdx = (CC_NBRANCHES*j)>>BY2BI_SHIFT;                                    /** update byte index for output stream writing */
         bitIdx = (CC_NBRANCHES*j)&LSBYTE_MASK;                                      /** update bit index for output stream writing */
-        outStream->pBuf[byteIdx] |= (ComputeEncBit(encState,pEncInfo->connVect[0],
+        outStream->pBuf[byteIdx] |= (ComputeEncBit(encState,encInfo.connVect[0],
           pParams->kLen)<<(BITIDX_1LAST-bitIdx));
-        outStream->pBuf[byteIdx] |= (ComputeEncBit(encState,pEncInfo->connVect[1],
+        outStream->pBuf[byteIdx] |= (ComputeEncBit(encState,encInfo.connVect[1],
           pParams->kLen)<<(BITIDX_2LAST-bitIdx));
       }
 
@@ -187,7 +190,7 @@ error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStrea
           byteIdx = j>>BY2BI_SHIFT;
           bitIdx = j&LSBYTE_MASK;
           rdBit = (outStream->pBuf[byteIdx]>>(BITIDX_1LAST-bitIdx))&LSBIT_MASK;     /** j-th bit of unpunctured output stream */
-          if (pEncInfo->puncVect[j%(CC_NBRANCHES*pParams->cRate)])                  /** check if puncturation has to applied now */
+          if (encInfo.puncVect[j%(CC_NBRANCHES*pParams->cRate)])                    /** check if puncturation has to applied now */
           {
             byteIdx = wrIdx>>BY2BI_SHIFT;
             bitIdx = BITIDX_1LAST-(uint8_t)(wrIdx&LSBYTE_MASK);
@@ -236,13 +239,14 @@ error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStrea
  * 
  * @return error ID
  */
-error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams, const cc_encoder_info_t * pEncInfo )
+error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
   const len_t outLenBi = outStream->len<<BY2BI_SHIFT;
   const len_t inLenBi = inStream->len<<BY2BI_SHIFT;
   const len_t unpLenBy = CC_NBRANCHES*inStream->len*pParams->cRate/(pParams->cRate+1);
   const len_t unpLenBi = unpLenBy<<BY2BI_SHIFT;
+  cc_encoder_info_t encInfo;
   cc_hard_dec_info_t curPaths = {.iter={0}, .dist={0}, .path={{0}}};
   cc_hard_dec_info_t prevPaths;
   cc_trellis_t trDiagr;
@@ -259,7 +263,8 @@ error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outS
   
   if ((NULL != inStream) && (NULL != inStream->pBuf) && (NULL != outStream) && (NULL != outStream->pBuf))
   {
-    ComputeTrellisDiagram(&trDiagr,pEncInfo->connVect,pParams);                                 /** compute convolutional decoder trellis diagram */
+    RetrieveConnectorPuncturationVectors(&encInfo,pParams);                                     /** retrieve convolutional encoder info */
+    ComputeTrellisDiagram(&trDiagr,encInfo.connVect,pParams);                                   /** compute convolutional decoder trellis diagram */
     curPaths.iter[0] = 1;                                                                       /** enable only all-zero state at the beginning */
     memcpy(tmpStream,inStream->pBuf,inStream->len);
 
@@ -269,7 +274,7 @@ error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outS
     }
     else
     {
-      HardDepuncturer(tmpStream,inLenBi,unpLenBi,pEncInfo->puncVect,pParams);
+      HardDepuncturer(tmpStream,inLenBi,unpLenBi,encInfo.puncVect,pParams);
     }
 
     for (i=CC_NBRANCHES; i<outLenBi+CC_NBRANCHES; i++)
@@ -282,8 +287,8 @@ error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outS
       if (CC_RATE_12 != pParams->cRate)                                                         /** retrieve erasure mask in case depuncturing has been applied */
       {
         erasMask = 0;
-        erasMask |= (pEncInfo->puncVect[inIdx%(2*pParams->cRate)]<<1);
-        erasMask |= pEncInfo->puncVect[(inIdx+1)%(2*pParams->cRate)];
+        erasMask |= (encInfo.puncVect[inIdx%(2*pParams->cRate)]<<1);
+        erasMask |= encInfo.puncVect[(inIdx+1)%(2*pParams->cRate)];
       }
       for (j=0; j<CC_NTRELSTATES; j++)
       {

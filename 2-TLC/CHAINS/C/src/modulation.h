@@ -16,6 +16,7 @@
 /****************/
 
 #include "error.h"                                      /** - import error library */
+#include "memory.h"                                     /** - import memory library */
 #include "system.h"                                     /** - import system library */
 
 
@@ -31,20 +32,6 @@ typedef enum
   // keep NUM as final entry
   MOD_NUM
 } modulation_t;
-
-
-
-/****************/
-/*** TYPEDEFS ***/
-/****************/
-
-typedef struct _mod_par_t
-{
-  modulation_t type;                                  /** - modulation type */
-  uint8_t order;                                      /** - modulation order (aka "M") */
-  uint8_t bps;                                        /** - number of bits per symbol (aka "L") */
-  float phOfst;                                       /** - constellation phase offset [rad] */
-} mod_par_t;
 
 
 
@@ -65,18 +52,33 @@ typedef struct _mod_par_t
 
 
 
+/****************/
+/*** TYPEDEFS ***/
+/****************/
+
+typedef struct _mod_par_t
+{
+  modulation_t type;                                  /** - modulation type */
+  uint8_t order;                                      /** - modulation order (aka "M") */
+  uint8_t bps;                                        /** - number of bits per symbol (aka "L") */
+  float phOfst;                                       /** - constellation phase offset [rad] */
+} mod_par_t;
+
+
+typedef struct _mod_maptable_t
+{
+  byte_t bits[MOD_ORDER];
+  complex_t symbs[MOD_ORDER];
+} mod_maptable_t;
+
+
+
 /*************************/
 /*** PUBLIC PROTOTYPES ***/
 /*************************/
 
 error_t Modulation_ListParameters( mod_par_t * ioParams );
-
-//void GetPskTable( phasemap *IoTable );
-//void GetQamTable( phasemap *IoTable );
-//void Mapper( uint8_t *InBytes, complex *OutSymbs, phasemap *Table );
-//void HardDemapper( complex *InSymbs, uint8_t *OutBytes, phasemap *Table );
-//void SoftDemapper( complex *InSymbs, float *OutLLRs, phasemap *Table );
-//void GetGray( uint8_t *IoArray );
+error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * outStream, const mod_par_t * pParams );
 
 
 #endif
