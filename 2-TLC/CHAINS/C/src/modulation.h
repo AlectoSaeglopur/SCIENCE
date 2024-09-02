@@ -16,6 +16,7 @@
 /****************/
 
 #include "error.h"                                      /** - import error library */
+#include "memory.h"                                     /** - import memory library */
 #include "system.h"                                     /** - import system library */
 
 
@@ -34,20 +35,6 @@ typedef enum
 
 
 
-/****************/
-/*** TYPEDEFS ***/
-/****************/
-
-typedef struct _mod_par_t
-{
-  modulation_t type;                                  /** - modulation type */
-  uint8_t order;                                      /** - modulation order (aka "M") */
-  uint8_t bps;                                        /** - number of bits per symbol (aka "L") */
-  float phOfst;                                       /** - constellation phase offset [rad] */
-} mod_par_t;
-
-
-
 /******************/
 /*** PARAMETERS ***/
 /******************/
@@ -62,6 +49,9 @@ typedef struct _mod_par_t
 /*****************/
 
 #define MOD_ORDER         (0x01<<MOD_BPS)               //!< modulation order
+#define MOD_TYPE_STR(x)   ((x == MOD_PSK) ? "PSK" : \
+                           (x == MOD_QAM) ? "QAM" : \
+                           "N/A")                       //!< macro to convert modulation type value into string
 
 
 

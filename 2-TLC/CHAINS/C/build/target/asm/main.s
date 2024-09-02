@@ -15,7 +15,7 @@ LC0:
 _main:
 LFB18:
 	.file 1 "src/main.c"
-	.loc 1 78 0
+	.loc 1 79 0
 	.cfi_startproc
 	pushl	%ebp
 	.cfi_def_cfa_offset 8
@@ -23,148 +23,161 @@ LFB18:
 	movl	%esp, %ebp
 	.cfi_def_cfa_register 5
 	andl	$-16, %esp
-	subl	$80, %esp
-	.loc 1 78 0
+	subl	$96, %esp
+	.loc 1 79 0
 	call	___main
 LVL0:
-	.loc 1 79 0
-	movl	$0, 68(%esp)
+	.loc 1 80 0
+	movl	$0, 84(%esp)
+	movl	$0, 88(%esp)
+	movl	$0, 92(%esp)
 	movl	$0, 72(%esp)
 	movl	$0, 76(%esp)
-	movl	$0, 56(%esp)
+	movl	$0, 80(%esp)
 	movl	$0, 60(%esp)
 	movl	$0, 64(%esp)
-	movl	$0, 44(%esp)
+	movl	$0, 68(%esp)
 	movl	$0, 48(%esp)
 	movl	$0, 52(%esp)
-	movl	$0, 32(%esp)
+	movl	$0, 56(%esp)
 	movl	$0, 36(%esp)
 	movl	$0, 40(%esp)
-	movl	$0, 20(%esp)
+	movl	$1, 44(%esp)
 	movl	$0, 24(%esp)
-	movl	$1, 28(%esp)
-	.loc 1 80 0
-	movl	76(%esp), %eax
+	movl	$0, 28(%esp)
+	movl	$1, 32(%esp)
+	.loc 1 81 0
+	movl	92(%esp), %eax
 	movl	%eax, 8(%esp)
 	movl	$100, 4(%esp)
-	leal	68(%esp), %eax
+	leal	84(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_AllocateStream
-	movl	64(%esp), %eax
+	movl	80(%esp), %eax
 	movl	%eax, 8(%esp)
 	movl	$100, 4(%esp)
-	leal	56(%esp), %eax
+	leal	72(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_AllocateStream
-	movl	52(%esp), %eax
+	movl	68(%esp), %eax
 	movl	%eax, 8(%esp)
 	movl	$200, 4(%esp)
-	leal	44(%esp), %eax
+	leal	60(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_AllocateStream
-	movl	40(%esp), %eax
+	movl	56(%esp), %eax
 	movl	%eax, 8(%esp)
 	movl	$150, 4(%esp)
-	leal	32(%esp), %eax
+	leal	48(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_AllocateStream
-	movl	28(%esp), %eax
+	movl	44(%esp), %eax
 	movl	%eax, 8(%esp)
 	movl	$100, 4(%esp)
-	leal	20(%esp), %eax
+	leal	36(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_AllocateStream
-	.loc 1 81 0
+	movl	32(%esp), %eax
+	movl	%eax, 8(%esp)
+	movl	$100, 4(%esp)
+	leal	24(%esp), %eax
+	movl	%eax, (%esp)
+	call	_Memory_AllocateStream
+	.loc 1 82 0
 	movl	$100, (%esp)
 	call	_Debug_PrintParameters
-	.loc 1 82 0
-	movl	$0, 4(%esp)
-	leal	68(%esp), %eax
-	movl	%eax, (%esp)
-	call	_Debug_GenerateRandomBytes
 	.loc 1 83 0
 	movl	$0, 4(%esp)
-	leal	68(%esp), %eax
+	leal	84(%esp), %eax
+	movl	%eax, (%esp)
+	call	_Debug_GenerateRandomBytes
+	.loc 1 84 0
+	movl	$0, 4(%esp)
+	leal	84(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Debug_PrintBytes
-	.loc 1 84 0
+	.loc 1 85 0
 	movl	$_ccParams, (%esp)
 	call	_CnvCod_ListParameters
-	.loc 1 85 0
+	.loc 1 86 0
 	movl	$_ccParams, 8(%esp)
-	leal	44(%esp), %eax
+	leal	60(%esp), %eax
 	movl	%eax, 4(%esp)
-	leal	68(%esp), %eax
+	leal	84(%esp), %eax
 	movl	%eax, (%esp)
 	call	_CnvCod_Encoder
-	.loc 1 86 0
+	.loc 1 87 0
 	movl	$2, 4(%esp)
-	leal	44(%esp), %eax
+	leal	60(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Debug_PrintBytes
-	.loc 1 87 0
+	.loc 1 88 0
 	movl	$_chanParams, (%esp)
 	call	_Channel_ListParameters
-	.loc 1 90 0
+	.loc 1 91 0
 	movl	$_chanParams, 8(%esp)
-	leal	32(%esp), %eax
+	leal	48(%esp), %eax
 	movl	%eax, 4(%esp)
-	leal	44(%esp), %eax
+	leal	60(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Channel_BSC
-	.loc 1 97 0
+	.loc 1 99 0
 	movl	$3, 4(%esp)
-	leal	32(%esp), %eax
+	leal	48(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Debug_PrintBytes
-	.loc 1 98 0
+	.loc 1 100 0
 	movl	$3, 8(%esp)
-	leal	32(%esp), %eax
+	leal	48(%esp), %eax
 	movl	%eax, 4(%esp)
-	leal	44(%esp), %eax
+	leal	60(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Debug_CheckWrongBits
-	.loc 1 99 0
+	.loc 1 101 0
 	movl	$_ccParams, 8(%esp)
-	leal	56(%esp), %eax
+	leal	72(%esp), %eax
 	movl	%eax, 4(%esp)
-	leal	32(%esp), %eax
+	leal	48(%esp), %eax
 	movl	%eax, (%esp)
 	call	_CnvCod_HardDecoder
-	.loc 1 100 0
+	.loc 1 102 0
 	movl	$1, 8(%esp)
-	leal	56(%esp), %eax
+	leal	72(%esp), %eax
 	movl	%eax, 4(%esp)
-	leal	68(%esp), %eax
+	leal	84(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Debug_CheckWrongBits
-	.loc 1 106 0
+	.loc 1 108 0
 	movl	$0, 4(%esp)
-	leal	68(%esp), %eax
+	leal	84(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_FreeStream
 	movl	$0, 4(%esp)
-	leal	56(%esp), %eax
+	leal	72(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_FreeStream
 	movl	$0, 4(%esp)
-	leal	44(%esp), %eax
+	leal	60(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_FreeStream
 	movl	$0, 4(%esp)
-	leal	32(%esp), %eax
+	leal	48(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_FreeStream
 	movl	$1, 4(%esp)
-	leal	20(%esp), %eax
+	leal	36(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_FreeStream
-	.loc 1 107 0
+	movl	$1, 4(%esp)
+	leal	24(%esp), %eax
+	movl	%eax, (%esp)
+	call	_Memory_FreeStream
+	.loc 1 109 0
 	movl	$LC0, (%esp)
 	call	_puts
-	.loc 1 153 0
+	.loc 1 155 0
 	movl	$0, %eax
-	.loc 1 154 0
+	.loc 1 156 0
 	leave
 	.cfi_restore 5
 	.cfi_def_cfa 4, 4
@@ -184,7 +197,7 @@ Letext0:
 	.file 11 "src/debug.h"
 	.section	.debug_info,"dr"
 Ldebug_info0:
-	.long	0x886
+	.long	0x880
 	.word	0x4
 	.secrel32	Ldebug_abbrev0
 	.byte	0x4
@@ -547,7 +560,7 @@ Ldebug_info0:
 	.byte	0x4
 	.long	0x6e
 	.byte	0x8
-	.byte	0x1c
+	.byte	0x1d
 	.long	0x4a0
 	.uleb128 0xd
 	.ascii "MOD_PSK\0"
@@ -562,43 +575,43 @@ Ldebug_info0:
 	.uleb128 0x6
 	.ascii "modulation_t\0"
 	.byte	0x8
-	.byte	0x21
+	.byte	0x22
 	.long	0x475
 	.uleb128 0x3
 	.ascii "_mod_par_t\0"
 	.byte	0xc
 	.byte	0x8
-	.byte	0x29
+	.byte	0x3e
 	.long	0x4fe
 	.uleb128 0x4
 	.ascii "type\0"
 	.byte	0x8
-	.byte	0x2b
+	.byte	0x40
 	.long	0x4a0
 	.byte	0
 	.uleb128 0x4
 	.ascii "order\0"
 	.byte	0x8
-	.byte	0x2c
+	.byte	0x41
 	.long	0x17f
 	.byte	0x4
 	.uleb128 0x4
 	.ascii "bps\0"
 	.byte	0x8
-	.byte	0x2d
+	.byte	0x42
 	.long	0x17f
 	.byte	0x5
 	.uleb128 0x4
 	.ascii "phOfst\0"
 	.byte	0x8
-	.byte	0x2e
+	.byte	0x43
 	.long	0x35c
 	.byte	0x8
 	.byte	0
 	.uleb128 0x6
 	.ascii "mod_par_t\0"
 	.byte	0x8
-	.byte	0x2f
+	.byte	0x44
 	.long	0x4b4
 	.uleb128 0xc
 	.byte	0x4
@@ -794,7 +807,7 @@ Ldebug_info0:
 	.byte	0x4
 	.long	0x6e
 	.byte	0xb
-	.byte	0x28
+	.byte	0x29
 	.long	0x7a3
 	.uleb128 0xd
 	.ascii "PID_TX_SRC\0"
@@ -839,7 +852,7 @@ Ldebug_info0:
 	.uleb128 0x12
 	.ascii "main\0"
 	.byte	0x1
-	.byte	0x4d
+	.byte	0x4e
 	.long	0xb1
 	.long	LFB18
 	.long	LFE18-LFB18
@@ -848,52 +861,51 @@ Ldebug_info0:
 	.uleb128 0x11
 	.ascii "txSrcStream\0"
 	.byte	0x1
-	.byte	0x4f
+	.byte	0x50
 	.long	0x403
 	.uleb128 0x3
 	.byte	0x74
-	.sleb128 68
+	.sleb128 84
 	.uleb128 0x11
 	.ascii "rxSrcStream\0"
 	.byte	0x1
-	.byte	0x4f
+	.byte	0x50
 	.long	0x403
-	.uleb128 0x2
+	.uleb128 0x3
 	.byte	0x74
-	.sleb128 56
+	.sleb128 72
 	.uleb128 0x11
 	.ascii "txCcStream\0"
 	.byte	0x1
-	.byte	0x4f
+	.byte	0x50
 	.long	0x403
 	.uleb128 0x2
 	.byte	0x74
-	.sleb128 44
+	.sleb128 60
 	.uleb128 0x11
 	.ascii "rxCcStream\0"
 	.byte	0x1
-	.byte	0x4f
+	.byte	0x50
 	.long	0x403
 	.uleb128 0x2
 	.byte	0x74
-	.sleb128 32
+	.sleb128 48
 	.uleb128 0x11
 	.ascii "txModStream\0"
 	.byte	0x1
-	.byte	0x4f
+	.byte	0x50
 	.long	0x45d
 	.uleb128 0x2
 	.byte	0x74
-	.sleb128 20
-	.uleb128 0x13
-	.uleb128 0x14
-	.ascii "Modulation_Mapper\0"
+	.sleb128 36
+	.uleb128 0x11
+	.ascii "rxModStream\0"
 	.byte	0x1
-	.byte	0x5f
-	.long	0xb1
-	.uleb128 0x15
-	.byte	0
-	.byte	0
+	.byte	0x50
+	.long	0x45d
+	.uleb128 0x2
+	.byte	0x74
+	.sleb128 24
 	.byte	0
 	.byte	0
 	.section	.debug_abbrev,"dr"
@@ -1134,33 +1146,6 @@ Ldebug_abbrev0:
 	.uleb128 0x18
 	.uleb128 0x2116
 	.uleb128 0x19
-	.byte	0
-	.byte	0
-	.uleb128 0x13
-	.uleb128 0xb
-	.byte	0x1
-	.byte	0
-	.byte	0
-	.uleb128 0x14
-	.uleb128 0x2e
-	.byte	0x1
-	.uleb128 0x3f
-	.uleb128 0x19
-	.uleb128 0x3
-	.uleb128 0x8
-	.uleb128 0x3a
-	.uleb128 0xb
-	.uleb128 0x3b
-	.uleb128 0xb
-	.uleb128 0x49
-	.uleb128 0x13
-	.uleb128 0x3c
-	.uleb128 0x19
-	.byte	0
-	.byte	0
-	.uleb128 0x15
-	.uleb128 0x18
-	.byte	0
 	.byte	0
 	.byte	0
 	.byte	0

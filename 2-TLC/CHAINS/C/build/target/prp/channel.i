@@ -1621,7 +1621,7 @@ error_t Memory_AllocateStream( void * ioStream, uint32_t len, memory_type_t type
 error_t Memory_FreeStream( void * ioStream, memory_type_t type );
 # 20 "src\\channel.h" 2
 # 1 "src\\modulation.h" 1
-# 27 "src\\modulation.h"
+# 28 "src\\modulation.h"
 typedef enum
 {
   MOD_PSK = 0,
@@ -1629,13 +1629,7 @@ typedef enum
 
   MOD_NUM
 } modulation_t;
-
-
-
-
-
-
-
+# 62 "src\\modulation.h"
 typedef struct _mod_par_t
 {
   modulation_t type;
@@ -1643,8 +1637,22 @@ typedef struct _mod_par_t
   uint8_t bps;
   float phOfst;
 } mod_par_t;
-# 75 "src\\modulation.h"
+
+
+typedef struct _mod_maptable_t
+{
+  uint8_t bits[(0x01<<2u)];
+  complex_t symbs[(0x01<<2u)];
+} mod_maptable_t;
+
+
+
+
+
+
+
 error_t Modulation_ListParameters( mod_par_t * ioParams );
+error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * outStream, const mod_par_t * pParams );
 # 21 "src\\channel.h" 2
 # 29 "src\\channel.h"
 typedef enum

@@ -15,6 +15,7 @@
 /*** INCLUDES ***/
 /****************/
 
+#include "channel.h"                                    /** - import channel library */
 #include "convolutional.h"                              /** - import convolutional library */
 #include "error.h"                                      /** - import error library */
 #include "memory.h"                                     /** - import memory library */

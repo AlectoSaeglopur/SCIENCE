@@ -145,16 +145,25 @@ error_t Debug_PrintParameters( len_t len )
   if (IsSrcLenValid(len))
   {
     printf("\n # PARAMETERS");
-    printf("\n    * Convolutional Coding:");
+    printf("\n    * Convolutional Coding :");
     printf(" kLen = %d",CC_KLEN);
     printf(" | Rc = %d/%d",CC_RATE,CC_RATE+1);
     printf(" | DM = %s\n",CC_VDM_STR(CC_VITDM));
-    printf("    * Modulation : ");
-    printf(" %u-%s",MOD_ORDER,MOD_TYPE_STR(MOD_TYPE));
-
-  //  printf("\n\t- Channel : ");
-  //  printf("AWGN | ");
-  //  printf("Eb/N0 = %1.1f dB",EbN0);
+    printf("    * Modulation :");
+    printf(" %u-%s\n",MOD_ORDER,MOD_TYPE_STR(MOD_TYPE));
+    printf("    * Channel :");
+    if (CHAN_BSC == CHAN_TYPE)
+    {
+      printf(" BSC | Peb = %1.1e\n",BSC_PEB);
+    }
+    else if (CHAN_AWGN == CHAN_TYPE)
+    {
+      printf(" AWGN | EbN0 = %1.1f\n",AWGN_EBN0);
+    }
+    else
+    {
+      printf(" N/A\n");
+    }
     printf("\n\n");
   }
   else

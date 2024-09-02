@@ -48,7 +48,7 @@ error_t Modulation_ListParameters( mod_par_t * ioParams )
     ioParams->type = MOD_TYPE;
     ioParams->order = MOD_ORDER;
     ioParams->bps = MOD_BPS;
-    ioParams ->phOfst = (float)(MATH_PI/MOD_ORDER);
+    ioParams ->phOfst = MATH_PI/MOD_ORDER;
   }
   else
   {
@@ -180,8 +180,8 @@ static error_t GetPskTable( mod_maptable_t * ioTable, const mod_par_t * pParams 
     for (j=0; j<pParams->order; j++)
     {
       ioTable->bits[j] = graySeq[j];
-      ioTable->symbs[j].re = cos(pParams->phOfst+2*M_PI*j/pParams->order);
-      ioTable->symbs[j].im = sin(pParams->phOfst+2*M_PI*j/pParams->order);
+      ioTable->symbs[j].re = cos(pParams->phOfst+2*MATH_PI*j/pParams->order);
+      ioTable->symbs[j].im = sin(pParams->phOfst+2*MATH_PI*j/pParams->order);
     }
   }
   else

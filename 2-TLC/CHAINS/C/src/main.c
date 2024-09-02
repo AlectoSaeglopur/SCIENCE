@@ -66,7 +66,8 @@ static chan_par_t chanParams;
   ENTRY( rxSrc, byte,    LEN_SRC_BY    ) \
   ENTRY( txCc,  byte,    LEN_CC_UNP_BY ) \
   ENTRY( rxCc,  byte,    LEN_CC_PUN_BY ) \
-  ENTRY( txMod, complex, LEN_MOD_SY    )
+  ENTRY( txMod, complex, LEN_MOD_SY    ) \
+  ENTRY( rxMod, complex, LEN_MOD_SY    )
 
 
 
@@ -93,6 +94,7 @@ int main( void )
   {
     Modulation_ListParameters(&modParams);                                  /** -# list modulation parameters */
     Modulation_Mapper(&txCcStream,&txModStream,&modParams);                 /** -# modulation mapper */
+    Channel_AWGN(&txModStream,&rxModStream,&chanParams);                    /** -# apply awgn channel corruption */
   }
   Debug_PrintBytes(&rxCcStream,PID_RX_CNVCOD);                              /** -# print rx convolutional coded buffer content */
   Debug_CheckWrongBits(&txCcStream,&rxCcStream,PID_RX_CNVCOD);              /** -# check number of corrupted bits at convolutional coding level */
@@ -186,4 +188,3 @@ int main( void )
 // rendi funzioni sempre operanti su parametri passati come argomenti, non su macro globali!!!
 // sistema print di parametri (una riga per tipo) e aggiungi parametri di canale
 // prova CC_STR tramite XMACRO!
-/// rimpiazza MATH_PI ovunque

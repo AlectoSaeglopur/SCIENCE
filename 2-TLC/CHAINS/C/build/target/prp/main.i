@@ -1621,7 +1621,7 @@ error_t Memory_AllocateStream( void * ioStream, uint32_t len, memory_type_t type
 error_t Memory_FreeStream( void * ioStream, memory_type_t type );
 # 20 "src\\channel.h" 2
 # 1 "src\\modulation.h" 1
-# 27 "src\\modulation.h"
+# 28 "src\\modulation.h"
 typedef enum
 {
   MOD_PSK = 0,
@@ -1629,13 +1629,7 @@ typedef enum
 
   MOD_NUM
 } modulation_t;
-
-
-
-
-
-
-
+# 62 "src\\modulation.h"
 typedef struct _mod_par_t
 {
   modulation_t type;
@@ -1643,8 +1637,22 @@ typedef struct _mod_par_t
   uint8_t bps;
   float phOfst;
 } mod_par_t;
-# 75 "src\\modulation.h"
+
+
+typedef struct _mod_maptable_t
+{
+  uint8_t bits[(0x01<<2u)];
+  complex_t symbs[(0x01<<2u)];
+} mod_maptable_t;
+
+
+
+
+
+
+
 error_t Modulation_ListParameters( mod_par_t * ioParams );
+error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * outStream, const mod_par_t * pParams );
 # 21 "src\\channel.h" 2
 # 29 "src\\channel.h"
 typedef enum
@@ -1754,7 +1762,7 @@ error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStrea
 error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
 # 25 "src\\main.c" 2
 # 1 "src\\debug.h" 1
-# 39 "src\\debug.h"
+# 40 "src\\debug.h"
 typedef enum
 {
   PID_TX_SRC = 0,
@@ -1781,36 +1789,40 @@ error_t Debug_WriteBytesToCsv( const byte_stream_t * inStream, print_label_t lab
 static cc_par_t ccParams;
 static mod_par_t modParams;
 static chan_par_t chanParams;
-# 77 "src\\main.c"
+# 78 "src\\main.c"
 int main( void )
 {
   byte_stream_t txSrcStream = {.pBuf = 
-# 79 "src\\main.c" 3 4
+# 80 "src\\main.c" 3 4
  ((void *)0)
-# 79 "src\\main.c"
+# 80 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t rxSrcStream = {.pBuf = 
-# 79 "src\\main.c" 3 4
+# 80 "src\\main.c" 3 4
  ((void *)0)
-# 79 "src\\main.c"
+# 80 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t txCcStream = {.pBuf = 
-# 79 "src\\main.c" 3 4
+# 80 "src\\main.c" 3 4
  ((void *)0)
-# 79 "src\\main.c"
+# 80 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t rxCcStream = {.pBuf = 
-# 79 "src\\main.c" 3 4
+# 80 "src\\main.c" 3 4
  ((void *)0)
-# 79 "src\\main.c"
+# 80 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; complex_stream_t txModStream = {.pBuf = 
-# 79 "src\\main.c" 3 4
+# 80 "src\\main.c" 3 4
  ((void *)0)
-# 79 "src\\main.c"
+# 80 "src\\main.c"
+ , .len = 0, .id = memory_type_complex}; complex_stream_t rxModStream = {.pBuf = 
+# 80 "src\\main.c" 3 4
+ ((void *)0)
+# 80 "src\\main.c"
  , .len = 0, .id = memory_type_complex};;
-  Memory_AllocateStream(&txSrcStream,100,txSrcStream.id); Memory_AllocateStream(&rxSrcStream,100,rxSrcStream.id); Memory_AllocateStream(&txCcStream,((uint32_t) (2u*100)),txCcStream.id); Memory_AllocateStream(&rxCcStream,((uint32_t) (((uint32_t) (2u*100))/2u* (CC_RATE_23+1)/CC_RATE_23)),rxCcStream.id); Memory_AllocateStream(&txModStream,((uint32_t) (((uint32_t) (2u*100))/2u)),txModStream.id);;
+  Memory_AllocateStream(&txSrcStream,100,txSrcStream.id); Memory_AllocateStream(&rxSrcStream,100,rxSrcStream.id); Memory_AllocateStream(&txCcStream,((uint32_t) (2u*100)),txCcStream.id); Memory_AllocateStream(&rxCcStream,((uint32_t) (((uint32_t) (2u*100))/2u* (CC_RATE_23+1)/CC_RATE_23)),rxCcStream.id); Memory_AllocateStream(&txModStream,((uint32_t) (((uint32_t) (2u*100))/2u)),txModStream.id); Memory_AllocateStream(&rxModStream,((uint32_t) (((uint32_t) (2u*100))/2u)),rxModStream.id);;
   Debug_PrintParameters(100);
   Debug_GenerateRandomBytes(&txSrcStream,
-# 82 "src\\main.c" 3 4
+# 83 "src\\main.c" 3 4
                                         ((void *)0)
-# 82 "src\\main.c"
+# 83 "src\\main.c"
                                             );
   Debug_PrintBytes(&txSrcStream,PID_TX_SRC);
   CnvCod_ListParameters(&ccParams);
@@ -1825,6 +1837,7 @@ int main( void )
   {
     Modulation_ListParameters(&modParams);
     Modulation_Mapper(&txCcStream,&txModStream,&modParams);
+    Channel_AWGN(&txModStream,&rxModStream,&chanParams);
   }
   Debug_PrintBytes(&rxCcStream,PID_RX_CNVCOD);
   Debug_CheckWrongBits(&txCcStream,&rxCcStream,PID_RX_CNVCOD);
@@ -1832,15 +1845,15 @@ int main( void )
   Debug_CheckWrongBits(&txSrcStream,&rxSrcStream,PID_RX_SRC);
 
   if ((
-# 102 "src\\main.c" 3 4
+# 104 "src\\main.c" 3 4
      0
-# 102 "src\\main.c"
+# 104 "src\\main.c"
      ))
   {
     Debug_WriteBytesToCsv(&txSrcStream,PID_TX_SRC);
   }
-  Memory_FreeStream(&txSrcStream,memory_type_byte); Memory_FreeStream(&rxSrcStream,memory_type_byte); Memory_FreeStream(&txCcStream,memory_type_byte); Memory_FreeStream(&rxCcStream,memory_type_byte); Memory_FreeStream(&txModStream,memory_type_complex);;
+  Memory_FreeStream(&txSrcStream,memory_type_byte); Memory_FreeStream(&rxSrcStream,memory_type_byte); Memory_FreeStream(&txCcStream,memory_type_byte); Memory_FreeStream(&rxCcStream,memory_type_byte); Memory_FreeStream(&txModStream,memory_type_complex); Memory_FreeStream(&rxModStream,memory_type_complex);;
   printf(" >> Execution completed successfully!\n");
-# 153 "src\\main.c"
+# 155 "src\\main.c"
   return 0;
 }
