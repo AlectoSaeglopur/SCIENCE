@@ -589,7 +589,7 @@ LFE21:
 	.section .rdata,"dr"
 	.align 4
 LC0:
-	.long	1072064102
+	.long	1074161254
 	.align 4
 LC2:
 	.long	1191181824

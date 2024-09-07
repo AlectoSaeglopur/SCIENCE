@@ -33,7 +33,7 @@
 /*** PARAMETERS ***/
 /******************/
 
-#define LEN_SRC_BY          150u                                             //!< source info stream length [B] (NB: Max = 1000)
+#define LEN_SRC_BY          150u                                            //!< source info stream length [B] (NB: Max = 1000)
 
 
 
@@ -131,7 +131,8 @@ int main( void )
   Debug_CheckWrongBits(&txSrcStream,&rxSrcStream,PID_RX_SRC,&dgbParams);    /** -# check number of corrupted bits at source level */
 
 #ifdef DEBUG_CSV
-  Debug_WriteBytesToCsv(&txSrcStream,PID_TX_SRC);                           /** -# write tx source buffer content into csv file */
+  Debug_WriteByteStreamToCsv(&txSrcStream,PID_TX_SRC);                      /** -# write tx source buffer content into csv file */
+  Debug_WriteComplexStreamToCsv(&txModStream,PID_TX_MAP);
 #endif
 
   // 4. FINALIZATION
@@ -165,22 +166,16 @@ int main( void )
 // aggiungi check a LEN_SRC anche rispetto a ordine di modulazione!
 // sistema Makefile (print, utest, etc..)
 
-
-// alloca/free di tutti i buffer in un'unica funzione a inizio/fine esecuzione!
 // sposta "CnvCod_GetConnectorPuncturationVectors" dentro encoder/decoder e rendila statica
 // aggiungi ".vscode" a .gitignore
 // aggiungi interleaver + RS + scrambler
 // rendi funzioni sempre operanti su parametri passati come argomenti, non su macro globali!!!
 // sistema print di parametri (una riga per tipo) e aggiungi parametri di canale
 // prova CC_STR tramite XMACRO!
-
 // crea BY2BI_SHIFT e BI2BY_SHIFT come macro functions! (>> inside!)
-
 // spostare i 2 printf di inizio e fine esecuzione da qui a Makefile
-
-// sistema ultime fuzioni in fondo a debug.c
-
 // sistema cmake in modo che non sia obbligatorio cancellare ogni volta cartella di build (solo se esplicitato in comando), così più veloce a ricompilare!
+
 
 
 

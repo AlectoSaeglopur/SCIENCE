@@ -1825,7 +1825,8 @@ error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t lab
 error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t label, const debug_par_t * dbgParams );
 error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label_t label, const debug_par_t * dbgParams );
 error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * dbgParams );
-error_t Debug_WriteBytesToCsv( const byte_stream_t * inStream, print_label_t label );
+error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label );
+error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label );
 # 26 "src\\main.c" 2
 # 61 "src\\main.c"
 static cc_par_t ccParams;
@@ -1907,6 +1908,7 @@ int main( void )
 # 130 "src\\main.c"
   Debug_CheckWrongBits(&txCcStream,&rxCcStream,PID_RX_CNVCOD,&dgbParams);
   Debug_CheckWrongBits(&txSrcStream,&rxSrcStream,PID_RX_SRC,&dgbParams);
+
 
 
 

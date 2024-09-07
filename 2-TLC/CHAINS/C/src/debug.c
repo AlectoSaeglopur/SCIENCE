@@ -396,14 +396,14 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
 
 
 /**
- * @brief Function for writing byte buffer content into CSV file.
+ * @brief Function for writing byte stream content into CSV file.
  * 
  * @param inStream : input stream
  * @param label : label ID
  * 
  * @return error ID
  */
-error_t Debug_WriteBytesToCsv( const byte_stream_t * inStream, print_label_t label )
+error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label )
 {
   error_t retErr = ERR_NONE;
   FILE * fid = NULL;
@@ -428,9 +428,10 @@ error_t Debug_WriteBytesToCsv( const byte_stream_t * inStream, print_label_t lab
 
     if ((ERR_NONE == retErr) && (NULL != fid))
     {
+      fprintf(fid,"%u,",inStream->len);                                       /** write stream length as 1st element */
       for (j=0; j<inStream->len; j++)
       {
-        fprintf(fid,"%d",inStream->pBuf[j]);
+        fprintf(fid,"%u",inStream->pBuf[j]);
         if (j < inStream->len-1)
         {
           fprintf(fid,",");
@@ -444,7 +445,61 @@ error_t Debug_WriteBytesToCsv( const byte_stream_t * inStream, print_label_t lab
     retErr = ERR_INV_NULL_POINTER;
   }
 
-  return retErr;
+  return Error_HandleErr(retErr);
+}
+
+
+/**
+ * @brief Function for writing complex stream content into CSV file.
+ * 
+ * @param inStream : input stream
+ * @param label : label ID
+ * 
+ * @return error ID
+ */
+error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label )
+{
+  error_t retErr = ERR_NONE;
+  FILE * fid = NULL;
+	len_t j;
+  
+  if ((NULL != inStream) && (NULL != inStream->pBuf))
+  {
+    switch (label)
+    {
+      case PID_TX_MAP:
+        fid = fopen("txModSymbs.csv","w");
+        break;
+
+      case PID_RX_MAP:
+        fid = fopen("rxModSymbs.csv","w");
+        break;
+
+      default:
+        retErr = ERR_INV_PRINTID;
+        break;
+    }
+
+    if ((ERR_NONE == retErr) && (NULL != fid))
+    {
+      fprintf(fid,"%u,",inStream->len);                                       /** write stream length as 1st element */
+      for (j=0; j<inStream->len; j++)
+      {
+        fprintf(fid,"%1.4f,%1.4f",inStream->pBuf[j].re,inStream->pBuf[j].im);
+        if (j < inStream->len-1)
+        {
+          fprintf(fid,",");
+        }
+      }
+      fclose(fid);
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
 }
 
 
@@ -502,92 +557,3 @@ static bool IsSrcLenValid( len_t lenBy )
 
   return bRet;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * @brief Function for printing on terminal a convultional coding trellis diagram.
- * @param ConvDiagr : Pointer to trellis diagram to be printed.
- * @return none
- */
-//void PrintConvDiagr( trellis *ConvDiagr ){
-//	uint8_t j;
-//	for ( j=0; j<N_TSTAT; j++ ){
-//		printf("State#%2d",j);
-//		printf("\t0 -> %d %d |",ConvDiagr->States[j].OutBits[0],ConvDiagr->States[j].NextState[0]);
-//		printf(" 1 -> %d %d\n",ConvDiagr->States[j].OutBits[1],ConvDiagr->States[j].NextState[1]);
-//	}
-//	printf("\n");
-//}
-
-
-/**
- * @brief Function for printing on terminal a constellation mapping table.
- * @param MapTable : Pointer to mapping table to be printed.
- * @return none
- */
-//void PrintTable( phasemap *MapTable ){
-//	uint8_t j;
-//	printf(" * MAPPING TABLE\n\t");
-//	for ( j=0; j<M; j++){
-//		printf("%2d: ",MapTable->Bits[j]);
-//		if ( MapTable->Symbs[j].Re >= 0){
-//			printf("+");
-//		}
-//		printf("%1.2f",MapTable->Symbs[j].Re);
-//
-//		if ( MapTable->Symbs[j].Im >= 0){
-//			printf("+");
-//		}
-//		printf("%1.2fi",MapTable->Symbs[j].Im);
-//
-//		if ( (j%4 == 3) && (j<(M-1)) ) {
-//			printf("\n\t");
-//		} else if ( j < M-1 ){
-//			printf(" | ");
-//		}		
-//	}
-//	printf("\n\n");
-//}
-
-
- /**
- * @brief Function for writing input symbol stream into .csv file.
- * @param Symbols : Input symbol stream to stored.
- * @param Len : Stream length.
- * @param Label : TX/RX ID label.
- * @return none
- */
-//void WriteSymCsv( complex *Symbols, uint32_t Len, uint8_t Label ){
-//	uint32_t j;
-//	FILE *fid;
-//	if ( Label == PRID_TXSYMB ){
-//		fid = fopen("TxCpxSymbs.csv","w");
-//	} else if ( Label == PRID_RXSYMB ){
-//		fid = fopen("RxCpxSymbs.csv","w");
-//	}
-//	if (fid != NULL){
-//		for ( j=0; j<Len; j++ ){
-//			fprintf(fid,"%1.4f,%1.4f",Symbols[j].Re,Symbols[j].Im);
-//			if ( j < Len-1 ){
-//				fprintf(fid,",");
-//			}
-//		}
-//	}
-//	fclose(fid);
-//}

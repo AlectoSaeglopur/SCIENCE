@@ -221,7 +221,7 @@ L3:
 	leal	100(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Debug_CheckWrongBits
-	.loc 1 138 0
+	.loc 1 139 0
 	movl	$0, 4(%esp)
 	leal	100(%esp), %eax
 	movl	%eax, (%esp)
@@ -250,12 +250,12 @@ L3:
 	leal	28(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_FreeStream
-	.loc 1 139 0
+	.loc 1 140 0
 	movl	$LC1, (%esp)
 	call	_puts
-	.loc 1 141 0
-	movl	$0, %eax
 	.loc 1 142 0
+	movl	$0, %eax
+	.loc 1 143 0
 	leave
 	.cfi_restore 5
 	.cfi_def_cfa 4, 4

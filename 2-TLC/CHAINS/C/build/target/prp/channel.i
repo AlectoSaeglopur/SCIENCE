@@ -1731,7 +1731,7 @@ error_t Channel_ListParameters( chan_par_t * ioParams )
     }
     else
     {
-      ioParams->EbN0 = 1.8f;
+      ioParams->EbN0 = 2.1f;
     }
   }
   else

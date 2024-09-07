@@ -1826,7 +1826,8 @@ error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t lab
 error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t label, const debug_par_t * dbgParams );
 error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label_t label, const debug_par_t * dbgParams );
 error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * dbgParams );
-error_t Debug_WriteBytesToCsv( const byte_stream_t * inStream, print_label_t label );
+error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label );
+error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label );
 # 17 "src\\debug.c" 2
 
 
@@ -2113,7 +2114,7 @@ error_t Debug_PrintParameters( uint32_t len )
     }
     else if (CHAN_AWGN == CHAN_AWGN)
     {
-      printf(" AWGN | EbN0 = %1.1f\n",1.8f);
+      printf(" AWGN | EbN0 = %1.1f\n",2.1f);
     }
     else
     {
@@ -2218,7 +2219,7 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
   return Error_HandleErr(retErr);
 }
 # 406 "src\\debug.c"
-error_t Debug_WriteBytesToCsv( const byte_stream_t * inStream, print_label_t label )
+error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label )
 {
   error_t retErr = ERR_NONE;
   FILE * fid = 
@@ -2259,9 +2260,10 @@ error_t Debug_WriteBytesToCsv( const byte_stream_t * inStream, print_label_t lab
 # 429 "src\\debug.c"
                                      != fid))
     {
+      fprintf(fid,"%u,",inStream->len);
       for (j=0; j<inStream->len; j++)
       {
-        fprintf(fid,"%d",inStream->pBuf[j]);
+        fprintf(fid,"%u",inStream->pBuf[j]);
         if (j < inStream->len-1)
         {
           fprintf(fid,",");
@@ -2275,29 +2277,90 @@ error_t Debug_WriteBytesToCsv( const byte_stream_t * inStream, print_label_t lab
     retErr = ERR_INV_NULL_POINTER;
   }
 
-  return retErr;
+  return Error_HandleErr(retErr);
 }
-# 461 "src\\debug.c"
+# 460 "src\\debug.c"
+error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label )
+{
+  error_t retErr = ERR_NONE;
+  FILE * fid = 
+# 463 "src\\debug.c" 3 4
+              ((void *)0)
+# 463 "src\\debug.c"
+                  ;
+ uint32_t j;
+
+  if ((
+# 466 "src\\debug.c" 3 4
+      ((void *)0) 
+# 466 "src\\debug.c"
+           != inStream) && (
+# 466 "src\\debug.c" 3 4
+                            ((void *)0) 
+# 466 "src\\debug.c"
+                                 != inStream->pBuf))
+  {
+    switch (label)
+    {
+      case PID_TX_MAP:
+        fid = fopen("txModSymbs.csv","w");
+        break;
+
+      case PID_RX_MAP:
+        fid = fopen("rxModSymbs.csv","w");
+        break;
+
+      default:
+        retErr = ERR_INV_PRINTID;
+        break;
+    }
+
+    if ((ERR_NONE == retErr) && (
+# 483 "src\\debug.c" 3 4
+                                ((void *)0) 
+# 483 "src\\debug.c"
+                                     != fid))
+    {
+      fprintf(fid,"%u,",inStream->len);
+      for (j=0; j<inStream->len; j++)
+      {
+        fprintf(fid,"%1.4f,%1.4f",inStream->pBuf[j].re,inStream->pBuf[j].im);
+        if (j < inStream->len-1)
+        {
+          fprintf(fid,",");
+        }
+      }
+      fclose(fid);
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
+}
+# 516 "src\\debug.c"
 error_t Debug_ListParameters( debug_par_t * ioParams, const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam )
 {
   error_t retErr = ERR_NONE;
 
   if ((
-# 465 "src\\debug.c" 3 4
+# 520 "src\\debug.c" 3 4
       ((void *)0) 
-# 465 "src\\debug.c"
+# 520 "src\\debug.c"
            != ioParams) && (
-# 465 "src\\debug.c" 3 4
+# 520 "src\\debug.c" 3 4
                             ((void *)0) 
-# 465 "src\\debug.c"
+# 520 "src\\debug.c"
                                  != ccParam) && (
-# 465 "src\\debug.c" 3 4
+# 520 "src\\debug.c" 3 4
                                                  ((void *)0) 
-# 465 "src\\debug.c"
+# 520 "src\\debug.c"
                                                       != modParam) && (
-# 465 "src\\debug.c" 3 4
+# 520 "src\\debug.c" 3 4
                                                                        ((void *)0) 
-# 465 "src\\debug.c"
+# 520 "src\\debug.c"
                                                                             != chanParam))
   {
     ioParams->ccPar = *ccParam;
@@ -2311,21 +2374,21 @@ error_t Debug_ListParameters( debug_par_t * ioParams, const cc_par_t * ccParam, 
 
   return Error_HandleErr(retErr);
 }
-# 492 "src\\debug.c"
+# 547 "src\\debug.c"
 static 
-# 492 "src\\debug.c" 3 4
+# 547 "src\\debug.c" 3 4
       _Bool 
-# 492 "src\\debug.c"
+# 547 "src\\debug.c"
            IsSrcLenValid( uint32_t lenBy )
 {
   
-# 494 "src\\debug.c" 3 4
+# 549 "src\\debug.c" 3 4
  _Bool 
-# 494 "src\\debug.c"
+# 549 "src\\debug.c"
       bRet = 
-# 494 "src\\debug.c" 3 4
+# 549 "src\\debug.c" 3 4
              0
-# 494 "src\\debug.c"
+# 549 "src\\debug.c"
                   ;
   uint32_t lenBi = lenBy<<3u;
 
@@ -2333,9 +2396,9 @@ static
       (((lenBi/CC_RATE_23*(1+CC_RATE_23))%8u) == 0))
   {
     bRet = 
-# 500 "src\\debug.c" 3 4
+# 555 "src\\debug.c" 3 4
           1
-# 500 "src\\debug.c"
+# 555 "src\\debug.c"
               ;
   }
 
