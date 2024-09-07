@@ -32,7 +32,7 @@ static float GetComplexSgnPower( const complex_stream_t * inStream );
 /**
  * @brief Function for retrieving and listing channel parameters into dedicated structure.
  * 
- * @param ioParams : pointer to I/O parameters structure to be filled
+ * @param ioParams : pointer to i/o parameters structure to be filled
  * 
  * @return error ID
  */
@@ -159,7 +159,7 @@ error_t Channel_AWGN( const complex_stream_t * inStream, complex_stream_t * outS
     {
       if (CHAN_AWGN == pParams->type)
       {
-        memcpy(outStream->pBuf,inStream->pBuf,inStream->len);
+        memcpy(outStream->pBuf,inStream->pBuf,sizeof(complex_t)*inStream->len);
         if (SEED2TIME == pParams->seed)
         {
           srand(time(NULL));                                    /** link random seed to current time */

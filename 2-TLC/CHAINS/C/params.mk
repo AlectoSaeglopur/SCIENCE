@@ -18,9 +18,8 @@ BLD_FPT = build
 # relative path to target/utest build folder
 BLD_FLD = $(addprefix $(BLD_FPT)\,$(TMP_NAM))
 
-# compiler flags
-#CMP_FLG = -Wall -Werror -g -O0 -D VERBOSE
-CMP_FLG = -Wall -g -O0 -D VERBOSE
+# compiler flags (-Werror | -D DEBUG_CSV | -D DEBUG_TERMINAL)
+CMP_FLG = -Wall -g -O0
 
 # compiler version
 CMP_VRS = gcc

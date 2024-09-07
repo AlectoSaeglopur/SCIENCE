@@ -1575,7 +1575,8 @@ typedef enum
   ERR_INV_BUFFER_SIZE,
   ERR_INV_DYNAMIC_ALLOC,
   ERR_INV_STREAM_TYPE,
-  ERR_INV_MODULATION,
+  ERR_INV_MODULATION_TYPE,
+  ERR_INV_MODULATION_BPS,
   ERR_INV_CHANNEL_TYPE,
 
   ERR_NUM
@@ -1590,13 +1591,14 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 66 "src\\error.h"
+# 67 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 20 "src\\memory.h" 2
 # 28 "src\\memory.h"
 typedef enum
 {
   memory_type_byte = 0,
+  memory_type_float,
   memory_type_complex
 } memory_type_t;
 
@@ -1609,13 +1611,27 @@ typedef struct _byte_stream_t
 } byte_stream_t;
 
 
+typedef struct _float_stream_t
+{
+  float * pBuf;
+  uint32_t len;
+  memory_type_t id;
+} float_stream_t;
+
+
 typedef struct _complex_stream_t
 {
   complex_t * pBuf;
   uint32_t len;
   memory_type_t id;
 } complex_stream_t;
-# 59 "src\\memory.h"
+
+
+
+
+
+
+
 error_t Memory_AllocateStream( void * ioStream, uint32_t len, memory_type_t type );
 error_t Memory_FreeStream( void * ioStream, memory_type_t type );
 # 17 "src\\memory.c" 2
@@ -1627,20 +1643,23 @@ error_t Memory_FreeStream( void * ioStream, memory_type_t type );
 
 
 static error_t AllocateByteStream( byte_stream_t * ioStream, uint32_t len );
+static error_t AllocateFloatStream( float_stream_t * ioStream, uint32_t len );
 static error_t AllocateComplexStream( complex_stream_t * ioStream, uint32_t len );
 static error_t FreeByteStream( byte_stream_t * ioStream );
+static error_t FreeFloatStream( float_stream_t * ioStream );
 static error_t FreeComplexStream( complex_stream_t * ioStream );
-# 44 "src\\memory.c"
+# 46 "src\\memory.c"
 error_t Memory_AllocateStream( void * ioStream, uint32_t len, memory_type_t type )
 {
   error_t retErr = ERR_NONE;
   byte_stream_t * tmpByteStream;
+  float_stream_t * tmpFloatStream;
   complex_stream_t * tmpComplexStream;
 
   if (
-# 50 "src\\memory.c" 3 4
+# 53 "src\\memory.c" 3 4
      ((void *)0) 
-# 50 "src\\memory.c"
+# 53 "src\\memory.c"
           != ioStream)
   {
     switch(type)
@@ -1648,6 +1667,11 @@ error_t Memory_AllocateStream( void * ioStream, uint32_t len, memory_type_t type
       case memory_type_byte:
         tmpByteStream = (byte_stream_t *) ioStream;
         AllocateByteStream(tmpByteStream,len);
+        break;
+
+      case memory_type_float:
+        tmpFloatStream = (float_stream_t *) ioStream;
+        AllocateFloatStream(tmpFloatStream,len);
         break;
 
       case memory_type_complex:
@@ -1667,17 +1691,18 @@ error_t Memory_AllocateStream( void * ioStream, uint32_t len, memory_type_t type
 
   return Error_HandleErr(retErr);
 }
-# 86 "src\\memory.c"
+# 94 "src\\memory.c"
 error_t Memory_FreeStream( void * ioStream, memory_type_t type )
 {
   error_t retErr = ERR_NONE;
   byte_stream_t * tmpByteStream;
+  float_stream_t * tmpFloatStream;
   complex_stream_t * tmpComplexStream;
 
   if (
-# 92 "src\\memory.c" 3 4
+# 101 "src\\memory.c" 3 4
      ((void *)0) 
-# 92 "src\\memory.c"
+# 101 "src\\memory.c"
           != ioStream)
   {
     switch(type)
@@ -1685,6 +1710,11 @@ error_t Memory_FreeStream( void * ioStream, memory_type_t type )
       case memory_type_byte:
         tmpByteStream = (byte_stream_t *) ioStream;
         FreeByteStream(tmpByteStream);
+        break;
+
+      case memory_type_float:
+        tmpFloatStream = (float_stream_t *) ioStream;
+        FreeFloatStream(tmpFloatStream);
         break;
 
       case memory_type_complex:
@@ -1704,22 +1734,22 @@ error_t Memory_FreeStream( void * ioStream, memory_type_t type )
 
   return Error_HandleErr(retErr);
 }
-# 133 "src\\memory.c"
+# 147 "src\\memory.c"
 static error_t AllocateByteStream( byte_stream_t * ioStream, uint32_t len )
 {
   error_t retErr = ERR_NONE;
 
   if (
-# 137 "src\\memory.c" 3 4
+# 151 "src\\memory.c" 3 4
      ((void *)0) 
-# 137 "src\\memory.c"
+# 151 "src\\memory.c"
           != ioStream)
   {
     ioStream->pBuf = calloc(len,sizeof(uint8_t));
     if (
-# 140 "src\\memory.c" 3 4
+# 154 "src\\memory.c" 3 4
        ((void *)0) 
-# 140 "src\\memory.c"
+# 154 "src\\memory.c"
             == ioStream->pBuf)
     {
       retErr = ERR_INV_DYNAMIC_ALLOC;
@@ -1736,22 +1766,54 @@ static error_t AllocateByteStream( byte_stream_t * ioStream, uint32_t len )
 
   return Error_HandleErr(retErr);
 }
-# 166 "src\\memory.c"
+# 180 "src\\memory.c"
+static error_t AllocateFloatStream( float_stream_t * ioStream, uint32_t len )
+{
+  error_t retErr = ERR_NONE;
+
+  if (
+# 184 "src\\memory.c" 3 4
+     ((void *)0) 
+# 184 "src\\memory.c"
+          != ioStream)
+  {
+    ioStream->pBuf = calloc(len,sizeof(float));
+    if (
+# 187 "src\\memory.c" 3 4
+       ((void *)0) 
+# 187 "src\\memory.c"
+            == ioStream->pBuf)
+    {
+      retErr = ERR_INV_DYNAMIC_ALLOC;
+    }
+    else
+    {
+      ioStream->len = len;
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
+}
+# 213 "src\\memory.c"
 static error_t AllocateComplexStream( complex_stream_t * ioStream, uint32_t len )
 {
   error_t retErr = ERR_NONE;
 
   if (
-# 170 "src\\memory.c" 3 4
+# 217 "src\\memory.c" 3 4
      ((void *)0) 
-# 170 "src\\memory.c"
+# 217 "src\\memory.c"
           != ioStream)
   {
     ioStream->pBuf = calloc(len,sizeof(complex_t));
     if (
-# 173 "src\\memory.c" 3 4
+# 220 "src\\memory.c" 3 4
        ((void *)0) 
-# 173 "src\\memory.c"
+# 220 "src\\memory.c"
             == ioStream->pBuf)
     {
       retErr = ERR_INV_DYNAMIC_ALLOC;
@@ -1768,26 +1830,26 @@ static error_t AllocateComplexStream( complex_stream_t * ioStream, uint32_t len 
 
   return Error_HandleErr(retErr);
 }
-# 198 "src\\memory.c"
+# 245 "src\\memory.c"
 static error_t FreeByteStream( byte_stream_t * ioStream )
 {
   error_t retErr = ERR_NONE;
 
   if ((
-# 202 "src\\memory.c" 3 4
+# 249 "src\\memory.c" 3 4
       ((void *)0) 
-# 202 "src\\memory.c"
+# 249 "src\\memory.c"
            != ioStream) && (
-# 202 "src\\memory.c" 3 4
+# 249 "src\\memory.c" 3 4
                             ((void *)0) 
-# 202 "src\\memory.c"
+# 249 "src\\memory.c"
                                  != ioStream->pBuf))
   {
     free(ioStream->pBuf);
     ioStream->pBuf = 
-# 205 "src\\memory.c" 3 4
+# 252 "src\\memory.c" 3 4
                     ((void *)0)
-# 205 "src\\memory.c"
+# 252 "src\\memory.c"
                         ;
     ioStream->len = 0;
   }
@@ -1798,26 +1860,56 @@ static error_t FreeByteStream( byte_stream_t * ioStream )
 
   return Error_HandleErr(retErr);
 }
-# 224 "src\\memory.c"
+# 271 "src\\memory.c"
+static error_t FreeFloatStream( float_stream_t * ioStream )
+{
+  error_t retErr = ERR_NONE;
+
+  if ((
+# 275 "src\\memory.c" 3 4
+      ((void *)0) 
+# 275 "src\\memory.c"
+           != ioStream) && (
+# 275 "src\\memory.c" 3 4
+                            ((void *)0) 
+# 275 "src\\memory.c"
+                                 != ioStream->pBuf))
+  {
+    free(ioStream->pBuf);
+    ioStream->pBuf = 
+# 278 "src\\memory.c" 3 4
+                    ((void *)0)
+# 278 "src\\memory.c"
+                        ;
+    ioStream->len = 0;
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
+}
+# 297 "src\\memory.c"
 static error_t FreeComplexStream( complex_stream_t * ioStream )
 {
   error_t retErr = ERR_NONE;
 
   if ((
-# 228 "src\\memory.c" 3 4
+# 301 "src\\memory.c" 3 4
       ((void *)0) 
-# 228 "src\\memory.c"
+# 301 "src\\memory.c"
            != ioStream) && (
-# 228 "src\\memory.c" 3 4
+# 301 "src\\memory.c" 3 4
                             ((void *)0) 
-# 228 "src\\memory.c"
+# 301 "src\\memory.c"
                                  != ioStream->pBuf))
   {
     free(ioStream->pBuf);
     ioStream->pBuf = 
-# 231 "src\\memory.c" 3 4
+# 304 "src\\memory.c" 3 4
                     ((void *)0)
-# 231 "src\\memory.c"
+# 304 "src\\memory.c"
                         ;
     ioStream->len = 0;
   }

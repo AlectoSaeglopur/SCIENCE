@@ -6,7 +6,7 @@ Ltext0:
 _Memory_AllocateStream:
 LFB18:
 	.file 1 "src/memory.c"
-	.loc 1 45 0
+	.loc 1 47 0
 	.cfi_startproc
 	pushl	%ebp
 	.cfi_def_cfa_offset 8
@@ -14,57 +14,71 @@ LFB18:
 	movl	%esp, %ebp
 	.cfi_def_cfa_register 5
 	subl	$40, %esp
-	.loc 1 46 0
+	.loc 1 48 0
 	movl	$0, -12(%ebp)
-	.loc 1 50 0
+	.loc 1 53 0
 	cmpl	$0, 8(%ebp)
 	je	L2
-	.loc 1 52 0
+	.loc 1 55 0
 	movl	16(%ebp), %eax
-	testl	%eax, %eax
+	cmpl	$1, %eax
 	je	L4
 	cmpl	$1, %eax
-	je	L5
-	jmp	L9
-L4:
-	.loc 1 55 0
+	jb	L5
+	cmpl	$2, %eax
+	je	L6
+	jmp	L10
+L5:
+	.loc 1 58 0
 	movl	8(%ebp), %eax
 	movl	%eax, -16(%ebp)
-	.loc 1 56 0
+	.loc 1 59 0
 	movl	12(%ebp), %eax
 	movl	%eax, 4(%esp)
 	movl	-16(%ebp), %eax
 	movl	%eax, (%esp)
 	call	_AllocateByteStream
-	.loc 1 57 0
-	jmp	L7
-L5:
 	.loc 1 60 0
+	jmp	L8
+L4:
+	.loc 1 63 0
 	movl	8(%ebp), %eax
 	movl	%eax, -20(%ebp)
-	.loc 1 61 0
+	.loc 1 64 0
 	movl	12(%ebp), %eax
 	movl	%eax, 4(%esp)
 	movl	-20(%ebp), %eax
 	movl	%eax, (%esp)
-	call	_AllocateComplexStream
-	.loc 1 62 0
-	jmp	L7
-L9:
+	call	_AllocateFloatStream
 	.loc 1 65 0
+	jmp	L8
+L6:
+	.loc 1 68 0
+	movl	8(%ebp), %eax
+	movl	%eax, -24(%ebp)
+	.loc 1 69 0
+	movl	12(%ebp), %eax
+	movl	%eax, 4(%esp)
+	movl	-24(%ebp), %eax
+	movl	%eax, (%esp)
+	call	_AllocateComplexStream
+	.loc 1 70 0
+	jmp	L8
+L10:
+	.loc 1 73 0
 	movl	$7, -12(%ebp)
-	.loc 1 66 0
-	nop
-	jmp	L7
-L2:
-	.loc 1 71 0
-	movl	$1, -12(%ebp)
-L7:
 	.loc 1 74 0
+	nop
+	jmp	L8
+L2:
+	.loc 1 79 0
+	movl	$1, -12(%ebp)
+L8:
+	.loc 1 82 0
 	movl	-12(%ebp), %eax
 	movl	%eax, (%esp)
 	call	_Error_HandleErr
-	.loc 1 75 0
+	.loc 1 83 0
 	leave
 	.cfi_restore 5
 	.cfi_def_cfa 4, 4
@@ -75,7 +89,7 @@ LFE18:
 	.def	_Memory_FreeStream;	.scl	2;	.type	32;	.endef
 _Memory_FreeStream:
 LFB19:
-	.loc 1 87 0
+	.loc 1 95 0
 	.cfi_startproc
 	pushl	%ebp
 	.cfi_def_cfa_offset 8
@@ -83,53 +97,65 @@ LFB19:
 	movl	%esp, %ebp
 	.cfi_def_cfa_register 5
 	subl	$40, %esp
-	.loc 1 88 0
+	.loc 1 96 0
 	movl	$0, -12(%ebp)
-	.loc 1 92 0
+	.loc 1 101 0
 	cmpl	$0, 8(%ebp)
-	je	L11
-	.loc 1 94 0
+	je	L12
+	.loc 1 103 0
 	movl	12(%ebp), %eax
-	testl	%eax, %eax
-	je	L13
 	cmpl	$1, %eax
 	je	L14
-	jmp	L18
-L13:
-	.loc 1 97 0
+	cmpl	$1, %eax
+	jb	L15
+	cmpl	$2, %eax
+	je	L16
+	jmp	L20
+L15:
+	.loc 1 106 0
 	movl	8(%ebp), %eax
 	movl	%eax, -16(%ebp)
-	.loc 1 98 0
+	.loc 1 107 0
 	movl	-16(%ebp), %eax
 	movl	%eax, (%esp)
 	call	_FreeByteStream
-	.loc 1 99 0
-	jmp	L16
+	.loc 1 108 0
+	jmp	L18
 L14:
-	.loc 1 102 0
+	.loc 1 111 0
 	movl	8(%ebp), %eax
 	movl	%eax, -20(%ebp)
-	.loc 1 103 0
+	.loc 1 112 0
 	movl	-20(%ebp), %eax
 	movl	%eax, (%esp)
-	call	_FreeComplexStream
-	.loc 1 104 0
-	jmp	L16
-L18:
-	.loc 1 107 0
-	movl	$7, -12(%ebp)
-	.loc 1 108 0
-	nop
-	jmp	L16
-L11:
+	call	_FreeFloatStream
 	.loc 1 113 0
-	movl	$1, -12(%ebp)
+	jmp	L18
 L16:
 	.loc 1 116 0
+	movl	8(%ebp), %eax
+	movl	%eax, -24(%ebp)
+	.loc 1 117 0
+	movl	-24(%ebp), %eax
+	movl	%eax, (%esp)
+	call	_FreeComplexStream
+	.loc 1 118 0
+	jmp	L18
+L20:
+	.loc 1 121 0
+	movl	$7, -12(%ebp)
+	.loc 1 122 0
+	nop
+	jmp	L18
+L12:
+	.loc 1 127 0
+	movl	$1, -12(%ebp)
+L18:
+	.loc 1 130 0
 	movl	-12(%ebp), %eax
 	movl	%eax, (%esp)
 	call	_Error_HandleErr
-	.loc 1 117 0
+	.loc 1 131 0
 	leave
 	.cfi_restore 5
 	.cfi_def_cfa 4, 4
@@ -139,7 +165,7 @@ LFE19:
 	.def	_AllocateByteStream;	.scl	3;	.type	32;	.endef
 _AllocateByteStream:
 LFB20:
-	.loc 1 134 0
+	.loc 1 148 0
 	.cfi_startproc
 	pushl	%ebp
 	.cfi_def_cfa_offset 8
@@ -147,12 +173,12 @@ LFB20:
 	movl	%esp, %ebp
 	.cfi_def_cfa_register 5
 	subl	$40, %esp
-	.loc 1 135 0
+	.loc 1 149 0
 	movl	$0, -12(%ebp)
-	.loc 1 137 0
+	.loc 1 151 0
 	cmpl	$0, 8(%ebp)
-	je	L20
-	.loc 1 139 0
+	je	L22
+	.loc 1 153 0
 	movl	$1, 4(%esp)
 	movl	12(%ebp), %eax
 	movl	%eax, (%esp)
@@ -160,39 +186,39 @@ LFB20:
 	movl	%eax, %edx
 	movl	8(%ebp), %eax
 	movl	%edx, (%eax)
-	.loc 1 140 0
+	.loc 1 154 0
 	movl	8(%ebp), %eax
 	movl	(%eax), %eax
 	testl	%eax, %eax
-	jne	L21
-	.loc 1 142 0
+	jne	L23
+	.loc 1 156 0
 	movl	$6, -12(%ebp)
-	jmp	L23
-L21:
-	.loc 1 146 0
+	jmp	L25
+L23:
+	.loc 1 160 0
 	movl	8(%ebp), %eax
 	movl	12(%ebp), %edx
 	movl	%edx, 4(%eax)
-	jmp	L23
-L20:
-	.loc 1 151 0
+	jmp	L25
+L22:
+	.loc 1 165 0
 	movl	$1, -12(%ebp)
-L23:
-	.loc 1 154 0
+L25:
+	.loc 1 168 0
 	movl	-12(%ebp), %eax
 	movl	%eax, (%esp)
 	call	_Error_HandleErr
-	.loc 1 155 0
+	.loc 1 169 0
 	leave
 	.cfi_restore 5
 	.cfi_def_cfa 4, 4
 	ret
 	.cfi_endproc
 LFE20:
-	.def	_AllocateComplexStream;	.scl	3;	.type	32;	.endef
-_AllocateComplexStream:
+	.def	_AllocateFloatStream;	.scl	3;	.type	32;	.endef
+_AllocateFloatStream:
 LFB21:
-	.loc 1 167 0
+	.loc 1 181 0
 	.cfi_startproc
 	pushl	%ebp
 	.cfi_def_cfa_offset 8
@@ -200,12 +226,65 @@ LFB21:
 	movl	%esp, %ebp
 	.cfi_def_cfa_register 5
 	subl	$40, %esp
-	.loc 1 168 0
+	.loc 1 182 0
 	movl	$0, -12(%ebp)
-	.loc 1 170 0
+	.loc 1 184 0
 	cmpl	$0, 8(%ebp)
-	je	L26
-	.loc 1 172 0
+	je	L28
+	.loc 1 186 0
+	movl	$4, 4(%esp)
+	movl	12(%ebp), %eax
+	movl	%eax, (%esp)
+	call	_calloc
+	movl	%eax, %edx
+	movl	8(%ebp), %eax
+	movl	%edx, (%eax)
+	.loc 1 187 0
+	movl	8(%ebp), %eax
+	movl	(%eax), %eax
+	testl	%eax, %eax
+	jne	L29
+	.loc 1 189 0
+	movl	$6, -12(%ebp)
+	jmp	L31
+L29:
+	.loc 1 193 0
+	movl	8(%ebp), %eax
+	movl	12(%ebp), %edx
+	movl	%edx, 4(%eax)
+	jmp	L31
+L28:
+	.loc 1 198 0
+	movl	$1, -12(%ebp)
+L31:
+	.loc 1 201 0
+	movl	-12(%ebp), %eax
+	movl	%eax, (%esp)
+	call	_Error_HandleErr
+	.loc 1 202 0
+	leave
+	.cfi_restore 5
+	.cfi_def_cfa 4, 4
+	ret
+	.cfi_endproc
+LFE21:
+	.def	_AllocateComplexStream;	.scl	3;	.type	32;	.endef
+_AllocateComplexStream:
+LFB22:
+	.loc 1 214 0
+	.cfi_startproc
+	pushl	%ebp
+	.cfi_def_cfa_offset 8
+	.cfi_offset 5, -8
+	movl	%esp, %ebp
+	.cfi_def_cfa_register 5
+	subl	$40, %esp
+	.loc 1 215 0
+	movl	$0, -12(%ebp)
+	.loc 1 217 0
+	cmpl	$0, 8(%ebp)
+	je	L34
+	.loc 1 219 0
 	movl	$8, 4(%esp)
 	movl	12(%ebp), %eax
 	movl	%eax, (%esp)
@@ -213,87 +292,39 @@ LFB21:
 	movl	%eax, %edx
 	movl	8(%ebp), %eax
 	movl	%edx, (%eax)
-	.loc 1 173 0
+	.loc 1 220 0
 	movl	8(%ebp), %eax
 	movl	(%eax), %eax
 	testl	%eax, %eax
-	jne	L27
-	.loc 1 175 0
+	jne	L35
+	.loc 1 222 0
 	movl	$6, -12(%ebp)
-	jmp	L29
-L27:
-	.loc 1 179 0
+	jmp	L37
+L35:
+	.loc 1 226 0
 	movl	8(%ebp), %eax
 	movl	12(%ebp), %edx
 	movl	%edx, 4(%eax)
-	jmp	L29
-L26:
-	.loc 1 184 0
+	jmp	L37
+L34:
+	.loc 1 231 0
 	movl	$1, -12(%ebp)
-L29:
-	.loc 1 187 0
+L37:
+	.loc 1 234 0
 	movl	-12(%ebp), %eax
 	movl	%eax, (%esp)
 	call	_Error_HandleErr
-	.loc 1 188 0
-	leave
-	.cfi_restore 5
-	.cfi_def_cfa 4, 4
-	ret
-	.cfi_endproc
-LFE21:
-	.def	_FreeByteStream;	.scl	3;	.type	32;	.endef
-_FreeByteStream:
-LFB22:
-	.loc 1 199 0
-	.cfi_startproc
-	pushl	%ebp
-	.cfi_def_cfa_offset 8
-	.cfi_offset 5, -8
-	movl	%esp, %ebp
-	.cfi_def_cfa_register 5
-	subl	$40, %esp
-	.loc 1 200 0
-	movl	$0, -12(%ebp)
-	.loc 1 202 0
-	cmpl	$0, 8(%ebp)
-	je	L32
-	.loc 1 202 0 is_stmt 0 discriminator 1
-	movl	8(%ebp), %eax
-	movl	(%eax), %eax
-	testl	%eax, %eax
-	je	L32
-	.loc 1 204 0 is_stmt 1
-	movl	8(%ebp), %eax
-	movl	(%eax), %eax
-	movl	%eax, (%esp)
-	call	_free
-	.loc 1 205 0
-	movl	8(%ebp), %eax
-	movl	$0, (%eax)
-	.loc 1 206 0
-	movl	8(%ebp), %eax
-	movl	$0, 4(%eax)
-	jmp	L33
-L32:
-	.loc 1 210 0
-	movl	$1, -12(%ebp)
-L33:
-	.loc 1 213 0
-	movl	-12(%ebp), %eax
-	movl	%eax, (%esp)
-	call	_Error_HandleErr
-	.loc 1 214 0
+	.loc 1 235 0
 	leave
 	.cfi_restore 5
 	.cfi_def_cfa 4, 4
 	ret
 	.cfi_endproc
 LFE22:
-	.def	_FreeComplexStream;	.scl	3;	.type	32;	.endef
-_FreeComplexStream:
+	.def	_FreeByteStream;	.scl	3;	.type	32;	.endef
+_FreeByteStream:
 LFB23:
-	.loc 1 225 0
+	.loc 1 246 0
 	.cfi_startproc
 	pushl	%ebp
 	.cfi_def_cfa_offset 8
@@ -301,43 +332,139 @@ LFB23:
 	movl	%esp, %ebp
 	.cfi_def_cfa_register 5
 	subl	$40, %esp
-	.loc 1 226 0
+	.loc 1 247 0
 	movl	$0, -12(%ebp)
-	.loc 1 228 0
+	.loc 1 249 0
 	cmpl	$0, 8(%ebp)
-	je	L36
-	.loc 1 228 0 is_stmt 0 discriminator 1
+	je	L40
+	.loc 1 249 0 is_stmt 0 discriminator 1
 	movl	8(%ebp), %eax
 	movl	(%eax), %eax
 	testl	%eax, %eax
-	je	L36
-	.loc 1 230 0 is_stmt 1
+	je	L40
+	.loc 1 251 0 is_stmt 1
 	movl	8(%ebp), %eax
 	movl	(%eax), %eax
 	movl	%eax, (%esp)
 	call	_free
-	.loc 1 231 0
+	.loc 1 252 0
 	movl	8(%ebp), %eax
 	movl	$0, (%eax)
-	.loc 1 232 0
+	.loc 1 253 0
 	movl	8(%ebp), %eax
 	movl	$0, 4(%eax)
-	jmp	L37
-L36:
-	.loc 1 236 0
+	jmp	L41
+L40:
+	.loc 1 257 0
 	movl	$1, -12(%ebp)
-L37:
-	.loc 1 239 0
+L41:
+	.loc 1 260 0
 	movl	-12(%ebp), %eax
 	movl	%eax, (%esp)
 	call	_Error_HandleErr
-	.loc 1 240 0
+	.loc 1 261 0
 	leave
 	.cfi_restore 5
 	.cfi_def_cfa 4, 4
 	ret
 	.cfi_endproc
 LFE23:
+	.def	_FreeFloatStream;	.scl	3;	.type	32;	.endef
+_FreeFloatStream:
+LFB24:
+	.loc 1 272 0
+	.cfi_startproc
+	pushl	%ebp
+	.cfi_def_cfa_offset 8
+	.cfi_offset 5, -8
+	movl	%esp, %ebp
+	.cfi_def_cfa_register 5
+	subl	$40, %esp
+	.loc 1 273 0
+	movl	$0, -12(%ebp)
+	.loc 1 275 0
+	cmpl	$0, 8(%ebp)
+	je	L44
+	.loc 1 275 0 is_stmt 0 discriminator 1
+	movl	8(%ebp), %eax
+	movl	(%eax), %eax
+	testl	%eax, %eax
+	je	L44
+	.loc 1 277 0 is_stmt 1
+	movl	8(%ebp), %eax
+	movl	(%eax), %eax
+	movl	%eax, (%esp)
+	call	_free
+	.loc 1 278 0
+	movl	8(%ebp), %eax
+	movl	$0, (%eax)
+	.loc 1 279 0
+	movl	8(%ebp), %eax
+	movl	$0, 4(%eax)
+	jmp	L45
+L44:
+	.loc 1 283 0
+	movl	$1, -12(%ebp)
+L45:
+	.loc 1 286 0
+	movl	-12(%ebp), %eax
+	movl	%eax, (%esp)
+	call	_Error_HandleErr
+	.loc 1 287 0
+	leave
+	.cfi_restore 5
+	.cfi_def_cfa 4, 4
+	ret
+	.cfi_endproc
+LFE24:
+	.def	_FreeComplexStream;	.scl	3;	.type	32;	.endef
+_FreeComplexStream:
+LFB25:
+	.loc 1 298 0
+	.cfi_startproc
+	pushl	%ebp
+	.cfi_def_cfa_offset 8
+	.cfi_offset 5, -8
+	movl	%esp, %ebp
+	.cfi_def_cfa_register 5
+	subl	$40, %esp
+	.loc 1 299 0
+	movl	$0, -12(%ebp)
+	.loc 1 301 0
+	cmpl	$0, 8(%ebp)
+	je	L48
+	.loc 1 301 0 is_stmt 0 discriminator 1
+	movl	8(%ebp), %eax
+	movl	(%eax), %eax
+	testl	%eax, %eax
+	je	L48
+	.loc 1 303 0 is_stmt 1
+	movl	8(%ebp), %eax
+	movl	(%eax), %eax
+	movl	%eax, (%esp)
+	call	_free
+	.loc 1 304 0
+	movl	8(%ebp), %eax
+	movl	$0, (%eax)
+	.loc 1 305 0
+	movl	8(%ebp), %eax
+	movl	$0, 4(%eax)
+	jmp	L49
+L48:
+	.loc 1 309 0
+	movl	$1, -12(%ebp)
+L49:
+	.loc 1 312 0
+	movl	-12(%ebp), %eax
+	movl	%eax, (%esp)
+	call	_Error_HandleErr
+	.loc 1 313 0
+	leave
+	.cfi_restore 5
+	.cfi_def_cfa 4, 4
+	ret
+	.cfi_endproc
+LFE25:
 Letext0:
 	.file 2 "c:/mingw/include/stdio.h"
 	.file 3 "c:/mingw/include/stdint.h"
@@ -348,7 +475,7 @@ Letext0:
 	.file 8 "src/memory.h"
 	.section	.debug_info,"dr"
 Ldebug_info0:
-	.long	0x782
+	.long	0x8cb
 	.word	0x4
 	.secrel32	Ldebug_abbrev0
 	.byte	0x4
@@ -623,7 +750,7 @@ Ldebug_info0:
 	.long	0x70
 	.byte	0x7
 	.byte	0x1b
-	.long	0x44f
+	.long	0x46d
 	.uleb128 0xd
 	.ascii "ERR_NONE\0"
 	.byte	0
@@ -649,61 +776,67 @@ Ldebug_info0:
 	.ascii "ERR_INV_STREAM_TYPE\0"
 	.byte	0x7
 	.uleb128 0xd
-	.ascii "ERR_INV_MODULATION\0"
+	.ascii "ERR_INV_MODULATION_TYPE\0"
 	.byte	0x8
 	.uleb128 0xd
-	.ascii "ERR_INV_CHANNEL_TYPE\0"
+	.ascii "ERR_INV_MODULATION_BPS\0"
 	.byte	0x9
 	.uleb128 0xd
-	.ascii "ERR_NUM\0"
+	.ascii "ERR_INV_CHANNEL_TYPE\0"
 	.byte	0xa
+	.uleb128 0xd
+	.ascii "ERR_NUM\0"
+	.byte	0xb
 	.byte	0
 	.uleb128 0x6
 	.ascii "error_t\0"
 	.byte	0x7
-	.byte	0x28
+	.byte	0x29
 	.long	0x368
 	.uleb128 0xc
 	.byte	0x4
 	.long	0x70
 	.byte	0x8
 	.byte	0x1d
-	.long	0x494
+	.long	0x4c6
 	.uleb128 0xd
 	.ascii "memory_type_byte\0"
 	.byte	0
 	.uleb128 0xd
-	.ascii "memory_type_complex\0"
+	.ascii "memory_type_float\0"
 	.byte	0x1
+	.uleb128 0xd
+	.ascii "memory_type_complex\0"
+	.byte	0x2
 	.byte	0
 	.uleb128 0x6
 	.ascii "memory_type_t\0"
 	.byte	0x8
-	.byte	0x20
-	.long	0x45e
+	.byte	0x21
+	.long	0x47c
 	.uleb128 0x3
 	.ascii "_byte_stream_t\0"
 	.byte	0xc
 	.byte	0x8
-	.byte	0x23
-	.long	0x4e5
+	.byte	0x24
+	.long	0x517
 	.uleb128 0x4
 	.ascii "pBuf\0"
 	.byte	0x8
-	.byte	0x25
-	.long	0x4e5
+	.byte	0x26
+	.long	0x517
 	.byte	0
 	.uleb128 0x4
 	.ascii "len\0"
 	.byte	0x8
-	.byte	0x26
+	.byte	0x27
 	.long	0x1ae
 	.byte	0x4
 	.uleb128 0x4
 	.ascii "id\0"
 	.byte	0x8
-	.byte	0x27
-	.long	0x494
+	.byte	0x28
+	.long	0x4c6
 	.byte	0x8
 	.byte	0
 	.uleb128 0x5
@@ -712,31 +845,64 @@ Ldebug_info0:
 	.uleb128 0x6
 	.ascii "byte_stream_t\0"
 	.byte	0x8
-	.byte	0x28
-	.long	0x4a9
+	.byte	0x29
+	.long	0x4db
 	.uleb128 0x3
-	.ascii "_complex_stream_t\0"
+	.ascii "_float_stream_t\0"
 	.byte	0xc
 	.byte	0x8
-	.byte	0x2b
-	.long	0x53f
+	.byte	0x2c
+	.long	0x56f
 	.uleb128 0x4
 	.ascii "pBuf\0"
 	.byte	0x8
-	.byte	0x2d
-	.long	0x53f
+	.byte	0x2e
+	.long	0x56f
 	.byte	0
 	.uleb128 0x4
 	.ascii "len\0"
 	.byte	0x8
-	.byte	0x2e
+	.byte	0x2f
 	.long	0x1ae
 	.byte	0x4
 	.uleb128 0x4
 	.ascii "id\0"
 	.byte	0x8
-	.byte	0x2f
-	.long	0x494
+	.byte	0x30
+	.long	0x4c6
+	.byte	0x8
+	.byte	0
+	.uleb128 0x5
+	.byte	0x4
+	.long	0x34e
+	.uleb128 0x6
+	.ascii "float_stream_t\0"
+	.byte	0x8
+	.byte	0x31
+	.long	0x532
+	.uleb128 0x3
+	.ascii "_complex_stream_t\0"
+	.byte	0xc
+	.byte	0x8
+	.byte	0x34
+	.long	0x5ca
+	.uleb128 0x4
+	.ascii "pBuf\0"
+	.byte	0x8
+	.byte	0x36
+	.long	0x5ca
+	.byte	0
+	.uleb128 0x4
+	.ascii "len\0"
+	.byte	0x8
+	.byte	0x37
+	.long	0x1ae
+	.byte	0x4
+	.uleb128 0x4
+	.ascii "id\0"
+	.byte	0x8
+	.byte	0x38
+	.long	0x4c6
 	.byte	0x8
 	.byte	0
 	.uleb128 0x5
@@ -745,248 +911,329 @@ Ldebug_info0:
 	.uleb128 0x6
 	.ascii "complex_stream_t\0"
 	.byte	0x8
-	.byte	0x30
-	.long	0x500
+	.byte	0x39
+	.long	0x58b
 	.uleb128 0xe
 	.ascii "FreeComplexStream\0"
 	.byte	0x1
-	.byte	0xe0
-	.long	0x44f
+	.word	0x129
+	.long	0x46d
+	.long	LFB25
+	.long	LFE25-LFB25
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x62f
+	.uleb128 0xf
+	.secrel32	LASF0
+	.byte	0x1
+	.word	0x129
+	.long	0x62f
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 0
+	.uleb128 0x10
+	.secrel32	LASF1
+	.byte	0x1
+	.word	0x12b
+	.long	0x46d
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 -20
+	.byte	0
+	.uleb128 0x5
+	.byte	0x4
+	.long	0x5d0
+	.uleb128 0xe
+	.ascii "FreeFloatStream\0"
+	.byte	0x1
+	.word	0x10f
+	.long	0x46d
+	.long	LFB24
+	.long	LFE24-LFB24
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x67a
+	.uleb128 0xf
+	.secrel32	LASF0
+	.byte	0x1
+	.word	0x10f
+	.long	0x67a
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 0
+	.uleb128 0x10
+	.secrel32	LASF1
+	.byte	0x1
+	.word	0x111
+	.long	0x46d
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 -20
+	.byte	0
+	.uleb128 0x5
+	.byte	0x4
+	.long	0x575
+	.uleb128 0x11
+	.ascii "FreeByteStream\0"
+	.byte	0x1
+	.byte	0xf5
+	.long	0x46d
 	.long	LFB23
 	.long	LFE23-LFB23
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x5a1
-	.uleb128 0xf
+	.long	0x6c1
+	.uleb128 0x12
 	.secrel32	LASF0
 	.byte	0x1
-	.byte	0xe0
-	.long	0x5a1
+	.byte	0xf5
+	.long	0x6c1
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
-	.uleb128 0x10
+	.uleb128 0x13
 	.secrel32	LASF1
 	.byte	0x1
-	.byte	0xe2
-	.long	0x44f
+	.byte	0xf7
+	.long	0x46d
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
 	.byte	0
 	.uleb128 0x5
 	.byte	0x4
-	.long	0x545
-	.uleb128 0xe
-	.ascii "FreeByteStream\0"
+	.long	0x51d
+	.uleb128 0x11
+	.ascii "AllocateComplexStream\0"
 	.byte	0x1
-	.byte	0xc6
-	.long	0x44f
+	.byte	0xd5
+	.long	0x46d
 	.long	LFB22
 	.long	LFE22-LFB22
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x5e8
-	.uleb128 0xf
+	.long	0x71d
+	.uleb128 0x12
 	.secrel32	LASF0
 	.byte	0x1
-	.byte	0xc6
-	.long	0x5e8
+	.byte	0xd5
+	.long	0x62f
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
-	.uleb128 0x10
+	.uleb128 0x14
+	.ascii "len\0"
+	.byte	0x1
+	.byte	0xd5
+	.long	0x1ae
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 4
+	.uleb128 0x13
 	.secrel32	LASF1
 	.byte	0x1
-	.byte	0xc8
-	.long	0x44f
+	.byte	0xd7
+	.long	0x46d
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
 	.byte	0
-	.uleb128 0x5
-	.byte	0x4
-	.long	0x4eb
-	.uleb128 0xe
-	.ascii "AllocateComplexStream\0"
+	.uleb128 0x11
+	.ascii "AllocateFloatStream\0"
 	.byte	0x1
-	.byte	0xa6
-	.long	0x44f
+	.byte	0xb4
+	.long	0x46d
 	.long	LFB21
 	.long	LFE21-LFB21
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x644
-	.uleb128 0xf
+	.long	0x771
+	.uleb128 0x12
 	.secrel32	LASF0
 	.byte	0x1
-	.byte	0xa6
-	.long	0x5a1
+	.byte	0xb4
+	.long	0x67a
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
-	.uleb128 0x11
+	.uleb128 0x14
 	.ascii "len\0"
 	.byte	0x1
-	.byte	0xa6
+	.byte	0xb4
 	.long	0x1ae
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 4
-	.uleb128 0x10
+	.uleb128 0x13
 	.secrel32	LASF1
 	.byte	0x1
-	.byte	0xa8
-	.long	0x44f
+	.byte	0xb6
+	.long	0x46d
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
 	.byte	0
-	.uleb128 0xe
+	.uleb128 0x11
 	.ascii "AllocateByteStream\0"
 	.byte	0x1
-	.byte	0x85
-	.long	0x44f
+	.byte	0x93
+	.long	0x46d
 	.long	LFB20
 	.long	LFE20-LFB20
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x697
-	.uleb128 0xf
+	.long	0x7c4
+	.uleb128 0x12
 	.secrel32	LASF0
 	.byte	0x1
-	.byte	0x85
-	.long	0x5e8
+	.byte	0x93
+	.long	0x6c1
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
-	.uleb128 0x11
+	.uleb128 0x14
 	.ascii "len\0"
 	.byte	0x1
-	.byte	0x85
+	.byte	0x93
 	.long	0x1ae
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 4
-	.uleb128 0x10
+	.uleb128 0x13
 	.secrel32	LASF1
 	.byte	0x1
-	.byte	0x87
-	.long	0x44f
+	.byte	0x95
+	.long	0x46d
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
 	.byte	0
-	.uleb128 0x12
+	.uleb128 0x15
 	.ascii "Memory_FreeStream\0"
 	.byte	0x1
-	.byte	0x56
-	.long	0x44f
+	.byte	0x5e
+	.long	0x46d
 	.long	LFB19
 	.long	LFE19-LFB19
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x706
-	.uleb128 0xf
+	.long	0x841
+	.uleb128 0x12
 	.secrel32	LASF0
 	.byte	0x1
-	.byte	0x56
-	.long	0x706
+	.byte	0x5e
+	.long	0x841
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
-	.uleb128 0x11
+	.uleb128 0x14
 	.ascii "type\0"
 	.byte	0x1
-	.byte	0x56
-	.long	0x494
+	.byte	0x5e
+	.long	0x4c6
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 4
-	.uleb128 0x10
+	.uleb128 0x13
 	.secrel32	LASF1
 	.byte	0x1
-	.byte	0x58
-	.long	0x44f
+	.byte	0x60
+	.long	0x46d
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
-	.uleb128 0x10
+	.uleb128 0x13
 	.secrel32	LASF2
 	.byte	0x1
-	.byte	0x59
-	.long	0x5e8
+	.byte	0x61
+	.long	0x6c1
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -24
-	.uleb128 0x10
+	.uleb128 0x13
 	.secrel32	LASF3
 	.byte	0x1
-	.byte	0x5a
-	.long	0x5a1
+	.byte	0x62
+	.long	0x67a
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -28
-	.byte	0
 	.uleb128 0x13
+	.secrel32	LASF4
+	.byte	0x1
+	.byte	0x63
+	.long	0x62f
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 -32
+	.byte	0
+	.uleb128 0x16
 	.byte	0x4
-	.uleb128 0x14
+	.uleb128 0x17
 	.ascii "Memory_AllocateStream\0"
 	.byte	0x1
-	.byte	0x2c
-	.long	0x44f
+	.byte	0x2e
+	.long	0x46d
 	.long	LFB18
 	.long	LFE18-LFB18
 	.uleb128 0x1
 	.byte	0x9c
-	.uleb128 0xf
+	.uleb128 0x12
 	.secrel32	LASF0
 	.byte	0x1
-	.byte	0x2c
-	.long	0x706
+	.byte	0x2e
+	.long	0x841
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
-	.uleb128 0x11
+	.uleb128 0x14
 	.ascii "len\0"
 	.byte	0x1
-	.byte	0x2c
+	.byte	0x2e
 	.long	0x1ae
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 4
-	.uleb128 0x11
+	.uleb128 0x14
 	.ascii "type\0"
 	.byte	0x1
-	.byte	0x2c
-	.long	0x494
+	.byte	0x2e
+	.long	0x4c6
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 8
-	.uleb128 0x10
+	.uleb128 0x13
 	.secrel32	LASF1
 	.byte	0x1
-	.byte	0x2e
-	.long	0x44f
+	.byte	0x30
+	.long	0x46d
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
-	.uleb128 0x10
+	.uleb128 0x13
 	.secrel32	LASF2
 	.byte	0x1
-	.byte	0x2f
-	.long	0x5e8
+	.byte	0x31
+	.long	0x6c1
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -24
-	.uleb128 0x10
+	.uleb128 0x13
 	.secrel32	LASF3
 	.byte	0x1
-	.byte	0x30
-	.long	0x5a1
+	.byte	0x32
+	.long	0x67a
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -28
+	.uleb128 0x13
+	.secrel32	LASF4
+	.byte	0x1
+	.byte	0x33
+	.long	0x62f
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 -32
 	.byte	0
 	.byte	0
 	.section	.debug_abbrev,"dr"
@@ -1162,7 +1409,7 @@ Ldebug_abbrev0:
 	.uleb128 0x3a
 	.uleb128 0xb
 	.uleb128 0x3b
-	.uleb128 0xb
+	.uleb128 0x5
 	.uleb128 0x27
 	.uleb128 0x19
 	.uleb128 0x49
@@ -1187,7 +1434,7 @@ Ldebug_abbrev0:
 	.uleb128 0x3a
 	.uleb128 0xb
 	.uleb128 0x3b
-	.uleb128 0xb
+	.uleb128 0x5
 	.uleb128 0x49
 	.uleb128 0x13
 	.uleb128 0x2
@@ -1202,7 +1449,7 @@ Ldebug_abbrev0:
 	.uleb128 0x3a
 	.uleb128 0xb
 	.uleb128 0x3b
-	.uleb128 0xb
+	.uleb128 0x5
 	.uleb128 0x49
 	.uleb128 0x13
 	.uleb128 0x2
@@ -1210,6 +1457,61 @@ Ldebug_abbrev0:
 	.byte	0
 	.byte	0
 	.uleb128 0x11
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x27
+	.uleb128 0x19
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x6
+	.uleb128 0x40
+	.uleb128 0x18
+	.uleb128 0x2116
+	.uleb128 0x19
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x12
+	.uleb128 0x5
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x18
+	.byte	0
+	.byte	0
+	.uleb128 0x13
+	.uleb128 0x34
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x18
+	.byte	0
+	.byte	0
+	.uleb128 0x14
 	.uleb128 0x5
 	.byte	0
 	.uleb128 0x3
@@ -1224,7 +1526,7 @@ Ldebug_abbrev0:
 	.uleb128 0x18
 	.byte	0
 	.byte	0
-	.uleb128 0x12
+	.uleb128 0x15
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3f
@@ -1251,14 +1553,14 @@ Ldebug_abbrev0:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x13
+	.uleb128 0x16
 	.uleb128 0xf
 	.byte	0
 	.uleb128 0xb
 	.uleb128 0xb
 	.byte	0
 	.byte	0
-	.uleb128 0x14
+	.uleb128 0x17
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3f
@@ -1304,6 +1606,8 @@ LASF2:
 LASF1:
 	.ascii "retErr\0"
 LASF3:
+	.ascii "tmpFloatStream\0"
+LASF4:
 	.ascii "tmpComplexStream\0"
 LASF0:
 	.ascii "ioStream\0"

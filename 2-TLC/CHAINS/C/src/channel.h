@@ -61,10 +61,11 @@ typedef struct _chan_par_t
 /*** PARAMETERS ***/
 /******************/
 
-#define CHAN_TYPE         ((channel_t) CHAN_BSC)        //!< channel type
-#define BSC_PEB           ((float) 2.8E-2)              //!< BSC channel bit-error probability
-#define AWGN_EBN0         ((float) 5.0)                 //!< AWGN channel energy-per-bit-to-noise-power-spectral-density ratio [dB] (NB: SNR=Eb/N0*log2(M)/sps)
-#define CHAN_SEED         ((uint32_t) 52)               //!< random seed (linked dinamically to current time via SEED2TIME wildcard)
+#define CHAN_TYPE         CHAN_AWGN                     //!< channel type
+#define BSC_PEB           3.5E-2                        //!< BSC channel bit-error probability
+#define AWGN_EBN0         2.8f                          //!< AWGN channel energy-per-bit-to-noise-power-spectral-density ratio [dB] (NB: SNR=Eb/N0*log2(M)/sps)
+#define CHAN_SEED         SEED2TIME                     //!< random seed (linked dinamically to current time via SEED2TIME wildcard)
+
 
 
 /*************************/

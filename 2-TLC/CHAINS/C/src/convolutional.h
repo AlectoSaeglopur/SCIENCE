@@ -28,7 +28,7 @@
 #define CC_RATE                 CC_RATE_23                  /** Convolutional code rate */
 #define CC_KLEN                 CC_KLEN_7                   /** Convolutional constrain length */
 #define CC_MEMFACT              10u                         /** Viterbi decoder memory factor */
-#define CC_VITDM                CC_VITDM_HARD               /** Viterbi decoding method */
+#define CC_VITDM                CC_VITDM_SOFT               /** Viterbi decoding method */
 
 
 
@@ -135,10 +135,20 @@ typedef struct _cc_trellis_t
 
 typedef struct _cc_hard_dec_info_t
 {
-  uint32_t iter[CC_NTRELSTATES];                      /** - iteration counters */
+  len_t iter[CC_NTRELSTATES];                         /** - iteration counters */
   uint32_t dist[CC_NTRELSTATES];                      /** - Hamming distances */
   uint8_t path[CC_NTRELSTATES][CC_MEM_DIM];           /** - survivor paths */
 } cc_hard_dec_info_t;
+
+
+
+typedef struct _cc_soft_dec_info_t
+{
+  len_t iter[CC_NTRELSTATES];                         /** - iteration counters */
+  float dist[CC_NTRELSTATES];                         /** - Euclidean distances */
+  uint8_t path[CC_NTRELSTATES][CC_MEM_DIM];           /** - survivor paths */
+} cc_soft_dec_info_t;
+
 
 
 /****************/
@@ -158,6 +168,7 @@ typedef struct _cc_hard_dec_info_t
 error_t CnvCod_ListParameters( cc_par_t * ioParams );
 error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
 error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
+error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
 
 
 #endif

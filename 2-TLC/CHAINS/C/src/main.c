@@ -33,7 +33,7 @@
 /*** PARAMETERS ***/
 /******************/
 
-#define LEN_SRC_BY 100                                                      //!< source info stream length [B] (NB: Max value = 1000)
+#define LEN_SRC_BY          150u                                             //!< source info stream length [B] (NB: Max = 1000)
 
 
 
@@ -41,10 +41,12 @@
 /*** CONSTANTS ***/
 /*****************/
 
-#define LEN_CC_UNP_BY     ((len_t) (CC_NBRANCHES*LEN_SRC_BY))               //!< unpunctured convolutional coded stream length [B]
-#define LEN_CC_PUN_BY     ((len_t) (LEN_CC_UNP_BY/CC_NBRANCHES* \
-                                    (CC_RATE+1)/CC_RATE))                   //!< punctured convolutional coded stream length [B]
-#define LEN_MOD_SY        ((len_t) (LEN_CC_UNP_BY/MOD_BPS))                 //!< modulated symbol stream length [Sy]
+#define LEN_CC_UNP_BY       (CC_NBRANCHES*LEN_SRC_BY)                       //!< unpunctured convolutional coded stream length [B]
+#define LEN_CC_PUN_BY       (LEN_CC_UNP_BY/CC_NBRANCHES* \
+                              (CC_RATE+1)/CC_RATE)                          //!< punctured convolutional coded stream length [B]
+#define LEN_CC_PUN_BI       (LEN_CC_PUN_BY<<BY2BI_SHIFT)                    //!< punctured convolutional coded stream length [b]
+#define LEN_MOD_SY          (LEN_CC_PUN_BI/MOD_BPS)                         //!< modulated symbol stream length [Sy]
+#define LEN_LLR_FL          LEN_CC_PUN_BI
 
 #define DEF_STREAM_DECLARE(name,type,length) type##_stream_t name##Stream = {.pBuf = NULL, .len = 0, .id = memory_type_##type};
 #define DEF_STREAM_ALLOCATE(name,type,length) Memory_AllocateStream(&name##Stream,length,name##Stream.id);
@@ -59,15 +61,17 @@
 static cc_par_t ccParams;
 static mod_par_t modParams;
 static chan_par_t chanParams;
+static debug_par_t dgbParams;
 
 // list of streams (name, type, length)
 #define LIST_OF_STREAMS(ENTRY)           \
   ENTRY( txSrc, byte,    LEN_SRC_BY    ) \
   ENTRY( rxSrc, byte,    LEN_SRC_BY    ) \
-  ENTRY( txCc,  byte,    LEN_CC_UNP_BY ) \
+  ENTRY( txCc,  byte,    LEN_CC_PUN_BY ) \
   ENTRY( rxCc,  byte,    LEN_CC_PUN_BY ) \
   ENTRY( txMod, complex, LEN_MOD_SY    ) \
-  ENTRY( rxMod, complex, LEN_MOD_SY    )
+  ENTRY( rxMod, complex, LEN_MOD_SY    ) \
+  ENTRY( rxLLR, float,   LEN_LLR_FL    )
 
 
 
@@ -77,80 +81,62 @@ static chan_par_t chanParams;
 
 int main( void )
 {
+  // 1. INITIALIZATION
+  printf("\n >> Starting execution...\n");
+
   LIST_OF_STREAMS(DEF_STREAM_DECLARE);                                      /** -# declare all streams */
   LIST_OF_STREAMS(DEF_STREAM_ALLOCATE);                                     /** -# allocate memory for all streams */
-  Debug_PrintParameters(LEN_SRC_BY);                                        /** -# print all simulation parameters */
-  Debug_GenerateRandomBytes(&txSrcStream,NULL);                             /** -# fill tx source buffer with random bytes */
-  Debug_PrintBytes(&txSrcStream,PID_TX_SRC);                                /** -# print tx source buffer content */
+
+  // 2. PROCESSING
   CnvCod_ListParameters(&ccParams);                                         /** -# list convolutional coding parameters */
-  CnvCod_Encoder(&txSrcStream,&txCcStream,&ccParams);                       /** -# convolutional encoding */
-  Debug_PrintBytes(&txCcStream,PID_TX_CNVCOD);                              /** -# print tx convolutional coded buffer content */
   Channel_ListParameters(&chanParams);                                      /** -# list channel parameters */
-  if (CHAN_BSC == CHAN_TYPE)
+  Modulation_ListParameters(&modParams);                                    /** -# list modulation parameters */
+
+  Debug_GenerateRandomBytes(&txSrcStream,NULL);                             /** -# fill tx source buffer with random bytes */
+  CnvCod_Encoder(&txSrcStream,&txCcStream,&ccParams);                       /** -# convolutional encoder */
+  if (CHAN_BSC == chanParams.type)
   {
     Channel_BSC(&txCcStream,&rxCcStream,&chanParams);                       /** -# apply bsc channel corruption */
+    CnvCod_HardDecoder(&rxCcStream,&rxSrcStream,&ccParams);                 /** -# convolutional hard-decoder */
   }
-  else if (CHAN_AWGN == CHAN_TYPE)
+  else if (CHAN_AWGN == chanParams.type)
   {
-    Modulation_ListParameters(&modParams);                                  /** -# list modulation parameters */
     Modulation_Mapper(&txCcStream,&txModStream,&modParams);                 /** -# modulation mapper */
     Channel_AWGN(&txModStream,&rxModStream,&chanParams);                    /** -# apply awgn channel corruption */
+    if (CC_VITDM_HARD == ccParams.vitDM)
+    {
+      Modulation_HardDemapper(&rxModStream,&rxCcStream,&modParams);         /** -# modulation hard-demapper */
+      CnvCod_HardDecoder(&rxCcStream,&rxSrcStream,&ccParams);               /** -# convolutional hard-decoder */
+    }
+    else if (CC_VITDM_SOFT == ccParams.vitDM)
+    {
+      Modulation_SoftDemapper(&rxModStream,&rxLLRStream,&modParams);        /** -# modulation soft-demapper */
+      CnvCod_SoftDecoder(&rxLLRStream,&rxSrcStream,&ccParams);              /** -# convolutional soft-decoder */
+    }
   }
-  Debug_PrintBytes(&rxCcStream,PID_RX_CNVCOD);                              /** -# print rx convolutional coded buffer content */
-  Debug_CheckWrongBits(&txCcStream,&rxCcStream,PID_RX_CNVCOD);              /** -# check number of corrupted bits at convolutional coding level */
-  CnvCod_HardDecoder(&rxCcStream,&rxSrcStream,&ccParams);                   /** -# convolutional decoding */
-  Debug_CheckWrongBits(&txSrcStream,&rxSrcStream,PID_RX_SRC);               /** -# check number of corrupted bits at source level */
 
-  if (IS_CSV_ENABLED)
-  {
-    Debug_WriteBytesToCsv(&txSrcStream,PID_TX_SRC);                         /** -# write tx source buffer content into csv file */
-  }
+  // 3. RESULTS
+  Debug_PrintParameters(LEN_SRC_BY);
+  Debug_ListParameters(&dgbParams,&ccParams,&modParams,&chanParams);
+#ifdef DEBUG_TERMINAL
+  Debug_PrintByteStream(&txSrcStream,PID_TX_SRC,&dgbParams);                /** -# print tx source buffer content */
+  Debug_PrintByteStream(&txCcStream,PID_TX_CNVCOD,&dgbParams);              /** -# print tx convolutional coded buffer content */
+  Debug_PrintComplexStream(&txModStream,PID_TX_MAP,&dgbParams);             /** -# print tx modulated buffer content */
+  Debug_PrintComplexStream(&rxModStream,PID_RX_MAP,&dgbParams);             /** -# print rx modulated buffer content */
+  Debug_PrintFloatStream(&rxLLRStream,PID_RX_LLR,&dgbParams);               /** -# print rx LLR buffer content */
+  Debug_PrintByteStream(&rxCcStream,PID_RX_CNVCOD,&dgbParams);              /** -# print rx convolutional coded buffer content */
+  Debug_PrintByteStream(&rxSrcStream,PID_RX_CNVCOD,&dgbParams);             /** -# print rx source buffer content */
+#endif
+  Debug_CheckWrongBits(&txCcStream,&rxCcStream,PID_RX_CNVCOD,&dgbParams);   /** -# check number of corrupted bits at convolutional coding level */
+  Debug_CheckWrongBits(&txSrcStream,&rxSrcStream,PID_RX_SRC,&dgbParams);    /** -# check number of corrupted bits at source level */
+
+#ifdef DEBUG_CSV
+  Debug_WriteBytesToCsv(&txSrcStream,PID_TX_SRC);                           /** -# write tx source buffer content into csv file */
+#endif
+
+  // 4. FINALIZATION
   LIST_OF_STREAMS(DEF_STREAM_FREE);                                         /** -# free memory for all streams */
   printf(" >> Execution completed successfully!\n");
-
-
-
-
-
-
-
-
-
-
-//  phasemap ModTable;                                /** Constellation mapping table */
-//  float SoftLLR[DepBitLen];                            /** RX soft LLR stream */
-//  complex ChSym[SymLen];                              /** Complex modulated symbol stream passing through channel */
-//
-//  switch( ModType ){
-//    case PSK:
-//      GetPskTable(&ModTable);                          /** Get PSK constellation mapping table */
-//      break;
-//    case QAM:
-//      GetQamTable(&ModTable);                          /** Get QAM constellation mapping table */
-//      break;
-//    default:
-//      break;
-//  }
-//  Mapper(TxConvByt,ChSym,&ModTable);                        /** Map bits into modulated symbols */
-//  // PrintSym(ChSym,SymLen,TXSYMB);                          /** Print TX symbol stream on terminal */
-//  // WriteSymCsv(ChSym,SymLen,TXSYMB);                        /** Write TX symbol stream into .csv file */
-//
-//  ChanAWGN(ChSym);                                /** AWGN channel simulation */
-//  // PrintSym(ChSym,SymLen,RXSYMB);                        /** Print RX symbol stream on terminal */
-//  // WriteSymCsv(ChSym,SymLen,RXSYMB);                        /** Write RX symbol stream into .csv file */
-//  GetTrellis(ConVect,&ConvDiagr);                          /** Get convolutional decoder trellis diagram */
-//
-//  if ( VitDecMth == HARD ){
-//    HardDemapper(ChSym,DemByt,&ModTable);                    /** Hard demapping (symbol to bit conversion) */
-//    CheckWrongBits(TxConvByt,DemByt,PunBytLen,PRID_RXCCB);              /** Check number of corrupted bits before convolutional decoding */
-//    HardConvDecoder(DemByt,rxSrcBytes,&ConvDiagr,PunctVect);            /** Viterbi hard decoding */
-//  } else if ( VitDecMth == SOFT ){  
-//    SoftDemapper(ChSym,SoftLLR,&ModTable);                    /** Soft demapping (symbol to LLR conversion) */
-//    SoftConvDecoder(SoftLLR,rxSrcBytes,&ConvDiagr,PunctVect);            /** Viterbi soft decoding */
-//  }
-//
-//  PrintByt(rxSrcBytes,LEN_SRC_BY,PRID_RXINFOB);                      /** Print RX source info stream on terminal */
-//  CheckWrongBits(tx_src_bytes,rxSrcBytes,LEN_SRC_BY,PRID_RXINFOB);              /** Check number of corrupted bits after convolutional decoding */
 
   return 0;
 }
@@ -163,7 +149,7 @@ int main( void )
 
 /*
  * 1. To run the project, use the following command :
- *    cls && gcc -c extra.c convolutional.c modulation.c main.c && gcc extra.o convolutional.o modulation.o main.o -o asd && asd
+ *    cls && make target
  */
 
 
@@ -178,9 +164,8 @@ int main( void )
 // add checks on parameters
 // aggiungi check a LEN_SRC anche rispetto a ordine di modulazione!
 // sistema Makefile (print, utest, etc..)
-// usa byte_buf_t per tutti array di byte (e stesso per complessi poi)
 
-// alloca "txCcBytes" su PUN_LEN (non UNP_LEN) per risparmiare memoria (richiede aggiornamento in encoder!)
+
 // alloca/free di tutti i buffer in un'unica funzione a inizio/fine esecuzione!
 // sposta "CnvCod_GetConnectorPuncturationVectors" dentro encoder/decoder e rendila statica
 // aggiungi ".vscode" a .gitignore
@@ -188,3 +173,48 @@ int main( void )
 // rendi funzioni sempre operanti su parametri passati come argomenti, non su macro globali!!!
 // sistema print di parametri (una riga per tipo) e aggiungi parametri di canale
 // prova CC_STR tramite XMACRO!
+
+// crea BY2BI_SHIFT e BI2BY_SHIFT come macro functions! (>> inside!)
+
+// spostare i 2 printf di inizio e fine esecuzione da qui a Makefile
+
+// sistema ultime fuzioni in fondo a debug.c
+
+// sistema cmake in modo che non sia obbligatorio cancellare ogni volta cartella di build (solo se esplicitato in comando), così più veloce a ricompilare!
+
+
+
+
+
+
+/**
+ * @brief Function for checking the parameters correctness.
+ * @return none
+ */
+//void CheckParam( void ){
+//	if( (K < 3) || (K>8) ){
+//		printf("\n Error-CC : Invalid constrain length!\n");
+//		exit(1);
+//	} else if ( (Rc != RATE_12) && (Rc != RATE_23) && (Rc != RATE_34) && (Rc != RATE_56) && (Rc != RATE_78) ){
+//		printf("\n Error-CC : Invalid code rate!\n");
+//		exit(1);
+//	} else if ( (SrcBytLen < 1) || (SrcBytLen%Rc != 0) ){
+//		printf("\n Error-CC : Invalid info stream length\n");
+//		exit(1);
+//	} else if ( (VitDecMth != HARD) && (VitDecMth != SOFT) ){
+//		printf("\n Error-CC : Invalid decoding method!\n");
+//		exit(1);
+//	} else if ( (ModType != PSK) && (ModType != QAM) ){
+//		printf("\n Error-MOD : Invalid modulation type!\n");
+//		exit(1);
+//	} else if ( (ModType == PSK) && (log2(M) != round(log2(M))) ){
+//		printf("\n Error-MOD : Invalid modulation order!\n");
+//		exit(1);
+//	} else if ( (ModType == QAM) && ((log2(M) != round(log2(M))) || (L % 2)) ){
+//		printf("\n Error-MOD : Invalid modulation order!\n");
+//		exit(1);
+//	} else if ( PunBitLen % L ){
+//		printf("\n Error-MOD : Invalid info stream length\n");
+//		exit(1);
+//	}
+//}

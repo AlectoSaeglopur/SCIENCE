@@ -1577,7 +1577,8 @@ typedef enum
   ERR_INV_BUFFER_SIZE,
   ERR_INV_DYNAMIC_ALLOC,
   ERR_INV_STREAM_TYPE,
-  ERR_INV_MODULATION,
+  ERR_INV_MODULATION_TYPE,
+  ERR_INV_MODULATION_BPS,
   ERR_INV_CHANNEL_TYPE,
 
   ERR_NUM
@@ -1592,7 +1593,7 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 66 "src\\error.h"
+# 67 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 19 "src\\channel.h" 2
 # 1 "src\\memory.h" 1
@@ -1600,6 +1601,7 @@ error_t Error_HandleErr( error_t inErr );
 typedef enum
 {
   memory_type_byte = 0,
+  memory_type_float,
   memory_type_complex
 } memory_type_t;
 
@@ -1612,13 +1614,27 @@ typedef struct _byte_stream_t
 } byte_stream_t;
 
 
+typedef struct _float_stream_t
+{
+  float * pBuf;
+  uint32_t len;
+  memory_type_t id;
+} float_stream_t;
+
+
 typedef struct _complex_stream_t
 {
   complex_t * pBuf;
   uint32_t len;
   memory_type_t id;
 } complex_stream_t;
-# 59 "src\\memory.h"
+
+
+
+
+
+
+
 error_t Memory_AllocateStream( void * ioStream, uint32_t len, memory_type_t type );
 error_t Memory_FreeStream( void * ioStream, memory_type_t type );
 # 20 "src\\channel.h" 2
@@ -1631,7 +1647,7 @@ typedef enum
 
   MOD_NUM
 } modulation_t;
-# 62 "src\\modulation.h"
+# 73 "src\\modulation.h"
 typedef struct _mod_par_t
 {
   modulation_t type;
@@ -1655,6 +1671,8 @@ typedef struct _mod_maptable_t
 
 error_t Modulation_ListParameters( mod_par_t * ioParams );
 error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * outStream, const mod_par_t * pParams );
+error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_t * outStream, const mod_par_t * pParams );
+error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream_t * outStream, const mod_par_t * pParams );
 # 21 "src\\channel.h" 2
 # 29 "src\\channel.h"
 typedef enum
@@ -1677,7 +1695,7 @@ typedef struct _chan_par_t
     float EbN0;
   };
 } chan_par_t;
-# 74 "src\\channel.h"
+# 75 "src\\channel.h"
 error_t Channel_ListParameters( chan_par_t * ioParams );
 error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, const chan_par_t * pParams );
 error_t Channel_AWGN( const complex_stream_t * inStream, complex_stream_t * outStream, const chan_par_t * pParams );
@@ -1758,21 +1776,42 @@ typedef struct _cc_hard_dec_info_t
   uint32_t dist[(1<<(CC_KLEN_7-1))];
   uint8_t path[(1<<(CC_KLEN_7-1))][((1<<(CC_KLEN_7-1))*10u)];
 } cc_hard_dec_info_t;
-# 158 "src\\convolutional.h"
+
+
+
+typedef struct _cc_soft_dec_info_t
+{
+  uint32_t iter[(1<<(CC_KLEN_7-1))];
+  float dist[(1<<(CC_KLEN_7-1))];
+  uint8_t path[(1<<(CC_KLEN_7-1))][((1<<(CC_KLEN_7-1))*10u)];
+} cc_soft_dec_info_t;
+# 168 "src\\convolutional.h"
 error_t CnvCod_ListParameters( cc_par_t * ioParams );
 error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
 error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
+error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
 # 20 "src\\debug.h" 2
-# 40 "src\\debug.h"
+# 42 "src\\debug.h"
 typedef enum
 {
   PID_TX_SRC = 0,
   PID_RX_SRC,
   PID_TX_CNVCOD,
   PID_RX_CNVCOD,
+  PID_TX_MAP,
+  PID_RX_MAP,
+  PID_RX_LLR,
 
   PID_NUM
 } print_label_t;
+
+
+typedef struct _debug_par_t
+{
+  cc_par_t ccPar;
+  mod_par_t modPar;
+  chan_par_t chanPar;
+} debug_par_t;
 
 
 
@@ -1781,9 +1820,12 @@ typedef enum
 
 
 error_t Debug_PrintParameters( uint32_t len );
+error_t Debug_ListParameters( debug_par_t * ioParams, const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam );
 error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed );
-error_t Debug_PrintBytes( const byte_stream_t * inStream, print_label_t label );
-error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label );
+error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t label, const debug_par_t * dbgParams );
+error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t label, const debug_par_t * dbgParams );
+error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label_t label, const debug_par_t * dbgParams );
+error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * dbgParams );
 error_t Debug_WriteBytesToCsv( const byte_stream_t * inStream, print_label_t label );
 # 17 "src\\debug.c" 2
 
@@ -1843,59 +1885,66 @@ error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pS
 
   return Error_HandleErr(retErr);
 }
-# 80 "src\\debug.c"
-error_t Debug_PrintBytes( const byte_stream_t * inStream, print_label_t label )
+# 81 "src\\debug.c"
+error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t label, const debug_par_t * dbgParams )
 {
   error_t retErr = ERR_NONE;
+  uint32_t j;
 
   if ((
-# 84 "src\\debug.c" 3 4
+# 86 "src\\debug.c" 3 4
       ((void *)0) 
-# 84 "src\\debug.c"
+# 86 "src\\debug.c"
            != inStream) && (
-# 84 "src\\debug.c" 3 4
+# 86 "src\\debug.c" 3 4
                             ((void *)0) 
-# 84 "src\\debug.c"
-                                 != inStream->pBuf))
+# 86 "src\\debug.c"
+                                 != inStream->pBuf) && (
+# 86 "src\\debug.c" 3 4
+                                                        ((void *)0) 
+# 86 "src\\debug.c"
+                                                             != dbgParams))
   {
-    switch (label)
+    if (!((CHAN_AWGN == dbgParams->chanPar.type) && (CC_VITDM_SOFT == dbgParams->ccPar.vitDM) && (PID_RX_CNVCOD == label)))
     {
-      case PID_TX_SRC:
-        printf(" * TX SOURCE BYTES (%d)\n\t",inStream->len);
-        break;
+      switch (label)
+      {
+        case PID_TX_SRC:
+          printf(" * TX SOURCE BYTES (%d)\n\t",inStream->len);
+          break;
 
-      case PID_RX_SRC:
-        printf(" * RX SOURCE BYTES (%d)\n\t",inStream->len);
-        break;
+        case PID_RX_SRC:
+          printf(" * RX SOURCE BYTES (%d)\n\t",inStream->len);
+          break;
 
-      case PID_TX_CNVCOD:
-        printf(" * TX CONVOLUTIONAL CODED BYTES (%d)\n\t",inStream->len);
-        break;
+        case PID_TX_CNVCOD:
+          printf(" * TX CONVOLUTIONAL CODED BYTES (%d)\n\t",inStream->len);
+          break;
 
-      case PID_RX_CNVCOD:
-        printf(" * RX CONVOLUTIONAL CODED BYTES (%d)\n\t",inStream->len);
-        break;
+        case PID_RX_CNVCOD:
+          printf(" * RX CONVOLUTIONAL CODED BYTES (%d)\n\t",inStream->len);
+          break;
 
-      default:
-        retErr = ERR_INV_PRINTID;
-        break;
+        default:
+          retErr = ERR_INV_PRINTID;
+          break;
+      }
+
+      if (ERR_NONE == retErr)
+      {
+        for (j=0; j<inStream->len; j++)
+        {
+          printf("%2X ",inStream->pBuf[j]);
+          if (((35u -1) == (j%35u)) && (j<(inStream->len-1)))
+          {
+            printf("\n\t");
+          }
+        }
+        printf("\n");
+      }
+
+      printf("\n");
     }
-
-
- uint32_t j;
-
- for (j=0; j<inStream->len; j++)
-  {
-  printf("%2X ",inStream->pBuf[j]);
-  if (((20u -1) == (j%20u)) && (j<(inStream->len-1)))
-    {
-   printf("\n\t");
-  }
- }
- printf("\n");
-
-
- printf("\n");
   }
   else
   {
@@ -1904,7 +1953,146 @@ error_t Debug_PrintBytes( const byte_stream_t * inStream, print_label_t label )
 
   return Error_HandleErr(retErr);
 }
-# 141 "src\\debug.c"
+# 148 "src\\debug.c"
+error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t label, const debug_par_t * dbgParams )
+{
+  error_t retErr = ERR_NONE;
+ uint32_t j;
+
+  if ((
+# 153 "src\\debug.c" 3 4
+      ((void *)0) 
+# 153 "src\\debug.c"
+           != inStream) && (
+# 153 "src\\debug.c" 3 4
+                            ((void *)0) 
+# 153 "src\\debug.c"
+                                 != inStream->pBuf) && (
+# 153 "src\\debug.c" 3 4
+                                                        ((void *)0) 
+# 153 "src\\debug.c"
+                                                             != dbgParams))
+  {
+
+    if ((CHAN_AWGN == dbgParams->chanPar.type) && (CC_VITDM_SOFT == dbgParams->ccPar.vitDM))
+    {
+      switch (label)
+      {
+        case PID_RX_LLR:
+          printf(" * RX LLRS (%d)\n\t",inStream->len);
+          break;
+
+        default:
+          retErr = ERR_INV_PRINTID;
+          break;
+      }
+
+      if (ERR_NONE == retErr)
+      {
+        for (j=0; j<inStream->len; j++)
+        {
+          if (0 < inStream->pBuf[j])
+          {
+            printf("+");
+          }
+          else if (0 == inStream->pBuf[j])
+          {
+            printf(" ");
+          }
+
+          printf("%1.3f ",inStream->pBuf[j]);
+
+          if (((15u -1) == (j%15u)) && (j<(inStream->len-1)))
+          {
+            printf("\n\t");
+          }
+        }
+
+        printf("\n\n");
+      }
+
+      printf("\n");
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
+}
+# 215 "src\\debug.c"
+error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label_t label, const debug_par_t * dbgParams )
+{
+  error_t retErr = ERR_NONE;
+  uint32_t j;
+
+  if ((
+# 220 "src\\debug.c" 3 4
+      ((void *)0) 
+# 220 "src\\debug.c"
+           != inStream) && (
+# 220 "src\\debug.c" 3 4
+                            ((void *)0) 
+# 220 "src\\debug.c"
+                                 != inStream->pBuf) && (
+# 220 "src\\debug.c" 3 4
+                                                        ((void *)0) 
+# 220 "src\\debug.c"
+                                                             != dbgParams))
+  {
+    if (CHAN_AWGN == dbgParams->chanPar.type)
+    {
+      switch (label)
+      {
+        case PID_TX_MAP:
+          printf(" * TX MAPPED SYMBOLS (%d)\n\t",inStream->len);
+          break;
+
+        case PID_RX_MAP:
+          printf(" * RX MAPPED SYMBOLS (%d)\n\t",inStream->len);
+          break;
+
+        default:
+          retErr = ERR_INV_PRINTID;
+          break;
+      }
+
+      if (ERR_NONE == retErr)
+      {
+        for (j=0; j<inStream->len; j++)
+        {
+          if (inStream->pBuf[j].re >= 0)
+          {
+            printf("+");
+          }
+          printf("%1.2f",inStream->pBuf[j].re);
+
+          if (inStream->pBuf[j].im >= 0)
+          {
+            printf("+");
+          }
+          printf("%1.2fi | ",inStream->pBuf[j].im);
+
+          if (((8u -1) == j%8u) && (j<(inStream->len-1)))
+          {
+            printf("\n\t");
+          }
+        }
+        printf("\n");
+      }
+
+      printf("\n");
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
+}
+# 282 "src\\debug.c"
 error_t Debug_PrintParameters( uint32_t len )
 {
   error_t retErr = ERR_NONE;
@@ -1913,25 +2101,25 @@ error_t Debug_PrintParameters( uint32_t len )
   {
     printf("\n # PARAMETERS");
     printf("\n    * Convolutional Coding :");
-    printf(" kLen = %d",CC_KLEN_7);
+    printf(" K = %d",CC_KLEN_7);
     printf(" | Rc = %d/%d",CC_RATE_23,CC_RATE_23+1);
-    printf(" | DM = %s\n",((CC_VITDM_HARD == CC_VITDM_HARD) ? "Hard" : (CC_VITDM_HARD == CC_VITDM_SOFT) ? "Soft" : "N/A"));
+    printf(" | DM = %s\n",((CC_VITDM_SOFT == CC_VITDM_HARD) ? "Hard" : (CC_VITDM_SOFT == CC_VITDM_SOFT) ? "Soft" : "N/A"));
     printf("    * Modulation :");
     printf(" %u-%s\n",(0x01<<2u),((((modulation_t) MOD_PSK) == MOD_PSK) ? "PSK" : (((modulation_t) MOD_PSK) == MOD_QAM) ? "QAM" : "N/A"));
     printf("    * Channel :");
-    if (CHAN_BSC == ((channel_t) CHAN_BSC))
+    if (CHAN_BSC == CHAN_AWGN)
     {
-      printf(" BSC | Peb = %1.1e\n",((float) 2.8E-2));
+      printf(" BSC | Peb = %1.1e\n",3.5E-2);
     }
-    else if (CHAN_AWGN == ((channel_t) CHAN_BSC))
+    else if (CHAN_AWGN == CHAN_AWGN)
     {
-      printf(" AWGN | EbN0 = %1.1f\n",((float) 5.0));
+      printf(" AWGN | EbN0 = %1.1f\n",1.8f);
     }
     else
     {
       printf(" N/A\n");
     }
-    printf("\n\n");
+    printf("\n");
   }
   else
   {
@@ -1940,8 +2128,8 @@ error_t Debug_PrintParameters( uint32_t len )
 
   return Error_HandleErr(retErr);
 }
-# 187 "src\\debug.c"
-error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label )
+# 328 "src\\debug.c"
+error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * dbgParams )
 {
   error_t retErr = ERR_NONE;
   const uint32_t bitLen = inStreamA->len<<3u;
@@ -1953,66 +2141,73 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
  uint8_t bitIdx;
 
  if ((
-# 198 "src\\debug.c" 3 4
+# 339 "src\\debug.c" 3 4
      ((void *)0) 
-# 198 "src\\debug.c"
+# 339 "src\\debug.c"
           != inStreamA) && (
-# 198 "src\\debug.c" 3 4
+# 339 "src\\debug.c" 3 4
                             ((void *)0) 
-# 198 "src\\debug.c"
+# 339 "src\\debug.c"
                                  != inStreamA->pBuf) && (
-# 198 "src\\debug.c" 3 4
+# 339 "src\\debug.c" 3 4
                                                          ((void *)0) 
-# 198 "src\\debug.c"
+# 339 "src\\debug.c"
                                                               != inStreamB) && (
-# 198 "src\\debug.c" 3 4
+# 339 "src\\debug.c" 3 4
                                                                                 ((void *)0) 
-# 198 "src\\debug.c"
-                                                                                     != inStreamB->pBuf))
+# 339 "src\\debug.c"
+                                                                                     != inStreamB->pBuf) && (
+# 339 "src\\debug.c" 3 4
+                                                                                                             ((void *)0) 
+# 339 "src\\debug.c"
+                                                                                                                  != dbgParams))
   {
-    if (inStreamA->len == inStreamB->len)
+    if (!((CHAN_AWGN == dbgParams->chanPar.type) && (CC_VITDM_SOFT == dbgParams->ccPar.vitDM) && (PID_RX_CNVCOD == label)))
     {
-      for (j=0; j<bitLen; j++)
+      if (inStreamA->len == inStreamB->len)
       {
-        byteIdx = j>>3u;
-        bitIdx = (uint8_t)(j&((uint32_t) 0x0007));
-        curErrDist++;
-        if ((((inStreamA->pBuf[byteIdx])>>((8u -1)-bitIdx))&((uint8_t) 0x01)) !=
-            (((inStreamB->pBuf[byteIdx])>>((8u -1)-bitIdx))&((uint8_t) 0x01)))
+        for (j=0; j<bitLen; j++)
         {
-          bitErrCnt++;
-          if ((bitErrCnt > 1) && (curErrDist < minErrDist))
+          byteIdx = j>>3u;
+          bitIdx = (uint8_t)(j&((uint32_t) 0x0007));
+          curErrDist++;
+          if ((((inStreamA->pBuf[byteIdx])>>((8u -1)-bitIdx))&((uint8_t) 0x01)) !=
+              (((inStreamB->pBuf[byteIdx])>>((8u -1)-bitIdx))&((uint8_t) 0x01)))
           {
-            minErrDist = curErrDist;
+            bitErrCnt++;
+            if ((bitErrCnt > 1) && (curErrDist < minErrDist))
+            {
+              minErrDist = curErrDist;
+            }
+            curErrDist = 0;
           }
-          curErrDist = 0;
+        }
+        if (bitErrCnt < 2)
+        {
+          minErrDist = 0;
+        }
+
+        switch (label)
+        {
+          case PID_TX_CNVCOD:
+          case PID_RX_CNVCOD:
+            printf(" * Errors at convolutional encoding level: %u out of %u bits (MD = %u)\n\n",bitErrCnt,bitLen,minErrDist);
+            break;
+
+          case PID_TX_SRC:
+          case PID_RX_SRC:
+            printf(" * Errors at source level: %u out of %u bits (MD = %u)\n\n",bitErrCnt,bitLen,minErrDist);
+            break;
+
+          default:
+            retErr = ERR_INV_PRINTID;
+            break;
         }
       }
-      if (bitErrCnt < 2)
+      else
       {
-        minErrDist = 0;
+        retErr = ERR_INV_BUFFER_SIZE;
       }
-
-      switch (label)
-      {
-        case PID_TX_CNVCOD:
-        case PID_RX_CNVCOD:
-          printf(" * Errors at convolutional encoding level: %u out of %u bits (MD = %u)\n\n",bitErrCnt,bitLen,minErrDist);
-          break;
-
-        case PID_TX_SRC:
-        case PID_RX_SRC:
-          printf(" * Errors at source level: %u out of %u bits (MD = %u)\n\n",bitErrCnt,bitLen,minErrDist);
-          break;
-
-        default:
-          retErr = ERR_INV_PRINTID;
-          break;
-      }
-    }
-    else
-    {
-      retErr = ERR_INV_BUFFER_SIZE;
     }
  }
   else
@@ -2022,25 +2217,25 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
 
   return Error_HandleErr(retErr);
 }
-# 262 "src\\debug.c"
+# 406 "src\\debug.c"
 error_t Debug_WriteBytesToCsv( const byte_stream_t * inStream, print_label_t label )
 {
   error_t retErr = ERR_NONE;
   FILE * fid = 
-# 265 "src\\debug.c" 3 4
+# 409 "src\\debug.c" 3 4
               ((void *)0)
-# 265 "src\\debug.c"
+# 409 "src\\debug.c"
                   ;
  uint32_t j;
 
   if ((
-# 268 "src\\debug.c" 3 4
+# 412 "src\\debug.c" 3 4
       ((void *)0) 
-# 268 "src\\debug.c"
+# 412 "src\\debug.c"
            != inStream) && (
-# 268 "src\\debug.c" 3 4
+# 412 "src\\debug.c" 3 4
                             ((void *)0) 
-# 268 "src\\debug.c"
+# 412 "src\\debug.c"
                                  != inStream->pBuf))
   {
     switch (label)
@@ -2059,9 +2254,9 @@ error_t Debug_WriteBytesToCsv( const byte_stream_t * inStream, print_label_t lab
     }
 
     if ((ERR_NONE == retErr) && (
-# 285 "src\\debug.c" 3 4
+# 429 "src\\debug.c" 3 4
                                 ((void *)0) 
-# 285 "src\\debug.c"
+# 429 "src\\debug.c"
                                      != fid))
     {
       for (j=0; j<inStream->len; j++)
@@ -2082,21 +2277,55 @@ error_t Debug_WriteBytesToCsv( const byte_stream_t * inStream, print_label_t lab
 
   return retErr;
 }
-# 319 "src\\debug.c"
+# 461 "src\\debug.c"
+error_t Debug_ListParameters( debug_par_t * ioParams, const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam )
+{
+  error_t retErr = ERR_NONE;
+
+  if ((
+# 465 "src\\debug.c" 3 4
+      ((void *)0) 
+# 465 "src\\debug.c"
+           != ioParams) && (
+# 465 "src\\debug.c" 3 4
+                            ((void *)0) 
+# 465 "src\\debug.c"
+                                 != ccParam) && (
+# 465 "src\\debug.c" 3 4
+                                                 ((void *)0) 
+# 465 "src\\debug.c"
+                                                      != modParam) && (
+# 465 "src\\debug.c" 3 4
+                                                                       ((void *)0) 
+# 465 "src\\debug.c"
+                                                                            != chanParam))
+  {
+    ioParams->ccPar = *ccParam;
+    ioParams->modPar = *modParam;
+    ioParams->chanPar = *chanParam;
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
+}
+# 492 "src\\debug.c"
 static 
-# 319 "src\\debug.c" 3 4
+# 492 "src\\debug.c" 3 4
       _Bool 
-# 319 "src\\debug.c"
+# 492 "src\\debug.c"
            IsSrcLenValid( uint32_t lenBy )
 {
   
-# 321 "src\\debug.c" 3 4
+# 494 "src\\debug.c" 3 4
  _Bool 
-# 321 "src\\debug.c"
+# 494 "src\\debug.c"
       bRet = 
-# 321 "src\\debug.c" 3 4
+# 494 "src\\debug.c" 3 4
              0
-# 321 "src\\debug.c"
+# 494 "src\\debug.c"
                   ;
   uint32_t lenBi = lenBy<<3u;
 
@@ -2104,9 +2333,9 @@ static
       (((lenBi/CC_RATE_23*(1+CC_RATE_23))%8u) == 0))
   {
     bRet = 
-# 327 "src\\debug.c" 3 4
+# 500 "src\\debug.c" 3 4
           1
-# 327 "src\\debug.c"
+# 500 "src\\debug.c"
               ;
   }
 

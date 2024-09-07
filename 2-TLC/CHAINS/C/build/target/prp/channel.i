@@ -1575,7 +1575,8 @@ typedef enum
   ERR_INV_BUFFER_SIZE,
   ERR_INV_DYNAMIC_ALLOC,
   ERR_INV_STREAM_TYPE,
-  ERR_INV_MODULATION,
+  ERR_INV_MODULATION_TYPE,
+  ERR_INV_MODULATION_BPS,
   ERR_INV_CHANNEL_TYPE,
 
   ERR_NUM
@@ -1590,7 +1591,7 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 66 "src\\error.h"
+# 67 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 19 "src\\channel.h" 2
 # 1 "src\\memory.h" 1
@@ -1598,6 +1599,7 @@ error_t Error_HandleErr( error_t inErr );
 typedef enum
 {
   memory_type_byte = 0,
+  memory_type_float,
   memory_type_complex
 } memory_type_t;
 
@@ -1610,13 +1612,27 @@ typedef struct _byte_stream_t
 } byte_stream_t;
 
 
+typedef struct _float_stream_t
+{
+  float * pBuf;
+  uint32_t len;
+  memory_type_t id;
+} float_stream_t;
+
+
 typedef struct _complex_stream_t
 {
   complex_t * pBuf;
   uint32_t len;
   memory_type_t id;
 } complex_stream_t;
-# 59 "src\\memory.h"
+
+
+
+
+
+
+
 error_t Memory_AllocateStream( void * ioStream, uint32_t len, memory_type_t type );
 error_t Memory_FreeStream( void * ioStream, memory_type_t type );
 # 20 "src\\channel.h" 2
@@ -1629,7 +1645,7 @@ typedef enum
 
   MOD_NUM
 } modulation_t;
-# 62 "src\\modulation.h"
+# 73 "src\\modulation.h"
 typedef struct _mod_par_t
 {
   modulation_t type;
@@ -1653,6 +1669,8 @@ typedef struct _mod_maptable_t
 
 error_t Modulation_ListParameters( mod_par_t * ioParams );
 error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * outStream, const mod_par_t * pParams );
+error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_t * outStream, const mod_par_t * pParams );
+error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream_t * outStream, const mod_par_t * pParams );
 # 21 "src\\channel.h" 2
 # 29 "src\\channel.h"
 typedef enum
@@ -1675,7 +1693,7 @@ typedef struct _chan_par_t
     float EbN0;
   };
 } chan_par_t;
-# 74 "src\\channel.h"
+# 75 "src\\channel.h"
 error_t Channel_ListParameters( chan_par_t * ioParams );
 error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, const chan_par_t * pParams );
 error_t Channel_AWGN( const complex_stream_t * inStream, complex_stream_t * outStream, const chan_par_t * pParams );
@@ -1699,17 +1717,21 @@ error_t Channel_ListParameters( chan_par_t * ioParams )
 # 43 "src\\channel.c"
           != ioParams)
   {
-    ioParams->type = ((channel_t) CHAN_BSC);
+    ioParams->type = CHAN_AWGN;
     ioParams->bps = 2u;
-    ioParams->seed = ((uint32_t) 52);
+    ioParams->seed = 
+# 47 "src\\channel.c" 3
+                    0xffffffffUL
+# 47 "src\\channel.c"
+                             ;
 
-    if (CHAN_BSC == ((channel_t) CHAN_BSC))
+    if (CHAN_BSC == CHAN_AWGN)
     {
-      ioParams->Peb = ((float) 2.8E-2);
+      ioParams->Peb = 3.5E-2;
     }
     else
     {
-      ioParams->EbN0 = ((float) 5.0);
+      ioParams->EbN0 = 1.8f;
     }
   }
   else
@@ -1838,7 +1860,7 @@ error_t Channel_AWGN( const complex_stream_t * inStream, complex_stream_t * outS
     {
       if (CHAN_AWGN == pParams->type)
       {
-        memcpy(outStream->pBuf,inStream->pBuf,inStream->len);
+        memcpy(outStream->pBuf,inStream->pBuf,sizeof(complex_t)*inStream->len);
         if (
 # 163 "src\\channel.c" 3
            0xffffffffUL 
