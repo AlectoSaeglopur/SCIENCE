@@ -25,12 +25,12 @@ CMP_FLG = -Wall -g -O0
 CMP_VRS = gcc
 
 # common source files used by both build types
-COM_FIL = channel.c					\
-					convolutional.c		\
-       		debug.c           \
-					error.c           \
-					memory.c					\
-       		modulation.c
+COM_FIL = channel.c        	\
+          convolutional.c   \
+          debug.c           \
+          error.c           \
+          memory.c          \
+          modulation.c
 
 
 
@@ -51,12 +51,12 @@ LNK_FLG = -lm -Xlinker -Map=$(BLD_FLD)\lis\$(TRG_NAM).map
 CNV_TOL = objcopy
 
 # target build conversion formats/extensions
-CNV_EXT = srec 	\
-      		binary
+CNV_EXT = srec   \
+          binary
 
 # target-build source files list
-SRC_FIL = main.c   					\
-					$(COM_FIL)
+SRC_FIL = main.c             \
+          $(COM_FIL)
 
 
 
@@ -74,11 +74,11 @@ TST_SFD = test
 TST_LKF = -lm
 
 # test files list
-TST_FIL = test_extra.c           	\
-       		test_convolutional.c   	\
-       		test_modulation.c				\
-					umain.c									\
-					$(COM_FIL)
+TST_FIL = test_extra.c             \
+           test_convolutional.c     \
+           test_modulation.c        \
+          umain.c                  \
+          $(COM_FIL)
 
 # unity files list
-UNT_FIL =	unity.c
+UNT_FIL =  unity.c

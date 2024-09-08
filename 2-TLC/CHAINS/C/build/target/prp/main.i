@@ -1572,6 +1572,7 @@ typedef enum
   ERR_INV_PRINTID,
   ERR_INV_CNVCOD_RATE,
   ERR_INV_CNVCOD_KLEN,
+  ERR_INV_CNVCOD_DECMET,
   ERR_INV_BUFFER_SIZE,
   ERR_INV_DYNAMIC_ALLOC,
   ERR_INV_STREAM_TYPE,
@@ -1591,7 +1592,7 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 67 "src\\error.h"
+# 68 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 19 "src\\channel.h" 2
 # 1 "src\\memory.h" 1
@@ -1751,7 +1752,7 @@ typedef struct _cc_par_t
 typedef struct _cc_encoder_info_t
 {
   uint8_t connVect[2u];
-  uint8_t puncVect[(2u*CC_RATE_23)];
+  uint8_t puncVect[(2u*CC_RATE_12)];
 } cc_encoder_info_t;
 
 
@@ -1868,7 +1869,7 @@ int main( void )
  ((void *)0)
 # 87 "src\\main.c"
  , .len = 0, .id = memory_type_float};;
-  Memory_AllocateStream(&txSrcStream,150u,txSrcStream.id); Memory_AllocateStream(&rxSrcStream,150u,rxSrcStream.id); Memory_AllocateStream(&txCcStream,((2u*150u)/2u* (CC_RATE_23+1)/CC_RATE_23),txCcStream.id); Memory_AllocateStream(&rxCcStream,((2u*150u)/2u* (CC_RATE_23+1)/CC_RATE_23),rxCcStream.id); Memory_AllocateStream(&txModStream,((((2u*150u)/2u* (CC_RATE_23+1)/CC_RATE_23)<<3u)/2u),txModStream.id); Memory_AllocateStream(&rxModStream,((((2u*150u)/2u* (CC_RATE_23+1)/CC_RATE_23)<<3u)/2u),rxModStream.id); Memory_AllocateStream(&rxLLRStream,(((2u*150u)/2u* (CC_RATE_23+1)/CC_RATE_23)<<3u),rxLLRStream.id);;
+  Memory_AllocateStream(&txSrcStream,150u,txSrcStream.id); Memory_AllocateStream(&rxSrcStream,150u,rxSrcStream.id); Memory_AllocateStream(&txCcStream,((2u*150u)/2u* (CC_RATE_12+1)/CC_RATE_12),txCcStream.id); Memory_AllocateStream(&rxCcStream,((2u*150u)/2u* (CC_RATE_12+1)/CC_RATE_12),rxCcStream.id); Memory_AllocateStream(&txModStream,((((2u*150u)/2u* (CC_RATE_12+1)/CC_RATE_12)<<3u)/2u),txModStream.id); Memory_AllocateStream(&rxModStream,((((2u*150u)/2u* (CC_RATE_12+1)/CC_RATE_12)<<3u)/2u),rxModStream.id); Memory_AllocateStream(&rxLLRStream,(((2u*150u)/2u* (CC_RATE_12+1)/CC_RATE_12)<<3u),rxLLRStream.id);;
 
 
   CnvCod_ListParameters(&ccParams);

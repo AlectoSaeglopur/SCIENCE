@@ -25,10 +25,10 @@
 /*** PARAMETERS ***/
 /******************/
 
-#define CC_RATE                 CC_RATE_23                  /** Convolutional code rate */
+#define CC_RATE                 CC_RATE_12                  /** Convolutional code rate */
 #define CC_KLEN                 CC_KLEN_7                   /** Convolutional constrain length */
 #define CC_MEMFACT              10u                         /** Viterbi decoder memory factor */
-#define CC_VITDM                CC_VITDM_SOFT               /** Viterbi decoding method */
+#define CC_VITDM                CC_VITDM_HARD               /** Viterbi decoding method */
 
 
 

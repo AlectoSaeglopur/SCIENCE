@@ -1574,6 +1574,7 @@ typedef enum
   ERR_INV_PRINTID,
   ERR_INV_CNVCOD_RATE,
   ERR_INV_CNVCOD_KLEN,
+  ERR_INV_CNVCOD_DECMET,
   ERR_INV_BUFFER_SIZE,
   ERR_INV_DYNAMIC_ALLOC,
   ERR_INV_STREAM_TYPE,
@@ -1593,7 +1594,7 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 67 "src\\error.h"
+# 68 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 19 "src\\channel.h" 2
 # 1 "src\\memory.h" 1
@@ -1753,7 +1754,7 @@ typedef struct _cc_par_t
 typedef struct _cc_encoder_info_t
 {
   uint8_t connVect[2u];
-  uint8_t puncVect[(2u*CC_RATE_23)];
+  uint8_t puncVect[(2u*CC_RATE_12)];
 } cc_encoder_info_t;
 
 
@@ -1844,7 +1845,7 @@ static
 # 41 "src\\debug.c"
 error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed )
 {
- uint32_t j;
+  uint32_t j;
   error_t retErr = ERR_NONE;
 
   if ((
@@ -1958,7 +1959,7 @@ error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t lab
 error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t label, const debug_par_t * dbgParams )
 {
   error_t retErr = ERR_NONE;
- uint32_t j;
+  uint32_t j;
 
   if ((
 # 153 "src\\debug.c" 3 4
@@ -2103,8 +2104,8 @@ error_t Debug_PrintParameters( uint32_t len )
     printf("\n # PARAMETERS");
     printf("\n    * Convolutional Coding :");
     printf(" K = %d",CC_KLEN_7);
-    printf(" | Rc = %d/%d",CC_RATE_23,CC_RATE_23+1);
-    printf(" | DM = %s\n",((CC_VITDM_SOFT == CC_VITDM_HARD) ? "Hard" : (CC_VITDM_SOFT == CC_VITDM_SOFT) ? "Soft" : "N/A"));
+    printf(" | Rc = %d/%d",CC_RATE_12,CC_RATE_12+1);
+    printf(" | DM = %s\n",((CC_VITDM_HARD == CC_VITDM_HARD) ? "Hard" : (CC_VITDM_HARD == CC_VITDM_SOFT) ? "Soft" : "N/A"));
     printf("    * Modulation :");
     printf(" %u-%s\n",(0x01<<2u),((((modulation_t) MOD_PSK) == MOD_PSK) ? "PSK" : (((modulation_t) MOD_PSK) == MOD_QAM) ? "QAM" : "N/A"));
     printf("    * Channel :");
@@ -2114,7 +2115,7 @@ error_t Debug_PrintParameters( uint32_t len )
     }
     else if (CHAN_AWGN == CHAN_AWGN)
     {
-      printf(" AWGN | EbN0 = %1.1f\n",2.1f);
+      printf(" AWGN | EbN0 = %1.1f\n",2.9f);
     }
     else
     {
@@ -2139,29 +2140,29 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
   uint32_t curErrDist = 0;
   uint32_t j;
   uint32_t byteIdx;
- uint8_t bitIdx;
+  uint8_t bitIdx;
 
- if ((
+  if ((
 # 339 "src\\debug.c" 3 4
-     ((void *)0) 
+      ((void *)0) 
 # 339 "src\\debug.c"
-          != inStreamA) && (
+           != inStreamA) && (
 # 339 "src\\debug.c" 3 4
-                            ((void *)0) 
+                             ((void *)0) 
 # 339 "src\\debug.c"
-                                 != inStreamA->pBuf) && (
+                                  != inStreamA->pBuf) && (
 # 339 "src\\debug.c" 3 4
-                                                         ((void *)0) 
+                                                          ((void *)0) 
 # 339 "src\\debug.c"
-                                                              != inStreamB) && (
+                                                               != inStreamB) && (
 # 339 "src\\debug.c" 3 4
-                                                                                ((void *)0) 
+                                                                                 ((void *)0) 
 # 339 "src\\debug.c"
-                                                                                     != inStreamB->pBuf) && (
+                                                                                      != inStreamB->pBuf) && (
 # 339 "src\\debug.c" 3 4
-                                                                                                             ((void *)0) 
+                                                                                                              ((void *)0) 
 # 339 "src\\debug.c"
-                                                                                                                  != dbgParams))
+                                                                                                                   != dbgParams))
   {
     if (!((CHAN_AWGN == dbgParams->chanPar.type) && (CC_VITDM_SOFT == dbgParams->ccPar.vitDM) && (PID_RX_CNVCOD == label)))
     {
@@ -2210,7 +2211,7 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
         retErr = ERR_INV_BUFFER_SIZE;
       }
     }
- }
+  }
   else
   {
     retErr = ERR_INV_NULL_POINTER;
@@ -2227,7 +2228,7 @@ error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_
               ((void *)0)
 # 409 "src\\debug.c"
                   ;
- uint32_t j;
+  uint32_t j;
 
   if ((
 # 412 "src\\debug.c" 3 4
@@ -2288,7 +2289,7 @@ error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_
               ((void *)0)
 # 463 "src\\debug.c"
                   ;
- uint32_t j;
+  uint32_t j;
 
   if ((
 # 466 "src\\debug.c" 3 4
@@ -2392,8 +2393,8 @@ static
                   ;
   uint32_t lenBi = lenBy<<3u;
 
-  if (((lenBi%CC_RATE_23) == 0) &&
-      (((lenBi/CC_RATE_23*(1+CC_RATE_23))%8u) == 0))
+  if (((lenBi%CC_RATE_12) == 0) &&
+      (((lenBi/CC_RATE_12*(1+CC_RATE_12))%8u) == 0))
   {
     bRet = 
 # 555 "src\\debug.c" 3 4

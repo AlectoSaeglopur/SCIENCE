@@ -40,14 +40,14 @@ static bool IsSrcLenValid( len_t lenBy );
  */
 error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed )
 {
-	uint32_t j;
+  uint32_t j;
   error_t retErr = ERR_NONE;
 
   if ((NULL != ioStream) && ((NULL != ioStream->pBuf)))
   {
     if (NULL == pSeed)
     {
-      srand(time(NULL));															/** link random seed to current time */
+      srand(time(NULL));                              /** link random seed to current time */
     }
     else
     {
@@ -148,7 +148,7 @@ error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t lab
 error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t label, const debug_par_t * dbgParams )
 {
   error_t retErr = ERR_NONE;
-	len_t j;
+  len_t j;
 
   if ((NULL != inStream) && (NULL != inStream->pBuf) && (NULL != dbgParams))
   {
@@ -334,9 +334,9 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
   len_t curErrDist = 0;
   len_t j;
   len_t byteIdx;
-	uint8_t bitIdx;
+  uint8_t bitIdx;
 
-	if ((NULL != inStreamA) && (NULL != inStreamA->pBuf) && (NULL != inStreamB) && (NULL != inStreamB->pBuf) && (NULL != dbgParams))
+  if ((NULL != inStreamA) && (NULL != inStreamA->pBuf) && (NULL != inStreamB) && (NULL != inStreamB->pBuf) && (NULL != dbgParams))
   {
     if (!((CHAN_AWGN == dbgParams->chanPar.type) && (CC_VITDM_SOFT == dbgParams->ccPar.vitDM) && (PID_RX_CNVCOD == label)))
     {
@@ -385,7 +385,7 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
         retErr = ERR_INV_BUFFER_SIZE;
       }
     }
-	}
+  }
   else
   {
     retErr = ERR_INV_NULL_POINTER;
@@ -407,7 +407,7 @@ error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_
 {
   error_t retErr = ERR_NONE;
   FILE * fid = NULL;
-	len_t j;
+  len_t j;
   
   if ((NULL != inStream) && (NULL != inStream->pBuf))
   {
@@ -461,7 +461,7 @@ error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_
 {
   error_t retErr = ERR_NONE;
   FILE * fid = NULL;
-	len_t j;
+  len_t j;
   
   if ((NULL != inStream) && (NULL != inStream->pBuf))
   {
@@ -549,7 +549,7 @@ static bool IsSrcLenValid( len_t lenBy )
   bool bRet = false;
   len_t lenBi = lenBy<<BY2BI_SHIFT;
   
-  if (((lenBi%CC_RATE) == 0) &&                                               /** source bit length shall be divisible by code rate denominator */
+  if ((lenBy > 0) && ((lenBi%CC_RATE) == 0) &&                                /** source bit length shall be positive and divisible by code rate denominator */
       (((lenBi/CC_RATE*(1+CC_RATE))%NUM_BITS_PER_BYTE) == 0))                 /** coded bit length shall be a multiple of NUM_BITS_PER_BYTE */
   {
     bRet = true;

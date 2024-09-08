@@ -210,65 +210,47 @@ error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outS
   if ((NULL != inStream) && (NULL != inStream->pBuf) && (NULL != outStream) && 
       (NULL != outStream->pBuf) && (NULL != pParams))
   {
-    RetrieveConnectorPuncturationVectors(&encInfo,pParams);                                     /** retrieve convolutional encoder info */
-    ComputeTrellisDiagram(&trDiagr,encInfo.connVect,pParams);                                   /** compute convolutional decoder trellis diagram */
-    memcpy(tmpStream,inStream->pBuf,inStream->len);
-    curPaths.iter[0] = 1;                                                                       /** enable only all-zero state at the beginning */
+    if (CC_VITDM_HARD == pParams->vitDM)
+    {
+      RetrieveConnectorPuncturationVectors(&encInfo,pParams);                                     /** retrieve convolutional encoder info */
+      ComputeTrellisDiagram(&trDiagr,encInfo.connVect,pParams);                                   /** compute convolutional decoder trellis diagram */
+      memcpy(tmpStream,inStream->pBuf,inStream->len);
+      curPaths.iter[0] = 1;                                                                       /** enable only all-zero state at the beginning */
 
-    if (CC_RATE_12 == pParams->cRate)                                                           /** check if depuncturing is needed */
-    {
-      erasMask = CC_INMASK;                                                                     /** use no-erasure mask for no-puncturing case */
-    }
-    else
-    {
-      HardDepuncturer(tmpStream,inLenBi,unpLenBi,encInfo.puncVect,pParams);
-    }
-
-    for (i=CC_NBRANCHES; i<outLenBi+CC_NBRANCHES; i++)
-    {
-      inIdx = CC_NBRANCHES*(i-CC_NBRANCHES);
-      byteIdx = (inIdx>>BY2BI_SHIFT);
-      bitIdx = (uint8_t)(inIdx&LSBYTE_MASK);
-      cycleBits = (tmpStream[byteIdx]>>(BITIDX_2LAST-bitIdx))&CC_INMASK;                        /** current pair of input bits */
-      prevPaths = curPaths;
-      if (CC_RATE_12 != pParams->cRate)                                                         /** retrieve erasure mask in case depuncturing has been applied */
+      if (CC_RATE_12 == pParams->cRate)                                                           /** check if depuncturing is needed */
       {
-        erasMask = 0;
-        erasMask |= (encInfo.puncVect[inIdx%(2*pParams->cRate)]<<1);
-        erasMask |= encInfo.puncVect[(inIdx+1)%(2*pParams->cRate)];
+        erasMask = CC_INMASK;                                                                     /** use no-erasure mask for no-puncturing case */
       }
-      for (j=0; j<CC_NTRELSTATES; j++)
+      else
       {
-        if (prevPaths.iter[j] == i-1)                                                           /** check if j-th state was active in previous iteration */
-        {                                                          
-          for (hypIdx = 0; hypIdx<CC_NBRANCHES; hypIdx++)
-          {
-            hamDist = CountByteOnes((cycleBits^(trDiagr.trSt[j].outBits[hypIdx]))&erasMask);    /** compute Hamming distance assuming hypIdx input bit */
-            nextSt = trDiagr.trSt[j].nextSt[hypIdx];                                            /** compute next state assuming hypIdx input bit */
-            if (curPaths.iter[nextSt] < i)                                                      /** if there's not yet a survivor path for nextSt state at i-th cycle */
+        HardDepuncturer(tmpStream,inLenBi,unpLenBi,encInfo.puncVect,pParams);
+      }
+
+      for (i=CC_NBRANCHES; i<outLenBi+CC_NBRANCHES; i++)
+      {
+        inIdx = CC_NBRANCHES*(i-CC_NBRANCHES);
+        byteIdx = (inIdx>>BY2BI_SHIFT);
+        bitIdx = (uint8_t)(inIdx&LSBYTE_MASK);
+        cycleBits = (tmpStream[byteIdx]>>(BITIDX_2LAST-bitIdx))&CC_INMASK;                        /** current pair of input bits */
+        prevPaths = curPaths;
+        if (CC_RATE_12 != pParams->cRate)                                                         /** retrieve erasure mask in case depuncturing has been applied */
+        {
+          erasMask = 0;
+          erasMask |= (encInfo.puncVect[inIdx%(2*pParams->cRate)]<<1);
+          erasMask |= encInfo.puncVect[(inIdx+1)%(2*pParams->cRate)];
+        }
+        for (j=0; j<CC_NTRELSTATES; j++)
+        {
+          if (prevPaths.iter[j] == i-1)                                                           /** check if j-th state was active in previous iteration */
+          {                                                          
+            for (hypIdx = 0; hypIdx<CC_NBRANCHES; hypIdx++)
             {
-              curPaths.iter[nextSt] = i;                                                        /** update state iteration counter */
-              curPaths.dist[nextSt] = prevPaths.dist[j]+(uint32_t)hamDist;                      /** update state distance */
-              if (i-1 < CC_MEM_DIM)
+              hamDist = CountByteOnes((cycleBits^(trDiagr.trSt[j].outBits[hypIdx]))&erasMask);    /** compute Hamming distance assuming hypIdx input bit */
+              nextSt = trDiagr.trSt[j].nextSt[hypIdx];                                            /** compute next state assuming hypIdx input bit */
+              if (curPaths.iter[nextSt] < i)                                                      /** if there's not yet a survivor path for nextSt state at i-th cycle */
               {
-                finIdx = i-CC_NBRANCHES;
-              }
-              else
-              {
-                finIdx = CC_MEM_DIM-1;
-              }
-              for (wrIdx = 0; wrIdx < finIdx; wrIdx++)                                          /** update state path among previous states */
-              {
-                curPaths.path[nextSt][wrIdx] = prevPaths.path[j][wrIdx];
-              }
-              curPaths.path[nextSt][finIdx] = j;              
-            }
-            else                                                                                /** if a survivor path for nextSt state at i-th cycle already exists, check if new candidate is better */
-            {
-              candDist = prevPaths.dist[j]+(uint32_t)hamDist;
-              if (candDist < curPaths.dist[nextSt])
-              {
-                curPaths.dist[nextSt] = candDist;
+                curPaths.iter[nextSt] = i;                                                        /** update state iteration counter */
+                curPaths.dist[nextSt] = prevPaths.dist[j]+(uint32_t)hamDist;                      /** update state distance */
                 if (i-1 < CC_MEM_DIM)
                 {
                   finIdx = i-CC_NBRANCHES;
@@ -277,74 +259,99 @@ error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outS
                 {
                   finIdx = CC_MEM_DIM-1;
                 }
-                for (wrIdx = 0; wrIdx < finIdx; wrIdx++)
+                for (wrIdx = 0; wrIdx < finIdx; wrIdx++)                                          /** update state path among previous states */
                 {
                   curPaths.path[nextSt][wrIdx] = prevPaths.path[j][wrIdx];
                 }
-                curPaths.path[nextSt][finIdx] = j;
+                curPaths.path[nextSt][finIdx] = j;              
+              }
+              else                                                                                /** if a survivor path for nextSt state at i-th cycle already exists, check if new candidate is better */
+              {
+                candDist = prevPaths.dist[j]+(uint32_t)hamDist;
+                if (candDist < curPaths.dist[nextSt])
+                {
+                  curPaths.dist[nextSt] = candDist;
+                  if (i-1 < CC_MEM_DIM)
+                  {
+                    finIdx = i-CC_NBRANCHES;
+                  }
+                  else
+                  {
+                    finIdx = CC_MEM_DIM-1;
+                  }
+                  for (wrIdx = 0; wrIdx < finIdx; wrIdx++)
+                  {
+                    curPaths.path[nextSt][wrIdx] = prevPaths.path[j][wrIdx];
+                  }
+                  curPaths.path[nextSt][finIdx] = j;
+                }
               }
             }
           }
         }
-      }
 
-      if (i-1 == outLenBi)                                                                      /** if input bit stream is over, flush decoder memory and extract final info bits */
-      {
-        minDistSt = FindMinSurvPathHard(&curPaths);                                             /** look for minimum distance survivor path */
-        if (i-1 >= CC_MEM_DIM)                                                                  /** check if memory has been completely filled */
+        if (i-1 == outLenBi)                                                                      /** if input bit stream is over, flush decoder memory and extract final info bits */
         {
-          finIdx = CC_MEM_DIM;
-        }
-        else
-        {
-          finIdx = i-1;
-        }
-        for (wrIdx=0; wrIdx<finIdx; wrIdx++)
-        {
-          depSt = curPaths.path[minDistSt][wrIdx];                                              /** set departure state */
-          if (wrIdx == finIdx-1)
+          minDistSt = FindMinSurvPathHard(&curPaths);                                             /** look for minimum distance survivor path */
+          if (i-1 >= CC_MEM_DIM)                                                                  /** check if memory has been completely filled */
           {
-            arrSt = minDistSt;                                                                  /** set arrival state */
+            finIdx = CC_MEM_DIM;
           }
           else
           {
-            arrSt = curPaths.path[minDistSt][wrIdx+1];
+            finIdx = i-1;
           }
-          byteIdx = (outLenBi-finIdx+wrIdx)>>BY2BI_SHIFT;
-          bitIdx = (uint8_t)((outLenBi-finIdx+wrIdx)&LSBYTE_MASK);
+          for (wrIdx=0; wrIdx<finIdx; wrIdx++)
+          {
+            depSt = curPaths.path[minDistSt][wrIdx];                                              /** set departure state */
+            if (wrIdx == finIdx-1)
+            {
+              arrSt = minDistSt;                                                                  /** set arrival state */
+            }
+            else
+            {
+              arrSt = curPaths.path[minDistSt][wrIdx+1];
+            }
+            byteIdx = (outLenBi-finIdx+wrIdx)>>BY2BI_SHIFT;
+            bitIdx = (uint8_t)((outLenBi-finIdx+wrIdx)&LSBYTE_MASK);
+            if (trDiagr.trSt[depSt].nextSt[0] == arrSt)
+            {
+              outStream->pBuf[byteIdx] &= ~(LSBIT_MASK<<(BITIDX_1LAST-bitIdx));                   /** set output bit to '0' */
+            }
+            else
+            {
+              outStream->pBuf[byteIdx] |= (LSBIT_MASK<<(BITIDX_1LAST-bitIdx));                    /** set output bit to '1' */
+            }
+          }
+        }
+        else if (i-1 >= CC_MEM_DIM)                                                               /** if input bit stream is not over but memory is full, extract oldest info bit */
+        {
+          minDistSt = FindMinSurvPathHard(&curPaths);
+          depSt = curPaths.path[minDistSt][0];
+          arrSt = curPaths.path[minDistSt][1];
+          byteIdx = (i-CC_MEM_DIM-1)>>BY2BI_SHIFT;
+          bitIdx = (uint8_t)((i-CC_MEM_DIM-1)&LSBYTE_MASK);
           if (trDiagr.trSt[depSt].nextSt[0] == arrSt)
           {
-            outStream->pBuf[byteIdx] &= ~(LSBIT_MASK<<(BITIDX_1LAST-bitIdx));                   /** set output bit to '0' */
+            outStream->pBuf[byteIdx] &= ~(LSBIT_MASK<<(BITIDX_1LAST-bitIdx));
           }
           else
           {
-            outStream->pBuf[byteIdx] |= (LSBIT_MASK<<(BITIDX_1LAST-bitIdx));                    /** set output bit to '1' */
+            outStream->pBuf[byteIdx] |= (LSBIT_MASK<<(BITIDX_1LAST-bitIdx));
           }
-        }
-      }
-      else if (i-1 >= CC_MEM_DIM)                                                               /** if input bit stream is not over but memory is full, extract oldest info bit */
-      {
-        minDistSt = FindMinSurvPathHard(&curPaths);
-        depSt = curPaths.path[minDistSt][0];
-        arrSt = curPaths.path[minDistSt][1];
-        byteIdx = (i-CC_MEM_DIM-1)>>BY2BI_SHIFT;
-        bitIdx = (uint8_t)((i-CC_MEM_DIM-1)&LSBYTE_MASK);
-        if (trDiagr.trSt[depSt].nextSt[0] == arrSt)
-        {
-          outStream->pBuf[byteIdx] &= ~(LSBIT_MASK<<(BITIDX_1LAST-bitIdx));
-        }
-        else
-        {
-          outStream->pBuf[byteIdx] |= (LSBIT_MASK<<(BITIDX_1LAST-bitIdx));
-        }
-        for (j=0; j<CC_NTRELSTATES; j++)
-        {
-          for (wrIdx = 0; wrIdx<(CC_MEM_DIM-1); wrIdx++)
+          for (j=0; j<CC_NTRELSTATES; j++)
           {
-            curPaths.path[j][wrIdx] = curPaths.path[j][wrIdx+1];                                /** keep all survivor paths */
+            for (wrIdx = 0; wrIdx<(CC_MEM_DIM-1); wrIdx++)
+            {
+              curPaths.path[j][wrIdx] = curPaths.path[j][wrIdx+1];                                /** keep all survivor paths */
+            }
           }
         }
       }
+    }
+    else
+    {
+      retErr = ERR_INV_CNVCOD_DECMET;
     }
   }
   else
@@ -388,66 +395,48 @@ error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * out
   if ((NULL != inStream) && (NULL != inStream->pBuf) && (NULL != outStream) &&
       (NULL != outStream->pBuf) && (NULL != pParams))
   {
-    RetrieveConnectorPuncturationVectors(&encInfo,pParams);                                     /** retrieve convolutional encoder info */
-    ComputeTrellisDiagram(&trDiagr,encInfo.connVect,pParams);                                   /** compute convolutional decoder trellis diagram */
-    memcpy(tmpStream,inStream->pBuf,sizeof(float)*inStream->len);
-    curPaths.iter[0] = 1;                                                                       /** enable only the all-zero state at the beginning */
-
-    if (CC_RATE_12 == pParams->cRate)
+    if (CC_VITDM_SOFT == pParams->vitDM)
     {
-      erasMask = CC_INMASK;                                                                     /** use no-erasure mask for no-puncturing case */
-    }
-    else
-    {
-      SoftDepuncturer(tmpStream,punLenBi,unpLenBi,encInfo.puncVect,pParams);                    /** apply depuuncturing if needed */
-    }
+      RetrieveConnectorPuncturationVectors(&encInfo,pParams);                                     /** retrieve convolutional encoder info */
+      ComputeTrellisDiagram(&trDiagr,encInfo.connVect,pParams);                                   /** compute convolutional decoder trellis diagram */
+      memcpy(tmpStream,inStream->pBuf,sizeof(float)*inStream->len);
+      curPaths.iter[0] = 1;                                                                       /** enable only the all-zero state at the beginning */
 
-    for (i=CC_NBRANCHES; i<outLenBi+CC_NBRANCHES; i++)
-    {
-      curIdx = CC_NBRANCHES*(i-CC_NBRANCHES);
-      prevPaths = curPaths;
-
-      if (CC_RATE_12 != pParams->cRate)
+      if (CC_RATE_12 == pParams->cRate)
       {
-        erasMask = 0;
-        erasMask |= (encInfo.puncVect[curIdx%(CC_NBRANCHES*pParams->cRate)]<<1);
-        erasMask |= encInfo.puncVect[(curIdx+1)%(CC_NBRANCHES*pParams->cRate)];                 /** estimate specific erasure mask if depuncturing has been applied */
+        erasMask = CC_INMASK;                                                                     /** use no-erasure mask for no-puncturing case */
+      }
+      else
+      {
+        SoftDepuncturer(tmpStream,punLenBi,unpLenBi,encInfo.puncVect,pParams);                    /** apply depuuncturing if needed */
       }
 
-      for (j=0; j<CC_NTRELSTATES; j++)
+      for (i=CC_NBRANCHES; i<outLenBi+CC_NBRANCHES; i++)
       {
-        if (prevPaths.iter[j] == i-1)                                                           /** check if j-th state was active in the previous iteration */
-        {
-          for (hypIdx = 0; hypIdx<CC_NBRANCHES; hypIdx++)
-          {
-            eucliDist = EstimateEuclideanDist(&tmpStream[curIdx],
-                          trDiagr.trSt[j].outBits[hypIdx],erasMask);                            /** compute Euclidean distance assuming hypIdx-value input bit */
-            nextSt = trDiagr.trSt[j].nextSt[hypIdx];                                            /** compute trellis next state assuming hypIdx-value input bit */
+        curIdx = CC_NBRANCHES*(i-CC_NBRANCHES);
+        prevPaths = curPaths;
 
-            if (curPaths.iter[nextSt] < i)                                                      /** iIf there's not yet a survivor path for nextSt state at i-th cycle */
+        if (CC_RATE_12 != pParams->cRate)
+        {
+          erasMask = 0;
+          erasMask |= (encInfo.puncVect[curIdx%(CC_NBRANCHES*pParams->cRate)]<<1);
+          erasMask |= encInfo.puncVect[(curIdx+1)%(CC_NBRANCHES*pParams->cRate)];                 /** estimate specific erasure mask if depuncturing has been applied */
+        }
+
+        for (j=0; j<CC_NTRELSTATES; j++)
+        {
+          if (prevPaths.iter[j] == i-1)                                                           /** check if j-th state was active in the previous iteration */
+          {
+            for (hypIdx = 0; hypIdx<CC_NBRANCHES; hypIdx++)
             {
-              curPaths.iter[nextSt] = i;                                                        /** update the state iteration counter */
-              curPaths.dist[nextSt] = prevPaths.dist[j]+eucliDist;                              /** update the state distance */
-              if (i-1 < CC_MEM_DIM)
+              eucliDist = EstimateEuclideanDist(&tmpStream[curIdx],
+                            trDiagr.trSt[j].outBits[hypIdx],erasMask);                            /** compute Euclidean distance assuming hypIdx-value input bit */
+              nextSt = trDiagr.trSt[j].nextSt[hypIdx];                                            /** compute trellis next state assuming hypIdx-value input bit */
+
+              if (curPaths.iter[nextSt] < i)                                                      /** iIf there's not yet a survivor path for nextSt state at i-th cycle */
               {
-                finIdx = i-CC_NBRANCHES;
-              }
-              else
-              {
-                finIdx = CC_MEM_DIM-1;
-              }
-              for (wrIdx = 0; wrIdx < finIdx; wrIdx++)                                          /** update the state path among previous states */
-              {
-                curPaths.path[nextSt][wrIdx] = prevPaths.path[j][wrIdx];
-              }
-              curPaths.path[nextSt][finIdx] = j;
-            }
-            else                                                                                /** if a survivor path for nextSt state at i-th cycle already exists, check if the new candidate is better */
-            {
-              candDist = prevPaths.dist[j]+eucliDist;
-              if (candDist < curPaths.dist[nextSt])
-              {
-                curPaths.dist[nextSt] = candDist;
+                curPaths.iter[nextSt] = i;                                                        /** update the state iteration counter */
+                curPaths.dist[nextSt] = prevPaths.dist[j]+eucliDist;                              /** update the state distance */
                 if (i-1 < CC_MEM_DIM)
                 {
                   finIdx = i-CC_NBRANCHES;
@@ -456,74 +445,99 @@ error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * out
                 {
                   finIdx = CC_MEM_DIM-1;
                 }
-                for (wrIdx = 0; wrIdx < finIdx; wrIdx++)
+                for (wrIdx = 0; wrIdx < finIdx; wrIdx++)                                          /** update the state path among previous states */
                 {
                   curPaths.path[nextSt][wrIdx] = prevPaths.path[j][wrIdx];
                 }
                 curPaths.path[nextSt][finIdx] = j;
               }
+              else                                                                                /** if a survivor path for nextSt state at i-th cycle already exists, check if the new candidate is better */
+              {
+                candDist = prevPaths.dist[j]+eucliDist;
+                if (candDist < curPaths.dist[nextSt])
+                {
+                  curPaths.dist[nextSt] = candDist;
+                  if (i-1 < CC_MEM_DIM)
+                  {
+                    finIdx = i-CC_NBRANCHES;
+                  }
+                  else
+                  {
+                    finIdx = CC_MEM_DIM-1;
+                  }
+                  for (wrIdx = 0; wrIdx < finIdx; wrIdx++)
+                  {
+                    curPaths.path[nextSt][wrIdx] = prevPaths.path[j][wrIdx];
+                  }
+                  curPaths.path[nextSt][finIdx] = j;
+                }
+              }
+            }
+          }
+        }
+
+        if (outLenBi == i-1)                                                                      /** if input bit stream is over, flush the decoder memory and extract the final info bits */
+        {
+          minDistState = FindMinSurvPathSoft(&curPaths);                                          /** look for the minimum distance survivor path */
+          if (i-1 >= CC_MEM_DIM)                                                                  /** check if memory has been completely filled */
+          {
+            finIdx = CC_MEM_DIM;
+          }
+          else
+          {
+            finIdx = i-1;
+          }
+          for (wrIdx=0; wrIdx<finIdx; wrIdx++)
+          {
+            stateDep = curPaths.path[minDistState][wrIdx];                                        /** departure state */
+            if (wrIdx == finIdx-1)
+            {
+              stateArr = minDistState;                                                            /** arrival state */
+            }
+            else
+            {
+              stateArr = curPaths.path[minDistState][wrIdx+1];
+            }
+            byteIdx = (outLenBi-finIdx+wrIdx)>>BY2BI_SHIFT;
+            bitIdx = (outLenBi-finIdx+wrIdx)&LSBYTE_MASK;
+            if (trDiagr.trSt[stateDep].nextSt[0] == stateArr)
+            {
+              outStream->pBuf[byteIdx] &= ~(LSBIT_MASK<<(BITIDX_1LAST-bitIdx));                   /** set output bit to '0' */
+            }
+            else
+            {
+              outStream->pBuf[byteIdx] |= (LSBIT_MASK<<(BITIDX_1LAST-bitIdx));                    /** set output bit to '1' */
+            }
+          }
+        }
+        else if (i-1 >= CC_MEM_DIM)                                                               /** if input bit stream is not over but memory is full, extract the oldest info bit */
+        {
+          minDistState = FindMinSurvPathSoft(&curPaths);
+          stateDep = curPaths.path[minDistState][0];
+          stateArr = curPaths.path[minDistState][1];
+          byteIdx = (i-CC_MEM_DIM-1)>>BY2BI_SHIFT;
+          bitIdx = (uint8_t)((i-CC_MEM_DIM-1)&LSBYTE_MASK);
+          if (trDiagr.trSt[stateDep].nextSt[0] == stateArr)
+          {
+            outStream->pBuf[byteIdx] &= ~(LSBIT_MASK<<(BITIDX_1LAST-bitIdx));                     /** set output bit to '0' */
+          }
+          else
+          {
+            outStream->pBuf[byteIdx] |= (LSBIT_MASK<<(BITIDX_1LAST-bitIdx));                      /** set output bit to '1' */
+          }
+          for (j=0; j<CC_NTRELSTATES; j++)
+          {
+            for (wrIdx = 0; wrIdx<(CC_MEM_DIM-1); wrIdx++)
+            {
+              curPaths.path[j][wrIdx] = curPaths.path[j][wrIdx+1];                                /** keep all survivor paths */
             }
           }
         }
       }
-
-      if (outLenBi == i-1)                                                                      /** if input bit stream is over, flush the decoder memory and extract the final info bits */
-      {
-        minDistState = FindMinSurvPathSoft(&curPaths);                                          /** look for the minimum distance survivor path */
-        if (i-1 >= CC_MEM_DIM)                                                                  /** check if memory has been completely filled */
-        {
-          finIdx = CC_MEM_DIM;
-        }
-        else
-        {
-          finIdx = i-1;
-        }
-        for (wrIdx=0; wrIdx<finIdx; wrIdx++)
-        {
-          stateDep = curPaths.path[minDistState][wrIdx];                                        /** departure state */
-          if (wrIdx == finIdx-1)
-          {
-            stateArr = minDistState;                                                            /** arrival state */
-          }
-          else
-          {
-            stateArr = curPaths.path[minDistState][wrIdx+1];
-          }
-          byteIdx = (outLenBi-finIdx+wrIdx)>>BY2BI_SHIFT;
-          bitIdx = (outLenBi-finIdx+wrIdx)&LSBYTE_MASK;
-          if (trDiagr.trSt[stateDep].nextSt[0] == stateArr)
-          {
-            outStream->pBuf[byteIdx] &= ~(LSBIT_MASK<<(BITIDX_1LAST-bitIdx));                   /** set output bit to '0' */
-          }
-          else
-          {
-            outStream->pBuf[byteIdx] |= (LSBIT_MASK<<(BITIDX_1LAST-bitIdx));                    /** set output bit to '1' */
-          }
-        }
-      }
-      else if (i-1 >= CC_MEM_DIM)                                                               /** if input bit stream is not over but memory is full, extract the oldest info bit */
-      {
-        minDistState = FindMinSurvPathSoft(&curPaths);
-        stateDep = curPaths.path[minDistState][0];
-        stateArr = curPaths.path[minDistState][1];
-        byteIdx = (i-CC_MEM_DIM-1)>>BY2BI_SHIFT;
-        bitIdx = (uint8_t)((i-CC_MEM_DIM-1)&LSBYTE_MASK);
-        if (trDiagr.trSt[stateDep].nextSt[0] == stateArr)
-        {
-          outStream->pBuf[byteIdx] &= ~(LSBIT_MASK<<(BITIDX_1LAST-bitIdx));                     /** set output bit to '0' */
-        }
-        else
-        {
-          outStream->pBuf[byteIdx] |= (LSBIT_MASK<<(BITIDX_1LAST-bitIdx));                      /** set output bit to '1' */
-        }
-        for (j=0; j<CC_NTRELSTATES; j++)
-        {
-          for (wrIdx = 0; wrIdx<(CC_MEM_DIM-1); wrIdx++)
-          {
-            curPaths.path[j][wrIdx] = curPaths.path[j][wrIdx+1];                                /** keep all survivor paths */
-          }
-        }
-      }
+    }
+    else
+    {
+      retErr = ERR_INV_CNVCOD_DECMET;
     }
   }
   else

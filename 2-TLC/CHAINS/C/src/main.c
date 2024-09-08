@@ -167,7 +167,6 @@ int main( void )
 // sistema Makefile (print, utest, etc..)
 
 // sposta "CnvCod_GetConnectorPuncturationVectors" dentro encoder/decoder e rendila statica
-// aggiungi ".vscode" a .gitignore
 // aggiungi interleaver + RS + scrambler
 // rendi funzioni sempre operanti su parametri passati come argomenti, non su macro globali!!!
 // sistema print di parametri (una riga per tipo) e aggiungi parametri di canale
@@ -187,21 +186,7 @@ int main( void )
  * @return none
  */
 //void CheckParam( void ){
-//	if( (K < 3) || (K>8) ){
-//		printf("\n Error-CC : Invalid constrain length!\n");
-//		exit(1);
-//	} else if ( (Rc != RATE_12) && (Rc != RATE_23) && (Rc != RATE_34) && (Rc != RATE_56) && (Rc != RATE_78) ){
-//		printf("\n Error-CC : Invalid code rate!\n");
-//		exit(1);
-//	} else if ( (SrcBytLen < 1) || (SrcBytLen%Rc != 0) ){
-//		printf("\n Error-CC : Invalid info stream length\n");
-//		exit(1);
-//	} else if ( (VitDecMth != HARD) && (VitDecMth != SOFT) ){
-//		printf("\n Error-CC : Invalid decoding method!\n");
-//		exit(1);
-//	} else if ( (ModType != PSK) && (ModType != QAM) ){
-//		printf("\n Error-MOD : Invalid modulation type!\n");
-//		exit(1);
+
 //	} else if ( (ModType == PSK) && (log2(M) != round(log2(M))) ){
 //		printf("\n Error-MOD : Invalid modulation order!\n");
 //		exit(1);

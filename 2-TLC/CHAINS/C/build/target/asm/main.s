@@ -70,31 +70,31 @@ LVL0:
 	call	_Memory_AllocateStream
 	movl	84(%esp), %eax
 	movl	%eax, 8(%esp)
-	movl	$225, 4(%esp)
+	movl	$300, 4(%esp)
 	leal	76(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_AllocateStream
 	movl	72(%esp), %eax
 	movl	%eax, 8(%esp)
-	movl	$225, 4(%esp)
+	movl	$300, 4(%esp)
 	leal	64(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_AllocateStream
 	movl	60(%esp), %eax
 	movl	%eax, 8(%esp)
-	movl	$900, 4(%esp)
+	movl	$1200, 4(%esp)
 	leal	52(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_AllocateStream
 	movl	48(%esp), %eax
 	movl	%eax, 8(%esp)
-	movl	$900, 4(%esp)
+	movl	$1200, 4(%esp)
 	leal	40(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_AllocateStream
 	movl	36(%esp), %eax
 	movl	%eax, 8(%esp)
-	movl	$1800, 4(%esp)
+	movl	$2400, 4(%esp)
 	leal	28(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_AllocateStream

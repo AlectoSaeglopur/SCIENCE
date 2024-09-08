@@ -1570,6 +1570,7 @@ typedef enum
   ERR_INV_PRINTID,
   ERR_INV_CNVCOD_RATE,
   ERR_INV_CNVCOD_KLEN,
+  ERR_INV_CNVCOD_DECMET,
   ERR_INV_BUFFER_SIZE,
   ERR_INV_DYNAMIC_ALLOC,
   ERR_INV_STREAM_TYPE,
@@ -1589,7 +1590,7 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 67 "src\\error.h"
+# 68 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 17 "src\\error.c" 2
 # 31 "src\\error.c"

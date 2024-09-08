@@ -1572,6 +1572,7 @@ typedef enum
   ERR_INV_PRINTID,
   ERR_INV_CNVCOD_RATE,
   ERR_INV_CNVCOD_KLEN,
+  ERR_INV_CNVCOD_DECMET,
   ERR_INV_BUFFER_SIZE,
   ERR_INV_DYNAMIC_ALLOC,
   ERR_INV_STREAM_TYPE,
@@ -1591,7 +1592,7 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 67 "src\\error.h"
+# 68 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 19 "src\\channel.h" 2
 # 1 "src\\memory.h" 1
@@ -1731,7 +1732,7 @@ error_t Channel_ListParameters( chan_par_t * ioParams )
     }
     else
     {
-      ioParams->EbN0 = 2.1f;
+      ioParams->EbN0 = 2.9f;
     }
   }
   else
