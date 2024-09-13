@@ -17,13 +17,13 @@
 /*** INCLUDES ***/
 /****************/
 
-#include <stdio.h>                                    /** - import standard i/o library */
-#include <stdbool.h>                                  /** - import boolean type library */
-#include <stdint.h>                                   /** - import integer types library */
-#include <string.h>                                   /** - import string library (e.g. to use "memcpy" and "memset" functions) */
-#include <stdlib.h>                                   /** - import random generation library */
-#include <time.h>                                     /** - import time library (e.g. to link random seed to actual time) */
-#include <math.h>                                     /** - import mathematical library (e.g. to use "sin/cos" and "log/exp" functions) */
+#include <stdio.h>                                          /** - import standard i/o library */
+#include <stdbool.h>                                        /** - import boolean type library */
+#include <stdint.h>                                         /** - import integer types library */
+#include <string.h>                                         /** - import string library (e.g. to use "memcpy" and "memset" functions) */
+#include <stdlib.h>                                         /** - import random generation library */
+#include <time.h>                                           /** - import time library (e.g. to link random seed to actual time) */
+#include <math.h>                                           /** - import mathematical library (e.g. to use "sin/cos" and "log/exp" functions) */
 
 
 
@@ -31,9 +31,12 @@
 /*** CONSTANTS ***/
 /*****************/
 
-#define BY2BI_SHIFT             3u                    //!< number of bit shifts to convert byte into bit value
-#define LSBIT_MASK              ((uint8_t) 0x01)
-#define LSBYTE_MASK             ((uint32_t) 0x0007)
+#define BY2BI_SHIFT             3u                          //!< number of bit shifts to convert byte into bit value
+#define BY2BI_LEN(x)            ((x)<<BY2BI_SHIFT)
+#define BI2BY_LEN(x)            ((x)>>BY2BI_SHIFT)
+#define LSBIT_MASK_U8           ((uint8_t) 0x01)
+#define MSBIT_MASK_U32          ((uint32_t) 0x80000000)
+#define LSBYTE_MASK_U32         ((uint32_t) 0x00000007)
 #define NUM_BITS_PER_BYTE       8u
 #define BITIDX_1LAST            (NUM_BITS_PER_BYTE-1)
 #define BITIDX_2LAST            (BITIDX_1LAST-1)
@@ -45,13 +48,13 @@
 /*** TYPEDEFS ***/
 /****************/
 
-#define len_t                   uint32_t              //!< bit/byte buffer length type
-#define byte_t                  uint8_t               //!< byte type
+#define len_t                   uint32_t                    //!< bit/byte buffer length type
+#define byte_t                  uint8_t                     //!< byte type
 
 typedef struct _complex_t
 {
-  float re;                                             /** - real part */
-  float im;                                             /** - imaginary part */
+  float re;                                                 /** - real part */
+  float im;                                                 /** - imaginary part */
 } complex_t;
 
 

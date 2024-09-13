@@ -35,11 +35,11 @@ static error_t FreeComplexStream( complex_stream_t * ioStream );
 /************************/
 
 /**
- * @brief Function for dynamically allocating memory for any type of stream.
+ * @brief <i> Function for dynamically allocating memory for any type of stream. </i>
  * 
- * @param ioStream : i/o stream whose buffer has to be allocated
- * @param len : buffer length
- * @param type : stream type ID
+ * @param[in, out] ioStream i/o stream whose buffer has to be allocated
+ * @param[in] len buffer length
+ * @param[in] type stream type ID
  * 
  * @return error ID
  */
@@ -84,10 +84,10 @@ error_t Memory_AllocateStream( void * ioStream, len_t len, memory_type_t type )
 
 
 /**
- * @brief Function for dynamically deallocating memory for any type of stream.
+ * @brief <i> Function for dynamically deallocating memory for any type of stream. </i>
  * 
- * @param ioStream : i/o stream whose buffer has to be deallocated
- * @param type : stream type ID
+ * @param[in, out] ioStream i/o stream whose buffer has to be deallocated
+ * @param[in] type stream type ID
  * 
  * @return error ID
  */
@@ -137,10 +137,10 @@ error_t Memory_FreeStream( void * ioStream, memory_type_t type )
 /*************************/
 
 /**
- * @brief Function for dynamically allocating memory for a byte stream.
+ * @brief <i> Function for dynamically allocating memory for a byte stream. </i>
  * 
- * @param ioStream : i/o stream whose buffer has to be allocated
- * @param len : buffer length
+ * @param[in, out] ioStream i/o stream whose buffer has to be allocated
+ * @param[in] len buffer length
  * 
  * @return error ID
  */
@@ -170,10 +170,10 @@ static error_t AllocateByteStream( byte_stream_t * ioStream, len_t len )
 
 
 /**
- * @brief Function for dynamically allocating memory for a float stream.
+ * @brief <i> Function for dynamically allocating memory for a float stream. </i>
  * 
- * @param ioStream : i/o stream whose buffer has to be allocated
- * @param len : buffer length
+ * @param[in, out] ioStream i/o stream whose buffer has to be allocated
+ * @param[in] len buffer length
  * 
  * @return error ID
  */
@@ -203,10 +203,10 @@ static error_t AllocateFloatStream( float_stream_t * ioStream, len_t len )
 
 
 /**
- * @brief Function for dynamically allocating memory for a complex stream.
+ * @brief <i> Function for dynamically allocating memory for a complex stream. </i>
  * 
- * @param ioStream : i/o stream whose buffer has to be allocated
- * @param len : buffer length
+ * @param[in, out] ioStream i/o stream whose buffer has to be allocated
+ * @param[in] len buffer length
  * 
  * @return error ID
  */
@@ -236,9 +236,9 @@ static error_t AllocateComplexStream( complex_stream_t * ioStream, len_t len )
 
 
 /**
- * @brief Function for dynamically deallocating memory for a byte stream.
+ * @brief <i> Function for dynamically deallocating memory for a byte stream. </i>
  * 
- * @param ioStream : i/o stream whose buffer has to be deallocated
+ * @param ioStream[in, out] i/o stream whose buffer has to be deallocated
  * 
  * @return error ID
  */
@@ -262,9 +262,9 @@ static error_t FreeByteStream( byte_stream_t * ioStream )
 
 
 /**
- * @brief Function for dynamically deallocating memory for a float stream.
+ * @brief <i> Function for dynamically deallocating memory for a float stream. </i>
  * 
- * @param ioStream : i/o stream whose buffer has to be deallocated
+ * @param ioStream[in, out] i/o stream whose buffer has to be deallocated
  * 
  * @return error ID
  */
@@ -288,9 +288,9 @@ static error_t FreeFloatStream( float_stream_t * ioStream )
 
 
 /**
- * @brief Function for dynamically deallocating memory for a complex stream.
+ * @brief <i> Function for dynamically deallocating memory for a complex stream. </i>
  * 
- * @param ioStream : i/o stream whose buffer has to be deallocated
+ * @param ioStream[in, out] i/o stream whose buffer has to be deallocated
  * 
  * @return error ID
  */

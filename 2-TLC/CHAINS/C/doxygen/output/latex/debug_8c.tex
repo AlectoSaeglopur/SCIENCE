@@ -1,0 +1,266 @@
+\doxysection{C\+:/\+Users/\+Valmo\+Fil/\+Music/extra/tlc\+\_\+chain/src/debug.c File Reference}
+\hypertarget{debug_8c}{}\label{debug_8c}\index{C:/Users/ValmoFil/Music/extra/tlc\_chain/src/debug.c@{C:/Users/ValmoFil/Music/extra/tlc\_chain/src/debug.c}}
+
+
+Debug library.  
+
+
+{\ttfamily \#include "{}debug.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{debug_8c_a83eeae287673a7c12f9482688bd9e417}{Is\+Src\+Len\+Valid}} (\mbox{\hyperlink{system_8h_a144af81bf25f925e049eba389b5acda2}{len\+\_\+t}} src\+Len\+By, const \mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}dbg\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for checking source stream length correctness. } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{debug_8c_a80a9b412918e8c6d7087a3b733b0b175}{Debug\+\_\+\+List\+Parameters}} (\mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}io\+Params, const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}cc\+Param, const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}mod\+Param, const \mbox{\hyperlink{struct__chan__par__t}{chan\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}chan\+Param)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for retrieving and listing all simulation parameters into dedicated structure. } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{debug_8c_aba4a6c0f401b9c1cb015b06a380ee3f6}{Debug\+\_\+\+Generate\+Random\+Bytes}} (\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}io\+Stream, const uint32\+\_\+t \texorpdfstring{$\ast$}{*}p\+Seed)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for filling input buffer with random bytes. } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{debug_8c_ace7fe46248728e83bbcd599be59597a6}{Debug\+\_\+\+Print\+Byte\+Stream}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9a}{print\+\_\+label\+\_\+t}} label, const \mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for printing on terminal a byte buffer content (in hexadecimal format). } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{debug_8c_a7efd49ee29248721f504ea3f27373d96}{Debug\+\_\+\+Print\+Float\+Stream}} (const \mbox{\hyperlink{struct__float__stream__t}{float\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9a}{print\+\_\+label\+\_\+t}} label, const \mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for printing on terminal a float buffer content. } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{debug_8c_a838ad6e053c6068a10cf101099ceb9c9}{Debug\+\_\+\+Print\+Complex\+Stream}} (const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9a}{print\+\_\+label\+\_\+t}} label, const \mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for printing on terminal a complex buffer content. } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{debug_8c_aaa9369bbd36ff99385299087f400fbd4}{Debug\+\_\+\+Print\+Parameters}} (\mbox{\hyperlink{system_8h_a144af81bf25f925e049eba389b5acda2}{len\+\_\+t}} src\+Len, const \mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for printing on terminal all simulation parameters. } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{debug_8c_a079b58faed1e6f6d1a339d3b46154777}{Debug\+\_\+\+Check\+Wrong\+Bits}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+StreamA, const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+StreamB, \mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9a}{print\+\_\+label\+\_\+t}} label, const \mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for estimating and printing on terminal the number of mismatched bits between two byte streams. } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{debug_8c_a9b0cc1a0eb9986c1ab5351d60ff9432b}{Debug\+\_\+\+Write\+Byte\+Stream\+To\+Csv}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9a}{print\+\_\+label\+\_\+t}} label)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for writing byte stream content into CSV file. } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{debug_8c_a03cfc2cb4e85fde595e52e3bcd3caab9}{Debug\+\_\+\+Write\+Complex\+Stream\+To\+Csv}} (const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9a}{print\+\_\+label\+\_\+t}} label)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for writing complex stream content into CSV file. } \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Debug library. 
+
+\begin{DoxyAuthor}{Author}
+Filippo Valmori 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+26/08/2024
+\end{DoxyDate}
+
+
+Library containing debug functions. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{debug_8c_a079b58faed1e6f6d1a339d3b46154777}\index{debug.c@{debug.c}!Debug\_CheckWrongBits@{Debug\_CheckWrongBits}}
+\index{Debug\_CheckWrongBits@{Debug\_CheckWrongBits}!debug.c@{debug.c}}
+\doxysubsubsection{\texorpdfstring{Debug\_CheckWrongBits()}{Debug\_CheckWrongBits()}}
+{\footnotesize\ttfamily \label{debug_8c_a079b58faed1e6f6d1a339d3b46154777} 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Debug\+\_\+\+Check\+Wrong\+Bits (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+StreamA}{, }\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+StreamB}{, }\item[{\mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9a}{print\+\_\+label\+\_\+t}}}]{label}{, }\item[{const \mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for estimating and printing on terminal the number of mismatched bits between two byte streams. } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em in\+StreamA} & 1st input stream \\
+\hline
+\mbox{\texttt{ in}}  & {\em in\+StreamB} & 2nd input stream \\
+\hline
+\mbox{\texttt{ in}}  & {\em label} & label ID \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Params} & pointer to debug parameters structure\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+\Hypertarget{debug_8c_aba4a6c0f401b9c1cb015b06a380ee3f6}\index{debug.c@{debug.c}!Debug\_GenerateRandomBytes@{Debug\_GenerateRandomBytes}}
+\index{Debug\_GenerateRandomBytes@{Debug\_GenerateRandomBytes}!debug.c@{debug.c}}
+\doxysubsubsection{\texorpdfstring{Debug\_GenerateRandomBytes()}{Debug\_GenerateRandomBytes()}}
+{\footnotesize\ttfamily \label{debug_8c_aba4a6c0f401b9c1cb015b06a380ee3f6} 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Debug\+\_\+\+Generate\+Random\+Bytes (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{io\+Stream}{, }\item[{const uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{p\+Seed}{}\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for filling input buffer with random bytes. } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em io\+Stream} & i/o stream to be filled \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Seed} & poiter to seed value\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+link random seed to current time
+
+link random seed to provided argument\Hypertarget{debug_8c_a80a9b412918e8c6d7087a3b733b0b175}\index{debug.c@{debug.c}!Debug\_ListParameters@{Debug\_ListParameters}}
+\index{Debug\_ListParameters@{Debug\_ListParameters}!debug.c@{debug.c}}
+\doxysubsubsection{\texorpdfstring{Debug\_ListParameters()}{Debug\_ListParameters()}}
+{\footnotesize\ttfamily \label{debug_8c_a80a9b412918e8c6d7087a3b733b0b175} 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Debug\+\_\+\+List\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{io\+Params}{, }\item[{const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{cc\+Param}{, }\item[{const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{mod\+Param}{, }\item[{const \mbox{\hyperlink{struct__chan__par__t}{chan\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{chan\+Param}{}\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for retrieving and listing all simulation parameters into dedicated structure. } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em io\+Params} & pointer to i/o parameters structure to be filled \\
+\hline
+\mbox{\texttt{ in}}  & {\em cc\+Param} & pointer to convolutionan coding parameters structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em mod\+Param} & pointer to modulation coding parameters structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em chan\+Param} & pointer to channel parameters structure\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+\Hypertarget{debug_8c_ace7fe46248728e83bbcd599be59597a6}\index{debug.c@{debug.c}!Debug\_PrintByteStream@{Debug\_PrintByteStream}}
+\index{Debug\_PrintByteStream@{Debug\_PrintByteStream}!debug.c@{debug.c}}
+\doxysubsubsection{\texorpdfstring{Debug\_PrintByteStream()}{Debug\_PrintByteStream()}}
+{\footnotesize\ttfamily \label{debug_8c_ace7fe46248728e83bbcd599be59597a6} 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Debug\+\_\+\+Print\+Byte\+Stream (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9a}{print\+\_\+label\+\_\+t}}}]{label}{, }\item[{const \mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for printing on terminal a byte buffer content (in hexadecimal format). } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em in\+Stream} & input stream \\
+\hline
+\mbox{\texttt{ in}}  & {\em label} & label ID \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Params} & pointer to debug parameters structure\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+\Hypertarget{debug_8c_a838ad6e053c6068a10cf101099ceb9c9}\index{debug.c@{debug.c}!Debug\_PrintComplexStream@{Debug\_PrintComplexStream}}
+\index{Debug\_PrintComplexStream@{Debug\_PrintComplexStream}!debug.c@{debug.c}}
+\doxysubsubsection{\texorpdfstring{Debug\_PrintComplexStream()}{Debug\_PrintComplexStream()}}
+{\footnotesize\ttfamily \label{debug_8c_a838ad6e053c6068a10cf101099ceb9c9} 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Debug\+\_\+\+Print\+Complex\+Stream (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9a}{print\+\_\+label\+\_\+t}}}]{label}{, }\item[{const \mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for printing on terminal a complex buffer content. } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em in\+Stream} & input stream \\
+\hline
+\mbox{\texttt{ in}}  & {\em label} & label ID \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Params} & pointer to debug parameters structure\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+\Hypertarget{debug_8c_a7efd49ee29248721f504ea3f27373d96}\index{debug.c@{debug.c}!Debug\_PrintFloatStream@{Debug\_PrintFloatStream}}
+\index{Debug\_PrintFloatStream@{Debug\_PrintFloatStream}!debug.c@{debug.c}}
+\doxysubsubsection{\texorpdfstring{Debug\_PrintFloatStream()}{Debug\_PrintFloatStream()}}
+{\footnotesize\ttfamily \label{debug_8c_a7efd49ee29248721f504ea3f27373d96} 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Debug\+\_\+\+Print\+Float\+Stream (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__float__stream__t}{float\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9a}{print\+\_\+label\+\_\+t}}}]{label}{, }\item[{const \mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for printing on terminal a float buffer content. } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em in\+Stream} & input stream \\
+\hline
+\mbox{\texttt{ in}}  & {\em label} & label ID \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Params} & pointer to debug parameters structure\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+\Hypertarget{debug_8c_aaa9369bbd36ff99385299087f400fbd4}\index{debug.c@{debug.c}!Debug\_PrintParameters@{Debug\_PrintParameters}}
+\index{Debug\_PrintParameters@{Debug\_PrintParameters}!debug.c@{debug.c}}
+\doxysubsubsection{\texorpdfstring{Debug\_PrintParameters()}{Debug\_PrintParameters()}}
+{\footnotesize\ttfamily \label{debug_8c_aaa9369bbd36ff99385299087f400fbd4} 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Debug\+\_\+\+Print\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{system_8h_a144af81bf25f925e049eba389b5acda2}{len\+\_\+t}}}]{src\+Len}{, }\item[{const \mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for printing on terminal all simulation parameters. } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em src\+Len} & source buffer length \mbox{[}B\mbox{]} \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Params} & pointer to debug parameters structure\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+\Hypertarget{debug_8c_a9b0cc1a0eb9986c1ab5351d60ff9432b}\index{debug.c@{debug.c}!Debug\_WriteByteStreamToCsv@{Debug\_WriteByteStreamToCsv}}
+\index{Debug\_WriteByteStreamToCsv@{Debug\_WriteByteStreamToCsv}!debug.c@{debug.c}}
+\doxysubsubsection{\texorpdfstring{Debug\_WriteByteStreamToCsv()}{Debug\_WriteByteStreamToCsv()}}
+{\footnotesize\ttfamily \label{debug_8c_a9b0cc1a0eb9986c1ab5351d60ff9432b} 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Debug\+\_\+\+Write\+Byte\+Stream\+To\+Csv (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9a}{print\+\_\+label\+\_\+t}}}]{label}{}\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for writing byte stream content into CSV file. } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em in\+Stream} & input stream \\
+\hline
+\mbox{\texttt{ in}}  & {\em label} & label ID\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+write stream length as 1st element\Hypertarget{debug_8c_a03cfc2cb4e85fde595e52e3bcd3caab9}\index{debug.c@{debug.c}!Debug\_WriteComplexStreamToCsv@{Debug\_WriteComplexStreamToCsv}}
+\index{Debug\_WriteComplexStreamToCsv@{Debug\_WriteComplexStreamToCsv}!debug.c@{debug.c}}
+\doxysubsubsection{\texorpdfstring{Debug\_WriteComplexStreamToCsv()}{Debug\_WriteComplexStreamToCsv()}}
+{\footnotesize\ttfamily \label{debug_8c_a03cfc2cb4e85fde595e52e3bcd3caab9} 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Debug\+\_\+\+Write\+Complex\+Stream\+To\+Csv (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9a}{print\+\_\+label\+\_\+t}}}]{label}{}\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for writing complex stream content into CSV file. } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em in\+Stream} & input stream \\
+\hline
+\mbox{\texttt{ in}}  & {\em label} & label ID\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+write stream length as 1st element\Hypertarget{debug_8c_a83eeae287673a7c12f9482688bd9e417}\index{debug.c@{debug.c}!IsSrcLenValid@{IsSrcLenValid}}
+\index{IsSrcLenValid@{IsSrcLenValid}!debug.c@{debug.c}}
+\doxysubsubsection{\texorpdfstring{IsSrcLenValid()}{IsSrcLenValid()}}
+{\footnotesize\ttfamily \label{debug_8c_a83eeae287673a7c12f9482688bd9e417} 
+static bool Is\+Src\+Len\+Valid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{system_8h_a144af81bf25f925e049eba389b5acda2}{len\+\_\+t}}}]{src\+Len\+By}{, }\item[{const \mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{dbg\+Params}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+{\itshape  Function for checking source stream length correctness. } 
+
+
+\begin{DoxyParams}{Parameters}
+{\em len\+By} & \+: source buffer length \mbox{[}B\mbox{]}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+validity outcome 
+\end{DoxyReturn}
+source bit length shall be positive and divisible by code rate denominator
+
+convolutional punctured bit length shall be a multiple of NUM\+\_\+\+BITS\+\_\+\+PER\+\_\+\+BYTE
+
+convolutional punctured bit length shall be a multiple of MOD\+\_\+\+BPS

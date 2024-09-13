@@ -1549,9 +1549,9 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 # 931 "c:\\mingw\\include\\math.h" 3
 
 # 27 "src\\system.h" 2
-# 51 "src\\system.h"
+# 54 "src\\system.h"
 
-# 51 "src\\system.h"
+# 54 "src\\system.h"
 typedef struct _complex_t
 {
   float re;
@@ -1579,6 +1579,7 @@ typedef enum
   ERR_INV_MODULATION_TYPE,
   ERR_INV_MODULATION_BPS,
   ERR_INV_CHANNEL_TYPE,
+  ERR_INV_SCRAMBLING_TYPE,
 
   ERR_NUM
 } error_t;
@@ -1592,7 +1593,7 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 68 "src\\error.h"
+# 69 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 19 "src\\modulation.h" 2
 # 1 "src\\memory.h" 1
@@ -1644,11 +1645,11 @@ typedef enum
   MOD_QAM,
 
   MOD_NUM
-} modulation_t;
+} mod_type_t;
 # 73 "src\\modulation.h"
 typedef struct _mod_par_t
 {
-  modulation_t type;
+  mod_type_t type;
   uint8_t order;
   uint8_t bps;
   float phOfst;
@@ -1699,7 +1700,7 @@ error_t Modulation_ListParameters( mod_par_t * ioParams )
 # 47 "src\\modulation.c"
           != ioParams)
   {
-    ioParams->type = ((modulation_t) MOD_PSK);
+    ioParams->type = MOD_PSK;
     ioParams->order = (0x01<<2u);
     ioParams->bps = 2u;
     ioParams ->phOfst = 3.14159f/(0x01<<2u);
@@ -1716,7 +1717,7 @@ error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * ou
 {
   error_t retErr = ERR_NONE;
   mod_maptable_t mapTable;
-  const uint32_t inLenBi = inStream->len<<3u;
+  const uint32_t inLenBi = ((inStream->len)<<3u);
   uint32_t j = 0;
   uint32_t byteIdx;
   uint8_t curBits = 0;
@@ -1743,8 +1744,8 @@ error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * ou
     while (j < inLenBi)
     {
       symbIdx++;
-      byteIdx = j>>3u;
-      bitIdx = (uint8_t)((8u -1)-(j&((uint32_t) 0x0007)));
+      byteIdx = ((j)>>3u);
+      bitIdx = (uint8_t)((8u -1)-(j&((uint32_t) 0x00000007)));
       curBits |= ((inStream->pBuf[byteIdx]>>bitIdx)&((uint8_t) 0x01))<<(pParams->bps-symbIdx);
       if (pParams->bps == symbIdx)
       {
@@ -1817,8 +1818,8 @@ error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_
       {
         if (mapTable.bits[minIdx] & (((uint8_t) 0x01)<<(pParams->bps-1-i)))
         {
-          byteIdx = k>>3u;
-          bitIdx = (8u -1)-(k&((uint32_t) 0x0007));
+          byteIdx = ((k)>>3u);
+          bitIdx = (8u -1)-(k&((uint32_t) 0x00000007));
           outStream->pBuf[byteIdx] |= (((uint8_t) 0x01)<<bitIdx);
         }
         k++;
@@ -1837,7 +1838,7 @@ error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream
 {
   error_t retErr = ERR_NONE;
   mod_maptable_t mapTable;
-  const uint32_t punLenBi = (outStream->len)<<3u;
+  const uint32_t punLenBi = ((outStream->len)<<3u);
   uint32_t k;
   float numerator, denominator;
   float distance;
@@ -1899,19 +1900,19 @@ error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream
 
   return Error_HandleErr(retErr);
 }
-# 260 "src\\modulation.c"
+# 258 "src\\modulation.c"
 static error_t GetMappingTable( mod_maptable_t * ioTable, const mod_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
 
   if ((
-# 264 "src\\modulation.c" 3 4
+# 262 "src\\modulation.c" 3 4
       ((void *)0) 
-# 264 "src\\modulation.c"
+# 262 "src\\modulation.c"
            != ioTable) && (
-# 264 "src\\modulation.c" 3 4
+# 262 "src\\modulation.c" 3 4
                            ((void *)0) 
-# 264 "src\\modulation.c"
+# 262 "src\\modulation.c"
                                 != pParams))
   {
     if ((pParams->bps >= 1u) && (pParams->bps <= 6u))
@@ -1943,7 +1944,7 @@ static error_t GetMappingTable( mod_maptable_t * ioTable, const mod_par_t * pPar
 
   return Error_HandleErr(retErr);
 }
-# 305 "src\\modulation.c"
+# 303 "src\\modulation.c"
 static error_t GetPskTable( mod_maptable_t * ioTable, const mod_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
@@ -1951,13 +1952,13 @@ static error_t GetPskTable( mod_maptable_t * ioTable, const mod_par_t * pParams 
   uint8_t j;
 
   if ((
-# 311 "src\\modulation.c" 3 4
+# 309 "src\\modulation.c" 3 4
       ((void *)0) 
-# 311 "src\\modulation.c"
+# 309 "src\\modulation.c"
            != ioTable) && (
-# 311 "src\\modulation.c" 3 4
+# 309 "src\\modulation.c" 3 4
                            ((void *)0) 
-# 311 "src\\modulation.c"
+# 309 "src\\modulation.c"
                                 != pParams))
   {
     GetGraySequence(graySeq,pParams);
@@ -1976,7 +1977,7 @@ static error_t GetPskTable( mod_maptable_t * ioTable, const mod_par_t * pParams 
 
   return Error_HandleErr(retErr);
 }
-# 339 "src\\modulation.c"
+# 337 "src\\modulation.c"
 static error_t GetQamTable( mod_maptable_t * ioTable, const mod_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
@@ -1987,13 +1988,13 @@ static error_t GetQamTable( mod_maptable_t * ioTable, const mod_par_t * pParams 
   div_t divFct;
 
   if ((
-# 348 "src\\modulation.c" 3 4
+# 346 "src\\modulation.c" 3 4
       ((void *)0) 
-# 348 "src\\modulation.c"
+# 346 "src\\modulation.c"
            != ioTable) && (
-# 348 "src\\modulation.c" 3 4
+# 346 "src\\modulation.c" 3 4
                            ((void *)0) 
-# 348 "src\\modulation.c"
+# 346 "src\\modulation.c"
                                 != pParams))
   {
     if (IsQamBpsValid(pParams->bps))
@@ -2020,7 +2021,7 @@ static error_t GetQamTable( mod_maptable_t * ioTable, const mod_par_t * pParams 
 
   return Error_HandleErr(retErr);
 }
-# 384 "src\\modulation.c"
+# 382 "src\\modulation.c"
 static error_t GetGraySequence( uint8_t * ioBuffer, const mod_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
@@ -2030,13 +2031,13 @@ static error_t GetGraySequence( uint8_t * ioBuffer, const mod_par_t * pParams )
   uint8_t nBlk;
 
   if ((
-# 392 "src\\modulation.c" 3 4
+# 390 "src\\modulation.c" 3 4
       ((void *)0) 
-# 392 "src\\modulation.c"
+# 390 "src\\modulation.c"
            != ioBuffer) && (
-# 392 "src\\modulation.c" 3 4
+# 390 "src\\modulation.c" 3 4
                             ((void *)0) 
-# 392 "src\\modulation.c"
+# 390 "src\\modulation.c"
                                  != pParams))
   {
     memset(ioBuffer,0,pParams->order);
@@ -2070,17 +2071,17 @@ static error_t GetGraySequence( uint8_t * ioBuffer, const mod_par_t * pParams )
 
   return Error_HandleErr(retErr);
 }
-# 434 "src\\modulation.c"
+# 432 "src\\modulation.c"
 static 
-# 434 "src\\modulation.c" 3 4
+# 432 "src\\modulation.c" 3 4
       _Bool 
-# 434 "src\\modulation.c"
+# 432 "src\\modulation.c"
            IsQamBpsValid( uint8_t bps )
 {
   
-# 436 "src\\modulation.c" 3 4
+# 434 "src\\modulation.c" 3 4
  _Bool 
-# 436 "src\\modulation.c"
+# 434 "src\\modulation.c"
       bRet;
 
   bRet = (0 == (bps%2));

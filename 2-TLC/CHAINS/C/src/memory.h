@@ -3,7 +3,7 @@
  * @author Filippo Valmori
  * @date 26/08/2024
  * @ingroup TLC_CHAIN
- * @brief Memory allocation library header
+ * @brief Dynamic memory allocation library header
  */
 
 
@@ -17,7 +17,7 @@
 
 
 #include "error.h"
-#include "system.h"                                     /** - import system library */
+#include "system.h"
 
 
 

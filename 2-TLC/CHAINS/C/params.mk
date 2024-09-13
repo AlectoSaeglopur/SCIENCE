@@ -19,7 +19,7 @@ BLD_FPT = build
 BLD_FLD = $(addprefix $(BLD_FPT)\,$(TMP_NAM))
 
 # compiler flags (-Werror | -D DEBUG_CSV | -D DEBUG_TERMINAL)
-CMP_FLG = -Wall -g -O0
+CMP_FLG = -Wall -g -O0 -D DEBUG_TERMINAL
 
 # compiler version
 CMP_VRS = gcc
@@ -30,7 +30,8 @@ COM_FIL = channel.c        	\
           debug.c           \
           error.c           \
           memory.c          \
-          modulation.c
+          modulation.c			\
+					scrambling.c
 
 
 

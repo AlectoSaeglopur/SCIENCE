@@ -15,7 +15,7 @@
 /*** INCLUDES ***/
 /****************/
 
-#include "system.h"                                   /** - import system library */
+#include "system.h"
 
 
 
@@ -37,6 +37,7 @@ typedef enum
   ERR_INV_MODULATION_TYPE,                            /** - invalid modulation type error ID */
   ERR_INV_MODULATION_BPS,                             /** - invalid modulation BPS error ID */
   ERR_INV_CHANNEL_TYPE,                               /** - invalid channel type error ID */
+  ERR_INV_SCRAMBLING_TYPE,                            /** - invalid scrambling type error ID */
   // keep NUM as final entry
   ERR_NUM
 } error_t;
@@ -57,7 +58,7 @@ typedef enum
 /*** PARAMETERS ***/
 /******************/
 
-#define ALARM_TYPE          ((alarm_t) ALARM_STOP)
+#define ALARM_TYPE          ALARM_STOP
 
 
 

@@ -1,0 +1,66 @@
+\doxysection{error.\+h}
+\hypertarget{error_8h_source}{}\label{error_8h_source}\index{C:/Users/ValmoFil/Music/extra/tlc\_chain/src/error.h@{C:/Users/ValmoFil/Music/extra/tlc\_chain/src/error.h}}
+\mbox{\hyperlink{error_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifndef\ ERROR\_H}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ ERROR\_H}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00015\ \textcolor{comment}{/***\ INCLUDES\ ***/}}
+\DoxyCodeLine{00016\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{system_8h}{system.h}}"{}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00022\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00023\ \textcolor{comment}{/***\ TYPEDEFS\ ***/}}
+\DoxyCodeLine{00024\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ \ \ ERR\_NONE\ =\ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00029\ \ \ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689cacaa7ad55a02bab08dfaada6a25baa4c9}{ERR\_INV\_NULL\_POINTER}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00030\ \ \ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689ca31fb808bdd6ce8e98e6c0bc18d06180a}{ERR\_INV\_PRINTID}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689ca42481482be671a6bf988ce9d68e63563}{ERR\_INV\_CNVCOD\_RATE}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00032\ \ \ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689ca12d1f00d1be413c4841595e4fe0686fe}{ERR\_INV\_CNVCOD\_KLEN}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689ca4d4da674deb7c87b8b93ae593505b42d}{ERR\_INV\_CNVCOD\_DECMET}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689ca0f73b677f7a5c9d6cd447368efc00b7d}{ERR\_INV\_BUFFER\_SIZE}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00035\ \ \ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689ca0b41871025a0234cf2efb9320653d077}{ERR\_INV\_DYNAMIC\_ALLOC}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00036\ \ \ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689ca7a89a7a3ac1e5c7a19d1e8f33efed333}{ERR\_INV\_STREAM\_TYPE}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00037\ \ \ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689cae24258f90125f8a1ecf685d346d0a15f}{ERR\_INV\_MODULATION\_TYPE}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00038\ \ \ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689ca8997f1de9192075e4fefd71dbfadaa70}{ERR\_INV\_MODULATION\_BPS}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00039\ \ \ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689ca4ff444db0af466bb0fd2cc604db42510}{ERR\_INV\_CHANNEL\_TYPE}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00040\ \ \ \textcolor{comment}{//\ keep\ NUM\ as\ final\ entry}}
+\DoxyCodeLine{00041\ \ \ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689ca9f777b12b2a6527f28675ca501f176a1}{ERR\_NUM}}}
+\DoxyCodeLine{00042\ \}\ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\_t}};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00046\ \{}
+\DoxyCodeLine{00047\ \ \ ALARM\_NONE\ =\ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00048\ \ \ \mbox{\hyperlink{error_8h_a5379ebd41ad13550e69bcbb321924296a0b142b115635fb5a7079b11271ab563e}{ALARM\_PRINT}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00049\ \ \ \mbox{\hyperlink{error_8h_a5379ebd41ad13550e69bcbb321924296a5c31c9dd6844d7c8408f04bd35320ce8}{ALARM\_STOP}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00050\ \ \ \textcolor{comment}{//\ keep\ NUM\ as\ final\ entry}}
+\DoxyCodeLine{00051\ \ \ \mbox{\hyperlink{error_8h_a5379ebd41ad13550e69bcbb321924296aa0a28f7e96934d6c7db49efdb59aa696}{ALARM\_NUM}}}
+\DoxyCodeLine{00052\ \}\ \mbox{\hyperlink{error_8h_a5379ebd41ad13550e69bcbb321924296}{alarm\_t}};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{comment}{/******************/}}
+\DoxyCodeLine{00057\ \textcolor{comment}{/***\ PARAMETERS\ ***/}}
+\DoxyCodeLine{00058\ \textcolor{comment}{/******************/}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ ALARM\_TYPE\ \ \ \ \ \ \ \ \ \ ((alarm\_t)\ ALARM\_STOP)}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{comment}{/******************/}}
+\DoxyCodeLine{00065\ \textcolor{comment}{/***\ PROTOTYPES\ ***/}}
+\DoxyCodeLine{00066\ \textcolor{comment}{/******************/}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\_t}}\ \mbox{\hyperlink{error_8h_a75ff6944f6d43955f10838a9bd3edaae}{Error\_HandleErr}}(\ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\_t}}\ inErr\ );}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

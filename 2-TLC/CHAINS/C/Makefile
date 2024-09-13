@@ -25,7 +25,7 @@ clean :
 # remove main build folder recursively and in quiet mode
 	if exist $(BLD_FPT) rmdir $(BLD_FPT) /s /q
 	@echo ------------------------------------------------
-	@echo !!! Main build directory cleaned successfully.
+	@echo ^>^> Main build directory cleaned successfully.
 	@echo ------------------------------------------------
 
 ## General rule #2: ALL ##
@@ -66,7 +66,7 @@ $(TRG_NAM) : $(TRG_NAM)_clean $(TRG_NAM)_build $(TRG_NAM)_conv run_exe
 
 ## Rule #1: TARGET_CLEAN ##
 $(TRG_NAM)_clean :
-	@echo Cleaning "$(TRG_NAM)" build directory...
+	@echo ^>^> Cleaning "$(TRG_NAM)" build directory...
 # create main build folder if not existing
 	if not exist $(BLD_FPT) mkdir $(BLD_FPT)
 # delete and recreate target build folder
@@ -79,7 +79,7 @@ $(TRG_NAM)_clean :
 	if not exist $(BLD_FLD)\obj mkdir $(BLD_FLD)\obj
 	if not exist $(BLD_FLD)\prp mkdir $(BLD_FLD)\prp
 	@echo ------------------------------------------------
-	@echo !!! "$(TRG_NAM)"-build folder cleaned successfully!
+	@echo ^>^> "$(TRG_NAM)"-build folder cleaned successfully!
 	@echo ------------------------------------------------
 
 ## Rule #2: TARGET_BUILD ##
@@ -87,7 +87,7 @@ $(TRG_NAM)_build : cmp_print $(OBJ_SFIL) $(ASM_SFIL) $(PRP_SFIL)
 	@echo Starting "$(TRG_NAM)"-build linking...
 	$(CMP_VRS) $(addprefix $(BLD_FLD)\obj\,$(OBJ_SFIL)) $(CMP_FLG) $(LNK_FLG) -o $(BLD_FLD)\bin\$(TRG_NAM)
 	@echo ------------------------------------------------
-	@echo !!! "$(TRG_NAM)" build compiled and linked successfully!
+	@echo ^>^> "$(TRG_NAM)" build compiled and linked successfully!
 	@echo ------------------------------------------------
 
 ## Rule #3: TARGET_CONV ##
@@ -95,7 +95,7 @@ $(TRG_NAM)_conv :
 	@echo Converting output to additional formats ($(addprefix .,$(CNV_EXT)))...
 	for %%j in ($(CNV_EXT)) do $(CNV_TOL) $(BLD_FLD)\bin\$(TRG_NAM).exe -O %%j $(BLD_FLD)\bin\$(TRG_NAM).%%j
 	@echo ------------------------------------------------
-	@echo !!! "$(TRG_NAM)"-build converted successfully!
+	@echo ^>^> "$(TRG_NAM)"-build converted successfully!
 	@echo ------------------------------------------------
 
 
@@ -133,7 +133,7 @@ $(TST_NAM)_clean :
 	if not exist $(BLD_FLD)\bin mkdir $(BLD_FLD)\bin
 	if not exist $(BLD_FLD)\obj mkdir $(BLD_FLD)\obj
 	@echo ------------------------------------------------
-	@echo !!! "$(TST_NAM)"-build folder cleaned successfully!
+	@echo ^>^> "$(TST_NAM)"-build folder cleaned successfully!
 	@echo ------------------------------------------------
 
 ## Rule #2: TEST_BUILD ##
@@ -141,7 +141,7 @@ $(TST_NAM)_build : cmp_print $(OBJ_TFIL) $(OBJ_UFIL)
 	@echo Starting "$(TST_NAM)"-build linking...
 	$(CMP_VRS) $(addprefix $(BLD_FLD)\obj\,$(OBJ_TFIL)) $(addprefix $(BLD_FLD)\obj\,$(OBJ_UFIL)) $(CMP_FLG) $(TST_LKF) -o $(BLD_FLD)\bin\$(TST_NAM).exe
 	@echo ------------------------------------------------
-	@echo !!! "$(TST_NAM)"-build compiled and linked successfully!
+	@echo ^>^> "$(TST_NAM)"-build compiled and linked successfully!
 	@echo ------------------------------------------------
 
 

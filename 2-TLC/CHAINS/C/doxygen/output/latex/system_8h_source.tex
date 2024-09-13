@@ -1,0 +1,53 @@
+\doxysection{system.\+h}
+\hypertarget{system_8h_source}{}\label{system_8h_source}\index{C:/Users/ValmoFil/Music/extra/tlc\_chain/src/system.h@{C:/Users/ValmoFil/Music/extra/tlc\_chain/src/system.h}}
+\mbox{\hyperlink{system_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifndef\ SYSTEM\_H}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ SYSTEM\_H}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00017\ \textcolor{comment}{/***\ INCLUDES\ ***/}}
+\DoxyCodeLine{00018\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <stdio.h>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <stdbool.h>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <stdint.h>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <string.h>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <stdlib.h>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <time.h>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <math.h>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00030\ \textcolor{comment}{/*****************/}}
+\DoxyCodeLine{00031\ \textcolor{comment}{/***\ CONSTANTS\ ***/}}
+\DoxyCodeLine{00032\ \textcolor{comment}{/*****************/}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ BY2BI\_SHIFT\ \ \ \ \ \ \ \ \ \ \ \ \ 3u\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ BY2BI\_LEN(x)\ \ \ \ \ \ \ \ \ \ \ \ ((x)<<BY2BI\_SHIFT)}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ BI2BY\_LEN(x)\ \ \ \ \ \ \ \ \ \ \ \ ((x)>>BY2BI\_SHIFT)}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ LSBIT\_MASK\ \ \ \ \ \ \ \ \ \ \ \ \ \ ((uint8\_t)\ 0x01)}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ LSBYTE\_MASK\ \ \ \ \ \ \ \ \ \ \ \ \ ((uint32\_t)\ 0x0007)}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ NUM\_BITS\_PER\_BYTE\ \ \ \ \ \ \ 8u}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ BITIDX\_1LAST\ \ \ \ \ \ \ \ \ \ \ \ (NUM\_BITS\_PER\_BYTE-\/1)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ BITIDX\_2LAST\ \ \ \ \ \ \ \ \ \ \ \ (BITIDX\_1LAST-\/1)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ MATH\_PI\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 3.14159f}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00047\ \textcolor{comment}{/***\ TYPEDEFS\ ***/}}
+\DoxyCodeLine{00048\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ len\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ byte\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__complex__t}{\_complex\_t}}}
+\DoxyCodeLine{00054\ \{}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{float}\ re;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct__complex__t_a967065f052e06d0e239b9bc56e0cc317}{im}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00057\ \}\ \mbox{\hyperlink{struct__complex__t}{complex\_t}};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

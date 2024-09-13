@@ -15,10 +15,10 @@
 /*** INCLUDES ***/
 /****************/
 
-#include "error.h"                                      /** - import error library */
-#include "memory.h"                                     /** - import memory library */
-#include "modulation.h"                                 /** - import modulation library */
-#include "system.h"                                     /** - import system library */
+#include "error.h"
+#include "memory.h"
+#include "modulation.h"
+#include "system.h"
 
 
 
@@ -32,18 +32,18 @@ typedef enum
   CHAN_AWGN,                                            /** - AWGN channel ID */
   // keep NUM as final entry
   CHAN_NUM
-} channel_t;
+} chan_type_t;
 
 
 typedef struct _chan_par_t
 {
   uint32_t seed;
-  channel_t type;
+  chan_type_t type;
   uint8_t bps;
   union
   {
-    float Peb;                                          /** BSC error probability */
-    float EbN0;                                         /** AWGN error probability */
+    float Peb;                                          /** - BSC error probability */
+    float EbN0;                                         /** - AWGN error probability */
   };
 } chan_par_t;
 
@@ -61,7 +61,7 @@ typedef struct _chan_par_t
 /*** PARAMETERS ***/
 /******************/
 
-#define CHAN_TYPE         CHAN_AWGN                     //!< channel type
+#define CHAN_TYPE         CHAN_BSC                      //!< channel type
 #define BSC_PEB           3.5E-2                        //!< BSC channel bit-error probability
 #define AWGN_EBN0         2.9f                          //!< AWGN channel energy-per-bit-to-noise-power-spectral-density ratio [dB] (NB: SNR=Eb/N0*log2(M)/sps)
 #define CHAN_SEED         SEED2TIME                     //!< random seed (linked dinamically to current time via SEED2TIME wildcard)

@@ -24,7 +24,7 @@
 /**
  * @brief <i> Function for handling detected error. </i>
  * 
- * @param inErr: detected error
+ * @param[in] inErr detected error
  * 
  * @return error ID
  */
@@ -37,10 +37,12 @@ error_t Error_HandleErr( error_t inErr )
       case ALARM_PRINT:
         printf("\n >> WARNING: DETECTED ALARM #%d\n",inErr);
         break;
+
       case ALARM_STOP:
         printf("\n >> ERROR: DETECTED ALARM #%d\n",inErr);
         exit(EXIT_FAILURE);
         break;
+
       default:
         // do nothing
         break;

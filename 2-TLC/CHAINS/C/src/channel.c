@@ -30,9 +30,9 @@ static float GetComplexSgnPower( const complex_stream_t * inStream );
 /************************/
 
 /**
- * @brief Function for retrieving and listing channel parameters into dedicated structure.
+ * @brief <i> Function for retrieving and listing channel parameters into dedicated structure. </i>
  * 
- * @param ioParams : pointer to i/o parameters structure to be filled
+ * @param[out] ioParams pointer to i/o parameters structure to be filled
  * 
  * @return error ID
  */
@@ -46,7 +46,7 @@ error_t Channel_ListParameters( chan_par_t * ioParams )
     ioParams->bps = MOD_BPS;
     ioParams->seed = CHAN_SEED;
 
-    if (CHAN_BSC == CHAN_TYPE)
+    if (CHAN_BSC == ioParams->type)
     {
       ioParams->Peb = BSC_PEB;
     }
@@ -65,20 +65,19 @@ error_t Channel_ListParameters( chan_par_t * ioParams )
 
 
 /**
- * @brief Function for applying Binary Symmetric Channel (BSC) corruption.
+ * @brief <i> Function for applying Binary Symmetric Channel (BSC) corruption. </i>
  * 
- * @param inStream : input stream
- * @param outStream : output stream
- * @param Peb : bit error probability
- * @param pSeed : poiter to seed value
+ * @param[in] inStream input stream
+ * @param[out] outStream output stream
+ * @param[in] pParams poiter to channel parameters structure
  * 
  * @return error ID
  */
 error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, const chan_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
-  uint32_t j;
-  uint32_t byteIdx;
+  len_t j;
+  len_t byteIdx;
   uint8_t bitIdx;
 
   if ((NULL != inStream) && (NULL != inStream->pBuf) && (NULL != outStream) && (NULL != outStream->pBuf))
@@ -90,25 +89,25 @@ error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, c
         memcpy(outStream->pBuf,inStream->pBuf,inStream->len);
         if (SEED2TIME == pParams->seed)
         {
-          srand(time(NULL));                                      /** link random seed to current time */
+          srand(time(NULL));                                          /** - link random seed to current time */
         }
         else
         {
-          srand(pParams->seed);                                   /** link random seed to provided argument */
+          srand(pParams->seed);                                       /** - link random seed to provided argument */
         }
         for (j=0; j<inStream->len; j++)
         {
           if ((float)rand()/RAND_MAX < pParams->Peb)
           {
-            byteIdx = (j>>BY2BI_SHIFT);
-            bitIdx  = BITIDX_1LAST-(uint8_t)(j&LSBYTE_MASK);
-            if (outStream->pBuf[byteIdx] & (LSBIT_MASK<<bitIdx))
+            byteIdx = BI2BY_LEN(j);
+            bitIdx  = BITIDX_1LAST-(uint8_t)(j&LSBYTE_MASK_U32);
+            if (outStream->pBuf[byteIdx] & (LSBIT_MASK_U8<<bitIdx))
             {
-              outStream->pBuf[byteIdx] &= ~(LSBIT_MASK<<bitIdx);
+              outStream->pBuf[byteIdx] &= ~(LSBIT_MASK_U8<<bitIdx);
             }
             else
             {
-              outStream->pBuf[byteIdx] |= (LSBIT_MASK<<bitIdx);
+              outStream->pBuf[byteIdx] |= (LSBIT_MASK_U8<<bitIdx);
             }
           }
         }
@@ -133,24 +132,23 @@ error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, c
 
 
 /**
- * @brief Function for applying Additive White Gaussian Noise (AWGN) corruption based on Box-Muller method.
+ * @brief <i> Function for applying Additive White Gaussian Noise (AWGN) corruption based on Box-Muller method. </i>
  * 
- * @param inStream : input stream
- * @param outStream : output stream
- * @param EbN0 : Eb/N0 (adjusted on signal power level)
- * @param pParams : poiter to parameters structure
+ * @param[in] inStream input stream
+ * @param[out] outStream output stream
+ * @param[in] pParams poiter to channel parameters structure
  * 
  * @return error ID
  */
 error_t Channel_AWGN( const complex_stream_t * inStream, complex_stream_t * outStream, const chan_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
-  const float mu = 0;                                           /** noise mean value */
-  const float sgnPwr = GetComplexSgnPower(inStream);            /** signal average power [lin] */
-  const float SNR = pParams->EbN0+10*log10(pParams->bps);       /** signal-to-noise-ratio [dB] */
-  const float SqSigma = sgnPwr*pow(10,-SNR/10);                 /** target noise variance (N0) */
-  float nU1, nU2;                                               /** random variables uniformly distributed between 0 and 1 */
-  float nReN, nIm;                                              /** random variables normally distributed as Mu|Sigma2 */
+  const float mu = 0;                                                 /** - noise mean value */
+  const float sgnPwr = GetComplexSgnPower(inStream);                  /** - signal average power [lin] */
+  const float SNR = pParams->EbN0+10*log10(pParams->bps);             /** - signal-to-noise-ratio [dB] */
+  const float SqSigma = sgnPwr*pow(10,-SNR/10);                       /** - target noise variance (N0) */
+  float nU1, nU2;                                                     /** - random variables uniformly distributed between 0 and 1 */
+  float nReN, nIm;                                                    /** - random variables normally distributed as Mu|Sigma2 */
   len_t j;
 
   if ((NULL != inStream) && (NULL != inStream->pBuf) && (NULL != outStream) && (NULL != outStream->pBuf))
@@ -162,11 +160,11 @@ error_t Channel_AWGN( const complex_stream_t * inStream, complex_stream_t * outS
         memcpy(outStream->pBuf,inStream->pBuf,sizeof(complex_t)*inStream->len);
         if (SEED2TIME == pParams->seed)
         {
-          srand(time(NULL));                                    /** link random seed to current time */
+          srand(time(NULL));                                          /** - link random seed to current time */
         }
         else
         {
-          srand(pParams->seed);                                 /** link random seed to provided argument */
+          srand(pParams->seed);                                       /** - link random seed to provided argument */
         }
         for (j=0; j<inStream->len; j++)
         {    
@@ -206,10 +204,9 @@ error_t Channel_AWGN( const complex_stream_t * inStream, complex_stream_t * outS
 /*************************/
 
 /**
- * @brief Function for estimating the average power of a complex stream.
+ * @brief <i> Function for estimating the average power of a complex stream. </i>
  * 
- * @param Stream : Input complex stream.
- * @param Len : Complex stream length.
+ * @param[in] inStream input stream
  * 
  * @return signal linea average power
  */

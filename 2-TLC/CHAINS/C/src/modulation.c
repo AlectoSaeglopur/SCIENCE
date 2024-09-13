@@ -34,9 +34,9 @@ static error_t GetGraySequence( byte_t * ioBuffer, const mod_par_t * pParams );
 /************************/
 
 /**
- * @brief Function for retrieving and listing modulation parameters into dedicated structure.
+ * @brief <i> Function for retrieving and listing modulation parameters into dedicated structure. </i>
  * 
- * @param ioParams : pointer to i/o parameters structure to be filled
+ * @param[out] ioParams pointer to i/o parameters structure to be filled
  * 
  * @return error ID
  */
@@ -61,11 +61,11 @@ error_t Modulation_ListParameters( mod_par_t * ioParams )
 
 
 /**
- * @brief Function for byte to complex symbol stream mapping.
+ * @brief <i> Function for byte to complex symbol stream mapping. </i>
  * 
- * @param inStream : input stream
- * @param outStream : output stream
- * @param pParams : pointer to modulation parameters structure
+ * @param[in] inStream input stream
+ * @param[out] outStream output stream
+ * @param[in] pParams pointer to modulation parameters structure
  * 
  * @return error ID
  */
@@ -73,7 +73,7 @@ error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * ou
 {
   error_t retErr = ERR_NONE;
   mod_maptable_t mapTable;
-  const len_t inLenBi = inStream->len<<BY2BI_SHIFT;
+  const len_t inLenBi = BY2BI_LEN(inStream->len);
   len_t j = 0;
   len_t byteIdx;
   uint8_t curBits = 0;
@@ -83,14 +83,14 @@ error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * ou
 
   if ((NULL != inStream) && (NULL != outStream) && (NULL != pParams))
   {
-    GetMappingTable(&mapTable,pParams);                                 /** retrieve mapping table */
+    GetMappingTable(&mapTable,pParams);
 
     while (j < inLenBi)
     {
       symbIdx++;
-      byteIdx = j>>BY2BI_SHIFT;
-      bitIdx = (uint8_t)(BITIDX_1LAST-(j&LSBYTE_MASK));
-      curBits |= ((inStream->pBuf[byteIdx]>>bitIdx)&LSBIT_MASK)<<(pParams->bps-symbIdx);
+      byteIdx = BI2BY_LEN(j);
+      bitIdx = (uint8_t)(BITIDX_1LAST-(j&LSBYTE_MASK_U32));
+      curBits |= ((inStream->pBuf[byteIdx]>>bitIdx)&LSBIT_MASK_U8)<<(pParams->bps-symbIdx);
       if (pParams->bps == symbIdx)
       {
         for (i=0; i<pParams->order; i++)
@@ -118,11 +118,11 @@ error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * ou
 
 
 /**
- * @brief Function for hard-demapping an input symbol stream into corresponding byte stream.
+ * @brief <i> Function for hard-demapping an input symbol stream into corresponding byte stream. </i>
  * 
- * @param inStream : input stream
- * @param outStream : output stream
- * @param pParams : pointer to modulation parameters structure
+ * @param[in] inStream input stream
+ * @param[out] outStream output stream
+ * @param[in] pParams pointer to modulation parameters structure
  * 
  * @return error ID
  */
@@ -131,7 +131,7 @@ error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_
   error_t retErr = ERR_NONE;
   mod_maptable_t mapTable;
   float minDist, curDist;
-  uint32_t k = 0;                                                       /** bit counter for output stream writing */
+  uint32_t k = 0;                                                           /** - bit counter for output stream writing */
   uint32_t byteIdx;
   uint32_t j;
   uint8_t minIdx;
@@ -140,8 +140,8 @@ error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_
   
   if ((NULL != inStream) && (NULL != outStream) && (NULL != pParams))
   {
-    GetMappingTable(&mapTable,pParams);                                 /** retrieve mapping table */
-    memset(outStream->pBuf,0,outStream->len);                           /** clear output buffer */
+    GetMappingTable(&mapTable,pParams);                                     /** - retrieve mapping table */
+    memset(outStream->pBuf,0,outStream->len);                               /** - clear output buffer */
 
     for (j=0; j<inStream->len; j++)
     {
@@ -158,11 +158,11 @@ error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_
       }
       for (i=0; i<pParams->bps; i++)
       {
-        if (mapTable.bits[minIdx] & (LSBIT_MASK<<(pParams->bps-1-i)))
+        if (mapTable.bits[minIdx] & (LSBIT_MASK_U8<<(pParams->bps-1-i)))
         {
-          byteIdx = k>>BY2BI_SHIFT;
-          bitIdx = BITIDX_1LAST-(k&LSBYTE_MASK);
-          outStream->pBuf[byteIdx] |= (LSBIT_MASK<<bitIdx); 
+          byteIdx = BI2BY_LEN(k);
+          bitIdx = BITIDX_1LAST-(k&LSBYTE_MASK_U32);
+          outStream->pBuf[byteIdx] |= (LSBIT_MASK_U8<<bitIdx); 
         }
         k++;
       }
@@ -178,11 +178,11 @@ error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_
 
 
 /**
- * @brief Function for soft-demapping an input symbol stream into corresponding LLR stream.
+ * @brief <i> Function for soft-demapping an input symbol stream into corresponding LLR stream. </i>
  * 
- * @param inStream : input stream
- * @param outStream : output stream
- * @param pParams : pointer to modulation parameters structure
+ * @param[in] inStream input stream
+ * @param[out] outStream output stream
+ * @param[in] pParams pointer to modulation parameters structure
  * 
  * @return error ID
  */
@@ -190,7 +190,7 @@ error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream
 {
   error_t retErr = ERR_NONE;
   mod_maptable_t mapTable;
-  const len_t punLenBi = (outStream->len)<<BY2BI_SHIFT;
+  const len_t punLenBi = BY2BI_LEN(outStream->len);
   len_t k;
   float numerator, denominator;
   float distance;
@@ -198,7 +198,7 @@ error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream
 
   if ((NULL != inStream) && (NULL != outStream) && (NULL != pParams))
   {
-    GetMappingTable(&mapTable,pParams);                                 /** retrieve mapping table */
+    GetMappingTable(&mapTable,pParams);
 
     if (MOD_BINARY == pParams->order)
     {
@@ -219,7 +219,7 @@ error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream
           {
             distance = exp(-((inStream->pBuf[k].re-mapTable.symbs[j].re)*(inStream->pBuf[k].re-mapTable.symbs[j].re)+
                         (inStream->pBuf[k].im-mapTable.symbs[j].im)*(inStream->pBuf[k].im-mapTable.symbs[j].im))/MOD_SD_N0);
-            if ((mapTable.bits[j]>>i) & LSBIT_MASK)
+            if ((mapTable.bits[j]>>i) & LSBIT_MASK_U8)
             {
               numerator += distance;
             }
@@ -243,17 +243,15 @@ error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream
 
 
 
-
 /*************************/
 /*** PRIVATE FUNCTIONS ***/
 /*************************/
 
-
 /**
- * @brief Function for retrieving specific mapping table according to modulation.
+ * @brief <i> Function for retrieving specific mapping table according to modulation. </i>
  * 
- * @param ioTable : i/o table
- * @param pParams : pointer to modulation parameters structure
+ * @param[out] ioTable i/o table
+ * @param[in] pParams pointer to modulation parameters structure
  * 
  * @return error ID
  */
@@ -295,10 +293,10 @@ static error_t GetMappingTable( mod_maptable_t * ioTable, const mod_par_t * pPar
 
 
 /**
- * @brief Function for computing Gray-coded PSK mapping table.
+ * @brief <i> Function for computing Gray-coded PSK mapping table. </i>
  * 
- * @param ioTable : i/o table
- * @param pParams : pointer to modulation parameters structure
+ * @param[out] ioTable i/o table
+ * @param[in] pParams pointer to modulation parameters structure
  * 
  * @return error ID
  */
@@ -329,10 +327,10 @@ static error_t GetPskTable( mod_maptable_t * ioTable, const mod_par_t * pParams 
 
 
 /**
- * @brief Function for computing Gray-coded QAM mapping table.
+ * @brief <i> Function for computing Gray-coded QAM mapping table. </i>
  * 
- * @param ioTable : i/o table
- * @param pParams : pointer to modulation parameters structure
+ * @param[out] ioTable i/o table
+ * @param[in] pParams pointer to modulation parameters structure
  * 
  * @return error ID
  */
@@ -374,10 +372,10 @@ static error_t GetQamTable( mod_maptable_t * ioTable, const mod_par_t * pParams 
 
 
 /**
- * @brief Function for retrieving Gray coded sequence.
+ * @brief <i> Function for retrieving Gray coded sequence. </i>
  * 
- * @param ioBuffer : i/o buffer to be filled
- * @param pParams : pointer to modulation parameters structure
+ * @param[out] ioBuffer i/o buffer to be filled
+ * @param[in] pParams pointer to modulation parameters structure
  * 
  * @return error ID
  */
@@ -391,17 +389,17 @@ static error_t GetGraySequence( byte_t * ioBuffer, const mod_par_t * pParams )
 
   if ((NULL != ioBuffer) && (NULL != pParams))
   {
-    memset(ioBuffer,0,pParams->order);                                  /** clear buffer content */
+    memset(ioBuffer,0,pParams->order);                                      /** - clear buffer content */
 
     for (i=0; i<pParams->bps; i++)
     {
-      nBlk = pParams->order/(1<<i);                                     /** number of bits per block at i-th iteration */
-      shift = pParams->bps-i-1;                                         /** bit shift value at i-th iteration */
-      cnt = 0;                                                          /** counter within each single block */
-      wrIdx = nBlk/2;                                                   /** starting value of the writing index */
+      nBlk = pParams->order/(1<<i);                                         /** - number of bits per block at i-th iteration */
+      shift = pParams->bps-i-1;                                             /** - bit shift value at i-th iteration */
+      cnt = 0;                                                              /** - counter within each single block */
+      wrIdx = nBlk/2;                                                       /** - starting value of the writing index */
       while (wrIdx < pParams->order)
       {
-        ioBuffer[wrIdx] |= (LSBIT_MASK<<shift);
+        ioBuffer[wrIdx] |= (LSBIT_MASK_U8<<shift);
         if (cnt < (nBlk-1))
         {
           cnt++;
@@ -425,9 +423,9 @@ static error_t GetGraySequence( byte_t * ioBuffer, const mod_par_t * pParams )
 
 
 /**
- * @brief Function for checking if QAM BPS parameter is valid.
+ * @brief <i> Function for checking if QAM BPS parameter is valid. </i>
  * 
- * @param bps : modulation bits-per-symbol value
+ * @param[in] bps modulation bits-per-symbol value
  * 
  * @return validity outcome
  */

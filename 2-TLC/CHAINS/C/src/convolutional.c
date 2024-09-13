@@ -5,7 +5,7 @@
  * @ingroup TLC_CHAIN
  * @brief Convolutional coding library
  * 
- * Library containing all convolutional coding functions.
+ * Library containing convolutional coding functions.
  */
 
 /****************/
@@ -31,9 +31,9 @@ const cc_rate_t CC_RATE_ARRAY[CC_RATE_NUM] =
 /*** PRIVATE PROTOTYPES ***/
 /**************************/
 
-static bool IsRateValid( cc_rate_t val );
-static bool IsKlenValid( cc_klen_t val );
-static error_t RetrieveConnectorPuncturationVectors( cc_encoder_info_t * ioInfo, const cc_par_t * inParams );
+static bool IsRateValid( cc_rate_t rateVal );
+static bool IsKlenValid( cc_klen_t kVal );
+static error_t RetrieveConnectorPuncturationVectors( cc_encoder_info_t * ioInfo, const cc_par_t * pParams );
 static uint8_t ComputeEncBit( uint8_t cState, uint8_t cvVal, cc_klen_t kLen );
 static error_t ComputeTrellisDiagram( cc_trellis_t * ioTrellisDiagr, const uint8_t * conVect, const cc_par_t * pParams );
 static error_t HardDepuncturer( byte_t * ioBuffer, len_t inLenBi, len_t outLenBi, const uint8_t * punctVect, const cc_par_t * pParams );
@@ -50,9 +50,9 @@ static uint8_t FindMinSurvPathSoft( const cc_soft_dec_info_t * inPaths);
 /************************/
 
 /**
- * @brief Function for retrieving and listing convolution encoding parameters into dedicated structure.
+ * @brief <i> Function for retrieving and listing convolution encoding parameters into dedicated structure. </i>
  * 
- * @param ioParams : pointer to i/o parameters structure to be filled
+ * @param[in] ioParams pointer to i/o parameters structure to be filled
  * 
  * @return error ID
  */
@@ -77,23 +77,22 @@ error_t CnvCod_ListParameters( cc_par_t * ioParams )
 
 
 /**
- * @brief Function for convolutional encoding (including puncturing).
+ * @brief <i> Function for convolutional encoding (including puncturing). </i>
  * 
- * @param inStream : input/source stream
- * @param outStream : output/encoded stream
- * @param pParams : pointer to parameters structure
- * @param pEncInfo : pointer to encoder connector and puncturation structure
+ * @param[in] inStream input stream
+ * @param[out] outStream output stream
+ * @param[in] pParams pointer to convolutional coding parameters structure
  * 
- * @return errod ID
+ * @return error ID
  */
 error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
-  const len_t unpLenBy = CC_NBRANCHES*inStream->len;                                /** unpunctured coded length [B] */
-  const len_t unpLenBi = unpLenBy<<BY2BI_SHIFT;                                     /** unpunctured coded length [b] */
-  const len_t inLenBi = inStream->len<<BY2BI_SHIFT;                                 /** input buffer length [b] */
-  const len_t punLenBi = inLenBi*(pParams->cRate+1)/pParams->cRate;                 /** expected punctured coded length [b] */
-  const len_t punLenBy = punLenBi>>BY2BI_SHIFT;                                     /** expected punctured coded length [b] */
+  const len_t unpLenBy = CC_NBRANCHES*inStream->len;                                /** - unpunctured coded length [B] */
+  const len_t unpLenBi = BY2BI_LEN(unpLenBy);                                       /** - unpunctured coded length [b] */
+  const len_t inLenBi = BY2BI_LEN(inStream->len);                                   /** - input buffer length [b] */
+  const len_t punLenBi = inLenBi*(pParams->cRate+1)/pParams->cRate;                 /** - expected punctured coded length [b] */
+  const len_t punLenBy = BI2BY_LEN(punLenBi);                                       /** - expected punctured coded length [b] */
   cc_encoder_info_t encInfo;
   byte_stream_t tmpStream = {.len = unpLenBy, .id = memory_type_byte};
   len_t wrIdx = 0;
@@ -106,20 +105,20 @@ error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStrea
   if ((NULL != inStream) && (NULL != inStream->pBuf) && (NULL != outStream) &&
       (NULL != outStream->pBuf) && (NULL != pParams))
   {
-    RetrieveConnectorPuncturationVectors(&encInfo,pParams);                         /** retrieve convolutional encoder info */
+    RetrieveConnectorPuncturationVectors(&encInfo,pParams);                         /** - retrieve convolutional encoder info */
     Memory_AllocateStream(&tmpStream,unpLenBy,memory_type_byte);
 
     if (punLenBy == outStream->len)
     {
       for (j=0; j<inLenBi; j++)
       {
-        byteIdx = j>>BY2BI_SHIFT;                                                   /** update byte index for reading input buffer */
-        bitIdx = (uint8_t)(j&LSBYTE_MASK);                                          /** update bit index for reading input buffer */
+        byteIdx = BI2BY_LEN(j)  ;                                                   /** - update byte index for reading input buffer */
+        bitIdx = (uint8_t)(j&LSBYTE_MASK_U32);                                      /** - update bit index for reading input buffer */
         encState >>= 1;
-        encState |= ((inStream->pBuf[byteIdx]>>(BITIDX_1LAST-bitIdx))&LSBIT_MASK)
-          <<(pParams->kLen-1);                                                      /** update encoder state with latest input bit */
-        byteIdx = (CC_NBRANCHES*j)>>BY2BI_SHIFT;                                    /** update byte index for output stream writing */
-        bitIdx = (CC_NBRANCHES*j)&LSBYTE_MASK;                                      /** update bit index for output stream writing */
+        encState |= ((inStream->pBuf[byteIdx]>>(BITIDX_1LAST-bitIdx))&LSBIT_MASK_U8)
+          <<(pParams->kLen-1);                                                      /** - update encoder state with latest input bit */
+        byteIdx = BI2BY_LEN(CC_NBRANCHES*j);                                        /** - update byte index for output stream writing */
+        bitIdx = (CC_NBRANCHES*j)&LSBYTE_MASK_U32;                                  /** - update bit index for output stream writing */
         tmpStream.pBuf[byteIdx] |= (ComputeEncBit(encState,encInfo.connVect[0],
           pParams->kLen)<<(BITIDX_1LAST-bitIdx));
         tmpStream.pBuf[byteIdx] |= (ComputeEncBit(encState,encInfo.connVect[1],
@@ -127,29 +126,29 @@ error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStrea
       }
 
       if (CC_RATE_12 != pParams->cRate)
-      {                                                                              /**  apply puncturing if selected Rc is higher than 1/2 */
+      {                                                                             /** - apply puncturing if selected Rc is higher than 1/2 */
         for (j=0; j<unpLenBi; j++)
         {
-          byteIdx = j>>BY2BI_SHIFT;
-          bitIdx = j&LSBYTE_MASK;
-          rdBit = (tmpStream.pBuf[byteIdx]>>(BITIDX_1LAST-bitIdx))&LSBIT_MASK;      /** j-th bit of unpunctured output stream */
-          if (encInfo.puncVect[j%(CC_NBRANCHES*pParams->cRate)])                    /** check if puncturation has to applied now */
+          byteIdx = BI2BY_LEN(j);
+          bitIdx = j&LSBYTE_MASK_U32;
+          rdBit = (tmpStream.pBuf[byteIdx]>>(BITIDX_1LAST-bitIdx))&LSBIT_MASK_U8;   /** - j-th bit of unpunctured output stream */
+          if (encInfo.puncVect[j%(CC_NBRANCHES*pParams->cRate)])                    /** - check if puncturation has to applied now */
           {
-            byteIdx = wrIdx>>BY2BI_SHIFT;
-            bitIdx = BITIDX_1LAST-(uint8_t)(wrIdx&LSBYTE_MASK);
+            byteIdx = BI2BY_LEN(wrIdx);
+            bitIdx = BITIDX_1LAST-(uint8_t)(wrIdx&LSBYTE_MASK_U32);
             wrIdx++;
             if (0 == rdBit)
             {
-              tmpStream.pBuf[byteIdx] &= ~(LSBIT_MASK<<bitIdx);
+              tmpStream.pBuf[byteIdx] &= ~(LSBIT_MASK_U8<<bitIdx);
             }
             else
             {
-              tmpStream.pBuf[byteIdx] |= (LSBIT_MASK<<bitIdx);
+              tmpStream.pBuf[byteIdx] |= (LSBIT_MASK_U8<<bitIdx);
             }
           }
         }
 
-        if (punLenBi != wrIdx)                                                      /** check if computed and theoretical punctured length match */
+        if (punLenBi != wrIdx)                                                      /** - check if computed and theoretical punctured length match */
         {
           retErr = ERR_INV_BUFFER_SIZE;
         }
@@ -157,7 +156,7 @@ error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStrea
 
       if (ERR_NONE == retErr)
       {
-        memcpy(outStream->pBuf,tmpStream.pBuf,outStream->len);                      /** copy temporary buffer content to output one */
+        memcpy(outStream->pBuf,tmpStream.pBuf,outStream->len);                      /** - copy temporary buffer content to output one */
       }
     }
     else
@@ -177,21 +176,21 @@ error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStrea
 
 
 /**
- * @brief Function for convolutional hard-decoding by implementing Viterbi algorithm (including depuncturing).
+ * @brief <i> Function for convolutional hard-decoding by implementing Viterbi algorithm (including depuncturing). </i>
  * 
- * @param inStream : input stream
- * @param outStream : output stream
- * @param pParams : coding parameters
+ * @param[in] inStream input stream
+ * @param[out] outStream output stream
+ * @param[in] pParams pointer to convolutional coding parameters structure
  * 
  * @return error ID
  */
 error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
-  const len_t outLenBi = outStream->len<<BY2BI_SHIFT;
-  const len_t inLenBi = inStream->len<<BY2BI_SHIFT;
+  const len_t outLenBi = BY2BI_LEN(outStream->len);
+  const len_t inLenBi = BY2BI_LEN(inStream->len);
   const len_t unpLenBy = CC_NBRANCHES*inStream->len*pParams->cRate/(pParams->cRate+1);
-  const len_t unpLenBi = unpLenBy<<BY2BI_SHIFT;
+  const len_t unpLenBi = BY2BI_LEN(unpLenBy);
   cc_encoder_info_t encInfo;
   cc_hard_dec_info_t curPaths = {.iter={0}, .dist={0}, .path={{0}}};
   cc_hard_dec_info_t prevPaths;
@@ -212,14 +211,14 @@ error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outS
   {
     if (CC_VITDM_HARD == pParams->vitDM)
     {
-      RetrieveConnectorPuncturationVectors(&encInfo,pParams);                                     /** retrieve convolutional encoder info */
-      ComputeTrellisDiagram(&trDiagr,encInfo.connVect,pParams);                                   /** compute convolutional decoder trellis diagram */
+      RetrieveConnectorPuncturationVectors(&encInfo,pParams);                                     /** - retrieve convolutional encoder info */
+      ComputeTrellisDiagram(&trDiagr,encInfo.connVect,pParams);                                   /** - compute convolutional decoder trellis diagram */
       memcpy(tmpStream,inStream->pBuf,inStream->len);
-      curPaths.iter[0] = 1;                                                                       /** enable only all-zero state at the beginning */
+      curPaths.iter[0] = 1;                                                                       /** - enable only all-zero state at the beginning */
 
-      if (CC_RATE_12 == pParams->cRate)                                                           /** check if depuncturing is needed */
+      if (CC_RATE_12 == pParams->cRate)                                                           /** - check if depuncturing is needed */
       {
-        erasMask = CC_INMASK;                                                                     /** use no-erasure mask for no-puncturing case */
+        erasMask = CC_INMASK;                                                                     /** - use no-erasure mask for no-puncturing case */
       }
       else
       {
@@ -229,11 +228,11 @@ error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outS
       for (i=CC_NBRANCHES; i<outLenBi+CC_NBRANCHES; i++)
       {
         inIdx = CC_NBRANCHES*(i-CC_NBRANCHES);
-        byteIdx = (inIdx>>BY2BI_SHIFT);
-        bitIdx = (uint8_t)(inIdx&LSBYTE_MASK);
-        cycleBits = (tmpStream[byteIdx]>>(BITIDX_2LAST-bitIdx))&CC_INMASK;                        /** current pair of input bits */
+        byteIdx = BI2BY_LEN(inIdx);
+        bitIdx = (uint8_t)(inIdx&LSBYTE_MASK_U32);
+        cycleBits = (tmpStream[byteIdx]>>(BITIDX_2LAST-bitIdx))&CC_INMASK;                        /** - current pair of input bits */
         prevPaths = curPaths;
-        if (CC_RATE_12 != pParams->cRate)                                                         /** retrieve erasure mask in case depuncturing has been applied */
+        if (CC_RATE_12 != pParams->cRate)                                                         /** - retrieve erasure mask in case depuncturing has been applied */
         {
           erasMask = 0;
           erasMask |= (encInfo.puncVect[inIdx%(2*pParams->cRate)]<<1);
@@ -290,7 +289,7 @@ error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outS
           }
         }
 
-        if (i-1 == outLenBi)                                                                      /** if input bit stream is over, flush decoder memory and extract final info bits */
+        if (i-1 == outLenBi)                                                                      /** - if input bit stream is over, flush decoder memory and extract final info bits */
         {
           minDistSt = FindMinSurvPathHard(&curPaths);                                             /** look for minimum distance survivor path */
           if (i-1 >= CC_MEM_DIM)                                                                  /** check if memory has been completely filled */
@@ -312,38 +311,38 @@ error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outS
             {
               arrSt = curPaths.path[minDistSt][wrIdx+1];
             }
-            byteIdx = (outLenBi-finIdx+wrIdx)>>BY2BI_SHIFT;
-            bitIdx = (uint8_t)((outLenBi-finIdx+wrIdx)&LSBYTE_MASK);
+            byteIdx = BI2BY_LEN(outLenBi-finIdx+wrIdx);
+            bitIdx = (uint8_t)((outLenBi-finIdx+wrIdx)&LSBYTE_MASK_U32);
             if (trDiagr.trSt[depSt].nextSt[0] == arrSt)
             {
-              outStream->pBuf[byteIdx] &= ~(LSBIT_MASK<<(BITIDX_1LAST-bitIdx));                   /** set output bit to '0' */
+              outStream->pBuf[byteIdx] &= ~(LSBIT_MASK_U8<<(BITIDX_1LAST-bitIdx));                /** set output bit to '0' */
             }
             else
             {
-              outStream->pBuf[byteIdx] |= (LSBIT_MASK<<(BITIDX_1LAST-bitIdx));                    /** set output bit to '1' */
+              outStream->pBuf[byteIdx] |= (LSBIT_MASK_U8<<(BITIDX_1LAST-bitIdx));                 /** set output bit to '1' */
             }
           }
         }
-        else if (i-1 >= CC_MEM_DIM)                                                               /** if input bit stream is not over but memory is full, extract oldest info bit */
+        else if (i-1 >= CC_MEM_DIM)                                                               /** - if input bit stream is not over but memory is full, extract oldest info bit */
         {
           minDistSt = FindMinSurvPathHard(&curPaths);
           depSt = curPaths.path[minDistSt][0];
           arrSt = curPaths.path[minDistSt][1];
-          byteIdx = (i-CC_MEM_DIM-1)>>BY2BI_SHIFT;
-          bitIdx = (uint8_t)((i-CC_MEM_DIM-1)&LSBYTE_MASK);
+          byteIdx = BI2BY_LEN(i-CC_MEM_DIM-1);
+          bitIdx = (uint8_t)((i-CC_MEM_DIM-1)&LSBYTE_MASK_U32);
           if (trDiagr.trSt[depSt].nextSt[0] == arrSt)
           {
-            outStream->pBuf[byteIdx] &= ~(LSBIT_MASK<<(BITIDX_1LAST-bitIdx));
+            outStream->pBuf[byteIdx] &= ~(LSBIT_MASK_U8<<(BITIDX_1LAST-bitIdx));
           }
           else
           {
-            outStream->pBuf[byteIdx] |= (LSBIT_MASK<<(BITIDX_1LAST-bitIdx));
+            outStream->pBuf[byteIdx] |= (LSBIT_MASK_U8<<(BITIDX_1LAST-bitIdx));
           }
           for (j=0; j<CC_NTRELSTATES; j++)
           {
             for (wrIdx = 0; wrIdx<(CC_MEM_DIM-1); wrIdx++)
             {
-              curPaths.path[j][wrIdx] = curPaths.path[j][wrIdx+1];                                /** keep all survivor paths */
+              curPaths.path[j][wrIdx] = curPaths.path[j][wrIdx+1];                                /** - keep all survivor paths */
             }
           }
         }
@@ -364,18 +363,18 @@ error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outS
 
 
 /**
- * @brief Function for convolutional soft-decoding by implementing Viterbi algorithm (including depuncturing).
+ * @brief <i> Function for convolutional soft-decoding by implementing Viterbi algorithm (including depuncturing). </i>
  * 
- * @param inStream : input stream
- * @param outStream : output stream
- * @param pParams : coding parameters
+ * @param[in] inStream input stream
+ * @param[out] outStream output stream
+ * @param[in] pParams pointer to convolutional coding parameters structure
  * 
  * @return error ID
  */
 error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
-  const len_t outLenBi = outStream->len<<BY2BI_SHIFT;
+  const len_t outLenBi = BY2BI_LEN(outStream->len);
   const len_t unpLenBi = CC_NBRANCHES*outLenBi;
   const len_t punLenBi = inStream->len;
   float tmpStream[unpLenBi];
@@ -397,18 +396,18 @@ error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * out
   {
     if (CC_VITDM_SOFT == pParams->vitDM)
     {
-      RetrieveConnectorPuncturationVectors(&encInfo,pParams);                                     /** retrieve convolutional encoder info */
-      ComputeTrellisDiagram(&trDiagr,encInfo.connVect,pParams);                                   /** compute convolutional decoder trellis diagram */
+      RetrieveConnectorPuncturationVectors(&encInfo,pParams);                                     /** - retrieve convolutional encoder info */
+      ComputeTrellisDiagram(&trDiagr,encInfo.connVect,pParams);                                   /** - compute convolutional decoder trellis diagram */
       memcpy(tmpStream,inStream->pBuf,sizeof(float)*inStream->len);
-      curPaths.iter[0] = 1;                                                                       /** enable only the all-zero state at the beginning */
+      curPaths.iter[0] = 1;                                                                       /** - enable only the all-zero state at the beginning */
 
       if (CC_RATE_12 == pParams->cRate)
       {
-        erasMask = CC_INMASK;                                                                     /** use no-erasure mask for no-puncturing case */
+        erasMask = CC_INMASK;                                                                     /** - use no-erasure mask for no-puncturing case */
       }
       else
       {
-        SoftDepuncturer(tmpStream,punLenBi,unpLenBi,encInfo.puncVect,pParams);                    /** apply depuuncturing if needed */
+        SoftDepuncturer(tmpStream,punLenBi,unpLenBi,encInfo.puncVect,pParams);                    /** - apply depuuncturing if needed */
       }
 
       for (i=CC_NBRANCHES; i<outLenBi+CC_NBRANCHES; i++)
@@ -420,12 +419,12 @@ error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * out
         {
           erasMask = 0;
           erasMask |= (encInfo.puncVect[curIdx%(CC_NBRANCHES*pParams->cRate)]<<1);
-          erasMask |= encInfo.puncVect[(curIdx+1)%(CC_NBRANCHES*pParams->cRate)];                 /** estimate specific erasure mask if depuncturing has been applied */
+          erasMask |= encInfo.puncVect[(curIdx+1)%(CC_NBRANCHES*pParams->cRate)];                 /** - estimate specific erasure mask if depuncturing has been applied */
         }
 
         for (j=0; j<CC_NTRELSTATES; j++)
         {
-          if (prevPaths.iter[j] == i-1)                                                           /** check if j-th state was active in the previous iteration */
+          if (prevPaths.iter[j] == i-1)                                                           /** - check if j-th state was active in the previous iteration */
           {
             for (hypIdx = 0; hypIdx<CC_NBRANCHES; hypIdx++)
             {
@@ -476,7 +475,7 @@ error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * out
           }
         }
 
-        if (outLenBi == i-1)                                                                      /** if input bit stream is over, flush the decoder memory and extract the final info bits */
+        if (outLenBi == i-1)                                                                      /** - if input bit stream is over, flush the decoder memory and extract the final info bits */
         {
           minDistState = FindMinSurvPathSoft(&curPaths);                                          /** look for the minimum distance survivor path */
           if (i-1 >= CC_MEM_DIM)                                                                  /** check if memory has been completely filled */
@@ -498,38 +497,38 @@ error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * out
             {
               stateArr = curPaths.path[minDistState][wrIdx+1];
             }
-            byteIdx = (outLenBi-finIdx+wrIdx)>>BY2BI_SHIFT;
-            bitIdx = (outLenBi-finIdx+wrIdx)&LSBYTE_MASK;
+            byteIdx = BI2BY_LEN(outLenBi-finIdx+wrIdx);
+            bitIdx = (outLenBi-finIdx+wrIdx)&LSBYTE_MASK_U32;
             if (trDiagr.trSt[stateDep].nextSt[0] == stateArr)
             {
-              outStream->pBuf[byteIdx] &= ~(LSBIT_MASK<<(BITIDX_1LAST-bitIdx));                   /** set output bit to '0' */
+              outStream->pBuf[byteIdx] &= ~(LSBIT_MASK_U8<<(BITIDX_1LAST-bitIdx));                /** set output bit to '0' */
             }
             else
             {
-              outStream->pBuf[byteIdx] |= (LSBIT_MASK<<(BITIDX_1LAST-bitIdx));                    /** set output bit to '1' */
+              outStream->pBuf[byteIdx] |= (LSBIT_MASK_U8<<(BITIDX_1LAST-bitIdx));                 /** set output bit to '1' */
             }
           }
         }
-        else if (i-1 >= CC_MEM_DIM)                                                               /** if input bit stream is not over but memory is full, extract the oldest info bit */
+        else if (i-1 >= CC_MEM_DIM)                                                               /** - if input bit stream is not over but memory is full, extract the oldest info bit */
         {
           minDistState = FindMinSurvPathSoft(&curPaths);
           stateDep = curPaths.path[minDistState][0];
           stateArr = curPaths.path[minDistState][1];
-          byteIdx = (i-CC_MEM_DIM-1)>>BY2BI_SHIFT;
-          bitIdx = (uint8_t)((i-CC_MEM_DIM-1)&LSBYTE_MASK);
+          byteIdx = BI2BY_LEN(i-CC_MEM_DIM-1);
+          bitIdx = (uint8_t)((i-CC_MEM_DIM-1)&LSBYTE_MASK_U32);
           if (trDiagr.trSt[stateDep].nextSt[0] == stateArr)
           {
-            outStream->pBuf[byteIdx] &= ~(LSBIT_MASK<<(BITIDX_1LAST-bitIdx));                     /** set output bit to '0' */
+            outStream->pBuf[byteIdx] &= ~(LSBIT_MASK_U8<<(BITIDX_1LAST-bitIdx));                  /** - set output bit to '0' */
           }
           else
           {
-            outStream->pBuf[byteIdx] |= (LSBIT_MASK<<(BITIDX_1LAST-bitIdx));                      /** set output bit to '1' */
+            outStream->pBuf[byteIdx] |= (LSBIT_MASK_U8<<(BITIDX_1LAST-bitIdx));                   /** - set output bit to '1' */
           }
           for (j=0; j<CC_NTRELSTATES; j++)
           {
             for (wrIdx = 0; wrIdx<(CC_MEM_DIM-1); wrIdx++)
             {
-              curPaths.path[j][wrIdx] = curPaths.path[j][wrIdx+1];                                /** keep all survivor paths */
+              curPaths.path[j][wrIdx] = curPaths.path[j][wrIdx+1];                                /** - keep all survivor paths */
             }
           }
         }
@@ -555,35 +554,35 @@ error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * out
 /*************************/
 
 /**
- * @brief Function for retrieving connection and puncturation vectors as a function of the selected parameters.
+ * @brief <i> Function for retrieving connection and puncturation vectors as a function of the selected parameters. </i>
  * 
- * @param ioInfo : pointer to i/o structure to be filled
- * @param inParams : pointer to parameters
+ * @param[out] ioInfo pointer to i/o structure to be filled
+ * @param[in] pParams pointer to convolutional coding parameters structure
  * 
  * @return error ID
  */
-static error_t RetrieveConnectorPuncturationVectors( cc_encoder_info_t * ioInfo, const cc_par_t * inParams )
+static error_t RetrieveConnectorPuncturationVectors( cc_encoder_info_t * ioInfo, const cc_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
 
-  if ((NULL != ioInfo) && (NULL != inParams))
+  if ((NULL != ioInfo) && (NULL != pParams))
   {
-    if (IsKlenValid(inParams->kLen))
+    if (IsKlenValid(pParams->kLen))
     {
 
-      memcpy(ioInfo->connVect,CC_CVMATRIX[inParams->kLen-CC_KLEN_MIN],CC_NBRANCHES);      /** - link connector vector */
+      memcpy(ioInfo->connVect,CC_CVMATRIX[pParams->kLen-CC_KLEN_MIN],CC_NBRANCHES);               /** - link connector vector */
     }
     else
     {
       retErr = ERR_INV_CNVCOD_KLEN;
     }
 
-    if (IsRateValid(inParams->cRate))
+    if (IsRateValid(pParams->cRate))
     {
-      switch (inParams->cRate)
+      switch (pParams->cRate)
       {
         case CC_RATE_23:
-          memcpy(ioInfo->puncVect,CC_PUNC_VECT_23,CC_PUNCTLEN);                           /** - link puncturation vector */
+          memcpy(ioInfo->puncVect,CC_PUNC_VECT_23,CC_PUNCTLEN);                                   /** - link puncturation vector */
           break;
         
         case CC_RATE_34:
@@ -618,20 +617,20 @@ static error_t RetrieveConnectorPuncturationVectors( cc_encoder_info_t * ioInfo,
 
 
 /**
- * @brief Function for checking the correctness of the code rate parameter.
+ * @brief <i> Function for checking the correctness of the code rate parameter. </i>
  * 
- * @param val : code rate value
+ * @param[in] rateVal code rate value
  * 
  * @return validity outcome
  */
-static bool IsRateValid( cc_rate_t val )
+static bool IsRateValid( cc_rate_t rateVal )
 {
   bool bRet = false;
   uint8_t j;
 
   for (j=0; j<CC_RATE_NUM; j++)
   {
-    if (val == CC_RATE_ARRAY[j])
+    if (rateVal == CC_RATE_ARRAY[j])
     {
       bRet = true;
       break;
@@ -643,28 +642,28 @@ static bool IsRateValid( cc_rate_t val )
 
 
 /**
- * @brief Function for checking the correctness of the constraint length parameter.
+ * @brief <i> Function for checking the correctness of the constraint length parameter. </i>
  * 
- * @param val : constraint length value
+ * @param[in] kVal constraint length value
  * 
  * @return validity outcome
  */
-static bool IsKlenValid( cc_klen_t val )
+static bool IsKlenValid( cc_klen_t kVal )
 {
   bool bRet;
 
-  bRet = (val >= CC_KLEN_MIN) && (val <= CC_KLEN_MAX);
+  bRet = (kVal >= CC_KLEN_MIN) && (kVal <= CC_KLEN_MAX);
 
   return bRet;
 }
 
 
 /**
- * @brief Function for computing the next encoded bit.
+ * @brief <i> Function for computing the next encoded bit. </i>
  * 
- * @param cState : current convolutional state
- * @param cvVal : connection vector value
- * @param kLen : encoder constraint length
+ * @param[in] cState current convolutional state
+ * @param[in] cvVal connection vector value
+ * @param[in] kLen encoder constraint length
  * 
  * @return next encoded bit
  */
@@ -675,7 +674,7 @@ static uint8_t ComputeEncBit( uint8_t cState, uint8_t cvVal, cc_klen_t kLen )
 
   for (j=0; j<kLen; j++)
   {
-    outBit ^= (((cState>>j)&LSBIT_MASK)&((cvVal>>j)&LSBIT_MASK));
+    outBit ^= (((cState>>j)&LSBIT_MASK_U8)&((cvVal>>j)&LSBIT_MASK_U8));
   }
 
   return outBit;
@@ -683,11 +682,11 @@ static uint8_t ComputeEncBit( uint8_t cState, uint8_t cvVal, cc_klen_t kLen )
 
 
 /**
- * @brief Function for retrieving depunctured trellis diagram information.
+ * @brief <i> Function for retrieving depunctured trellis diagram information. </i>
  * 
- * @param ioTrellisDiagr : pointer to trellis structure to be filled
- * @param conVect : connection vector
- * @param pParams : pointer to parameters structure
+ * @param[out] ioTrellisDiagr pointer to trellis structure to be filled
+ * @param[in] conVect connection vector
+ * @param[in] pParams pointer to parameters structure
  * 
  * @return error ID
  */
@@ -703,25 +702,25 @@ static error_t ComputeTrellisDiagram( cc_trellis_t * ioTrellisDiagr, const uint8
   {
     for (j=0; j<CC_NTRELSTATES; j++)
     {
-      StBin[j] = j;                                                             /** state IDs */
+      StBin[j] = j;                                                                               /** - state IDs */
     }
     for (j=0; j<CC_NTRELSTATES; j++)
     {
-      state0 = StBin[j];                                                        /** state update due to new 0-bit input */
+      state0 = StBin[j];                                                                          /** - state update due to new 0-bit input */
       for (i=0; i<CC_NBRANCHES; i++)
       {
-        outBit = ComputeEncBit(state0,conVect[i],pParams->kLen);                /** estimate encoded bit from i-th connection branch */
+        outBit = ComputeEncBit(state0,conVect[i],pParams->kLen);                                  /** estimate encoded bit from i-th connection branch */
         if ( 0 == i)
         {
-          ioTrellisDiagr->trSt[j].outBits[0] = outBit<<1;                     /** store 1st encoded bit into trellis */
+          ioTrellisDiagr->trSt[j].outBits[0] = outBit<<1;                                         /** store 1st encoded bit into trellis */
         }
         else
         {
-          ioTrellisDiagr->trSt[j].outBits[0] += outBit;                       /** store 2nd encoded bit into trellis */
+          ioTrellisDiagr->trSt[j].outBits[0] += outBit;                                           /** store 2nd encoded bit into trellis */
         }
       }
-      ioTrellisDiagr->trSt[j].nextSt[0] = state0>>1;                          /** store next state into trellis (due to 0-bit input from j-th state) */
-      state1 = state0|(LSBIT_MASK<<(pParams->kLen-1));                          /** state update due to new 1-bit input */
+      ioTrellisDiagr->trSt[j].nextSt[0] = state0>>1;                                              /** - store next state into trellis (due to 0-bit input from j-th state) */
+      state1 = state0|(LSBIT_MASK_U8<<(pParams->kLen-1));                                         /** - state update due to new 1-bit input */
       for (i=0; i<CC_NBRANCHES; i++)
       {
         outBit = ComputeEncBit(state1,conVect[i],pParams->kLen);
@@ -734,7 +733,7 @@ static error_t ComputeTrellisDiagram( cc_trellis_t * ioTrellisDiagr, const uint8
           ioTrellisDiagr->trSt[j].outBits[1] += outBit;
         }
       }
-      ioTrellisDiagr->trSt[j].nextSt[1] = state1>>1;                          /** store next state into trellis (due to 1-bit input from j-th state) */
+      ioTrellisDiagr->trSt[j].nextSt[1] = state1>>1;                                              /** - store next state into trellis (due to 1-bit input from j-th state) */
     }
   }
   else
@@ -747,20 +746,20 @@ static error_t ComputeTrellisDiagram( cc_trellis_t * ioTrellisDiagr, const uint8
 
 
 /**
- * @brief Function to hard-depuncture a byte stream to base code rate.
+ * @brief <i> Function to hard-depuncture a byte stream to base code rate. </i>
  * 
- * @param ioBuffer : i/o buffer
- * @param inLenBi : input/punctured length [b]
- * @param outLenBi : output/unpunctured length [b]
- * @param punctVect : puncturing vector
- * @param pParams : coding parameters
+ * @param[in, out] ioBuffer i/o buffer
+ * @param[in] inLenBi input length [b]
+ * @param[in] outLenBi output length [b]
+ * @param[in] punctVect puncturing vector
+ * @param[in] pParams coding parameters
  * 
  * @return error ID
  */
 static error_t HardDepuncturer( byte_t * ioBuffer, len_t inLenBi, len_t outLenBi, const uint8_t * punctVect, const cc_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
-  uint32_t rdIdx = inLenBi-1;                                             /** final bit index of input stream length */
+  uint32_t rdIdx = inLenBi-1;                                                                     /** - final bit index of input stream length */
   uint32_t byteIdx;
   uint32_t j;
   uint8_t rdIdxPunc = CC_NBRANCHES*pParams->cRate-1;
@@ -773,14 +772,14 @@ static error_t HardDepuncturer( byte_t * ioBuffer, len_t inLenBi, len_t outLenBi
     {
       if (1 == punctVect[rdIdxPunc])
       {
-        byteIdx = rdIdx>>BY2BI_SHIFT;
-        bitIdx = (uint8_t)(BITIDX_1LAST-(rdIdx&LSBYTE_MASK));
-        rdBit = ioBuffer[byteIdx]&(LSBIT_MASK<<bitIdx);
+        byteIdx = BI2BY_LEN(rdIdx);
+        bitIdx = (uint8_t)(BITIDX_1LAST-(rdIdx&LSBYTE_MASK_U32));
+        rdBit = ioBuffer[byteIdx]&(LSBIT_MASK_U8<<bitIdx);
         rdIdx--;
       }
       else
       {
-        rdBit = 0;                                                        /** each erasure bit restored has '0' value */
+        rdBit = 0;                                                                                /** - each erasure bit restored has '0' value */
       }
       if (rdIdxPunc > 0)
       {
@@ -790,15 +789,15 @@ static error_t HardDepuncturer( byte_t * ioBuffer, len_t inLenBi, len_t outLenBi
       {
         rdIdxPunc = CC_NBRANCHES*pParams->cRate-1;
       }
-      byteIdx = (j-1)>>BY2BI_SHIFT;
-      bitIdx = (uint8_t)(BITIDX_1LAST-((j-1)&LSBYTE_MASK));
+      byteIdx = BI2BY_LEN(j-1);
+      bitIdx = (uint8_t)(BITIDX_1LAST-((j-1)&LSBYTE_MASK_U32));
       if (0 == rdBit)
       {
-        ioBuffer[byteIdx] &= ~(LSBIT_MASK<<bitIdx);                       /** set output bit to '0' */
+        ioBuffer[byteIdx] &= ~(LSBIT_MASK_U8<<bitIdx);                                            /** - set output bit to '0' */
       }
       else
       {
-        ioBuffer[byteIdx] |= (LSBIT_MASK<<bitIdx);                        /** set output bit to '1' */
+        ioBuffer[byteIdx] |= (LSBIT_MASK_U8<<bitIdx);                                             /** - set output bit to '1' */
       }
     }
   }
@@ -812,9 +811,9 @@ static error_t HardDepuncturer( byte_t * ioBuffer, len_t inLenBi, len_t outLenBi
 
 
 /**
- * @brief Function for counting the number of 1-bits within the input byte.
+ * @brief <i> Function for counting the number of 1-bits within the input byte. </i>
  * 
- * @param inByte : input byte
+ * @param[in] inByte input byte
  * 
  * @return number of '1's
  */
@@ -825,7 +824,7 @@ static uint8_t CountByteOnes( byte_t inByte )
 
   for (j=0; j<NUM_BITS_PER_BYTE; j++)
   {
-    if ((inByte>>j)&LSBIT_MASK)
+    if ((inByte>>j)&LSBIT_MASK_U8)
     {
       cnt++;
     }
@@ -836,9 +835,9 @@ static uint8_t CountByteOnes( byte_t inByte )
 
 
 /**
- * @brief Function to find the hard survivor path with minimum distance.
+ * @brief <i> Function to find the hard survivor path with minimum distance. </i>
  * 
- * @param inPaths : current Viterbi paths
+ * @param[in] inPaths current Viterbi paths
  * 
  * @return index of minimum distance trellis state
  */
@@ -867,22 +866,22 @@ static uint8_t FindMinSurvPathHard( const cc_hard_dec_info_t * inPaths )
 
 
 /**
- * @brief Function to soft-depuncture an LLR stream to base code rate.
+ * @brief <i> Function to soft-depuncture an LLR stream to base code rate. </i>
  * 
- * @param ioBuffer : i/o buffer
- * @param inLenBi : input/punctured length [b]
- * @param outLenBi : output/unpunctured length [b]
- * @param punctVect : puncturing vector
- * @param pParams : coding parameters
+ * @param[in, out] ioBuffer i/o buffer
+ * @param[in] inLenBi input length [b]
+ * @param[in] outLenBi output length [b]
+ * @param[in] punctVect puncturing vector
+ * @param[in] pParams coding parameters
  * 
  * @return error ID
  */
 static error_t SoftDepuncturer( float * ioBuffer, len_t inLenBi, len_t outLenBi, const uint8_t * punctVect, const cc_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
-  len_t i = inLenBi-1;                                                    /** reading index over LLR array */
+  len_t i = inLenBi-1;                                                                            /** - reading index over LLR array */
   len_t j;
-  uint8_t k = CC_NBRANCHES*pParams->cRate-1;                              /** reading index within punturing vector */
+  uint8_t k = CC_NBRANCHES*pParams->cRate-1;                                                      /** - reading index within punturing vector */
   
   if (NULL != ioBuffer)
   {
@@ -895,7 +894,7 @@ static error_t SoftDepuncturer( float * ioBuffer, len_t inLenBi, len_t outLenBi,
       }
       else
       {
-        ioBuffer[j-1] = 0;                                                /** each erasure LLR restored has 0-value */
+        ioBuffer[j-1] = 0;                                                                        /** - each erasure LLR restored has 0-value */
       }
       if (k > 0)
       {
@@ -918,11 +917,11 @@ static error_t SoftDepuncturer( float * ioBuffer, len_t inLenBi, len_t outLenBi,
 
 
 /**
- * @brief Function for calculating Euclidean distance between LLR values and specific trellis state.
+ * @brief <i> Function for calculating Euclidean distance between LLR values and specific trellis state. </i>
  * 
- * @param inBuf : input LLR buffer
- * @param trlByte : output bits for specific trellis state
- * @param erasMask : depuncturing erasure mask
+ * @param[in] inBuf input LLR buffer
+ * @param[in] trlByte output bits for specific trellis state
+ * @param[in] erasMask depuncturing erasure mask
  * 
  * @return estimated Euclidean distance
  */
@@ -935,9 +934,9 @@ static float EstimateEuclideanDist( const float * inBuf, uint8_t trlByte, uint8_
   {
     for (j=0; j<CC_NBRANCHES; j++)
     {
-      if ((erasMask>>(1-j))&LSBIT_MASK)
+      if ((erasMask>>(1-j))&LSBIT_MASK_U8)
       {
-        Dist += fabs(CC_NBRANCHES*((float)((trlByte>>(1-j))&LSBIT_MASK))-1-inBuf[j]);
+        Dist += fabs(CC_NBRANCHES*((float)((trlByte>>(1-j))&LSBIT_MASK_U8))-1-inBuf[j]);
       }
     }
   }
@@ -947,9 +946,9 @@ static float EstimateEuclideanDist( const float * inBuf, uint8_t trlByte, uint8_
 
 
 /**
- * @brief Function to find the soft survivor path with minimum distance.
+ * @brief <i> Function to find the soft survivor path with minimum distance. </i>
  * 
- * @param InPaths : current Viterbi paths
+ * @param[in] InPaths current Viterbi paths
  * 
  * @return index of minimum distance trellis state
  */

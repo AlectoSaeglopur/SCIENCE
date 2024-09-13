@@ -1547,9 +1547,9 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 # 931 "c:\\mingw\\include\\math.h" 3
 
 # 27 "src\\system.h" 2
-# 51 "src\\system.h"
+# 54 "src\\system.h"
 
-# 51 "src\\system.h"
+# 54 "src\\system.h"
 typedef struct _complex_t
 {
   float re;
@@ -1577,6 +1577,7 @@ typedef enum
   ERR_INV_MODULATION_TYPE,
   ERR_INV_MODULATION_BPS,
   ERR_INV_CHANNEL_TYPE,
+  ERR_INV_SCRAMBLING_TYPE,
 
   ERR_NUM
 } error_t;
@@ -1590,7 +1591,7 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 68 "src\\error.h"
+# 69 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 17 "src\\error.c" 2
 # 31 "src\\error.c"
@@ -1598,19 +1599,21 @@ error_t Error_HandleErr( error_t inErr )
 {
   if (ERR_NONE != inErr)
   {
-    switch (((alarm_t) ALARM_STOP))
+    switch (ALARM_STOP)
     {
       case ALARM_PRINT:
         printf("\n >> WARNING: DETECTED ALARM #%d\n",inErr);
         break;
+
       case ALARM_STOP:
         printf("\n >> ERROR: DETECTED ALARM #%d\n",inErr);
         exit(
-# 42 "src\\error.c" 3
+# 43 "src\\error.c" 3
             1
-# 42 "src\\error.c"
+# 43 "src\\error.c"
                         );
         break;
+
       default:
 
         break;

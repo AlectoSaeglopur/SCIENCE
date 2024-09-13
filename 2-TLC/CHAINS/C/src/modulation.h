@@ -15,9 +15,9 @@
 /*** INCLUDES ***/
 /****************/
 
-#include "error.h"                                          /** - import error library */
-#include "memory.h"                                         /** - import memory library */
-#include "system.h"                                         /** - import system library */
+#include "error.h"
+#include "memory.h"
+#include "system.h"
 
 
 
@@ -31,7 +31,7 @@ typedef enum
   MOD_QAM,                                                  /** - QAM modulation ID */
   // keep NUM as final entry
   MOD_NUM
-} modulation_t;
+} mod_type_t;
 
 
 
@@ -39,7 +39,7 @@ typedef enum
 /*** PARAMETERS ***/
 /******************/
 
-#define MOD_TYPE          ((modulation_t) MOD_PSK)          //!< modulation type
+#define MOD_TYPE          MOD_PSK                           //!< modulation type
 #define MOD_BPS           2u                                //!< modulation number of bits per symbol [b/Sy]
 
 
@@ -72,7 +72,7 @@ typedef enum
 
 typedef struct _mod_par_t
 {
-  modulation_t type;                                        /** - modulation type */
+  mod_type_t type;                                          /** - modulation type */
   uint8_t order;                                            /** - modulation order (aka "M") */
   uint8_t bps;                                              /** - number of bits per symbol (aka "L") */
   float phOfst;                                             /** - constellation phase offset [rad] */
