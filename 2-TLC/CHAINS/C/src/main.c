@@ -26,6 +26,7 @@
 /****************/
 
 #include "channel.h"
+#include "crc.h"
 #include "convolutional.h"
 #include "debug.h"
 #include "error.h"
@@ -39,7 +40,7 @@
 /*** PARAMETERS ***/
 /******************/
 
-#define LEN_ORG_BY          150u                                            //!< source info stream length [B] (NB: Max = 1000)
+#define LEN_ORG_BY          150u                                            //!< origin stream length [B]
 
 
 
@@ -47,7 +48,8 @@
 /*** CONSTANTS ***/
 /*****************/
 
-#define LEN_CC_UNP_BY       (CC_NBRANCHES*LEN_ORG_BY)                       //!< unpunctured convolutional coded stream length [B]
+#define LEN_PAD_CRC_BY      (LEN_ORG_BY+BI2BY_LEN(CRC_DEGREE))              //!< CRC-padded stream length [B]
+#define LEN_CC_UNP_BY       (CC_NBRANCHES*LEN_PAD_CRC_BY)                   //!< unpunctured convolutional coded stream length [B]
 #define LEN_CC_PUN_BY       (LEN_CC_UNP_BY/CC_NBRANCHES* \
                               (CC_RATE+1)/CC_RATE)                          //!< punctured convolutional coded stream length [B]
 #define LEN_CC_PUN_BI       BY2BI_LEN(LEN_CC_PUN_BY)                        //!< punctured convolutional coded stream length [b]
@@ -71,16 +73,17 @@ static chan_par_t chanParams;
 static debug_par_t dgbParams;
 
 // list of streams (name, type, length)
-#define LIST_OF_STREAMS(ENTRY)           \
-  ENTRY( txOrg, byte,    LEN_ORG_BY    ) \
-  ENTRY( rxOrg, byte,    LEN_ORG_BY    ) \
-  ENTRY( txScr, byte,    LEN_ORG_BY    ) \
-  ENTRY( rxScr, byte,    LEN_ORG_BY    ) \
-  ENTRY( txCc,  byte,    LEN_CC_PUN_BY ) \
-  ENTRY( rxCc,  byte,    LEN_CC_PUN_BY ) \
-  ENTRY( txMod, complex, LEN_MOD_SY    ) \
-  ENTRY( rxMod, complex, LEN_MOD_SY    ) \
-  ENTRY( rxLLR, float,   LEN_LLR_FL    )
+#define LIST_OF_STREAMS(ENTRY)            \
+  ENTRY( txOrg, byte,    LEN_ORG_BY     ) \
+  ENTRY( rxOrg, byte,    LEN_ORG_BY     ) \
+  ENTRY( txCrc, byte,    LEN_PAD_CRC_BY ) \
+  ENTRY( txScr, byte,    LEN_PAD_CRC_BY ) \
+  ENTRY( rxScr, byte,    LEN_PAD_CRC_BY ) \
+  ENTRY( txCc,  byte,    LEN_CC_PUN_BY  ) \
+  ENTRY( rxCc,  byte,    LEN_CC_PUN_BY  ) \
+  ENTRY( txMod, complex, LEN_MOD_SY     ) \
+  ENTRY( rxMod, complex, LEN_MOD_SY     ) \
+  ENTRY( rxLLR, float,   LEN_LLR_FL     )
 
 
 
@@ -164,7 +167,7 @@ int main( void )
 /*************/
 
 // add CC with rate lower than 1/2 (e.g 1/3!) >> prova mettendo in cascata più encorer da 1/2! (fai simulazione in python e vedi se performance sono effettivamente migliori!)
-// aggiungi interleaver + RS + scrambler
+// aggiungi CRC + RS + interleaver + RS
 // sistema Makefile (print, utest, etc..)
 // sistema makefile in modo che non sia obbligatorio cancellare ogni volta cartella di build (solo se esplicitato in comando), così più veloce a ricompilare!
 // aggiungi comando di solo target exe in makefile
