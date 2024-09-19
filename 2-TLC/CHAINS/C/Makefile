@@ -174,4 +174,5 @@ run_exe :
 # 2. Various Make tips and tricks:
 #    - use the "-d" flag to debug Makefile execution (e.g. "make target -d");
 #    - to delete a file within Makefile with Windows OS use "if exist $(PATH\XYZ) del $(PATH\XYZ)" [NB: "rm" is only for Linux/UNIX platforms];
-#    - The symbols "$<" and "$@" represent respectively the current requisite and target output;
+#    - the symbols "$<" and "$@" represent respectively the current requisite and target output;
+#    - to redirect printed output from shell to log file use the ">" character (e.g. "cls && make target > build.log").

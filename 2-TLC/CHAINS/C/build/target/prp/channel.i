@@ -1549,9 +1549,9 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 # 931 "c:\\mingw\\include\\math.h" 3
 
 # 27 "src\\system.h" 2
-# 54 "src\\system.h"
+# 56 "src\\system.h"
 
-# 54 "src\\system.h"
+# 56 "src\\system.h"
 typedef struct _complex_t
 {
   float re;
@@ -1580,6 +1580,7 @@ typedef enum
   ERR_INV_MODULATION_BPS,
   ERR_INV_CHANNEL_TYPE,
   ERR_INV_SCRAMBLING_TYPE,
+  ERR_INV_CRC_DEGREE,
 
   ERR_NUM
 } error_t;
@@ -1593,7 +1594,7 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 69 "src\\error.h"
+# 70 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 19 "src\\channel.h" 2
 # 1 "src\\memory.h" 1

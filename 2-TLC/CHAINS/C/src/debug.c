@@ -21,7 +21,7 @@
 /*** PRIVATE PROTOTYPES ***/
 /**************************/
 
-static bool IsOrgLenValid( len_t orgLenBy, const debug_par_t * pParams );
+static bool IsOrgLenValid( ulen_t orgLenBy, const debug_par_t * pParams );
 
 
 
@@ -109,7 +109,7 @@ error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pS
 error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t label, const debug_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
-  len_t j;
+  ulen_t j;
 
   if ((NULL != inStream) && (NULL != inStream->pBuf) && (NULL != pParams))
   {
@@ -123,6 +123,14 @@ error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t lab
 
         case PID_RX_ORG:
           printf(" * RX ORIGIN BYTES (%d)\n\t",inStream->len);
+          break;
+
+        case PID_TX_CRC:
+          printf(" * TX CRC BYTES (%d)\n\t",inStream->len);
+          break;
+
+        case PID_RX_CRC:
+          printf(" * RX CRC BYTES (%d)\n\t",inStream->len);
           break;
 
         case PID_TX_SCR:
@@ -183,7 +191,7 @@ error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t lab
 error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t label, const debug_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
-  len_t j;
+  ulen_t j;
 
   if ((NULL != inStream) && (NULL != inStream->pBuf) && (NULL != pParams))
   {
@@ -249,7 +257,7 @@ error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t l
 error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label_t label, const debug_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
-  len_t j;
+  ulen_t j;
 
   if ((NULL != inStream) && (NULL != inStream->pBuf) && (NULL != pParams))
   {
@@ -314,7 +322,7 @@ error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label
  * 
  * @return error ID
  */
-error_t Debug_PrintParameters( len_t orgLen, const debug_par_t * pParams )
+error_t Debug_PrintParameters( ulen_t orgLen, const debug_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
 
@@ -367,12 +375,12 @@ error_t Debug_PrintParameters( len_t orgLen, const debug_par_t * pParams )
 error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
-  const len_t bitLen = BY2BI_LEN(inStreamA->len);
-  len_t bitErrCnt = 0;
-  len_t minErrDist = bitLen;
-  len_t curErrDist = 0;
-  len_t j;
-  len_t byteIdx;
+  const ulen_t bitLen = BY2BI_LEN(inStreamA->len);
+  ulen_t bitErrCnt = 0;
+  ulen_t minErrDist = bitLen;
+  ulen_t curErrDist = 0;
+  ulen_t j;
+  ulen_t byteIdx;
   uint8_t bitIdx;
 
   if ((NULL != inStreamA) && (NULL != inStreamA->pBuf) && (NULL != inStreamB) && (NULL != inStreamB->pBuf) && (NULL != pParams))
@@ -446,7 +454,7 @@ error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_
 {
   error_t retErr = ERR_NONE;
   FILE * fid = NULL;
-  len_t j;
+  ulen_t j;
   
   if ((NULL != inStream) && (NULL != inStream->pBuf))
   {
@@ -508,7 +516,7 @@ error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_
 {
   error_t retErr = ERR_NONE;
   FILE * fid = NULL;
-  len_t j;
+  ulen_t j;
   
   if ((NULL != inStream) && (NULL != inStream->pBuf))
   {
@@ -562,11 +570,11 @@ error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_
  * 
  * @return validity outcome
  */
-static bool IsOrgLenValid( len_t orgLenBy, const debug_par_t * dbgParams )
+static bool IsOrgLenValid( ulen_t orgLenBy, const debug_par_t * dbgParams )
 {
   bool bRet = false;
-  len_t orgLenBi = BY2BI_LEN(orgLenBy);
-  len_t punLenBi = (orgLenBi/(dbgParams->ccPar.cRate)*(1+dbgParams->ccPar.cRate));
+  ulen_t orgLenBi = BY2BI_LEN(orgLenBy);
+  ulen_t punLenBi = (orgLenBi/(dbgParams->ccPar.cRate)*(1+dbgParams->ccPar.cRate));
 
   if ((orgLenBy > 0) && (0 == (orgLenBi%dbgParams->ccPar.cRate)) &&                   /** source bit length shall be positive and divisible by code rate denominator */
       (0 == (punLenBi%NUM_BITS_PER_BYTE)) &&                                          /** convolutional punctured bit length shall be a multiple of NUM_BITS_PER_BYTE */

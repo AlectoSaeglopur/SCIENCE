@@ -38,6 +38,7 @@ typedef enum
   ERR_INV_MODULATION_BPS,                             /** - invalid modulation BPS error ID */
   ERR_INV_CHANNEL_TYPE,                               /** - invalid channel type error ID */
   ERR_INV_SCRAMBLING_TYPE,                            /** - invalid scrambling type error ID */
+  ERR_INV_CRC_DEGREE,                                 /** - invalid crc degree error ID */
   // keep NUM as final entry
   ERR_NUM
 } error_t;

@@ -17,198 +17,191 @@
 
 
 
-/*** PARAMETERS ***/
+/*****************/
+/*** CONSTANTS ***/
+/*****************/
 
-const uint8_t CrcDeg = 16;													// CRC degree (i.e. the number of CRC bits)
-const uint16_t MsgLen = 10;													// Message length (in bytes)
-
-
-
-/*** CONSTANTS AND GLOBAL VARIABLES ***/
-
-const uint8_t GPLEN = 14;													// Length of the generator polynomial array
-
-
-
-/*** TYPEDEFS ***/
-
-typedef struct TD1 {
-	uint8_t Len;
-	uint8_t Deg[GPLEN];
-} genpoly;
+static const uint8_t CRC_GENPOLY_8[] = {0,2,4,6,7};               //!< Generator polynomial for 8-bit CRC (ITU standard)
+static const uint8_t CRC_GENPOLY_16[] = {0,5,12};                 //!< Generator polynomial for 16-bit CRC (DVB-S2 standard)
+static const uint8_t CRC_GENPOLY_24[] = {0,1,5,6,23};             //!< Generator polynomial for 24-bit CRC (UMTS standard)
+static const uint8_t CRC_GENPOLY_32[] = {0,1,2,4,5,7,8,10,
+                                  11,12,16,22,23,26};             //!< Generator polynomial for 32-bit CRC (MPEG-2 standard)
+static const uint8_t CRC_GENPOLY_64[] = {0,1,3,4};                //!< Generator polynomial for 64-bit CRC (ISO standard)
 
 
 
-/*** FUNCTION PROTOTYPES ***/
+/**************************/
+/*** PRIVATE PROTOTYPES ***/
+/**************************/
 
-bool CheckParam( void );
-genpoly GetGenPoly( void );
-void CrcCalc( uint8_t *InBytes, uint8_t *CrcBytes, genpoly *GenPoly );
-int16_t FindMaxDeg( uint8_t *Poly, uint16_t Len );
-
-
-
-/*** MAIN FUNCTION ***/
-
-int main(){
-
-	genpoly GenPoly;
-	uint8_t SrcBytes[MsgLen];
-	uint8_t CrcBytes[CrcDeg>>3];
-
-	if ( CheckParam() ){
-
-
-		GenPoly = GetGenPoly();												// Retrieve the CRC generator polynomial
-		CrcCalc(SrcBytes,CrcBytes,&GenPoly);								// Estimate the CRC bytes related to the source message
-
-		printf("\n * CRC degree = %d\n",CrcDeg);
-		printf("\n SRC (%d bytes) :\t",MsgLen);
-		PrintArray(SrcBytes,MsgLen);
-		printf("\n CRC (%d bytes) :\t",CrcDeg>>3);
-		PrintArray(CrcBytes,CrcDeg>>3);
-
-	}
-
-}
+static slen_t FindMaxDegree( const uint8_t * poly, ulen_t lenBi );
 
 
 
-/*** ENCODING-DECODING FUNCTIONS ***/
+/************************/
+/*** PUBLIC FUNCTIONS ***/
+/************************/
 
 /**
- *	Function for checking the parameters correcteness.
- **/
-bool CheckParam( void ){
+ * @brief <i> Function for retrieving and listing scrambling parameters into dedicated structure. </i>
+ * 
+ * @param[in] ioParams pointer to i/o parameters structure to be filled
+ * 
+ * @return error ID
+ */
+error_t Crc_ListParameters( crc_par_t * ioParams )
+{
+  error_t retErr = ERR_NONE;
 
-	bool CheckOk = true;
+  if (NULL != ioParams)
+  {
+    ioParams->degree = CRC_DEGREE;
 
-	if ( (CrcDeg != 8) && (CrcDeg!=16) && (CrcDeg != 24) && (CrcDeg!=32) && (CrcDeg!=64) ){
-		CheckOk = false;
-		printf("\n ERROR : Invalid CRC degree (CrcDeg)\n");
-	}
+    switch (ioParams->degree)
+    {
+      case CRC_DEGREE_8:
+        ioParams->pGenPoly = CRC_GENPOLY_8;
+        ioParams->lenGenPoly = sizeof(CRC_GENPOLY_8);
+        break;
 
-	return CheckOk;
+      case CRC_DEGREE_16:
+        ioParams->pGenPoly = CRC_GENPOLY_16;
+        ioParams->lenGenPoly = sizeof(CRC_GENPOLY_16);
+        break;
 
-}
+      case CRC_DEGREE_24:
+        ioParams->pGenPoly = CRC_GENPOLY_24;
+        ioParams->lenGenPoly = sizeof(CRC_GENPOLY_24);
+        break;
 
-/**
- *	Function for retrieving the generator polynomial (maximum degree is implied) as a
- *  function of the chosen CrcDeg.
- **/
-genpoly GetGenPoly( void ){
+      case CRC_DEGREE_32:
+        ioParams->pGenPoly = CRC_GENPOLY_32;
+        ioParams->lenGenPoly = sizeof(CRC_GENPOLY_32);
+        break;
 
-	genpoly GenPoly;
+      case CRC_DEGREE_64:
+        ioParams->pGenPoly = CRC_GENPOLY_64;
+        ioParams->lenGenPoly = sizeof(CRC_GENPOLY_64);
+        break;
 
-	switch ( CrcDeg ){
+      default:
+        retErr = ERR_INV_CRC_DEGREE;
+        break;
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
 
-		case 8:
-			GenPoly.Len = 5;
-			memcpy(GenPoly.Deg,GENPOLY8,GPLEN);
-			break;
-
-		case 16:
-			GenPoly.Len = 3;
-			memcpy(GenPoly.Deg,GENPOLY16,GPLEN);
-			break;
-
-		case 24:
-			GenPoly.Len = 5;
-			memcpy(GenPoly.Deg,GENPOLY24,GPLEN);
-			break;
-
-		case 32:
-			GenPoly.Len = 14;
-			memcpy(GenPoly.Deg,GENPOLY32,GPLEN);
-			break;
-
-		case 64:
-			GenPoly.Len = 4;
-			memcpy(GenPoly.Deg,GENPOLY64,GPLEN);
-			break;
-
-	}
-
-	return GenPoly;
-
+  return Error_HandleErr(retErr);
 }
 
 
 /**
- *	Function for calculating the CRC of the input byte stream in accordance with
- *	the selected generator polynomial.
- **/
-void CrcCalc( uint8_t *InBytes, uint8_t *CrcBytes, genpoly *GenPoly ){
+ * @brief <i> Function for calculating CRC. </i>
+ * 
+ * @param[in] inStream input stream
+ * @param[out] outStream output stream
+ * @param[in] pParams pointer to crc parameters structure
+ * 
+ * @return error ID
+ */
+error_t Crc_CalculateChecksum( const byte_stream_t * inStream, byte_stream_t * outStream, const crc_par_t * pParams )
+{
+  error_t retErr = ERR_NONE;
+  const ulen_t crcLenBy = BI2BY_LEN(pParams->degree);
+  const ulen_t upLenBi = BY2BI_LEN(inStream->len)+pParams->degree;    /** upshifted bit-length */
+  const ulen_t upLenBy = BI2BY_LEN(upLenBi);                          /** upshifted byte-length */
+  slen_t maxDeg, quotDeg;
+  ulen_t byteIdx;
+  byte_t tmpPoly[upLenBy];                                            /** temporary polynomial used for iterative division operations */
+  uint8_t mask;
+  uint8_t bitIdx;
+  uint8_t j;
 
-	uint16_t BitLen = (MsgLen<<3)+CrcDeg;									// TmpPoly length (in bits)
-	uint16_t ByteLen = (BitLen>>3);											// TmpPoly length (in bytes)
-	uint8_t TmpPoly[ByteLen] = {0};											// Polynomial used for iterative division operations
-	int16_t MaxDeg, QuotDeg;
-	uint8_t BitIdx, Mask, j;
-	uint16_t ByteIdx;
+  if ((NULL != inStream) && (NULL != outStream) && (NULL != pParams) &&
+      (NULL != inStream->pBuf) && (NULL != outStream->pBuf))
+  {
+    if (crcLenBy == outStream->len)
+    {
+      memcpy(tmpPoly,inStream->pBuf,inStream->len);                     /** upshift the message polynomial into tmpPoly(x) */
+      memset(&tmpPoly[inStream->len],0,crcLenBy);
+      maxDeg = upLenBi-FindMaxDegree(tmpPoly,upLenBi)-1;                /** search for the maximum degree of tmpPoly(x) at 1st iteration */
+      quotDeg = maxDeg-pParams->degree;                                 /** estimate quotient degree at 1st iteration */
 
-	if ( (InBytes != NULL) && (CrcBytes != NULL) && (GenPoly != NULL) ){
+      if (maxDeg < upLenBi)                                             /** verify that input stream is not an all-zero array */
+      {
+        while (quotDeg >= 0)
+        {                                                               /** exit if at current iteration tmpPoly(x) has a maximum degree less than CrcDeg */
+          byteIdx = BI2BY_LEN(upLenBi-maxDeg-1);
+          bitIdx = (uint8_t)((upLenBi-maxDeg-1)&LSBYTE_MASK_U32);
+          mask = ~(MSBIT_MASK_U8>>bitIdx);
+          tmpPoly[byteIdx] &= mask;                                     /** reset the maximum degree of tmpPoly(x) at current iteration */
+          for (j=0; j<pParams->lenGenPoly; j++)
+          {
+            byteIdx = BI2BY_LEN(upLenBi-quotDeg-pParams->pGenPoly[j]-1);
+            bitIdx = (uint8_t)((upLenBi-quotDeg-pParams->pGenPoly[j]-1)&LSBYTE_MASK_U32);
+            mask = (MSBIT_MASK_U8>>bitIdx);
+            tmpPoly[byteIdx] ^= mask;                                   /** compute division remainder at current iteration */
+          }
+          maxDeg = upLenBi-FindMaxDegree(tmpPoly,upLenBi)-1;            /** search for the maximum degree of tmpPoly(x) at current iteration */
+          quotDeg = maxDeg-pParams->degree;                             /** estimate the quotient degree at current iteration */
+        }
+      }
 
-		memcpy(TmpPoly,InBytes,MsgLen);										// Upshift the message polynomial into TmpPoly(x)
-		MaxDeg = BitLen-FindMaxDeg(TmpPoly,ByteLen)-1;						// Search for the maximum degree of TmpPoly(x) at 1st iteration
-		QuotDeg = MaxDeg-CrcDeg;											// Estimate the quotient degree at 1st iteration
-
-		if ( MaxDeg < BitLen ){												// Check if InBytes is an all-zero array
-
-			while ( QuotDeg >= 0 ){											// Exit if at current iteration TmpPoly(x) has a maximum degree less than CrcDeg
-
-				ByteIdx = (BitLen-MaxDeg-1)>>3;
-				BitIdx = (BitLen-MaxDeg-1)&0x0007;
-				Mask = ~(0x80>>BitIdx);
-				TmpPoly[ByteIdx] &= Mask;									// Reset the maximum degree of TmpPoly(x) at current iteration
-
-				for ( j=0; j<GenPoly->Len; j++ ){
-
-					ByteIdx = (BitLen-QuotDeg-GenPoly->Deg[j]-1)>>3;
-					BitIdx = (uint8_t)((BitLen-QuotDeg-GenPoly->Deg[j]-1)&0x0007);
-					Mask = (0x80>>BitIdx);
-					TmpPoly[ByteIdx] ^= Mask;								// Compute division remainder at current iteration
-
-				}
-
-				MaxDeg = BitLen-FindMaxDeg(TmpPoly,ByteLen)-1;				// Search for the maximum degree of TmpPoly(x) at current iteration
-				QuotDeg = MaxDeg-CrcDeg;									// Estimate the quotient degree at current iteration
-
-			}
-		}
-
-		memcpy(CrcBytes,&TmpPoly[ByteLen-(CrcDeg>>3)],CrcDeg>>3);			// Copy the computed CRC bytes into the output pointer
-
-	}
-	
+      memcpy(outStream->pBuf,&tmpPoly[upLenBy-crcLenBy],crcLenBy);      /** copy computed crc bytes into output stream */
+    }
+    else
+    {
+      retErr = ERR_INV_BUFFER_SIZE;
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+  
+  return Error_HandleErr(retErr);
 }
 
 
 
+/*************************/
+/*** PRIVATE FUNCTIONS ***/
+/*************************/
+
+
 /**
- *	Function for finding the maximum degree of the input polynomial (in MSB endianess).
- *	A -1 return means that the input is an all-zero array.
+ *  Function for finding the maximum degree of the input polynomial (in MSB endianess).
+ *  A -1 return means that the input is an all-zero array.
  **/
-int16_t FindMaxDeg( uint8_t *Poly, uint16_t Len ){
 
-	uint16_t j, ByteIdx;
-	uint8_t BitIdx;
-	int16_t MaxDeg = -1;
-	uint16_t BitLen = Len<<3;
-	uint8_t Mask = 0x01;
+/**
+ * @brief <i> Function for finding the maximum degree of a polynomial (assuming MSB endianess). </i>
+ * 
+ * @param[in] poly input polynomial
+ * @param[in] lenBi polynomial length
+ * 
+ * @return index of maximum degree
+ */
+static slen_t FindMaxDegree( const  uint8_t * poly, ulen_t lenBi )
+{
+  ulen_t j, byteIdx;
+  slen_t maxDeg = -1;
+  uint8_t bitIdx;
+  
+  for (j=0; j<lenBi; j++)
+  {
+    byteIdx = BI2BY_LEN(j);
+    bitIdx = (uint8_t)(j&LSBYTE_MASK_U32);
 
-	for ( j=0; j<BitLen; j++ ){
+    if ((poly[byteIdx]>>(BITIDX_1LAST-bitIdx))&LSBIT_MASK_U8)
+    {
+      maxDeg = (slen_t)j;
+      break;
+    }
+  }
 
-		ByteIdx = (j>>3);
-		BitIdx = (j&0x0007);
-
-		if ( (Poly[ByteIdx]>>(7-BitIdx))&Mask ){
-			MaxDeg = (int16_t)j;
-			break;
-		}
-
-	}
-
-	return MaxDeg;
-
+  return maxDeg;
 }

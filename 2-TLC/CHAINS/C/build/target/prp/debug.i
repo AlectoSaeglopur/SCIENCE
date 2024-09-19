@@ -1551,9 +1551,9 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 # 931 "c:\\mingw\\include\\math.h" 3
 
 # 27 "src\\system.h" 2
-# 54 "src\\system.h"
+# 56 "src\\system.h"
 
-# 54 "src\\system.h"
+# 56 "src\\system.h"
 typedef struct _complex_t
 {
   float re;
@@ -1582,6 +1582,7 @@ typedef enum
   ERR_INV_MODULATION_BPS,
   ERR_INV_CHANNEL_TYPE,
   ERR_INV_SCRAMBLING_TYPE,
+  ERR_INV_CRC_DEGREE,
 
   ERR_NUM
 } error_t;
@@ -1595,7 +1596,7 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 69 "src\\error.h"
+# 70 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 19 "src\\channel.h" 2
 # 1 "src\\memory.h" 1
@@ -1703,7 +1704,7 @@ error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, c
 error_t Channel_AWGN( const complex_stream_t * inStream, complex_stream_t * outStream, const chan_par_t * pParams );
 # 19 "src\\debug.h" 2
 # 1 "src\\convolutional.h" 1
-# 68 "src\\convolutional.h"
+# 60 "src\\convolutional.h"
 typedef enum
 {
   CC_RATE_12 = 1, CC_RATE_23 = 2, CC_RATE_34 = 3, CC_RATE_56 = 5, CC_RATE_78 = 7
@@ -1715,7 +1716,7 @@ typedef enum
   CC_RATE_IDX_12, CC_RATE_IDX_23, CC_RATE_IDX_34, CC_RATE_IDX_56, CC_RATE_IDX_78,
   CC_RATE_NUM
 } cc_rate_idx_t;
-# 87 "src\\convolutional.h"
+# 79 "src\\convolutional.h"
 typedef enum
 {
   CC_KLEN_3 = 3,
@@ -1750,8 +1751,12 @@ typedef struct _cc_par_t
 
 typedef struct _cc_encoder_info_t
 {
-  uint8_t connVect[2u];
-  uint8_t puncVect[(2u*CC_RATE_12)];
+
+
+  const uint8_t * pConnVect;
+  uint8_t lenConnVect;
+  const uint8_t * pPuncVect;
+  uint8_t lenPuncVect;
 } cc_encoder_info_t;
 
 
@@ -1826,6 +1831,8 @@ typedef enum
 {
   PID_TX_ORG = 0,
   PID_RX_ORG,
+  PID_TX_CRC,
+  PID_RX_CRC,
   PID_TX_SCR,
   PID_RX_SCR,
   PID_TX_CNVCOD,
@@ -1990,6 +1997,14 @@ error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t lab
           printf(" * RX ORIGIN BYTES (%d)\n\t",inStream->len);
           break;
 
+        case PID_TX_CRC:
+          printf(" * TX CRC BYTES (%d)\n\t",inStream->len);
+          break;
+
+        case PID_RX_CRC:
+          printf(" * RX CRC BYTES (%d)\n\t",inStream->len);
+          break;
+
         case PID_TX_SCR:
           printf(" * TX SCRAMBLED BYTES (%d)\n\t",inStream->len);
           break;
@@ -2034,24 +2049,24 @@ error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t lab
 
   return Error_HandleErr(retErr);
 }
-# 183 "src\\debug.c"
+# 191 "src\\debug.c"
 error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t label, const debug_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
   uint32_t j;
 
   if ((
-# 188 "src\\debug.c" 3 4
+# 196 "src\\debug.c" 3 4
       ((void *)0) 
-# 188 "src\\debug.c"
+# 196 "src\\debug.c"
            != inStream) && (
-# 188 "src\\debug.c" 3 4
+# 196 "src\\debug.c" 3 4
                             ((void *)0) 
-# 188 "src\\debug.c"
+# 196 "src\\debug.c"
                                  != inStream->pBuf) && (
-# 188 "src\\debug.c" 3 4
+# 196 "src\\debug.c" 3 4
                                                         ((void *)0) 
-# 188 "src\\debug.c"
+# 196 "src\\debug.c"
                                                              != pParams))
   {
 
@@ -2102,24 +2117,24 @@ error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t l
 
   return Error_HandleErr(retErr);
 }
-# 249 "src\\debug.c"
+# 257 "src\\debug.c"
 error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label_t label, const debug_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
   uint32_t j;
 
   if ((
-# 254 "src\\debug.c" 3 4
+# 262 "src\\debug.c" 3 4
       ((void *)0) 
-# 254 "src\\debug.c"
+# 262 "src\\debug.c"
            != inStream) && (
-# 254 "src\\debug.c" 3 4
+# 262 "src\\debug.c" 3 4
                             ((void *)0) 
-# 254 "src\\debug.c"
+# 262 "src\\debug.c"
                                  != inStream->pBuf) && (
-# 254 "src\\debug.c" 3 4
+# 262 "src\\debug.c" 3 4
                                                         ((void *)0) 
-# 254 "src\\debug.c"
+# 262 "src\\debug.c"
                                                              != pParams))
   {
     if (CHAN_AWGN == pParams->chanPar.type)
@@ -2173,7 +2188,7 @@ error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label
 
   return Error_HandleErr(retErr);
 }
-# 317 "src\\debug.c"
+# 325 "src\\debug.c"
 error_t Debug_PrintParameters( uint32_t orgLen, const debug_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
@@ -2212,7 +2227,7 @@ error_t Debug_PrintParameters( uint32_t orgLen, const debug_par_t * pParams )
 
   return Error_HandleErr(retErr);
 }
-# 367 "src\\debug.c"
+# 375 "src\\debug.c"
 error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
@@ -2225,25 +2240,25 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
   uint8_t bitIdx;
 
   if ((
-# 378 "src\\debug.c" 3 4
+# 386 "src\\debug.c" 3 4
       ((void *)0) 
-# 378 "src\\debug.c"
+# 386 "src\\debug.c"
            != inStreamA) && (
-# 378 "src\\debug.c" 3 4
+# 386 "src\\debug.c" 3 4
                              ((void *)0) 
-# 378 "src\\debug.c"
+# 386 "src\\debug.c"
                                   != inStreamA->pBuf) && (
-# 378 "src\\debug.c" 3 4
+# 386 "src\\debug.c" 3 4
                                                           ((void *)0) 
-# 378 "src\\debug.c"
+# 386 "src\\debug.c"
                                                                != inStreamB) && (
-# 378 "src\\debug.c" 3 4
+# 386 "src\\debug.c" 3 4
                                                                                  ((void *)0) 
-# 378 "src\\debug.c"
+# 386 "src\\debug.c"
                                                                                       != inStreamB->pBuf) && (
-# 378 "src\\debug.c" 3 4
+# 386 "src\\debug.c" 3 4
                                                                                                               ((void *)0) 
-# 378 "src\\debug.c"
+# 386 "src\\debug.c"
                                                                                                                    != pParams))
   {
     if (!((CHAN_AWGN == pParams->chanPar.type) && (CC_VITDM_SOFT == pParams->ccPar.vitDM) && (PID_RX_CNVCOD == label)))
@@ -2301,25 +2316,25 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
 
   return Error_HandleErr(retErr);
 }
-# 445 "src\\debug.c"
+# 453 "src\\debug.c"
 error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label )
 {
   error_t retErr = ERR_NONE;
   FILE * fid = 
-# 448 "src\\debug.c" 3 4
+# 456 "src\\debug.c" 3 4
               ((void *)0)
-# 448 "src\\debug.c"
+# 456 "src\\debug.c"
                   ;
   uint32_t j;
 
   if ((
-# 451 "src\\debug.c" 3 4
+# 459 "src\\debug.c" 3 4
       ((void *)0) 
-# 451 "src\\debug.c"
+# 459 "src\\debug.c"
            != inStream) && (
-# 451 "src\\debug.c" 3 4
+# 459 "src\\debug.c" 3 4
                             ((void *)0) 
-# 451 "src\\debug.c"
+# 459 "src\\debug.c"
                                  != inStream->pBuf))
   {
     switch (label)
@@ -2346,9 +2361,9 @@ error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_
     }
 
     if ((ERR_NONE == retErr) && (
-# 476 "src\\debug.c" 3 4
+# 484 "src\\debug.c" 3 4
                                 ((void *)0) 
-# 476 "src\\debug.c"
+# 484 "src\\debug.c"
                                      != fid))
     {
       fprintf(fid,"%u,",inStream->len);
@@ -2370,25 +2385,25 @@ error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_
 
   return Error_HandleErr(retErr);
 }
-# 507 "src\\debug.c"
+# 515 "src\\debug.c"
 error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label )
 {
   error_t retErr = ERR_NONE;
   FILE * fid = 
-# 510 "src\\debug.c" 3 4
+# 518 "src\\debug.c" 3 4
               ((void *)0)
-# 510 "src\\debug.c"
+# 518 "src\\debug.c"
                   ;
   uint32_t j;
 
   if ((
-# 513 "src\\debug.c" 3 4
+# 521 "src\\debug.c" 3 4
       ((void *)0) 
-# 513 "src\\debug.c"
+# 521 "src\\debug.c"
            != inStream) && (
-# 513 "src\\debug.c" 3 4
+# 521 "src\\debug.c" 3 4
                             ((void *)0) 
-# 513 "src\\debug.c"
+# 521 "src\\debug.c"
                                  != inStream->pBuf))
   {
     switch (label)
@@ -2407,9 +2422,9 @@ error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_
     }
 
     if ((ERR_NONE == retErr) && (
-# 530 "src\\debug.c" 3 4
+# 538 "src\\debug.c" 3 4
                                 ((void *)0) 
-# 530 "src\\debug.c"
+# 538 "src\\debug.c"
                                      != fid))
     {
       fprintf(fid,"%u,",inStream->len);
@@ -2431,21 +2446,21 @@ error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_
 
   return Error_HandleErr(retErr);
 }
-# 565 "src\\debug.c"
+# 573 "src\\debug.c"
 static 
-# 565 "src\\debug.c" 3 4
+# 573 "src\\debug.c" 3 4
       _Bool 
-# 565 "src\\debug.c"
+# 573 "src\\debug.c"
            IsOrgLenValid( uint32_t orgLenBy, const debug_par_t * dbgParams )
 {
   
-# 567 "src\\debug.c" 3 4
+# 575 "src\\debug.c" 3 4
  _Bool 
-# 567 "src\\debug.c"
+# 575 "src\\debug.c"
       bRet = 
-# 567 "src\\debug.c" 3 4
+# 575 "src\\debug.c" 3 4
              0
-# 567 "src\\debug.c"
+# 575 "src\\debug.c"
                   ;
   uint32_t orgLenBi = ((orgLenBy)<<3u);
   uint32_t punLenBi = (orgLenBi/(dbgParams->ccPar.cRate)*(1+dbgParams->ccPar.cRate));
@@ -2455,9 +2470,9 @@ static
       (0 == (punLenBi%dbgParams->modPar.bps)))
   {
     bRet = 
-# 575 "src\\debug.c" 3 4
+# 583 "src\\debug.c" 3 4
           1
-# 575 "src\\debug.c"
+# 583 "src\\debug.c"
               ;
   }
 

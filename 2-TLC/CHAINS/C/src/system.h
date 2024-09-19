@@ -34,6 +34,7 @@
 #define BY2BI_SHIFT             3u                          //!< number of bit shifts to convert byte into bit value
 #define BY2BI_LEN(x)            ((x)<<BY2BI_SHIFT)
 #define BI2BY_LEN(x)            ((x)>>BY2BI_SHIFT)
+#define MSBIT_MASK_U8           ((uint8_t) 0x80)
 #define LSBIT_MASK_U8           ((uint8_t) 0x01)
 #define MSBIT_MASK_U32          ((uint32_t) 0x80000000)
 #define LSBYTE_MASK_U32         ((uint32_t) 0x00000007)
@@ -48,7 +49,8 @@
 /*** TYPEDEFS ***/
 /****************/
 
-#define len_t                   uint32_t                    //!< bit/byte buffer length type
+#define ulen_t                   uint32_t                   //!< bit/byte buffer length type (unsigned)
+#define slen_t                  int32_t                     //!< bit/byte buffer length type (signed)
 #define byte_t                  uint8_t                     //!< byte type
 
 typedef struct _complex_t

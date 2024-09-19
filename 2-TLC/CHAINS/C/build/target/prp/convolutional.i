@@ -1549,9 +1549,9 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 # 931 "c:\\mingw\\include\\math.h" 3
 
 # 27 "src\\system.h" 2
-# 54 "src\\system.h"
+# 56 "src\\system.h"
 
-# 54 "src\\system.h"
+# 56 "src\\system.h"
 typedef struct _complex_t
 {
   float re;
@@ -1580,6 +1580,7 @@ typedef enum
   ERR_INV_MODULATION_BPS,
   ERR_INV_CHANNEL_TYPE,
   ERR_INV_SCRAMBLING_TYPE,
+  ERR_INV_CRC_DEGREE,
 
   ERR_NUM
 } error_t;
@@ -1593,7 +1594,7 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 69 "src\\error.h"
+# 70 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 19 "src\\convolutional.h" 2
 # 1 "src\\memory.h" 1
@@ -1638,7 +1639,7 @@ typedef struct _complex_stream_t
 error_t Memory_AllocateStream( void * ioStream, uint32_t len, memory_type_t type );
 error_t Memory_FreeStream( void * ioStream, memory_type_t type );
 # 20 "src\\convolutional.h" 2
-# 68 "src\\convolutional.h"
+# 60 "src\\convolutional.h"
 typedef enum
 {
   CC_RATE_12 = 1, CC_RATE_23 = 2, CC_RATE_34 = 3, CC_RATE_56 = 5, CC_RATE_78 = 7
@@ -1650,7 +1651,7 @@ typedef enum
   CC_RATE_IDX_12, CC_RATE_IDX_23, CC_RATE_IDX_34, CC_RATE_IDX_56, CC_RATE_IDX_78,
   CC_RATE_NUM
 } cc_rate_idx_t;
-# 87 "src\\convolutional.h"
+# 79 "src\\convolutional.h"
 typedef enum
 {
   CC_KLEN_3 = 3,
@@ -1685,8 +1686,12 @@ typedef struct _cc_par_t
 
 typedef struct _cc_encoder_info_t
 {
-  uint8_t connVect[2u];
-  uint8_t puncVect[(2u*CC_RATE_12)];
+
+
+  const uint8_t * pConnVect;
+  uint8_t lenConnVect;
+  const uint8_t * pPuncVect;
+  uint8_t lenPuncVect;
 } cc_encoder_info_t;
 
 
@@ -1737,6 +1742,14 @@ error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * out
 
 
 
+static const uint8_t CC_CVMATRIX[][2u] = {{7,5},{15,11},{23,25},
+                                                    {47,53},{79,109},{159,229}};
+
+static const uint8_t CC_PUNC_VECT_23[] = {1,1,0,1};
+static const uint8_t CC_PUNC_VECT_34[] = {1,1,0,1,1,0};
+static const uint8_t CC_PUNC_VECT_56[] = {1,1,0,1,1,0,0,1,1,0};
+static const uint8_t CC_PUNC_VECT_78[] = {1,1,0,1,0,1,0,1,1,0,0,1,1,0};
+
 const cc_rate_t CC_RATE_ARRAY[CC_RATE_NUM] =
 {
   CC_RATE_12, CC_RATE_23, CC_RATE_34, CC_RATE_56, CC_RATE_78
@@ -1749,33 +1762,33 @@ const cc_rate_t CC_RATE_ARRAY[CC_RATE_NUM] =
 
 
 static 
-# 34 "src\\convolutional.c" 3 4
+# 42 "src\\convolutional.c" 3 4
       _Bool 
-# 34 "src\\convolutional.c"
+# 42 "src\\convolutional.c"
            IsRateValid( cc_rate_t rateVal );
 static 
-# 35 "src\\convolutional.c" 3 4
+# 43 "src\\convolutional.c" 3 4
       _Bool 
-# 35 "src\\convolutional.c"
+# 43 "src\\convolutional.c"
            IsKlenValid( cc_klen_t kVal );
 static error_t RetrieveConnectorPuncturationVectors( cc_encoder_info_t * ioInfo, const cc_par_t * pParams );
 static uint8_t ComputeEncBit( uint8_t cState, uint8_t cvVal, cc_klen_t kLen );
-static error_t ComputeTrellisDiagram( cc_trellis_t * ioTrellisDiagr, const uint8_t * conVect, const cc_par_t * pParams );
+static error_t ComputeTrellisDiagram( cc_trellis_t * ioTrellisDiagr, const cc_encoder_info_t * encInfo, const cc_par_t * pParams );
 static error_t HardDepuncturer( uint8_t * ioBuffer, uint32_t inLenBi, uint32_t outLenBi, const uint8_t * punctVect, const cc_par_t * pParams );
 static uint8_t CountByteOnes( uint8_t InByte );
 static uint8_t FindMinSurvPathHard( const cc_hard_dec_info_t * inPaths );
-static error_t SoftDepuncturer( float * ioBuffer, uint32_t inLenBi, uint32_t outLenBi, const uint8_t * punctVect, const cc_par_t * pParams );
+static error_t SoftDepuncturer( float * ioBuffer, uint32_t inLenBi, uint32_t outLenBi, const cc_encoder_info_t * encInfo, const cc_par_t * pParams );
 static float EstimateEuclideanDist( const float * inBuf, uint8_t trlByte, uint8_t erasMask );
 static uint8_t FindMinSurvPathSoft( const cc_soft_dec_info_t * inPaths);
-# 59 "src\\convolutional.c"
+# 67 "src\\convolutional.c"
 error_t CnvCod_ListParameters( cc_par_t * ioParams )
 {
   error_t retErr = ERR_NONE;
 
   if (
-# 63 "src\\convolutional.c" 3 4
+# 71 "src\\convolutional.c" 3 4
      ((void *)0) 
-# 63 "src\\convolutional.c"
+# 71 "src\\convolutional.c"
           != ioParams)
   {
     ioParams->cRate = CC_RATE_12;
@@ -1790,7 +1803,7 @@ error_t CnvCod_ListParameters( cc_par_t * ioParams )
 
   return Error_HandleErr(retErr);
 }
-# 88 "src\\convolutional.c"
+# 96 "src\\convolutional.c"
 error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
@@ -1807,28 +1820,29 @@ error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStrea
   uint8_t encState = 0;
   uint8_t bitIdx;
   uint8_t rdBit;
+  uint8_t k;
 
   if ((
-# 105 "src\\convolutional.c" 3 4
+# 114 "src\\convolutional.c" 3 4
       ((void *)0) 
-# 105 "src\\convolutional.c"
+# 114 "src\\convolutional.c"
            != inStream) && (
-# 105 "src\\convolutional.c" 3 4
+# 114 "src\\convolutional.c" 3 4
                             ((void *)0) 
-# 105 "src\\convolutional.c"
+# 114 "src\\convolutional.c"
                                  != inStream->pBuf) && (
-# 105 "src\\convolutional.c" 3 4
+# 114 "src\\convolutional.c" 3 4
                                                         ((void *)0) 
-# 105 "src\\convolutional.c"
+# 114 "src\\convolutional.c"
                                                              != outStream) &&
       (
-# 106 "src\\convolutional.c" 3 4
+# 115 "src\\convolutional.c" 3 4
       ((void *)0) 
-# 106 "src\\convolutional.c"
+# 115 "src\\convolutional.c"
            != outStream->pBuf) && (
-# 106 "src\\convolutional.c" 3 4
+# 115 "src\\convolutional.c" 3 4
                                    ((void *)0) 
-# 106 "src\\convolutional.c"
+# 115 "src\\convolutional.c"
                                         != pParams))
   {
     RetrieveConnectorPuncturationVectors(&encInfo,pParams);
@@ -1845,10 +1859,12 @@ error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStrea
           <<(pParams->kLen-1);
         byteIdx = ((2u*j)>>3u);
         bitIdx = (2u*j)&((uint32_t) 0x00000007);
-        tmpStream.pBuf[byteIdx] |= (ComputeEncBit(encState,encInfo.connVect[0],
-          pParams->kLen)<<((8u -1)-bitIdx));
-        tmpStream.pBuf[byteIdx] |= (ComputeEncBit(encState,encInfo.connVect[1],
-          pParams->kLen)<<(((8u -1)-1)-bitIdx));
+
+        for (k=0; k<2u; k++)
+        {
+          tmpStream.pBuf[byteIdx] |= (ComputeEncBit(encState,encInfo.pConnVect[k],
+            pParams->kLen)<<((8u -1)-k-bitIdx));
+        }
       }
 
       if (CC_RATE_12 != pParams->cRate)
@@ -1858,7 +1874,7 @@ error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStrea
           byteIdx = ((j)>>3u);
           bitIdx = j&((uint32_t) 0x00000007);
           rdBit = (tmpStream.pBuf[byteIdx]>>((8u -1)-bitIdx))&((uint8_t) 0x01);
-          if (encInfo.puncVect[j%(2u*pParams->cRate)])
+          if (encInfo.pPuncVect[j%(encInfo.lenPuncVect*pParams->cRate)])
           {
             byteIdx = ((wrIdx)>>3u);
             bitIdx = (8u -1)-(uint8_t)(wrIdx&((uint32_t) 0x00000007));
@@ -1899,7 +1915,7 @@ error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStrea
 
    return Error_HandleErr(retErr);
 }
-# 187 "src\\convolutional.c"
+# 198 "src\\convolutional.c"
 error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
@@ -1923,32 +1939,32 @@ error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outS
   uint8_t j;
 
   if ((
-# 209 "src\\convolutional.c" 3 4
+# 220 "src\\convolutional.c" 3 4
       ((void *)0) 
-# 209 "src\\convolutional.c"
+# 220 "src\\convolutional.c"
            != inStream) && (
-# 209 "src\\convolutional.c" 3 4
+# 220 "src\\convolutional.c" 3 4
                             ((void *)0) 
-# 209 "src\\convolutional.c"
+# 220 "src\\convolutional.c"
                                  != inStream->pBuf) && (
-# 209 "src\\convolutional.c" 3 4
+# 220 "src\\convolutional.c" 3 4
                                                         ((void *)0) 
-# 209 "src\\convolutional.c"
+# 220 "src\\convolutional.c"
                                                              != outStream) &&
       (
-# 210 "src\\convolutional.c" 3 4
+# 221 "src\\convolutional.c" 3 4
       ((void *)0) 
-# 210 "src\\convolutional.c"
+# 221 "src\\convolutional.c"
            != outStream->pBuf) && (
-# 210 "src\\convolutional.c" 3 4
+# 221 "src\\convolutional.c" 3 4
                                    ((void *)0) 
-# 210 "src\\convolutional.c"
+# 221 "src\\convolutional.c"
                                         != pParams))
   {
     if (CC_VITDM_HARD == pParams->vitDM)
     {
       RetrieveConnectorPuncturationVectors(&encInfo,pParams);
-      ComputeTrellisDiagram(&trDiagr,encInfo.connVect,pParams);
+      ComputeTrellisDiagram(&trDiagr,&encInfo,pParams);
       memcpy(tmpStream,inStream->pBuf,inStream->len);
       curPaths.iter[0] = 1;
 
@@ -1958,7 +1974,7 @@ error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outS
       }
       else
       {
-        HardDepuncturer(tmpStream,inLenBi,unpLenBi,encInfo.puncVect,pParams);
+        HardDepuncturer(tmpStream,inLenBi,unpLenBi,encInfo.pPuncVect,pParams);
       }
 
       for (i=2u; i<outLenBi+2u; i++)
@@ -1971,8 +1987,8 @@ error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outS
         if (CC_RATE_12 != pParams->cRate)
         {
           erasMask = 0;
-          erasMask |= (encInfo.puncVect[inIdx%(2*pParams->cRate)]<<1);
-          erasMask |= encInfo.puncVect[(inIdx+1)%(2*pParams->cRate)];
+          erasMask |= (encInfo.pPuncVect[inIdx%(2u*pParams->cRate)]<<1);
+          erasMask |= encInfo.pPuncVect[(inIdx+1)%(2u*pParams->cRate)];
         }
         for (j=0; j<(1<<(CC_KLEN_7-1)); j++)
         {
@@ -2096,7 +2112,7 @@ error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outS
 
   return Error_HandleErr(retErr);
 }
-# 374 "src\\convolutional.c"
+# 385 "src\\convolutional.c"
 error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
@@ -2118,32 +2134,32 @@ error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * out
   uint8_t erasMask;
 
   if ((
-# 394 "src\\convolutional.c" 3 4
+# 405 "src\\convolutional.c" 3 4
       ((void *)0) 
-# 394 "src\\convolutional.c"
+# 405 "src\\convolutional.c"
            != inStream) && (
-# 394 "src\\convolutional.c" 3 4
+# 405 "src\\convolutional.c" 3 4
                             ((void *)0) 
-# 394 "src\\convolutional.c"
+# 405 "src\\convolutional.c"
                                  != inStream->pBuf) && (
-# 394 "src\\convolutional.c" 3 4
+# 405 "src\\convolutional.c" 3 4
                                                         ((void *)0) 
-# 394 "src\\convolutional.c"
+# 405 "src\\convolutional.c"
                                                              != outStream) &&
       (
-# 395 "src\\convolutional.c" 3 4
+# 406 "src\\convolutional.c" 3 4
       ((void *)0) 
-# 395 "src\\convolutional.c"
+# 406 "src\\convolutional.c"
            != outStream->pBuf) && (
-# 395 "src\\convolutional.c" 3 4
+# 406 "src\\convolutional.c" 3 4
                                    ((void *)0) 
-# 395 "src\\convolutional.c"
+# 406 "src\\convolutional.c"
                                         != pParams))
   {
     if (CC_VITDM_SOFT == pParams->vitDM)
     {
       RetrieveConnectorPuncturationVectors(&encInfo,pParams);
-      ComputeTrellisDiagram(&trDiagr,encInfo.connVect,pParams);
+      ComputeTrellisDiagram(&trDiagr,&encInfo,pParams);
       memcpy(tmpStream,inStream->pBuf,sizeof(float)*inStream->len);
       curPaths.iter[0] = 1;
 
@@ -2153,7 +2169,7 @@ error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * out
       }
       else
       {
-        SoftDepuncturer(tmpStream,punLenBi,unpLenBi,encInfo.puncVect,pParams);
+        SoftDepuncturer(tmpStream,punLenBi,unpLenBi,&encInfo,pParams);
       }
 
       for (i=2u; i<outLenBi+2u; i++)
@@ -2164,8 +2180,8 @@ error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * out
         if (CC_RATE_12 != pParams->cRate)
         {
           erasMask = 0;
-          erasMask |= (encInfo.puncVect[curIdx%(2u*pParams->cRate)]<<1);
-          erasMask |= encInfo.puncVect[(curIdx+1)%(2u*pParams->cRate)];
+          erasMask |= (encInfo.pPuncVect[curIdx%(2u*pParams->cRate)]<<1);
+          erasMask |= encInfo.pPuncVect[(curIdx+1)%(2u*pParams->cRate)];
         }
 
         for (j=0; j<(1<<(CC_KLEN_7-1)); j++)
@@ -2292,25 +2308,25 @@ error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * out
 
   return Error_HandleErr(retErr);
 }
-# 564 "src\\convolutional.c"
+# 575 "src\\convolutional.c"
 static error_t RetrieveConnectorPuncturationVectors( cc_encoder_info_t * ioInfo, const cc_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
 
   if ((
-# 568 "src\\convolutional.c" 3 4
+# 579 "src\\convolutional.c" 3 4
       ((void *)0) 
-# 568 "src\\convolutional.c"
+# 579 "src\\convolutional.c"
            != ioInfo) && (
-# 568 "src\\convolutional.c" 3 4
+# 579 "src\\convolutional.c" 3 4
                           ((void *)0) 
-# 568 "src\\convolutional.c"
+# 579 "src\\convolutional.c"
                                != pParams))
   {
     if (IsKlenValid(pParams->kLen))
     {
-
-      memcpy(ioInfo->connVect,((uint8_t[][2u]) {{7,5},{15,11}, {23,25},{47,53},{79,109},{159,229}})[pParams->kLen-CC_KLEN_MIN],2u);
+      ioInfo->pConnVect = CC_CVMATRIX[pParams->kLen-CC_KLEN_MIN];
+      ioInfo->lenConnVect = 2u;
     }
     else
     {
@@ -2322,19 +2338,23 @@ static error_t RetrieveConnectorPuncturationVectors( cc_encoder_info_t * ioInfo,
       switch (pParams->cRate)
       {
         case CC_RATE_23:
-          memcpy(ioInfo->puncVect,((uint8_t[]) {1,1,0,1}),(2u*CC_RATE_12));
+          ioInfo->pPuncVect = CC_PUNC_VECT_23;
+          ioInfo->lenPuncVect = sizeof(CC_PUNC_VECT_23);
           break;
 
         case CC_RATE_34:
-          memcpy(ioInfo->puncVect,((uint8_t[]) {1,1,0,1,1,0}),(2u*CC_RATE_12));
+          ioInfo->pPuncVect = CC_PUNC_VECT_34;
+          ioInfo->lenPuncVect = sizeof(CC_PUNC_VECT_34);
           break;
 
         case CC_RATE_56:
-          memcpy(ioInfo->puncVect,((uint8_t[]) {1,1,0,1,1,0,0,1,1,0}),(2u*CC_RATE_12));
+          ioInfo->pPuncVect = CC_PUNC_VECT_56;
+          ioInfo->lenPuncVect = sizeof(CC_PUNC_VECT_56);
           break;
 
         case CC_RATE_78:
-          memcpy(ioInfo->puncVect,((uint8_t[]) {1,1,0,1,0,1,0,1,1,0,0,1,1,0}),(2u*CC_RATE_12));
+          ioInfo->pPuncVect = CC_PUNC_VECT_78;
+          ioInfo->lenPuncVect = sizeof(CC_PUNC_VECT_78);
           break;
 
         default:
@@ -2354,21 +2374,21 @@ static error_t RetrieveConnectorPuncturationVectors( cc_encoder_info_t * ioInfo,
 
   return Error_HandleErr(retErr);
 }
-# 626 "src\\convolutional.c"
+# 641 "src\\convolutional.c"
 static 
-# 626 "src\\convolutional.c" 3 4
+# 641 "src\\convolutional.c" 3 4
       _Bool 
-# 626 "src\\convolutional.c"
+# 641 "src\\convolutional.c"
            IsRateValid( cc_rate_t rateVal )
 {
   
-# 628 "src\\convolutional.c" 3 4
+# 643 "src\\convolutional.c" 3 4
  _Bool 
-# 628 "src\\convolutional.c"
+# 643 "src\\convolutional.c"
       bRet = 
-# 628 "src\\convolutional.c" 3 4
+# 643 "src\\convolutional.c" 3 4
              0
-# 628 "src\\convolutional.c"
+# 643 "src\\convolutional.c"
                   ;
   uint8_t j;
 
@@ -2377,9 +2397,9 @@ static
     if (rateVal == CC_RATE_ARRAY[j])
     {
       bRet = 
-# 635 "src\\convolutional.c" 3 4
+# 650 "src\\convolutional.c" 3 4
             1
-# 635 "src\\convolutional.c"
+# 650 "src\\convolutional.c"
                 ;
       break;
     }
@@ -2387,24 +2407,24 @@ static
 
   return bRet;
 }
-# 651 "src\\convolutional.c"
+# 666 "src\\convolutional.c"
 static 
-# 651 "src\\convolutional.c" 3 4
+# 666 "src\\convolutional.c" 3 4
       _Bool 
-# 651 "src\\convolutional.c"
+# 666 "src\\convolutional.c"
            IsKlenValid( cc_klen_t kVal )
 {
   
-# 653 "src\\convolutional.c" 3 4
+# 668 "src\\convolutional.c" 3 4
  _Bool 
-# 653 "src\\convolutional.c"
+# 668 "src\\convolutional.c"
       bRet;
 
   bRet = (kVal >= CC_KLEN_MIN) && (kVal <= CC_KLEN_MAX);
 
   return bRet;
 }
-# 670 "src\\convolutional.c"
+# 685 "src\\convolutional.c"
 static uint8_t ComputeEncBit( uint8_t cState, uint8_t cvVal, cc_klen_t kLen )
 {
   uint8_t outBit = 0;
@@ -2417,8 +2437,8 @@ static uint8_t ComputeEncBit( uint8_t cState, uint8_t cvVal, cc_klen_t kLen )
 
   return outBit;
 }
-# 693 "src\\convolutional.c"
-static error_t ComputeTrellisDiagram( cc_trellis_t * ioTrellisDiagr, const uint8_t * conVect, const cc_par_t * pParams )
+# 708 "src\\convolutional.c"
+static error_t ComputeTrellisDiagram( cc_trellis_t * ioTrellisDiagr, const cc_encoder_info_t * encInfo, const cc_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
   uint8_t StBin[(1<<(CC_KLEN_7-1))];
@@ -2427,9 +2447,9 @@ static error_t ComputeTrellisDiagram( cc_trellis_t * ioTrellisDiagr, const uint8
   uint8_t state0, state1;
 
   if (
-# 701 "src\\convolutional.c" 3 4
+# 716 "src\\convolutional.c" 3 4
      ((void *)0) 
-# 701 "src\\convolutional.c"
+# 716 "src\\convolutional.c"
           != ioTrellisDiagr)
   {
     for (j=0; j<(1<<(CC_KLEN_7-1)); j++)
@@ -2439,9 +2459,9 @@ static error_t ComputeTrellisDiagram( cc_trellis_t * ioTrellisDiagr, const uint8
     for (j=0; j<(1<<(CC_KLEN_7-1)); j++)
     {
       state0 = StBin[j];
-      for (i=0; i<2u; i++)
+      for (i=0; i<encInfo->lenConnVect; i++)
       {
-        outBit = ComputeEncBit(state0,conVect[i],pParams->kLen);
+        outBit = ComputeEncBit(state0,encInfo->pConnVect[i],pParams->kLen);
         if ( 0 == i)
         {
           ioTrellisDiagr->trSt[j].outBits[0] = outBit<<1;
@@ -2453,9 +2473,9 @@ static error_t ComputeTrellisDiagram( cc_trellis_t * ioTrellisDiagr, const uint8
       }
       ioTrellisDiagr->trSt[j].nextSt[0] = state0>>1;
       state1 = state0|(((uint8_t) 0x01)<<(pParams->kLen-1));
-      for (i=0; i<2u; i++)
+      for (i=0; i<encInfo->lenConnVect; i++)
       {
-        outBit = ComputeEncBit(state1,conVect[i],pParams->kLen);
+        outBit = ComputeEncBit(state1,encInfo->pConnVect[i],pParams->kLen);
         if (0 == i)
         {
           ioTrellisDiagr->trSt[j].outBits[1] = outBit<<1;
@@ -2475,7 +2495,7 @@ static error_t ComputeTrellisDiagram( cc_trellis_t * ioTrellisDiagr, const uint8
 
   return Error_HandleErr(retErr);
 }
-# 759 "src\\convolutional.c"
+# 774 "src\\convolutional.c"
 static error_t HardDepuncturer( uint8_t * ioBuffer, uint32_t inLenBi, uint32_t outLenBi, const uint8_t * punctVect, const cc_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
@@ -2487,9 +2507,9 @@ static error_t HardDepuncturer( uint8_t * ioBuffer, uint32_t inLenBi, uint32_t o
   uint8_t rdBit;
 
   if (
-# 769 "src\\convolutional.c" 3 4
+# 784 "src\\convolutional.c" 3 4
      ((void *)0) 
-# 769 "src\\convolutional.c"
+# 784 "src\\convolutional.c"
           != ioBuffer)
   {
     for (j=outLenBi; j>0; j--)
@@ -2532,7 +2552,7 @@ static error_t HardDepuncturer( uint8_t * ioBuffer, uint32_t inLenBi, uint32_t o
 
   return Error_HandleErr(retErr);
 }
-# 820 "src\\convolutional.c"
+# 835 "src\\convolutional.c"
 static uint8_t CountByteOnes( uint8_t inByte )
 {
   uint8_t j;
@@ -2548,7 +2568,7 @@ static uint8_t CountByteOnes( uint8_t inByte )
 
   return cnt;
 }
-# 844 "src\\convolutional.c"
+# 859 "src\\convolutional.c"
 static uint8_t FindMinSurvPathHard( const cc_hard_dec_info_t * inPaths )
 {
   uint32_t minDist;
@@ -2556,9 +2576,9 @@ static uint8_t FindMinSurvPathHard( const cc_hard_dec_info_t * inPaths )
   uint8_t j;
 
   if (
-# 850 "src\\convolutional.c" 3 4
+# 865 "src\\convolutional.c" 3 4
      ((void *)0) 
-# 850 "src\\convolutional.c"
+# 865 "src\\convolutional.c"
           != inPaths)
   {
     minDist = inPaths->dist[0];
@@ -2575,23 +2595,23 @@ static uint8_t FindMinSurvPathHard( const cc_hard_dec_info_t * inPaths )
 
   return minStateIdx;
 }
-# 879 "src\\convolutional.c"
-static error_t SoftDepuncturer( float * ioBuffer, uint32_t inLenBi, uint32_t outLenBi, const uint8_t * punctVect, const cc_par_t * pParams )
+# 894 "src\\convolutional.c"
+static error_t SoftDepuncturer( float * ioBuffer, uint32_t inLenBi, uint32_t outLenBi, const cc_encoder_info_t * encInfo, const cc_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
   uint32_t i = inLenBi-1;
   uint32_t j;
-  uint8_t k = 2u*pParams->cRate-1;
+  uint8_t k = encInfo->lenPuncVect-1;
 
   if (
-# 886 "src\\convolutional.c" 3 4
+# 901 "src\\convolutional.c" 3 4
      ((void *)0) 
-# 886 "src\\convolutional.c"
+# 901 "src\\convolutional.c"
           != ioBuffer)
   {
     for (j=outLenBi; j>0; j--)
     {
-      if (1 == punctVect[k])
+      if (1 == encInfo->pPuncVect[k])
       {
         ioBuffer[j-1] = ioBuffer[i];
         i--;
@@ -2618,16 +2638,16 @@ static error_t SoftDepuncturer( float * ioBuffer, uint32_t inLenBi, uint32_t out
 
   return Error_HandleErr(retErr);
 }
-# 928 "src\\convolutional.c"
+# 943 "src\\convolutional.c"
 static float EstimateEuclideanDist( const float * inBuf, uint8_t trlByte, uint8_t erasMask )
 {
   uint8_t j;
   float Dist = 0;
 
   if (
-# 933 "src\\convolutional.c" 3 4
+# 948 "src\\convolutional.c" 3 4
      ((void *)0) 
-# 933 "src\\convolutional.c"
+# 948 "src\\convolutional.c"
           != inBuf)
   {
     for (j=0; j<2u; j++)
@@ -2641,7 +2661,7 @@ static float EstimateEuclideanDist( const float * inBuf, uint8_t trlByte, uint8_
 
   return Dist;
 }
-# 955 "src\\convolutional.c"
+# 970 "src\\convolutional.c"
 static uint8_t FindMinSurvPathSoft( const cc_soft_dec_info_t * inPaths)
 {
   float minDist;
@@ -2649,9 +2669,9 @@ static uint8_t FindMinSurvPathSoft( const cc_soft_dec_info_t * inPaths)
   uint8_t j;
 
   if (
-# 961 "src\\convolutional.c" 3 4
+# 976 "src\\convolutional.c" 3 4
      ((void *)0) 
-# 961 "src\\convolutional.c"
+# 976 "src\\convolutional.c"
           != inPaths)
   {
     minDist = inPaths->dist[0];

@@ -1,9 +1,11 @@
-# 1 "src\\error.c"
+# 1 "src\\crc.c"
 # 1 "H:\\SCIENCE\\2-TLC\\CHAINS\\C//"
 # 1 "<built-in>"
 # 1 "<command-line>"
-# 1 "src\\error.c"
-# 16 "src\\error.c"
+# 1 "src\\crc.c"
+# 16 "src\\crc.c"
+# 1 "src\\crc.h" 1
+# 18 "src\\crc.h"
 # 1 "src\\error.h" 1
 # 18 "src\\error.h"
 # 1 "src\\system.h" 1
@@ -1594,32 +1596,238 @@ typedef enum
 } alarm_t;
 # 70 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
-# 17 "src\\error.c" 2
-# 31 "src\\error.c"
-error_t Error_HandleErr( error_t inErr )
+# 19 "src\\crc.h" 2
+# 1 "src\\memory.h" 1
+# 28 "src\\memory.h"
+typedef enum
 {
-  if (ERR_NONE != inErr)
+  memory_type_byte = 0,
+  memory_type_float,
+  memory_type_complex
+} memory_type_t;
+
+
+typedef struct _byte_stream_t
+{
+  uint8_t * pBuf;
+  uint32_t len;
+  memory_type_t id;
+} byte_stream_t;
+
+
+typedef struct _float_stream_t
+{
+  float * pBuf;
+  uint32_t len;
+  memory_type_t id;
+} float_stream_t;
+
+
+typedef struct _complex_stream_t
+{
+  complex_t * pBuf;
+  uint32_t len;
+  memory_type_t id;
+} complex_stream_t;
+
+
+
+
+
+
+
+error_t Memory_AllocateStream( void * ioStream, uint32_t len, memory_type_t type );
+error_t Memory_FreeStream( void * ioStream, memory_type_t type );
+# 20 "src\\crc.h" 2
+# 28 "src\\crc.h"
+typedef enum
+{
+  CRC_DEGREE_8 = 8,
+  CRC_DEGREE_16 = 16,
+  CRC_DEGREE_24 = 24,
+  CRC_DEGREE_32 = 32,
+  CRC_DEGREE_64 = 64
+} crc_degree_t;
+
+typedef struct _crc_par_t
+{
+  crc_degree_t degree;
+  const uint8_t * pGenPoly;
+  uint8_t lenGenPoly;
+} crc_par_t;
+# 58 "src\\crc.h"
+error_t Crc_ListParameters( crc_par_t * ioParams );
+error_t Crc_CalculateChecksum( const byte_stream_t * inStream, byte_stream_t * outStream, const crc_par_t * pParams );
+# 17 "src\\crc.c" 2
+
+
+
+
+
+
+
+static const uint8_t CRC_GENPOLY_8[] = {0,2,4,6,7};
+static const uint8_t CRC_GENPOLY_16[] = {0,5,12};
+static const uint8_t CRC_GENPOLY_24[] = {0,1,5,6,23};
+static const uint8_t CRC_GENPOLY_32[] = {0,1,2,4,5,7,8,10,
+                                  11,12,16,22,23,26};
+static const uint8_t CRC_GENPOLY_64[] = {0,1,3,4};
+
+
+
+
+
+
+
+static int32_t FindMaxDegree( const uint8_t * poly, uint32_t lenBi );
+# 52 "src\\crc.c"
+error_t Crc_ListParameters( crc_par_t * ioParams )
+{
+  error_t retErr = ERR_NONE;
+
+  if (
+# 56 "src\\crc.c" 3 4
+     ((void *)0) 
+# 56 "src\\crc.c"
+          != ioParams)
   {
-    switch (ALARM_STOP)
+    ioParams->degree = CRC_DEGREE_16;
+
+    switch (ioParams->degree)
     {
-      case ALARM_PRINT:
-        printf("\n >> WARNING: DETECTED ALARM #%d\n",inErr);
+      case CRC_DEGREE_8:
+        ioParams->pGenPoly = CRC_GENPOLY_8;
+        ioParams->lenGenPoly = sizeof(CRC_GENPOLY_8);
         break;
 
-      case ALARM_STOP:
-        printf("\n >> ERROR: DETECTED ALARM #%d\n",inErr);
-        exit(
-# 43 "src\\error.c" 3
-            1
-# 43 "src\\error.c"
-                        );
+      case CRC_DEGREE_16:
+        ioParams->pGenPoly = CRC_GENPOLY_16;
+        ioParams->lenGenPoly = sizeof(CRC_GENPOLY_16);
+        break;
+
+      case CRC_DEGREE_24:
+        ioParams->pGenPoly = CRC_GENPOLY_24;
+        ioParams->lenGenPoly = sizeof(CRC_GENPOLY_24);
+        break;
+
+      case CRC_DEGREE_32:
+        ioParams->pGenPoly = CRC_GENPOLY_32;
+        ioParams->lenGenPoly = sizeof(CRC_GENPOLY_32);
+        break;
+
+      case CRC_DEGREE_64:
+        ioParams->pGenPoly = CRC_GENPOLY_64;
+        ioParams->lenGenPoly = sizeof(CRC_GENPOLY_64);
         break;
 
       default:
-
+        retErr = ERR_INV_CRC_DEGREE;
         break;
     }
   }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
 
-  return inErr;
+  return Error_HandleErr(retErr);
+}
+# 110 "src\\crc.c"
+error_t Crc_CalculateChecksum( const byte_stream_t * inStream, byte_stream_t * outStream, const crc_par_t * pParams )
+{
+  error_t retErr = ERR_NONE;
+  const uint32_t crcLenBy = ((pParams->degree)>>3u);
+  const uint32_t upLenBi = ((inStream->len)<<3u)+pParams->degree;
+  const uint32_t upLenBy = ((upLenBi)>>3u);
+  int32_t maxDeg, quotDeg;
+  uint32_t byteIdx;
+  uint8_t tmpPoly[upLenBy];
+  uint8_t mask;
+  uint8_t bitIdx;
+  uint8_t j;
+
+  if ((
+# 123 "src\\crc.c" 3 4
+      ((void *)0) 
+# 123 "src\\crc.c"
+           != inStream) && (
+# 123 "src\\crc.c" 3 4
+                            ((void *)0) 
+# 123 "src\\crc.c"
+                                 != outStream) && (
+# 123 "src\\crc.c" 3 4
+                                                   ((void *)0) 
+# 123 "src\\crc.c"
+                                                        != pParams) &&
+      (
+# 124 "src\\crc.c" 3 4
+      ((void *)0) 
+# 124 "src\\crc.c"
+           != inStream->pBuf) && (
+# 124 "src\\crc.c" 3 4
+                                  ((void *)0) 
+# 124 "src\\crc.c"
+                                       != outStream->pBuf))
+  {
+    if (crcLenBy == outStream->len)
+    {
+      memcpy(tmpPoly,inStream->pBuf,inStream->len);
+      memset(&tmpPoly[inStream->len],0,crcLenBy);
+      maxDeg = upLenBi-FindMaxDegree(tmpPoly,upLenBi)-1;
+      quotDeg = maxDeg-pParams->degree;
+
+      if (maxDeg < upLenBi)
+      {
+        while (quotDeg >= 0)
+        {
+          byteIdx = ((upLenBi-maxDeg-1)>>3u);
+          bitIdx = (uint8_t)((upLenBi-maxDeg-1)&((uint32_t) 0x00000007));
+          mask = ~(((uint8_t) 0x80)>>bitIdx);
+          tmpPoly[byteIdx] &= mask;
+          for (j=0; j<pParams->lenGenPoly; j++)
+          {
+            byteIdx = ((upLenBi-quotDeg-pParams->pGenPoly[j]-1)>>3u);
+            bitIdx = (uint8_t)((upLenBi-quotDeg-pParams->pGenPoly[j]-1)&((uint32_t) 0x00000007));
+            mask = (((uint8_t) 0x80)>>bitIdx);
+            tmpPoly[byteIdx] ^= mask;
+          }
+          maxDeg = upLenBi-FindMaxDegree(tmpPoly,upLenBi)-1;
+          quotDeg = maxDeg-pParams->degree;
+        }
+      }
+
+      memcpy(outStream->pBuf,&tmpPoly[upLenBy-crcLenBy],crcLenBy);
+    }
+    else
+    {
+      retErr = ERR_INV_BUFFER_SIZE;
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
+}
+# 188 "src\\crc.c"
+static int32_t FindMaxDegree( const uint8_t * poly, uint32_t lenBi )
+{
+  uint32_t j, byteIdx;
+  int32_t maxDeg = -1;
+  uint8_t bitIdx;
+
+  for (j=0; j<lenBi; j++)
+  {
+    byteIdx = ((j)>>3u);
+    bitIdx = (uint8_t)(j&((uint32_t) 0x00000007));
+
+    if ((poly[byteIdx]>>((8u -1)-bitIdx))&((uint8_t) 0x01))
+    {
+      maxDeg = (int32_t)j;
+      break;
+    }
+  }
+
+  return maxDeg;
 }

@@ -21,9 +21,9 @@
 /*** PRIVATE PROTOTYPES ***/
 /**************************/
 
-static error_t AllocateByteStream( byte_stream_t * ioStream, len_t len );
-static error_t AllocateFloatStream( float_stream_t * ioStream, len_t len );
-static error_t AllocateComplexStream( complex_stream_t * ioStream, len_t len );
+static error_t AllocateByteStream( byte_stream_t * ioStream, ulen_t len );
+static error_t AllocateFloatStream( float_stream_t * ioStream, ulen_t len );
+static error_t AllocateComplexStream( complex_stream_t * ioStream, ulen_t len );
 static error_t FreeByteStream( byte_stream_t * ioStream );
 static error_t FreeFloatStream( float_stream_t * ioStream );
 static error_t FreeComplexStream( complex_stream_t * ioStream );
@@ -43,7 +43,7 @@ static error_t FreeComplexStream( complex_stream_t * ioStream );
  * 
  * @return error ID
  */
-error_t Memory_AllocateStream( void * ioStream, len_t len, memory_type_t type )
+error_t Memory_AllocateStream( void * ioStream, ulen_t len, memory_type_t type )
 {
   error_t retErr = ERR_NONE;
   byte_stream_t * tmpByteStream;
@@ -144,7 +144,7 @@ error_t Memory_FreeStream( void * ioStream, memory_type_t type )
  * 
  * @return error ID
  */
-static error_t AllocateByteStream( byte_stream_t * ioStream, len_t len )
+static error_t AllocateByteStream( byte_stream_t * ioStream, ulen_t len )
 {
   error_t retErr = ERR_NONE;
 
@@ -177,7 +177,7 @@ static error_t AllocateByteStream( byte_stream_t * ioStream, len_t len )
  * 
  * @return error ID
  */
-static error_t AllocateFloatStream( float_stream_t * ioStream, len_t len )
+static error_t AllocateFloatStream( float_stream_t * ioStream, ulen_t len )
 {
   error_t retErr = ERR_NONE;
 
@@ -210,7 +210,7 @@ static error_t AllocateFloatStream( float_stream_t * ioStream, len_t len )
  * 
  * @return error ID
  */
-static error_t AllocateComplexStream( complex_stream_t * ioStream, len_t len )
+static error_t AllocateComplexStream( complex_stream_t * ioStream, ulen_t len )
 {
   error_t retErr = ERR_NONE;
 

@@ -160,9 +160,9 @@ error_t Scramb_Descrambler( const byte_stream_t * inStream, byte_stream_t * outS
 static error_t Scramb_AdditiveScrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scramb_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
-  const len_t bitLen = BY2BI_LEN(inStream->len);
-  len_t byteIdx;
-  len_t j;
+  const ulen_t bitLen = BY2BI_LEN(inStream->len);
+  ulen_t byteIdx;
+  ulen_t j;
   uint32_t lfsrSt = pParams->initSt;
   uint8_t scrBit;
   uint8_t bitIdx;
@@ -251,9 +251,9 @@ static error_t Scramb_AdditiveDescrambler( const byte_stream_t * inStream, byte_
 static error_t Scramb_MultiplicativeScrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scramb_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
-  const len_t bitLen = BY2BI_LEN(inStream->len);
-  len_t byteIdx;
-  len_t j;
+  const ulen_t bitLen = BY2BI_LEN(inStream->len);
+  ulen_t byteIdx;
+  ulen_t j;
   uint32_t lfsrSt = pParams->initSt;
   uint8_t inBit, outBit;
   uint8_t bitIdx;
@@ -310,9 +310,9 @@ static error_t Scramb_MultiplicativeScrambler( const byte_stream_t * inStream, b
 static error_t Scramb_MultiplicativeDescrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scramb_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
-  const len_t bitLen = BY2BI_LEN(inStream->len);
-  len_t byteIdx;
-  len_t j;
+  const ulen_t bitLen = BY2BI_LEN(inStream->len);
+  ulen_t byteIdx;
+  ulen_t j;
   uint32_t lfsrSt = pParams->initSt;
   uint8_t inBit, outBit;
   uint8_t bitIdx;

@@ -25,8 +25,8 @@
 /*** PARAMETERS ***/
 /******************/
 
-#define CC_RATE                 CC_RATE_12                    //!< Convolutional code rate
-#define CC_KLEN                 CC_KLEN_7                     //!< Convolutional constrain length
+#define CC_RATE                 CC_RATE_12                    //!< convolutional code rate
+#define CC_KLEN                 CC_KLEN_7                     //!< convolutional constrain length
 #define CC_MEMFACT              10u                           //!< Viterbi decoder memory factor
 #define CC_VITDM                CC_VITDM_HARD                 //!< Viterbi decoding method
 
@@ -39,16 +39,8 @@
 #define CC_NBRANCHES            2u
 #define CC_INMASK               ((LSBIT_MASK_U8<<CC_NBRANCHES)-1)
 #define CC_PUNCTLEN             (CC_NBRANCHES*CC_RATE)
-#define CC_NTRELSTATES          (1<<(CC_KLEN-1))                                  /** Number of trellis states */
+#define CC_NTRELSTATES          (1<<(CC_KLEN-1))                                  /** number of trellis states */
 #define CC_MEM_DIM              (CC_NTRELSTATES*CC_MEMFACT)                       /** Viterbi decoder memory dimension for survivor paths storage */ 
-
-#define CC_CVMATRIX             ((uint8_t[][CC_NBRANCHES]) {{7,5},{15,11}, \
-                                  {23,25},{47,53},{79,109},{159,229}})            /** Connector vectors for each K */
-
-#define CC_PUNC_VECT_23         ((uint8_t[]) {1,1,0,1})                           /** Puncturing vector for Rc = 2/3 */
-#define CC_PUNC_VECT_34         ((uint8_t[]) {1,1,0,1,1,0})                       /** Puncturing vector for Rc = 3/4 */
-#define CC_PUNC_VECT_56         ((uint8_t[]) {1,1,0,1,1,0,0,1,1,0})               /** Puncturing vector for Rc = 5/6 */
-#define CC_PUNC_VECT_78         ((uint8_t[]) {1,1,0,1,0,1,0,1,1,0,0,1,1,0})       /** Puncturing vector for Rc = 7/8 */
 
 
 
@@ -118,8 +110,12 @@ typedef struct _cc_par_t
 
 typedef struct _cc_encoder_info_t
 {
-  uint8_t connVect[CC_NBRANCHES];                                 /** - connector vector */
-  uint8_t puncVect[CC_PUNCTLEN];                                  /** - puncturation vector */
+//  uint8_t pConnVect[CC_NBRANCHES];                                /** - pointer to connector vector */
+//  uint8_t pPuncVect[CC_PUNCTLEN];                                 /** - pointer to puncturation vector */
+  const uint8_t * pConnVect;                                      /** - pointer to connector vector */
+  uint8_t lenConnVect;                                            /** - connector vector size */
+  const uint8_t * pPuncVect;                                      /** - pointer to puncturation vector */
+  uint8_t lenPuncVect;                                            /** - puncturation vector size */
 } cc_encoder_info_t;
 
 
@@ -138,7 +134,7 @@ typedef struct _cc_trellis_t
 
 typedef struct _cc_hard_dec_info_t
 {
-  len_t iter[CC_NTRELSTATES];                                     /** - iteration counters */
+  ulen_t iter[CC_NTRELSTATES];                                    /** - iteration counters */
   uint32_t dist[CC_NTRELSTATES];                                  /** - Hamming distances */
   uint8_t path[CC_NTRELSTATES][CC_MEM_DIM];                       /** - survivor paths */
 } cc_hard_dec_info_t;
@@ -147,7 +143,7 @@ typedef struct _cc_hard_dec_info_t
 
 typedef struct _cc_soft_dec_info_t
 {
-  len_t iter[CC_NTRELSTATES];                                     /** - iteration counters */
+  ulen_t iter[CC_NTRELSTATES];                                    /** - iteration counters */
   float dist[CC_NTRELSTATES];                                     /** - Euclidean distances */
   uint8_t path[CC_NTRELSTATES][CC_MEM_DIM];                       /** - survivor paths */
 } cc_soft_dec_info_t;

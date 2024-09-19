@@ -73,9 +73,9 @@ error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * ou
 {
   error_t retErr = ERR_NONE;
   mod_maptable_t mapTable;
-  const len_t inLenBi = BY2BI_LEN(inStream->len);
-  len_t j = 0;
-  len_t byteIdx;
+  const ulen_t inLenBi = BY2BI_LEN(inStream->len);
+  ulen_t j = 0;
+  ulen_t byteIdx;
   uint8_t curBits = 0;
   uint8_t symbIdx = 0;
   uint8_t bitIdx;
@@ -190,8 +190,8 @@ error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream
 {
   error_t retErr = ERR_NONE;
   mod_maptable_t mapTable;
-  const len_t punLenBi = BY2BI_LEN(outStream->len);
-  len_t k;
+  const ulen_t punLenBi = BY2BI_LEN(outStream->len);
+  ulen_t k;
   float numerator, denominator;
   float distance;
   uint8_t i, j;

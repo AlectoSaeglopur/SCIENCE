@@ -76,8 +76,8 @@ error_t Channel_ListParameters( chan_par_t * ioParams )
 error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, const chan_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
-  len_t j;
-  len_t byteIdx;
+  ulen_t j;
+  ulen_t byteIdx;
   uint8_t bitIdx;
 
   if ((NULL != inStream) && (NULL != inStream->pBuf) && (NULL != outStream) && (NULL != outStream->pBuf))
@@ -149,7 +149,7 @@ error_t Channel_AWGN( const complex_stream_t * inStream, complex_stream_t * outS
   const float SqSigma = sgnPwr*pow(10,-SNR/10);                       /** - target noise variance (N0) */
   float nU1, nU2;                                                     /** - random variables uniformly distributed between 0 and 1 */
   float nReN, nIm;                                                    /** - random variables normally distributed as Mu|Sigma2 */
-  len_t j;
+  ulen_t j;
 
   if ((NULL != inStream) && (NULL != inStream->pBuf) && (NULL != outStream) && (NULL != outStream->pBuf))
   {
@@ -213,7 +213,7 @@ error_t Channel_AWGN( const complex_stream_t * inStream, complex_stream_t * outS
 static float GetComplexSgnPower( const complex_stream_t * inStream )
 {
   float energy = 0;
-  len_t j;
+  ulen_t j;
 
   for (j=0; j<inStream->len; j++)
   {

@@ -25,13 +25,14 @@ CMP_FLG = -Wall -g -O0 -D DEBUG_TERMINAL
 CMP_VRS = gcc
 
 # common source files used by both build types
-COM_FIL = channel.c        	\
+COM_FIL = channel.c         \
           convolutional.c   \
+          crc.c             \
           debug.c           \
           error.c           \
           memory.c          \
-          modulation.c			\
-					scrambling.c
+          modulation.c      \
+          scrambling.c
 
 
 
@@ -76,8 +77,8 @@ TST_LKF = -lm
 
 # test files list
 TST_FIL = test_extra.c             \
-           test_convolutional.c     \
-           test_modulation.c        \
+          test_convolutional.c     \
+          test_modulation.c        \
           umain.c                  \
           $(COM_FIL)
 
