@@ -58,7 +58,7 @@ static uint8_t FindMinSurvPathSoft( const cc_soft_dec_info_t * inPaths);
 /************************/
 
 /**
- * @brief <i> Function for retrieving and listing convolution encoding parameters into dedicated structure. </i>
+ * @brief <i> Function for retrieving and listing convolution coding parameters into dedicated structure. </i>
  * 
  * @param[in] ioParams pointer to i/o parameters structure to be filled
  * 

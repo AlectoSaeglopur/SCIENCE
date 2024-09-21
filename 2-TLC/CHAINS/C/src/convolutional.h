@@ -110,8 +110,6 @@ typedef struct _cc_par_t
 
 typedef struct _cc_encoder_info_t
 {
-//  uint8_t pConnVect[CC_NBRANCHES];                                /** - pointer to connector vector */
-//  uint8_t pPuncVect[CC_PUNCTLEN];                                 /** - pointer to puncturation vector */
   const uint8_t * pConnVect;                                      /** - pointer to connector vector */
   uint8_t lenConnVect;                                            /** - connector vector size */
   const uint8_t * pPuncVect;                                      /** - pointer to puncturation vector */

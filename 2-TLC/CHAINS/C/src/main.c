@@ -32,6 +32,7 @@
 #include "error.h"
 #include "memory.h"
 #include "modulation.h"
+#include "reed_solomon.h"
 #include "scrambling.h"
 
 
@@ -69,6 +70,7 @@
 static clock_t elapsedTime;
 static crc_par_t crcParams;
 static scramb_par_t scrParams;
+static rs_par_t rsParams;
 static cc_par_t ccParams;
 static mod_par_t modParams;
 static chan_par_t chanParams;
@@ -104,7 +106,8 @@ int main( void )
 
   // 2. PROCESSING
   Crc_ListParameters(&crcParams);                                           /** - list crc parameters */
-  Scramb_ListParameters(&scrParams);                                        /** - list convolutional coding parameters */
+  Scramb_ListParameters(&scrParams);                                        /** - list scrambling parameters */
+  RsCod_ListParameters(&rsParams);                                          /** - list reed-solomon coding parameters */
   CnvCod_ListParameters(&ccParams);                                         /** - list convolutional coding parameters */
   Channel_ListParameters(&chanParams);                                      /** - list channel parameters */
   Modulation_ListParameters(&modParams);                                    /** - list modulation parameters */
@@ -178,6 +181,7 @@ int main( void )
 /*** NOTES ***/
 /*************/
 
+// stampa in .log anche messagi di shell (e.g eventuali errori!)
 // add CC with rate lower than 1/2 (e.g 1/3!) >> prova mettendo in cascata più encorer da 1/2! (fai simulazione in python e vedi se performance sono effettivamente migliori!)
 // aggiungi RS + interleaver + RS
 // sistema Makefile (print, utest, etc..)

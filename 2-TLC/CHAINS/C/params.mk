@@ -32,6 +32,7 @@ COM_FIL = channel.c         \
           error.c           \
           memory.c          \
           modulation.c      \
+					reed_solomon.c    \
           scrambling.c
 
 

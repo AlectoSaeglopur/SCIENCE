@@ -48,9 +48,6 @@ typedef enum
 /*****************/
 
 
-
-
-
 /****************/
 /*** TYPEDEFS ***/
 /****************/
@@ -58,18 +55,27 @@ typedef enum
 typedef struct _rs_par_t
 {
   rs_gf_degree_t m;                                               /** - Galois filed degree [b/Sy] */
-  uint8_t k;                                                      /** - message size [Sy] */
-  uint8_t n;                                                      /** - codeword size [Sy] */
-  uint8_t t;													                            /** - maximum number of recoverable corrupted symbols */
+  uint8_t kSh;                                                    /** - shortened message size [Sy] */
+  uint8_t nSh;                                                    /** - shortened codeword size [Sy] */
+  uint8_t t;                                                      /** - maximum number of recoverable corrupted symbols */
+  uint16_t kUn;                                                   /** - unshortened message size [Sy] */
+  uint16_t nUn;                                                   /** - unshortened codeword size [Sy] */
+  uint16_t dimGF;                                                 /** - overall number of symbols in GF(2^m) */
 } rs_par_t;
 
+
+typedef struct _rs_encoder_info_t
+{
+  const uint8_t * pPrimPoly;                                      /** - pointer to primitive polynomial */
+  uint8_t lenPrimPoly;                                            /** - primitive polynomial size */
+} rs_encoder_info_t;
 
 
 /*************************/
 /*** PUBLIC PROTOTYPES ***/
 /*************************/
 
-
+error_t RsCod_ListParameters( rs_par_t * ioParams );
 
 
 #endif
