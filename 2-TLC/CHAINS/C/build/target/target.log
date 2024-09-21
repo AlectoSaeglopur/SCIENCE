@@ -1,0 +1,71 @@
+>> Cleaning "target" build directory...
+if not exist build mkdir build
+if exist build\target rmdir build\target /s /q
+if not exist build\target mkdir build\target
+if not exist build\target\asm mkdir build\target\asm
+if not exist build\target\bin mkdir build\target\bin
+if not exist build\target\lis mkdir build\target\lis
+if not exist build\target\obj mkdir build\target\obj
+if not exist build\target\prp mkdir build\target\prp
+------------------------------------------------
+>> "target"-build folder cleaned successfully!
+------------------------------------------------
+Starting "target"-build compilation...
+gcc -c src\main.c -Wall -g -O0 -o build\target\obj\main.o
+gcc -c src\channel.c -Wall -g -O0 -o build\target\obj\channel.o
+gcc -c src\convolutional.c -Wall -g -O0 -o build\target\obj\convolutional.o
+gcc -c src\crc.c -Wall -g -O0 -o build\target\obj\crc.o
+gcc -c src\debug.c -Wall -g -O0 -o build\target\obj\debug.o
+gcc -c src\error.c -Wall -g -O0 -o build\target\obj\error.o
+gcc -c src\memory.c -Wall -g -O0 -o build\target\obj\memory.o
+gcc -c src\modulation.c -Wall -g -O0 -o build\target\obj\modulation.o
+gcc -c src\scrambling.c -Wall -g -O0 -o build\target\obj\scrambling.o
+gcc -S src\main.c -Wall -g -O0 -o build\target\asm\main.s
+gcc -S src\channel.c -Wall -g -O0 -o build\target\asm\channel.s
+gcc -S src\convolutional.c -Wall -g -O0 -o build\target\asm\convolutional.s
+gcc -S src\crc.c -Wall -g -O0 -o build\target\asm\crc.s
+gcc -S src\debug.c -Wall -g -O0 -o build\target\asm\debug.s
+gcc -S src\error.c -Wall -g -O0 -o build\target\asm\error.s
+gcc -S src\memory.c -Wall -g -O0 -o build\target\asm\memory.s
+gcc -S src\modulation.c -Wall -g -O0 -o build\target\asm\modulation.s
+gcc -S src\scrambling.c -Wall -g -O0 -o build\target\asm\scrambling.s
+gcc -E src\main.c -Wall -g -O0 -o build\target\prp\main.i
+gcc -E src\channel.c -Wall -g -O0 -o build\target\prp\channel.i
+gcc -E src\convolutional.c -Wall -g -O0 -o build\target\prp\convolutional.i
+gcc -E src\crc.c -Wall -g -O0 -o build\target\prp\crc.i
+gcc -E src\debug.c -Wall -g -O0 -o build\target\prp\debug.i
+gcc -E src\error.c -Wall -g -O0 -o build\target\prp\error.i
+gcc -E src\memory.c -Wall -g -O0 -o build\target\prp\memory.i
+gcc -E src\modulation.c -Wall -g -O0 -o build\target\prp\modulation.i
+gcc -E src\scrambling.c -Wall -g -O0 -o build\target\prp\scrambling.i
+Starting "target"-build linking...
+gcc build\target\obj\main.o build\target\obj\channel.o build\target\obj\convolutional.o build\target\obj\crc.o build\target\obj\debug.o build\target\obj\error.o build\target\obj\memory.o build\target\obj\modulation.o build\target\obj\scrambling.o -Wall -g -O0 -lm -Xlinker -Map=build\target\lis\target.map -o build\target\bin\target
+------------------------------------------------
+>> "target"-build compiled and linked successfully!
+------------------------------------------------
+Converting output to additional formats (.srec .binary)...
+for %%j in (srec binary) do objcopy build\target\bin\target.exe -O %%j build\target\bin\target.%%j
+------------------------------------------------
+>> "target"-build converted successfully!
+------------------------------------------------
+Launching "target"-build output...
+build\target\bin\target.exe
+
+ >> Starting execution...
+
+ # PARAMETERS
+    * Scrambling :Additive | Ncells = 15
+    * Convolutional Coding : K = 7 | Rc = 1/2 | DM = Hard
+    * Modulation : 4-PSK
+    * Channel : BSC | Peb = 3.5e-002
+
+ * Errors at convolutional encoding level: 5 out of 2400 bits (MD = 13)
+
+ * Errors at source level: 0 out of 1200 bits (MD = 0)
+
+ * CRC check: PASSED
+
+ >> Execution completed successfully in 0.154 seconds!
+------------------------------------------------
+>> "target"-build executed successfully!
+------------------------------------------------

@@ -1990,22 +1990,10 @@ int main( void )
   Debug_ListParameters(&dgbParams,&ccParams,&modParams,
                         &chanParams,&scrParams);
   Debug_PrintParameters(150u,&dgbParams);
-
-
-  Debug_PrintByteStream(&txOrgStream,PID_TX_ORG,&dgbParams);
-  Debug_PrintByteStream(&txCrcStream,PID_TX_CRC,&dgbParams);
-  Debug_PrintByteStream(&txScrStream,PID_TX_SCR,&dgbParams);
-  Debug_PrintByteStream(&txCcStream,PID_TX_CNVCOD,&dgbParams);
-  Debug_PrintComplexStream(&txModStream,PID_TX_MAP,&dgbParams);
-  Debug_PrintComplexStream(&rxModStream,PID_RX_MAP,&dgbParams);
-  Debug_PrintFloatStream(&rxLLRStream,PID_RX_LLR,&dgbParams);
-  Debug_PrintByteStream(&rxCcStream,PID_RX_CNVCOD,&dgbParams);
-  Debug_PrintByteStream(&rxScrStream,PID_RX_SCR,&dgbParams);
-  Debug_PrintByteStream(&rxOrgStream,PID_RX_ORG,&dgbParams);
-  Debug_PrintByteStream(&rxCrcStream,PID_RX_CRC,&dgbParams);
-
+# 157 "src\\main.c"
   Debug_CheckWrongBits(&txCcStream,&rxCcStream,PID_RX_CNVCOD,&dgbParams);
   Debug_CheckWrongBits(&txOrgStream,&rxOrgStream,PID_RX_ORG,&dgbParams);
+  Debug_CheckWrongBits(&txCrcStream,&rxCrcStream,PID_RX_CRC,&dgbParams);
 
 
 
@@ -2016,11 +2004,11 @@ int main( void )
   Memory_FreeStream(&txOrgStream,memory_type_byte); Memory_FreeStream(&rxOrgStream,memory_type_byte); Memory_FreeStream(&txCrcStream,memory_type_byte); Memory_FreeStream(&rxCrcStream,memory_type_byte); Memory_FreeStream(&txScrStream,memory_type_byte); Memory_FreeStream(&rxScrStream,memory_type_byte); Memory_FreeStream(&txCcStream,memory_type_byte); Memory_FreeStream(&rxCcStream,memory_type_byte); Memory_FreeStream(&txModStream,memory_type_complex); Memory_FreeStream(&rxModStream,memory_type_complex); Memory_FreeStream(&rxLLRStream,memory_type_float);;
   elapsedTime = clock()-elapsedTime;
   printf(" >> Execution completed successfully in %1.3f seconds!\n",
-    ((double)elapsedTime)/
-# 169 "src\\main.c" 3
-                         ((clock_t)(1000))
-# 169 "src\\main.c"
-                                       );
+    ((float)elapsedTime)/
+# 170 "src\\main.c" 3
+                        ((clock_t)(1000))
+# 170 "src\\main.c"
+                                      );
 
   return 0;
 }

@@ -412,14 +412,16 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
 
         switch (label)
         {
-          case PID_TX_CNVCOD:
           case PID_RX_CNVCOD:
             printf(" * Errors at convolutional encoding level: %u out of %u bits (MD = %u)\n\n",bitErrCnt,bitLen,minErrDist);
             break;
 
-          case PID_TX_ORG:
           case PID_RX_ORG:
             printf(" * Errors at source level: %u out of %u bits (MD = %u)\n\n",bitErrCnt,bitLen,minErrDist);
+            break;
+
+          case PID_RX_CRC:
+            printf(" * CRC check: %s\n\n",bitErrCnt?"FAILED":"PASSED");
             break;
 
           default:

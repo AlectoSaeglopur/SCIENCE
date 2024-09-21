@@ -87,7 +87,7 @@ $(TRG_NAM)_build : cmp_print $(OBJ_SFIL) $(ASM_SFIL) $(PRP_SFIL)
 	@echo Starting "$(TRG_NAM)"-build linking...
 	$(CMP_VRS) $(addprefix $(BLD_FLD)\obj\,$(OBJ_SFIL)) $(CMP_FLG) $(LNK_FLG) -o $(BLD_FLD)\bin\$(TRG_NAM)
 	@echo ------------------------------------------------
-	@echo ^>^> "$(TRG_NAM)" build compiled and linked successfully!
+	@echo ^>^> "$(TRG_NAM)"-build compiled and linked successfully!
 	@echo ------------------------------------------------
 
 ## Rule #3: TARGET_CONV ##
@@ -158,6 +158,9 @@ cmp_print :
 run_exe :
 	@echo Launching "$(TMP_NAM)"-build output...
 	$(BLD_FPT)\$(TMP_NAM)\bin\$(TMP_NAM).exe
+	@echo ------------------------------------------------
+	@echo ^>^> "$(TMP_NAM)"-build executed successfully!
+	@echo ------------------------------------------------
 
 
 
@@ -175,4 +178,4 @@ run_exe :
 #    - use the "-d" flag to debug Makefile execution (e.g. "make target -d");
 #    - to delete a file within Makefile with Windows OS use "if exist $(PATH\XYZ) del $(PATH\XYZ)" [NB: "rm" is only for Linux/UNIX platforms];
 #    - the symbols "$<" and "$@" represent respectively the current requisite and target output;
-#    - to redirect printed output from shell to log file use the ">" character (e.g. "cls && make target > build.log").
+#    - to redirect printed output from shell to log file use the ">" character (e.g. "cls && make target > build.log"), otherwise to have both print and log use the CoreUtils "tee" function (e.g. "cls && make target | tee build.log").

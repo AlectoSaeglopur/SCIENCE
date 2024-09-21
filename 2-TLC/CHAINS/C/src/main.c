@@ -156,6 +156,7 @@ int main( void )
 #endif
   Debug_CheckWrongBits(&txCcStream,&rxCcStream,PID_RX_CNVCOD,&dgbParams);   /** - check number of corrupted bits at convolutional coding level */
   Debug_CheckWrongBits(&txOrgStream,&rxOrgStream,PID_RX_ORG,&dgbParams);    /** - check number of corrupted bits at origin level */
+  Debug_CheckWrongBits(&txCrcStream,&rxCrcStream,PID_RX_CRC,&dgbParams);    /** - check crc correctness */
 
 #ifdef DEBUG_CSV
   Debug_WriteByteStreamToCsv(&txOrgStream,PID_TX_ORG);                      /** - write tx source buffer content into csv file */
@@ -166,7 +167,7 @@ int main( void )
   LIST_OF_STREAMS(DEF_STREAM_FREE);                                         /** - free memory for all streams */
   elapsedTime = clock()-elapsedTime;                                        /** - get final execution time and estimate overall execution time */
   printf(" >> Execution completed successfully in %1.3f seconds!\n",
-    ((double)elapsedTime)/CLOCKS_PER_SEC);
+    ((float)elapsedTime)/CLOCKS_PER_SEC);
 
   return 0;
 }

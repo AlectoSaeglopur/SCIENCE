@@ -2288,14 +2288,16 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
 
         switch (label)
         {
-          case PID_TX_CNVCOD:
           case PID_RX_CNVCOD:
             printf(" * Errors at convolutional encoding level: %u out of %u bits (MD = %u)\n\n",bitErrCnt,bitLen,minErrDist);
             break;
 
-          case PID_TX_ORG:
           case PID_RX_ORG:
             printf(" * Errors at source level: %u out of %u bits (MD = %u)\n\n",bitErrCnt,bitLen,minErrDist);
+            break;
+
+          case PID_RX_CRC:
+            printf(" * CRC check: %s\n\n",bitErrCnt?"FAILED":"PASSED");
             break;
 
           default:
@@ -2316,25 +2318,25 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
 
   return Error_HandleErr(retErr);
 }
-# 453 "src\\debug.c"
+# 455 "src\\debug.c"
 error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label )
 {
   error_t retErr = ERR_NONE;
   FILE * fid = 
-# 456 "src\\debug.c" 3 4
+# 458 "src\\debug.c" 3 4
               ((void *)0)
-# 456 "src\\debug.c"
+# 458 "src\\debug.c"
                   ;
   uint32_t j;
 
   if ((
-# 459 "src\\debug.c" 3 4
+# 461 "src\\debug.c" 3 4
       ((void *)0) 
-# 459 "src\\debug.c"
+# 461 "src\\debug.c"
            != inStream) && (
-# 459 "src\\debug.c" 3 4
+# 461 "src\\debug.c" 3 4
                             ((void *)0) 
-# 459 "src\\debug.c"
+# 461 "src\\debug.c"
                                  != inStream->pBuf))
   {
     switch (label)
@@ -2361,9 +2363,9 @@ error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_
     }
 
     if ((ERR_NONE == retErr) && (
-# 484 "src\\debug.c" 3 4
+# 486 "src\\debug.c" 3 4
                                 ((void *)0) 
-# 484 "src\\debug.c"
+# 486 "src\\debug.c"
                                      != fid))
     {
       fprintf(fid,"%u,",inStream->len);
@@ -2385,25 +2387,25 @@ error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_
 
   return Error_HandleErr(retErr);
 }
-# 515 "src\\debug.c"
+# 517 "src\\debug.c"
 error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label )
 {
   error_t retErr = ERR_NONE;
   FILE * fid = 
-# 518 "src\\debug.c" 3 4
+# 520 "src\\debug.c" 3 4
               ((void *)0)
-# 518 "src\\debug.c"
+# 520 "src\\debug.c"
                   ;
   uint32_t j;
 
   if ((
-# 521 "src\\debug.c" 3 4
+# 523 "src\\debug.c" 3 4
       ((void *)0) 
-# 521 "src\\debug.c"
+# 523 "src\\debug.c"
            != inStream) && (
-# 521 "src\\debug.c" 3 4
+# 523 "src\\debug.c" 3 4
                             ((void *)0) 
-# 521 "src\\debug.c"
+# 523 "src\\debug.c"
                                  != inStream->pBuf))
   {
     switch (label)
@@ -2422,9 +2424,9 @@ error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_
     }
 
     if ((ERR_NONE == retErr) && (
-# 538 "src\\debug.c" 3 4
+# 540 "src\\debug.c" 3 4
                                 ((void *)0) 
-# 538 "src\\debug.c"
+# 540 "src\\debug.c"
                                      != fid))
     {
       fprintf(fid,"%u,",inStream->len);
@@ -2446,21 +2448,21 @@ error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_
 
   return Error_HandleErr(retErr);
 }
-# 573 "src\\debug.c"
+# 575 "src\\debug.c"
 static 
-# 573 "src\\debug.c" 3 4
+# 575 "src\\debug.c" 3 4
       _Bool 
-# 573 "src\\debug.c"
+# 575 "src\\debug.c"
            IsOrgLenValid( uint32_t orgLenBy, const debug_par_t * dbgParams )
 {
   
-# 575 "src\\debug.c" 3 4
+# 577 "src\\debug.c" 3 4
  _Bool 
-# 575 "src\\debug.c"
+# 577 "src\\debug.c"
       bRet = 
-# 575 "src\\debug.c" 3 4
+# 577 "src\\debug.c" 3 4
              0
-# 575 "src\\debug.c"
+# 577 "src\\debug.c"
                   ;
   uint32_t orgLenBi = ((orgLenBy)<<3u);
   uint32_t punLenBi = (orgLenBi/(dbgParams->ccPar.cRate)*(1+dbgParams->ccPar.cRate));
@@ -2470,9 +2472,9 @@ static
       (0 == (punLenBi%dbgParams->modPar.bps)))
   {
     bRet = 
-# 583 "src\\debug.c" 3 4
+# 585 "src\\debug.c" 3 4
           1
-# 583 "src\\debug.c"
+# 585 "src\\debug.c"
               ;
   }
 

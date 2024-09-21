@@ -283,72 +283,6 @@ L3:
 	movl	$_dgbParams, 4(%esp)
 	movl	$150, (%esp)
 	call	_Debug_PrintParameters
-	.loc 1 145 0
-	movl	$_dgbParams, 8(%esp)
-	movl	$0, 4(%esp)
-	leal	180(%esp), %eax
-	movl	%eax, (%esp)
-	call	_Debug_PrintByteStream
-	.loc 1 146 0
-	movl	$_dgbParams, 8(%esp)
-	movl	$2, 4(%esp)
-	leal	156(%esp), %eax
-	movl	%eax, (%esp)
-	call	_Debug_PrintByteStream
-	.loc 1 147 0
-	movl	$_dgbParams, 8(%esp)
-	movl	$4, 4(%esp)
-	leal	132(%esp), %eax
-	movl	%eax, (%esp)
-	call	_Debug_PrintByteStream
-	.loc 1 148 0
-	movl	$_dgbParams, 8(%esp)
-	movl	$6, 4(%esp)
-	leal	108(%esp), %eax
-	movl	%eax, (%esp)
-	call	_Debug_PrintByteStream
-	.loc 1 149 0
-	movl	$_dgbParams, 8(%esp)
-	movl	$8, 4(%esp)
-	leal	84(%esp), %eax
-	movl	%eax, (%esp)
-	call	_Debug_PrintComplexStream
-	.loc 1 150 0
-	movl	$_dgbParams, 8(%esp)
-	movl	$9, 4(%esp)
-	leal	72(%esp), %eax
-	movl	%eax, (%esp)
-	call	_Debug_PrintComplexStream
-	.loc 1 151 0
-	movl	$_dgbParams, 8(%esp)
-	movl	$10, 4(%esp)
-	leal	60(%esp), %eax
-	movl	%eax, (%esp)
-	call	_Debug_PrintFloatStream
-	.loc 1 152 0
-	movl	$_dgbParams, 8(%esp)
-	movl	$7, 4(%esp)
-	leal	96(%esp), %eax
-	movl	%eax, (%esp)
-	call	_Debug_PrintByteStream
-	.loc 1 153 0
-	movl	$_dgbParams, 8(%esp)
-	movl	$5, 4(%esp)
-	leal	120(%esp), %eax
-	movl	%eax, (%esp)
-	call	_Debug_PrintByteStream
-	.loc 1 154 0
-	movl	$_dgbParams, 8(%esp)
-	movl	$1, 4(%esp)
-	leal	168(%esp), %eax
-	movl	%eax, (%esp)
-	call	_Debug_PrintByteStream
-	.loc 1 155 0
-	movl	$_dgbParams, 8(%esp)
-	movl	$3, 4(%esp)
-	leal	144(%esp), %eax
-	movl	%eax, (%esp)
-	call	_Debug_PrintByteStream
 	.loc 1 157 0
 	movl	$_dgbParams, 12(%esp)
 	movl	$7, 8(%esp)
@@ -365,7 +299,15 @@ L3:
 	leal	180(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Debug_CheckWrongBits
-	.loc 1 166 0
+	.loc 1 159 0
+	movl	$_dgbParams, 12(%esp)
+	movl	$3, 8(%esp)
+	leal	144(%esp), %eax
+	movl	%eax, 4(%esp)
+	leal	156(%esp), %eax
+	movl	%eax, (%esp)
+	call	_Debug_CheckWrongBits
+	.loc 1 167 0
 	movl	$0, 4(%esp)
 	leal	180(%esp), %eax
 	movl	%eax, (%esp)
@@ -410,26 +352,26 @@ L3:
 	leal	60(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_FreeStream
-	.loc 1 167 0
+	.loc 1 168 0
 	call	_clock
 	movl	%eax, %edx
 	movl	_elapsedTime, %eax
 	subl	%eax, %edx
 	movl	%edx, %eax
 	movl	%eax, _elapsedTime
-	.loc 1 169 0
+	.loc 1 170 0
 	movl	_elapsedTime, %eax
 	movl	%eax, 44(%esp)
 	fildl	44(%esp)
-	.loc 1 168 0
-	fldl	LC1
+	flds	LC1
 	fdivrp	%st, %st(1)
+	.loc 1 169 0
 	fstpl	4(%esp)
 	movl	$LC2, (%esp)
 	call	_printf
-	.loc 1 171 0
-	movl	$0, %eax
 	.loc 1 172 0
+	movl	$0, %eax
+	.loc 1 173 0
 	leave
 	.cfi_restore 5
 	.cfi_def_cfa 4, 4
@@ -437,10 +379,9 @@ L3:
 	.cfi_endproc
 LFE18:
 	.section .rdata,"dr"
-	.align 8
+	.align 4
 LC1:
-	.long	0
-	.long	1083129856
+	.long	1148846080
 	.text
 Letext0:
 	.file 2 "c:/mingw/include/stdio.h"
@@ -1743,9 +1684,6 @@ Ldebug_line0:
 	.def	_Scramb_Descrambler;	.scl	2;	.type	32;	.endef
 	.def	_Debug_ListParameters;	.scl	2;	.type	32;	.endef
 	.def	_Debug_PrintParameters;	.scl	2;	.type	32;	.endef
-	.def	_Debug_PrintByteStream;	.scl	2;	.type	32;	.endef
-	.def	_Debug_PrintComplexStream;	.scl	2;	.type	32;	.endef
-	.def	_Debug_PrintFloatStream;	.scl	2;	.type	32;	.endef
 	.def	_Debug_CheckWrongBits;	.scl	2;	.type	32;	.endef
 	.def	_Memory_FreeStream;	.scl	2;	.type	32;	.endef
 	.def	_printf;	.scl	2;	.type	32;	.endef
