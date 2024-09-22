@@ -49,8 +49,10 @@
 /*** CONSTANTS ***/
 /*****************/
 
-#define LEN_CRC_BY          BI2BY_LEN(CRC_DEGREE)                           //!< CRC stream length [B]
-#define LEN_CC_UNP_BY       (CC_NBRANCHES*LEN_ORG_BY)                       //!< unpunctured convolutional coded stream length [B]
+#define LEN_CRC_BY          BI2BY_LEN(CRC_DEGREE)                           //!< crc stream length [B]
+#define LEN_SRC_BY          LEN_ORG_BY                                      //!< scrambled stream length [B]
+//#define LEN_RS_BY           ...
+#define LEN_CC_UNP_BY       (CC_NBRANCHES*LEN_SRC_BY)                       //!< unpunctured convolutional coded stream length [B]
 #define LEN_CC_PUN_BY       (LEN_CC_UNP_BY/CC_NBRANCHES* \
                               (CC_RATE+1)/CC_RATE)                          //!< punctured convolutional coded stream length [B]
 #define LEN_CC_PUN_BI       BY2BI_LEN(LEN_CC_PUN_BY)                        //!< punctured convolutional coded stream length [b]
@@ -68,13 +70,13 @@
 /*****************/
 
 static clock_t elapsedTime;
-static crc_par_t crcParams;
-static scramb_par_t scrParams;
-static rs_par_t rsParams;
-static cc_par_t ccParams;
-static mod_par_t modParams;
-static chan_par_t chanParams;
-static debug_par_t dgbParams;
+static crc_par_t crcParam;
+static scramb_par_t scrParam;
+static rs_par_t rsParam;
+static cc_par_t ccParam;
+static mod_par_t modParam;
+static chan_par_t chanParam;
+static debug_par_t dgbParam;
 
 // list of streams (name, type, length)
 #define LIST_OF_STREAMS(ENTRY)            \
@@ -82,8 +84,8 @@ static debug_par_t dgbParams;
   ENTRY( rxOrg, byte,    LEN_ORG_BY     ) \
   ENTRY( txCrc, byte,    LEN_CRC_BY     ) \
   ENTRY( rxCrc, byte,    LEN_CRC_BY     ) \
-  ENTRY( txScr, byte,    LEN_ORG_BY     ) \
-  ENTRY( rxScr, byte,    LEN_ORG_BY     ) \
+  ENTRY( txScr, byte,    LEN_SRC_BY     ) \
+  ENTRY( rxScr, byte,    LEN_SRC_BY     ) \
   ENTRY( txCc,  byte,    LEN_CC_PUN_BY  ) \
   ENTRY( rxCc,  byte,    LEN_CC_PUN_BY  ) \
   ENTRY( txMod, complex, LEN_MOD_SY     ) \
@@ -101,65 +103,67 @@ int main( void )
   // 1. INITIALIZATION
   printf("\n >> Starting execution...\n");
   elapsedTime = clock();                                                    /** - get initial execution time */
+
+  Crc_ListParameters(&crcParam);                                            /** - list crc parameters */
+  Scramb_ListParameters(&scrParam);                                         /** - list scrambling parameters */
+  RsCod_ListParameters(&rsParam);                                           /** - list reed-solomon coding parameters */
+  CnvCod_ListParameters(&ccParam);                                          /** - list convolutional coding parameters */
+  Channel_ListParameters(&chanParam);                                       /** - list channel parameters */
+  Modulation_ListParameters(&modParam);                                     /** - list modulation parameters */
+  Debug_ListParameters(&dgbParam,&scrParam,&rsParam,&ccParam,
+                       &modParam,&chanParam);
+  Debug_PrintParameters(LEN_ORG_BY,&dgbParam);
+
   LIST_OF_STREAMS(DEF_STREAM_DECLARE);                                      /** - declare all streams */
   LIST_OF_STREAMS(DEF_STREAM_ALLOCATE);                                     /** - allocate memory for all streams */
 
   // 2. PROCESSING
-  Crc_ListParameters(&crcParams);                                           /** - list crc parameters */
-  Scramb_ListParameters(&scrParams);                                        /** - list scrambling parameters */
-  RsCod_ListParameters(&rsParams);                                          /** - list reed-solomon coding parameters */
-  CnvCod_ListParameters(&ccParams);                                         /** - list convolutional coding parameters */
-  Channel_ListParameters(&chanParams);                                      /** - list channel parameters */
-  Modulation_ListParameters(&modParams);                                    /** - list modulation parameters */
-
   Debug_GenerateRandomBytes(&txOrgStream,NULL);                             /** - fill tx origin buffer with random bytes */
-  Crc_CalculateChecksum(&txOrgStream,&txCrcStream,&crcParams);              /** - calculate tx crc */
-  Scramb_Scrambler(&txOrgStream,&txScrStream,&scrParams);                   /** - scrambler */
-  CnvCod_Encoder(&txScrStream,&txCcStream,&ccParams);                       /** - convolutional encoder */
-  if (CHAN_BSC == chanParams.type)
+  Crc_CalculateChecksum(&txOrgStream,&txCrcStream,&crcParam);               /** - calculate tx crc */
+  Scramb_Scrambler(&txOrgStream,&txScrStream,&scrParam);                    /** - scrambler */
+  CnvCod_Encoder(&txScrStream,&txCcStream,&ccParam);                        /** - convolutional encoder */
+  if (CHAN_BSC == chanParam.type)
   {
-    Channel_BSC(&txCcStream,&rxCcStream,&chanParams);                       /** - apply bsc channel corruption */
-    CnvCod_HardDecoder(&rxCcStream,&rxScrStream,&ccParams);                 /** - convolutional hard-decoder */
+    Channel_BSC(&txCcStream,&rxCcStream,&chanParam);                        /** - apply bsc channel corruption */
+    CnvCod_HardDecoder(&rxCcStream,&rxScrStream,&ccParam);                  /** - convolutional hard-decoder */
   }
-  else if (CHAN_AWGN == chanParams.type)
+  else if (CHAN_AWGN == chanParam.type)
   {
-    Modulation_Mapper(&txCcStream,&txModStream,&modParams);                 /** - modulation mapper */
-    Channel_AWGN(&txModStream,&rxModStream,&chanParams);                    /** - apply awgn channel corruption */
-    if (CC_VITDM_HARD == ccParams.vitDM)
+    Modulation_Mapper(&txCcStream,&txModStream,&modParam);                  /** - modulation mapper */
+    Channel_AWGN(&txModStream,&rxModStream,&chanParam);                     /** - apply awgn channel corruption */
+    if (CC_VITDM_HARD == ccParam.vitDM)
     {
-      Modulation_HardDemapper(&rxModStream,&rxCcStream,&modParams);         /** - modulation hard-demapper */
-      CnvCod_HardDecoder(&rxCcStream,&rxScrStream,&ccParams);               /** - convolutional hard-decoder */
+      Modulation_HardDemapper(&rxModStream,&rxCcStream,&modParam);          /** - modulation hard-demapper */
+      CnvCod_HardDecoder(&rxCcStream,&rxScrStream,&ccParam);                /** - convolutional hard-decoder */
     }
-    else if (CC_VITDM_SOFT == ccParams.vitDM)
+    else if (CC_VITDM_SOFT == ccParam.vitDM)
     {
-      Modulation_SoftDemapper(&rxModStream,&rxLLRStream,&modParams);        /** - modulation soft-demapper */
-      CnvCod_SoftDecoder(&rxLLRStream,&rxScrStream,&ccParams);              /** - convolutional soft-decoder */
+      Modulation_SoftDemapper(&rxModStream,&rxLLRStream,&modParam);         /** - modulation soft-demapper */
+      CnvCod_SoftDecoder(&rxLLRStream,&rxScrStream,&ccParam);               /** - convolutional soft-decoder */
     }
   }
-  Scramb_Descrambler(&rxScrStream,&rxOrgStream,&scrParams);                 /** - descrambler */
-  Crc_CalculateChecksum(&rxOrgStream,&rxCrcStream,&crcParams);              /** - calculate rx crc */
+  Scramb_Descrambler(&rxScrStream,&rxOrgStream,&scrParam);                  /** - descrambler */
+  Crc_CalculateChecksum(&rxOrgStream,&rxCrcStream,&crcParam);               /** - calculate rx crc */
 
   // 3. RESULTS
-  Debug_ListParameters(&dgbParams,&ccParams,&modParams,
-                        &chanParams,&scrParams);
-  Debug_PrintParameters(LEN_ORG_BY,&dgbParams);
+  
   
 #ifdef DEBUG_TERMINAL
-  Debug_PrintByteStream(&txOrgStream,PID_TX_ORG,&dgbParams);                /** - print tx origin stream content */
-  Debug_PrintByteStream(&txCrcStream,PID_TX_CRC,&dgbParams);                /** - print tx crc stream content */
-  Debug_PrintByteStream(&txScrStream,PID_TX_SCR,&dgbParams);                /** - print tx scrambled stream content */
-  Debug_PrintByteStream(&txCcStream,PID_TX_CNVCOD,&dgbParams);              /** - print tx convolutional coded stream content */
-  Debug_PrintComplexStream(&txModStream,PID_TX_MAP,&dgbParams);             /** - print tx modulated stream content */
-  Debug_PrintComplexStream(&rxModStream,PID_RX_MAP,&dgbParams);             /** - print rx modulated stream content */
-  Debug_PrintFloatStream(&rxLLRStream,PID_RX_LLR,&dgbParams);               /** - print rx LLR stream content */
-  Debug_PrintByteStream(&rxCcStream,PID_RX_CNVCOD,&dgbParams);              /** - print rx convolutional coded stream content */
-  Debug_PrintByteStream(&rxScrStream,PID_RX_SCR,&dgbParams);                /** - print rx scrambled stream content */
-  Debug_PrintByteStream(&rxOrgStream,PID_RX_ORG,&dgbParams);                /** - print rx origin stream content */
-  Debug_PrintByteStream(&rxCrcStream,PID_RX_CRC,&dgbParams);                /** - print rx crc stream content */
+  Debug_PrintByteStream(&txOrgStream,PID_TX_ORG,&dgbParam);                 /** - print tx origin stream content */
+  Debug_PrintByteStream(&txCrcStream,PID_TX_CRC,&dgbParam);                 /** - print tx crc stream content */
+  Debug_PrintByteStream(&txScrStream,PID_TX_SCR,&dgbParam);                 /** - print tx scrambled stream content */
+  Debug_PrintByteStream(&txCcStream,PID_TX_CNVCOD,&dgbParam);               /** - print tx convolutional coded stream content */
+  Debug_PrintComplexStream(&txModStream,PID_TX_MAP,&dgbParam);              /** - print tx modulated stream content */
+  Debug_PrintComplexStream(&rxModStream,PID_RX_MAP,&dgbParam);              /** - print rx modulated stream content */
+  Debug_PrintFloatStream(&rxLLRStream,PID_RX_LLR,&dgbParam);                /** - print rx LLR stream content */
+  Debug_PrintByteStream(&rxCcStream,PID_RX_CNVCOD,&dgbParam);               /** - print rx convolutional coded stream content */
+  Debug_PrintByteStream(&rxScrStream,PID_RX_SCR,&dgbParam);                 /** - print rx scrambled stream content */
+  Debug_PrintByteStream(&rxOrgStream,PID_RX_ORG,&dgbParam);                 /** - print rx origin stream content */
+  Debug_PrintByteStream(&rxCrcStream,PID_RX_CRC,&dgbParam);                 /** - print rx crc stream content */
 #endif
-  Debug_CheckWrongBits(&txCcStream,&rxCcStream,PID_RX_CNVCOD,&dgbParams);   /** - check number of corrupted bits at convolutional coding level */
-  Debug_CheckWrongBits(&txOrgStream,&rxOrgStream,PID_RX_ORG,&dgbParams);    /** - check number of corrupted bits at origin level */
-  Debug_CheckWrongBits(&txCrcStream,&rxCrcStream,PID_RX_CRC,&dgbParams);    /** - check crc correctness */
+  Debug_CheckWrongBits(&txCcStream,&rxCcStream,PID_RX_CNVCOD,&dgbParam);    /** - check number of corrupted bits at convolutional coding level */
+  Debug_CheckWrongBits(&txOrgStream,&rxOrgStream,PID_RX_ORG,&dgbParam);     /** - check number of corrupted bits at origin level */
+  Debug_CheckWrongBits(&txCrcStream,&rxCrcStream,PID_RX_CRC,&dgbParam);     /** - check crc correctness */
 
 #ifdef DEBUG_CSV
   Debug_WriteByteStreamToCsv(&txOrgStream,PID_TX_ORG);                      /** - write tx source buffer content into csv file */

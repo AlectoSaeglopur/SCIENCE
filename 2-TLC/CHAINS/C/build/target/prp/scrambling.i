@@ -1569,6 +1569,7 @@ typedef enum
 {
   ERR_NONE = 0,
   ERR_INV_NULL_POINTER,
+  ERR_INV_ORIG_LEN,
   ERR_INV_PRINTID,
   ERR_INV_CNVCOD_RATE,
   ERR_INV_CNVCOD_KLEN,
@@ -1595,7 +1596,7 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 71 "src\\error.h"
+# 72 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 19 "src\\scrambling.h" 2
 # 1 "src\\memory.h" 1

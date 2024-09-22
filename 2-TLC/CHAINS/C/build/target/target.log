@@ -62,13 +62,13 @@ build\target\bin\target.exe
     * Modulation : 4-PSK
     * Channel : BSC | Peb = 3.5e-002
 
- * Errors at convolutional encoding level: 11 out of 2400 bits (MD = 3)
+ * Errors at convolutional encoding level: 10 out of 2400 bits (MD = 4)
 
  * Errors at source level: 0 out of 1200 bits (MD = 0)
 
  * CRC check: PASSED
 
- >> Execution completed successfully in 0.154 seconds!
+ >> Execution completed successfully in 0.158 seconds!
 ------------------------------------------------
 >> "target"-build executed successfully!
 ------------------------------------------------

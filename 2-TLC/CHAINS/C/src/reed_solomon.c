@@ -49,14 +49,14 @@ typedef struct _rs_encoder_info_t
 /**************************/
 
 static error_t RetrievePrimitivePolynomial( rs_encoder_info_t * ioInfo, const rs_par_t * pParams );
-static error_t RetrieveGeneratorPolynomial( uint8_t * ioBuf, uint8_t len, const uint8_t ** mapTable, const rs_par_t * pParams );
-static error_t RetrieveMappingTableGF( uint8_t ** Table, const rs_par_t * pParams );
+static error_t RetrieveGeneratorPolynomial( uint8_t * ioBuf, uint8_t len, const uint8_t mapTable[][RS_TABLE_IDX_NUM], const rs_par_t * pParams );
+static error_t RetrieveMappingTableGF( uint8_t ioTable[][RS_TABLE_IDX_NUM], const rs_par_t * pParams );
 static uint16_t FindMaxDeg( const uint8_t * poly, uint16_t len );
 static uint8_t GetBasis( const uint8_t * poly, const rs_par_t * pParams );
-static uint8_t ConvertBi2Sy( uint8_t inBasis, const uint8_t ** mapTable );
-static uint8_t ConvertSy2Bi( uint8_t inSymb, const uint8_t ** mapTable );
-static uint8_t AddGF( uint8_t symbA, uint8_t symbB, const uint8_t ** mapTable );
-static uint8_t MultiplyGF( uint8_t symbA, uint8_t symbB, const uint8_t ** mapTable, const rs_par_t * pParams );
+static uint8_t ConvertBi2Sy( uint8_t inBasis, const uint8_t mapTable[][RS_TABLE_IDX_NUM] );
+static uint8_t ConvertSy2Bi( uint8_t inSymb, const uint8_t [][RS_TABLE_IDX_NUM] );
+static uint8_t AddGF( uint8_t symbA, uint8_t symbB, const uint8_t mapTable[][RS_TABLE_IDX_NUM] );
+static uint8_t MultiplyGF( uint8_t symbA, uint8_t symbB, const rs_par_t * pParams );
 static uint8_t PowerGF( uint8_t symbBase, int16_t exp, const rs_par_t * pParams );
 
 
@@ -113,7 +113,7 @@ error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream
   const uint8_t numMsg = BY2BI_LEN(inStream->len/(pParams->m*pParams->kSh));
   const uint8_t lenGenPoly = 2*pParams->t+1;
   uint8_t genPoly[lenGenPoly];
-  uint8_t mapTable[RS_TABLE_IDX_NUM][pParams->dimGF];                         /** - mapping table between symbols and basis */
+  uint8_t mapTable[pParams->dimGF][RS_TABLE_IDX_NUM];                         /** - mapping table between symbols and basis */
   int16_t quotDeg;
   uint16_t quotCoef;
   uint16_t maxDeg;
@@ -165,8 +165,7 @@ error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream
         
         for (j=0; j<lenGenPoly; j++)
         {
-          divQuotCoef[j+quotDeg] = MultiplyGF(quotCoef,
-            genPoly[j],mapTable,pParams);
+          divQuotCoef[j+quotDeg] = MultiplyGF(quotCoef,genPoly[j],pParams);
         }
 
         for (j=0; j<pParams->nUn; j++)
@@ -273,7 +272,7 @@ static error_t RetrievePrimitivePolynomial( rs_encoder_info_t * ioInfo, const rs
  * 
  * @return error ID
  */
-static error_t RetrieveGeneratorPolynomial( uint8_t * ioBuf, uint8_t len, const uint8_t ** mapTable, const rs_par_t * pParams )
+static error_t RetrieveGeneratorPolynomial( uint8_t * ioBuf, uint8_t len, const uint8_t mapTable[][RS_TABLE_IDX_NUM], const rs_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
   uint8_t tmpVal;
@@ -290,7 +289,7 @@ static error_t RetrieveGeneratorPolynomial( uint8_t * ioBuf, uint8_t len, const 
     {
       for (j=len-1; j>=0; j--)
       {
-        tmpVal = MultiplyGF(ioBuf[j],PowerGF(2,i,pParams),mapTable,pParams);
+        tmpVal = MultiplyGF(ioBuf[j],PowerGF(2,i,pParams),pParams);
         if (j > 0)
         {
           ioBuf[j] = AddGF(tmpVal,ioBuf[j-1],mapTable);
@@ -320,7 +319,7 @@ static error_t RetrieveGeneratorPolynomial( uint8_t * ioBuf, uint8_t len, const 
  * 
  * @return error ID
  */
-static error_t RetrieveMappingTableGF( uint8_t ** ioTable, const rs_par_t * pParams )
+static error_t RetrieveMappingTableGF( uint8_t ioTable[][RS_TABLE_IDX_NUM], const rs_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
   rs_encoder_info_t encInfo;
@@ -332,8 +331,10 @@ static error_t RetrieveMappingTableGF( uint8_t ** ioTable, const rs_par_t * pPar
   
   if ((NULL != ioTable) && (NULL!= pParams))
   {
-    memset(ioTable[RS_TABLE_IDX_BIT],0,pParams->dimGF);
-    memset(ioTable[RS_TABLE_IDX_SYM],0,pParams->dimGF);
+    for (j=0;j<pParams->dimGF;j++)
+    {
+      memset(ioTable[j],0,RS_TABLE_IDX_NUM);
+    }
     RetrievePrimitivePolynomial(&encInfo,pParams);
 
     for (j=1; j<pParams->dimGF; j++)
@@ -356,8 +357,8 @@ static error_t RetrieveMappingTableGF( uint8_t ** ioTable, const rs_par_t * pPar
         quotDeg = maxDeg-pParams->m;                                          /** update quotient degree of polynomial after division */
       }
 
-      ioTable[RS_TABLE_IDX_BIT][j] = GetBasis(tmpPoly,pParams);               /** retrieve bit basis from remainder */
-      ioTable[RS_TABLE_IDX_SYM][ioTable[RS_TABLE_IDX_BIT][j]] = j;
+      ioTable[j][RS_TABLE_IDX_BIT] = GetBasis(tmpPoly,pParams);               /** retrieve bit basis from remainder */
+      ioTable[ioTable[RS_TABLE_IDX_BIT][j]][RS_TABLE_IDX_SYM] = j;
     }
   }
   else
@@ -426,28 +427,28 @@ static uint8_t GetBasis( const uint8_t * poly, const rs_par_t * pParams )
 /**
  * @brief <i> Function for retrieving GF symbol corresponding to input bit basis. </i>
  * 
- * @param[in] mapTable mapping table
  * @param[in] inBasis bit basis
+ * @param[in] mapTable mapping table
  * 
  * @return corresponding GF symbol
  */
-static uint8_t ConvertBi2Sy( uint8_t inBasis, const uint8_t ** mapTable )
+static uint8_t ConvertBi2Sy( uint8_t inBasis, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
-  return mapTable[RS_TABLE_IDX_SYM][inBasis];
+  return mapTable[inBasis][RS_TABLE_IDX_SYM];
 }
 
 
 /**
  * @brief <i> Function for retrieving bit basis corresponding to input GF symbol. </i>
  * 
+ * @param[in] inSymb GF symbol
  * @param[in] mapTable mapping table
- * @param[in] inBasis GF symbol
  * 
  * @return corresponding bit basis
  */
-static uint8_t ConvertSy2Bi( uint8_t inSymb, const uint8_t ** mapTable )
+static uint8_t ConvertSy2Bi( uint8_t inSymb, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
-  return mapTable[RS_TABLE_IDX_BIT][inSymb];
+  return mapTable[inSymb][RS_TABLE_IDX_BIT];
 }
 
 
@@ -460,15 +461,13 @@ static uint8_t ConvertSy2Bi( uint8_t inSymb, const uint8_t ** mapTable )
  * 
  * @return bit basis resulting from addition
  */
-static uint8_t AddGF( uint8_t symbA, uint8_t symbB, const uint8_t ** mapTable )
+static uint8_t AddGF( uint8_t symbA, uint8_t symbB, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
   uint8_t basisRes;
-  uint8_t symbRes;
-  uint16_t j;
 
-  basisRes = mapTable[RS_TABLE_IDX_BIT][symbA]^mapTable[RS_TABLE_IDX_BIT][symbB];
+  basisRes = mapTable[symbA][RS_TABLE_IDX_BIT]^mapTable[symbB][RS_TABLE_IDX_BIT];
 
-  return mapTable[RS_TABLE_IDX_SYM][basisRes];
+  return mapTable[basisRes][RS_TABLE_IDX_SYM];
 }
 
 
@@ -482,7 +481,7 @@ static uint8_t AddGF( uint8_t symbA, uint8_t symbB, const uint8_t ** mapTable )
  * 
  * @return bit basis resulting from multiplication
  */
-static uint8_t MultiplyGF( uint8_t symbA, uint8_t symbB, const uint8_t ** mapTable, const rs_par_t * pParams )
+static uint8_t MultiplyGF( uint8_t symbA, uint8_t symbB, const rs_par_t * pParams )
 {
   uint8_t symbRes = 0;
   
@@ -574,12 +573,6 @@ uint8_t Table[2][DimGF] = {0};                        // Mapping table between s
 
 
 
-
-
-
-
-
-
 /*** MAIN FUNCTION ***/
 
 int main(){
@@ -624,12 +617,6 @@ void CheckParam( void ){
     exit(1);
   }
 }
-
-
-
-
-
-
 
 
 

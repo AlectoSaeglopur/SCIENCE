@@ -129,7 +129,7 @@ L9:
 	jmp	L11
 L3:
 	.loc 1 88 0
-	movl	$13, -12(%ebp)
+	movl	$14, -12(%ebp)
 	.loc 1 89 0
 	nop
 	jmp	L11
@@ -409,7 +409,7 @@ L16:
 	jmp	L22
 L15:
 	.loc 1 157 0
-	movl	$6, -12(%ebp)
+	movl	$7, -12(%ebp)
 	.loc 1 126 0
 	jmp	L22
 L14:
@@ -504,7 +504,7 @@ Letext0:
 	.file 8 "src/crc.h"
 	.section	.debug_info,"dr"
 Ldebug_info0:
-	.long	0x93b
+	.long	0x94e
 	.word	0x4
 	.secrel32	Ldebug_abbrev0
 	.byte	0x4
@@ -764,7 +764,7 @@ Ldebug_info0:
 	.long	0x6d
 	.byte	0x6
 	.byte	0x1b
-	.long	0x4a6
+	.long	0x4b9
 	.uleb128 0xe
 	.ascii "ERR_NONE\0"
 	.byte	0
@@ -772,59 +772,62 @@ Ldebug_info0:
 	.ascii "ERR_INV_NULL_POINTER\0"
 	.byte	0x1
 	.uleb128 0xe
-	.ascii "ERR_INV_PRINTID\0"
+	.ascii "ERR_INV_ORIG_LEN\0"
 	.byte	0x2
 	.uleb128 0xe
-	.ascii "ERR_INV_CNVCOD_RATE\0"
+	.ascii "ERR_INV_PRINTID\0"
 	.byte	0x3
 	.uleb128 0xe
-	.ascii "ERR_INV_CNVCOD_KLEN\0"
+	.ascii "ERR_INV_CNVCOD_RATE\0"
 	.byte	0x4
 	.uleb128 0xe
-	.ascii "ERR_INV_CNVCOD_DECMET\0"
+	.ascii "ERR_INV_CNVCOD_KLEN\0"
 	.byte	0x5
 	.uleb128 0xe
-	.ascii "ERR_INV_BUFFER_SIZE\0"
+	.ascii "ERR_INV_CNVCOD_DECMET\0"
 	.byte	0x6
 	.uleb128 0xe
-	.ascii "ERR_INV_DYNAMIC_ALLOC\0"
+	.ascii "ERR_INV_BUFFER_SIZE\0"
 	.byte	0x7
 	.uleb128 0xe
-	.ascii "ERR_INV_STREAM_TYPE\0"
+	.ascii "ERR_INV_DYNAMIC_ALLOC\0"
 	.byte	0x8
 	.uleb128 0xe
-	.ascii "ERR_INV_MODULATION_TYPE\0"
+	.ascii "ERR_INV_STREAM_TYPE\0"
 	.byte	0x9
 	.uleb128 0xe
-	.ascii "ERR_INV_MODULATION_BPS\0"
+	.ascii "ERR_INV_MODULATION_TYPE\0"
 	.byte	0xa
 	.uleb128 0xe
-	.ascii "ERR_INV_CHANNEL_TYPE\0"
+	.ascii "ERR_INV_MODULATION_BPS\0"
 	.byte	0xb
 	.uleb128 0xe
-	.ascii "ERR_INV_SCRAMBLING_TYPE\0"
+	.ascii "ERR_INV_CHANNEL_TYPE\0"
 	.byte	0xc
 	.uleb128 0xe
-	.ascii "ERR_INV_CRC_DEGREE\0"
+	.ascii "ERR_INV_SCRAMBLING_TYPE\0"
 	.byte	0xd
 	.uleb128 0xe
-	.ascii "ERR_INV_RS_GF_DEGREE\0"
+	.ascii "ERR_INV_CRC_DEGREE\0"
 	.byte	0xe
 	.uleb128 0xe
-	.ascii "ERR_NUM\0"
+	.ascii "ERR_INV_RS_GF_DEGREE\0"
 	.byte	0xf
+	.uleb128 0xe
+	.ascii "ERR_NUM\0"
+	.byte	0x10
 	.byte	0
 	.uleb128 0x6
 	.ascii "error_t\0"
 	.byte	0x6
-	.byte	0x2d
+	.byte	0x2e
 	.long	0x343
 	.uleb128 0xd
 	.byte	0x4
 	.long	0x6d
 	.byte	0x7
 	.byte	0x1d
-	.long	0x4ff
+	.long	0x512
 	.uleb128 0xe
 	.ascii "memory_type_byte\0"
 	.byte	0
@@ -839,18 +842,18 @@ Ldebug_info0:
 	.ascii "memory_type_t\0"
 	.byte	0x7
 	.byte	0x21
-	.long	0x4b5
+	.long	0x4c8
 	.uleb128 0x3
 	.ascii "_byte_stream_t\0"
 	.byte	0xc
 	.byte	0x7
 	.byte	0x24
-	.long	0x550
+	.long	0x563
 	.uleb128 0x4
 	.ascii "pBuf\0"
 	.byte	0x7
 	.byte	0x26
-	.long	0x550
+	.long	0x563
 	.byte	0
 	.uleb128 0x4
 	.ascii "len\0"
@@ -862,7 +865,7 @@ Ldebug_info0:
 	.ascii "id\0"
 	.byte	0x7
 	.byte	0x28
-	.long	0x4ff
+	.long	0x512
 	.byte	0x8
 	.byte	0
 	.uleb128 0x5
@@ -872,15 +875,15 @@ Ldebug_info0:
 	.ascii "byte_stream_t\0"
 	.byte	0x7
 	.byte	0x29
-	.long	0x514
+	.long	0x527
 	.uleb128 0xa
-	.long	0x556
+	.long	0x569
 	.uleb128 0xd
 	.byte	0x4
 	.long	0x6d
 	.byte	0x8
 	.byte	0x1d
-	.long	0x5cc
+	.long	0x5df
 	.uleb128 0xe
 	.ascii "CRC_DEGREE_8\0"
 	.byte	0x8
@@ -901,24 +904,24 @@ Ldebug_info0:
 	.ascii "crc_degree_t\0"
 	.byte	0x8
 	.byte	0x23
-	.long	0x570
+	.long	0x583
 	.uleb128 0x3
 	.ascii "_crc_par_t\0"
 	.byte	0xc
 	.byte	0x8
 	.byte	0x25
-	.long	0x627
+	.long	0x63a
 	.uleb128 0x4
 	.ascii "degree\0"
 	.byte	0x8
 	.byte	0x27
-	.long	0x5cc
+	.long	0x5df
 	.byte	0
 	.uleb128 0x4
 	.ascii "pGenPoly\0"
 	.byte	0x8
 	.byte	0x28
-	.long	0x627
+	.long	0x63a
 	.byte	0x4
 	.uleb128 0x4
 	.ascii "lenGenPoly\0"
@@ -934,40 +937,40 @@ Ldebug_info0:
 	.ascii "crc_par_t\0"
 	.byte	0x8
 	.byte	0x2a
-	.long	0x5e0
+	.long	0x5f3
 	.uleb128 0xa
-	.long	0x62d
+	.long	0x640
 	.uleb128 0x7
 	.long	0x18d
-	.long	0x653
+	.long	0x666
 	.uleb128 0xc
 	.long	0x2d4
 	.byte	0x4
 	.byte	0
 	.uleb128 0xa
-	.long	0x643
+	.long	0x656
 	.uleb128 0xf
 	.ascii "CRC_GENPOLY_8\0"
 	.byte	0x1
 	.byte	0x18
-	.long	0x653
+	.long	0x666
 	.uleb128 0x5
 	.byte	0x3
 	.long	_CRC_GENPOLY_8
 	.uleb128 0x7
 	.long	0x18d
-	.long	0x683
+	.long	0x696
 	.uleb128 0xc
 	.long	0x2d4
 	.byte	0x2
 	.byte	0
 	.uleb128 0xa
-	.long	0x673
+	.long	0x686
 	.uleb128 0xf
 	.ascii "CRC_GENPOLY_16\0"
 	.byte	0x1
 	.byte	0x19
-	.long	0x683
+	.long	0x696
 	.uleb128 0x5
 	.byte	0x3
 	.long	_CRC_GENPOLY_16
@@ -975,41 +978,41 @@ Ldebug_info0:
 	.ascii "CRC_GENPOLY_24\0"
 	.byte	0x1
 	.byte	0x1a
-	.long	0x653
+	.long	0x666
 	.uleb128 0x5
 	.byte	0x3
 	.long	_CRC_GENPOLY_24
 	.uleb128 0x7
 	.long	0x18d
-	.long	0x6d0
+	.long	0x6e3
 	.uleb128 0xc
 	.long	0x2d4
 	.byte	0xd
 	.byte	0
 	.uleb128 0xa
-	.long	0x6c0
+	.long	0x6d3
 	.uleb128 0xf
 	.ascii "CRC_GENPOLY_32\0"
 	.byte	0x1
 	.byte	0x1b
-	.long	0x6d0
+	.long	0x6e3
 	.uleb128 0x5
 	.byte	0x3
 	.long	_CRC_GENPOLY_32
 	.uleb128 0x7
 	.long	0x18d
-	.long	0x701
+	.long	0x714
 	.uleb128 0xc
 	.long	0x2d4
 	.byte	0x3
 	.byte	0
 	.uleb128 0xa
-	.long	0x6f1
+	.long	0x704
 	.uleb128 0xf
 	.ascii "CRC_GENPOLY_64\0"
 	.byte	0x1
 	.byte	0x1d
-	.long	0x701
+	.long	0x714
 	.uleb128 0x5
 	.byte	0x3
 	.long	_CRC_GENPOLY_64
@@ -1022,12 +1025,12 @@ Ldebug_info0:
 	.long	LFE20-LFB20
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x7a5
+	.long	0x7b8
 	.uleb128 0x11
 	.ascii "poly\0"
 	.byte	0x1
 	.byte	0xbc
-	.long	0x627
+	.long	0x63a
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
@@ -1076,17 +1079,17 @@ Ldebug_info0:
 	.ascii "Crc_CalculateChecksum\0"
 	.byte	0x1
 	.byte	0x6e
-	.long	0x4a6
+	.long	0x4b9
 	.long	LFB19
 	.long	LFE19-LFB19
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x8c6
+	.long	0x8d9
 	.uleb128 0x11
 	.ascii "inStream\0"
 	.byte	0x1
 	.byte	0x6e
-	.long	0x8c6
+	.long	0x8d9
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
@@ -1094,7 +1097,7 @@ Ldebug_info0:
 	.ascii "outStream\0"
 	.byte	0x1
 	.byte	0x6e
-	.long	0x8cc
+	.long	0x8df
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 4
@@ -1102,7 +1105,7 @@ Ldebug_info0:
 	.ascii "pParams\0"
 	.byte	0x1
 	.byte	0x6e
-	.long	0x8d2
+	.long	0x8e5
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 8
@@ -1110,7 +1113,7 @@ Ldebug_info0:
 	.ascii "retErr\0"
 	.byte	0x1
 	.byte	0x70
-	.long	0x4a6
+	.long	0x4b9
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
@@ -1166,7 +1169,7 @@ Ldebug_info0:
 	.ascii "tmpPoly\0"
 	.byte	0x1
 	.byte	0x76
-	.long	0x8d8
+	.long	0x8eb
 	.uleb128 0x3
 	.byte	0x91
 	.sleb128 -52
@@ -1198,16 +1201,16 @@ Ldebug_info0:
 	.byte	0
 	.uleb128 0x5
 	.byte	0x4
-	.long	0x56b
+	.long	0x57e
 	.uleb128 0x5
 	.byte	0x4
-	.long	0x556
+	.long	0x569
 	.uleb128 0x5
 	.byte	0x4
-	.long	0x63e
+	.long	0x651
 	.uleb128 0x7
 	.long	0x17e
-	.long	0x8eb
+	.long	0x8fe
 	.uleb128 0x13
 	.long	0x2d4
 	.uleb128 0x3
@@ -1219,17 +1222,17 @@ Ldebug_info0:
 	.ascii "Crc_ListParameters\0"
 	.byte	0x1
 	.byte	0x34
-	.long	0x4a6
+	.long	0x4b9
 	.long	LFB18
 	.long	LFE18-LFB18
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x938
+	.long	0x94b
 	.uleb128 0x11
 	.ascii "ioParams\0"
 	.byte	0x1
 	.byte	0x34
-	.long	0x938
+	.long	0x94b
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
@@ -1237,14 +1240,14 @@ Ldebug_info0:
 	.ascii "retErr\0"
 	.byte	0x1
 	.byte	0x36
-	.long	0x4a6
+	.long	0x4b9
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
 	.byte	0
 	.uleb128 0x5
 	.byte	0x4
-	.long	0x62d
+	.long	0x640
 	.byte	0
 	.section	.debug_abbrev,"dr"
 Ldebug_abbrev0:

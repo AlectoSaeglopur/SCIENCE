@@ -1569,6 +1569,7 @@ typedef enum
 {
   ERR_NONE = 0,
   ERR_INV_NULL_POINTER,
+  ERR_INV_ORIG_LEN,
   ERR_INV_PRINTID,
   ERR_INV_CNVCOD_RATE,
   ERR_INV_CNVCOD_KLEN,
@@ -1595,7 +1596,7 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 71 "src\\error.h"
+# 72 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 19 "src\\reed_solomon.h" 2
 # 1 "src\\memory.h" 1
@@ -1703,14 +1704,14 @@ typedef struct _rs_encoder_info_t
 
 
 static error_t RetrievePrimitivePolynomial( rs_encoder_info_t * ioInfo, const rs_par_t * pParams );
-static error_t RetrieveGeneratorPolynomial( uint8_t * ioBuf, uint8_t len, const uint8_t ** mapTable, const rs_par_t * pParams );
-static error_t RetrieveMappingTableGF( uint8_t ** Table, const rs_par_t * pParams );
+static error_t RetrieveGeneratorPolynomial( uint8_t * ioBuf, uint8_t len, const uint8_t mapTable[][RS_TABLE_IDX_NUM], const rs_par_t * pParams );
+static error_t RetrieveMappingTableGF( uint8_t ioTable[][RS_TABLE_IDX_NUM], const rs_par_t * pParams );
 static uint16_t FindMaxDeg( const uint8_t * poly, uint16_t len );
 static uint8_t GetBasis( const uint8_t * poly, const rs_par_t * pParams );
-static uint8_t ConvertBi2Sy( uint8_t inBasis, const uint8_t ** mapTable );
-static uint8_t ConvertSy2Bi( uint8_t inSymb, const uint8_t ** mapTable );
-static uint8_t AddGF( uint8_t symbA, uint8_t symbB, const uint8_t ** mapTable );
-static uint8_t MultiplyGF( uint8_t symbA, uint8_t symbB, const uint8_t ** mapTable, const rs_par_t * pParams );
+static uint8_t ConvertBi2Sy( uint8_t inBasis, const uint8_t mapTable[][RS_TABLE_IDX_NUM] );
+static uint8_t ConvertSy2Bi( uint8_t inSymb, const uint8_t [][RS_TABLE_IDX_NUM] );
+static uint8_t AddGF( uint8_t symbA, uint8_t symbB, const uint8_t mapTable[][RS_TABLE_IDX_NUM] );
+static uint8_t MultiplyGF( uint8_t symbA, uint8_t symbB, const rs_par_t * pParams );
 static uint8_t PowerGF( uint8_t symbBase, int16_t exp, const rs_par_t * pParams );
 # 75 "src\\reed_solomon.c"
 error_t RsCod_ListParameters( rs_par_t * ioParams )
@@ -1745,7 +1746,7 @@ error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream
   const uint8_t numMsg = ((inStream->len/(pParams->m*pParams->kSh))<<3u);
   const uint8_t lenGenPoly = 2*pParams->t+1;
   uint8_t genPoly[lenGenPoly];
-  uint8_t mapTable[RS_TABLE_IDX_NUM][pParams->dimGF];
+  uint8_t mapTable[pParams->dimGF][RS_TABLE_IDX_NUM];
   int16_t quotDeg;
   uint16_t quotCoef;
   uint16_t maxDeg;
@@ -1778,7 +1779,7 @@ error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream
 # 127 "src\\reed_solomon.c"
                                        != outStream->pBuf))
   {
-    RetrieveMappingTableGF((uint8_t **)mapTable,pParams);
+    RetrieveMappingTableGF(mapTable,pParams);
     RetrieveGeneratorPolynomial(genPoly,lenGenPoly,mapTable,pParams);
 
     for (i=0; i<numMsg; i++)
@@ -1817,8 +1818,7 @@ error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream
 
         for (j=0; j<lenGenPoly; j++)
         {
-          divQuotCoef[j+quotDeg] = MultiplyGF(quotCoef,
-            genPoly[j],mapTable,pParams);
+          divQuotCoef[j+quotDeg] = MultiplyGF(quotCoef,genPoly[j],pParams);
         }
 
         for (j=0; j<pParams->nUn; j++)
@@ -1869,19 +1869,19 @@ error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream
 
   return Error_HandleErr(retErr);
 }
-# 235 "src\\reed_solomon.c"
+# 234 "src\\reed_solomon.c"
 static error_t RetrievePrimitivePolynomial( rs_encoder_info_t * ioInfo, const rs_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
 
   if ((
-# 239 "src\\reed_solomon.c" 3 4
+# 238 "src\\reed_solomon.c" 3 4
       ((void *)0) 
-# 239 "src\\reed_solomon.c"
+# 238 "src\\reed_solomon.c"
            != ioInfo) && (
-# 239 "src\\reed_solomon.c" 3 4
+# 238 "src\\reed_solomon.c" 3 4
                           ((void *)0) 
-# 239 "src\\reed_solomon.c"
+# 238 "src\\reed_solomon.c"
                                != pParams))
   {
     switch (pParams->m)
@@ -1908,17 +1908,17 @@ static error_t RetrievePrimitivePolynomial( rs_encoder_info_t * ioInfo, const rs
 
   return Error_HandleErr(retErr);
 }
-# 276 "src\\reed_solomon.c"
-static error_t RetrieveGeneratorPolynomial( uint8_t * ioBuf, uint8_t len, const uint8_t ** mapTable, const rs_par_t * pParams )
+# 275 "src\\reed_solomon.c"
+static error_t RetrieveGeneratorPolynomial( uint8_t * ioBuf, uint8_t len, const uint8_t mapTable[][RS_TABLE_IDX_NUM], const rs_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
   uint8_t tmpVal;
   int16_t i, j;
 
   if (
-# 282 "src\\reed_solomon.c" 3 4
+# 281 "src\\reed_solomon.c" 3 4
      ((void *)0) 
-# 282 "src\\reed_solomon.c"
+# 281 "src\\reed_solomon.c"
           != ioBuf)
   {
     memset(ioBuf,0,len);
@@ -1930,7 +1930,7 @@ static error_t RetrieveGeneratorPolynomial( uint8_t * ioBuf, uint8_t len, const 
     {
       for (j=len-1; j>=0; j--)
       {
-        tmpVal = MultiplyGF(ioBuf[j],PowerGF(2,i,pParams),mapTable,pParams);
+        tmpVal = MultiplyGF(ioBuf[j],PowerGF(2,i,pParams),pParams);
         if (j > 0)
         {
           ioBuf[j] = AddGF(tmpVal,ioBuf[j-1],mapTable);
@@ -1949,8 +1949,8 @@ static error_t RetrieveGeneratorPolynomial( uint8_t * ioBuf, uint8_t len, const 
 
   return Error_HandleErr(retErr);
 }
-# 323 "src\\reed_solomon.c"
-static error_t RetrieveMappingTableGF( uint8_t ** ioTable, const rs_par_t * pParams )
+# 322 "src\\reed_solomon.c"
+static error_t RetrieveMappingTableGF( uint8_t ioTable[][RS_TABLE_IDX_NUM], const rs_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
   rs_encoder_info_t encInfo;
@@ -1961,17 +1961,19 @@ static error_t RetrieveMappingTableGF( uint8_t ** ioTable, const rs_par_t * pPar
   uint8_t i;
 
   if ((
-# 333 "src\\reed_solomon.c" 3 4
+# 332 "src\\reed_solomon.c" 3 4
       ((void *)0) 
-# 333 "src\\reed_solomon.c"
+# 332 "src\\reed_solomon.c"
            != ioTable) && (
-# 333 "src\\reed_solomon.c" 3 4
+# 332 "src\\reed_solomon.c" 3 4
                            ((void *)0)
-# 333 "src\\reed_solomon.c"
+# 332 "src\\reed_solomon.c"
                                != pParams))
   {
-    memset(ioTable[RS_TABLE_IDX_BIT],0,pParams->dimGF);
-    memset(ioTable[RS_TABLE_IDX_SYM],0,pParams->dimGF);
+    for (j=0;j<pParams->dimGF;j++)
+    {
+      memset(ioTable[j],0,RS_TABLE_IDX_NUM);
+    }
     RetrievePrimitivePolynomial(&encInfo,pParams);
 
     for (j=1; j<pParams->dimGF; j++)
@@ -1994,8 +1996,8 @@ static error_t RetrieveMappingTableGF( uint8_t ** ioTable, const rs_par_t * pPar
         quotDeg = maxDeg-pParams->m;
       }
 
-      ioTable[RS_TABLE_IDX_BIT][j] = GetBasis(tmpPoly,pParams);
-      ioTable[RS_TABLE_IDX_SYM][ioTable[RS_TABLE_IDX_BIT][j]] = j;
+      ioTable[j][RS_TABLE_IDX_BIT] = GetBasis(tmpPoly,pParams);
+      ioTable[ioTable[RS_TABLE_IDX_BIT][j]][RS_TABLE_IDX_SYM] = j;
     }
   }
   else
@@ -2005,16 +2007,16 @@ static error_t RetrieveMappingTableGF( uint8_t ** ioTable, const rs_par_t * pPar
 
   return Error_HandleErr(retErr);
 }
-# 380 "src\\reed_solomon.c"
+# 381 "src\\reed_solomon.c"
 static uint16_t FindMaxDeg( const uint8_t * poly, uint16_t len )
 {
   uint16_t maxDeg;
   uint16_t j;
 
   if (
-# 385 "src\\reed_solomon.c" 3 4
+# 386 "src\\reed_solomon.c" 3 4
      ((void *)0) 
-# 385 "src\\reed_solomon.c"
+# 386 "src\\reed_solomon.c"
           != poly)
   {
     for (j=len-1; j>=0; j--)
@@ -2029,16 +2031,16 @@ static uint16_t FindMaxDeg( const uint8_t * poly, uint16_t len )
 
   return maxDeg;
 }
-# 409 "src\\reed_solomon.c"
+# 410 "src\\reed_solomon.c"
 static uint8_t GetBasis( const uint8_t * poly, const rs_par_t * pParams )
 {
   uint8_t basis = 0;
   uint8_t j;
 
   if (
-# 414 "src\\reed_solomon.c" 3 4
+# 415 "src\\reed_solomon.c" 3 4
      ((void *)0) 
-# 414 "src\\reed_solomon.c"
+# 415 "src\\reed_solomon.c"
           != poly)
   {
     for (j=0; j<pParams->m; j++)
@@ -2049,29 +2051,27 @@ static uint8_t GetBasis( const uint8_t * poly, const rs_par_t * pParams )
 
   return basis;
 }
-# 434 "src\\reed_solomon.c"
-static uint8_t ConvertBi2Sy( uint8_t inBasis, const uint8_t ** mapTable )
+# 435 "src\\reed_solomon.c"
+static uint8_t ConvertBi2Sy( uint8_t inBasis, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
-  return mapTable[RS_TABLE_IDX_SYM][inBasis];
+  return mapTable[inBasis][RS_TABLE_IDX_SYM];
 }
-# 448 "src\\reed_solomon.c"
-static uint8_t ConvertSy2Bi( uint8_t inSymb, const uint8_t ** mapTable )
+# 449 "src\\reed_solomon.c"
+static uint8_t ConvertSy2Bi( uint8_t inSymb, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
-  return mapTable[RS_TABLE_IDX_BIT][inSymb];
+  return mapTable[inSymb][RS_TABLE_IDX_BIT];
 }
-# 463 "src\\reed_solomon.c"
-static uint8_t AddGF( uint8_t symbA, uint8_t symbB, const uint8_t ** mapTable )
+# 464 "src\\reed_solomon.c"
+static uint8_t AddGF( uint8_t symbA, uint8_t symbB, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
   uint8_t basisRes;
-  uint8_t symbRes;
-  uint16_t j;
 
-  basisRes = mapTable[RS_TABLE_IDX_BIT][symbA]^mapTable[RS_TABLE_IDX_BIT][symbB];
+  basisRes = mapTable[symbA][RS_TABLE_IDX_BIT]^mapTable[symbB][RS_TABLE_IDX_BIT];
 
-  return mapTable[RS_TABLE_IDX_SYM][basisRes];
+  return mapTable[basisRes][RS_TABLE_IDX_SYM];
 }
-# 485 "src\\reed_solomon.c"
-static uint8_t MultiplyGF( uint8_t symbA, uint8_t symbB, const uint8_t ** mapTable, const rs_par_t * pParams )
+# 484 "src\\reed_solomon.c"
+static uint8_t MultiplyGF( uint8_t symbA, uint8_t symbB, const rs_par_t * pParams )
 {
   uint8_t symbRes = 0;
 
@@ -2082,7 +2082,7 @@ static uint8_t MultiplyGF( uint8_t symbA, uint8_t symbB, const uint8_t ** mapTab
 
   return symbRes;
 }
-# 511 "src\\reed_solomon.c"
+# 510 "src\\reed_solomon.c"
 static uint8_t PowerGF( uint8_t symbBase, int16_t exp, const rs_par_t * pParams )
 {
   uint8_t symbRes;

@@ -47,7 +47,7 @@ Letext0:
 	.file 5 "src/error.h"
 	.section	.debug_info,"dr"
 Ldebug_info0:
-	.long	0x4ef
+	.long	0x502
 	.word	0x4
 	.secrel32	Ldebug_abbrev0
 	.byte	0x4
@@ -288,7 +288,7 @@ Ldebug_info0:
 	.long	0x6f
 	.byte	0x5
 	.byte	0x1b
-	.long	0x470
+	.long	0x483
 	.uleb128 0xd
 	.ascii "ERR_NONE\0"
 	.byte	0
@@ -296,59 +296,62 @@ Ldebug_info0:
 	.ascii "ERR_INV_NULL_POINTER\0"
 	.byte	0x1
 	.uleb128 0xd
-	.ascii "ERR_INV_PRINTID\0"
+	.ascii "ERR_INV_ORIG_LEN\0"
 	.byte	0x2
 	.uleb128 0xd
-	.ascii "ERR_INV_CNVCOD_RATE\0"
+	.ascii "ERR_INV_PRINTID\0"
 	.byte	0x3
 	.uleb128 0xd
-	.ascii "ERR_INV_CNVCOD_KLEN\0"
+	.ascii "ERR_INV_CNVCOD_RATE\0"
 	.byte	0x4
 	.uleb128 0xd
-	.ascii "ERR_INV_CNVCOD_DECMET\0"
+	.ascii "ERR_INV_CNVCOD_KLEN\0"
 	.byte	0x5
 	.uleb128 0xd
-	.ascii "ERR_INV_BUFFER_SIZE\0"
+	.ascii "ERR_INV_CNVCOD_DECMET\0"
 	.byte	0x6
 	.uleb128 0xd
-	.ascii "ERR_INV_DYNAMIC_ALLOC\0"
+	.ascii "ERR_INV_BUFFER_SIZE\0"
 	.byte	0x7
 	.uleb128 0xd
-	.ascii "ERR_INV_STREAM_TYPE\0"
+	.ascii "ERR_INV_DYNAMIC_ALLOC\0"
 	.byte	0x8
 	.uleb128 0xd
-	.ascii "ERR_INV_MODULATION_TYPE\0"
+	.ascii "ERR_INV_STREAM_TYPE\0"
 	.byte	0x9
 	.uleb128 0xd
-	.ascii "ERR_INV_MODULATION_BPS\0"
+	.ascii "ERR_INV_MODULATION_TYPE\0"
 	.byte	0xa
 	.uleb128 0xd
-	.ascii "ERR_INV_CHANNEL_TYPE\0"
+	.ascii "ERR_INV_MODULATION_BPS\0"
 	.byte	0xb
 	.uleb128 0xd
-	.ascii "ERR_INV_SCRAMBLING_TYPE\0"
+	.ascii "ERR_INV_CHANNEL_TYPE\0"
 	.byte	0xc
 	.uleb128 0xd
-	.ascii "ERR_INV_CRC_DEGREE\0"
+	.ascii "ERR_INV_SCRAMBLING_TYPE\0"
 	.byte	0xd
 	.uleb128 0xd
-	.ascii "ERR_INV_RS_GF_DEGREE\0"
+	.ascii "ERR_INV_CRC_DEGREE\0"
 	.byte	0xe
 	.uleb128 0xd
-	.ascii "ERR_NUM\0"
+	.ascii "ERR_INV_RS_GF_DEGREE\0"
 	.byte	0xf
+	.uleb128 0xd
+	.ascii "ERR_NUM\0"
+	.byte	0x10
 	.byte	0
 	.uleb128 0x6
 	.ascii "error_t\0"
 	.byte	0x5
-	.byte	0x2d
+	.byte	0x2e
 	.long	0x30d
 	.uleb128 0xc
 	.byte	0x4
 	.long	0x6f
 	.byte	0x5
-	.byte	0x31
-	.long	0x4c0
+	.byte	0x32
+	.long	0x4d3
 	.uleb128 0xd
 	.ascii "ALARM_NONE\0"
 	.byte	0
@@ -366,7 +369,7 @@ Ldebug_info0:
 	.ascii "Error_HandleErr\0"
 	.byte	0x1
 	.byte	0x1f
-	.long	0x470
+	.long	0x483
 	.long	LFB18
 	.long	LFE18-LFB18
 	.uleb128 0x1
@@ -375,7 +378,7 @@ Ldebug_info0:
 	.ascii "inErr\0"
 	.byte	0x1
 	.byte	0x1f
-	.long	0x470
+	.long	0x483
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0

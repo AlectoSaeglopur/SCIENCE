@@ -27,6 +27,7 @@ typedef enum
 {
   ERR_NONE = 0,                                       /** - successful error ID */
   ERR_INV_NULL_POINTER,                               /** - invalid null pointer error ID */
+  ERR_INV_ORIG_LEN,                                   /** - invalid origin byte-stream length error ID */
   ERR_INV_PRINTID,                                    /** - invalid print label provided error ID */
   ERR_INV_CNVCOD_RATE,                                /** - invalid convolutional coding rate error ID */
   ERR_INV_CNVCOD_KLEN,                                /** - invalid convolutional coding constaint length error ID */

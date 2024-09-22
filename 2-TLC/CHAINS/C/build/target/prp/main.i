@@ -1569,6 +1569,7 @@ typedef enum
 {
   ERR_NONE = 0,
   ERR_INV_NULL_POINTER,
+  ERR_INV_ORIG_LEN,
   ERR_INV_PRINTID,
   ERR_INV_CNVCOD_RATE,
   ERR_INV_CNVCOD_KLEN,
@@ -1595,7 +1596,7 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 71 "src\\error.h"
+# 72 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 19 "src\\channel.h" 2
 # 1 "src\\memory.h" 1
@@ -1820,75 +1821,6 @@ error_t Crc_CalculateChecksum( const byte_stream_t * inStream, byte_stream_t * o
 # 31 "src\\main.c" 2
 # 1 "src\\debug.h" 1
 # 23 "src\\debug.h"
-# 1 "src\\scrambling.h" 1
-# 28 "src\\scrambling.h"
-typedef enum
-{
-  SCRAMB_ADT = 0,
-  SCRAMB_MLT,
-
-  SCRAMB_NUM
-} scramb_type_t;
-
-
-typedef struct _scramb_par_t
-{
-  scramb_type_t type;
-  uint8_t nCells;
-  uint32_t conVect;
-  uint32_t initSt;
-} scramb_par_t;
-# 75 "src\\scrambling.h"
-error_t Scramb_ListParameters( scramb_par_t * ioParams );
-error_t Scramb_Scrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scramb_par_t * pParams );
-error_t Scramb_Descrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scramb_par_t * pParams );
-# 24 "src\\debug.h" 2
-# 42 "src\\debug.h"
-typedef enum
-{
-  PID_TX_ORG = 0,
-  PID_RX_ORG,
-  PID_TX_CRC,
-  PID_RX_CRC,
-  PID_TX_SCR,
-  PID_RX_SCR,
-  PID_TX_CNVCOD,
-  PID_RX_CNVCOD,
-  PID_TX_MAP,
-  PID_RX_MAP,
-  PID_RX_LLR,
-
-  PID_NUM
-} print_label_t;
-
-
-typedef struct _debug_par_t
-{
-  cc_par_t ccPar;
-  scramb_par_t scrPar;
-  mod_par_t modPar;
-  chan_par_t chanPar;
-} debug_par_t;
-
-
-
-
-
-
-
-error_t Debug_PrintParameters( uint32_t orgLen, const debug_par_t * pParams );
-error_t Debug_ListParameters( debug_par_t * ioParams, const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam, const scramb_par_t * scrParam );
-error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed );
-error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
-error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
-error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
-error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams );
-error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label );
-error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label );
-# 32 "src\\main.c" 2
-
-
-
 # 1 "src\\reed_solomon.h" 1
 # 28 "src\\reed_solomon.h"
 typedef enum
@@ -1916,116 +1848,182 @@ typedef struct _rs_par_t
 
 error_t RsCod_ListParameters( rs_par_t * ioParams );
 error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams );
-# 36 "src\\main.c" 2
-# 70 "src\\main.c"
+# 24 "src\\debug.h" 2
+# 1 "src\\scrambling.h" 1
+# 28 "src\\scrambling.h"
+typedef enum
+{
+  SCRAMB_ADT = 0,
+  SCRAMB_MLT,
+
+  SCRAMB_NUM
+} scramb_type_t;
+
+
+typedef struct _scramb_par_t
+{
+  scramb_type_t type;
+  uint8_t nCells;
+  uint32_t conVect;
+  uint32_t initSt;
+} scramb_par_t;
+# 75 "src\\scrambling.h"
+error_t Scramb_ListParameters( scramb_par_t * ioParams );
+error_t Scramb_Scrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scramb_par_t * pParams );
+error_t Scramb_Descrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scramb_par_t * pParams );
+# 25 "src\\debug.h" 2
+# 43 "src\\debug.h"
+typedef enum
+{
+  PID_TX_ORG = 0,
+  PID_RX_ORG,
+  PID_TX_CRC,
+  PID_RX_CRC,
+  PID_TX_SCR,
+  PID_RX_SCR,
+  PID_TX_CNVCOD,
+  PID_RX_CNVCOD,
+  PID_TX_MAP,
+  PID_RX_MAP,
+  PID_RX_LLR,
+
+  PID_NUM
+} print_label_t;
+
+
+typedef struct _debug_par_t
+{
+  scramb_par_t scrPar;
+  rs_par_t rsPar;
+  cc_par_t ccPar;
+  mod_par_t modPar;
+  chan_par_t chanPar;
+} debug_par_t;
+
+
+
+
+
+
+
+error_t Debug_PrintParameters( uint32_t orgLen, const debug_par_t * pParams );
+error_t Debug_ListParameters( debug_par_t * ioParams, const scramb_par_t * scrParam, const rs_par_t * rsParam, const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam );
+error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed );
+error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
+error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
+error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
+error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams );
+error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label );
+error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label );
+# 32 "src\\main.c" 2
+# 72 "src\\main.c"
 static clock_t elapsedTime;
-static crc_par_t crcParams;
-static scramb_par_t scrParams;
-static rs_par_t rsParams;
-static cc_par_t ccParams;
-static mod_par_t modParams;
-static chan_par_t chanParams;
-static debug_par_t dgbParams;
-# 99 "src\\main.c"
+static crc_par_t crcParam;
+static scramb_par_t scrParam;
+static rs_par_t rsParam;
+static cc_par_t ccParam;
+static mod_par_t modParam;
+static chan_par_t chanParam;
+static debug_par_t dgbParam;
+# 101 "src\\main.c"
 int main( void )
 {
 
   printf("\n >> Starting execution...\n");
   elapsedTime = clock();
+
+  Crc_ListParameters(&crcParam);
+  Scramb_ListParameters(&scrParam);
+  RsCod_ListParameters(&rsParam);
+  CnvCod_ListParameters(&ccParam);
+  Channel_ListParameters(&chanParam);
+  Modulation_ListParameters(&modParam);
+  Debug_ListParameters(&dgbParam,&scrParam,&rsParam,&ccParam,
+                       &modParam,&chanParam);
+  Debug_PrintParameters(150u,&dgbParam);
+
   byte_stream_t txOrgStream = {.pBuf = 
-# 104 "src\\main.c" 3 4
+# 117 "src\\main.c" 3 4
  ((void *)0)
-# 104 "src\\main.c"
+# 117 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t rxOrgStream = {.pBuf = 
-# 104 "src\\main.c" 3 4
+# 117 "src\\main.c" 3 4
  ((void *)0)
-# 104 "src\\main.c"
+# 117 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t txCrcStream = {.pBuf = 
-# 104 "src\\main.c" 3 4
+# 117 "src\\main.c" 3 4
  ((void *)0)
-# 104 "src\\main.c"
+# 117 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t rxCrcStream = {.pBuf = 
-# 104 "src\\main.c" 3 4
+# 117 "src\\main.c" 3 4
  ((void *)0)
-# 104 "src\\main.c"
+# 117 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t txScrStream = {.pBuf = 
-# 104 "src\\main.c" 3 4
+# 117 "src\\main.c" 3 4
  ((void *)0)
-# 104 "src\\main.c"
+# 117 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t rxScrStream = {.pBuf = 
-# 104 "src\\main.c" 3 4
+# 117 "src\\main.c" 3 4
  ((void *)0)
-# 104 "src\\main.c"
+# 117 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t txCcStream = {.pBuf = 
-# 104 "src\\main.c" 3 4
+# 117 "src\\main.c" 3 4
  ((void *)0)
-# 104 "src\\main.c"
+# 117 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t rxCcStream = {.pBuf = 
-# 104 "src\\main.c" 3 4
+# 117 "src\\main.c" 3 4
  ((void *)0)
-# 104 "src\\main.c"
+# 117 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; complex_stream_t txModStream = {.pBuf = 
-# 104 "src\\main.c" 3 4
+# 117 "src\\main.c" 3 4
  ((void *)0)
-# 104 "src\\main.c"
+# 117 "src\\main.c"
  , .len = 0, .id = memory_type_complex}; complex_stream_t rxModStream = {.pBuf = 
-# 104 "src\\main.c" 3 4
+# 117 "src\\main.c" 3 4
  ((void *)0)
-# 104 "src\\main.c"
+# 117 "src\\main.c"
  , .len = 0, .id = memory_type_complex}; float_stream_t rxLLRStream = {.pBuf = 
-# 104 "src\\main.c" 3 4
+# 117 "src\\main.c" 3 4
  ((void *)0)
-# 104 "src\\main.c"
+# 117 "src\\main.c"
  , .len = 0, .id = memory_type_float};;
   Memory_AllocateStream(&txOrgStream,150u,txOrgStream.id); Memory_AllocateStream(&rxOrgStream,150u,rxOrgStream.id); Memory_AllocateStream(&txCrcStream,((CRC_DEGREE_16)>>3u),txCrcStream.id); Memory_AllocateStream(&rxCrcStream,((CRC_DEGREE_16)>>3u),rxCrcStream.id); Memory_AllocateStream(&txScrStream,150u,txScrStream.id); Memory_AllocateStream(&rxScrStream,150u,rxScrStream.id); Memory_AllocateStream(&txCcStream,((2u*150u)/2u* (CC_RATE_12+1)/CC_RATE_12),txCcStream.id); Memory_AllocateStream(&rxCcStream,((2u*150u)/2u* (CC_RATE_12+1)/CC_RATE_12),rxCcStream.id); Memory_AllocateStream(&txModStream,(((((2u*150u)/2u* (CC_RATE_12+1)/CC_RATE_12))<<3u)/2u),txModStream.id); Memory_AllocateStream(&rxModStream,(((((2u*150u)/2u* (CC_RATE_12+1)/CC_RATE_12))<<3u)/2u),rxModStream.id); Memory_AllocateStream(&rxLLRStream,((((2u*150u)/2u* (CC_RATE_12+1)/CC_RATE_12))<<3u),rxLLRStream.id);;
 
 
-  Crc_ListParameters(&crcParams);
-  Scramb_ListParameters(&scrParams);
-  RsCod_ListParameters(&rsParams);
-  CnvCod_ListParameters(&ccParams);
-  Channel_ListParameters(&chanParams);
-  Modulation_ListParameters(&modParams);
-
   Debug_GenerateRandomBytes(&txOrgStream,
-# 115 "src\\main.c" 3 4
+# 121 "src\\main.c" 3 4
                                         ((void *)0)
-# 115 "src\\main.c"
+# 121 "src\\main.c"
                                             );
-  Crc_CalculateChecksum(&txOrgStream,&txCrcStream,&crcParams);
-  Scramb_Scrambler(&txOrgStream,&txScrStream,&scrParams);
-  CnvCod_Encoder(&txScrStream,&txCcStream,&ccParams);
-  if (CHAN_BSC == chanParams.type)
+  Crc_CalculateChecksum(&txOrgStream,&txCrcStream,&crcParam);
+  Scramb_Scrambler(&txOrgStream,&txScrStream,&scrParam);
+  CnvCod_Encoder(&txScrStream,&txCcStream,&ccParam);
+  if (CHAN_BSC == chanParam.type)
   {
-    Channel_BSC(&txCcStream,&rxCcStream,&chanParams);
-    CnvCod_HardDecoder(&rxCcStream,&rxScrStream,&ccParams);
+    Channel_BSC(&txCcStream,&rxCcStream,&chanParam);
+    CnvCod_HardDecoder(&rxCcStream,&rxScrStream,&ccParam);
   }
-  else if (CHAN_AWGN == chanParams.type)
+  else if (CHAN_AWGN == chanParam.type)
   {
-    Modulation_Mapper(&txCcStream,&txModStream,&modParams);
-    Channel_AWGN(&txModStream,&rxModStream,&chanParams);
-    if (CC_VITDM_HARD == ccParams.vitDM)
+    Modulation_Mapper(&txCcStream,&txModStream,&modParam);
+    Channel_AWGN(&txModStream,&rxModStream,&chanParam);
+    if (CC_VITDM_HARD == ccParam.vitDM)
     {
-      Modulation_HardDemapper(&rxModStream,&rxCcStream,&modParams);
-      CnvCod_HardDecoder(&rxCcStream,&rxScrStream,&ccParams);
+      Modulation_HardDemapper(&rxModStream,&rxCcStream,&modParam);
+      CnvCod_HardDecoder(&rxCcStream,&rxScrStream,&ccParam);
     }
-    else if (CC_VITDM_SOFT == ccParams.vitDM)
+    else if (CC_VITDM_SOFT == ccParam.vitDM)
     {
-      Modulation_SoftDemapper(&rxModStream,&rxLLRStream,&modParams);
-      CnvCod_SoftDecoder(&rxLLRStream,&rxScrStream,&ccParams);
+      Modulation_SoftDemapper(&rxModStream,&rxLLRStream,&modParam);
+      CnvCod_SoftDecoder(&rxLLRStream,&rxScrStream,&ccParam);
     }
   }
-  Scramb_Descrambler(&rxScrStream,&rxOrgStream,&scrParams);
-  Crc_CalculateChecksum(&rxOrgStream,&rxCrcStream,&crcParams);
-
-
-  Debug_ListParameters(&dgbParams,&ccParams,&modParams,
-                        &chanParams,&scrParams);
-  Debug_PrintParameters(150u,&dgbParams);
-# 160 "src\\main.c"
-  Debug_CheckWrongBits(&txCcStream,&rxCcStream,PID_RX_CNVCOD,&dgbParams);
-  Debug_CheckWrongBits(&txOrgStream,&rxOrgStream,PID_RX_ORG,&dgbParams);
-  Debug_CheckWrongBits(&txCrcStream,&rxCrcStream,PID_RX_CRC,&dgbParams);
+  Scramb_Descrambler(&rxScrStream,&rxOrgStream,&scrParam);
+  Crc_CalculateChecksum(&rxOrgStream,&rxCrcStream,&crcParam);
+# 164 "src\\main.c"
+  Debug_CheckWrongBits(&txCcStream,&rxCcStream,PID_RX_CNVCOD,&dgbParam);
+  Debug_CheckWrongBits(&txOrgStream,&rxOrgStream,PID_RX_ORG,&dgbParam);
+  Debug_CheckWrongBits(&txCrcStream,&rxCrcStream,PID_RX_CRC,&dgbParam);
 
 
 
@@ -2037,9 +2035,9 @@ int main( void )
   elapsedTime = clock()-elapsedTime;
   printf(" >> Execution completed successfully in %1.3f seconds!\n",
     ((float)elapsedTime)/
-# 173 "src\\main.c" 3
+# 177 "src\\main.c" 3
                         ((clock_t)(1000))
-# 173 "src\\main.c"
+# 177 "src\\main.c"
                                       );
 
   return 0;

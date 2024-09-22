@@ -39,13 +39,16 @@ static bool IsOrgLenValid( ulen_t orgLenBy, const debug_par_t * pParams );
  * 
  * @return error ID
  */
-error_t Debug_ListParameters( debug_par_t * ioParams, const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam, const scramb_par_t * scrParam )
+error_t Debug_ListParameters( debug_par_t * ioParams, const scramb_par_t * scrParam, const rs_par_t * rsParam,
+                              const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam )
 {
   error_t retErr = ERR_NONE;
 
-  if ((NULL != ioParams) && (NULL != ccParam) && (NULL != modParam) && (NULL != chanParam) && (NULL != scrParam))
+  if ((NULL != ioParams) && (NULL != scrParam) && (NULL != rsParam) && (NULL != ccParam) && 
+      (NULL != modParam) && (NULL != chanParam))
   {
     ioParams->scrPar = *scrParam;
+    ioParams->rsPar = *rsParam;
     ioParams->ccPar = *ccParam;
     ioParams->modPar = *modParam;
     ioParams->chanPar = *chanParam;
@@ -315,7 +318,7 @@ error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label
 
 
 /**
- * @brief <i> Function for printing on terminal all simulation parameters. </i>
+ * @brief <i> Function for checking origin length validity and printing on terminal all simulation parameters. </i>
  * 
  * @param[in] orgLen source buffer length [B]
  * @param[in] pParams pointer to debug parameters structure
@@ -355,7 +358,7 @@ error_t Debug_PrintParameters( ulen_t orgLen, const debug_par_t * pParams )
   }
   else
   {
-    retErr = ERR_INV_BUFFER_SIZE;
+    retErr = ERR_INV_ORIG_LEN;
   }
 
   return Error_HandleErr(retErr);

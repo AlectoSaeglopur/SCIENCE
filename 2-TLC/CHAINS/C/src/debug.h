@@ -20,6 +20,7 @@
 #include "error.h"
 #include "memory.h"
 #include "modulation.h"
+#include "reed_solomon.h"
 #include "scrambling.h"
 #include "system.h"
 
@@ -59,8 +60,9 @@ typedef enum
 
 typedef struct _debug_par_t
 {
-  cc_par_t ccPar;
   scramb_par_t scrPar;
+  rs_par_t rsPar;
+  cc_par_t ccPar;
   mod_par_t modPar;
   chan_par_t chanPar;
 } debug_par_t;
@@ -72,7 +74,7 @@ typedef struct _debug_par_t
 /******************/
 
 error_t Debug_PrintParameters( ulen_t orgLen, const debug_par_t * pParams );
-error_t Debug_ListParameters( debug_par_t * ioParams, const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam, const scramb_par_t * scrParam );
+error_t Debug_ListParameters( debug_par_t * ioParams, const scramb_par_t * scrParam, const rs_par_t * rsParam, const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam );
 error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed );
 error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
 error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
