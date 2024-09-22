@@ -43,11 +43,6 @@ typedef enum
 
 
 
-/*****************/
-/*** CONSTANTS ***/
-/*****************/
-
-
 /****************/
 /*** TYPEDEFS ***/
 /****************/
@@ -64,18 +59,13 @@ typedef struct _rs_par_t
 } rs_par_t;
 
 
-typedef struct _rs_encoder_info_t
-{
-  const uint8_t * pPrimPoly;                                      /** - pointer to primitive polynomial */
-  uint8_t lenPrimPoly;                                            /** - primitive polynomial size */
-} rs_encoder_info_t;
-
 
 /*************************/
 /*** PUBLIC PROTOTYPES ***/
 /*************************/
 
 error_t RsCod_ListParameters( rs_par_t * ioParams );
+error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams );
 
 
 #endif
