@@ -34,13 +34,13 @@ typedef enum
 } scramb_type_t;
 
 
-typedef struct _scramb_par_t
+typedef struct _scr_par_t
 {
   scramb_type_t type;
   uint8_t nCells;                                       /** - number of LFSR cells */
   uint32_t conVect;                                     /** - connection vector */
   uint32_t initSt;                                      /** - LFSR initial state */
-} scramb_par_t;
+} scr_par_t;
 
 
 
@@ -72,9 +72,9 @@ typedef struct _scramb_par_t
 /*** PROTOTYPES ***/
 /******************/
 
-error_t Scramb_ListParameters( scramb_par_t * ioParams );
-error_t Scramb_Scrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scramb_par_t * pParams );
-error_t Scramb_Descrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scramb_par_t * pParams );
+error_t Scramb_ListParameters( scr_par_t * ioParams );
+error_t Scramb_Scrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
+error_t Scramb_Descrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
 
 
 #endif

@@ -123,9 +123,6 @@ def Cnv_Intrlv( InData, I, M ) :
             RwIdx = -1
         else :
             RwIdx += 1
-        # print(OutData)
-        # print(ShReg)
-        # print("----")
     if RwIdx == -1 :
         RwIdx = 0
     while OutIdx < Len :                                                # loop until all elements still stored in the shift-register has been completely consumed...
@@ -139,9 +136,6 @@ def Cnv_Intrlv( InData, I, M ) :
             RwIdx = 0
         else :
             RwIdx += 1
-        # print(OutData)
-        # print(ShReg)
-        # print("----")
     return OutData
 
 
@@ -187,9 +181,6 @@ def Cnv_Deintrlv( InData, I, M ) :
                 ClIdx += 1
             else :
                 RwIdx += 1
-        # print(OutData)
-        # print(ShReg)
-        # print('---')
     return OutData
 
 

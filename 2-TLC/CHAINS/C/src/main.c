@@ -49,6 +49,7 @@
 /*** CONSTANTS ***/
 /*****************/
 
+// stream lengths
 #define LEN_CRC_BY          BI2BY_LEN(CRC_DEGREE)                           //!< crc stream length [B]
 #define LEN_SRC_BY          LEN_ORG_BY                                      //!< scrambled stream length [B]
 #define LEN_RS_BY           (LEN_SRC_BY*CODEWORD_SIZE/MESSAGE_SIZE)         //!< reed-solomon coded stream length [B]
@@ -59,9 +60,37 @@
 #define LEN_MOD_SY          (LEN_CC_PUN_BI/MOD_BPS)                         //!< modulated symbol stream length [Sy]
 #define LEN_LLR_FL          LEN_CC_PUN_BI
 
-#define DEF_STREAM_DECLARE(name,type,length) type##_stream_t name##Stream = {.pBuf = NULL, .len = 0, .id = memory_type_##type};
+// list of streams (name, type, length)
+#define LIST_OF_STREAMS(ENTRY)               \
+  ENTRY( txOrg,   byte,     LEN_ORG_BY     ) \
+  ENTRY( rxOrg,   byte,     LEN_ORG_BY     ) \
+  ENTRY( txCrc,   byte,     LEN_CRC_BY     ) \
+  ENTRY( rxCrc,   byte,     LEN_CRC_BY     ) \
+  ENTRY( txScr,   byte,     LEN_SRC_BY     ) \
+  ENTRY( rxScr,   byte,     LEN_SRC_BY     ) \
+  ENTRY( txRs,    byte,     LEN_RS_BY      ) \
+  ENTRY( rxRs,    byte,     LEN_RS_BY      ) \
+  ENTRY( txCc,    byte,     LEN_CC_PUN_BY  ) \
+  ENTRY( rxCc,    byte,     LEN_CC_PUN_BY  ) \
+  ENTRY( txMod,   complex,  LEN_MOD_SY     ) \
+  ENTRY( rxMod,   complex,  LEN_MOD_SY     ) \
+  ENTRY( rxLLR,   float,    LEN_LLR_FL     )
+
+#define DEF_STREAM_DECLARE(name,type,...) type##_stream_t name##Stream = {.pBuf = NULL, .len = 0, .id = memory_type_##type};
 #define DEF_STREAM_ALLOCATE(name,type,length) Memory_AllocateStream(&name##Stream,length,name##Stream.id);
-#define DEF_STREAM_FREE(name,type,length) Memory_FreeStream(&name##Stream,memory_type_##type);
+#define DEF_STREAM_FREE(name,type,...) Memory_FreeStream(&name##Stream,memory_type_##type);
+
+// list of parameters (name, module)
+#define LIST_OF_PARAMETERS(ENTRY)   \
+  ENTRY( crc,   Crc               ) \
+  ENTRY( scr,   Scramb            ) \
+  ENTRY( rs,    RsCod             ) \
+  ENTRY( cc,    CnvCod            ) \
+  ENTRY( mod,   Modulation        ) \
+  ENTRY( chan,  Channel           )
+
+#define DEF_PARAMETER_DECLARE(name,...) static name##_par_t name##Param;
+#define DEF_PARAMETER_INITIALIZE(name,module) module##_ListParameters(&name##Param);
 
 
 
@@ -69,30 +98,9 @@
 /*** GLOBAL VARIABLES ***/
 /************************/
 
+LIST_OF_PARAMETERS(DEF_PARAMETER_DECLARE);                                  /** - declare all parameter structures */
+static debug_par_t dgbParam;                                                /** - declare debug parameter structure */
 static clock_t elapsedTime;
-static crc_par_t crcParam;
-static scramb_par_t scrParam;
-static rs_par_t rsParam;
-static cc_par_t ccParam;
-static mod_par_t modParam;
-static chan_par_t chanParam;
-static debug_par_t dgbParam;
-
-// list of streams (name, type, length)
-#define LIST_OF_STREAMS(ENTRY)            \
-  ENTRY( txOrg, byte,    LEN_ORG_BY     ) \
-  ENTRY( rxOrg, byte,    LEN_ORG_BY     ) \
-  ENTRY( txCrc, byte,    LEN_CRC_BY     ) \
-  ENTRY( rxCrc, byte,    LEN_CRC_BY     ) \
-  ENTRY( txScr, byte,    LEN_SRC_BY     ) \
-  ENTRY( rxScr, byte,    LEN_SRC_BY     ) \
-  ENTRY( txRs,  byte,    LEN_RS_BY      ) \
-  ENTRY( rxRs,  byte,    LEN_RS_BY      ) \
-  ENTRY( txCc,  byte,    LEN_CC_PUN_BY  ) \
-  ENTRY( rxCc,  byte,    LEN_CC_PUN_BY  ) \
-  ENTRY( txMod, complex, LEN_MOD_SY     ) \
-  ENTRY( rxMod, complex, LEN_MOD_SY     ) \
-  ENTRY( rxLLR, float,   LEN_LLR_FL     )
 
 
 
@@ -106,21 +114,14 @@ int main( void )
   printf("\n >> Starting execution...\n");
   elapsedTime = clock();                                                    /** - get initial execution time */
 
-  Crc_ListParameters(&crcParam);                                            /** - list crc parameters */
-  Scramb_ListParameters(&scrParam);                                         /** - list scrambling parameters */
-  RsCod_ListParameters(&rsParam);                                           /** - list reed-solomon coding parameters */
-  CnvCod_ListParameters(&ccParam);                                          /** - list convolutional coding parameters */
-  Channel_ListParameters(&chanParam);                                       /** - list channel parameters */
-  Modulation_ListParameters(&modParam);                                     /** - list modulation parameters */
-  Debug_ListParameters(&dgbParam,&scrParam,&rsParam,&ccParam,
-                       &modParam,&chanParam);
-  Debug_PrintParameters(LEN_ORG_BY,&dgbParam);
-
   LIST_OF_STREAMS(DEF_STREAM_DECLARE);                                      /** - declare all streams */
   LIST_OF_STREAMS(DEF_STREAM_ALLOCATE);                                     /** - allocate memory for all streams */
+  LIST_OF_PARAMETERS(DEF_PARAMETER_INITIALIZE);                             /** - initialize all parameter structures */
+  Debug_ListParameters(&dgbParam,&scrParam,&rsParam,&ccParam,
+    &modParam,&chanParam);                                                  /** - list debug parameters */
+  Debug_PrintParameters(LEN_ORG_BY,&dgbParam);                              /** - verify validity of origin stream length */
 
   // 2. PROCESSING
-
   Debug_GenerateRandomBytes(&txOrgStream,NULL);                             /** - fill tx origin buffer with random bytes */
   Crc_CalculateChecksum(&txOrgStream,&txCrcStream,&crcParam);               /** - calculate tx crc */
   Scramb_Scrambler(&txOrgStream,&txScrStream,&scrParam);                    /** - scrambler */
@@ -195,16 +196,19 @@ int main( void )
 // abilita -g / cambia default console in git bash
 // doppio file launch e tasks .json
 // F5 to start debug
+// need to recompile if any change has been made on source files before startin debug!
+// keep optimization disabled while debugging!
 
 
 
+// solve compilation warning related to watermarks
+// add watermarks everywhere (?)
 // generate .elf file and find out how this may come in handy!
 // try to add watermark mechanism to know which function caused an error! >> or try to debug using GDB
 // try to add linker file
-// gestisci inixializzazione di parametri tramite xmacro!
 // stampa in .log anche messagi di shell (e.g eventuali errori!)
 // add CC with rate lower than 1/2 (e.g 1/3!) >> prova mettendo in cascata più encorer da 1/2! (fai simulazione in python e vedi se performance sono effettivamente migliori!)
-// aggiungi RS + interleaver + RS
+// aggiungi interleaver
 // sistema Makefile (print, utest, etc..)
 // sistema makefile in modo che non sia obbligatorio cancellare ogni volta cartella di build (solo se esplicitato in comando), così più veloce a ricompilare!
 // aggiungi comando di solo target exe in makefile

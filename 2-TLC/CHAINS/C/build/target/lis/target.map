@@ -1367,20 +1367,20 @@ LOAD c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtend.o
 .zdebug_pubtypes
  *(.zdebug_pubtypes)
 
-.debug_info     0x00414000     0xa600
+.debug_info     0x00414000     0xa400
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00414000      0xd37 build\target\obj\main.o
- .debug_info    0x00414d37      0x930 build\target\obj\channel.o
- .debug_info    0x00415667     0x16fe build\target\obj\convolutional.o
- .debug_info    0x00416d65      0xa35 build\target\obj\crc.o
- .debug_info    0x0041779a     0x1346 build\target\obj\debug.o
- .debug_info    0x00418ae0      0x536 build\target\obj\error.o
- .debug_info    0x00419016      0x970 build\target\obj\memory.o
- .debug_info    0x00419986      0xd97 build\target\obj\modulation.o
- .debug_info    0x0041a71d     0x154d build\target\obj\reed_solomon.o
- .debug_info    0x0041bc6a      0xaa9 build\target\obj\scrambling.o
- .debug_info    0x0041c713       0xa7 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_chkstk_ms.o)
- .debug_info    0x0041c7ba     0x1c58 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_ctors.o)
+ .debug_info    0x00414000      0xd31 build\target\obj\main.o
+ .debug_info    0x00414d31      0x930 build\target\obj\channel.o
+ .debug_info    0x00415661     0x16fe build\target\obj\convolutional.o
+ .debug_info    0x00416d5f      0xa35 build\target\obj\crc.o
+ .debug_info    0x00417794     0x1340 build\target\obj\debug.o
+ .debug_info    0x00418ad4      0x536 build\target\obj\error.o
+ .debug_info    0x0041900a      0x970 build\target\obj\memory.o
+ .debug_info    0x0041997a      0xd97 build\target\obj\modulation.o
+ .debug_info    0x0041a711     0x154d build\target\obj\reed_solomon.o
+ .debug_info    0x0041bc5e      0xaa3 build\target\obj\scrambling.o
+ .debug_info    0x0041c701       0xa7 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_chkstk_ms.o)
+ .debug_info    0x0041c7a8     0x1c58 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_ctors.o)
 
 .zdebug_info
  *(.zdebug_info .zdebug.gnu.linkonce.wi.*)
@@ -1405,18 +1405,18 @@ LOAD c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtend.o
 
 .debug_line     0x00420000     0x1c00
  *(.debug_line)
- .debug_line    0x00420000      0x14e build\target\obj\main.o
- .debug_line    0x0042014e      0x18f build\target\obj\channel.o
- .debug_line    0x004202dd      0x565 build\target\obj\convolutional.o
- .debug_line    0x00420842      0x16a build\target\obj\crc.o
- .debug_line    0x004209ac      0x459 build\target\obj\debug.o
- .debug_line    0x00420e05       0x83 build\target\obj\error.o
- .debug_line    0x00420e88      0x124 build\target\obj\memory.o
- .debug_line    0x00420fac      0x2b9 build\target\obj\modulation.o
- .debug_line    0x00421265      0x5db build\target\obj\reed_solomon.o
- .debug_line    0x00421840      0x1c4 build\target\obj\scrambling.o
- .debug_line    0x00421a04       0x71 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_chkstk_ms.o)
- .debug_line    0x00421a75      0x157 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_ctors.o)
+ .debug_line    0x00420000      0x14b build\target\obj\main.o
+ .debug_line    0x0042014b      0x18f build\target\obj\channel.o
+ .debug_line    0x004202da      0x565 build\target\obj\convolutional.o
+ .debug_line    0x0042083f      0x16a build\target\obj\crc.o
+ .debug_line    0x004209a9      0x459 build\target\obj\debug.o
+ .debug_line    0x00420e02       0x83 build\target\obj\error.o
+ .debug_line    0x00420e85      0x124 build\target\obj\memory.o
+ .debug_line    0x00420fa9      0x2b9 build\target\obj\modulation.o
+ .debug_line    0x00421262      0x5db build\target\obj\reed_solomon.o
+ .debug_line    0x0042183d      0x1c4 build\target\obj\scrambling.o
+ .debug_line    0x00421a01       0x71 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_chkstk_ms.o)
+ .debug_line    0x00421a72      0x157 c:/mingw/bin/../lib/gcc/mingw32/6.3.0/libgcc.a(_ctors.o)
 
 .zdebug_line
  *(.zdebug_line)

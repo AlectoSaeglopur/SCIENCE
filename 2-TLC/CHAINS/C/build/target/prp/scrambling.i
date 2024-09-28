@@ -1653,17 +1653,17 @@ typedef enum
 } scramb_type_t;
 
 
-typedef struct _scramb_par_t
+typedef struct _scr_par_t
 {
   scramb_type_t type;
   uint8_t nCells;
   uint32_t conVect;
   uint32_t initSt;
-} scramb_par_t;
+} scr_par_t;
 # 75 "src\\scrambling.h"
-error_t Scramb_ListParameters( scramb_par_t * ioParams );
-error_t Scramb_Scrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scramb_par_t * pParams );
-error_t Scramb_Descrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scramb_par_t * pParams );
+error_t Scramb_ListParameters( scr_par_t * ioParams );
+error_t Scramb_Scrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
+error_t Scramb_Descrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
 # 17 "src\\scrambling.c" 2
 
 
@@ -1672,13 +1672,13 @@ error_t Scramb_Descrambler( const byte_stream_t * inStream, byte_stream_t * outS
 
 
 
-static error_t Scramb_AdditiveScrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scramb_par_t * pParams );
-static error_t Scramb_AdditiveDescrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scramb_par_t * pParams );
-static error_t Scramb_MultiplicativeScrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scramb_par_t * pParams );
-static error_t Scramb_MultiplicativeDescrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scramb_par_t * pParams );
-static uint8_t ComputeRegBit( uint32_t curSt, const scramb_par_t * pParams );
+static error_t Scramb_AdditiveScrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
+static error_t Scramb_AdditiveDescrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
+static error_t Scramb_MultiplicativeScrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
+static error_t Scramb_MultiplicativeDescrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
+static uint8_t ComputeRegBit( uint32_t curSt, const scr_par_t * pParams );
 # 43 "src\\scrambling.c"
-error_t Scramb_ListParameters( scramb_par_t * ioParams )
+error_t Scramb_ListParameters( scr_par_t * ioParams )
 {
   error_t retErr = ERR_NONE;
 
@@ -1715,7 +1715,7 @@ error_t Scramb_ListParameters( scramb_par_t * ioParams )
   return Error_HandleErr(retErr);
 }
 # 86 "src\\scrambling.c"
-error_t Scramb_Scrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scramb_par_t * pParams )
+error_t Scramb_Scrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
 
@@ -1744,7 +1744,7 @@ error_t Scramb_Scrambler( const byte_stream_t * inStream, byte_stream_t * outStr
   return Error_HandleErr(retErr);
 }
 # 121 "src\\scrambling.c"
-error_t Scramb_Descrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scramb_par_t * pParams )
+error_t Scramb_Descrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
 
@@ -1773,7 +1773,7 @@ error_t Scramb_Descrambler( const byte_stream_t * inStream, byte_stream_t * outS
   return Error_HandleErr(retErr);
 }
 # 160 "src\\scrambling.c"
-static error_t Scramb_AdditiveScrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scramb_par_t * pParams )
+static error_t Scramb_AdditiveScrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
   const uint32_t bitLen = ((inStream->len)<<3u);
@@ -1851,12 +1851,12 @@ static error_t Scramb_AdditiveScrambler( const byte_stream_t * inStream, byte_st
   return Error_HandleErr(retErr);
 }
 # 236 "src\\scrambling.c"
-static error_t Scramb_AdditiveDescrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scramb_par_t * pParams )
+static error_t Scramb_AdditiveDescrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams )
 {
   return Scramb_AdditiveScrambler(inStream,outStream,pParams);
 }
 # 251 "src\\scrambling.c"
-static error_t Scramb_MultiplicativeScrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scramb_par_t * pParams )
+static error_t Scramb_MultiplicativeScrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
   const uint32_t bitLen = ((inStream->len)<<3u);
@@ -1917,7 +1917,7 @@ static error_t Scramb_MultiplicativeScrambler( const byte_stream_t * inStream, b
   return Error_HandleErr(retErr);
 }
 # 310 "src\\scrambling.c"
-static error_t Scramb_MultiplicativeDescrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scramb_par_t * pParams )
+static error_t Scramb_MultiplicativeDescrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
   const uint32_t bitLen = ((inStream->len)<<3u);
@@ -1985,7 +1985,7 @@ static error_t Scramb_MultiplicativeDescrambler( const byte_stream_t * inStream,
   return Error_HandleErr(retErr);
 }
 # 374 "src\\scrambling.c"
-static uint8_t ComputeRegBit( uint32_t curSt, const scramb_par_t * pParams )
+static uint8_t ComputeRegBit( uint32_t curSt, const scr_par_t * pParams )
 {
   uint8_t j;
   uint8_t outBit = 0;

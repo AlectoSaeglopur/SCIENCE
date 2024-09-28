@@ -47,7 +47,7 @@ static bool IsOrgLenValid( ulen_t orgLenBy, const debug_par_t * pParams );
  * 
  * @return error ID
  */
-error_t Debug_ListParameters( debug_par_t * ioParams, const scramb_par_t * scrParam, const rs_par_t * rsParam,
+error_t Debug_ListParameters( debug_par_t * ioParams, const scr_par_t * scrParam, const rs_par_t * rsParam,
                               const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam )
 {
   Debug_SetWatermark((void *)Debug_ListParameters,WM_LEVEL_1);
