@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations":
+  [
+    {
+      "name": "vkn_c_debugger",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/target/bin/target.exe",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${fileDirname}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+//      "preLaunchTask": "vkn_build"    // syntax correct (but not working since VSC cannot properly executes Makefile)
+      }
+  ]
+}

@@ -18,7 +18,10 @@ BLD_FPT = build
 # relative path to target/utest build folder
 BLD_FLD = $(addprefix $(BLD_FPT)\,$(TMP_NAM))
 
-# compiler flags (-Werror | -D DEBUG_CSV | -D DEBUG_TERMINAL)
+# compiler flags
+# -Werror >> to consider each warning as an error
+# -D >> to set a macro for all project files (e.g "-D DEBUG_TERMINAL")
+# -g >> to enable GDB debugging
 CMP_FLG = -Wall -g -O0
 
 # compiler version

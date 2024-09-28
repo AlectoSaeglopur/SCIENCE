@@ -30,7 +30,7 @@
 /*** PARAMETERS ***/
 /******************/
 
-#define PID_NCOLS_BYTE      35u                         //!< Number of byte columns per row to print before wrapping
+#define PID_NCOLS_BYTE      30u                         //!< Number of byte columns per row to print before wrapping
 #define PID_NCOLS_FLOAT     15u                         //!< Number of float columns per row to print before wrapping
 #define PID_NCOLS_SYMB      8u                          //!< Number of symbol columns per row to print before wrapping
 
@@ -48,6 +48,8 @@ typedef enum
   PID_RX_CRC,                                           /** - rx CRC print-id */
   PID_TX_SCR,                                           /** - tx scrambled bytes print-id */
   PID_RX_SCR,                                           /** - rx scrambled bytes print-id */
+  PID_TX_RSCOD,                                         /** - tx reed-solomon coded bytes print-id */
+  PID_RX_RSCOD,                                         /** - tx reed-solomon coded bytes print-id */
   PID_TX_CNVCOD,                                        /** - tx convolution coded bytes print-id */
   PID_RX_CNVCOD,                                        /** - rx convolution coded bytes print-id */
   PID_TX_MAP,                                           /** - tx mapped symbols print-id */
@@ -68,6 +70,24 @@ typedef struct _debug_par_t
 } debug_par_t;
 
 
+typedef enum _wm_level_t
+{
+  WM_LEVEL_1 = 0,
+  WM_LEVEL_2,
+  // keep NUM as final entry
+  WM_LEVEL_NUM
+} wm_level_t;
+
+
+
+/*****************/
+/*** CONSTANTS ***/
+/*****************/
+
+#define watermark_t         uint64_t
+#define WATERMARK_MASK      ((watermark_t)0x0000FFFF)
+
+
 
 /******************/
 /*** PROTOTYPES ***/
@@ -82,6 +102,8 @@ error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label
 error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams );
 error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label );
 error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label );
+error_t Debug_SetWatermark( void * funcAddr, wm_level_t level );
+void Debug_PrintWatermarks(void);
 
 
 #endif

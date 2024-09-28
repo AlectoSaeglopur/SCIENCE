@@ -42,6 +42,8 @@
 #define BITIDX_1LAST            (NUM_BITS_PER_BYTE-1)
 #define BITIDX_2LAST            (BITIDX_1LAST-1)
 #define MATH_PI                 3.14159f
+#define IS_EVEN(x)              (0 == ((x)%2))
+#define IS_ODD(x)               (1 == ((x)%2))
 
 
 

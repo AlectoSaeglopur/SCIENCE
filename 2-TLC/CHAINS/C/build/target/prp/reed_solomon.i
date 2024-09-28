@@ -1549,9 +1549,9 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 # 931 "c:\\mingw\\include\\math.h" 3
 
 # 27 "src\\system.h" 2
-# 56 "src\\system.h"
+# 58 "src\\system.h"
 
-# 56 "src\\system.h"
+# 58 "src\\system.h"
 typedef struct _complex_t
 {
   float re;
@@ -1568,21 +1568,23 @@ typedef struct _complex_t
 typedef enum
 {
   ERR_NONE = 0,
-  ERR_INV_NULL_POINTER,
-  ERR_INV_ORIG_LEN,
-  ERR_INV_PRINTID,
-  ERR_INV_CNVCOD_RATE,
-  ERR_INV_CNVCOD_KLEN,
-  ERR_INV_CNVCOD_DECMET,
-  ERR_INV_BUFFER_SIZE,
-  ERR_INV_DYNAMIC_ALLOC,
-  ERR_INV_STREAM_TYPE,
-  ERR_INV_MODULATION_TYPE,
-  ERR_INV_MODULATION_BPS,
-  ERR_INV_CHANNEL_TYPE,
-  ERR_INV_SCRAMBLING_TYPE,
-  ERR_INV_CRC_DEGREE,
-  ERR_INV_RS_GF_DEGREE,
+  ERR_INV_NULL_POINTER = 1,
+  ERR_INV_ORIG_LEN = 2,
+  ERR_INV_PRINTID = 3,
+  ERR_INV_CNVCOD_RATE = 4,
+  ERR_INV_CNVCOD_KLEN = 5,
+  ERR_INV_CNVCOD_DECMET = 6,
+  ERR_INV_BUFFER_SIZE = 7,
+  ERR_INV_DYNAMIC_ALLOC = 8,
+  ERR_INV_STREAM_TYPE = 9,
+  ERR_INV_MODULATION_TYPE = 10,
+  ERR_INV_MODULATION_BPS = 11,
+  ERR_INV_CHANNEL_TYPE = 12,
+  ERR_INV_SCRAMBLING_TYPE = 13,
+  ERR_INV_CRC_DEGREE = 14,
+  ERR_INV_RS_GF_DEGREE = 15,
+  ERR_INV_RS_MSG_CW_LEN = 16,
+  ERR_INV_WATERMARK_LEV = 17,
 
   ERR_NUM
 } error_t;
@@ -1596,7 +1598,7 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 72 "src\\error.h"
+# 74 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 19 "src\\reed_solomon.h" 2
 # 1 "src\\memory.h" 1
@@ -1667,6 +1669,7 @@ typedef struct _rs_par_t
 
 error_t RsCod_ListParameters( rs_par_t * ioParams );
 error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams );
+error_t RcCod_Decoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams );
 # 16 "src\\reed_solomon.c" 2
 
 
@@ -1713,24 +1716,43 @@ static uint8_t ConvertSy2Bi( uint8_t inSymb, const uint8_t [][RS_TABLE_IDX_NUM] 
 static uint8_t AddGF( uint8_t symbA, uint8_t symbB, const uint8_t mapTable[][RS_TABLE_IDX_NUM] );
 static uint8_t MultiplyGF( uint8_t symbA, uint8_t symbB, const rs_par_t * pParams );
 static uint8_t PowerGF( uint8_t symbBase, int16_t exp, const rs_par_t * pParams );
-# 75 "src\\reed_solomon.c"
+static 
+# 61 "src\\reed_solomon.c" 3 4
+      _Bool 
+# 61 "src\\reed_solomon.c"
+           GetSyndrome( const uint8_t * cwSymbs, uint8_t * syndrome, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] );
+static error_t BerlekampMasseyAlgorithm( uint8_t * curSigma, const uint8_t * syndrome, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] );
+static int16_t GetDiscrepancy( const uint8_t * syndrome, const uint8_t * sigma, int16_t errNum, uint8_t iter, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] );
+static error_t ChienAlgorithm( uint8_t * errLoc, const uint8_t * sigma, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] );
+static error_t KeyAlgorithm( uint8_t * omega, const uint8_t * syndrome, const uint8_t * sigma, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] );
+static error_t ForneyAlgorithm( uint8_t * errMag, const uint8_t * omega, const uint8_t * errLoc, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] );
+static error_t ErrorCorrector( uint8_t * ioSymbs, const uint8_t * errLoc, const uint8_t * errMag, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM]);
+# 81 "src\\reed_solomon.c"
 error_t RsCod_ListParameters( rs_par_t * ioParams )
 {
   error_t retErr = ERR_NONE;
 
   if (
-# 79 "src\\reed_solomon.c" 3 4
+# 85 "src\\reed_solomon.c" 3 4
      ((void *)0) 
-# 79 "src\\reed_solomon.c"
+# 85 "src\\reed_solomon.c"
           != ioParams)
   {
     ioParams->m = RS_GF_DEGREE_8;
     ioParams->kSh = 188u;
     ioParams->nSh = 204u;
-    ioParams->t = ioParams->nSh-ioParams->kSh;
+    ioParams->t = (ioParams->nSh-ioParams->kSh)/2;
     ioParams->dimGF = 1<<ioParams->m;
     ioParams->nUn = ioParams->dimGF-1;
     ioParams->kUn = ioParams->nUn-2*ioParams->t;
+
+    if ((ioParams->kSh <= 0) || (ioParams->nSh <= 0) ||
+      ((ioParams->nSh-ioParams->kSh)%2 != 0) ||
+      (ioParams->nSh > (ioParams->dimGF-1)) ||
+      ((RS_GF_DEGREE_4 == ioParams->m) && ((ioParams->nSh%2) != 0)))
+    {
+      retErr = ERR_INV_RS_MSG_CW_LEN;
+    }
   }
   else
   {
@@ -1739,11 +1761,11 @@ error_t RsCod_ListParameters( rs_par_t * ioParams )
 
   return Error_HandleErr(retErr);
 }
-# 110 "src\\reed_solomon.c"
+# 124 "src\\reed_solomon.c"
 error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
-  const uint8_t numMsg = ((inStream->len/(pParams->m*pParams->kSh))<<3u);
+  const uint8_t numMsg = ((inStream->len)<<3u)/(pParams->m*pParams->kSh);
   const uint8_t lenGenPoly = 2*pParams->t+1;
   uint8_t genPoly[lenGenPoly];
   uint8_t mapTable[pParams->dimGF][RS_TABLE_IDX_NUM];
@@ -1752,31 +1774,32 @@ error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream
   uint16_t maxDeg;
   uint16_t j;
   uint8_t inSymbs[pParams->kUn];
-  uint8_t tmpPoly[pParams->nUn], divQuotCoef[pParams->nUn];
+  uint8_t tmpPoly[pParams->nUn];
+  uint8_t divQuotCoef[pParams->nUn];
   uint8_t curSymb;
   uint8_t i;
 
   if ((
-# 126 "src\\reed_solomon.c" 3 4
+# 141 "src\\reed_solomon.c" 3 4
       ((void *)0) 
-# 126 "src\\reed_solomon.c"
+# 141 "src\\reed_solomon.c"
            != inStream) && (
-# 126 "src\\reed_solomon.c" 3 4
+# 141 "src\\reed_solomon.c" 3 4
                             ((void *)0) 
-# 126 "src\\reed_solomon.c"
+# 141 "src\\reed_solomon.c"
                                  != outStream) && (
-# 126 "src\\reed_solomon.c" 3 4
+# 141 "src\\reed_solomon.c" 3 4
                                                    ((void *)0) 
-# 126 "src\\reed_solomon.c"
+# 141 "src\\reed_solomon.c"
                                                         != pParams) &&
       (
-# 127 "src\\reed_solomon.c" 3 4
+# 142 "src\\reed_solomon.c" 3 4
       ((void *)0) 
-# 127 "src\\reed_solomon.c"
+# 142 "src\\reed_solomon.c"
            != inStream->pBuf) && (
-# 127 "src\\reed_solomon.c" 3 4
+# 142 "src\\reed_solomon.c" 3 4
                                   ((void *)0) 
-# 127 "src\\reed_solomon.c"
+# 142 "src\\reed_solomon.c"
                                        != outStream->pBuf))
   {
     RetrieveMappingTableGF(mapTable,pParams);
@@ -1790,7 +1813,7 @@ error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream
       {
         if (RS_GF_DEGREE_4 == pParams->m)
         {
-          if (0 == (j%2))
+          if ((0 == ((j)%2)))
           {
             curSymb = (inStream->pBuf[(j+i*pParams->kSh)/2]>>4);
           }
@@ -1834,7 +1857,7 @@ error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream
       {
         for (j=0; j<2*pParams->t; j++)
         {
-          if (0 == (j%2))
+          if ((0 == ((j)%2)))
           {
             outStream->pBuf[(j+i*pParams->nSh)/2] =
               (ConvertSy2Bi(tmpPoly[j],mapTable)<<4);
@@ -1869,19 +1892,131 @@ error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream
 
   return Error_HandleErr(retErr);
 }
-# 234 "src\\reed_solomon.c"
+# 248 "src\\reed_solomon.c"
+error_t RcCod_Decoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams )
+{
+  error_t retErr = ERR_NONE;
+  const uint8_t numMsg = ((inStream->len)<<3u)/(pParams->m*pParams->nSh);
+  uint8_t mapTable[pParams->dimGF][RS_TABLE_IDX_NUM];
+  uint8_t tmpSymbs[pParams->nUn];
+  uint8_t syndrome[2*pParams->t];
+  uint8_t sigma[pParams->t+1];
+  uint8_t omega[2*pParams->t+1];
+  uint8_t errLocation[pParams->t];
+  uint8_t errMagnitude[pParams->t];
+  uint8_t curSymb;
+  uint8_t i, j;
+  
+# 261 "src\\reed_solomon.c" 3 4
+ _Bool 
+# 261 "src\\reed_solomon.c"
+      errFlag;
+
+  if ((
+# 263 "src\\reed_solomon.c" 3 4
+      ((void *)0) 
+# 263 "src\\reed_solomon.c"
+           != inStream) && (
+# 263 "src\\reed_solomon.c" 3 4
+                            ((void *)0) 
+# 263 "src\\reed_solomon.c"
+                                 != outStream) && (
+# 263 "src\\reed_solomon.c" 3 4
+                                                   ((void *)0) 
+# 263 "src\\reed_solomon.c"
+                                                        != pParams) &&
+      (
+# 264 "src\\reed_solomon.c" 3 4
+      ((void *)0) 
+# 264 "src\\reed_solomon.c"
+           != inStream->pBuf) && (
+# 264 "src\\reed_solomon.c" 3 4
+                                  ((void *)0) 
+# 264 "src\\reed_solomon.c"
+                                       != outStream->pBuf))
+  {
+    RetrieveMappingTableGF(mapTable,pParams);
+    memset(tmpSymbs,0,pParams->nUn);
+
+    for (i=0; i<numMsg; i++)
+    {
+      for (j=0; j<pParams->nSh; j++)
+      {
+        if (RS_GF_DEGREE_4 == pParams->m)
+        {
+          if ((0 == ((j)%2)))
+          {
+            curSymb = (inStream->pBuf[(j+i*pParams->nSh)/2]>>4);
+          }
+          else
+          {
+            curSymb = (inStream->pBuf[(j-1+i*pParams->nSh)/2]&0x0F);
+          }
+        }
+        else
+        {
+          curSymb = inStream->pBuf[j+i*pParams->nSh];
+        }
+        tmpSymbs[j] = ConvertBi2Sy(curSymb,mapTable);
+      }
+
+      errFlag = GetSyndrome(tmpSymbs,syndrome,pParams,mapTable);
+
+      if (errFlag)
+      {
+        BerlekampMasseyAlgorithm(sigma,syndrome,pParams,mapTable);
+        ChienAlgorithm(errLocation,sigma,pParams,mapTable);
+        KeyAlgorithm(omega,syndrome,sigma,pParams,mapTable);
+        ForneyAlgorithm(errMagnitude,omega,errLocation,pParams,mapTable);
+        ErrorCorrector(tmpSymbs,errLocation,errMagnitude,pParams,mapTable);
+      }
+
+      if (RS_GF_DEGREE_4 == pParams->m)
+      {
+        for (j=0; j<pParams->kSh; j++)
+        {
+          if ((0 == ((j)%2)))
+          {
+            outStream->pBuf[(j+i*pParams->kSh)/2] =
+              (ConvertSy2Bi(tmpSymbs[j+2*pParams->t],mapTable)<<4);
+          }
+          else
+          {
+            outStream->pBuf[(j-1+i*pParams->kSh)/2] |=
+              ConvertSy2Bi(tmpSymbs[j+2*pParams->t],mapTable);
+          }
+        }
+      }
+      else
+      {
+        for (j=0; j<pParams->kSh; j++)
+        {
+          outStream->pBuf[j+i*pParams->kSh] =
+            ConvertSy2Bi(tmpSymbs[j+2*pParams->t],mapTable);
+        }
+      }
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
+}
+# 350 "src\\reed_solomon.c"
 static error_t RetrievePrimitivePolynomial( rs_encoder_info_t * ioInfo, const rs_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
 
   if ((
-# 238 "src\\reed_solomon.c" 3 4
+# 354 "src\\reed_solomon.c" 3 4
       ((void *)0) 
-# 238 "src\\reed_solomon.c"
+# 354 "src\\reed_solomon.c"
            != ioInfo) && (
-# 238 "src\\reed_solomon.c" 3 4
+# 354 "src\\reed_solomon.c" 3 4
                           ((void *)0) 
-# 238 "src\\reed_solomon.c"
+# 354 "src\\reed_solomon.c"
                                != pParams))
   {
     switch (pParams->m)
@@ -1908,7 +2043,7 @@ static error_t RetrievePrimitivePolynomial( rs_encoder_info_t * ioInfo, const rs
 
   return Error_HandleErr(retErr);
 }
-# 275 "src\\reed_solomon.c"
+# 391 "src\\reed_solomon.c"
 static error_t RetrieveGeneratorPolynomial( uint8_t * ioBuf, uint8_t len, const uint8_t mapTable[][RS_TABLE_IDX_NUM], const rs_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
@@ -1916,9 +2051,9 @@ static error_t RetrieveGeneratorPolynomial( uint8_t * ioBuf, uint8_t len, const 
   int16_t i, j;
 
   if (
-# 281 "src\\reed_solomon.c" 3 4
+# 397 "src\\reed_solomon.c" 3 4
      ((void *)0) 
-# 281 "src\\reed_solomon.c"
+# 397 "src\\reed_solomon.c"
           != ioBuf)
   {
     memset(ioBuf,0,len);
@@ -1949,7 +2084,7 @@ static error_t RetrieveGeneratorPolynomial( uint8_t * ioBuf, uint8_t len, const 
 
   return Error_HandleErr(retErr);
 }
-# 322 "src\\reed_solomon.c"
+# 438 "src\\reed_solomon.c"
 static error_t RetrieveMappingTableGF( uint8_t ioTable[][RS_TABLE_IDX_NUM], const rs_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
@@ -1961,19 +2096,20 @@ static error_t RetrieveMappingTableGF( uint8_t ioTable[][RS_TABLE_IDX_NUM], cons
   uint8_t i;
 
   if ((
-# 332 "src\\reed_solomon.c" 3 4
+# 448 "src\\reed_solomon.c" 3 4
       ((void *)0) 
-# 332 "src\\reed_solomon.c"
+# 448 "src\\reed_solomon.c"
            != ioTable) && (
-# 332 "src\\reed_solomon.c" 3 4
+# 448 "src\\reed_solomon.c" 3 4
                            ((void *)0)
-# 332 "src\\reed_solomon.c"
+# 448 "src\\reed_solomon.c"
                                != pParams))
   {
     for (j=0;j<pParams->dimGF;j++)
     {
       memset(ioTable[j],0,RS_TABLE_IDX_NUM);
     }
+
     RetrievePrimitivePolynomial(&encInfo,pParams);
 
     for (j=1; j<pParams->dimGF; j++)
@@ -1997,7 +2133,7 @@ static error_t RetrieveMappingTableGF( uint8_t ioTable[][RS_TABLE_IDX_NUM], cons
       }
 
       ioTable[j][RS_TABLE_IDX_BIT] = GetBasis(tmpPoly,pParams);
-      ioTable[ioTable[RS_TABLE_IDX_BIT][j]][RS_TABLE_IDX_SYM] = j;
+      ioTable[ioTable[j][RS_TABLE_IDX_BIT]][RS_TABLE_IDX_SYM] = j;
     }
   }
   else
@@ -2007,16 +2143,16 @@ static error_t RetrieveMappingTableGF( uint8_t ioTable[][RS_TABLE_IDX_NUM], cons
 
   return Error_HandleErr(retErr);
 }
-# 381 "src\\reed_solomon.c"
+# 498 "src\\reed_solomon.c"
 static uint16_t FindMaxDeg( const uint8_t * poly, uint16_t len )
 {
   uint16_t maxDeg;
   uint16_t j;
 
   if (
-# 386 "src\\reed_solomon.c" 3 4
+# 503 "src\\reed_solomon.c" 3 4
      ((void *)0) 
-# 386 "src\\reed_solomon.c"
+# 503 "src\\reed_solomon.c"
           != poly)
   {
     for (j=len-1; j>=0; j--)
@@ -2031,16 +2167,16 @@ static uint16_t FindMaxDeg( const uint8_t * poly, uint16_t len )
 
   return maxDeg;
 }
-# 410 "src\\reed_solomon.c"
+# 527 "src\\reed_solomon.c"
 static uint8_t GetBasis( const uint8_t * poly, const rs_par_t * pParams )
 {
   uint8_t basis = 0;
   uint8_t j;
 
   if (
-# 415 "src\\reed_solomon.c" 3 4
+# 532 "src\\reed_solomon.c" 3 4
      ((void *)0) 
-# 415 "src\\reed_solomon.c"
+# 532 "src\\reed_solomon.c"
           != poly)
   {
     for (j=0; j<pParams->m; j++)
@@ -2051,17 +2187,17 @@ static uint8_t GetBasis( const uint8_t * poly, const rs_par_t * pParams )
 
   return basis;
 }
-# 435 "src\\reed_solomon.c"
+# 552 "src\\reed_solomon.c"
 static uint8_t ConvertBi2Sy( uint8_t inBasis, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
   return mapTable[inBasis][RS_TABLE_IDX_SYM];
 }
-# 449 "src\\reed_solomon.c"
+# 566 "src\\reed_solomon.c"
 static uint8_t ConvertSy2Bi( uint8_t inSymb, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
   return mapTable[inSymb][RS_TABLE_IDX_BIT];
 }
-# 464 "src\\reed_solomon.c"
+# 581 "src\\reed_solomon.c"
 static uint8_t AddGF( uint8_t symbA, uint8_t symbB, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
   uint8_t basisRes;
@@ -2070,7 +2206,7 @@ static uint8_t AddGF( uint8_t symbA, uint8_t symbB, const uint8_t mapTable[][RS_
 
   return mapTable[basisRes][RS_TABLE_IDX_SYM];
 }
-# 484 "src\\reed_solomon.c"
+# 600 "src\\reed_solomon.c"
 static uint8_t MultiplyGF( uint8_t symbA, uint8_t symbB, const rs_par_t * pParams )
 {
   uint8_t symbRes = 0;
@@ -2082,7 +2218,7 @@ static uint8_t MultiplyGF( uint8_t symbA, uint8_t symbB, const rs_par_t * pParam
 
   return symbRes;
 }
-# 510 "src\\reed_solomon.c"
+# 626 "src\\reed_solomon.c"
 static uint8_t PowerGF( uint8_t symbBase, int16_t exp, const rs_par_t * pParams )
 {
   uint8_t symbRes;
@@ -2106,4 +2242,380 @@ static uint8_t PowerGF( uint8_t symbBase, int16_t exp, const rs_par_t * pParams 
   }
 
   return symbRes;
+}
+# 663 "src\\reed_solomon.c"
+static 
+# 663 "src\\reed_solomon.c" 3 4
+      _Bool 
+# 663 "src\\reed_solomon.c"
+           GetSyndrome( const uint8_t * cwSymbs, uint8_t * syndrome, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
+{
+  uint16_t i;
+  int16_t j;
+  uint8_t sum;
+  
+# 668 "src\\reed_solomon.c" 3 4
+ _Bool 
+# 668 "src\\reed_solomon.c"
+      errFlag = 
+# 668 "src\\reed_solomon.c" 3 4
+                0
+# 668 "src\\reed_solomon.c"
+                     ;
+
+  if ((
+# 670 "src\\reed_solomon.c" 3 4
+      ((void *)0) 
+# 670 "src\\reed_solomon.c"
+           != cwSymbs) && (
+# 670 "src\\reed_solomon.c" 3 4
+                           ((void *)0) 
+# 670 "src\\reed_solomon.c"
+                                != syndrome) && (
+# 670 "src\\reed_solomon.c" 3 4
+                                                 ((void *)0) 
+# 670 "src\\reed_solomon.c"
+                                                      != pParams))
+  {
+    for (i=0; i<2*pParams->t; i++)
+    {
+      sum = cwSymbs[0];
+
+      for (j=1; j<pParams->nUn; j++)
+      {
+        sum = AddGF(sum,MultiplyGF(cwSymbs[j],PowerGF(i+2,j,pParams),pParams),mapTable);
+      }
+
+      syndrome[i] = sum;
+
+      if (sum != 0)
+      {
+        errFlag = 
+# 685 "src\\reed_solomon.c" 3 4
+                 1
+# 685 "src\\reed_solomon.c"
+                     ;
+      }
+    }
+  }
+
+  return errFlag;
+}
+# 705 "src\\reed_solomon.c"
+static error_t BerlekampMasseyAlgorithm( uint8_t * sigma, const uint8_t * syndrome, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
+{
+  error_t retErr = ERR_NONE;
+  int16_t curErr = 0;
+  int16_t nextErr;
+  int16_t delta;
+  int16_t h = -1;
+  uint8_t tmpSigma[pParams->t+1];
+  uint8_t tau[pParams->t+1];
+  uint8_t i, j;
+
+  if ((
+# 716 "src\\reed_solomon.c" 3 4
+      ((void *)0) 
+# 716 "src\\reed_solomon.c"
+           != sigma) && (
+# 716 "src\\reed_solomon.c" 3 4
+                         ((void *)0) 
+# 716 "src\\reed_solomon.c"
+                              != syndrome) && (
+# 716 "src\\reed_solomon.c" 3 4
+                                               ((void *)0) 
+# 716 "src\\reed_solomon.c"
+                                                    != pParams) && (
+# 716 "src\\reed_solomon.c" 3 4
+                                                                    ((void *)0) 
+# 716 "src\\reed_solomon.c"
+                                                                         != mapTable))
+  {
+    memset(tau,0,pParams->t+1);
+    memset(sigma,0,pParams->t+1);
+    tau[1] = 1;
+    sigma[0] = 1;
+
+    for (i=0; i<2*pParams->t; i++)
+    {
+      if (curErr <= pParams->t)
+      {
+        delta = GetDiscrepancy(syndrome,sigma,curErr,i,pParams,mapTable);
+
+        if (delta != 0)
+        {
+          for (j=0; j<pParams->t+1; j++)
+          {
+            tmpSigma[j] = AddGF(sigma[j],MultiplyGF(delta,tau[j],pParams),mapTable);
+          }
+
+          if (curErr < (i-h))
+          {
+            nextErr = i-h;
+            h = i-curErr;
+
+            for (j=0; j<pParams->t+1; j++)
+            {
+              tau[j] = MultiplyGF(PowerGF(2,-delta+1,pParams),sigma[j],pParams);
+            }
+
+            curErr = nextErr;
+          }
+
+          memcpy(sigma,tmpSigma,pParams->t+1);
+        }
+
+        memcpy(&tau[1],tau,pParams->t);
+        tau[0] = 0;
+      }
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
+}
+# 778 "src\\reed_solomon.c"
+static int16_t GetDiscrepancy( const uint8_t * syndrome, const uint8_t * sigma, int16_t errNum, uint8_t iter, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
+{
+
+  int16_t delta = 0;
+  uint8_t j;
+
+  if ((
+# 784 "src\\reed_solomon.c" 3 4
+      ((void *)0) 
+# 784 "src\\reed_solomon.c"
+           != syndrome) && (
+# 784 "src\\reed_solomon.c" 3 4
+                            ((void *)0) 
+# 784 "src\\reed_solomon.c"
+                                 != sigma) && (
+# 784 "src\\reed_solomon.c" 3 4
+                                               ((void *)0) 
+# 784 "src\\reed_solomon.c"
+                                                    != pParams) && (
+# 784 "src\\reed_solomon.c" 3 4
+                                                                    ((void *)0) 
+# 784 "src\\reed_solomon.c"
+                                                                         != mapTable))
+  {
+    for (j=0; j<errNum+1; j++)
+    {
+      delta = AddGF(delta,MultiplyGF(sigma[j],syndrome[iter-j],pParams),mapTable);
+    }
+  }
+
+  return delta;
+}
+# 807 "src\\reed_solomon.c"
+static error_t ChienAlgorithm( uint8_t * errLoc, const uint8_t * sigma, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
+{
+  error_t retErr = ERR_NONE;
+  uint8_t idx = 0;
+  uint8_t root;
+  uint8_t i, j;
+
+  if ((
+# 814 "src\\reed_solomon.c" 3 4
+      ((void *)0) 
+# 814 "src\\reed_solomon.c"
+           != errLoc) && (
+# 814 "src\\reed_solomon.c" 3 4
+                          ((void *)0) 
+# 814 "src\\reed_solomon.c"
+                               != sigma) && (
+# 814 "src\\reed_solomon.c" 3 4
+                                             ((void *)0) 
+# 814 "src\\reed_solomon.c"
+                                                  != pParams) && (
+# 814 "src\\reed_solomon.c" 3 4
+                                                                  ((void *)0) 
+# 814 "src\\reed_solomon.c"
+                                                                       != mapTable))
+  {
+    memset(errLoc,0,pParams->t);
+
+    for (i=0; i<pParams->nUn; i++)
+    {
+      root = sigma[0];
+
+      for (j=1; j<pParams->t+1; j++)
+      {
+        root = AddGF(root,MultiplyGF(sigma[j],PowerGF(i+1,j,pParams),pParams),mapTable);
+      }
+      if ((0 == root) && (idx < pParams->t))
+      {
+        errLoc[idx] = PowerGF(i+1,-1,pParams);
+        idx++;
+      }
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
+}
+# 854 "src\\reed_solomon.c"
+static error_t KeyAlgorithm( uint8_t * omega, const uint8_t * syndrome, const uint8_t * sigma, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
+{
+  error_t retErr = ERR_NONE;
+  uint8_t tmpOmega[3*pParams->t+1];
+  uint8_t tmpSyndr[2*pParams->t+1];
+  uint8_t i, j;
+
+  if ((
+# 861 "src\\reed_solomon.c" 3 4
+      ((void *)0) 
+# 861 "src\\reed_solomon.c"
+           != omega) && (
+# 861 "src\\reed_solomon.c" 3 4
+                         ((void *)0) 
+# 861 "src\\reed_solomon.c"
+                              != syndrome) && (
+# 861 "src\\reed_solomon.c" 3 4
+                                               ((void *)0) 
+# 861 "src\\reed_solomon.c"
+                                                    != sigma) && (
+# 861 "src\\reed_solomon.c" 3 4
+                                                                  ((void *)0) 
+# 861 "src\\reed_solomon.c"
+                                                                       != pParams) && (
+# 861 "src\\reed_solomon.c" 3 4
+                                                                                       ((void *)0) 
+# 861 "src\\reed_solomon.c"
+                                                                                            != mapTable))
+  {
+    memset(tmpOmega,0,sizeof(tmpOmega));
+    tmpSyndr[0] = 1;
+    memcpy(&tmpSyndr[1],syndrome,2*pParams->t);
+
+    for (i=0; i<pParams->t+1; i++)
+    {
+      for (j=0; j<2*pParams->t+1; j++)
+      {
+        tmpOmega[i+j] = AddGF(tmpOmega[i+j],MultiplyGF(sigma[i],tmpSyndr[j],pParams),mapTable);
+      }
+    }
+
+    memcpy(omega,tmpOmega,2*pParams->t+1);
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
+}
+# 898 "src\\reed_solomon.c"
+static error_t ForneyAlgorithm( uint8_t * errMag, const uint8_t * omega, const uint8_t * errLoc, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
+{
+  error_t retErr = ERR_NONE;
+  uint8_t root;
+  uint8_t numer, denom;
+  uint8_t i, j;
+
+  if ((
+# 905 "src\\reed_solomon.c" 3 4
+      ((void *)0) 
+# 905 "src\\reed_solomon.c"
+           != errMag) && (
+# 905 "src\\reed_solomon.c" 3 4
+                          ((void *)0) 
+# 905 "src\\reed_solomon.c"
+                               != omega) && (
+# 905 "src\\reed_solomon.c" 3 4
+                                             ((void *)0) 
+# 905 "src\\reed_solomon.c"
+                                                  != errLoc) && (
+# 905 "src\\reed_solomon.c" 3 4
+                                                                 ((void *)0) 
+# 905 "src\\reed_solomon.c"
+                                                                      != pParams) && (
+# 905 "src\\reed_solomon.c" 3 4
+                                                                                      ((void *)0) 
+# 905 "src\\reed_solomon.c"
+                                                                                           != mapTable))
+  {
+    memset(errMag,0,pParams->t);
+
+    for (i=0; i<pParams->t; i++)
+    {
+      if (errLoc[i] != 0)
+      {
+        root = PowerGF(errLoc[i],-1,pParams);
+        numer = omega[0];
+
+        for (j=1; j<2*pParams->t+1; j++)
+        {
+          numer = AddGF(numer,MultiplyGF(omega[j],PowerGF(root,j,pParams),pParams),mapTable);
+        }
+
+        denom = 1;
+
+        for (j=0; j<pParams->t; j++)
+        {
+          if (i != j)
+          {
+            denom = MultiplyGF(denom,AddGF(1,MultiplyGF(root,errLoc[j],pParams),mapTable),pParams);
+          }
+        }
+
+        errMag[i] = MultiplyGF(numer,PowerGF(2,-denom+1,pParams),pParams);
+      }
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
+}
+# 956 "src\\reed_solomon.c"
+static error_t ErrorCorrector( uint8_t * ioSymbs, const uint8_t * errLoc, const uint8_t * errMag, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM])
+{
+  error_t retErr = ERR_NONE;
+  uint8_t j;
+
+  if ((
+# 961 "src\\reed_solomon.c" 3 4
+      ((void *)0) 
+# 961 "src\\reed_solomon.c"
+           != ioSymbs) && (
+# 961 "src\\reed_solomon.c" 3 4
+                           ((void *)0) 
+# 961 "src\\reed_solomon.c"
+                                != errLoc) && (
+# 961 "src\\reed_solomon.c" 3 4
+                                               ((void *)0) 
+# 961 "src\\reed_solomon.c"
+                                                    != errMag) && (
+# 961 "src\\reed_solomon.c" 3 4
+                                                                   ((void *)0) 
+# 961 "src\\reed_solomon.c"
+                                                                        != pParams) && (
+# 961 "src\\reed_solomon.c" 3 4
+                                                                                        ((void *)0) 
+# 961 "src\\reed_solomon.c"
+                                                                                             != mapTable))
+  {
+    for (j=0; j<pParams->t; j++)
+    {
+      if (errLoc[j] != 0)
+      {
+        ioSymbs[errLoc[j]-1] = AddGF(ioSymbs[errLoc[j]-1],errMag[j],mapTable);
+      }
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
 }

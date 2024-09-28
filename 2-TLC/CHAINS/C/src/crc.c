@@ -14,6 +14,8 @@
 /****************/
 
 #include "crc.h"
+#include "debug.h"
+
 
 
 
@@ -51,6 +53,8 @@ static slen_t FindMaxDegree( const uint8_t * poly, ulen_t lenBi );
  */
 error_t Crc_ListParameters( crc_par_t * ioParams )
 {
+  Debug_SetWatermark((void *)Crc_ListParameters,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
 
   if (NULL != ioParams)
@@ -109,6 +113,8 @@ error_t Crc_ListParameters( crc_par_t * ioParams )
  */
 error_t Crc_CalculateChecksum( const byte_stream_t * inStream, byte_stream_t * outStream, const crc_par_t * pParams )
 {
+  Debug_SetWatermark((void *)Crc_CalculateChecksum,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   const ulen_t crcLenBy = BI2BY_LEN(pParams->degree);
   const ulen_t upLenBi = BY2BI_LEN(inStream->len)+pParams->degree;    /** upshifted bit-length */
@@ -187,6 +193,8 @@ error_t Crc_CalculateChecksum( const byte_stream_t * inStream, byte_stream_t * o
  */
 static slen_t FindMaxDegree( const  uint8_t * poly, ulen_t lenBi )
 {
+  Debug_SetWatermark((void *)FindMaxDegree,WM_LEVEL_2);
+
   ulen_t j, byteIdx;
   slen_t maxDeg = -1;
   uint8_t bitIdx;

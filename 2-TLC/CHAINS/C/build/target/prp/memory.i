@@ -1549,9 +1549,9 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 # 931 "c:\\mingw\\include\\math.h" 3
 
 # 27 "src\\system.h" 2
-# 56 "src\\system.h"
+# 58 "src\\system.h"
 
-# 56 "src\\system.h"
+# 58 "src\\system.h"
 typedef struct _complex_t
 {
   float re;
@@ -1568,21 +1568,23 @@ typedef struct _complex_t
 typedef enum
 {
   ERR_NONE = 0,
-  ERR_INV_NULL_POINTER,
-  ERR_INV_ORIG_LEN,
-  ERR_INV_PRINTID,
-  ERR_INV_CNVCOD_RATE,
-  ERR_INV_CNVCOD_KLEN,
-  ERR_INV_CNVCOD_DECMET,
-  ERR_INV_BUFFER_SIZE,
-  ERR_INV_DYNAMIC_ALLOC,
-  ERR_INV_STREAM_TYPE,
-  ERR_INV_MODULATION_TYPE,
-  ERR_INV_MODULATION_BPS,
-  ERR_INV_CHANNEL_TYPE,
-  ERR_INV_SCRAMBLING_TYPE,
-  ERR_INV_CRC_DEGREE,
-  ERR_INV_RS_GF_DEGREE,
+  ERR_INV_NULL_POINTER = 1,
+  ERR_INV_ORIG_LEN = 2,
+  ERR_INV_PRINTID = 3,
+  ERR_INV_CNVCOD_RATE = 4,
+  ERR_INV_CNVCOD_KLEN = 5,
+  ERR_INV_CNVCOD_DECMET = 6,
+  ERR_INV_BUFFER_SIZE = 7,
+  ERR_INV_DYNAMIC_ALLOC = 8,
+  ERR_INV_STREAM_TYPE = 9,
+  ERR_INV_MODULATION_TYPE = 10,
+  ERR_INV_MODULATION_BPS = 11,
+  ERR_INV_CHANNEL_TYPE = 12,
+  ERR_INV_SCRAMBLING_TYPE = 13,
+  ERR_INV_CRC_DEGREE = 14,
+  ERR_INV_RS_GF_DEGREE = 15,
+  ERR_INV_RS_MSG_CW_LEN = 16,
+  ERR_INV_WATERMARK_LEV = 17,
 
   ERR_NUM
 } error_t;
@@ -1596,7 +1598,7 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 72 "src\\error.h"
+# 74 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 20 "src\\memory.h" 2
 # 28 "src\\memory.h"

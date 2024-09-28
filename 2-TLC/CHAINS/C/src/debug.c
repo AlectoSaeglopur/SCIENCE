@@ -17,6 +17,14 @@
 
 
 
+/************************/
+/*** GLOBAL VARIABLES ***/
+/************************/
+
+static watermark_t gWatermarks[WM_LEVEL_NUM] = {0};
+
+
+
 /**************************/
 /*** PRIVATE PROTOTYPES ***/
 /**************************/
@@ -42,6 +50,8 @@ static bool IsOrgLenValid( ulen_t orgLenBy, const debug_par_t * pParams );
 error_t Debug_ListParameters( debug_par_t * ioParams, const scramb_par_t * scrParam, const rs_par_t * rsParam,
                               const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam )
 {
+  Debug_SetWatermark((void *)Debug_ListParameters,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
 
   if ((NULL != ioParams) && (NULL != scrParam) && (NULL != rsParam) && (NULL != ccParam) && 
@@ -72,6 +82,8 @@ error_t Debug_ListParameters( debug_par_t * ioParams, const scramb_par_t * scrPa
  */
 error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed )
 {
+  Debug_SetWatermark((void *)Debug_GenerateRandomBytes,WM_LEVEL_1);
+
   uint32_t j;
   error_t retErr = ERR_NONE;
 
@@ -111,6 +123,8 @@ error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pS
  */
 error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t label, const debug_par_t * pParams )
 {
+  Debug_SetWatermark((void *)Debug_PrintByteStream,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   ulen_t j;
 
@@ -142,6 +156,14 @@ error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t lab
 
         case PID_RX_SCR:
           printf(" * RX SCRAMBLED BYTES (%d)\n\t",inStream->len);
+          break;
+
+        case PID_TX_RSCOD:
+          printf(" * TX REED-SOLOMON CODED BYTES (%d)\n\t",inStream->len);
+          break;
+
+        case PID_RX_RSCOD:
+          printf(" * RX REED-SOLOMON CODED BYTES (%d)\n\t",inStream->len);
           break;
 
         case PID_TX_CNVCOD:
@@ -193,6 +215,8 @@ error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t lab
  */
 error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t label, const debug_par_t * pParams )
 {
+  Debug_SetWatermark((void *)Debug_PrintFloatStream,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   ulen_t j;
 
@@ -259,6 +283,8 @@ error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t l
  */
 error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label_t label, const debug_par_t * pParams )
 {
+  Debug_SetWatermark((void *)Debug_PrintComplexStream,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   ulen_t j;
 
@@ -327,6 +353,8 @@ error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label
  */
 error_t Debug_PrintParameters( ulen_t orgLen, const debug_par_t * pParams )
 {
+  Debug_SetWatermark((void *)Debug_PrintParameters,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
 
   if (IsOrgLenValid(orgLen,pParams))
@@ -377,6 +405,8 @@ error_t Debug_PrintParameters( ulen_t orgLen, const debug_par_t * pParams )
  */
 error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams )
 {
+  Debug_SetWatermark((void *)Debug_CheckWrongBits,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   const ulen_t bitLen = BY2BI_LEN(inStreamA->len);
   ulen_t bitErrCnt = 0;
@@ -419,6 +449,10 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
             printf(" * Errors at convolutional encoding level: %u out of %u bits (MD = %u)\n\n",bitErrCnt,bitLen,minErrDist);
             break;
 
+          case PID_RX_RSCOD:
+            printf(" * Errors at reed-solomon encoding level: %u out of %u bits (MD = %u)\n\n",bitErrCnt,bitLen,minErrDist);
+            break;
+
           case PID_RX_ORG:
             printf(" * Errors at source level: %u out of %u bits (MD = %u)\n\n",bitErrCnt,bitLen,minErrDist);
             break;
@@ -457,6 +491,8 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
  */
 error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label )
 {
+  Debug_SetWatermark((void *)Debug_WriteByteStreamToCsv,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   FILE * fid = NULL;
   ulen_t j;
@@ -519,6 +555,8 @@ error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_
  */
 error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label )
 {
+  Debug_SetWatermark((void *)Debug_WriteComplexStreamToCsv,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   FILE * fid = NULL;
   ulen_t j;
@@ -563,6 +601,47 @@ error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_
 }
 
 
+/**
+ * @brief <i> Function for setting watermark. </i>
+ * 
+ * @param[in] funcAddr memory address where function is stored
+ * @param[in] level watermark level
+ * 
+ * @return error ID
+ */
+error_t Debug_SetWatermark( void * funcAddr, wm_level_t level )
+{
+  error_t retErr = ERR_NONE;
+
+  if (level <WM_LEVEL_NUM)
+  {
+    gWatermarks[level] = ((watermark_t)funcAddr)&WATERMARK_MASK;
+  }
+  else
+  {
+    retErr = ERR_INV_WATERMARK_LEV;
+  }
+
+  return Error_HandleErr(retErr);
+}
+
+
+/**
+ * @brief <i> Function for printing watermarks fo all levels. </i>
+ * 
+ * @return none
+ */
+void Debug_PrintWatermarks(void)
+{
+  uint8_t lev;
+
+  for (lev=0; lev<WM_LEVEL_NUM; lev++)
+  {
+    printf("    - Watermark Lv.%u = %x\n",lev+1,(unsigned int)gWatermarks[lev]);
+  }
+}
+
+
 
 /*************************/
 /*** PRIVATE FUNCTIONS ***/
@@ -577,13 +656,18 @@ error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_
  */
 static bool IsOrgLenValid( ulen_t orgLenBy, const debug_par_t * dbgParams )
 {
-  bool bRet = false;
-  ulen_t orgLenBi = BY2BI_LEN(orgLenBy);
-  ulen_t punLenBi = (orgLenBi/(dbgParams->ccPar.cRate)*(1+dbgParams->ccPar.cRate));
+  Debug_SetWatermark((void *)IsOrgLenValid,WM_LEVEL_2);
 
-  if ((orgLenBy > 0) && (0 == (orgLenBi%dbgParams->ccPar.cRate)) &&                   /** source bit length shall be positive and divisible by code rate denominator */
-      (0 == (punLenBi%NUM_BITS_PER_BYTE)) &&                                          /** convolutional punctured bit length shall be a multiple of NUM_BITS_PER_BYTE */
-      (0 == (punLenBi%dbgParams->modPar.bps)))                                        /** convolutional punctured bit length shall be a multiple of MOD_BPS */
+  bool bRet = false;
+  const ulen_t orgLenBi = BY2BI_LEN(orgLenBy);
+  const ulen_t rsLenBi = orgLenBi*dbgParams->rsPar.nSh/dbgParams->rsPar.kSh;              /** shortened reed-solomon encoded bit-length */
+  const ulen_t ccLenBi = (rsLenBi/(dbgParams->ccPar.cRate)*(1+dbgParams->ccPar.cRate));   /** punctured convolutional encoded bit-length */
+
+  if ((orgLenBy > 0) &&                                                                   /** - origin message length shall be positive */
+      (0 == (orgLenBi%(dbgParams->rsPar.m*dbgParams->rsPar.kSh))) &&                      /** - reed-solomon encoder input stream bit-length shall be divisible by GF dimension times message size */
+      (0 == (rsLenBi%dbgParams->ccPar.cRate)) &&                                          /** - convolutional encoder input stream bit-length shall be divisible by code rate denominator */
+      (0 == (ccLenBi%NUM_BITS_PER_BYTE)) &&                                               /** - convolutional punctured bit length shall be a multiple of NUM_BITS_PER_BYTE */
+      (0 == (ccLenBi%dbgParams->modPar.bps)))                                             /** - convolutional punctured bit length shall be a multiple of MOD_BPS */
   {
     bRet = true;
   }

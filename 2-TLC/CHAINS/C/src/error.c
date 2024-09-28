@@ -13,7 +13,9 @@
 /*** INCLUDES ***/
 /****************/
 
+#include "debug.h"
 #include "error.h"
+
 
 
 
@@ -36,10 +38,12 @@ error_t Error_HandleErr( error_t inErr )
     {
       case ALARM_PRINT:
         printf("\n >> WARNING: DETECTED ALARM #%d\n",inErr);
+        Debug_PrintWatermarks();
         break;
 
       case ALARM_STOP:
         printf("\n >> ERROR: DETECTED ALARM #%d\n",inErr);
+        Debug_PrintWatermarks();
         exit(EXIT_FAILURE);
         break;
 

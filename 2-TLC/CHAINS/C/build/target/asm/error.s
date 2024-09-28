@@ -11,7 +11,7 @@ LC0:
 _Error_HandleErr:
 LFB18:
 	.file 1 "src/error.c"
-	.loc 1 32 0
+	.loc 1 34 0
 	.cfi_startproc
 	pushl	%ebp
 	.cfi_def_cfa_offset 8
@@ -19,21 +19,23 @@ LFB18:
 	movl	%esp, %ebp
 	.cfi_def_cfa_register 5
 	subl	$24, %esp
-	.loc 1 33 0
+	.loc 1 35 0
 	cmpl	$0, 8(%ebp)
 	je	L2
-	.loc 1 42 0
+	.loc 1 45 0
 	movl	8(%ebp), %eax
 	movl	%eax, 4(%esp)
 	movl	$LC0, (%esp)
 	call	_printf
-	.loc 1 43 0
+	.loc 1 46 0
+	call	_Debug_PrintWatermarks
+	.loc 1 47 0
 	movl	$1, (%esp)
 	call	_exit
 L2:
-	.loc 1 52 0
+	.loc 1 56 0
 	movl	8(%ebp), %eax
-	.loc 1 53 0
+	.loc 1 57 0
 	leave
 	.cfi_restore 5
 	.cfi_def_cfa 4, 4
@@ -47,7 +49,7 @@ Letext0:
 	.file 5 "src/error.h"
 	.section	.debug_info,"dr"
 Ldebug_info0:
-	.long	0x502
+	.long	0x532
 	.word	0x4
 	.secrel32	Ldebug_abbrev0
 	.byte	0x4
@@ -288,7 +290,7 @@ Ldebug_info0:
 	.long	0x6f
 	.byte	0x5
 	.byte	0x1b
-	.long	0x483
+	.long	0x4b3
 	.uleb128 0xd
 	.ascii "ERR_NONE\0"
 	.byte	0
@@ -338,20 +340,26 @@ Ldebug_info0:
 	.ascii "ERR_INV_RS_GF_DEGREE\0"
 	.byte	0xf
 	.uleb128 0xd
-	.ascii "ERR_NUM\0"
+	.ascii "ERR_INV_RS_MSG_CW_LEN\0"
 	.byte	0x10
+	.uleb128 0xd
+	.ascii "ERR_INV_WATERMARK_LEV\0"
+	.byte	0x11
+	.uleb128 0xd
+	.ascii "ERR_NUM\0"
+	.byte	0x12
 	.byte	0
 	.uleb128 0x6
 	.ascii "error_t\0"
 	.byte	0x5
-	.byte	0x2e
+	.byte	0x30
 	.long	0x30d
 	.uleb128 0xc
 	.byte	0x4
 	.long	0x6f
 	.byte	0x5
-	.byte	0x32
-	.long	0x4d3
+	.byte	0x34
+	.long	0x503
 	.uleb128 0xd
 	.ascii "ALARM_NONE\0"
 	.byte	0
@@ -368,8 +376,8 @@ Ldebug_info0:
 	.uleb128 0xe
 	.ascii "Error_HandleErr\0"
 	.byte	0x1
-	.byte	0x1f
-	.long	0x483
+	.byte	0x21
+	.long	0x4b3
 	.long	LFB18
 	.long	LFE18-LFB18
 	.uleb128 0x1
@@ -377,8 +385,8 @@ Ldebug_info0:
 	.uleb128 0xf
 	.ascii "inErr\0"
 	.byte	0x1
-	.byte	0x1f
-	.long	0x483
+	.byte	0x21
+	.long	0x4b3
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
@@ -607,4 +615,5 @@ Ldebug_line0:
 	.section	.debug_str,"dr"
 	.ident	"GCC: (MinGW.org GCC-6.3.0-1) 6.3.0"
 	.def	_printf;	.scl	2;	.type	32;	.endef
+	.def	_Debug_PrintWatermarks;	.scl	2;	.type	32;	.endef
 	.def	_exit;	.scl	2;	.type	32;	.endef

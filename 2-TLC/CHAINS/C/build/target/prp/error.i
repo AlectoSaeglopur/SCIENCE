@@ -4,6 +4,10 @@
 # 1 "<command-line>"
 # 1 "src\\error.c"
 # 16 "src\\error.c"
+# 1 "src\\debug.h" 1
+# 18 "src\\debug.h"
+# 1 "src\\channel.h" 1
+# 18 "src\\channel.h"
 # 1 "src\\error.h" 1
 # 18 "src\\error.h"
 # 1 "src\\system.h" 1
@@ -1547,9 +1551,9 @@ extern long double __attribute__((__cdecl__)) fmal (long double, long double, lo
 # 931 "c:\\mingw\\include\\math.h" 3
 
 # 27 "src\\system.h" 2
-# 56 "src\\system.h"
+# 58 "src\\system.h"
 
-# 56 "src\\system.h"
+# 58 "src\\system.h"
 typedef struct _complex_t
 {
   float re;
@@ -1566,21 +1570,23 @@ typedef struct _complex_t
 typedef enum
 {
   ERR_NONE = 0,
-  ERR_INV_NULL_POINTER,
-  ERR_INV_ORIG_LEN,
-  ERR_INV_PRINTID,
-  ERR_INV_CNVCOD_RATE,
-  ERR_INV_CNVCOD_KLEN,
-  ERR_INV_CNVCOD_DECMET,
-  ERR_INV_BUFFER_SIZE,
-  ERR_INV_DYNAMIC_ALLOC,
-  ERR_INV_STREAM_TYPE,
-  ERR_INV_MODULATION_TYPE,
-  ERR_INV_MODULATION_BPS,
-  ERR_INV_CHANNEL_TYPE,
-  ERR_INV_SCRAMBLING_TYPE,
-  ERR_INV_CRC_DEGREE,
-  ERR_INV_RS_GF_DEGREE,
+  ERR_INV_NULL_POINTER = 1,
+  ERR_INV_ORIG_LEN = 2,
+  ERR_INV_PRINTID = 3,
+  ERR_INV_CNVCOD_RATE = 4,
+  ERR_INV_CNVCOD_KLEN = 5,
+  ERR_INV_CNVCOD_DECMET = 6,
+  ERR_INV_BUFFER_SIZE = 7,
+  ERR_INV_DYNAMIC_ALLOC = 8,
+  ERR_INV_STREAM_TYPE = 9,
+  ERR_INV_MODULATION_TYPE = 10,
+  ERR_INV_MODULATION_BPS = 11,
+  ERR_INV_CHANNEL_TYPE = 12,
+  ERR_INV_SCRAMBLING_TYPE = 13,
+  ERR_INV_CRC_DEGREE = 14,
+  ERR_INV_RS_GF_DEGREE = 15,
+  ERR_INV_RS_MSG_CW_LEN = 16,
+  ERR_INV_WATERMARK_LEV = 17,
 
   ERR_NUM
 } error_t;
@@ -1594,10 +1600,315 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 72 "src\\error.h"
+# 74 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
+# 19 "src\\channel.h" 2
+# 1 "src\\memory.h" 1
+# 28 "src\\memory.h"
+typedef enum
+{
+  memory_type_byte = 0,
+  memory_type_float,
+  memory_type_complex
+} memory_type_t;
+
+
+typedef struct _byte_stream_t
+{
+  uint8_t * pBuf;
+  uint32_t len;
+  memory_type_t id;
+} byte_stream_t;
+
+
+typedef struct _float_stream_t
+{
+  float * pBuf;
+  uint32_t len;
+  memory_type_t id;
+} float_stream_t;
+
+
+typedef struct _complex_stream_t
+{
+  complex_t * pBuf;
+  uint32_t len;
+  memory_type_t id;
+} complex_stream_t;
+
+
+
+
+
+
+
+error_t Memory_AllocateStream( void * ioStream, uint32_t len, memory_type_t type );
+error_t Memory_FreeStream( void * ioStream, memory_type_t type );
+# 20 "src\\channel.h" 2
+# 1 "src\\modulation.h" 1
+# 28 "src\\modulation.h"
+typedef enum
+{
+  MOD_PSK = 0,
+  MOD_QAM,
+
+  MOD_NUM
+} mod_type_t;
+# 73 "src\\modulation.h"
+typedef struct _mod_par_t
+{
+  mod_type_t type;
+  uint8_t order;
+  uint8_t bps;
+  float phOfst;
+} mod_par_t;
+
+
+typedef struct _mod_maptable_t
+{
+  uint8_t bits[(0x01<<2u)];
+  complex_t symbs[(0x01<<2u)];
+} mod_maptable_t;
+
+
+
+
+
+
+
+error_t Modulation_ListParameters( mod_par_t * ioParams );
+error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * outStream, const mod_par_t * pParams );
+error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_t * outStream, const mod_par_t * pParams );
+error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream_t * outStream, const mod_par_t * pParams );
+# 21 "src\\channel.h" 2
+# 29 "src\\channel.h"
+typedef enum
+{
+  CHAN_BSC = 0,
+  CHAN_AWGN,
+
+  CHAN_NUM
+} chan_type_t;
+
+
+typedef struct _chan_par_t
+{
+  uint32_t seed;
+  chan_type_t type;
+  uint8_t bps;
+  union
+  {
+    float Peb;
+    float EbN0;
+  };
+} chan_par_t;
+# 75 "src\\channel.h"
+error_t Channel_ListParameters( chan_par_t * ioParams );
+error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, const chan_par_t * pParams );
+error_t Channel_AWGN( const complex_stream_t * inStream, complex_stream_t * outStream, const chan_par_t * pParams );
+# 19 "src\\debug.h" 2
+# 1 "src\\convolutional.h" 1
+# 60 "src\\convolutional.h"
+typedef enum
+{
+  CC_RATE_12 = 1, CC_RATE_23 = 2, CC_RATE_34 = 3, CC_RATE_56 = 5, CC_RATE_78 = 7
+} cc_rate_t;
+
+
+typedef enum
+{
+  CC_RATE_IDX_12, CC_RATE_IDX_23, CC_RATE_IDX_34, CC_RATE_IDX_56, CC_RATE_IDX_78,
+  CC_RATE_NUM
+} cc_rate_idx_t;
+# 79 "src\\convolutional.h"
+typedef enum
+{
+  CC_KLEN_3 = 3,
+  CC_KLEN_4 = 4,
+  CC_KLEN_5 = 5,
+  CC_KLEN_6 = 6,
+  CC_KLEN_7 = 7,
+  CC_KLEN_8 = 8,
+  CC_KLEN_MIN = CC_KLEN_3,
+  CC_KLEN_MAX = CC_KLEN_8
+} cc_klen_t;
+
+
+
+typedef enum
+{
+  CC_VITDM_HARD = 0,
+  CC_VITDM_SOFT,
+
+  CC_VITDM_NUM
+} cc_dec_method_t;
+
+
+typedef struct _cc_par_t
+{
+  cc_rate_t cRate;
+  cc_klen_t kLen;
+  uint16_t memFact;
+  cc_dec_method_t vitDM;
+} cc_par_t;
+
+
+typedef struct _cc_encoder_info_t
+{
+  const uint8_t * pConnVect;
+  uint8_t lenConnVect;
+  const uint8_t * pPuncVect;
+  uint8_t lenPuncVect;
+} cc_encoder_info_t;
+
+
+typedef struct _cc_trcore_t
+{
+  uint8_t outBits[2u];
+  uint8_t nextSt[2u];
+} cc_trcore_t;
+
+
+typedef struct _cc_trellis_t
+{
+  cc_trcore_t trSt[(1<<(CC_KLEN_7-1))];
+} cc_trellis_t;
+
+
+typedef struct _cc_hard_dec_info_t
+{
+  uint32_t iter[(1<<(CC_KLEN_7-1))];
+  uint32_t dist[(1<<(CC_KLEN_7-1))];
+  uint8_t path[(1<<(CC_KLEN_7-1))][((1<<(CC_KLEN_7-1))*10u)];
+} cc_hard_dec_info_t;
+
+
+
+typedef struct _cc_soft_dec_info_t
+{
+  uint32_t iter[(1<<(CC_KLEN_7-1))];
+  float dist[(1<<(CC_KLEN_7-1))];
+  uint8_t path[(1<<(CC_KLEN_7-1))][((1<<(CC_KLEN_7-1))*10u)];
+} cc_soft_dec_info_t;
+
+
+
+
+
+
+
+error_t CnvCod_ListParameters( cc_par_t * ioParams );
+error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
+error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
+error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
+# 20 "src\\debug.h" 2
+
+
+
+# 1 "src\\reed_solomon.h" 1
+# 28 "src\\reed_solomon.h"
+typedef enum
+{
+  RS_GF_DEGREE_4 = 4,
+  RS_GF_DEGREE_8 = 8
+} rs_gf_degree_t;
+# 50 "src\\reed_solomon.h"
+typedef struct _rs_par_t
+{
+  rs_gf_degree_t m;
+  uint8_t kSh;
+  uint8_t nSh;
+  uint8_t t;
+  uint16_t kUn;
+  uint16_t nUn;
+  uint16_t dimGF;
+} rs_par_t;
+
+
+
+
+
+
+
+error_t RsCod_ListParameters( rs_par_t * ioParams );
+error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams );
+error_t RcCod_Decoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams );
+# 24 "src\\debug.h" 2
+# 1 "src\\scrambling.h" 1
+# 28 "src\\scrambling.h"
+typedef enum
+{
+  SCRAMB_ADT = 0,
+  SCRAMB_MLT,
+
+  SCRAMB_NUM
+} scramb_type_t;
+
+
+typedef struct _scramb_par_t
+{
+  scramb_type_t type;
+  uint8_t nCells;
+  uint32_t conVect;
+  uint32_t initSt;
+} scramb_par_t;
+# 75 "src\\scrambling.h"
+error_t Scramb_ListParameters( scramb_par_t * ioParams );
+error_t Scramb_Scrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scramb_par_t * pParams );
+error_t Scramb_Descrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scramb_par_t * pParams );
+# 25 "src\\debug.h" 2
+# 43 "src\\debug.h"
+typedef enum
+{
+  PID_TX_ORG = 0,
+  PID_RX_ORG,
+  PID_TX_CRC,
+  PID_RX_CRC,
+  PID_TX_SCR,
+  PID_RX_SCR,
+  PID_TX_RSCOD,
+  PID_RX_RSCOD,
+  PID_TX_CNVCOD,
+  PID_RX_CNVCOD,
+  PID_TX_MAP,
+  PID_RX_MAP,
+  PID_RX_LLR,
+
+  PID_NUM
+} print_label_t;
+
+
+typedef struct _debug_par_t
+{
+  scramb_par_t scrPar;
+  rs_par_t rsPar;
+  cc_par_t ccPar;
+  mod_par_t modPar;
+  chan_par_t chanPar;
+} debug_par_t;
+
+
+typedef enum _wm_level_t
+{
+  WM_LEVEL_1 = 0,
+  WM_LEVEL_2,
+
+  WM_LEVEL_NUM
+} wm_level_t;
+# 96 "src\\debug.h"
+error_t Debug_PrintParameters( uint32_t orgLen, const debug_par_t * pParams );
+error_t Debug_ListParameters( debug_par_t * ioParams, const scramb_par_t * scrParam, const rs_par_t * rsParam, const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam );
+error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed );
+error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
+error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
+error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
+error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams );
+error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label );
+error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label );
+error_t Debug_SetWatermark( void * funcAddr, wm_level_t level );
+void Debug_PrintWatermarks(void);
 # 17 "src\\error.c" 2
-# 31 "src\\error.c"
+# 33 "src\\error.c"
 error_t Error_HandleErr( error_t inErr )
 {
   if (ERR_NONE != inErr)
@@ -1606,14 +1917,16 @@ error_t Error_HandleErr( error_t inErr )
     {
       case ALARM_PRINT:
         printf("\n >> WARNING: DETECTED ALARM #%d\n",inErr);
+        Debug_PrintWatermarks();
         break;
 
       case ALARM_STOP:
         printf("\n >> ERROR: DETECTED ALARM #%d\n",inErr);
+        Debug_PrintWatermarks();
         exit(
-# 43 "src\\error.c" 3
+# 47 "src\\error.c" 3
             1
-# 43 "src\\error.c"
+# 47 "src\\error.c"
                         );
         break;
 

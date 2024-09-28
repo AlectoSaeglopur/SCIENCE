@@ -58,7 +58,13 @@ static uint8_t ConvertSy2Bi( uint8_t inSymb, const uint8_t [][RS_TABLE_IDX_NUM] 
 static uint8_t AddGF( uint8_t symbA, uint8_t symbB, const uint8_t mapTable[][RS_TABLE_IDX_NUM] );
 static uint8_t MultiplyGF( uint8_t symbA, uint8_t symbB, const rs_par_t * pParams );
 static uint8_t PowerGF( uint8_t symbBase, int16_t exp, const rs_par_t * pParams );
-
+static bool GetSyndrome( const uint8_t * cwSymbs, uint8_t * syndrome, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] );
+static error_t BerlekampMasseyAlgorithm( uint8_t * curSigma, const uint8_t * syndrome, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] );
+static int16_t GetDiscrepancy( const uint8_t * syndrome, const uint8_t * sigma, int16_t errNum, uint8_t iter, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] );
+static error_t ChienAlgorithm( uint8_t * errLoc, const uint8_t * sigma, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] );
+static error_t KeyAlgorithm( uint8_t * omega, const uint8_t * syndrome, const uint8_t * sigma, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] );
+static error_t ForneyAlgorithm( uint8_t * errMag, const uint8_t * omega, const uint8_t * errLoc, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] );
+static error_t ErrorCorrector( uint8_t * ioSymbs, const uint8_t * errLoc, const uint8_t * errMag, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM]);
 
 
 /************************/
@@ -81,10 +87,18 @@ error_t RsCod_ListParameters( rs_par_t * ioParams )
     ioParams->m = GF_DEGREE;
     ioParams->kSh = MESSAGE_SIZE;
     ioParams->nSh = CODEWORD_SIZE;
-    ioParams->t = ioParams->nSh-ioParams->kSh;
+    ioParams->t = (ioParams->nSh-ioParams->kSh)/2;
     ioParams->dimGF = 1<<ioParams->m;
     ioParams->nUn = ioParams->dimGF-1;
     ioParams->kUn = ioParams->nUn-2*ioParams->t;
+
+    if ((ioParams->kSh <= 0) || (ioParams->nSh <= 0) ||
+      ((ioParams->nSh-ioParams->kSh)%2 != 0) ||
+      (ioParams->nSh > (ioParams->dimGF-1)) ||
+      ((RS_GF_DEGREE_4 == ioParams->m) && ((ioParams->nSh%2) != 0)))
+    {
+      retErr = ERR_INV_RS_MSG_CW_LEN;
+    }
   }
   else
   {
@@ -96,7 +110,7 @@ error_t RsCod_ListParameters( rs_par_t * ioParams )
 
 
 /**
- * @brief <i> Function for Reed-Solomon encoding in systematic form
+ * @brief <i> Function for Reed-Solomon encoding in systematic form.
  *        Redundancy bytes are appendend at the beginning of codewords
  *        and calculated as remainder of the upshifted message polynomial
  *        divided by the generator polynomial. </i>
@@ -110,7 +124,7 @@ error_t RsCod_ListParameters( rs_par_t * ioParams )
 error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
-  const uint8_t numMsg = BY2BI_LEN(inStream->len/(pParams->m*pParams->kSh));
+  const uint8_t numMsg = BY2BI_LEN(inStream->len)/(pParams->m*pParams->kSh);
   const uint8_t lenGenPoly = 2*pParams->t+1;
   uint8_t genPoly[lenGenPoly];
   uint8_t mapTable[pParams->dimGF][RS_TABLE_IDX_NUM];                         /** - mapping table between symbols and basis */
@@ -119,7 +133,8 @@ error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream
   uint16_t maxDeg;
   uint16_t j;
   uint8_t inSymbs[pParams->kUn];
-  uint8_t tmpPoly[pParams->nUn], divQuotCoef[pParams->nUn];
+  uint8_t tmpPoly[pParams->nUn];
+  uint8_t divQuotCoef[pParams->nUn];
   uint8_t curSymb;
   uint8_t i;
 
@@ -137,7 +152,7 @@ error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream
       {
         if (RS_GF_DEGREE_4 == pParams->m)
         {
-          if (0 == (j%2))
+          if (IS_EVEN(j))
           {
             curSymb = (inStream->pBuf[(j+i*pParams->kSh)/2]>>4);
           }
@@ -157,12 +172,12 @@ error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream
       memcpy(&tmpPoly[2*pParams->t],inSymbs,pParams->kUn);                    /** - upshift message polynomial by 2t positions */
       maxDeg = pParams->nUn-1;                                                /** - initialize maximum degree of temporary polynomial */
       quotDeg = maxDeg-2*pParams->t;
-      
+
       while (quotDeg >= 0)
       {
         quotCoef = tmpPoly[maxDeg];                                           /** - quotient coefficient at current iteration */
         memset(divQuotCoef,0,pParams->nUn);
-        
+
         for (j=0; j<lenGenPoly; j++)
         {
           divQuotCoef[j+quotDeg] = MultiplyGF(quotCoef,genPoly[j],pParams);
@@ -176,12 +191,12 @@ error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream
         maxDeg = FindMaxDeg(tmpPoly,pParams->nUn);
         quotDeg = maxDeg-2*pParams->t;
       }
-
+      
       if (RS_GF_DEGREE_4 == pParams->m)
       {
         for (j=0; j<2*pParams->t; j++)
         {
-          if (0 == (j%2))
+          if (IS_EVEN(j))
           {
             outStream->pBuf[(j+i*pParams->nSh)/2] =
               (ConvertSy2Bi(tmpPoly[j],mapTable)<<4);
@@ -206,6 +221,107 @@ error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream
         
         memcpy(&outStream->pBuf[2*pParams->t+i*pParams->nSh],
                &inStream->pBuf[i*pParams->kSh],pParams->kSh);                 /** - copy current message bits into output stream */
+      }
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
+}
+
+
+/**
+ * @brief <i> Function for Reed-Solomon decoding in systematic form.
+ *        Redundancy bytes are expected at the beginning of codewords
+ *        and calculated as remainder of the upshifted message polynomial
+ *        divided by the generator polynomial. </i>
+ * 
+ * @param[in] inStream input stream
+ * @param[out] outStream output stream
+ * @param[in] pParams pointer to reed-solomon parameters structure
+ * 
+ * @return error ID
+ */
+error_t RcCod_Decoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams )
+{
+  error_t retErr = ERR_NONE;
+  const uint8_t numMsg = BY2BI_LEN(inStream->len)/(pParams->m*pParams->nSh);
+  uint8_t mapTable[pParams->dimGF][RS_TABLE_IDX_NUM];                         /** - mapping table between symbols and basis */
+  uint8_t tmpSymbs[pParams->nUn];
+  uint8_t syndrome[2*pParams->t];
+  uint8_t sigma[pParams->t+1];
+  uint8_t omega[2*pParams->t+1];
+  uint8_t errLocation[pParams->t];
+  uint8_t errMagnitude[pParams->t];
+  uint8_t curSymb;
+  uint8_t i, j;
+  bool errFlag;
+
+  if ((NULL != inStream) && (NULL != outStream) && (NULL != pParams) &&
+      (NULL != inStream->pBuf) && (NULL != outStream->pBuf))
+  {
+    RetrieveMappingTableGF(mapTable,pParams);
+    memset(tmpSymbs,0,pParams->nUn);
+
+    for (i=0; i<numMsg; i++)
+    {
+      for (j=0; j<pParams->nSh; j++)
+      {
+        if (RS_GF_DEGREE_4 == pParams->m)
+        {
+          if (IS_EVEN(j))
+          {
+            curSymb = (inStream->pBuf[(j+i*pParams->nSh)/2]>>4);
+          }
+          else
+          {
+            curSymb = (inStream->pBuf[(j-1+i*pParams->nSh)/2]&0x0F);
+          }
+        }
+        else                                                                  // i.e. "if (RS_GF_DEGREE_8 == pParams->m)"
+        {
+          curSymb = inStream->pBuf[j+i*pParams->nSh];
+        }
+        tmpSymbs[j] = ConvertBi2Sy(curSymb,mapTable);                         /** - bits-to-symbol conversion */
+      }
+
+      errFlag = GetSyndrome(tmpSymbs,syndrome,pParams,mapTable);              /** - estimate syndrome polynomial */
+
+      if (errFlag)                                                            /** - check if any error has been detected on current symbol */
+      {
+        BerlekampMasseyAlgorithm(sigma,syndrome,pParams,mapTable);            /** - estimate Sigma(x) polynomial */
+        ChienAlgorithm(errLocation,sigma,pParams,mapTable);                   /** - estimate error locator polynomial */
+        KeyAlgorithm(omega,syndrome,sigma,pParams,mapTable);                  /** - estimate Omega(x) polynomial */
+        ForneyAlgorithm(errMagnitude,omega,errLocation,pParams,mapTable);     /** - estimate error magnitude polynomial */
+        ErrorCorrector(tmpSymbs,errLocation,errMagnitude,pParams,mapTable);   /** - correct the corrupted symbol stream */
+      }
+
+      if (RS_GF_DEGREE_4 == pParams->m)
+      {
+        for (j=0; j<pParams->kSh; j++)
+        {
+          if (IS_EVEN(j))
+          {
+            outStream->pBuf[(j+i*pParams->kSh)/2] = 
+              (ConvertSy2Bi(tmpSymbs[j+2*pParams->t],mapTable)<<4);
+          }
+          else
+          {
+            outStream->pBuf[(j-1+i*pParams->kSh)/2] |=
+              ConvertSy2Bi(tmpSymbs[j+2*pParams->t],mapTable);
+          }
+        }
+      }
+      else
+      {
+        for (j=0; j<pParams->kSh; j++)
+        {
+          outStream->pBuf[j+i*pParams->kSh] =
+            ConvertSy2Bi(tmpSymbs[j+2*pParams->t],mapTable);                  /** - symbol-to-bits conversion */
+        }
       }
     }
   }
@@ -335,6 +451,7 @@ static error_t RetrieveMappingTableGF( uint8_t ioTable[][RS_TABLE_IDX_NUM], cons
     {
       memset(ioTable[j],0,RS_TABLE_IDX_NUM);
     }
+
     RetrievePrimitivePolynomial(&encInfo,pParams);
 
     for (j=1; j<pParams->dimGF; j++)
@@ -358,7 +475,7 @@ static error_t RetrieveMappingTableGF( uint8_t ioTable[][RS_TABLE_IDX_NUM], cons
       }
 
       ioTable[j][RS_TABLE_IDX_BIT] = GetBasis(tmpPoly,pParams);               /** retrieve bit basis from remainder */
-      ioTable[ioTable[RS_TABLE_IDX_BIT][j]][RS_TABLE_IDX_SYM] = j;
+      ioTable[ioTable[j][RS_TABLE_IDX_BIT]][RS_TABLE_IDX_SYM] = j;
     }
   }
   else
@@ -455,9 +572,9 @@ static uint8_t ConvertSy2Bi( uint8_t inSymb, const uint8_t mapTable[][RS_TABLE_I
 /**
  * @brief <i> Function for performing addition operations in GF(2^m). </i>
  * 
- * @param[in] mapTable mapping table
  * @param[in] symbA 1st GF symbol
  * @param[in] symbB 2nd GF symbol
+ * @param[in] mapTable mapping table
  * 
  * @return bit basis resulting from addition
  */
@@ -474,7 +591,6 @@ static uint8_t AddGF( uint8_t symbA, uint8_t symbB, const uint8_t mapTable[][RS_
 /**
  * @brief <i> Function for performing multiplication operations in GF(2^m). </i>
  * 
- * @param[in] mapTable mapping table
  * @param[in] symbA 1st GF symbol
  * @param[in] symbB 2nd GF symbol
  * @param[in] pParams pointer to reed-solomon parameters structure
@@ -496,10 +612,10 @@ static uint8_t MultiplyGF( uint8_t symbA, uint8_t symbB, const rs_par_t * pParam
 
 /**
  * @brief <i> Function for performing power raising operations in GF(2^m). </i>
- *        - NB#1: to get "alpha^(w)" use "PowGF(2,w)";
- *        - NB#2: to get "alpha^(-w)" use "PowGF(2,-w)";
- *        - NB#3: to get "Symb^-1" use "PowGF(2,-Symb+1)";
- *        - NB#4: keep in mind the identity "MultGF(Symb,PowGF(2,-Symb+1))=1".
+ *        - NB#1: to get "alpha^(w)" use "PowerGF(2,w)";
+ *        - NB#2: to get "alpha^(-w)" use "PowerGF(2,-w)";
+ *        - NB#3: to get "Symb^-1" use "PowerGF(2,-Symb+1)";
+ *        - NB#4: keep in mind the identity "MultiplyGF(Symb,PowGF(2,-Symb+1))=1".
  * 
  * @param[in] symbBase symbol base
  * @param[in] exp exponent value
@@ -533,310 +649,329 @@ static uint8_t PowerGF( uint8_t symbBase, int16_t exp, const rs_par_t * pParams 
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#if 0
-/*** PARAMETERS ***/
-
-/*** CONSTANTS AND GLOBAL VARIABLES ***/
-//const uint16_t UncLen = (m*k*Nmsg)/8;                    // Uncoded stream length (in bytes)
-//const uint16_t EncLen = (m*n*Nmsg)/8;                    // Encode stream length (in bytes)
-////const uint8_t LenPP = 4;                          // Length of the primitive polynomial array
-////const uint8_t LenGP = 2*t+1;                        // Length of the generator polynomial array
-
-uint8_t Table[2][DimGF] = {0};                        // Mapping table between symbols and basis
-
-
-
-/*** MAIN FUNCTION ***/
-
-int main(){
-
-  primpoly PrimPoly;
-  uint8_t GenPoly[LenGP] = {0};
-  uint8_t SrcBytes[UncLen], EncBytes[EncLen];
-  uint8_t ErrBytes[EncLen], DecBytes[UncLen];
-  uint16_t ChanErr[Nmsg][2];
-  uint8_t MsgDecErr[Nmsg];
-  uint16_t TotDecErr;
-  uint8_t j;
-
-  CheckParam();                                // Check the parameters correctness
-//  srand(time(NULL));                              // Link random seed to actual time
-//  RandGen(SrcBytes);                              // Random generation of source bytes
-  PrimPoly = GetPrimPoly();                          // Retrieve the primitive polynomial for GF(2^m)
-  MapGF(Table,PrimPoly);                            // Fill the mapping table
-//  GetGenPoly(GenPoly);                            // Retrieve the code generator polynomial
-  EncoderRS(SrcBytes,EncBytes,GenPoly);                    // Reed-Solomon encoding
-  ChanBSC(ErrBytes,EncBytes,Peb,ChanErr);                    // BSC simulation
-  DecoderRS(ErrBytes,DecBytes);                        // Reed-Solomon decoding
-  TotDecErr = CheckFinalErr(MsgDecErr,SrcBytes,DecBytes);            // Check the final number of corrupted info bits
-}
-
-
-
-/*** ENCODING-DECODING FUNCTIONS ***/
-
 /**
- *  Function for checking the parameters correcteness.
- **/
-void CheckParam( void ){
-  if ( (m != 4) && (m!=8) ){
-    printf("\n ERROR : Invalid extended Galois field degree (m)\n");
-    exit(1);
-  } else if ( (k <= 0) || (((n-k)%2) != 0) || (n > (DimGF-1)) ) {
-    printf("\n ERROR : Invalid message/codeword length (n,k)\n");
-    exit(1);
-  } else if ( (m == 4) && ((n%2) != 0) ){
-    printf("\n ERROR : when m equals 4, n must be even\n");
-    exit(1);
-  }
-}
-
-
-
-
-/**
- *  Function for performing Reed-Solomon decoding in systematic form at byte level. Redundancy
- *  bytes are expected at the beginning of codewords.
- *  NB: The decoder can handle multiple input codewords at a time.
- **/
-void DecoderRS( uint8_t *InBytes, uint8_t *OutBytes ){
-  uint8_t IoSymbs[nUnsh] = {0};
-  uint8_t Syndr[2*t], Sigma[t+1], Omega[2*t+1];
-  uint8_t ErrLoc[t], ErrMag[t];
-  uint8_t i, j, CurSymb;
-  bool ErrFlag;
-  if ( (InBytes != NULL) && (OutBytes != NULL) ){
-    for ( i=0; i<Nmsg; i++ ){
-      for ( j=0; j<n; j++ ){
-        if ( m == 4 ){
-          if ( (j%2) == 0 ){
-            CurSymb = (InBytes[(j+i*n)/2]>>4);
-          } else {
-            CurSymb = (InBytes[(j-1+i*n)/2]&0x0F);
-          }
-        } else if ( m == 8 ){
-          CurSymb = InBytes[j+i*n];
-        }
-        IoSymbs[j] = ConvB2S(CurSymb);                  // Bits-to-symbol conversion
-      }
-      ErrFlag = GetSyndrome(IoSymbs,Syndr);                // Estimate the syndrome polynomial
-      if ( ErrFlag == true ){                        // Check if symbol errors have been detected
-        BerlekMasseyAlg(Sigma,Syndr);                  // Estimate the polynomial Sigma(x)
-        ChienAlg(ErrLoc,Sigma);                      // Estimate the error locator polynomial
-        KeyAlg(Omega,Syndr,Sigma);                    // Estimate the polynomial Omega(x)
-        ForneyAlg(ErrMag,Omega,ErrLoc);                  // Estimate the error magnitude polynomial
-        CorrectErr(IoSymbs,ErrLoc,ErrMag);                // Correct the corrupted symbol stream
-            }
-      if ( m == 4 ){
-        for ( j=0; j<k; j++ ){
-          if ( (j%2) == 0 ){
-            OutBytes[(j+i*k)/2] = (ConvS2B(IoSymbs[j+2*t])<<4);
-          } else {
-            OutBytes[(j-1+i*k)/2] |= ConvS2B(IoSymbs[j+2*t]);
-          }
-        }
-      } else if ( m == 8 ){
-        for ( j=0; j<k; j++ ){
-          OutBytes[j+i*k] = ConvS2B(IoSymbs[j+2*t]);          // Symbol-to-bits conversion
-        }
-      }
-    }
-  }
-}
-
-
-/**
- *  Function for estimating the syndrome symbols vector of the input codeword
- *  (the 0-degree coefficient is omitted, since always 0).
- **/ 
-bool GetSyndrome( uint8_t *CwSymbs, uint8_t *Syndr ){
+ * @brief <i> Function for estimating the syndrome symbols vector of the input codeword
+ *        (the 0-degree coefficient is omitted, since always 0). </i>
+ * 
+ * @param[in] cwSymbs input stream
+ * @param[out] syndrome output stream
+ * @param[in] pParams pointer to reed-solomon parameters structure
+ * @param[in] mapTable mapping table
+ * 
+ * @return flag notifying if a corrupted symbol has been detected
+ */
+static bool GetSyndrome( const uint8_t * cwSymbs, uint8_t * syndrome, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
+{
   uint16_t i;
   int16_t j;
-  uint8_t SumValue;
-  bool ErrFlag = false;
-  if ( (CwSymbs != NULL) && (Syndr != NULL) ){
-    for ( i=0; i<2*t; i++ ){                                       // Compute syndrome polynomial Syndr(x) as Cw(x) for x = a, a^2, ..., a^2t
-      SumValue = CwSymbs[0];
-      for ( j=1; j<nUnsh; j++ ){
-        SumValue = AddGF(SumValue,MultGF(CwSymbs[j],PowGF(i+2,j)));
+  uint8_t sum;
+  bool errFlag = false;
+
+  if ((NULL != cwSymbs) && (NULL != syndrome) && (NULL != pParams))
+  {
+    for (i=0; i<2*pParams->t; i++)                                            /** - compute syndrome polynomial Syndr(x) as Cw(x) for x = a, a^2, ..., a^2t */
+    {
+      sum = cwSymbs[0];
+
+      for (j=1; j<pParams->nUn; j++)
+      {
+        sum = AddGF(sum,MultiplyGF(cwSymbs[j],PowerGF(i+2,j,pParams),pParams),mapTable);
       }
-      Syndr[i] = SumValue;
-      if ( SumValue != 0 ){
-        ErrFlag = true;                          // Assert error flag if one coefficient is not equal to 0
+
+      syndrome[i] = sum;
+
+      if (sum != 0)
+      {
+        errFlag = true;                                                       /** - assert error flag if one coefficient is not equal to 0 */
       }
     }
   }
-  return ErrFlag;
+
+  return errFlag;
 }
 
-    
+
 /**
- *  Function for executing the Berlekamp-Massey algorithm to iteratively estimate the
- *  error locator polynomial Sigma(x).
- **/ 
-void BerlekMasseyAlg( uint8_t *SigmaC, uint8_t *Syndr ){
+ * @brief <i> Function for iteratively estimating Sigma(x) polynomial
+ *        via Berlekamp-Massey algorithm. </i>
+ * 
+ * @param[out] sigma sigma polynomial
+ * @param[in] syndrome syndrome polynomial
+ * @param[in] pParams pointer to reed-solomon parameters structure
+ * @param[in] mapTable mapping table
+ * 
+ * @return error ID
+ */
+static error_t BerlekampMasseyAlgorithm( uint8_t * sigma, const uint8_t * syndrome, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
+{
+  error_t retErr = ERR_NONE;
+  int16_t curErr = 0;                                                         /** - number of assumed errors at current iteration (Ec) */
+  int16_t nextErr;                                                            /** - number of assumed errors at next iteration (En) */
+  int16_t delta;
+  int16_t h = -1;                                                             /** - error iteration counter */
+  uint8_t tmpSigma[pParams->t+1];                                             /** - temporary sigma polynomial (at next iteration) */
+  uint8_t tau[pParams->t+1];                                                  /** - Tau(x) polynomial */
   uint8_t i, j;
-  int16_t Delta, En;
-  int16_t Ec = 0;                                // Current number of assumed errors
-  int16_t h = -1;                                // Error iteration counter
-  uint8_t SigmaN[t+1];                            // Sigma(x) polynomial at next iteration
-  uint8_t Tau[t+1] = {0};                            // Tau(x) polynomial
-  if ( (SigmaC != NULL) && (Syndr != NULL) ){
-    Tau[1] = 1;
-    memset(SigmaC,0,t+1);
-    SigmaC[0] = 1;
-    for ( i=0; i<2*t; i++ ){
-      if ( Ec <= t ){
-        Delta = GetDiscrepancy(Syndr,SigmaC,Ec,i);            // Compute discrepancy
-        if ( Delta != 0 ){
-          for ( j=0; j<t+1; j++ ){
-            SigmaN[j] = AddGF(SigmaC[j],MultGF(Delta,Tau[j]));      // Compute next value of polynomial Sigma(x)
+
+  if ((NULL != sigma) && (NULL != syndrome) && (NULL != pParams) && (NULL != mapTable))
+  {
+    memset(tau,0,pParams->t+1);
+    memset(sigma,0,pParams->t+1);
+    tau[1] = 1;
+    sigma[0] = 1;
+
+    for (i=0; i<2*pParams->t; i++)
+    {
+      if (curErr <= pParams->t)
+      {
+        delta = GetDiscrepancy(syndrome,sigma,curErr,i,pParams,mapTable);
+
+        if (delta != 0)
+        {
+          for (j=0; j<pParams->t+1; j++)
+          {
+            tmpSigma[j] = AddGF(sigma[j],MultiplyGF(delta,tau[j],pParams),mapTable);
           }
-          if ( Ec < (i-h) ){
-            En = i-h;                        // Compute next value of E
-            h = i-Ec;
-            for ( j=0; j<t+1; j++ ){
-              Tau[j] = MultGF(PowGF(2,-Delta+1),SigmaC[j]);    // Update polynomial Tau(x)
+
+          if (curErr < (i-h))
+          {
+            nextErr = i-h;
+            h = i-curErr;
+            
+            for (j=0; j<pParams->t+1; j++)
+            {
+              tau[j] = MultiplyGF(PowerGF(2,-delta+1,pParams),sigma[j],pParams);
             }
-            Ec = En;
+
+            curErr = nextErr;
           }
-          memcpy(SigmaC,SigmaN,t+1);                  // Update polynomial Sigma(x) to latest value
+
+          memcpy(sigma,tmpSigma,pParams->t+1);
         }
-        memcpy(&Tau[1],Tau,t);
-        Tau[0] = 0;
+
+        memcpy(&tau[1],tau,pParams->t);
+        tau[0] = 0;
       }
     }
   }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
 }
 
 
 /**
- *  Function for calculating the discrepancy within the Berlekamp-Massey algorithm. 
- **/
-int16_t GetDiscrepancy( uint8_t *Syndr, uint8_t *Sigma, int16_t Nerr, uint8_t Iter ){
+ * @brief <i> Function for calculating discrepancy between syndrome and error locator polynomials. </i>
+ * 
+ * @param[in] syndrome syndrome polynomial
+ * @param[in] sigma sigma polynomial
+ * @param[in] errNum current number of errors
+ * @param[in] iter current iteration index
+ * @param[in] pParams pointer to reed-solomon parameters structure
+ * @param[in] mapTable mapping table
+ * 
+ * @return discrepancy value
+ */
+static int16_t GetDiscrepancy( const uint8_t * syndrome, const uint8_t * sigma, int16_t errNum, uint8_t iter, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
+{
+  
+  int16_t delta = 0;
   uint8_t j;
-    int16_t Delta = 0;
-  if ( (Syndr != NULL) && (Sigma != NULL)){
-    for ( j=0; j<Nerr+1; j++ ){
-      Delta = AddGF(Delta,MultGF(Sigma[j],Syndr[Iter-j]));
+  
+  if ((NULL != syndrome) && (NULL != sigma) && (NULL != pParams) && (NULL != mapTable))
+  {
+    for (j=0; j<errNum+1; j++)
+    {
+      delta = AddGF(delta,MultiplyGF(sigma[j],syndrome[iter-j],pParams),mapTable);
     }
   }
-  return Delta;
+
+  return delta;
 }
 
 
 /**
- *  Function for executing the Chien search algorithm to estimate the error positions
- *  of the corrupted symbols by finding the roots of Sigma(x). 
- **/
-void ChienAlg( uint8_t *ErrLoc, uint8_t *Sigma ){
-  uint8_t i, j, Root;
-  uint8_t Idx = 0;
-  if ( (ErrLoc != NULL) && (Sigma != NULL) ){
-    memset(ErrLoc,0,t);
-    for ( i=0; i<nUnsh; i++ ){
-      Root = Sigma[0];
-      for ( j=1; j<t+1; j++ ){
-                Root = AddGF(Root,MultGF(Sigma[j],PowGF(i+1,j)));
-      }
-      if ( (Root == 0) && (Idx < t) ){
-        ErrLoc[Idx] = PowGF(i+1,-1);
-        Idx++;
-                
-      }
-    }
-  }
-}
-
-
-/**
- *  Function for estimating the error evaluator polynomial Omega(x) by using the Key equation
- *  Omega(x) = mod((1+Syndr(x))*Sigma(x),x^(2t+1)).
- **/
-void KeyAlg( uint8_t *Omega, uint8_t *Syndr, uint8_t *Sigma ){
+ * @brief <i> Function for estimating the error positions of corrupted symbols
+ *        by finding Sigma(x) roots via Chien algorithm. </i>
+ * 
+ * @param[out] errLoc error locator polynomial
+ * @param[in] sigma sigma polynomial
+ * @param[in] pParams pointer to reed-solomon parameters structure
+ * @param[in] mapTable mapping table
+ * 
+ * @return error ID
+ */
+static error_t ChienAlgorithm( uint8_t * errLoc, const uint8_t * sigma, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
+{
+  error_t retErr = ERR_NONE;
+  uint8_t idx = 0;
+  uint8_t root;
   uint8_t i, j;
-  uint8_t TmpOmega[3*t+1] = {0};
-  uint8_t TmpSyndr[2*t+1];
-  if ( (Omega != NULL) && (Syndr != NULL) && (Sigma != NULL) ){
-    TmpSyndr[0] = 1;
-    memcpy(&TmpSyndr[1],Syndr,2*t);                      // TmpSyndr(x) = 1+Syndr(x)
-    for ( i=0; i<t+1; i++ ){
-      for ( j=0; j<2*t+1; j++ ){
-        TmpOmega[i+j] = AddGF(TmpOmega[i+j],MultGF(Sigma[i],TmpSyndr[j]));
+
+  if ((NULL != errLoc) && (NULL != sigma) && (NULL != pParams) && (NULL != mapTable))
+  {
+    memset(errLoc,0,pParams->t);
+
+    for (i=0; i<pParams->nUn; i++)
+    {
+      root = sigma[0];
+
+      for (j=1; j<pParams->t+1; j++)
+      {
+        root = AddGF(root,MultiplyGF(sigma[j],PowerGF(i+1,j,pParams),pParams),mapTable);
+      }
+      if ((0 == root) && (idx < pParams->t))
+      {
+        errLoc[idx] = PowerGF(i+1,-1,pParams);
+        idx++;
       }
     }
-    memcpy(Omega,TmpOmega,2*t+1);
   }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
 }
 
 
 /**
- *  Function for executing the Forney algorithm to estimate the error magnitudes
- *  of the corrupted symbols.
- **/
-void ForneyAlg( uint8_t *ErrMag, uint8_t *Omega, uint8_t *ErrLoc ){
-  uint8_t i, j, Root, Num, Den;
-  if ( (ErrMag != NULL) && (Omega != NULL) && (ErrLoc != NULL) ){
-    memset(ErrMag,0,t);
-    for ( i=0; i<t; i++ ){
-      if ( ErrLoc[i] != 0 ){
-        Root = PowGF(ErrLoc[i],-1);
-        Num = Omega[0];
-        for ( j=1; j<2*t+1; j++ ){
-          Num = AddGF(Num,MultGF(Omega[j],PowGF(Root,j)));
+ * @brief <i> Function for estimating error evaluator polynomial Omega(x) via Key equation
+ *        Omega(x) = mod((1+Syndr(x))*Sigma(x),x^(2t+1)). </i>
+ * 
+ * @param[out] omega omega polynomial
+ * @param[in] syndrome syndrome polynomial
+ * @param[in] sigma sigma polynomial
+ * @param[in] pParams pointer to reed-solomon parameters structure
+ * @param[in] mapTable mapping table
+ * 
+ * @return error ID
+ */
+static error_t KeyAlgorithm( uint8_t * omega, const uint8_t * syndrome, const uint8_t * sigma, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
+{
+  error_t retErr = ERR_NONE;
+  uint8_t tmpOmega[3*pParams->t+1];
+  uint8_t tmpSyndr[2*pParams->t+1];
+  uint8_t i, j;
+  
+  if ((NULL != omega) && (NULL != syndrome) && (NULL != sigma) && (NULL != pParams) && (NULL != mapTable))
+  {
+    memset(tmpOmega,0,sizeof(tmpOmega));
+    tmpSyndr[0] = 1;
+    memcpy(&tmpSyndr[1],syndrome,2*pParams->t);                               // tmpSyndr(x) = 1+syndrome(x)
+
+    for (i=0; i<pParams->t+1; i++)
+    {
+      for (j=0; j<2*pParams->t+1; j++)
+      {
+        tmpOmega[i+j] = AddGF(tmpOmega[i+j],MultiplyGF(sigma[i],tmpSyndr[j],pParams),mapTable);
+      }
+    }
+
+    memcpy(omega,tmpOmega,2*pParams->t+1);
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
+}
+
+
+/**
+ * @brief <i> Function for estimating error magnitude of the corrupted symbols
+ *        via Forney algorithm. </i>
+ * 
+ * @param[out] errMag error magnitude polynomial
+ * @param[in] omega omega polynomial
+ * @param[in] errLoc error locator polynomial
+ * @param[in] pParams pointer to reed-solomon parameters structure
+ * @param[in] mapTable mapping table
+ * 
+ * @return error ID
+ */
+static error_t ForneyAlgorithm( uint8_t * errMag, const uint8_t * omega, const uint8_t * errLoc, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
+{
+  error_t retErr = ERR_NONE;
+  uint8_t root;
+  uint8_t numer, denom;
+  uint8_t i, j;
+
+  if ((NULL != errMag) && (NULL != omega) && (NULL != errLoc) && (NULL != pParams) && (NULL != mapTable))
+  {
+    memset(errMag,0,pParams->t);
+
+    for (i=0; i<pParams->t; i++)
+    {
+      if (errLoc[i] != 0)
+      {
+        root = PowerGF(errLoc[i],-1,pParams);
+        numer = omega[0];
+
+        for (j=1; j<2*pParams->t+1; j++)
+        {
+          numer = AddGF(numer,MultiplyGF(omega[j],PowerGF(root,j,pParams),pParams),mapTable);
         }
-        Den = 1;
-        for ( j=0; j<t; j++ ){
-          if ( i != j ){
-            Den = MultGF(Den,AddGF(1,MultGF(Root,ErrLoc[j])));
+
+        denom = 1;
+
+        for (j=0; j<pParams->t; j++)
+        {
+          if (i != j)
+          {
+            denom = MultiplyGF(denom,AddGF(1,MultiplyGF(root,errLoc[j],pParams),mapTable),pParams);
           }
         }
-        ErrMag[i] = MultGF(Num,PowGF(2,-Den+1));
+
+        errMag[i] = MultiplyGF(numer,PowerGF(2,-denom+1,pParams),pParams);
       }
     }
   }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
 }
 
 
 /**
- *  Function for correcting the corrupted symbols with the estimated error
- *  locations and magnitudes.
- **/
-void CorrectErr( uint8_t *IoSymbs, uint8_t *ErrLoc, uint8_t *ErrMag ){
+ * @brief <i> Function for correcting corrupted symbols through the estimated
+ *        error locations and magnitudes. </i>
+ * 
+ * @param[in, out] ioSymbs GF-mapped symbols
+ * @param[in] errLoc error locator polynomial
+ * @param[in] errMag error magnitude polynomial
+ * @param[in] pParams pointer to reed-solomon parameters structure
+ * @param[in] mapTable mapping table
+ * 
+ * @return error ID
+ */
+static error_t ErrorCorrector( uint8_t * ioSymbs, const uint8_t * errLoc, const uint8_t * errMag, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM])
+{
+  error_t retErr = ERR_NONE;
   uint8_t j;
-  if ( (IoSymbs != NULL) && (ErrLoc != NULL) && (ErrMag != NULL) ){
-    for ( j=0; j<t; j++ ){
-      if ( ErrLoc[j] != 0 ){
-        IoSymbs[ErrLoc[j]-1] = AddGF(IoSymbs[ErrLoc[j]-1],ErrMag[j]);
+
+  if ((NULL != ioSymbs) && (NULL != errLoc) && (NULL != errMag) && (NULL != pParams) && (NULL != mapTable))
+  {
+    for (j=0; j<pParams->t; j++)
+    {
+      if (errLoc[j] != 0)
+      {
+        ioSymbs[errLoc[j]-1] = AddGF(ioSymbs[errLoc[j]-1],errMag[j],mapTable);
       }
     }
   }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
+
+  return Error_HandleErr(retErr);
 }
-#endif
