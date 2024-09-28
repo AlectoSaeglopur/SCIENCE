@@ -49,7 +49,7 @@ Letext0:
 	.file 5 "src/error.h"
 	.section	.debug_info,"dr"
 Ldebug_info0:
-	.long	0x532
+	.long	0x55f
 	.word	0x4
 	.secrel32	Ldebug_abbrev0
 	.byte	0x4
@@ -290,7 +290,7 @@ Ldebug_info0:
 	.long	0x6f
 	.byte	0x5
 	.byte	0x1b
-	.long	0x4b3
+	.long	0x4e0
 	.uleb128 0xd
 	.ascii "ERR_NONE\0"
 	.byte	0
@@ -346,20 +346,26 @@ Ldebug_info0:
 	.ascii "ERR_INV_WATERMARK_LEV\0"
 	.byte	0x11
 	.uleb128 0xd
-	.ascii "ERR_NUM\0"
+	.ascii "ERR_INV_INTERLEAVING_TYPE\0"
 	.byte	0x12
+	.uleb128 0xd
+	.ascii "ERR_INV_STREAM\0"
+	.byte	0x13
+	.uleb128 0xd
+	.ascii "ERR_NUM\0"
+	.byte	0x14
 	.byte	0
 	.uleb128 0x6
 	.ascii "error_t\0"
 	.byte	0x5
-	.byte	0x30
+	.byte	0x32
 	.long	0x30d
 	.uleb128 0xc
 	.byte	0x4
 	.long	0x6f
 	.byte	0x5
-	.byte	0x34
-	.long	0x503
+	.byte	0x36
+	.long	0x530
 	.uleb128 0xd
 	.ascii "ALARM_NONE\0"
 	.byte	0
@@ -377,7 +383,7 @@ Ldebug_info0:
 	.ascii "Error_HandleErr\0"
 	.byte	0x1
 	.byte	0x21
-	.long	0x4b3
+	.long	0x4e0
 	.long	LFB18
 	.long	LFE18-LFB18
 	.uleb128 0x1
@@ -386,7 +392,7 @@ Ldebug_info0:
 	.ascii "inErr\0"
 	.byte	0x1
 	.byte	0x21
-	.long	0x4b3
+	.long	0x4e0
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0

@@ -1585,6 +1585,8 @@ typedef enum
   ERR_INV_RS_GF_DEGREE = 15,
   ERR_INV_RS_MSG_CW_LEN = 16,
   ERR_INV_WATERMARK_LEV = 17,
+  ERR_INV_INTERLEAVING_TYPE = 18,
+  ERR_INV_STREAM = 19,
 
   ERR_NUM
 } error_t;
@@ -1598,7 +1600,7 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 74 "src\\error.h"
+# 76 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 19 "src\\scrambling.h" 2
 # 1 "src\\memory.h" 1
@@ -1642,6 +1644,11 @@ typedef struct _complex_stream_t
 
 error_t Memory_AllocateStream( void * ioStream, uint32_t len, memory_type_t type );
 error_t Memory_FreeStream( void * ioStream, memory_type_t type );
+
+# 67 "src\\memory.h" 3 4
+_Bool 
+# 67 "src\\memory.h"
+    Memory_IsStreamValid( const void * inStream, memory_type_t type );
 # 20 "src\\scrambling.h" 2
 # 28 "src\\scrambling.h"
 typedef enum

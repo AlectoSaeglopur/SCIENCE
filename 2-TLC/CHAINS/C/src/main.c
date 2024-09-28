@@ -7,13 +7,13 @@
  * @brief Main file
  * 
  * File for running DVB-S simulation containing:
- * -# random info bytes generation;
- * -# scrambling;
- * -# reed-solomon coding;
- * -# interleaving;
- * -# convolutional coding;
- * -# phase modulation (mapper + srrc filtering);
- * -# channel corruption.
+ * -# random info bytes generation
+ * -# scrambling
+ * -# reed-solomon coding
+ * -# interleaving
+ * -# convolutional coding
+ * -# phase modulation (mapper + srrc filtering)
+ * -# channel corruption
  * 
  * @addtogroup TLC_CHAIN
  * 
@@ -199,9 +199,11 @@ int main( void )
 // need to recompile if any change has been made on source files before startin debug!
 // keep optimization disabled while debugging!
 
-
-
+// add RS and interleaving parameters in debug print!!!! 
+// add doxygen detailed description for more complex functions! (instead of simply @brief)
+// usa "Memory_IsStreamValid" in giro
 // solve compilation warning related to watermarks
+// add references for libraries
 // add watermarks everywhere (?)
 // generate .elf file and find out how this may come in handy!
 // try to add watermark mechanism to know which function caused an error! >> or try to debug using GDB

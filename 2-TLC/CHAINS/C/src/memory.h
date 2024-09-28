@@ -64,6 +64,7 @@ typedef struct _complex_stream_t
 
 error_t Memory_AllocateStream( void * ioStream, ulen_t len, memory_type_t type );
 error_t Memory_FreeStream( void * ioStream, memory_type_t type );
+bool Memory_IsStreamValid( const void * inStream, memory_type_t type );
 
 
 #endif

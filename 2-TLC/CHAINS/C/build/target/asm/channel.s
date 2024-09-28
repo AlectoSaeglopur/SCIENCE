@@ -643,7 +643,7 @@ Letext0:
 	.file 9 "src/channel.h"
 	.section	.debug_info,"dr"
 Ldebug_info0:
-	.long	0x92c
+	.long	0x959
 	.word	0x4
 	.secrel32	Ldebug_abbrev0
 	.byte	0x4
@@ -920,7 +920,7 @@ Ldebug_info0:
 	.long	0x71
 	.byte	0x7
 	.byte	0x1b
-	.long	0x514
+	.long	0x541
 	.uleb128 0xe
 	.ascii "ERR_NONE\0"
 	.byte	0
@@ -976,20 +976,26 @@ Ldebug_info0:
 	.ascii "ERR_INV_WATERMARK_LEV\0"
 	.byte	0x11
 	.uleb128 0xe
-	.ascii "ERR_NUM\0"
+	.ascii "ERR_INV_INTERLEAVING_TYPE\0"
 	.byte	0x12
+	.uleb128 0xe
+	.ascii "ERR_INV_STREAM\0"
+	.byte	0x13
+	.uleb128 0xe
+	.ascii "ERR_NUM\0"
+	.byte	0x14
 	.byte	0
 	.uleb128 0x6
 	.ascii "error_t\0"
 	.byte	0x7
-	.byte	0x30
+	.byte	0x32
 	.long	0x36e
 	.uleb128 0xd
 	.byte	0x4
 	.long	0x71
 	.byte	0x8
 	.byte	0x1d
-	.long	0x56d
+	.long	0x59a
 	.uleb128 0xe
 	.ascii "memory_type_byte\0"
 	.byte	0
@@ -1004,18 +1010,18 @@ Ldebug_info0:
 	.ascii "memory_type_t\0"
 	.byte	0x8
 	.byte	0x21
-	.long	0x523
+	.long	0x550
 	.uleb128 0x3
 	.ascii "_byte_stream_t\0"
 	.byte	0xc
 	.byte	0x8
 	.byte	0x24
-	.long	0x5be
+	.long	0x5eb
 	.uleb128 0x4
 	.ascii "pBuf\0"
 	.byte	0x8
 	.byte	0x26
-	.long	0x5be
+	.long	0x5eb
 	.byte	0
 	.uleb128 0x4
 	.ascii "len\0"
@@ -1027,7 +1033,7 @@ Ldebug_info0:
 	.ascii "id\0"
 	.byte	0x8
 	.byte	0x28
-	.long	0x56d
+	.long	0x59a
 	.byte	0x8
 	.byte	0
 	.uleb128 0x5
@@ -1037,20 +1043,20 @@ Ldebug_info0:
 	.ascii "byte_stream_t\0"
 	.byte	0x8
 	.byte	0x29
-	.long	0x582
+	.long	0x5af
 	.uleb128 0xc
-	.long	0x5c4
+	.long	0x5f1
 	.uleb128 0x3
 	.ascii "_complex_stream_t\0"
 	.byte	0xc
 	.byte	0x8
 	.byte	0x34
-	.long	0x61d
+	.long	0x64a
 	.uleb128 0x4
 	.ascii "pBuf\0"
 	.byte	0x8
 	.byte	0x36
-	.long	0x61d
+	.long	0x64a
 	.byte	0
 	.uleb128 0x4
 	.ascii "len\0"
@@ -1062,7 +1068,7 @@ Ldebug_info0:
 	.ascii "id\0"
 	.byte	0x8
 	.byte	0x38
-	.long	0x56d
+	.long	0x59a
 	.byte	0x8
 	.byte	0
 	.uleb128 0x5
@@ -1072,15 +1078,15 @@ Ldebug_info0:
 	.ascii "complex_stream_t\0"
 	.byte	0x8
 	.byte	0x39
-	.long	0x5de
+	.long	0x60b
 	.uleb128 0xc
-	.long	0x623
+	.long	0x650
 	.uleb128 0xd
 	.byte	0x4
 	.long	0x71
 	.byte	0x9
 	.byte	0x1e
-	.long	0x66f
+	.long	0x69c
 	.uleb128 0xe
 	.ascii "CHAN_BSC\0"
 	.byte	0
@@ -1095,12 +1101,12 @@ Ldebug_info0:
 	.ascii "chan_type_t\0"
 	.byte	0x9
 	.byte	0x23
-	.long	0x640
+	.long	0x66d
 	.uleb128 0xf
 	.byte	0x4
 	.byte	0x9
 	.byte	0x2b
-	.long	0x6a2
+	.long	0x6cf
 	.uleb128 0x10
 	.ascii "Peb\0"
 	.byte	0x9
@@ -1117,7 +1123,7 @@ Ldebug_info0:
 	.byte	0x10
 	.byte	0x9
 	.byte	0x26
-	.long	0x6e3
+	.long	0x710
 	.uleb128 0x4
 	.ascii "seed\0"
 	.byte	0x9
@@ -1128,7 +1134,7 @@ Ldebug_info0:
 	.ascii "type\0"
 	.byte	0x9
 	.byte	0x29
-	.long	0x66f
+	.long	0x69c
 	.byte	0x4
 	.uleb128 0x4
 	.ascii "bps\0"
@@ -1137,16 +1143,16 @@ Ldebug_info0:
 	.long	0x182
 	.byte	0x8
 	.uleb128 0x11
-	.long	0x682
+	.long	0x6af
 	.byte	0xc
 	.byte	0
 	.uleb128 0x6
 	.ascii "chan_par_t\0"
 	.byte	0x9
 	.byte	0x30
-	.long	0x6a2
+	.long	0x6cf
 	.uleb128 0xc
-	.long	0x6e3
+	.long	0x710
 	.uleb128 0x12
 	.ascii "GetComplexSgnPower\0"
 	.byte	0x1
@@ -1156,12 +1162,12 @@ Ldebug_info0:
 	.long	LFE21-LFB21
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x74e
+	.long	0x77b
 	.uleb128 0x13
 	.secrel32	LASF0
 	.byte	0x1
 	.byte	0xd5
-	.long	0x74e
+	.long	0x77b
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
@@ -1184,22 +1190,22 @@ Ldebug_info0:
 	.byte	0
 	.uleb128 0x5
 	.byte	0x4
-	.long	0x63b
+	.long	0x668
 	.uleb128 0x15
 	.ascii "Channel_AWGN\0"
 	.byte	0x1
 	.byte	0x8f
-	.long	0x514
+	.long	0x541
 	.long	LFB20
 	.long	LFE20-LFB20
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x836
+	.long	0x863
 	.uleb128 0x13
 	.secrel32	LASF0
 	.byte	0x1
 	.byte	0x8f
-	.long	0x74e
+	.long	0x77b
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
@@ -1207,7 +1213,7 @@ Ldebug_info0:
 	.secrel32	LASF1
 	.byte	0x1
 	.byte	0x8f
-	.long	0x836
+	.long	0x863
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 4
@@ -1215,7 +1221,7 @@ Ldebug_info0:
 	.ascii "pParams\0"
 	.byte	0x1
 	.byte	0x8f
-	.long	0x83c
+	.long	0x869
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 8
@@ -1223,7 +1229,7 @@ Ldebug_info0:
 	.secrel32	LASF2
 	.byte	0x1
 	.byte	0x91
-	.long	0x514
+	.long	0x541
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
@@ -1302,25 +1308,25 @@ Ldebug_info0:
 	.byte	0
 	.uleb128 0x5
 	.byte	0x4
-	.long	0x623
+	.long	0x650
 	.uleb128 0x5
 	.byte	0x4
-	.long	0x6f5
+	.long	0x722
 	.uleb128 0x15
 	.ascii "Channel_BSC\0"
 	.byte	0x1
 	.byte	0x4c
-	.long	0x514
+	.long	0x541
 	.long	LFB19
 	.long	LFE19-LFB19
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x8cf
+	.long	0x8fc
 	.uleb128 0x13
 	.secrel32	LASF0
 	.byte	0x1
 	.byte	0x4c
-	.long	0x8cf
+	.long	0x8fc
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
@@ -1328,7 +1334,7 @@ Ldebug_info0:
 	.secrel32	LASF1
 	.byte	0x1
 	.byte	0x4c
-	.long	0x8d5
+	.long	0x902
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 4
@@ -1336,7 +1342,7 @@ Ldebug_info0:
 	.ascii "pParams\0"
 	.byte	0x1
 	.byte	0x4c
-	.long	0x83c
+	.long	0x869
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 8
@@ -1344,7 +1350,7 @@ Ldebug_info0:
 	.secrel32	LASF2
 	.byte	0x1
 	.byte	0x4e
-	.long	0x514
+	.long	0x541
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
@@ -1375,25 +1381,25 @@ Ldebug_info0:
 	.byte	0
 	.uleb128 0x5
 	.byte	0x4
-	.long	0x5d9
+	.long	0x606
 	.uleb128 0x5
 	.byte	0x4
-	.long	0x5c4
+	.long	0x5f1
 	.uleb128 0x15
 	.ascii "Channel_ListParameters\0"
 	.byte	0x1
 	.byte	0x27
-	.long	0x514
+	.long	0x541
 	.long	LFB18
 	.long	LFE18-LFB18
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x929
+	.long	0x956
 	.uleb128 0x16
 	.ascii "ioParams\0"
 	.byte	0x1
 	.byte	0x27
-	.long	0x929
+	.long	0x956
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
@@ -1401,14 +1407,14 @@ Ldebug_info0:
 	.secrel32	LASF2
 	.byte	0x1
 	.byte	0x29
-	.long	0x514
+	.long	0x541
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
 	.byte	0
 	.uleb128 0x5
 	.byte	0x4
-	.long	0x6e3
+	.long	0x710
 	.byte	0
 	.section	.debug_abbrev,"dr"
 Ldebug_abbrev0:

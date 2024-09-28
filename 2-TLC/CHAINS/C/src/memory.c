@@ -27,6 +27,9 @@ static error_t AllocateComplexStream( complex_stream_t * ioStream, ulen_t len );
 static error_t FreeByteStream( byte_stream_t * ioStream );
 static error_t FreeFloatStream( float_stream_t * ioStream );
 static error_t FreeComplexStream( complex_stream_t * ioStream );
+static bool IsByteStreamValid( const byte_stream_t * inStream );
+static bool IsFloatStreamValid( const float_stream_t * inStream );
+static bool IsComplexStreamValid( const complex_stream_t * inStream );
 
 
 
@@ -128,6 +131,47 @@ error_t Memory_FreeStream( void * ioStream, memory_type_t type )
   }
 
   return Error_HandleErr(retErr);
+}
+
+
+/**
+ * @brief <i> Function for verifying if any type of stream is initialized and valid. </i>
+ * 
+ * @param[in] inStream input stream to be checked
+ * @param[in] type stream type ID
+ * 
+ * @return validity outcome
+ */
+bool Memory_IsStreamValid( const void * inStream, memory_type_t type )
+{
+  bool bRet;
+  byte_stream_t * tmpByteStream;
+  float_stream_t * tmpFloatStream;
+  complex_stream_t * tmpComplexStream;
+
+  switch (type)
+  {
+    case memory_type_byte:
+      tmpByteStream = (byte_stream_t *) inStream;
+      bRet = IsByteStreamValid(tmpByteStream);
+      break;
+
+    case memory_type_float:
+      tmpFloatStream = (float_stream_t *) inStream;
+      bRet = IsFloatStreamValid(tmpFloatStream);
+      break;
+
+    case memory_type_complex:
+      tmpComplexStream = (complex_stream_t *) inStream;
+      bRet = IsComplexStreamValid(tmpComplexStream);
+      break;
+
+    default:
+      bRet = false;
+      break;
+  }
+
+  return bRet;
 }
 
 
@@ -310,4 +354,73 @@ static error_t FreeComplexStream( complex_stream_t * ioStream )
   }
 
   return Error_HandleErr(retErr);
+}
+
+
+/**
+ * @brief <i> Function for verifying if a byte-stream is initialized and valid. </i>
+ * 
+ * @param[in] inStream input stream to be checked
+ * @param[in] type stream type ID
+ * 
+ * @return validity outcome
+ */
+static bool IsByteStreamValid( const byte_stream_t * inStream )
+{
+  bool bRet = false;
+
+  if ((NULL != inStream) &&
+      (NULL != inStream->pBuf) &&
+      (inStream->len != 0))
+  {
+    bRet = true;
+  }
+
+  return bRet;
+}
+
+
+/**
+ * @brief <i> Function for verifying if a float-stream is initialized and valid. </i>
+ * 
+ * @param[in] inStream input stream to be checked
+ * @param[in] type stream type ID
+ * 
+ * @return validity outcome
+ */
+static bool IsFloatStreamValid( const float_stream_t * inStream )
+{
+  bool bRet = false;
+
+  if ((NULL != inStream) &&
+      (NULL != inStream->pBuf) &&
+      (inStream->len != 0))
+  {
+    bRet = true;
+  }
+
+  return bRet;
+}
+
+
+/**
+ * @brief <i> Function for verifying if a complex-stream is initialized and valid. </i>
+ * 
+ * @param[in] inStream input stream to be checked
+ * @param[in] type stream type ID
+ * 
+ * @return validity outcome
+ */
+static bool IsComplexStreamValid( const complex_stream_t * inStream )
+{
+  bool bRet = false;
+
+  if ((NULL != inStream) &&
+      (NULL != inStream->pBuf) &&
+      (inStream->len != 0))
+  {
+    bRet = true;
+  }
+
+  return bRet;
 }
