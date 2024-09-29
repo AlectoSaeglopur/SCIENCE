@@ -1,11 +1,11 @@
-# 1 "src\\main.c"
+# 1 "src\\interleaving.c"
 # 1 "H:\\SCIENCE\\2-TLC\\CHAINS\\C//"
 # 1 "<built-in>"
 # 1 "<command-line>"
-# 1 "src\\main.c"
-# 28 "src\\main.c"
-# 1 "src\\channel.h" 1
-# 18 "src\\channel.h"
+# 1 "src\\interleaving.c"
+# 16 "src\\interleaving.c"
+# 1 "src\\interleaving.h" 1
+# 18 "src\\interleaving.h"
 # 1 "src\\error.h" 1
 # 18 "src\\error.h"
 # 1 "src\\system.h" 1
@@ -1602,7 +1602,7 @@ typedef enum
 } alarm_t;
 # 76 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
-# 19 "src\\channel.h" 2
+# 19 "src\\interleaving.h" 2
 # 1 "src\\memory.h" 1
 # 28 "src\\memory.h"
 typedef enum
@@ -1649,188 +1649,7 @@ error_t Memory_FreeStream( void * ioStream, memory_type_t type );
 _Bool 
 # 67 "src\\memory.h"
     Memory_IsStreamValid( const void * inStream, memory_type_t type );
-# 20 "src\\channel.h" 2
-# 1 "src\\modulation.h" 1
-# 28 "src\\modulation.h"
-typedef enum
-{
-  MOD_PSK = 0,
-  MOD_QAM,
-
-  MOD_NUM
-} mod_type_t;
-# 73 "src\\modulation.h"
-typedef struct _mod_par_t
-{
-  mod_type_t type;
-  uint8_t order;
-  uint8_t bps;
-  float phOfst;
-} mod_par_t;
-
-
-typedef struct _mod_maptable_t
-{
-  uint8_t bits[(0x01<<2u)];
-  complex_t symbs[(0x01<<2u)];
-} mod_maptable_t;
-
-
-
-
-
-
-
-error_t Modulation_ListParameters( mod_par_t * ioParams );
-error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * outStream, const mod_par_t * pParams );
-error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_t * outStream, const mod_par_t * pParams );
-error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream_t * outStream, const mod_par_t * pParams );
-# 21 "src\\channel.h" 2
-# 29 "src\\channel.h"
-typedef enum
-{
-  CHAN_BSC = 0,
-  CHAN_AWGN,
-
-  CHAN_NUM
-} chan_type_t;
-
-
-typedef struct _chan_par_t
-{
-  uint32_t seed;
-  chan_type_t type;
-  uint8_t bps;
-  union
-  {
-    float Peb;
-    float EbN0;
-  };
-} chan_par_t;
-# 75 "src\\channel.h"
-error_t Channel_ListParameters( chan_par_t * ioParams );
-error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, const chan_par_t * pParams );
-error_t Channel_AWGN( const complex_stream_t * inStream, complex_stream_t * outStream, const chan_par_t * pParams );
-# 29 "src\\main.c" 2
-# 1 "src\\convolutional.h" 1
-# 60 "src\\convolutional.h"
-typedef enum
-{
-  CC_RATE_12 = 1, CC_RATE_23 = 2, CC_RATE_34 = 3, CC_RATE_56 = 5, CC_RATE_78 = 7
-} cc_rate_t;
-
-
-typedef enum
-{
-  CC_RATE_IDX_12, CC_RATE_IDX_23, CC_RATE_IDX_34, CC_RATE_IDX_56, CC_RATE_IDX_78,
-  CC_RATE_NUM
-} cc_rate_idx_t;
-# 79 "src\\convolutional.h"
-typedef enum
-{
-  CC_KLEN_3 = 3,
-  CC_KLEN_4 = 4,
-  CC_KLEN_5 = 5,
-  CC_KLEN_6 = 6,
-  CC_KLEN_7 = 7,
-  CC_KLEN_8 = 8,
-  CC_KLEN_MIN = CC_KLEN_3,
-  CC_KLEN_MAX = CC_KLEN_8
-} cc_klen_t;
-
-
-
-typedef enum
-{
-  CC_VITDM_HARD = 0,
-  CC_VITDM_SOFT,
-
-  CC_VITDM_NUM
-} cc_dec_method_t;
-
-
-typedef struct _cc_par_t
-{
-  cc_rate_t cRate;
-  cc_klen_t kLen;
-  uint16_t memFact;
-  cc_dec_method_t vitDM;
-} cc_par_t;
-
-
-typedef struct _cc_encoder_info_t
-{
-  const uint8_t * pConnVect;
-  uint8_t lenConnVect;
-  const uint8_t * pPuncVect;
-  uint8_t lenPuncVect;
-} cc_encoder_info_t;
-
-
-typedef struct _cc_trcore_t
-{
-  uint8_t outBits[2u];
-  uint8_t nextSt[2u];
-} cc_trcore_t;
-
-
-typedef struct _cc_trellis_t
-{
-  cc_trcore_t trSt[(1<<(CC_KLEN_7-1))];
-} cc_trellis_t;
-
-
-typedef struct _cc_hard_dec_info_t
-{
-  uint32_t iter[(1<<(CC_KLEN_7-1))];
-  uint32_t dist[(1<<(CC_KLEN_7-1))];
-  uint8_t path[(1<<(CC_KLEN_7-1))][((1<<(CC_KLEN_7-1))*10u)];
-} cc_hard_dec_info_t;
-
-
-
-typedef struct _cc_soft_dec_info_t
-{
-  uint32_t iter[(1<<(CC_KLEN_7-1))];
-  float dist[(1<<(CC_KLEN_7-1))];
-  uint8_t path[(1<<(CC_KLEN_7-1))][((1<<(CC_KLEN_7-1))*10u)];
-} cc_soft_dec_info_t;
-
-
-
-
-
-
-
-error_t CnvCod_ListParameters( cc_par_t * ioParams );
-error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
-error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
-error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
-# 30 "src\\main.c" 2
-# 1 "src\\crc.h" 1
-# 28 "src\\crc.h"
-typedef enum
-{
-  CRC_DEGREE_8 = 8,
-  CRC_DEGREE_16 = 16,
-  CRC_DEGREE_24 = 24,
-  CRC_DEGREE_32 = 32,
-  CRC_DEGREE_64 = 64
-} crc_degree_t;
-
-typedef struct _crc_par_t
-{
-  crc_degree_t degree;
-  const uint8_t * pGenPoly;
-  uint8_t lenGenPoly;
-} crc_par_t;
-# 58 "src\\crc.h"
-error_t Crc_ListParameters( crc_par_t * ioParams );
-error_t Crc_CalculateChecksum( const byte_stream_t * inStream, byte_stream_t * outStream, const crc_par_t * pParams );
-# 31 "src\\main.c" 2
-# 1 "src\\debug.h" 1
-# 21 "src\\debug.h"
-# 1 "src\\interleaving.h" 1
+# 20 "src\\interleaving.h" 2
 # 28 "src\\interleaving.h"
 typedef enum
 {
@@ -1859,254 +1678,240 @@ typedef struct _itlv_par_t
 error_t Intrlv_ListParameters( itlv_par_t * ioParams );
 error_t Intrlv_Interleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
 error_t Intrlv_Deinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
-# 22 "src\\debug.h" 2
+# 17 "src\\interleaving.c" 2
 
 
-# 1 "src\\reed_solomon.h" 1
-# 28 "src\\reed_solomon.h"
-typedef enum
+
+
+
+
+
+static error_t BlockInterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * ioParams );
+static error_t BlockDeinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
+# 40 "src\\interleaving.c"
+error_t Intrlv_ListParameters( itlv_par_t * ioParams )
 {
-  RS_GF_DEGREE_4 = 4,
-  RS_GF_DEGREE_8 = 8
-} rs_gf_degree_t;
-# 50 "src\\reed_solomon.h"
-typedef struct _rs_par_t
-{
-  rs_gf_degree_t m;
-  uint8_t kSh;
-  uint8_t nSh;
-  uint8_t t;
-  uint16_t kUn;
-  uint16_t nUn;
-  uint16_t dimGF;
-} rs_par_t;
+  error_t retErr = ERR_NONE;
 
-
-
-
-
-
-
-error_t RsCod_ListParameters( rs_par_t * ioParams );
-error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams );
-error_t RcCod_Decoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams );
-# 25 "src\\debug.h" 2
-# 1 "src\\scrambling.h" 1
-# 28 "src\\scrambling.h"
-typedef enum
-{
-  SCRAMB_ADT = 0,
-  SCRAMB_MLT,
-
-  SCRAMB_NUM
-} scramb_type_t;
-
-
-typedef struct _scr_par_t
-{
-  scramb_type_t type;
-  uint8_t nCells;
-  uint32_t conVect;
-  uint32_t initSt;
-} scr_par_t;
-# 75 "src\\scrambling.h"
-error_t Scramb_ListParameters( scr_par_t * ioParams );
-error_t Scramb_Scrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
-error_t Scramb_Descrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
-# 26 "src\\debug.h" 2
-# 44 "src\\debug.h"
-typedef enum
-{
-  PID_TX_ORG = 0,
-  PID_RX_ORG,
-  PID_TX_CRC,
-  PID_RX_CRC,
-  PID_TX_SCR,
-  PID_RX_SCR,
-  PID_TX_RSCOD,
-  PID_RX_RSCOD,
-  PID_TX_INTLV,
-  PID_RX_INTLV,
-  PID_TX_CNVCOD,
-  PID_RX_CNVCOD,
-  PID_TX_MAP,
-  PID_RX_MAP,
-  PID_RX_LLR,
-
-  PID_NUM
-} print_label_t;
-
-
-typedef struct _debug_par_t
-{
-  scr_par_t scrPar;
-  rs_par_t rsPar;
-  itlv_par_t itlvPar;
-  cc_par_t ccPar;
-  mod_par_t modPar;
-  chan_par_t chanPar;
-} debug_par_t;
-
-
-typedef enum _wm_level_t
-{
-  WM_LEVEL_1 = 0,
-  WM_LEVEL_2,
-
-  WM_LEVEL_NUM
-} wm_level_t;
-# 100 "src\\debug.h"
-error_t Debug_PrintParameters( uint32_t orgLen, const debug_par_t * pParams );
-error_t Debug_ListParameters( debug_par_t * ioParams, const scr_par_t * scrParam, const rs_par_t * rsParam, const itlv_par_t * itlvParam, const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam );
-error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed );
-error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
-error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
-error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
-error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams );
-error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label );
-error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label );
-error_t Debug_SetWatermark( void * funcAddr, wm_level_t level );
-void Debug_PrintWatermarks(void);
-# 32 "src\\main.c" 2
-# 105 "src\\main.c"
-static crc_par_t crcParam; static scr_par_t scrParam; static rs_par_t rsParam; static itlv_par_t itlvParam; static cc_par_t ccParam; static mod_par_t modParam; static chan_par_t chanParam;;
-static debug_par_t dgbParam;
-static clock_t elapsedTime;
-
-
-
-
-
-
-
-int main( void )
-{
-
-  printf("\n >> Starting execution...\n");
-  elapsedTime = clock();
-
-  byte_stream_t txOrgStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
- ((void *)0)
-# 121 "src\\main.c"
- , .len = 0, .id = memory_type_byte}; byte_stream_t rxOrgStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
- ((void *)0)
-# 121 "src\\main.c"
- , .len = 0, .id = memory_type_byte}; byte_stream_t txCrcStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
- ((void *)0)
-# 121 "src\\main.c"
- , .len = 0, .id = memory_type_byte}; byte_stream_t rxCrcStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
- ((void *)0)
-# 121 "src\\main.c"
- , .len = 0, .id = memory_type_byte}; byte_stream_t txScrStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
- ((void *)0)
-# 121 "src\\main.c"
- , .len = 0, .id = memory_type_byte}; byte_stream_t rxScrStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
- ((void *)0)
-# 121 "src\\main.c"
- , .len = 0, .id = memory_type_byte}; byte_stream_t txRsStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
- ((void *)0)
-# 121 "src\\main.c"
- , .len = 0, .id = memory_type_byte}; byte_stream_t rxRsStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
- ((void *)0)
-# 121 "src\\main.c"
- , .len = 0, .id = memory_type_byte}; byte_stream_t txItlvStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
- ((void *)0)
-# 121 "src\\main.c"
- , .len = 0, .id = memory_type_byte}; byte_stream_t rxItlvStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
- ((void *)0)
-# 121 "src\\main.c"
- , .len = 0, .id = memory_type_byte}; byte_stream_t txCcStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
- ((void *)0)
-# 121 "src\\main.c"
- , .len = 0, .id = memory_type_byte}; byte_stream_t rxCcStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
- ((void *)0)
-# 121 "src\\main.c"
- , .len = 0, .id = memory_type_byte}; complex_stream_t txModStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
- ((void *)0)
-# 121 "src\\main.c"
- , .len = 0, .id = memory_type_complex}; complex_stream_t rxModStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
- ((void *)0)
-# 121 "src\\main.c"
- , .len = 0, .id = memory_type_complex}; float_stream_t rxLLRStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
- ((void *)0)
-# 121 "src\\main.c"
- , .len = 0, .id = memory_type_float};;
-  Memory_AllocateStream(&txOrgStream,188u,txOrgStream.id); Memory_AllocateStream(&rxOrgStream,188u,rxOrgStream.id); Memory_AllocateStream(&txCrcStream,((CRC_DEGREE_16)>>3u),txCrcStream.id); Memory_AllocateStream(&rxCrcStream,((CRC_DEGREE_16)>>3u),rxCrcStream.id); Memory_AllocateStream(&txScrStream,188u,txScrStream.id); Memory_AllocateStream(&rxScrStream,188u,rxScrStream.id); Memory_AllocateStream(&txRsStream,(188u*204u/188u),txRsStream.id); Memory_AllocateStream(&rxRsStream,(188u*204u/188u),rxRsStream.id); Memory_AllocateStream(&txItlvStream,(188u*204u/188u),txItlvStream.id); Memory_AllocateStream(&rxItlvStream,(188u*204u/188u),rxItlvStream.id); Memory_AllocateStream(&txCcStream,((2u*(188u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12),txCcStream.id); Memory_AllocateStream(&rxCcStream,((2u*(188u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12),rxCcStream.id); Memory_AllocateStream(&txModStream,(((((2u*(188u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12))<<3u)/2u),txModStream.id); Memory_AllocateStream(&rxModStream,(((((2u*(188u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12))<<3u)/2u),rxModStream.id); Memory_AllocateStream(&rxLLRStream,((((2u*(188u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12))<<3u),rxLLRStream.id);;
-  Crc_ListParameters(&crcParam); Scramb_ListParameters(&scrParam); RsCod_ListParameters(&rsParam); Intrlv_ListParameters(&itlvParam); CnvCod_ListParameters(&ccParam); Modulation_ListParameters(&modParam); Channel_ListParameters(&chanParam);;
-  Debug_ListParameters(&dgbParam,&scrParam,&rsParam,&itlvParam,
-    &ccParam,&modParam,&chanParam);
-  Debug_PrintParameters(188u,&dgbParam);
-
-
-  Debug_GenerateRandomBytes(&txOrgStream,
-# 129 "src\\main.c" 3 4
-                                        ((void *)0)
-# 129 "src\\main.c"
-                                            );
-  Crc_CalculateChecksum(&txOrgStream,&txCrcStream,&crcParam);
-  Scramb_Scrambler(&txOrgStream,&txScrStream,&scrParam);
-  RcCod_Encoder(&txScrStream,&txRsStream,&rsParam);
-  Intrlv_Interleaver(&txRsStream,&txItlvStream,&itlvParam);
-  CnvCod_Encoder(&txItlvStream,&txCcStream,&ccParam);
-  if (CHAN_BSC == chanParam.type)
+  if (
+# 44 "src\\interleaving.c" 3 4
+     ((void *)0) 
+# 44 "src\\interleaving.c"
+          != ioParams)
   {
-    Channel_BSC(&txCcStream,&rxCcStream,&chanParam);
-    CnvCod_HardDecoder(&rxCcStream,&rxItlvStream,&ccParam);
-  }
-  else if (CHAN_AWGN == chanParam.type)
-  {
-    Modulation_Mapper(&txCcStream,&txModStream,&modParam);
-    Channel_AWGN(&txModStream,&rxModStream,&chanParam);
-    if (CC_VITDM_HARD == ccParam.vitDM)
+    ioParams->type = INTRLV_BLOCK;
+
+    if (INTRLV_BLOCK == ioParams->type)
     {
-      Modulation_HardDemapper(&rxModStream,&rxCcStream,&modParam);
-      CnvCod_HardDecoder(&rxCcStream,&rxItlvStream,&ccParam);
+      ioParams->rows = 4u;
+      ioParams->cols = 51u;
     }
-    else if (CC_VITDM_SOFT == ccParam.vitDM)
+    else if (INTRLV_CONV == ioParams->type)
     {
-      Modulation_SoftDemapper(&rxModStream,&rxLLRStream,&modParam);
-      CnvCod_SoftDecoder(&rxLLRStream,&rxItlvStream,&ccParam);
+      ioParams->dlys = 12u;
+      ioParams->cells = 17u;
+    }
+    else
+    {
+      retErr = ERR_INV_INTERLEAVING_TYPE;
     }
   }
-  Intrlv_Deinterleaver(&rxItlvStream,&rxRsStream,&itlvParam);
-  RcCod_Decoder(&rxRsStream,&rxScrStream,&rsParam);
-  Scramb_Descrambler(&rxScrStream,&rxOrgStream,&scrParam);
-  Crc_CalculateChecksum(&rxOrgStream,&rxCrcStream,&crcParam);
-# 178 "src\\main.c"
-  Debug_CheckWrongBits(&txCcStream,&rxCcStream,PID_RX_CNVCOD,&dgbParam);
-  Debug_CheckWrongBits(&txRsStream,&rxRsStream,PID_RX_RSCOD,&dgbParam);
-  Debug_CheckWrongBits(&txOrgStream,&rxOrgStream,PID_RX_ORG,&dgbParam);
-  Debug_CheckWrongBits(&txCrcStream,&rxCrcStream,PID_RX_CRC,&dgbParam);
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  }
 
+  return Error_HandleErr(retErr);
+}
+# 81 "src\\interleaving.c"
+error_t Intrlv_Interleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
+{
+  error_t retErr = ERR_NONE;
 
+  if (
+# 85 "src\\interleaving.c" 3 4
+     ((void *)0) 
+# 85 "src\\interleaving.c"
+          != pParams)
+  {
+    switch (pParams->type)
+    {
+      case INTRLV_BLOCK:
+        retErr = BlockInterleaver(inStream,outStream,pParams);
+        break;
 
+      case INTRLV_CONV:
 
+        break;
 
+      default:
+        retErr = ERR_INV_SCRAMBLING_TYPE;
+        break;
+    }
+  }
 
+  return Error_HandleErr(retErr);
+}
+# 116 "src\\interleaving.c"
+error_t Intrlv_Deinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
+{
+  error_t retErr = ERR_NONE;
 
-  Memory_FreeStream(&txOrgStream,memory_type_byte); Memory_FreeStream(&rxOrgStream,memory_type_byte); Memory_FreeStream(&txCrcStream,memory_type_byte); Memory_FreeStream(&rxCrcStream,memory_type_byte); Memory_FreeStream(&txScrStream,memory_type_byte); Memory_FreeStream(&rxScrStream,memory_type_byte); Memory_FreeStream(&txRsStream,memory_type_byte); Memory_FreeStream(&rxRsStream,memory_type_byte); Memory_FreeStream(&txItlvStream,memory_type_byte); Memory_FreeStream(&rxItlvStream,memory_type_byte); Memory_FreeStream(&txCcStream,memory_type_byte); Memory_FreeStream(&rxCcStream,memory_type_byte); Memory_FreeStream(&txModStream,memory_type_complex); Memory_FreeStream(&rxModStream,memory_type_complex); Memory_FreeStream(&rxLLRStream,memory_type_float);;
-  elapsedTime = clock()-elapsedTime;
-  printf(" >> Execution completed successfully in %1.3f seconds!\n",
-    ((float)elapsedTime)/
-# 192 "src\\main.c" 3
-                        ((clock_t)(1000))
-# 192 "src\\main.c"
-                                      );
+  if (
+# 120 "src\\interleaving.c" 3 4
+     ((void *)0) 
+# 120 "src\\interleaving.c"
+          != pParams)
+  {
+    switch (pParams->type)
+    {
+      case INTRLV_BLOCK:
+        retErr = BlockDeinterleaver(inStream,outStream,pParams);
+        break;
 
-  return 0;
+      case INTRLV_CONV:
+
+        break;
+
+      default:
+        retErr = ERR_INV_SCRAMBLING_TYPE;
+        break;
+    }
+  }
+
+  return Error_HandleErr(retErr);
+}
+# 160 "src\\interleaving.c"
+static error_t BlockInterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
+{
+  error_t retErr = ERR_NONE;
+  const uint32_t cycNum = (inStream->len-1)/(pParams->rows*pParams->cols)+1;
+  uint32_t cycLen;
+  uint32_t i, j, k;
+  uint8_t curRow;
+
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id))
+  {
+    if (inStream->len == outStream->len)
+    {
+      for (k=0; k<cycNum; k++)
+      {
+        curRow = 0;
+        j = 0;
+
+        if (cycNum-1 == k)
+        {
+          cycLen = inStream->len-k*pParams->rows*pParams->cols;
+        }
+        else
+        {
+          cycLen = pParams->rows*pParams->cols;
+        }
+
+        for (i=0; i<cycLen; i++)
+        {
+          outStream->pBuf[i+k*pParams->rows*pParams->cols] =
+            inStream->pBuf[j+k*pParams->rows*pParams->cols];
+          j += pParams->rows;
+
+          if (j >= cycLen)
+          {
+            curRow += 1;
+            j = curRow;
+          }
+        }
+      }
+    }
+    else
+    {
+      retErr = ERR_INV_BUFFER_SIZE;
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_STREAM;
+  }
+
+  return Error_HandleErr(retErr);
+}
+# 228 "src\\interleaving.c"
+static error_t BlockDeinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
+{
+  error_t retErr = ERR_NONE;
+  const uint32_t cycNum = (inStream->len-1)/(pParams->rows*pParams->cols)+1;
+  const uint32_t misElem = cycNum*pParams->rows*pParams->cols-inStream->len;
+  uint32_t cycLen;
+  uint32_t i, j, k;
+  uint8_t skipElem[pParams->rows];
+  uint8_t curRow, curCol;
+
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id))
+  {
+    if (inStream->len == outStream->len)
+    {
+      memset(skipElem,0,pParams->rows);
+      curRow = pParams->rows-1;
+      for (k=0; k<misElem; k++)
+      {
+        skipElem[curRow] += 1;
+
+        if (0 == curRow)
+        {
+          curRow = pParams->rows-1;
+        }
+        else
+        {
+          curRow -= 1;
+        }
+      }
+
+      for (k=0; k<cycNum; k++)
+      {
+        curRow = 0;
+        curCol = 0;
+        j = 0;
+
+        if (cycNum-1 == k)
+        {
+          cycLen = inStream->len-k*pParams->rows*pParams->cols;
+        }
+        else
+        {
+          cycLen = pParams->rows*pParams->cols;
+        }
+
+        for (i=0; i<cycLen; i++)
+        {
+          outStream->pBuf[i+k*pParams->rows*pParams->cols] =
+            inStream->pBuf[j+k*pParams->rows*pParams->cols];
+          j += pParams->cols;
+
+          if (cycNum-1 == k)
+          {
+            j -= skipElem[curRow];
+            curRow += 1;
+          }
+
+          if (j >= cycLen)
+          {
+            curCol += 1;
+            j = curCol;
+            curRow = 0;
+          }
+        }
+      }
+    }
+    else
+    {
+      retErr = ERR_INV_BUFFER_SIZE;
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_STREAM;
+  }
+
+  return Error_HandleErr(retErr);
 }

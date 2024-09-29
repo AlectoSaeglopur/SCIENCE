@@ -41,13 +41,16 @@ static bool IsOrgLenValid( ulen_t orgLenBy, const debug_par_t * pParams );
  * @brief <i> Function for retrieving and listing all simulation parameters into dedicated structure. </i>
  * 
  * @param[out] ioParams pointer to i/o parameters structure to be filled
+ * @param[in] srcParam pointer to scrambling parameters structure
+ * @param[in] rsParam pointer to reed-solomon coding parameters structure
+ * @param[in] itlvParam pointer to interleaving parameters structure
  * @param[in] ccParam pointer to convolutionan coding parameters structure
  * @param[in] modParam pointer to modulation coding parameters structure
  * @param[in] chanParam pointer to channel parameters structure
  * 
  * @return error ID
  */
-error_t Debug_ListParameters( debug_par_t * ioParams, const scr_par_t * scrParam, const rs_par_t * rsParam,
+error_t Debug_ListParameters( debug_par_t * ioParams, const scr_par_t * scrParam, const rs_par_t * rsParam, const itlv_par_t * itlvParam,
                               const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam )
 {
   Debug_SetWatermark((void *)Debug_ListParameters,WM_LEVEL_1);
@@ -59,6 +62,7 @@ error_t Debug_ListParameters( debug_par_t * ioParams, const scr_par_t * scrParam
   {
     ioParams->scrPar = *scrParam;
     ioParams->rsPar = *rsParam;
+    ioParams->itlvPar = *itlvParam;
     ioParams->ccPar = *ccParam;
     ioParams->modPar = *modParam;
     ioParams->chanPar = *chanParam;
@@ -164,6 +168,14 @@ error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t lab
 
         case PID_RX_RSCOD:
           printf(" * RX REED-SOLOMON CODED BYTES (%d)\n\t",inStream->len);
+          break;
+
+        case PID_TX_INTLV:
+          printf(" * TX INTERLEAVED BYTES (%d)\n\t",inStream->len);
+          break;
+
+        case PID_RX_INTLV:
+          printf(" * RX INTERLEAVED BYTES (%d)\n\t",inStream->len);
           break;
 
         case PID_TX_CNVCOD:
@@ -360,28 +372,46 @@ error_t Debug_PrintParameters( ulen_t orgLen, const debug_par_t * pParams )
   if (IsOrgLenValid(orgLen,pParams))
   {
     printf("\n # PARAMETERS\n");
-    printf("    * Scrambling :");
+    printf("    * Scrambling : ");
     printf("%s",SCR_TYPE_STR(pParams->scrPar.type));
     printf(" | Ncells = %u\n",pParams->scrPar.nCells);
-    printf("    * Convolutional Coding :");
+
+    printf("    * Reed-Solomon coding : ");
+    printf("m = %u",pParams->rsPar.m);
+    printf(" | n = %u",pParams->rsPar.nSh);
+    printf(" | k = %u\n",pParams->rsPar.kSh);
+
+    printf("    * Interleaving : ");
+    printf("%s",INTRLV_TYPE_STR(pParams->itlvPar.type));
+    if (INTRLV_BLOCK == pParams->itlvPar.type)
+    {
+      printf(" | Nrows = %u",pParams->itlvPar.rows);
+      printf(" | Ncols = %u\n",pParams->itlvPar.cols);
+    }
+    else if (INTRLV_CONV == pParams->itlvPar.type)
+    {
+      printf(" | Ndelays = %u\n",pParams->itlvPar.dlys);
+      printf(" | Nells = %u\n",pParams->itlvPar.cells);
+    }
+
+    printf("    * Convolutional coding : ");
     printf(" K = %d",pParams->ccPar.kLen);
     printf(" | Rc = %d/%d",pParams->ccPar.cRate,pParams->ccPar.cRate+1);
     printf(" | DM = %s\n",CC_VDM_STR(pParams->ccPar.vitDM));
-    printf("    * Modulation :");
-    printf(" %u-%s\n",pParams->modPar.order,MOD_TYPE_STR(pParams->modPar.type));
-    printf("    * Channel :");
+
+    printf("    * Modulation : ");
+    printf("%u-%s\n",pParams->modPar.order,MOD_TYPE_STR(pParams->modPar.type));
+
+    printf("    * Channel : ");
     if (CHAN_BSC == pParams->chanPar.type)
     {
-      printf(" BSC | Peb = %1.1e\n",pParams->chanPar.Peb);
+      printf("BSC | Peb = %1.1e\n",pParams->chanPar.Peb);
     }
     else if (CHAN_AWGN == pParams->chanPar.type)
     {
-      printf(" AWGN | EbN0 = %1.1f\n",pParams->chanPar.EbN0);
+      printf("AWGN | EbN0 = %1.1f\n",pParams->chanPar.EbN0);
     }
-    else
-    {
-      printf(" N/A\n");
-    }
+
     printf("\n");
   }
   else

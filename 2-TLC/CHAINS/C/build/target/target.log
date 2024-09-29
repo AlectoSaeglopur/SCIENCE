@@ -17,6 +17,7 @@ gcc -c src\convolutional.c -Wall -g -O0 -o build\target\obj\convolutional.o
 gcc -c src\crc.c -Wall -g -O0 -o build\target\obj\crc.o
 gcc -c src\debug.c -Wall -g -O0 -o build\target\obj\debug.o
 gcc -c src\error.c -Wall -g -O0 -o build\target\obj\error.o
+gcc -c src\interleaving.c -Wall -g -O0 -o build\target\obj\interleaving.o
 gcc -c src\memory.c -Wall -g -O0 -o build\target\obj\memory.o
 gcc -c src\modulation.c -Wall -g -O0 -o build\target\obj\modulation.o
 gcc -c src\reed_solomon.c -Wall -g -O0 -o build\target\obj\reed_solomon.o
@@ -27,6 +28,7 @@ gcc -S src\convolutional.c -Wall -g -O0 -o build\target\asm\convolutional.s
 gcc -S src\crc.c -Wall -g -O0 -o build\target\asm\crc.s
 gcc -S src\debug.c -Wall -g -O0 -o build\target\asm\debug.s
 gcc -S src\error.c -Wall -g -O0 -o build\target\asm\error.s
+gcc -S src\interleaving.c -Wall -g -O0 -o build\target\asm\interleaving.s
 gcc -S src\memory.c -Wall -g -O0 -o build\target\asm\memory.s
 gcc -S src\modulation.c -Wall -g -O0 -o build\target\asm\modulation.s
 gcc -S src\reed_solomon.c -Wall -g -O0 -o build\target\asm\reed_solomon.s
@@ -37,17 +39,18 @@ gcc -E src\convolutional.c -Wall -g -O0 -o build\target\prp\convolutional.i
 gcc -E src\crc.c -Wall -g -O0 -o build\target\prp\crc.i
 gcc -E src\debug.c -Wall -g -O0 -o build\target\prp\debug.i
 gcc -E src\error.c -Wall -g -O0 -o build\target\prp\error.i
+gcc -E src\interleaving.c -Wall -g -O0 -o build\target\prp\interleaving.i
 gcc -E src\memory.c -Wall -g -O0 -o build\target\prp\memory.i
 gcc -E src\modulation.c -Wall -g -O0 -o build\target\prp\modulation.i
 gcc -E src\reed_solomon.c -Wall -g -O0 -o build\target\prp\reed_solomon.i
 gcc -E src\scrambling.c -Wall -g -O0 -o build\target\prp\scrambling.i
 Starting "target"-build linking...
-gcc build\target\obj\main.o build\target\obj\channel.o build\target\obj\convolutional.o build\target\obj\crc.o build\target\obj\debug.o build\target\obj\error.o build\target\obj\memory.o build\target\obj\modulation.o build\target\obj\reed_solomon.o build\target\obj\scrambling.o -Wall -g -O0 -lm -Xlinker -Map=build\target\lis\target.map -o build\target\bin\target
+gcc build\target\obj\main.o build\target\obj\channel.o build\target\obj\convolutional.o build\target\obj\crc.o build\target\obj\debug.o build\target\obj\error.o build\target\obj\interleaving.o build\target\obj\memory.o build\target\obj\modulation.o build\target\obj\reed_solomon.o build\target\obj\scrambling.o -Wall -g -O0 -lm -Xlinker -Map=build\target\lis\target.map -o build\target\bin\target
 ------------------------------------------------
 >> "target"-build compiled and linked successfully!
 ------------------------------------------------
-Converting output to additional formats (.srec .binary)...
-for %%j in (srec binary) do objcopy build\target\bin\target.exe -O %%j build\target\bin\target.%%j
+Converting output to additional formats (.srec)...
+for %%j in (srec) do objcopy build\target\bin\target.exe -O %%j build\target\bin\target.%%j
 ------------------------------------------------
 >> "target"-build converted successfully!
 ------------------------------------------------
@@ -57,8 +60,10 @@ build\target\bin\target.exe
  >> Starting execution...
 
  # PARAMETERS
-    * Scrambling :Additive | Ncells = 15
-    * Convolutional Coding : K = 7 | Rc = 1/2 | DM = Hard
+    * Scrambling : Additive | Ncells = 15
+    * Reed-Solomon coding : m = 8 | n = 204 | k = 188
+    * Interleaving : Block | Nrows = 4 | Ncols = 51
+    * Convolutional coding :  K = 7 | Rc = 1/2 | DM = Hard
     * Modulation : 4-PSK
     * Channel : AWGN | EbN0 = 1.6
 
@@ -70,7 +75,7 @@ build\target\bin\target.exe
 
  * CRC check: PASSED
 
- >> Execution completed successfully in 0.262 seconds!
+ >> Execution completed successfully in 0.266 seconds!
 ------------------------------------------------
 >> "target"-build executed successfully!
 ------------------------------------------------

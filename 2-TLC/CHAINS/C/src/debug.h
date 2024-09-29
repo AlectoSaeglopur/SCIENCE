@@ -18,6 +18,7 @@
 #include "channel.h"
 #include "convolutional.h"
 #include "error.h"
+#include "interleaving.h"
 #include "memory.h"
 #include "modulation.h"
 #include "reed_solomon.h"
@@ -50,6 +51,8 @@ typedef enum
   PID_RX_SCR,                                           /** - rx scrambled bytes print-id */
   PID_TX_RSCOD,                                         /** - tx reed-solomon coded bytes print-id */
   PID_RX_RSCOD,                                         /** - tx reed-solomon coded bytes print-id */
+  PID_TX_INTLV,                                         /** - tx interleaved bytes print-id */
+  PID_RX_INTLV,                                         /** - rx interleaved bytes print-id */
   PID_TX_CNVCOD,                                        /** - tx convolution coded bytes print-id */
   PID_RX_CNVCOD,                                        /** - rx convolution coded bytes print-id */
   PID_TX_MAP,                                           /** - tx mapped symbols print-id */
@@ -64,6 +67,7 @@ typedef struct _debug_par_t
 {
   scr_par_t scrPar;
   rs_par_t rsPar;
+  itlv_par_t itlvPar;
   cc_par_t ccPar;
   mod_par_t modPar;
   chan_par_t chanPar;
@@ -84,7 +88,7 @@ typedef enum _wm_level_t
 /*** CONSTANTS ***/
 /*****************/
 
-#define watermark_t         uint64_t
+#define watermark_t         uint32_t
 #define WATERMARK_MASK      ((watermark_t)0x0000FFFF)
 
 
@@ -94,7 +98,7 @@ typedef enum _wm_level_t
 /******************/
 
 error_t Debug_PrintParameters( ulen_t orgLen, const debug_par_t * pParams );
-error_t Debug_ListParameters( debug_par_t * ioParams, const scr_par_t * scrParam, const rs_par_t * rsParam, const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam );
+error_t Debug_ListParameters( debug_par_t * ioParams, const scr_par_t * scrParam, const rs_par_t * rsParam, const itlv_par_t * itlvParam, const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam );
 error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed );
 error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
 error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t label, const debug_par_t * pParams );

@@ -31,24 +31,23 @@ typedef enum
   INTRLV_CONV,                                          /** - convolutional interleaving ID */
   // keep NUM as final entry
   INTRLV_NUM
-} interleav_type_t;
+} itlv_type_t;
 
 
-typedef struct _intrlv_par_t
+typedef struct _itlv_par_t
 {
-  interleav_type_t type;
-//  uint8_t nCells;                                       /** - number of LFSR cells */
+  itlv_type_t type;                                     /** - number of LFSR cells */
   union
   {
-    uint8_t rows;                                         /** - block number of rows */
-    uint8_t dlys;                                         /** - convolutional number of delay lines */
+    uint8_t rows;                                       /** - block number of rows */
+    uint8_t dlys;                                       /** - convolutional number of delay lines */
   };
   union 
   {
-    uint8_t cols;                                         /** - block number of columns */
-    uint8_t cells;                                        /** - convolutional number of delay cells per block */                                                               
+    uint8_t cols;                                       /** - block number of columns */
+    uint8_t cells;                                      /** - convolutional number of delay cells per block */                                                               
   };
-} intrlv_par_t;
+} itlv_par_t;
 
 
 
@@ -80,9 +79,9 @@ typedef struct _intrlv_par_t
 /*** PROTOTYPES ***/
 /******************/
 
-error_t Intrlv_ListParameters( intrlv_par_t * ioParams );
-error_t Intrlv_Interleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const intrlv_par_t * pParams );
-error_t Intrlv_Deinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const intrlv_par_t * pParams );
+error_t Intrlv_ListParameters( itlv_par_t * ioParams );
+error_t Intrlv_Interleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
+error_t Intrlv_Deinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
 
 
 #endif

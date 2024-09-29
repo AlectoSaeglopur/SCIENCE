@@ -30,6 +30,7 @@
 #include "crc.h"
 #include "debug.h"
 #include "error.h"
+#include "interleaving.h"
 #include "memory.h"
 #include "modulation.h"
 #include "reed_solomon.h"
@@ -62,19 +63,21 @@
 
 // list of streams (name, type, length)
 #define LIST_OF_STREAMS(ENTRY)               \
-  ENTRY( txOrg,   byte,     LEN_ORG_BY     ) \
-  ENTRY( rxOrg,   byte,     LEN_ORG_BY     ) \
-  ENTRY( txCrc,   byte,     LEN_CRC_BY     ) \
-  ENTRY( rxCrc,   byte,     LEN_CRC_BY     ) \
-  ENTRY( txScr,   byte,     LEN_SRC_BY     ) \
-  ENTRY( rxScr,   byte,     LEN_SRC_BY     ) \
-  ENTRY( txRs,    byte,     LEN_RS_BY      ) \
-  ENTRY( rxRs,    byte,     LEN_RS_BY      ) \
-  ENTRY( txCc,    byte,     LEN_CC_PUN_BY  ) \
-  ENTRY( rxCc,    byte,     LEN_CC_PUN_BY  ) \
-  ENTRY( txMod,   complex,  LEN_MOD_SY     ) \
-  ENTRY( rxMod,   complex,  LEN_MOD_SY     ) \
-  ENTRY( rxLLR,   float,    LEN_LLR_FL     )
+  ENTRY( txOrg,     byte,     LEN_ORG_BY     ) \
+  ENTRY( rxOrg,     byte,     LEN_ORG_BY     ) \
+  ENTRY( txCrc,     byte,     LEN_CRC_BY     ) \
+  ENTRY( rxCrc,     byte,     LEN_CRC_BY     ) \
+  ENTRY( txScr,     byte,     LEN_SRC_BY     ) \
+  ENTRY( rxScr,     byte,     LEN_SRC_BY     ) \
+  ENTRY( txRs,      byte,     LEN_RS_BY      ) \
+  ENTRY( rxRs,      byte,     LEN_RS_BY      ) \
+  ENTRY( txItlv,    byte,     LEN_RS_BY      ) \
+  ENTRY( rxItlv,    byte,     LEN_RS_BY      ) \
+  ENTRY( txCc,      byte,     LEN_CC_PUN_BY  ) \
+  ENTRY( rxCc,      byte,     LEN_CC_PUN_BY  ) \
+  ENTRY( txMod,     complex,  LEN_MOD_SY     ) \
+  ENTRY( rxMod,     complex,  LEN_MOD_SY     ) \
+  ENTRY( rxLLR,     float,    LEN_LLR_FL     )
 
 #define DEF_STREAM_DECLARE(name,type,...) type##_stream_t name##Stream = {.pBuf = NULL, .len = 0, .id = memory_type_##type};
 #define DEF_STREAM_ALLOCATE(name,type,length) Memory_AllocateStream(&name##Stream,length,name##Stream.id);
@@ -85,6 +88,7 @@
   ENTRY( crc,   Crc               ) \
   ENTRY( scr,   Scramb            ) \
   ENTRY( rs,    RsCod             ) \
+  ENTRY( itlv,  Intrlv            ) \
   ENTRY( cc,    CnvCod            ) \
   ENTRY( mod,   Modulation        ) \
   ENTRY( chan,  Channel           )
@@ -117,8 +121,8 @@ int main( void )
   LIST_OF_STREAMS(DEF_STREAM_DECLARE);                                      /** - declare all streams */
   LIST_OF_STREAMS(DEF_STREAM_ALLOCATE);                                     /** - allocate memory for all streams */
   LIST_OF_PARAMETERS(DEF_PARAMETER_INITIALIZE);                             /** - initialize all parameter structures */
-  Debug_ListParameters(&dgbParam,&scrParam,&rsParam,&ccParam,
-    &modParam,&chanParam);                                                  /** - list debug parameters */
+  Debug_ListParameters(&dgbParam,&scrParam,&rsParam,&itlvParam,
+    &ccParam,&modParam,&chanParam);                                         /** - list debug parameters */
   Debug_PrintParameters(LEN_ORG_BY,&dgbParam);                              /** - verify validity of origin stream length */
 
   // 2. PROCESSING
@@ -126,11 +130,12 @@ int main( void )
   Crc_CalculateChecksum(&txOrgStream,&txCrcStream,&crcParam);               /** - calculate tx crc */
   Scramb_Scrambler(&txOrgStream,&txScrStream,&scrParam);                    /** - scrambler */
   RcCod_Encoder(&txScrStream,&txRsStream,&rsParam);                         /** - reed-solomon encoder */
-  CnvCod_Encoder(&txRsStream,&txCcStream,&ccParam);                         /** - convolutional encoder */
+  Intrlv_Interleaver(&txRsStream,&txItlvStream,&itlvParam);                 /** - interleaver */
+  CnvCod_Encoder(&txItlvStream,&txCcStream,&ccParam);                       /** - convolutional encoder */
   if (CHAN_BSC == chanParam.type)
   {
     Channel_BSC(&txCcStream,&rxCcStream,&chanParam);                        /** - apply bsc channel corruption */
-    CnvCod_HardDecoder(&rxCcStream,&rxRsStream,&ccParam);                   /** - convolutional hard-decoder */
+    CnvCod_HardDecoder(&rxCcStream,&rxItlvStream,&ccParam);                 /** - convolutional hard-decoder */
   }
   else if (CHAN_AWGN == chanParam.type)
   {
@@ -139,14 +144,15 @@ int main( void )
     if (CC_VITDM_HARD == ccParam.vitDM)
     {
       Modulation_HardDemapper(&rxModStream,&rxCcStream,&modParam);          /** - modulation hard-demapper */
-      CnvCod_HardDecoder(&rxCcStream,&rxRsStream,&ccParam);                 /** - convolutional hard-decoder */
+      CnvCod_HardDecoder(&rxCcStream,&rxItlvStream,&ccParam);               /** - convolutional hard-decoder */
     }
     else if (CC_VITDM_SOFT == ccParam.vitDM)
     {
       Modulation_SoftDemapper(&rxModStream,&rxLLRStream,&modParam);         /** - modulation soft-demapper */
-      CnvCod_SoftDecoder(&rxLLRStream,&rxRsStream,&ccParam);                /** - convolutional soft-decoder */
+      CnvCod_SoftDecoder(&rxLLRStream,&rxItlvStream,&ccParam);              /** - convolutional soft-decoder */
     }
   }
+  Intrlv_Deinterleaver(&rxItlvStream,&rxRsStream,&itlvParam);               /** - deinterleaver */
   RcCod_Decoder(&rxRsStream,&rxScrStream,&rsParam);                         /** - reed-solomon decoder */
   Scramb_Descrambler(&rxScrStream,&rxOrgStream,&scrParam);                  /** - descrambler */
   Crc_CalculateChecksum(&rxOrgStream,&rxCrcStream,&crcParam);               /** - calculate rx crc */
@@ -157,11 +163,13 @@ int main( void )
   Debug_PrintByteStream(&txCrcStream,PID_TX_CRC,&dgbParam);                 /** - print tx crc stream content */
   Debug_PrintByteStream(&txScrStream,PID_TX_SCR,&dgbParam);                 /** - print tx scrambled stream content */
   Debug_PrintByteStream(&txRsStream,PID_TX_RSCOD,&dgbParam);                /** - print tx reed-solomon coded stream content */
+  Debug_PrintByteStream(&txItlvStream,PID_TX_INTLV,&dgbParam);              /** - print tx interleaved stream content */
   Debug_PrintByteStream(&txCcStream,PID_TX_CNVCOD,&dgbParam);               /** - print tx convolutional coded stream content */
   Debug_PrintComplexStream(&txModStream,PID_TX_MAP,&dgbParam);              /** - print tx modulated stream content */
   Debug_PrintComplexStream(&rxModStream,PID_RX_MAP,&dgbParam);              /** - print rx modulated stream content */
   Debug_PrintFloatStream(&rxLLRStream,PID_RX_LLR,&dgbParam);                /** - print rx LLR stream content */
   Debug_PrintByteStream(&rxCcStream,PID_RX_CNVCOD,&dgbParam);               /** - print rx convolutional coded stream content */
+  Debug_PrintByteStream(&txItlvStream,PID_RX_INTLV,&dgbParam);              /** - print rx interleaved stream content */
   Debug_PrintByteStream(&rxRsStream,PID_RX_RSCOD,&dgbParam);                /** - print rx reed-solomon coded stream content */
   Debug_PrintByteStream(&rxScrStream,PID_RX_SCR,&dgbParam);                 /** - print rx scrambled stream content */
   Debug_PrintByteStream(&rxOrgStream,PID_RX_ORG,&dgbParam);                 /** - print rx origin stream content */
@@ -199,10 +207,10 @@ int main( void )
 // need to recompile if any change has been made on source files before startin debug!
 // keep optimization disabled while debugging!
 
+// aggiungi colori a printf!
 // add RS and interleaving parameters in debug print!!!! 
 // add doxygen detailed description for more complex functions! (instead of simply @brief)
 // usa "Memory_IsStreamValid" in giro
-// solve compilation warning related to watermarks
 // add references for libraries
 // add watermarks everywhere (?)
 // generate .elf file and find out how this may come in handy!

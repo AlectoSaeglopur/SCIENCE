@@ -1832,6 +1832,36 @@ error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outS
 error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
 # 20 "src\\debug.h" 2
 
+# 1 "src\\interleaving.h" 1
+# 28 "src\\interleaving.h"
+typedef enum
+{
+  INTRLV_BLOCK = 0,
+  INTRLV_CONV,
+
+  INTRLV_NUM
+} itlv_type_t;
+
+
+typedef struct _itlv_par_t
+{
+  itlv_type_t type;
+  union
+  {
+    uint8_t rows;
+    uint8_t dlys;
+  };
+  union
+  {
+    uint8_t cols;
+    uint8_t cells;
+  };
+} itlv_par_t;
+# 82 "src\\interleaving.h"
+error_t Intrlv_ListParameters( itlv_par_t * ioParams );
+error_t Intrlv_Interleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
+error_t Intrlv_Deinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
+# 22 "src\\debug.h" 2
 
 
 # 1 "src\\reed_solomon.h" 1
@@ -1862,7 +1892,7 @@ typedef struct _rs_par_t
 error_t RsCod_ListParameters( rs_par_t * ioParams );
 error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams );
 error_t RcCod_Decoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams );
-# 24 "src\\debug.h" 2
+# 25 "src\\debug.h" 2
 # 1 "src\\scrambling.h" 1
 # 28 "src\\scrambling.h"
 typedef enum
@@ -1885,8 +1915,8 @@ typedef struct _scr_par_t
 error_t Scramb_ListParameters( scr_par_t * ioParams );
 error_t Scramb_Scrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
 error_t Scramb_Descrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
-# 25 "src\\debug.h" 2
-# 43 "src\\debug.h"
+# 26 "src\\debug.h" 2
+# 44 "src\\debug.h"
 typedef enum
 {
   PID_TX_ORG = 0,
@@ -1897,6 +1927,8 @@ typedef enum
   PID_RX_SCR,
   PID_TX_RSCOD,
   PID_RX_RSCOD,
+  PID_TX_INTLV,
+  PID_RX_INTLV,
   PID_TX_CNVCOD,
   PID_RX_CNVCOD,
   PID_TX_MAP,
@@ -1911,6 +1943,7 @@ typedef struct _debug_par_t
 {
   scr_par_t scrPar;
   rs_par_t rsPar;
+  itlv_par_t itlvPar;
   cc_par_t ccPar;
   mod_par_t modPar;
   chan_par_t chanPar;
@@ -1924,9 +1957,9 @@ typedef enum _wm_level_t
 
   WM_LEVEL_NUM
 } wm_level_t;
-# 96 "src\\debug.h"
+# 100 "src\\debug.h"
 error_t Debug_PrintParameters( uint32_t orgLen, const debug_par_t * pParams );
-error_t Debug_ListParameters( debug_par_t * ioParams, const scr_par_t * scrParam, const rs_par_t * rsParam, const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam );
+error_t Debug_ListParameters( debug_par_t * ioParams, const scr_par_t * scrParam, const rs_par_t * rsParam, const itlv_par_t * itlvParam, const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam );
 error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed );
 error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
 error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t label, const debug_par_t * pParams );

@@ -12,27 +12,28 @@ TMP_NAM = $(MAKECMDGOALS)
 ##### COMMON #####
 ##################
 
-# relative path to main build folder
+# Relative path to main build folder
 BLD_FPT = build
 
-# relative path to target/utest build folder
+# Relative path to target/utest build folder
 BLD_FLD = $(addprefix $(BLD_FPT)\,$(TMP_NAM))
 
-# compiler flags
+# Compiler flags
 # -Werror >> to consider each warning as an error
 # -D >> to set a macro for all project files (e.g "-D DEBUG_TERMINAL")
 # -g >> to enable GDB debugging
 CMP_FLG = -Wall -g -O0
 
-# compiler version
+# Compiler version
 CMP_VRS = gcc
 
-# common source files used by both build types
+# Common source files used by both build types
 COM_FIL = channel.c         \
           convolutional.c   \
           crc.c             \
           debug.c           \
           error.c           \
+					interleaving.c    \
           memory.c          \
           modulation.c      \
 					reed_solomon.c    \
@@ -57,8 +58,7 @@ LNK_FLG = -lm -Xlinker -Map=$(BLD_FLD)\lis\$(TRG_NAM).map
 CNV_TOL = objcopy
 
 # target build conversion formats/extensions
-CNV_EXT = srec   \
-          binary
+CNV_EXT = srec
 
 # target-build source files list
 SRC_FIL = main.c             \
