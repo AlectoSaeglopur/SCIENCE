@@ -33,10 +33,10 @@ COM_FIL = channel.c         \
           crc.c             \
           debug.c           \
           error.c           \
-					interleaving.c    \
+          interleaving.c    \
           memory.c          \
           modulation.c      \
-					reed_solomon.c    \
+          reed_solomon.c    \
           scrambling.c
 
 
