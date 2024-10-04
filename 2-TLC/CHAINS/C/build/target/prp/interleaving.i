@@ -1674,7 +1674,7 @@ typedef struct _itlv_par_t
     uint8_t cells;
   };
 } itlv_par_t;
-# 82 "src\\interleaving.h"
+# 84 "src\\interleaving.h"
 error_t Intrlv_ListParameters( itlv_par_t * ioParams );
 error_t Intrlv_Interleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
 error_t Intrlv_Deinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
@@ -1688,18 +1688,20 @@ error_t Intrlv_Deinterleaver( const byte_stream_t * inStream, byte_stream_t * ou
 
 static error_t BlockInterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * ioParams );
 static error_t BlockDeinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
-# 40 "src\\interleaving.c"
+static error_t ConvolutionalInterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
+static error_t ConvolutionalDeinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
+# 42 "src\\interleaving.c"
 error_t Intrlv_ListParameters( itlv_par_t * ioParams )
 {
   error_t retErr = ERR_NONE;
 
   if (
-# 44 "src\\interleaving.c" 3 4
+# 46 "src\\interleaving.c" 3 4
      ((void *)0) 
-# 44 "src\\interleaving.c"
+# 46 "src\\interleaving.c"
           != ioParams)
   {
-    ioParams->type = INTRLV_BLOCK;
+    ioParams->type = INTRLV_CONV;
 
     if (INTRLV_BLOCK == ioParams->type)
     {
@@ -1723,15 +1725,15 @@ error_t Intrlv_ListParameters( itlv_par_t * ioParams )
 
   return Error_HandleErr(retErr);
 }
-# 81 "src\\interleaving.c"
+# 83 "src\\interleaving.c"
 error_t Intrlv_Interleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
 
   if (
-# 85 "src\\interleaving.c" 3 4
+# 87 "src\\interleaving.c" 3 4
      ((void *)0) 
-# 85 "src\\interleaving.c"
+# 87 "src\\interleaving.c"
           != pParams)
   {
     switch (pParams->type)
@@ -1741,7 +1743,7 @@ error_t Intrlv_Interleaver( const byte_stream_t * inStream, byte_stream_t * outS
         break;
 
       case INTRLV_CONV:
-
+        retErr = ConvolutionalInterleaver(inStream,outStream,pParams);
         break;
 
       default:
@@ -1752,15 +1754,15 @@ error_t Intrlv_Interleaver( const byte_stream_t * inStream, byte_stream_t * outS
 
   return Error_HandleErr(retErr);
 }
-# 116 "src\\interleaving.c"
+# 118 "src\\interleaving.c"
 error_t Intrlv_Deinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
 
   if (
-# 120 "src\\interleaving.c" 3 4
+# 122 "src\\interleaving.c" 3 4
      ((void *)0) 
-# 120 "src\\interleaving.c"
+# 122 "src\\interleaving.c"
           != pParams)
   {
     switch (pParams->type)
@@ -1770,7 +1772,7 @@ error_t Intrlv_Deinterleaver( const byte_stream_t * inStream, byte_stream_t * ou
         break;
 
       case INTRLV_CONV:
-
+        retErr = ConvolutionalDeinterleaver(inStream,outStream,pParams);
         break;
 
       default:
@@ -1781,14 +1783,14 @@ error_t Intrlv_Deinterleaver( const byte_stream_t * inStream, byte_stream_t * ou
 
   return Error_HandleErr(retErr);
 }
-# 160 "src\\interleaving.c"
+# 162 "src\\interleaving.c"
 static error_t BlockInterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
   const uint32_t cycNum = (inStream->len-1)/(pParams->rows*pParams->cols)+1;
   uint32_t cycLen;
   uint32_t i, j, k;
-  uint8_t curRow;
+  uint8_t rowIdx;
 
   if (Memory_IsStreamValid(inStream,inStream->id) &&
       Memory_IsStreamValid(outStream,outStream->id))
@@ -1797,7 +1799,7 @@ static error_t BlockInterleaver( const byte_stream_t * inStream, byte_stream_t *
     {
       for (k=0; k<cycNum; k++)
       {
-        curRow = 0;
+        rowIdx = 0;
         j = 0;
 
         if (cycNum-1 == k)
@@ -1817,8 +1819,8 @@ static error_t BlockInterleaver( const byte_stream_t * inStream, byte_stream_t *
 
           if (j >= cycLen)
           {
-            curRow += 1;
-            j = curRow;
+            rowIdx += 1;
+            j = rowIdx;
           }
         }
       }
@@ -1835,7 +1837,7 @@ static error_t BlockInterleaver( const byte_stream_t * inStream, byte_stream_t *
 
   return Error_HandleErr(retErr);
 }
-# 228 "src\\interleaving.c"
+# 230 "src\\interleaving.c"
 static error_t BlockDeinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
 {
   error_t retErr = ERR_NONE;
@@ -1844,7 +1846,7 @@ static error_t BlockDeinterleaver( const byte_stream_t * inStream, byte_stream_t
   uint32_t cycLen;
   uint32_t i, j, k;
   uint8_t skipElem[pParams->rows];
-  uint8_t curRow, curCol;
+  uint8_t rowIdx, colIdx;
 
   if (Memory_IsStreamValid(inStream,inStream->id) &&
       Memory_IsStreamValid(outStream,outStream->id))
@@ -1852,25 +1854,25 @@ static error_t BlockDeinterleaver( const byte_stream_t * inStream, byte_stream_t
     if (inStream->len == outStream->len)
     {
       memset(skipElem,0,pParams->rows);
-      curRow = pParams->rows-1;
+      rowIdx = pParams->rows-1;
       for (k=0; k<misElem; k++)
       {
-        skipElem[curRow] += 1;
+        skipElem[rowIdx] += 1;
 
-        if (0 == curRow)
+        if (0 == rowIdx)
         {
-          curRow = pParams->rows-1;
+          rowIdx = pParams->rows-1;
         }
         else
         {
-          curRow -= 1;
+          rowIdx -= 1;
         }
       }
 
       for (k=0; k<cycNum; k++)
       {
-        curRow = 0;
-        curCol = 0;
+        rowIdx = 0;
+        colIdx = 0;
         j = 0;
 
         if (cycNum-1 == k)
@@ -1890,15 +1892,244 @@ static error_t BlockDeinterleaver( const byte_stream_t * inStream, byte_stream_t
 
           if (cycNum-1 == k)
           {
-            j -= skipElem[curRow];
-            curRow += 1;
+            j -= skipElem[rowIdx];
+            rowIdx += 1;
           }
 
           if (j >= cycLen)
           {
-            curCol += 1;
-            j = curCol;
-            curRow = 0;
+            colIdx += 1;
+            j = colIdx;
+            rowIdx = 0;
+          }
+        }
+      }
+    }
+    else
+    {
+      retErr = ERR_INV_BUFFER_SIZE;
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_STREAM;
+  }
+
+  return Error_HandleErr(retErr);
+}
+# 320 "src\\interleaving.c"
+static error_t ConvolutionalInterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
+{
+  error_t retErr = ERR_NONE;
+  const uint16_t shiftRegRows = pParams->dlys-1;
+  const uint16_t shiftRegCols = pParams->cells*(pParams->dlys-1);
+  uint16_t shiftRegMtx[shiftRegRows][shiftRegCols];
+  uint32_t i, j;
+  uint32_t inIdx = 0;
+  uint32_t outIdx = 0;
+  int16_t rowIdx = -1;
+
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id))
+  {
+    if (inStream->len == outStream->len)
+    {
+      for (i=0; i<shiftRegRows; i++)
+      {
+        for (j=0; j<shiftRegCols; j++)
+        {
+          shiftRegMtx[i][j] = 
+# 340 "src\\interleaving.c" 3
+                             0xffffU
+# 340 "src\\interleaving.c"
+                                       ;
+        }
+      }
+
+      while (inIdx < inStream->len)
+      {
+        if (-1 == rowIdx)
+        {
+          outStream->pBuf[outIdx] = inStream->pBuf[inIdx];
+          outIdx += 1;
+        }
+        else
+        {
+          if (
+# 353 "src\\interleaving.c" 3
+             0xffffU 
+# 353 "src\\interleaving.c"
+                        != shiftRegMtx[rowIdx][pParams->cells*(rowIdx+1)-1])
+          {
+            outStream->pBuf[outIdx] =
+              shiftRegMtx[rowIdx][pParams->cells*(rowIdx+1)-1];
+            outIdx += 1;
+          }
+
+          for (j=pParams->cells*(rowIdx+1)-1; j>0; j--)
+          {
+            shiftRegMtx[rowIdx][j] = shiftRegMtx[rowIdx][j-1];
+          }
+          shiftRegMtx[rowIdx][0] = inStream->pBuf[inIdx];
+        }
+
+        inIdx += 1;
+
+        if ((pParams->dlys-2) == rowIdx)
+        {
+            rowIdx = -1;
+        }
+        else
+        {
+          rowIdx += 1;
+        }
+      }
+
+      if (-1 == rowIdx)
+      {
+        rowIdx = 0;
+      }
+
+      while (outIdx < inStream->len)
+      {
+        if (
+# 386 "src\\interleaving.c" 3
+           0xffffU 
+# 386 "src\\interleaving.c"
+                      != shiftRegMtx[rowIdx][pParams->cells*(rowIdx+1)-1])
+        {
+            outStream->pBuf[outIdx] =
+              shiftRegMtx[rowIdx][pParams->cells*(rowIdx+1)-1];
+            outIdx += 1;
+        }
+
+        for (j=pParams->cells*(rowIdx+1)-1; j>0; j--)
+        {
+          shiftRegMtx[rowIdx][j] = shiftRegMtx[rowIdx][j-1];
+        }
+
+        shiftRegMtx[rowIdx][0] = 
+# 398 "src\\interleaving.c" 3
+                                0xffffU
+# 398 "src\\interleaving.c"
+                                          ;
+
+        if ((pParams->dlys-2) == rowIdx)
+        {
+          rowIdx = 0;
+        }
+        else
+        {
+          rowIdx += 1;
+        }
+      }
+    }
+    else
+    {
+      retErr = ERR_INV_BUFFER_SIZE;
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_STREAM;
+  }
+
+  return Error_HandleErr(retErr);
+}
+# 433 "src\\interleaving.c"
+static error_t ConvolutionalDeinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
+{
+  error_t retErr = ERR_NONE;
+  const uint16_t shiftRegRows = pParams->dlys-1;
+  const uint16_t shiftRegCols = pParams->cells*(pParams->dlys-1);
+  uint16_t shiftRegMtx[shiftRegRows][shiftRegCols];
+  uint32_t i, j;
+  uint32_t inIdx = 0;
+  uint32_t outIdx = 0;
+  uint16_t rowIdx = 0;
+  uint16_t colIdx = 0;
+
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id))
+  {
+    if (inStream->len == outStream->len)
+    {
+      for (i=0; i<shiftRegRows; i++)
+      {
+        for (j=0; j<shiftRegCols; j++)
+        {
+          shiftRegMtx[i][j] = 
+# 454 "src\\interleaving.c" 3
+                             0xffffU
+# 454 "src\\interleaving.c"
+                                       ;
+        }
+      }
+
+      while (outIdx < inStream->len)
+      {
+        if ((pParams->dlys-1 == rowIdx) &&
+            (rowIdx+pParams->dlys*(colIdx-pParams->cells*rowIdx) < inStream->len))
+        {
+          outStream->pBuf[outIdx] = inStream->pBuf[inIdx];
+          outIdx += 1;
+          inIdx += 1;
+        }
+        else
+        {
+          if (
+# 469 "src\\interleaving.c" 3
+             0xffffU 
+# 469 "src\\interleaving.c"
+                        != shiftRegMtx[rowIdx][pParams->cells*(pParams->dlys-rowIdx-1)-1])
+          {
+            outStream->pBuf[outIdx] =
+              shiftRegMtx[rowIdx][pParams->cells*(pParams->dlys-rowIdx-1)-1];
+            outIdx += 1;
+          }
+
+          for (j=pParams->cells*(pParams->dlys-rowIdx-1)-1; j>0; j--)
+          {
+            shiftRegMtx[rowIdx][j] = shiftRegMtx[rowIdx][j-1];
+          }
+
+          if (rowIdx+pParams->dlys*(colIdx-pParams->cells*rowIdx) < inStream->len)
+          {
+            shiftRegMtx[rowIdx][0] = inStream->pBuf[inIdx];
+            inIdx += 1;
+          }
+          else
+          {
+            shiftRegMtx[rowIdx][0] = 
+# 488 "src\\interleaving.c" 3
+                                    0xffffU
+# 488 "src\\interleaving.c"
+                                              ;
+          }
+        }
+
+        if (colIdx < pParams->cells*(pParams->dlys-1))
+        {
+          if (rowIdx == colIdx/pParams->cells)
+          {
+            rowIdx = 0;
+            colIdx += 1;
+          }
+          else
+          {
+            rowIdx += 1;
+          }
+        }
+        else
+        {
+          if (pParams->dlys-1 == rowIdx)
+          {
+            rowIdx = 0;
+            colIdx += 1;
+          }
+          else
+          {
+            rowIdx += 1;
           }
         }
       }

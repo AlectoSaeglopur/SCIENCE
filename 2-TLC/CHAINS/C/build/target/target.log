@@ -62,20 +62,20 @@ build\target\bin\target.exe
  # PARAMETERS
     * Scrambling : Additive | Ncells = 15
     * Reed-Solomon coding : m = 8 | n = 204 | k = 188
-    * Interleaving : Block | Nrows = 4 | Ncols = 51
+    * Interleaving : Convolutional | Ndelays = 12 | Ncells = 17
     * Convolutional coding :  K = 7 | Rc = 1/2 | DM = Hard
     * Modulation : 4-PSK
     * Channel : AWGN | EbN0 = 1.6
 
- * Errors at convolutional encoding level: 148 out of 3264 bits (MD = 1)
+ * Errors at convolutional encoding level: 298 out of 6528 bits (MD = 1)
 
- * Errors at reed-solomon encoding level: 0 out of 1632 bits (MD = 0)
+ * Errors at reed-solomon encoding level: 0 out of 3264 bits (MD = 0)
 
- * Errors at source level: 0 out of 1504 bits (MD = 0)
+ * Errors at source level: 0 out of 3008 bits (MD = 0)
 
  * CRC check: PASSED
 
- >> Execution completed successfully in 0.266 seconds!
+ >> Execution completed successfully in 0.593 seconds!
 ------------------------------------------------
 >> "target"-build executed successfully!
 ------------------------------------------------

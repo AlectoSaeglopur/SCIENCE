@@ -390,8 +390,8 @@ error_t Debug_PrintParameters( ulen_t orgLen, const debug_par_t * pParams )
     }
     else if (INTRLV_CONV == pParams->itlvPar.type)
     {
-      printf(" | Ndelays = %u\n",pParams->itlvPar.dlys);
-      printf(" | Nells = %u\n",pParams->itlvPar.cells);
+      printf(" | Ndelays = %u",pParams->itlvPar.dlys);
+      printf(" | Ncells = %u\n",pParams->itlvPar.cells);
     }
 
     printf("    * Convolutional coding : ");

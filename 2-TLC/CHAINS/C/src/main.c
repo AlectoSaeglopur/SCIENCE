@@ -42,7 +42,7 @@
 /*** PARAMETERS ***/
 /******************/
 
-#define LEN_ORG_BY          188u                                            //!< origin stream length [B]
+#define LEN_ORG_BY          376u                                            //!< origin stream length [B]
 
 
 
@@ -208,11 +208,11 @@ int main( void )
 // keep optimization disabled while debugging!
 
 // aggiungi colori a printf!
-// add RS and interleaving parameters in debug print!!!! 
 // add doxygen detailed description for more complex functions! (instead of simply @brief)
 // usa "Memory_IsStreamValid" in giro
 // add references for libraries
-// add watermarks everywhere (?)
+// sistema tutti gli unit tests!
+// add watermarks everywhere as inline function (?)
 // generate .elf file and find out how this may come in handy!
 // try to add watermark mechanism to know which function caused an error! >> or try to debug using GDB
 // try to add linker file

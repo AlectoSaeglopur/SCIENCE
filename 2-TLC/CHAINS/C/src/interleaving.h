@@ -55,7 +55,7 @@ typedef struct _itlv_par_t
 /*** PARAMETERS ***/
 /******************/
 
-#define INTRLV_TYPE         INTRLV_BLOCK
+#define INTRLV_TYPE         INTRLV_CONV
 
 #define BLK_NROWS           4u                          //!< number of matrix rows for block interleaving (R)
 #define BLK_NCOLS           51u                         //!< number of matrix columns for block interleaving (C)
@@ -68,6 +68,8 @@ typedef struct _itlv_par_t
 /*****************/
 /*** CONSTANTS ***/
 /*****************/
+
+#define INTRLV_NAN          UINT16_MAX
 
 #define INTRLV_TYPE_STR(x)  ((x == INTRLV_BLOCK) ? "Block" : \
                             (x == INTRLV_CONV) ? "Convolutional" : \

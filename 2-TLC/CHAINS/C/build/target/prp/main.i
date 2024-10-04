@@ -1855,7 +1855,7 @@ typedef struct _itlv_par_t
     uint8_t cells;
   };
 } itlv_par_t;
-# 82 "src\\interleaving.h"
+# 84 "src\\interleaving.h"
 error_t Intrlv_ListParameters( itlv_par_t * ioParams );
 error_t Intrlv_Interleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
 error_t Intrlv_Deinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
@@ -2046,11 +2046,11 @@ int main( void )
  ((void *)0)
 # 121 "src\\main.c"
  , .len = 0, .id = memory_type_float};;
-  Memory_AllocateStream(&txOrgStream,188u,txOrgStream.id); Memory_AllocateStream(&rxOrgStream,188u,rxOrgStream.id); Memory_AllocateStream(&txCrcStream,((CRC_DEGREE_16)>>3u),txCrcStream.id); Memory_AllocateStream(&rxCrcStream,((CRC_DEGREE_16)>>3u),rxCrcStream.id); Memory_AllocateStream(&txScrStream,188u,txScrStream.id); Memory_AllocateStream(&rxScrStream,188u,rxScrStream.id); Memory_AllocateStream(&txRsStream,(188u*204u/188u),txRsStream.id); Memory_AllocateStream(&rxRsStream,(188u*204u/188u),rxRsStream.id); Memory_AllocateStream(&txItlvStream,(188u*204u/188u),txItlvStream.id); Memory_AllocateStream(&rxItlvStream,(188u*204u/188u),rxItlvStream.id); Memory_AllocateStream(&txCcStream,((2u*(188u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12),txCcStream.id); Memory_AllocateStream(&rxCcStream,((2u*(188u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12),rxCcStream.id); Memory_AllocateStream(&txModStream,(((((2u*(188u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12))<<3u)/2u),txModStream.id); Memory_AllocateStream(&rxModStream,(((((2u*(188u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12))<<3u)/2u),rxModStream.id); Memory_AllocateStream(&rxLLRStream,((((2u*(188u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12))<<3u),rxLLRStream.id);;
+  Memory_AllocateStream(&txOrgStream,376u,txOrgStream.id); Memory_AllocateStream(&rxOrgStream,376u,rxOrgStream.id); Memory_AllocateStream(&txCrcStream,((CRC_DEGREE_16)>>3u),txCrcStream.id); Memory_AllocateStream(&rxCrcStream,((CRC_DEGREE_16)>>3u),rxCrcStream.id); Memory_AllocateStream(&txScrStream,376u,txScrStream.id); Memory_AllocateStream(&rxScrStream,376u,rxScrStream.id); Memory_AllocateStream(&txRsStream,(376u*204u/188u),txRsStream.id); Memory_AllocateStream(&rxRsStream,(376u*204u/188u),rxRsStream.id); Memory_AllocateStream(&txItlvStream,(376u*204u/188u),txItlvStream.id); Memory_AllocateStream(&rxItlvStream,(376u*204u/188u),rxItlvStream.id); Memory_AllocateStream(&txCcStream,((2u*(376u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12),txCcStream.id); Memory_AllocateStream(&rxCcStream,((2u*(376u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12),rxCcStream.id); Memory_AllocateStream(&txModStream,(((((2u*(376u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12))<<3u)/2u),txModStream.id); Memory_AllocateStream(&rxModStream,(((((2u*(376u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12))<<3u)/2u),rxModStream.id); Memory_AllocateStream(&rxLLRStream,((((2u*(376u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12))<<3u),rxLLRStream.id);;
   Crc_ListParameters(&crcParam); Scramb_ListParameters(&scrParam); RsCod_ListParameters(&rsParam); Intrlv_ListParameters(&itlvParam); CnvCod_ListParameters(&ccParam); Modulation_ListParameters(&modParam); Channel_ListParameters(&chanParam);;
   Debug_ListParameters(&dgbParam,&scrParam,&rsParam,&itlvParam,
     &ccParam,&modParam,&chanParam);
-  Debug_PrintParameters(188u,&dgbParam);
+  Debug_PrintParameters(376u,&dgbParam);
 
 
   Debug_GenerateRandomBytes(&txOrgStream,

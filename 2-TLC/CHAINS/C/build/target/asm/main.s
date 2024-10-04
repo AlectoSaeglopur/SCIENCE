@@ -90,13 +90,13 @@ LVL0:
 	.loc 1 122 0
 	movl	236(%esp), %eax
 	movl	%eax, 8(%esp)
-	movl	$188, 4(%esp)
+	movl	$376, 4(%esp)
 	leal	228(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_AllocateStream
 	movl	224(%esp), %eax
 	movl	%eax, 8(%esp)
-	movl	$188, 4(%esp)
+	movl	$376, 4(%esp)
 	leal	216(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_AllocateStream
@@ -114,67 +114,67 @@ LVL0:
 	call	_Memory_AllocateStream
 	movl	188(%esp), %eax
 	movl	%eax, 8(%esp)
-	movl	$188, 4(%esp)
+	movl	$376, 4(%esp)
 	leal	180(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_AllocateStream
 	movl	176(%esp), %eax
 	movl	%eax, 8(%esp)
-	movl	$188, 4(%esp)
+	movl	$376, 4(%esp)
 	leal	168(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_AllocateStream
 	movl	164(%esp), %eax
 	movl	%eax, 8(%esp)
-	movl	$204, 4(%esp)
+	movl	$408, 4(%esp)
 	leal	156(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_AllocateStream
 	movl	152(%esp), %eax
 	movl	%eax, 8(%esp)
-	movl	$204, 4(%esp)
+	movl	$408, 4(%esp)
 	leal	144(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_AllocateStream
 	movl	140(%esp), %eax
 	movl	%eax, 8(%esp)
-	movl	$204, 4(%esp)
+	movl	$408, 4(%esp)
 	leal	132(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_AllocateStream
 	movl	128(%esp), %eax
 	movl	%eax, 8(%esp)
-	movl	$204, 4(%esp)
+	movl	$408, 4(%esp)
 	leal	120(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_AllocateStream
 	movl	116(%esp), %eax
 	movl	%eax, 8(%esp)
-	movl	$408, 4(%esp)
+	movl	$816, 4(%esp)
 	leal	108(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_AllocateStream
 	movl	104(%esp), %eax
 	movl	%eax, 8(%esp)
-	movl	$408, 4(%esp)
+	movl	$816, 4(%esp)
 	leal	96(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_AllocateStream
 	movl	92(%esp), %eax
 	movl	%eax, 8(%esp)
-	movl	$1632, 4(%esp)
+	movl	$3264, 4(%esp)
 	leal	84(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_AllocateStream
 	movl	80(%esp), %eax
 	movl	%eax, 8(%esp)
-	movl	$1632, 4(%esp)
+	movl	$3264, 4(%esp)
 	leal	72(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_AllocateStream
 	movl	68(%esp), %eax
 	movl	%eax, 8(%esp)
-	movl	$3264, 4(%esp)
+	movl	$6528, 4(%esp)
 	leal	60(%esp), %eax
 	movl	%eax, (%esp)
 	call	_Memory_AllocateStream
@@ -204,7 +204,7 @@ LVL0:
 	call	_Debug_ListParameters
 	.loc 1 126 0
 	movl	$_dgbParam, 4(%esp)
-	movl	$188, (%esp)
+	movl	$376, (%esp)
 	call	_Debug_PrintParameters
 	.loc 1 129 0
 	movl	$0, 4(%esp)

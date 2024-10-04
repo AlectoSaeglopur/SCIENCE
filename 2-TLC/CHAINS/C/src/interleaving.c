@@ -23,6 +23,8 @@
 
 static error_t BlockInterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * ioParams );
 static error_t BlockDeinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
+static error_t ConvolutionalInterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
+static error_t ConvolutionalDeinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
 
 
 
@@ -70,7 +72,7 @@ error_t Intrlv_ListParameters( itlv_par_t * ioParams )
 
 
 /**
- * @brief <i> Function for interleaving. </i>
+ * @brief <i> Function for interleaving byte-streams. </i>
  * 
  * @param[in] inStream input stream
  * @param[out] outStream output stream
@@ -91,7 +93,7 @@ error_t Intrlv_Interleaver( const byte_stream_t * inStream, byte_stream_t * outS
         break;
 
       case INTRLV_CONV:
-////        retErr = ConvolutionalInterleaver(inStream,outStream,pParams);
+        retErr = ConvolutionalInterleaver(inStream,outStream,pParams);
         break;
 
       default:
@@ -105,7 +107,7 @@ error_t Intrlv_Interleaver( const byte_stream_t * inStream, byte_stream_t * outS
 
 
 /**
- * @brief <i> Function for deinterleaving. </i>
+ * @brief <i> Function for deinterleaving byte-streams. </i>
  * 
  * @param[in] inStream input stream
  * @param[out] outStream output stream
@@ -126,7 +128,7 @@ error_t Intrlv_Deinterleaver( const byte_stream_t * inStream, byte_stream_t * ou
         break;
 
       case INTRLV_CONV:
-////        retErr = ConvolutionalDeinterleaver(inStream,outStream,pParams);
+        retErr = ConvolutionalDeinterleaver(inStream,outStream,pParams);
         break;
 
       default:
@@ -145,7 +147,7 @@ error_t Intrlv_Deinterleaver( const byte_stream_t * inStream, byte_stream_t * ou
 /*************************/
 
 /**
- * @brief <i> Function for block interleaving.
+ * @brief <i> Function for block interleaving byte-streams.
  *        The matrix is filled column-wise and then emptied row-wise.
  *        In case streams length is larger than R*C, the algorithm is
  *        executed in multiple cycles by filling and emptying the matrix 
@@ -163,7 +165,7 @@ static error_t BlockInterleaver( const byte_stream_t * inStream, byte_stream_t *
   const uint32_t cycNum = (inStream->len-1)/(pParams->rows*pParams->cols)+1;      /** - number of cycles needed to process input stream */
   uint32_t cycLen;
   uint32_t i, j, k;
-  uint8_t curRow;
+  uint8_t rowIdx;
 
   if (Memory_IsStreamValid(inStream,inStream->id) &&
       Memory_IsStreamValid(outStream,outStream->id))
@@ -172,7 +174,7 @@ static error_t BlockInterleaver( const byte_stream_t * inStream, byte_stream_t *
     {
       for (k=0; k<cycNum; k++)
       {
-        curRow = 0;
+        rowIdx = 0;
         j = 0;
 
         if (cycNum-1 == k)
@@ -192,8 +194,8 @@ static error_t BlockInterleaver( const byte_stream_t * inStream, byte_stream_t *
 
           if (j >= cycLen)
           {
-            curRow += 1;
-            j = curRow;
+            rowIdx += 1;
+            j = rowIdx;
           }
         }
       }
@@ -213,7 +215,7 @@ static error_t BlockInterleaver( const byte_stream_t * inStream, byte_stream_t *
 
 
 /**
- * @brief <i> Function for block deinterleaving.
+ * @brief <i> Function for block deinterleaving byte-streams.
  *        The the matrix is filled row-wise and then emptied column-wise.
  *        In case streams length is larger than R*C, the algorithm is
  *        executed in multiple cycles by filling and emptying the matrix 
@@ -233,7 +235,7 @@ static error_t BlockDeinterleaver( const byte_stream_t * inStream, byte_stream_t
   uint32_t cycLen;
   uint32_t i, j, k;
   uint8_t skipElem[pParams->rows];                                                /** - number of elements to be skipped for each row */
-  uint8_t curRow, curCol;
+  uint8_t rowIdx, colIdx;
 
   if (Memory_IsStreamValid(inStream,inStream->id) &&
       Memory_IsStreamValid(outStream,outStream->id))
@@ -241,25 +243,25 @@ static error_t BlockDeinterleaver( const byte_stream_t * inStream, byte_stream_t
     if (inStream->len == outStream->len)
     {
       memset(skipElem,0,pParams->rows);
-      curRow = pParams->rows-1;
+      rowIdx = pParams->rows-1;
       for (k=0; k<misElem; k++)
       {
-        skipElem[curRow] += 1;
+        skipElem[rowIdx] += 1;
 
-        if (0 == curRow)
+        if (0 == rowIdx)
         {
-          curRow = pParams->rows-1;
+          rowIdx = pParams->rows-1;
         }
         else
         {
-          curRow -= 1;
+          rowIdx -= 1;
         }
       }
 
       for (k=0; k<cycNum; k++)
       {
-        curRow = 0;
-        curCol = 0;
+        rowIdx = 0;
+        colIdx = 0;
         j = 0;
 
         if (cycNum-1 == k)
@@ -279,15 +281,236 @@ static error_t BlockDeinterleaver( const byte_stream_t * inStream, byte_stream_t
 
           if (cycNum-1 == k)
           {
-            j -= skipElem[curRow];                                                /** update counter in case of missing elements during final cycle */
-            curRow += 1;
+            j -= skipElem[rowIdx];                                                /** update counter in case of missing elements during final cycle */
+            rowIdx += 1;
           }
 
           if (j >= cycLen)
           {
-            curCol += 1;
-            j = curCol;
-            curRow = 0;
+            colIdx += 1;
+            j = colIdx;
+            rowIdx = 0;
+          }
+        }
+      }
+    }
+    else
+    {
+      retErr = ERR_INV_BUFFER_SIZE;
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_STREAM;
+  }
+
+  return Error_HandleErr(retErr);
+}
+
+
+/**
+ * @brief <i> Function for convolutional interleaving byte-streams. </i>
+ * 
+ * @param[in] inStream input stream
+ * @param[out] outStream output stream
+ * @param[in] pParams pointer to interleaving parameters structure
+ * 
+ * @return error ID
+ */
+static error_t ConvolutionalInterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
+{
+  error_t retErr = ERR_NONE;
+  const uint16_t shiftRegRows = pParams->dlys-1;
+  const uint16_t shiftRegCols = pParams->cells*(pParams->dlys-1);
+  uint16_t shiftRegMtx[shiftRegRows][shiftRegCols];                               /** - shift-register matrix */
+  uint32_t i, j;
+  ulen_t inIdx = 0;                                                               /** - index over input stream buffer */
+  ulen_t outIdx = 0;                                                              /** - index over output stream buffer */
+  int16_t rowIdx = -1;                                                            /** - row index ("-1" represents the line with no delay) */
+
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id))
+  {
+    if (inStream->len == outStream->len)
+    {
+      for (i=0; i<shiftRegRows; i++)
+      {
+        for (j=0; j<shiftRegCols; j++)
+        {
+          shiftRegMtx[i][j] = INTRLV_NAN;                                         /** - initialize shift-register matrix */
+        }
+      }
+
+      while (inIdx < inStream->len)                                               /** - loop until all input elements are consumed */
+      {
+        if (-1 == rowIdx)
+        {
+          outStream->pBuf[outIdx] = inStream->pBuf[inIdx];                        /** - output from no-delay line */
+          outIdx += 1;
+        }
+        else
+        {
+          if (INTRLV_NAN != shiftRegMtx[rowIdx][pParams->cells*(rowIdx+1)-1])
+          {
+            outStream->pBuf[outIdx] =
+              shiftRegMtx[rowIdx][pParams->cells*(rowIdx+1)-1];                   /** - output from shift-registers */
+            outIdx += 1;
+          }
+
+          for (j=pParams->cells*(rowIdx+1)-1; j>0; j--)
+          {
+            shiftRegMtx[rowIdx][j] = shiftRegMtx[rowIdx][j-1];                    /** - update shift-registers (by right-shifting) */
+          }
+          shiftRegMtx[rowIdx][0] = inStream->pBuf[inIdx];
+        }
+
+        inIdx += 1;
+
+        if ((pParams->dlys-2) == rowIdx)
+        {
+            rowIdx = -1;
+        }
+        else
+        {
+          rowIdx += 1;
+        }
+      }
+
+      if (-1 == rowIdx)
+      {
+        rowIdx = 0;
+      }
+
+      while (outIdx < inStream->len)                                              /** loop until all elements still stored in the shift-register has been completely consumed */
+      {
+        if (INTRLV_NAN != shiftRegMtx[rowIdx][pParams->cells*(rowIdx+1)-1])
+        {
+            outStream->pBuf[outIdx] =
+              shiftRegMtx[rowIdx][pParams->cells*(rowIdx+1)-1];
+            outIdx += 1;
+        }
+
+        for (j=pParams->cells*(rowIdx+1)-1; j>0; j--)
+        {
+          shiftRegMtx[rowIdx][j] = shiftRegMtx[rowIdx][j-1];
+        }
+
+        shiftRegMtx[rowIdx][0] = INTRLV_NAN;
+
+        if ((pParams->dlys-2) == rowIdx)
+        {
+          rowIdx = 0;
+        }
+        else
+        {
+          rowIdx += 1;
+        }
+      }
+    }
+    else
+    {
+      retErr = ERR_INV_BUFFER_SIZE;
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_STREAM;
+  }
+
+  return Error_HandleErr(retErr);
+}
+
+
+/**
+ * @brief <i> Function for convolutional deinterleaving byte-streams. </i>
+ * 
+ * @param[in] inStream input stream
+ * @param[out] outStream output stream
+ * @param[in] pParams pointer to interleaving parameters structure
+ * 
+ * @return error ID
+ */
+static error_t ConvolutionalDeinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
+{
+  error_t retErr = ERR_NONE;
+  const uint16_t shiftRegRows = pParams->dlys-1;
+  const uint16_t shiftRegCols = pParams->cells*(pParams->dlys-1);
+  uint16_t shiftRegMtx[shiftRegRows][shiftRegCols];                               /** - shift-register matrix */
+  uint32_t i, j;
+  ulen_t inIdx = 0;                                                               /** - index over input array */
+  ulen_t outIdx = 0;                                                              /** - index over output array */
+  uint16_t rowIdx = 0;                                                            /** - row index */
+  uint16_t colIdx = 0;                                                            /** - column index */
+
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id))
+  {
+    if (inStream->len == outStream->len)
+    {
+      for (i=0; i<shiftRegRows; i++)
+      {
+        for (j=0; j<shiftRegCols; j++)
+        {
+          shiftRegMtx[i][j] = INTRLV_NAN;                                         /** - initialize shift-register matrix */
+        }
+      }
+
+      while (outIdx < inStream->len)
+      {
+        if ((pParams->dlys-1 == rowIdx) &&
+            (rowIdx+pParams->dlys*(colIdx-pParams->cells*rowIdx) < inStream->len))
+        {
+          outStream->pBuf[outIdx] = inStream->pBuf[inIdx];                        /** - output from no-delay line */
+          outIdx += 1;
+          inIdx += 1;
+        }
+        else
+        {
+          if (INTRLV_NAN != shiftRegMtx[rowIdx][pParams->cells*(pParams->dlys-rowIdx-1)-1])
+          {
+            outStream->pBuf[outIdx] =
+              shiftRegMtx[rowIdx][pParams->cells*(pParams->dlys-rowIdx-1)-1];     /** - output from shift registers */
+            outIdx += 1;
+          }
+
+          for (j=pParams->cells*(pParams->dlys-rowIdx-1)-1; j>0; j--)
+          {
+            shiftRegMtx[rowIdx][j] = shiftRegMtx[rowIdx][j-1];                    /** - update shift-registers (by right-shifting) */
+          }
+
+          if (rowIdx+pParams->dlys*(colIdx-pParams->cells*rowIdx) < inStream->len)
+          {
+            shiftRegMtx[rowIdx][0] = inStream->pBuf[inIdx];
+            inIdx += 1;
+          }
+          else
+          {
+            shiftRegMtx[rowIdx][0] = INTRLV_NAN;
+          }
+        }
+
+        if (colIdx < pParams->cells*(pParams->dlys-1))                            /** - case for 1st algorithm phase (initial transient) */
+        {
+          if (rowIdx == colIdx/pParams->cells)
+          {
+            rowIdx = 0;
+            colIdx += 1;
+          }
+          else
+          {
+            rowIdx += 1;
+          }
+        }
+        else                                                                      /* - case for 2nd algorithm phase (shift-registers filled) */
+        {
+          if (pParams->dlys-1 == rowIdx)
+          {
+            rowIdx = 0;
+            colIdx += 1;
+          }
+          else
+          {
+            rowIdx += 1;
           }
         }
       }

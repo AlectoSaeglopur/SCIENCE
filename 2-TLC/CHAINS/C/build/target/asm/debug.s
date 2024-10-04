@@ -891,34 +891,32 @@ LC37:
 LC38:
 	.ascii " | Ncols = %u\12\0"
 LC39:
-	.ascii " | Ndelays = %u\12\0"
+	.ascii " | Ndelays = %u\0"
 LC40:
-	.ascii " | Nells = %u\12\0"
-LC41:
 	.ascii "    * Convolutional coding : \0"
-LC42:
+LC41:
 	.ascii " K = %d\0"
-LC43:
+LC42:
 	.ascii " | Rc = %d/%d\0"
-LC44:
+LC43:
 	.ascii "Soft\0"
-LC45:
+LC44:
 	.ascii "Hard\0"
-LC46:
+LC45:
 	.ascii " | DM = %s\12\0"
-LC47:
+LC46:
 	.ascii "    * Modulation : \0"
-LC48:
+LC47:
 	.ascii "QAM\0"
-LC49:
+LC48:
 	.ascii "PSK\0"
-LC50:
+LC49:
 	.ascii "%u-%s\12\0"
-LC51:
+LC50:
 	.ascii "    * Channel : \0"
-LC52:
+LC51:
 	.ascii "BSC | Peb = %1.1e\12\0"
-LC53:
+LC52:
 	.ascii "AWGN | EbN0 = %1.1f\12\0"
 	.text
 	.globl	_Debug_PrintParameters
@@ -1074,17 +1072,17 @@ L91:
 	movzbl	37(%eax), %eax
 	movzbl	%al, %eax
 	movl	%eax, 4(%esp)
-	movl	$LC40, (%esp)
+	movl	$LC29, (%esp)
 	call	_printf
 L92:
 	.loc 1 397 0
-	movl	$LC41, (%esp)
+	movl	$LC40, (%esp)
 	call	_printf
 	.loc 1 398 0
 	movl	12(%ebp), %eax
 	movl	44(%eax), %eax
 	movl	%eax, 4(%esp)
-	movl	$LC42, (%esp)
+	movl	$LC41, (%esp)
 	call	_printf
 	.loc 1 399 0
 	movl	12(%ebp), %eax
@@ -1094,7 +1092,7 @@ L92:
 	movl	40(%eax), %eax
 	movl	%edx, 8(%esp)
 	movl	%eax, 4(%esp)
-	movl	$LC43, (%esp)
+	movl	$LC42, (%esp)
 	call	_printf
 	.loc 1 400 0
 	movl	12(%ebp), %eax
@@ -1107,7 +1105,7 @@ L92:
 	cmpl	$1, %eax
 	jne	L94
 	.loc 1 400 0 discriminator 3
-	movl	$LC44, %eax
+	movl	$LC43, %eax
 	jmp	L96
 L94:
 	.loc 1 400 0 discriminator 4
@@ -1115,14 +1113,14 @@ L94:
 	jmp	L96
 L93:
 	.loc 1 400 0 discriminator 2
-	movl	$LC45, %eax
+	movl	$LC44, %eax
 L96:
 	.loc 1 400 0 discriminator 8
 	movl	%eax, 4(%esp)
-	movl	$LC46, (%esp)
+	movl	$LC45, (%esp)
 	call	_printf
 	.loc 1 402 0 is_stmt 1 discriminator 8
-	movl	$LC47, (%esp)
+	movl	$LC46, (%esp)
 	call	_printf
 	.loc 1 403 0 discriminator 8
 	movl	12(%ebp), %eax
@@ -1135,7 +1133,7 @@ L96:
 	cmpl	$1, %eax
 	jne	L98
 	.loc 1 403 0 discriminator 3
-	movl	$LC48, %eax
+	movl	$LC47, %eax
 	jmp	L100
 L98:
 	.loc 1 403 0 discriminator 4
@@ -1143,7 +1141,7 @@ L98:
 	jmp	L100
 L97:
 	.loc 1 403 0 discriminator 2
-	movl	$LC49, %eax
+	movl	$LC48, %eax
 L100:
 	.loc 1 403 0 discriminator 8
 	movl	12(%ebp), %edx
@@ -1151,10 +1149,10 @@ L100:
 	movzbl	%dl, %edx
 	movl	%eax, 8(%esp)
 	movl	%edx, 4(%esp)
-	movl	$LC50, (%esp)
+	movl	$LC49, (%esp)
 	call	_printf
 	.loc 1 405 0 is_stmt 1 discriminator 8
-	movl	$LC51, (%esp)
+	movl	$LC50, (%esp)
 	call	_printf
 	.loc 1 406 0 discriminator 8
 	movl	12(%ebp), %eax
@@ -1165,7 +1163,7 @@ L100:
 	movl	12(%ebp), %eax
 	flds	80(%eax)
 	fstpl	4(%esp)
-	movl	$LC52, (%esp)
+	movl	$LC51, (%esp)
 	call	_printf
 	jmp	L102
 L101:
@@ -1178,7 +1176,7 @@ L101:
 	movl	12(%ebp), %eax
 	flds	80(%eax)
 	fstpl	4(%esp)
-	movl	$LC53, (%esp)
+	movl	$LC52, (%esp)
 	call	_printf
 L102:
 	.loc 1 415 0
@@ -1202,19 +1200,19 @@ L103:
 LFE23:
 	.section .rdata,"dr"
 	.align 4
-LC54:
+LC53:
 	.ascii " * Errors at convolutional encoding level: %u out of %u bits (MD = %u)\12\12\0"
 	.align 4
-LC55:
+LC54:
 	.ascii " * Errors at reed-solomon encoding level: %u out of %u bits (MD = %u)\12\12\0"
 	.align 4
-LC56:
+LC55:
 	.ascii " * Errors at source level: %u out of %u bits (MD = %u)\12\12\0"
-LC57:
+LC56:
 	.ascii "FAILED\0"
-LC58:
+LC57:
 	.ascii "PASSED\0"
-LC59:
+LC58:
 	.ascii " * CRC check: %s\12\12\0"
 	.text
 	.globl	_Debug_CheckWrongBits
@@ -1386,7 +1384,7 @@ L117:
 	movl	%eax, 8(%esp)
 	movl	-16(%ebp), %eax
 	movl	%eax, 4(%esp)
-	movl	$LC54, (%esp)
+	movl	$LC53, (%esp)
 	call	_printf
 	.loc 1 480 0
 	jmp	L108
@@ -1398,7 +1396,7 @@ L119:
 	movl	%eax, 8(%esp)
 	movl	-16(%ebp), %eax
 	movl	%eax, 4(%esp)
-	movl	$LC55, (%esp)
+	movl	$LC54, (%esp)
 	call	_printf
 	.loc 1 484 0
 	jmp	L108
@@ -1410,7 +1408,7 @@ L118:
 	movl	%eax, 8(%esp)
 	movl	-16(%ebp), %eax
 	movl	%eax, 4(%esp)
-	movl	$LC56, (%esp)
+	movl	$LC55, (%esp)
 	call	_printf
 	.loc 1 488 0
 	jmp	L108
@@ -1419,15 +1417,15 @@ L116:
 	cmpl	$0, -16(%ebp)
 	je	L122
 	.loc 1 491 0 is_stmt 0 discriminator 1
-	movl	$LC57, %eax
+	movl	$LC56, %eax
 	jmp	L123
 L122:
 	.loc 1 491 0 discriminator 2
-	movl	$LC58, %eax
+	movl	$LC57, %eax
 L123:
 	.loc 1 491 0 discriminator 4
 	movl	%eax, 4(%esp)
-	movl	$LC59, (%esp)
+	movl	$LC58, (%esp)
 	call	_printf
 	.loc 1 492 0 is_stmt 1 discriminator 4
 	jmp	L108
@@ -1468,19 +1466,19 @@ L124:
 	.cfi_endproc
 LFE24:
 	.section .rdata,"dr"
-LC60:
+LC59:
 	.ascii "w\0"
-LC61:
+LC60:
 	.ascii "txOrgBytes.csv\0"
-LC62:
+LC61:
 	.ascii "rxOrgBytes.csv\0"
-LC63:
+LC62:
 	.ascii "txScrBytes.csv\0"
-LC64:
+LC63:
 	.ascii "rxScrBytes.csv\0"
-LC65:
+LC64:
 	.ascii "%u,\0"
-LC66:
+LC65:
 	.ascii "%u\0"
 	.text
 	.globl	_Debug_WriteByteStreamToCsv
@@ -1524,32 +1522,32 @@ LFB25:
 	jmp	L141
 L131:
 	.loc 1 535 0
-	movl	$LC60, 4(%esp)
-	movl	$LC61, (%esp)
+	movl	$LC59, 4(%esp)
+	movl	$LC60, (%esp)
 	call	_fopen
 	movl	%eax, -16(%ebp)
 	.loc 1 536 0
 	jmp	L134
 L130:
 	.loc 1 539 0
-	movl	$LC60, 4(%esp)
-	movl	$LC62, (%esp)
+	movl	$LC59, 4(%esp)
+	movl	$LC61, (%esp)
 	call	_fopen
 	movl	%eax, -16(%ebp)
 	.loc 1 540 0
 	jmp	L134
 L132:
 	.loc 1 543 0
-	movl	$LC60, 4(%esp)
-	movl	$LC63, (%esp)
+	movl	$LC59, 4(%esp)
+	movl	$LC62, (%esp)
 	call	_fopen
 	movl	%eax, -16(%ebp)
 	.loc 1 544 0
 	jmp	L134
 L133:
 	.loc 1 547 0
-	movl	$LC60, 4(%esp)
-	movl	$LC64, (%esp)
+	movl	$LC59, 4(%esp)
+	movl	$LC63, (%esp)
 	call	_fopen
 	movl	%eax, -16(%ebp)
 	.loc 1 548 0
@@ -1570,7 +1568,7 @@ L134:
 	movl	8(%ebp), %eax
 	movl	4(%eax), %eax
 	movl	%eax, 8(%esp)
-	movl	$LC65, 4(%esp)
+	movl	$LC64, 4(%esp)
 	movl	-16(%ebp), %eax
 	movl	%eax, (%esp)
 	call	_fprintf
@@ -1586,7 +1584,7 @@ L138:
 	movzbl	(%eax), %eax
 	movzbl	%al, %eax
 	movl	%eax, 8(%esp)
-	movl	$LC66, 4(%esp)
+	movl	$LC65, 4(%esp)
 	movl	-16(%ebp), %eax
 	movl	%eax, (%esp)
 	call	_fprintf
@@ -1636,11 +1634,11 @@ L139:
 	.cfi_endproc
 LFE25:
 	.section .rdata,"dr"
-LC67:
+LC66:
 	.ascii "txModSymbs.csv\0"
-LC68:
+LC67:
 	.ascii "rxModSymbs.csv\0"
-LC69:
+LC68:
 	.ascii "%1.4f,%1.4f\0"
 	.text
 	.globl	_Debug_WriteComplexStreamToCsv
@@ -1680,16 +1678,16 @@ LFB26:
 	jmp	L155
 L146:
 	.loc 1 599 0
-	movl	$LC60, 4(%esp)
-	movl	$LC67, (%esp)
+	movl	$LC59, 4(%esp)
+	movl	$LC66, (%esp)
 	call	_fopen
 	movl	%eax, -16(%ebp)
 	.loc 1 600 0
 	jmp	L148
 L147:
 	.loc 1 603 0
-	movl	$LC60, 4(%esp)
-	movl	$LC68, (%esp)
+	movl	$LC59, 4(%esp)
+	movl	$LC67, (%esp)
 	call	_fopen
 	movl	%eax, -16(%ebp)
 	.loc 1 604 0
@@ -1710,7 +1708,7 @@ L148:
 	movl	8(%ebp), %eax
 	movl	4(%eax), %eax
 	movl	%eax, 8(%esp)
-	movl	$LC65, 4(%esp)
+	movl	$LC64, 4(%esp)
 	movl	-16(%ebp), %eax
 	movl	%eax, (%esp)
 	call	_fprintf
@@ -1734,7 +1732,7 @@ L152:
 	fxch	%st(1)
 	fstpl	16(%esp)
 	fstpl	8(%esp)
-	movl	$LC69, 4(%esp)
+	movl	$LC68, 4(%esp)
 	movl	-16(%ebp), %eax
 	movl	%eax, (%esp)
 	call	_fprintf
@@ -1822,7 +1820,7 @@ L159:
 	.cfi_endproc
 LFE27:
 	.section .rdata,"dr"
-LC70:
+LC69:
 	.ascii "    - Watermark Lv.%u = %x\12\0"
 	.text
 	.globl	_Debug_PrintWatermarks
@@ -1848,7 +1846,7 @@ L163:
 	addl	$1, %edx
 	movl	%eax, 8(%esp)
 	movl	%edx, 4(%esp)
-	movl	$LC70, (%esp)
+	movl	$LC69, (%esp)
 	call	_printf
 	.loc 1 668 0 discriminator 3
 	movzbl	-9(%ebp), %eax

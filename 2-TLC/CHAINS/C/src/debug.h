@@ -88,7 +88,7 @@ typedef enum _wm_level_t
 /*** CONSTANTS ***/
 /*****************/
 
-#define watermark_t         uint32_t
+#define watermark_t         uint32_t                    // NB: to be adjusted depending on specific processor architecture
 #define WATERMARK_MASK      ((watermark_t)0x0000FFFF)
 
 
