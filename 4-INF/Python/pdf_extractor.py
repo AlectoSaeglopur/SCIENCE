@@ -7,12 +7,12 @@ from os import system                                                           
 
 ### PARAMETERS ###
 
-file_path = "H:/EBOOKS/BOOKS/"                                                      # file path
-file_name = "Cristo si è fermato a Eboli (Carlo Levi, 1945)"                        # name of PDF file to be scanned [NB: see NOTE#1]
+file_path = "H:/EBOOKS/BOOKS/"                                                      # .pdf file path
+file_name = "Viaggio al termine della notte (Louis-Ferdinand Celine, 1932)"         # name of .pdf file to be scanned [NB: see NOTE#1]
 annot_type = 'Underline'                                                            # annotations type to search (use 'Highlight' or 'Underline')
 delta = [3, 5]                                                                      # delta for annotations boundary for X-Y coordinates [NB: to be adjusted for specific file]
 sep_char = '\n\n'                                                                   # separation-characters added between consecutive annotations
-adj_text = True
+adj_text = True                                                                     # flag for automatic text adjustments (add full stops at the end of quote, capitalize first character of quote, etc)
 
 
 ### CONSTANTS ###
