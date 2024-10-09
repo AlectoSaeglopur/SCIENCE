@@ -115,6 +115,7 @@ static clock_t elapsedTime;
 int main( void )
 {
   // 1. INITIALIZATION
+  Debug_SetTerminalAppearance(COLOR_DEFAULT,STYLE_DEFAULT);
   printf("\n >> Starting execution...\n");
   elapsedTime = clock();                                                    /** - get initial execution time */
 
@@ -187,9 +188,11 @@ int main( void )
 
   // 4. FINALIZATION
   LIST_OF_STREAMS(DEF_STREAM_FREE);                                         /** - free memory for all streams */
+
   elapsedTime = clock()-elapsedTime;                                        /** - get final execution time and estimate overall execution time */
-  printf(" >> Execution completed successfully in %1.3f seconds!\n",
+  printf("\n >> Execution completed successfully in %1.3f seconds!\n\n",
     ((float)elapsedTime)/CLOCKS_PER_SEC);
+  Debug_ResetTerminalAppearance();
 
   return 0;
 }
@@ -200,22 +203,23 @@ int main( void )
 /*** NOTES ***/
 /*************/
 
-// fai debug con VSC anche se usando makefile!
-// abilita -g / cambia default console in git bash
+// 1. To debug code via GDB within Visual Studio Code (VSC):
+//    - switch VSC default console to Git bash ("F1 > "Terminal: Select Default Profile > Git bash");
+//    - add "-g" flag to compiler flags to enable debugging;
+//    - keep compiler optimization disabled while debugging (i.e. use "-O0" as compiler flag);
+//    - 
+
 // doppio file launch e tasks .json
 // F5 to start debug
 // need to recompile if any change has been made on source files before startin debug!
-// keep optimization disabled while debugging!
 
-// aggiungi colori a printf!
 // add doxygen detailed description for more complex functions! (instead of simply @brief)
 // usa "Memory_IsStreamValid" in giro
 // add references for libraries
-// sistema tutti gli unit tests!
 // add watermarks everywhere as inline function (?)
 // generate .elf file and find out how this may come in handy!
 // try to add watermark mechanism to know which function caused an error! >> or try to debug using GDB
-// try to add linker file
+// try to add linker file (.icf file?)
 // stampa in .log anche messagi di shell (e.g eventuali errori!)
 // add CC with rate lower than 1/2 (e.g 1/3!) >> prova mettendo in cascata più encorer da 1/2! (fai simulazione in python e vedi se performance sono effettivamente migliori!)
 // aggiungi interleaver

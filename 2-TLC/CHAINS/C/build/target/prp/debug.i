@@ -1894,7 +1894,18 @@ error_t Scramb_ListParameters( scr_par_t * ioParams );
 error_t Scramb_Scrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
 error_t Scramb_Descrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
 # 26 "src\\debug.h" 2
-# 44 "src\\debug.h"
+# 51 "src\\debug.h"
+typedef struct _debug_par_t
+{
+  scr_par_t scrPar;
+  rs_par_t rsPar;
+  itlv_par_t itlvPar;
+  cc_par_t ccPar;
+  mod_par_t modPar;
+  chan_par_t chanPar;
+} debug_par_t;
+
+
 typedef enum
 {
   PID_TX_ORG = 0,
@@ -1917,17 +1928,6 @@ typedef enum
 } print_label_t;
 
 
-typedef struct _debug_par_t
-{
-  scr_par_t scrPar;
-  rs_par_t rsPar;
-  itlv_par_t itlvPar;
-  cc_par_t ccPar;
-  mod_par_t modPar;
-  chan_par_t chanPar;
-} debug_par_t;
-
-
 typedef enum _wm_level_t
 {
   WM_LEVEL_1 = 0,
@@ -1935,7 +1935,40 @@ typedef enum _wm_level_t
 
   WM_LEVEL_NUM
 } wm_level_t;
-# 100 "src\\debug.h"
+
+
+typedef enum _ansi_text_color
+{
+  COLOR_BLACK = 30,
+  COLOR_RED = 31,
+  COLOR_GREEN = 32,
+  COLOR_YELLOW = 33,
+  COLOR_BLUE = 34,
+  COLOR_PURPLE = 35,
+  COLOR_CYAN = 36,
+  COLOR_WHITE = 37,
+  COLOR_GREY = 90,
+  COLOR_BRIGHT_RED = 91,
+  COLOR_BRIGHT_GREEN = 92,
+  COLOR_BRIGHT_YELLOW = 93,
+  COLOR_BRIGHT_BLUE = 94,
+  COLOR_BRIGHT_PURPLE = 95,
+  COLOR_BRIGHT_CYAN = 96,
+  COLOR_BRIGHT_WHITE = 97,
+} ansi_text_color;
+
+
+typedef enum _ansi_text_style
+{
+  STYLE_RESET = 0,
+  STYLE_BOLD = 1,
+  STYLE_ITALIC = 3,
+  STYLE_SINGLE_UNDERLINE = 4,
+  STYLE_SLOW_BLINK = 5,
+  STYLE_FAST_BLINK = 6,
+  STYLE_DOUBLE_UNDERLINE = 21,
+} ansi_text_style;
+# 140 "src\\debug.h"
 error_t Debug_PrintParameters( uint32_t orgLen, const debug_par_t * pParams );
 error_t Debug_ListParameters( debug_par_t * ioParams, const scr_par_t * scrParam, const rs_par_t * rsParam, const itlv_par_t * itlvParam, const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam );
 error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed );
@@ -1946,7 +1979,9 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
 error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label );
 error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label );
 error_t Debug_SetWatermark( void * funcAddr, wm_level_t level );
-void Debug_PrintWatermarks(void);
+void Debug_PrintWatermarks( void );
+void Debug_SetTerminalAppearance( ansi_text_color color, ansi_text_style style );
+void Debug_ResetTerminalAppearance( void );
 # 17 "src\\debug.c" 2
 
 
@@ -2444,7 +2479,19 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
             break;
 
           case PID_RX_CRC:
-            printf(" * CRC check: %s\n\n",bitErrCnt?"FAILED":"PASSED");
+            printf(" * CRC check: ");
+            if (0 == bitErrCnt)
+            {
+              Debug_SetTerminalAppearance(COLOR_BRIGHT_GREEN,STYLE_BOLD);
+              printf("PASSED\n");
+            }
+            else
+            {
+              Debug_SetTerminalAppearance(COLOR_BRIGHT_RED,STYLE_BOLD);
+              printf("FAILED\n");
+            }
+            Debug_ResetTerminalAppearance();
+            Debug_SetTerminalAppearance(COLOR_BRIGHT_WHITE,STYLE_ITALIC);
             break;
 
           default:
@@ -2465,27 +2512,27 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
 
   return Error_HandleErr(retErr);
 }
-# 522 "src\\debug.c"
+# 534 "src\\debug.c"
 error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label )
 {
   Debug_SetWatermark((void *)Debug_WriteByteStreamToCsv,WM_LEVEL_1);
 
   error_t retErr = ERR_NONE;
   FILE * fid = 
-# 527 "src\\debug.c" 3 4
+# 539 "src\\debug.c" 3 4
               ((void *)0)
-# 527 "src\\debug.c"
+# 539 "src\\debug.c"
                   ;
   uint32_t j;
 
   if ((
-# 530 "src\\debug.c" 3 4
+# 542 "src\\debug.c" 3 4
       ((void *)0) 
-# 530 "src\\debug.c"
+# 542 "src\\debug.c"
            != inStream) && (
-# 530 "src\\debug.c" 3 4
+# 542 "src\\debug.c" 3 4
                             ((void *)0) 
-# 530 "src\\debug.c"
+# 542 "src\\debug.c"
                                  != inStream->pBuf))
   {
     switch (label)
@@ -2512,9 +2559,9 @@ error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_
     }
 
     if ((ERR_NONE == retErr) && (
-# 555 "src\\debug.c" 3 4
+# 567 "src\\debug.c" 3 4
                                 ((void *)0) 
-# 555 "src\\debug.c"
+# 567 "src\\debug.c"
                                      != fid))
     {
       fprintf(fid,"%u,",inStream->len);
@@ -2536,27 +2583,27 @@ error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_
 
   return Error_HandleErr(retErr);
 }
-# 586 "src\\debug.c"
+# 598 "src\\debug.c"
 error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label )
 {
   Debug_SetWatermark((void *)Debug_WriteComplexStreamToCsv,WM_LEVEL_1);
 
   error_t retErr = ERR_NONE;
   FILE * fid = 
-# 591 "src\\debug.c" 3 4
+# 603 "src\\debug.c" 3 4
               ((void *)0)
-# 591 "src\\debug.c"
+# 603 "src\\debug.c"
                   ;
   uint32_t j;
 
   if ((
-# 594 "src\\debug.c" 3 4
+# 606 "src\\debug.c" 3 4
       ((void *)0) 
-# 594 "src\\debug.c"
+# 606 "src\\debug.c"
            != inStream) && (
-# 594 "src\\debug.c" 3 4
+# 606 "src\\debug.c" 3 4
                             ((void *)0) 
-# 594 "src\\debug.c"
+# 606 "src\\debug.c"
                                  != inStream->pBuf))
   {
     switch (label)
@@ -2575,9 +2622,9 @@ error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_
     }
 
     if ((ERR_NONE == retErr) && (
-# 611 "src\\debug.c" 3 4
+# 623 "src\\debug.c" 3 4
                                 ((void *)0) 
-# 611 "src\\debug.c"
+# 623 "src\\debug.c"
                                      != fid))
     {
       fprintf(fid,"%u,",inStream->len);
@@ -2599,7 +2646,7 @@ error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_
 
   return Error_HandleErr(retErr);
 }
-# 642 "src\\debug.c"
+# 654 "src\\debug.c"
 error_t Debug_SetWatermark( void * funcAddr, wm_level_t level )
 {
   error_t retErr = ERR_NONE;
@@ -2622,32 +2669,48 @@ error_t Debug_SetWatermark( void * funcAddr, wm_level_t level )
 
 
 
-void Debug_PrintWatermarks(void)
+void Debug_PrintWatermarks( void )
 {
   uint8_t lev;
 
   for (lev=0; lev<WM_LEVEL_NUM; lev++)
   {
-    printf("    - Watermark Lv.%u = %x\n",lev+1,(unsigned int)gWatermarks[lev]);
+    printf("    - Watermark Lv.%u = %X\n",lev+1,(unsigned int)gWatermarks[lev]);
   }
 }
-# 687 "src\\debug.c"
+# 695 "src\\debug.c"
+void Debug_SetTerminalAppearance( ansi_text_color color, ansi_text_style style )
+{
+  printf("\033[%u;%um",color,style);
+}
+
+
+
+
+
+
+
+void Debug_ResetTerminalAppearance( void )
+{
+  printf("\033[%um",STYLE_RESET);
+}
+# 724 "src\\debug.c"
 static 
-# 687 "src\\debug.c" 3 4
+# 724 "src\\debug.c" 3 4
       _Bool 
-# 687 "src\\debug.c"
+# 724 "src\\debug.c"
            IsOrgLenValid( uint32_t orgLenBy, const debug_par_t * dbgParams )
 {
   Debug_SetWatermark((void *)IsOrgLenValid,WM_LEVEL_2);
 
   
-# 691 "src\\debug.c" 3 4
+# 728 "src\\debug.c" 3 4
  _Bool 
-# 691 "src\\debug.c"
+# 728 "src\\debug.c"
       bRet = 
-# 691 "src\\debug.c" 3 4
+# 728 "src\\debug.c" 3 4
              0
-# 691 "src\\debug.c"
+# 728 "src\\debug.c"
                   ;
   const uint32_t orgLenBi = ((orgLenBy)<<3u);
   const uint32_t rsLenBi = orgLenBi*dbgParams->rsPar.nSh/dbgParams->rsPar.kSh;
@@ -2660,9 +2723,9 @@ static
       (0 == (ccLenBi%dbgParams->modPar.bps)))
   {
     bRet = 
-# 702 "src\\debug.c" 3 4
+# 739 "src\\debug.c" 3 4
           1
-# 702 "src\\debug.c"
+# 739 "src\\debug.c"
               ;
   }
 

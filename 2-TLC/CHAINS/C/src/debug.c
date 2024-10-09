@@ -488,7 +488,19 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
             break;
 
           case PID_RX_CRC:
-            printf(" * CRC check: %s\n\n",bitErrCnt?"FAILED":"PASSED");
+            printf(" * CRC check: ");
+            if (0 == bitErrCnt)
+            {
+              Debug_SetTerminalAppearance(COLOR_SUCCESS,STYLE_SUCCESS);
+              printf("PASSED\n");
+            }
+            else
+            {
+              Debug_SetTerminalAppearance(COLOR_ERROR,STYLE_ERROR);
+              printf("FAILED\n");
+            }
+            Debug_ResetTerminalAppearance();
+            Debug_SetTerminalAppearance(COLOR_DEFAULT,STYLE_DEFAULT);
             break;
 
           default:
@@ -661,14 +673,39 @@ error_t Debug_SetWatermark( void * funcAddr, wm_level_t level )
  * 
  * @return none
  */
-void Debug_PrintWatermarks(void)
+void Debug_PrintWatermarks( void )
 {
   uint8_t lev;
 
   for (lev=0; lev<WM_LEVEL_NUM; lev++)
   {
-    printf("    - Watermark Lv.%u = %x\n",lev+1,(unsigned int)gWatermarks[lev]);
+    printf("    - Watermark Lv.%u = %X\n",lev+1,(unsigned int)gWatermarks[lev]);
   }
+}
+
+
+/**
+ * @brief <i> Function for setting terminal appearance. </i>
+ * 
+ * @param[in] color ANSI escape code for shell text color
+ * @param[in] style ANSI escape code for shell text style
+ * 
+ * @return none
+ */
+void Debug_SetTerminalAppearance( ansi_text_color color, ansi_text_style style )
+{
+  printf("\033[%u;%um",color,style);
+}
+
+
+/**
+ * @brief <i> Function for resetting terminal appearance. </i>
+ * 
+ * @return none
+ */
+void Debug_ResetTerminalAppearance( void )
+{
+  printf("\033[%um",STYLE_RESET);
 }
 
 

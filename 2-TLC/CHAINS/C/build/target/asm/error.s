@@ -4,7 +4,7 @@ Ltext0:
 	.section .rdata,"dr"
 	.align 4
 LC0:
-	.ascii "\12 >> ERROR: DETECTED ALARM #%d\12\0"
+	.ascii " >> ERROR: DETECTED ALARM #%d\12\0"
 	.text
 	.globl	_Error_HandleErr
 	.def	_Error_HandleErr;	.scl	2;	.type	32;	.endef
@@ -22,20 +22,26 @@ LFB18:
 	.loc 1 35 0
 	cmpl	$0, 8(%ebp)
 	je	L2
-	.loc 1 45 0
+	.loc 1 48 0
+	movl	$1, 4(%esp)
+	movl	$91, (%esp)
+	call	_Debug_SetTerminalAppearance
+	.loc 1 49 0
 	movl	8(%ebp), %eax
 	movl	%eax, 4(%esp)
 	movl	$LC0, (%esp)
 	call	_printf
-	.loc 1 46 0
+	.loc 1 50 0
 	call	_Debug_PrintWatermarks
-	.loc 1 47 0
+	.loc 1 51 0
+	call	_Debug_ResetTerminalAppearance
+	.loc 1 52 0
 	movl	$1, (%esp)
 	call	_exit
 L2:
-	.loc 1 56 0
+	.loc 1 61 0
 	movl	8(%ebp), %eax
-	.loc 1 57 0
+	.loc 1 62 0
 	leave
 	.cfi_restore 5
 	.cfi_def_cfa 4, 4
@@ -47,9 +53,10 @@ Letext0:
 	.file 3 "c:/mingw/include/stdlib.h"
 	.file 4 "c:/mingw/include/time.h"
 	.file 5 "src/error.h"
+	.file 6 "src/debug.h"
 	.section	.debug_info,"dr"
 Ldebug_info0:
-	.long	0x55f
+	.long	0x729
 	.word	0x4
 	.secrel32	Ldebug_abbrev0
 	.byte	0x4
@@ -380,6 +387,91 @@ Ldebug_info0:
 	.byte	0x3
 	.byte	0
 	.uleb128 0xe
+	.ascii "_ansi_text_color\0"
+	.byte	0x4
+	.long	0x6f
+	.byte	0x6
+	.byte	0x5d
+	.long	0x65a
+	.uleb128 0xd
+	.ascii "COLOR_BLACK\0"
+	.byte	0x1e
+	.uleb128 0xd
+	.ascii "COLOR_RED\0"
+	.byte	0x1f
+	.uleb128 0xd
+	.ascii "COLOR_GREEN\0"
+	.byte	0x20
+	.uleb128 0xd
+	.ascii "COLOR_YELLOW\0"
+	.byte	0x21
+	.uleb128 0xd
+	.ascii "COLOR_BLUE\0"
+	.byte	0x22
+	.uleb128 0xd
+	.ascii "COLOR_PURPLE\0"
+	.byte	0x23
+	.uleb128 0xd
+	.ascii "COLOR_CYAN\0"
+	.byte	0x24
+	.uleb128 0xd
+	.ascii "COLOR_WHITE\0"
+	.byte	0x25
+	.uleb128 0xd
+	.ascii "COLOR_GREY\0"
+	.byte	0x5a
+	.uleb128 0xd
+	.ascii "COLOR_BRIGHT_RED\0"
+	.byte	0x5b
+	.uleb128 0xd
+	.ascii "COLOR_BRIGHT_GREEN\0"
+	.byte	0x5c
+	.uleb128 0xd
+	.ascii "COLOR_BRIGHT_YELLOW\0"
+	.byte	0x5d
+	.uleb128 0xd
+	.ascii "COLOR_BRIGHT_BLUE\0"
+	.byte	0x5e
+	.uleb128 0xd
+	.ascii "COLOR_BRIGHT_PURPLE\0"
+	.byte	0x5f
+	.uleb128 0xd
+	.ascii "COLOR_BRIGHT_CYAN\0"
+	.byte	0x60
+	.uleb128 0xd
+	.ascii "COLOR_BRIGHT_WHITE\0"
+	.byte	0x61
+	.byte	0
+	.uleb128 0xe
+	.ascii "_ansi_text_style\0"
+	.byte	0x4
+	.long	0x6f
+	.byte	0x6
+	.byte	0x72
+	.long	0x6fa
+	.uleb128 0xd
+	.ascii "STYLE_RESET\0"
+	.byte	0
+	.uleb128 0xd
+	.ascii "STYLE_BOLD\0"
+	.byte	0x1
+	.uleb128 0xd
+	.ascii "STYLE_ITALIC\0"
+	.byte	0x3
+	.uleb128 0xd
+	.ascii "STYLE_SINGLE_UNDERLINE\0"
+	.byte	0x4
+	.uleb128 0xd
+	.ascii "STYLE_SLOW_BLINK\0"
+	.byte	0x5
+	.uleb128 0xd
+	.ascii "STYLE_FAST_BLINK\0"
+	.byte	0x6
+	.uleb128 0xd
+	.ascii "STYLE_DOUBLE_UNDERLINE\0"
+	.byte	0x15
+	.byte	0
+	.uleb128 0xf
 	.ascii "Error_HandleErr\0"
 	.byte	0x1
 	.byte	0x21
@@ -388,7 +480,7 @@ Ldebug_info0:
 	.long	LFE18-LFB18
 	.uleb128 0x1
 	.byte	0x9c
-	.uleb128 0xf
+	.uleb128 0x10
 	.ascii "inErr\0"
 	.byte	0x1
 	.byte	0x21
@@ -564,6 +656,23 @@ Ldebug_abbrev0:
 	.byte	0
 	.byte	0
 	.uleb128 0xe
+	.uleb128 0x4
+	.byte	0x1
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0xf
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3f
@@ -588,7 +697,7 @@ Ldebug_abbrev0:
 	.uleb128 0x19
 	.byte	0
 	.byte	0
-	.uleb128 0xf
+	.uleb128 0x10
 	.uleb128 0x5
 	.byte	0
 	.uleb128 0x3
@@ -620,6 +729,8 @@ Ldebug_abbrev0:
 Ldebug_line0:
 	.section	.debug_str,"dr"
 	.ident	"GCC: (MinGW.org GCC-6.3.0-1) 6.3.0"
+	.def	_Debug_SetTerminalAppearance;	.scl	2;	.type	32;	.endef
 	.def	_printf;	.scl	2;	.type	32;	.endef
 	.def	_Debug_PrintWatermarks;	.scl	2;	.type	32;	.endef
+	.def	_Debug_ResetTerminalAppearance;	.scl	2;	.type	32;	.endef
 	.def	_exit;	.scl	2;	.type	32;	.endef

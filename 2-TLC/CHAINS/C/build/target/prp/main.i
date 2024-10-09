@@ -1914,7 +1914,18 @@ error_t Scramb_ListParameters( scr_par_t * ioParams );
 error_t Scramb_Scrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
 error_t Scramb_Descrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
 # 26 "src\\debug.h" 2
-# 44 "src\\debug.h"
+# 51 "src\\debug.h"
+typedef struct _debug_par_t
+{
+  scr_par_t scrPar;
+  rs_par_t rsPar;
+  itlv_par_t itlvPar;
+  cc_par_t ccPar;
+  mod_par_t modPar;
+  chan_par_t chanPar;
+} debug_par_t;
+
+
 typedef enum
 {
   PID_TX_ORG = 0,
@@ -1937,17 +1948,6 @@ typedef enum
 } print_label_t;
 
 
-typedef struct _debug_par_t
-{
-  scr_par_t scrPar;
-  rs_par_t rsPar;
-  itlv_par_t itlvPar;
-  cc_par_t ccPar;
-  mod_par_t modPar;
-  chan_par_t chanPar;
-} debug_par_t;
-
-
 typedef enum _wm_level_t
 {
   WM_LEVEL_1 = 0,
@@ -1955,7 +1955,40 @@ typedef enum _wm_level_t
 
   WM_LEVEL_NUM
 } wm_level_t;
-# 100 "src\\debug.h"
+
+
+typedef enum _ansi_text_color
+{
+  COLOR_BLACK = 30,
+  COLOR_RED = 31,
+  COLOR_GREEN = 32,
+  COLOR_YELLOW = 33,
+  COLOR_BLUE = 34,
+  COLOR_PURPLE = 35,
+  COLOR_CYAN = 36,
+  COLOR_WHITE = 37,
+  COLOR_GREY = 90,
+  COLOR_BRIGHT_RED = 91,
+  COLOR_BRIGHT_GREEN = 92,
+  COLOR_BRIGHT_YELLOW = 93,
+  COLOR_BRIGHT_BLUE = 94,
+  COLOR_BRIGHT_PURPLE = 95,
+  COLOR_BRIGHT_CYAN = 96,
+  COLOR_BRIGHT_WHITE = 97,
+} ansi_text_color;
+
+
+typedef enum _ansi_text_style
+{
+  STYLE_RESET = 0,
+  STYLE_BOLD = 1,
+  STYLE_ITALIC = 3,
+  STYLE_SINGLE_UNDERLINE = 4,
+  STYLE_SLOW_BLINK = 5,
+  STYLE_FAST_BLINK = 6,
+  STYLE_DOUBLE_UNDERLINE = 21,
+} ansi_text_style;
+# 140 "src\\debug.h"
 error_t Debug_PrintParameters( uint32_t orgLen, const debug_par_t * pParams );
 error_t Debug_ListParameters( debug_par_t * ioParams, const scr_par_t * scrParam, const rs_par_t * rsParam, const itlv_par_t * itlvParam, const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam );
 error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed );
@@ -1966,7 +1999,9 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
 error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label );
 error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label );
 error_t Debug_SetWatermark( void * funcAddr, wm_level_t level );
-void Debug_PrintWatermarks(void);
+void Debug_PrintWatermarks( void );
+void Debug_SetTerminalAppearance( ansi_text_color color, ansi_text_style style );
+void Debug_ResetTerminalAppearance( void );
 # 32 "src\\main.c" 2
 # 105 "src\\main.c"
 static crc_par_t crcParam; static scr_par_t scrParam; static rs_par_t rsParam; static itlv_par_t itlvParam; static cc_par_t ccParam; static mod_par_t modParam; static chan_par_t chanParam;;
@@ -1982,69 +2017,70 @@ static clock_t elapsedTime;
 int main( void )
 {
 
+  Debug_SetTerminalAppearance(COLOR_BRIGHT_WHITE,STYLE_ITALIC);
   printf("\n >> Starting execution...\n");
   elapsedTime = clock();
 
   byte_stream_t txOrgStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
+# 122 "src\\main.c" 3 4
  ((void *)0)
-# 121 "src\\main.c"
+# 122 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t rxOrgStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
+# 122 "src\\main.c" 3 4
  ((void *)0)
-# 121 "src\\main.c"
+# 122 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t txCrcStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
+# 122 "src\\main.c" 3 4
  ((void *)0)
-# 121 "src\\main.c"
+# 122 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t rxCrcStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
+# 122 "src\\main.c" 3 4
  ((void *)0)
-# 121 "src\\main.c"
+# 122 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t txScrStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
+# 122 "src\\main.c" 3 4
  ((void *)0)
-# 121 "src\\main.c"
+# 122 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t rxScrStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
+# 122 "src\\main.c" 3 4
  ((void *)0)
-# 121 "src\\main.c"
+# 122 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t txRsStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
+# 122 "src\\main.c" 3 4
  ((void *)0)
-# 121 "src\\main.c"
+# 122 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t rxRsStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
+# 122 "src\\main.c" 3 4
  ((void *)0)
-# 121 "src\\main.c"
+# 122 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t txItlvStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
+# 122 "src\\main.c" 3 4
  ((void *)0)
-# 121 "src\\main.c"
+# 122 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t rxItlvStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
+# 122 "src\\main.c" 3 4
  ((void *)0)
-# 121 "src\\main.c"
+# 122 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t txCcStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
+# 122 "src\\main.c" 3 4
  ((void *)0)
-# 121 "src\\main.c"
+# 122 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t rxCcStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
+# 122 "src\\main.c" 3 4
  ((void *)0)
-# 121 "src\\main.c"
+# 122 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; complex_stream_t txModStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
+# 122 "src\\main.c" 3 4
  ((void *)0)
-# 121 "src\\main.c"
+# 122 "src\\main.c"
  , .len = 0, .id = memory_type_complex}; complex_stream_t rxModStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
+# 122 "src\\main.c" 3 4
  ((void *)0)
-# 121 "src\\main.c"
+# 122 "src\\main.c"
  , .len = 0, .id = memory_type_complex}; float_stream_t rxLLRStream = {.pBuf = 
-# 121 "src\\main.c" 3 4
+# 122 "src\\main.c" 3 4
  ((void *)0)
-# 121 "src\\main.c"
+# 122 "src\\main.c"
  , .len = 0, .id = memory_type_float};;
   Memory_AllocateStream(&txOrgStream,376u,txOrgStream.id); Memory_AllocateStream(&rxOrgStream,376u,rxOrgStream.id); Memory_AllocateStream(&txCrcStream,((CRC_DEGREE_16)>>3u),txCrcStream.id); Memory_AllocateStream(&rxCrcStream,((CRC_DEGREE_16)>>3u),rxCrcStream.id); Memory_AllocateStream(&txScrStream,376u,txScrStream.id); Memory_AllocateStream(&rxScrStream,376u,rxScrStream.id); Memory_AllocateStream(&txRsStream,(376u*204u/188u),txRsStream.id); Memory_AllocateStream(&rxRsStream,(376u*204u/188u),rxRsStream.id); Memory_AllocateStream(&txItlvStream,(376u*204u/188u),txItlvStream.id); Memory_AllocateStream(&rxItlvStream,(376u*204u/188u),rxItlvStream.id); Memory_AllocateStream(&txCcStream,((2u*(376u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12),txCcStream.id); Memory_AllocateStream(&rxCcStream,((2u*(376u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12),rxCcStream.id); Memory_AllocateStream(&txModStream,(((((2u*(376u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12))<<3u)/2u),txModStream.id); Memory_AllocateStream(&rxModStream,(((((2u*(376u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12))<<3u)/2u),rxModStream.id); Memory_AllocateStream(&rxLLRStream,((((2u*(376u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12))<<3u),rxLLRStream.id);;
   Crc_ListParameters(&crcParam); Scramb_ListParameters(&scrParam); RsCod_ListParameters(&rsParam); Intrlv_ListParameters(&itlvParam); CnvCod_ListParameters(&ccParam); Modulation_ListParameters(&modParam); Channel_ListParameters(&chanParam);;
@@ -2054,9 +2090,9 @@ int main( void )
 
 
   Debug_GenerateRandomBytes(&txOrgStream,
-# 129 "src\\main.c" 3 4
+# 130 "src\\main.c" 3 4
                                         ((void *)0)
-# 129 "src\\main.c"
+# 130 "src\\main.c"
                                             );
   Crc_CalculateChecksum(&txOrgStream,&txCrcStream,&crcParam);
   Scramb_Scrambler(&txOrgStream,&txScrStream,&scrParam);
@@ -2087,7 +2123,7 @@ int main( void )
   RcCod_Decoder(&rxRsStream,&rxScrStream,&rsParam);
   Scramb_Descrambler(&rxScrStream,&rxOrgStream,&scrParam);
   Crc_CalculateChecksum(&rxOrgStream,&rxCrcStream,&crcParam);
-# 178 "src\\main.c"
+# 179 "src\\main.c"
   Debug_CheckWrongBits(&txCcStream,&rxCcStream,PID_RX_CNVCOD,&dgbParam);
   Debug_CheckWrongBits(&txRsStream,&rxRsStream,PID_RX_RSCOD,&dgbParam);
   Debug_CheckWrongBits(&txOrgStream,&rxOrgStream,PID_RX_ORG,&dgbParam);
@@ -2100,13 +2136,15 @@ int main( void )
 
 
   Memory_FreeStream(&txOrgStream,memory_type_byte); Memory_FreeStream(&rxOrgStream,memory_type_byte); Memory_FreeStream(&txCrcStream,memory_type_byte); Memory_FreeStream(&rxCrcStream,memory_type_byte); Memory_FreeStream(&txScrStream,memory_type_byte); Memory_FreeStream(&rxScrStream,memory_type_byte); Memory_FreeStream(&txRsStream,memory_type_byte); Memory_FreeStream(&rxRsStream,memory_type_byte); Memory_FreeStream(&txItlvStream,memory_type_byte); Memory_FreeStream(&rxItlvStream,memory_type_byte); Memory_FreeStream(&txCcStream,memory_type_byte); Memory_FreeStream(&rxCcStream,memory_type_byte); Memory_FreeStream(&txModStream,memory_type_complex); Memory_FreeStream(&rxModStream,memory_type_complex); Memory_FreeStream(&rxLLRStream,memory_type_float);;
+
   elapsedTime = clock()-elapsedTime;
-  printf(" >> Execution completed successfully in %1.3f seconds!\n",
+  printf("\n >> Execution completed successfully in %1.3f seconds!\n\n",
     ((float)elapsedTime)/
-# 192 "src\\main.c" 3
+# 194 "src\\main.c" 3
                         ((clock_t)(1000))
-# 192 "src\\main.c"
+# 194 "src\\main.c"
                                       );
+  Debug_ResetTerminalAppearance();
 
   return 0;
 }

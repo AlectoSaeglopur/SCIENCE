@@ -37,13 +37,18 @@ error_t Error_HandleErr( error_t inErr )
     switch (ALARM_TYPE)
     {
       case ALARM_PRINT:
-        printf("\n >> WARNING: DETECTED ALARM #%d\n",inErr);
+        Debug_SetTerminalAppearance(COLOR_ERROR,STYLE_ERROR);
+        printf(" >> WARNING: DETECTED ALARM #%d\n",inErr);
         Debug_PrintWatermarks();
+        Debug_ResetTerminalAppearance();
+        Debug_SetTerminalAppearance(COLOR_DEFAULT,STYLE_DEFAULT);
         break;
 
       case ALARM_STOP:
-        printf("\n >> ERROR: DETECTED ALARM #%d\n",inErr);
+        Debug_SetTerminalAppearance(COLOR_ERROR,STYLE_ERROR);
+        printf(" >> ERROR: DETECTED ALARM #%d\n",inErr);
         Debug_PrintWatermarks();
+        Debug_ResetTerminalAppearance();
         exit(EXIT_FAILURE);
         break;
 
