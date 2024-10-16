@@ -2,6 +2,8 @@
  * @file channel.h
  * @author Filippo Valmori
  * @date 26/08/2024
+ * @copyright Electrolux S.p.A.
+ * @see Digital communications - Fundamentals and applications (Bernard Sklar, 2014)
  * @ingroup TLC_CHAIN
  * @brief Channel library header
  */
@@ -17,7 +19,6 @@
 
 #include "error.h"
 #include "memory.h"
-#include "modulation.h"
 #include "system.h"
 
 

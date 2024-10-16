@@ -6,7 +6,7 @@ Ltext0:
 _Scramb_ListParameters:
 LFB18:
 	.file 1 "src/scrambling.c"
-	.loc 1 44 0
+	.loc 1 47 0
 	.cfi_startproc
 	pushl	%ebp
 	.cfi_def_cfa_offset 8
@@ -14,58 +14,62 @@ LFB18:
 	movl	%esp, %ebp
 	.cfi_def_cfa_register 5
 	subl	$40, %esp
-	.loc 1 45 0
+	.loc 1 48 0
+	movl	$0, 4(%esp)
+	movl	$_Scramb_ListParameters, (%esp)
+	call	_Debug_SetWatermark
+	.loc 1 50 0
 	movl	$0, -12(%ebp)
-	.loc 1 47 0
+	.loc 1 52 0
 	cmpl	$0, 8(%ebp)
 	je	L2
-	.loc 1 49 0
+	.loc 1 54 0
 	movl	8(%ebp), %eax
 	movl	$0, (%eax)
-	.loc 1 51 0
+	.loc 1 56 0
 	movl	8(%ebp), %eax
 	movl	(%eax), %eax
 	testl	%eax, %eax
 	jne	L3
-	.loc 1 53 0
+	.loc 1 58 0
 	movl	8(%ebp), %eax
 	movb	$15, 4(%eax)
-	.loc 1 54 0
+	.loc 1 59 0
 	movl	8(%ebp), %eax
 	movl	$393216, 8(%eax)
-	.loc 1 55 0
+	.loc 1 60 0
 	movl	8(%ebp), %eax
 	movl	$-1795162112, 12(%eax)
 	jmp	L6
 L3:
-	.loc 1 57 0
+	.loc 1 62 0
 	movl	8(%ebp), %eax
 	movl	(%eax), %eax
 	cmpl	$1, %eax
 	jne	L5
-	.loc 1 59 0
+	.loc 1 64 0
 	movl	8(%ebp), %eax
 	movb	$17, 4(%eax)
-	.loc 1 60 0
+	.loc 1 65 0
 	movl	8(%ebp), %eax
 	movl	$1081344, 8(%eax)
-	.loc 1 61 0
+	.loc 1 66 0
 	movl	8(%ebp), %eax
 	movl	$741670912, 12(%eax)
 	jmp	L6
 L5:
-	.loc 1 65 0
+	.loc 1 70 0
 	movl	$13, -12(%ebp)
 	jmp	L6
 L2:
-	.loc 1 70 0
+	.loc 1 75 0
 	movl	$1, -12(%ebp)
 L6:
-	.loc 1 73 0
+	.loc 1 78 0
 	movl	-12(%ebp), %eax
 	movl	%eax, (%esp)
 	call	_Error_HandleErr
-	.loc 1 74 0
+	.loc 1 79 0
 	leave
 	.cfi_restore 5
 	.cfi_def_cfa 4, 4
@@ -76,7 +80,7 @@ LFE18:
 	.def	_Scramb_Scrambler;	.scl	2;	.type	32;	.endef
 _Scramb_Scrambler:
 LFB19:
-	.loc 1 87 0
+	.loc 1 92 0
 	.cfi_startproc
 	pushl	%ebp
 	.cfi_def_cfa_offset 8
@@ -84,12 +88,35 @@ LFB19:
 	movl	%esp, %ebp
 	.cfi_def_cfa_register 5
 	subl	$40, %esp
-	.loc 1 88 0
+	.loc 1 93 0
+	movl	$0, 4(%esp)
+	movl	$_Scramb_Scrambler, (%esp)
+	call	_Debug_SetWatermark
+	.loc 1 95 0
 	movl	$0, -12(%ebp)
-	.loc 1 90 0
+	.loc 1 97 0
+	movl	8(%ebp), %eax
+	movl	8(%eax), %eax
+	movl	%eax, 4(%esp)
+	movl	8(%ebp), %eax
+	movl	%eax, (%esp)
+	call	_Memory_IsStreamValid
+	testb	%al, %al
+	je	L9
+	.loc 1 98 0 discriminator 1
+	movl	12(%ebp), %eax
+	movl	8(%eax), %eax
+	movl	%eax, 4(%esp)
+	movl	12(%ebp), %eax
+	movl	%eax, (%esp)
+	call	_Memory_IsStreamValid
+	.loc 1 97 0 discriminator 1
+	testb	%al, %al
+	je	L9
+	.loc 1 98 0
 	cmpl	$0, 16(%ebp)
 	je	L9
-	.loc 1 92 0
+	.loc 1 101 0
 	movl	16(%ebp), %eax
 	movl	(%eax), %eax
 	testl	%eax, %eax
@@ -98,7 +125,7 @@ LFB19:
 	je	L12
 	jmp	L14
 L11:
-	.loc 1 95 0
+	.loc 1 104 0
 	movl	16(%ebp), %eax
 	movl	%eax, 8(%esp)
 	movl	12(%ebp), %eax
@@ -107,10 +134,10 @@ L11:
 	movl	%eax, (%esp)
 	call	_Scramb_AdditiveScrambler
 	movl	%eax, -12(%ebp)
-	.loc 1 96 0
+	.loc 1 105 0
 	jmp	L9
 L12:
-	.loc 1 99 0
+	.loc 1 108 0
 	movl	16(%ebp), %eax
 	movl	%eax, 8(%esp)
 	movl	12(%ebp), %eax
@@ -119,19 +146,19 @@ L12:
 	movl	%eax, (%esp)
 	call	_Scramb_MultiplicativeScrambler
 	movl	%eax, -12(%ebp)
-	.loc 1 100 0
+	.loc 1 109 0
 	jmp	L9
 L14:
-	.loc 1 103 0
+	.loc 1 112 0
 	movl	$13, -12(%ebp)
-	.loc 1 104 0
+	.loc 1 113 0
 	nop
 L9:
-	.loc 1 108 0
+	.loc 1 117 0
 	movl	-12(%ebp), %eax
 	movl	%eax, (%esp)
 	call	_Error_HandleErr
-	.loc 1 109 0
+	.loc 1 118 0
 	leave
 	.cfi_restore 5
 	.cfi_def_cfa 4, 4
@@ -142,7 +169,7 @@ LFE19:
 	.def	_Scramb_Descrambler;	.scl	2;	.type	32;	.endef
 _Scramb_Descrambler:
 LFB20:
-	.loc 1 122 0
+	.loc 1 131 0
 	.cfi_startproc
 	pushl	%ebp
 	.cfi_def_cfa_offset 8
@@ -150,12 +177,35 @@ LFB20:
 	movl	%esp, %ebp
 	.cfi_def_cfa_register 5
 	subl	$40, %esp
-	.loc 1 123 0
+	.loc 1 132 0
+	movl	$0, 4(%esp)
+	movl	$_Scramb_Descrambler, (%esp)
+	call	_Debug_SetWatermark
+	.loc 1 134 0
 	movl	$0, -12(%ebp)
-	.loc 1 125 0
+	.loc 1 136 0
+	movl	8(%ebp), %eax
+	movl	8(%eax), %eax
+	movl	%eax, 4(%esp)
+	movl	8(%ebp), %eax
+	movl	%eax, (%esp)
+	call	_Memory_IsStreamValid
+	testb	%al, %al
+	je	L16
+	.loc 1 137 0 discriminator 1
+	movl	12(%ebp), %eax
+	movl	8(%eax), %eax
+	movl	%eax, 4(%esp)
+	movl	12(%ebp), %eax
+	movl	%eax, (%esp)
+	call	_Memory_IsStreamValid
+	.loc 1 136 0 discriminator 1
+	testb	%al, %al
+	je	L16
+	.loc 1 137 0
 	cmpl	$0, 16(%ebp)
 	je	L16
-	.loc 1 127 0
+	.loc 1 140 0
 	movl	16(%ebp), %eax
 	movl	(%eax), %eax
 	testl	%eax, %eax
@@ -164,7 +214,7 @@ LFB20:
 	je	L19
 	jmp	L21
 L18:
-	.loc 1 130 0
+	.loc 1 143 0
 	movl	16(%ebp), %eax
 	movl	%eax, 8(%esp)
 	movl	12(%ebp), %eax
@@ -173,10 +223,10 @@ L18:
 	movl	%eax, (%esp)
 	call	_Scramb_AdditiveDescrambler
 	movl	%eax, -12(%ebp)
-	.loc 1 131 0
+	.loc 1 144 0
 	jmp	L16
 L19:
-	.loc 1 134 0
+	.loc 1 147 0
 	movl	16(%ebp), %eax
 	movl	%eax, 8(%esp)
 	movl	12(%ebp), %eax
@@ -185,19 +235,19 @@ L19:
 	movl	%eax, (%esp)
 	call	_Scramb_MultiplicativeDescrambler
 	movl	%eax, -12(%ebp)
-	.loc 1 135 0
+	.loc 1 148 0
 	jmp	L16
 L21:
-	.loc 1 138 0
+	.loc 1 151 0
 	movl	$13, -12(%ebp)
-	.loc 1 139 0
+	.loc 1 152 0
 	nop
 L16:
-	.loc 1 143 0
+	.loc 1 156 0
 	movl	-12(%ebp), %eax
 	movl	%eax, (%esp)
 	call	_Error_HandleErr
-	.loc 1 144 0
+	.loc 1 157 0
 	leave
 	.cfi_restore 5
 	.cfi_def_cfa 4, 4
@@ -207,7 +257,7 @@ LFE20:
 	.def	_Scramb_AdditiveScrambler;	.scl	3;	.type	32;	.endef
 _Scramb_AdditiveScrambler:
 LFB21:
-	.loc 1 161 0
+	.loc 1 174 0
 	.cfi_startproc
 	pushl	%ebp
 	.cfi_def_cfa_offset 8
@@ -219,34 +269,51 @@ LFB21:
 	subl	$48, %esp
 	.cfi_offset 6, -12
 	.cfi_offset 3, -16
-	.loc 1 162 0
+	.loc 1 175 0
+	movl	$1, 4(%esp)
+	movl	$_Scramb_AdditiveScrambler, (%esp)
+	call	_Debug_SetWatermark
+	.loc 1 177 0
 	movl	$0, -12(%ebp)
-	.loc 1 163 0
+	.loc 1 178 0
 	movl	8(%ebp), %eax
 	movl	4(%eax), %eax
 	sall	$3, %eax
 	movl	%eax, -24(%ebp)
-	.loc 1 166 0
+	.loc 1 181 0
 	movl	16(%ebp), %eax
 	movl	12(%eax), %eax
 	movl	%eax, -20(%ebp)
-	.loc 1 170 0
-	cmpl	$0, 8(%ebp)
+	.loc 1 185 0
+	movl	8(%ebp), %eax
+	movl	8(%eax), %eax
+	movl	%eax, 4(%esp)
+	movl	8(%ebp), %eax
+	movl	%eax, (%esp)
+	call	_Memory_IsStreamValid
+	testb	%al, %al
 	je	L23
-	.loc 1 170 0 is_stmt 0 discriminator 1
-	cmpl	$0, 12(%ebp)
+	.loc 1 186 0 discriminator 1
+	movl	12(%ebp), %eax
+	movl	8(%eax), %eax
+	movl	%eax, 4(%esp)
+	movl	12(%ebp), %eax
+	movl	%eax, (%esp)
+	call	_Memory_IsStreamValid
+	.loc 1 185 0 discriminator 1
+	testb	%al, %al
 	je	L23
-	.loc 1 170 0 discriminator 2
+	.loc 1 186 0
 	cmpl	$0, 16(%ebp)
 	je	L23
-	.loc 1 172 0 is_stmt 1
+	.loc 1 189 0
 	movl	8(%ebp), %eax
 	movl	4(%eax), %edx
 	movl	12(%ebp), %eax
 	movl	4(%eax), %eax
 	cmpl	%eax, %edx
 	jne	L24
-	.loc 1 174 0
+	.loc 1 191 0
 	movl	8(%ebp), %eax
 	movl	4(%eax), %ecx
 	movl	8(%ebp), %eax
@@ -257,34 +324,34 @@ LFB21:
 	movl	%edx, 4(%esp)
 	movl	%eax, (%esp)
 	call	_memcpy
-	.loc 1 176 0
+	.loc 1 193 0
 	movl	$0, -16(%ebp)
 	jmp	L25
 L31:
-	.loc 1 178 0
+	.loc 1 195 0
 	movl	-16(%ebp), %eax
 	shrl	$3, %eax
 	movl	%eax, -28(%ebp)
-	.loc 1 179 0
+	.loc 1 196 0
 	movl	-16(%ebp), %eax
 	notl	%eax
 	andl	$7, %eax
 	movb	%al, -29(%ebp)
-	.loc 1 180 0
+	.loc 1 197 0
 	movl	16(%ebp), %eax
 	movl	%eax, 4(%esp)
 	movl	-20(%ebp), %eax
 	movl	%eax, (%esp)
 	call	_ComputeRegBit
 	movb	%al, -30(%ebp)
-	.loc 1 181 0
+	.loc 1 198 0
 	shrl	-20(%ebp)
-	.loc 1 183 0
+	.loc 1 200 0
 	cmpb	$1, -30(%ebp)
 	jne	L26
-	.loc 1 185 0
+	.loc 1 202 0
 	orl	$-2147483648, -20(%ebp)
-	.loc 1 186 0
+	.loc 1 203 0
 	movl	12(%ebp), %eax
 	movl	(%eax), %edx
 	movl	-28(%ebp), %eax
@@ -300,10 +367,10 @@ L31:
 	movzbl	-30(%ebp), %eax
 	xorl	%edx, %eax
 	movb	%al, -30(%ebp)
-	.loc 1 188 0
+	.loc 1 205 0
 	cmpb	$0, -30(%ebp)
 	je	L27
-	.loc 1 190 0
+	.loc 1 207 0
 	movl	12(%ebp), %eax
 	movl	(%eax), %edx
 	movl	-28(%ebp), %eax
@@ -323,7 +390,7 @@ L31:
 	movb	%al, (%edx)
 	jmp	L29
 L27:
-	.loc 1 194 0
+	.loc 1 211 0
 	movl	12(%ebp), %eax
 	movl	(%eax), %edx
 	movl	-28(%ebp), %eax
@@ -344,9 +411,9 @@ L27:
 	movb	%al, (%edx)
 	jmp	L29
 L26:
-	.loc 1 199 0
+	.loc 1 216 0
 	andl	$2147483647, -20(%ebp)
-	.loc 1 200 0
+	.loc 1 217 0
 	movl	12(%ebp), %eax
 	movl	(%eax), %edx
 	movl	-28(%ebp), %eax
@@ -362,10 +429,10 @@ L26:
 	movzbl	-30(%ebp), %eax
 	xorl	%edx, %eax
 	movb	%al, -30(%ebp)
-	.loc 1 202 0
+	.loc 1 219 0
 	cmpb	$0, -30(%ebp)
 	je	L30
-	.loc 1 204 0
+	.loc 1 221 0
 	movl	12(%ebp), %eax
 	movl	(%eax), %edx
 	movl	-28(%ebp), %eax
@@ -385,7 +452,7 @@ L26:
 	movb	%al, (%edx)
 	jmp	L29
 L30:
-	.loc 1 208 0
+	.loc 1 225 0
 	movl	12(%ebp), %eax
 	movl	(%eax), %edx
 	movl	-28(%ebp), %eax
@@ -405,29 +472,29 @@ L30:
 	andl	%ebx, %eax
 	movb	%al, (%edx)
 L29:
-	.loc 1 176 0 discriminator 2
+	.loc 1 193 0 discriminator 2
 	addl	$1, -16(%ebp)
 L25:
-	.loc 1 176 0 is_stmt 0 discriminator 1
+	.loc 1 193 0 is_stmt 0 discriminator 1
 	movl	-16(%ebp), %eax
 	cmpl	-24(%ebp), %eax
 	jb	L31
-	.loc 1 172 0 is_stmt 1
+	.loc 1 189 0 is_stmt 1
 	jmp	L33
 L24:
-	.loc 1 215 0
+	.loc 1 232 0
 	movl	$7, -12(%ebp)
-	.loc 1 172 0
+	.loc 1 189 0
 	jmp	L33
 L23:
-	.loc 1 220 0
+	.loc 1 237 0
 	movl	$1, -12(%ebp)
 L33:
-	.loc 1 223 0
+	.loc 1 240 0
 	movl	-12(%ebp), %eax
 	movl	%eax, (%esp)
 	call	_Error_HandleErr
-	.loc 1 224 0
+	.loc 1 241 0
 	addl	$48, %esp
 	popl	%ebx
 	.cfi_restore 3
@@ -442,7 +509,7 @@ LFE21:
 	.def	_Scramb_AdditiveDescrambler;	.scl	3;	.type	32;	.endef
 _Scramb_AdditiveDescrambler:
 LFB22:
-	.loc 1 237 0
+	.loc 1 254 0
 	.cfi_startproc
 	pushl	%ebp
 	.cfi_def_cfa_offset 8
@@ -450,7 +517,7 @@ LFB22:
 	movl	%esp, %ebp
 	.cfi_def_cfa_register 5
 	subl	$24, %esp
-	.loc 1 238 0
+	.loc 1 255 0
 	movl	16(%ebp), %eax
 	movl	%eax, 8(%esp)
 	movl	12(%ebp), %eax
@@ -458,7 +525,7 @@ LFB22:
 	movl	8(%ebp), %eax
 	movl	%eax, (%esp)
 	call	_Scramb_AdditiveScrambler
-	.loc 1 239 0
+	.loc 1 256 0
 	leave
 	.cfi_restore 5
 	.cfi_def_cfa 4, 4
@@ -468,7 +535,7 @@ LFE22:
 	.def	_Scramb_MultiplicativeScrambler;	.scl	3;	.type	32;	.endef
 _Scramb_MultiplicativeScrambler:
 LFB23:
-	.loc 1 252 0
+	.loc 1 269 0
 	.cfi_startproc
 	pushl	%ebp
 	.cfi_def_cfa_offset 8
@@ -480,34 +547,51 @@ LFB23:
 	subl	$48, %esp
 	.cfi_offset 6, -12
 	.cfi_offset 3, -16
-	.loc 1 253 0
+	.loc 1 270 0
+	movl	$1, 4(%esp)
+	movl	$_Scramb_MultiplicativeScrambler, (%esp)
+	call	_Debug_SetWatermark
+	.loc 1 272 0
 	movl	$0, -12(%ebp)
-	.loc 1 254 0
+	.loc 1 273 0
 	movl	8(%ebp), %eax
 	movl	4(%eax), %eax
 	sall	$3, %eax
 	movl	%eax, -24(%ebp)
-	.loc 1 257 0
+	.loc 1 276 0
 	movl	16(%ebp), %eax
 	movl	12(%eax), %eax
 	movl	%eax, -20(%ebp)
-	.loc 1 261 0
-	cmpl	$0, 8(%ebp)
+	.loc 1 280 0
+	movl	8(%ebp), %eax
+	movl	8(%eax), %eax
+	movl	%eax, 4(%esp)
+	movl	8(%ebp), %eax
+	movl	%eax, (%esp)
+	call	_Memory_IsStreamValid
+	testb	%al, %al
 	je	L38
-	.loc 1 261 0 is_stmt 0 discriminator 1
-	cmpl	$0, 12(%ebp)
+	.loc 1 281 0 discriminator 1
+	movl	12(%ebp), %eax
+	movl	8(%eax), %eax
+	movl	%eax, 4(%esp)
+	movl	12(%ebp), %eax
+	movl	%eax, (%esp)
+	call	_Memory_IsStreamValid
+	.loc 1 280 0 discriminator 1
+	testb	%al, %al
 	je	L38
-	.loc 1 261 0 discriminator 2
+	.loc 1 281 0
 	cmpl	$0, 16(%ebp)
 	je	L38
-	.loc 1 263 0 is_stmt 1
+	.loc 1 284 0
 	movl	8(%ebp), %eax
 	movl	4(%eax), %edx
 	movl	12(%ebp), %eax
 	movl	4(%eax), %eax
 	cmpl	%eax, %edx
 	jne	L39
-	.loc 1 265 0
+	.loc 1 286 0
 	movl	8(%ebp), %eax
 	movl	4(%eax), %ecx
 	movl	8(%ebp), %eax
@@ -518,20 +602,20 @@ LFB23:
 	movl	%edx, 4(%esp)
 	movl	%eax, (%esp)
 	call	_memcpy
-	.loc 1 267 0
+	.loc 1 288 0
 	movl	$0, -16(%ebp)
 	jmp	L40
 L43:
-	.loc 1 269 0
+	.loc 1 290 0
 	movl	-16(%ebp), %eax
 	shrl	$3, %eax
 	movl	%eax, -28(%ebp)
-	.loc 1 270 0
+	.loc 1 291 0
 	movl	-16(%ebp), %eax
 	notl	%eax
 	andl	$7, %eax
 	movb	%al, -29(%ebp)
-	.loc 1 271 0
+	.loc 1 292 0
 	movl	8(%ebp), %eax
 	movl	(%eax), %edx
 	movl	-28(%ebp), %eax
@@ -544,7 +628,7 @@ L43:
 	movl	%edx, %eax
 	andl	$1, %eax
 	movb	%al, -30(%ebp)
-	.loc 1 272 0
+	.loc 1 293 0
 	movl	16(%ebp), %eax
 	movl	%eax, 4(%esp)
 	movl	-20(%ebp), %eax
@@ -552,14 +636,14 @@ L43:
 	call	_ComputeRegBit
 	xorb	-30(%ebp), %al
 	movb	%al, -31(%ebp)
-	.loc 1 273 0
+	.loc 1 294 0
 	shrl	-20(%ebp)
-	.loc 1 275 0
+	.loc 1 296 0
 	cmpb	$1, -31(%ebp)
 	jne	L41
-	.loc 1 277 0
+	.loc 1 298 0
 	orl	$-2147483648, -20(%ebp)
-	.loc 1 278 0
+	.loc 1 299 0
 	movl	12(%ebp), %eax
 	movl	(%eax), %edx
 	movl	-28(%ebp), %eax
@@ -579,9 +663,9 @@ L43:
 	movb	%al, (%edx)
 	jmp	L42
 L41:
-	.loc 1 282 0
+	.loc 1 303 0
 	andl	$2147483647, -20(%ebp)
-	.loc 1 283 0
+	.loc 1 304 0
 	movl	12(%ebp), %eax
 	movl	(%eax), %edx
 	movl	-28(%ebp), %eax
@@ -601,29 +685,29 @@ L41:
 	andl	%ebx, %eax
 	movb	%al, (%edx)
 L42:
-	.loc 1 267 0 discriminator 2
+	.loc 1 288 0 discriminator 2
 	addl	$1, -16(%ebp)
 L40:
-	.loc 1 267 0 is_stmt 0 discriminator 1
+	.loc 1 288 0 is_stmt 0 discriminator 1
 	movl	-16(%ebp), %eax
 	cmpl	-24(%ebp), %eax
 	jb	L43
-	.loc 1 263 0 is_stmt 1
+	.loc 1 284 0 is_stmt 1
 	jmp	L45
 L39:
-	.loc 1 289 0
+	.loc 1 310 0
 	movl	$7, -12(%ebp)
-	.loc 1 263 0
+	.loc 1 284 0
 	jmp	L45
 L38:
-	.loc 1 294 0
+	.loc 1 315 0
 	movl	$1, -12(%ebp)
 L45:
-	.loc 1 297 0
+	.loc 1 318 0
 	movl	-12(%ebp), %eax
 	movl	%eax, (%esp)
 	call	_Error_HandleErr
-	.loc 1 298 0
+	.loc 1 319 0
 	addl	$48, %esp
 	popl	%ebx
 	.cfi_restore 3
@@ -638,7 +722,7 @@ LFE23:
 	.def	_Scramb_MultiplicativeDescrambler;	.scl	3;	.type	32;	.endef
 _Scramb_MultiplicativeDescrambler:
 LFB24:
-	.loc 1 311 0
+	.loc 1 332 0
 	.cfi_startproc
 	pushl	%ebp
 	.cfi_def_cfa_offset 8
@@ -650,34 +734,51 @@ LFB24:
 	subl	$48, %esp
 	.cfi_offset 6, -12
 	.cfi_offset 3, -16
-	.loc 1 312 0
+	.loc 1 333 0
+	movl	$1, 4(%esp)
+	movl	$_Scramb_MultiplicativeDescrambler, (%esp)
+	call	_Debug_SetWatermark
+	.loc 1 335 0
 	movl	$0, -12(%ebp)
-	.loc 1 313 0
+	.loc 1 336 0
 	movl	8(%ebp), %eax
 	movl	4(%eax), %eax
 	sall	$3, %eax
 	movl	%eax, -24(%ebp)
-	.loc 1 316 0
+	.loc 1 339 0
 	movl	16(%ebp), %eax
 	movl	12(%eax), %eax
 	movl	%eax, -20(%ebp)
-	.loc 1 320 0
-	cmpl	$0, 8(%ebp)
+	.loc 1 343 0
+	movl	8(%ebp), %eax
+	movl	8(%eax), %eax
+	movl	%eax, 4(%esp)
+	movl	8(%ebp), %eax
+	movl	%eax, (%esp)
+	call	_Memory_IsStreamValid
+	testb	%al, %al
 	je	L48
-	.loc 1 320 0 is_stmt 0 discriminator 1
-	cmpl	$0, 12(%ebp)
+	.loc 1 344 0 discriminator 1
+	movl	12(%ebp), %eax
+	movl	8(%eax), %eax
+	movl	%eax, 4(%esp)
+	movl	12(%ebp), %eax
+	movl	%eax, (%esp)
+	call	_Memory_IsStreamValid
+	.loc 1 343 0 discriminator 1
+	testb	%al, %al
 	je	L48
-	.loc 1 320 0 discriminator 2
+	.loc 1 344 0
 	cmpl	$0, 16(%ebp)
 	je	L48
-	.loc 1 322 0 is_stmt 1
+	.loc 1 347 0
 	movl	8(%ebp), %eax
 	movl	4(%eax), %edx
 	movl	12(%ebp), %eax
 	movl	4(%eax), %eax
 	cmpl	%eax, %edx
 	jne	L49
-	.loc 1 324 0
+	.loc 1 349 0
 	movl	8(%ebp), %eax
 	movl	4(%eax), %ecx
 	movl	8(%ebp), %eax
@@ -688,20 +789,20 @@ LFB24:
 	movl	%edx, 4(%esp)
 	movl	%eax, (%esp)
 	call	_memcpy
-	.loc 1 326 0
+	.loc 1 351 0
 	movl	$0, -16(%ebp)
 	jmp	L50
 L55:
-	.loc 1 328 0
+	.loc 1 353 0
 	movl	-16(%ebp), %eax
 	shrl	$3, %eax
 	movl	%eax, -28(%ebp)
-	.loc 1 329 0
+	.loc 1 354 0
 	movl	-16(%ebp), %eax
 	notl	%eax
 	andl	$7, %eax
 	movb	%al, -29(%ebp)
-	.loc 1 330 0
+	.loc 1 355 0
 	movl	8(%ebp), %eax
 	movl	(%eax), %edx
 	movl	-28(%ebp), %eax
@@ -714,7 +815,7 @@ L55:
 	movl	%edx, %eax
 	andl	$1, %eax
 	movb	%al, -30(%ebp)
-	.loc 1 331 0
+	.loc 1 356 0
 	movl	16(%ebp), %eax
 	movl	%eax, 4(%esp)
 	movl	-20(%ebp), %eax
@@ -722,12 +823,12 @@ L55:
 	call	_ComputeRegBit
 	xorb	-30(%ebp), %al
 	movb	%al, -31(%ebp)
-	.loc 1 332 0
+	.loc 1 357 0
 	shrl	-20(%ebp)
-	.loc 1 334 0
+	.loc 1 359 0
 	cmpb	$1, -31(%ebp)
 	jne	L51
-	.loc 1 336 0
+	.loc 1 361 0
 	movl	12(%ebp), %eax
 	movl	(%eax), %edx
 	movl	-28(%ebp), %eax
@@ -747,7 +848,7 @@ L55:
 	movb	%al, (%edx)
 	jmp	L52
 L51:
-	.loc 1 340 0
+	.loc 1 365 0
 	movl	12(%ebp), %eax
 	movl	(%eax), %edx
 	movl	-28(%ebp), %eax
@@ -767,39 +868,39 @@ L51:
 	andl	%ebx, %eax
 	movb	%al, (%edx)
 L52:
-	.loc 1 343 0
+	.loc 1 368 0
 	cmpb	$1, -30(%ebp)
 	jne	L53
-	.loc 1 345 0
+	.loc 1 370 0
 	orl	$-2147483648, -20(%ebp)
 	jmp	L54
 L53:
-	.loc 1 349 0
+	.loc 1 374 0
 	andl	$2147483647, -20(%ebp)
 L54:
-	.loc 1 326 0 discriminator 2
+	.loc 1 351 0 discriminator 2
 	addl	$1, -16(%ebp)
 L50:
-	.loc 1 326 0 is_stmt 0 discriminator 1
+	.loc 1 351 0 is_stmt 0 discriminator 1
 	movl	-16(%ebp), %eax
 	cmpl	-24(%ebp), %eax
 	jb	L55
-	.loc 1 322 0 is_stmt 1
+	.loc 1 347 0 is_stmt 1
 	jmp	L57
 L49:
-	.loc 1 355 0
+	.loc 1 380 0
 	movl	$7, -12(%ebp)
-	.loc 1 322 0
+	.loc 1 347 0
 	jmp	L57
 L48:
-	.loc 1 360 0
+	.loc 1 385 0
 	movl	$1, -12(%ebp)
 L57:
-	.loc 1 363 0
+	.loc 1 388 0
 	movl	-12(%ebp), %eax
 	movl	%eax, (%esp)
 	call	_Error_HandleErr
-	.loc 1 364 0
+	.loc 1 389 0
 	addl	$48, %esp
 	popl	%ebx
 	.cfi_restore 3
@@ -814,7 +915,7 @@ LFE24:
 	.def	_ComputeRegBit;	.scl	3;	.type	32;	.endef
 _ComputeRegBit:
 LFB25:
-	.loc 1 375 0
+	.loc 1 400 0
 	.cfi_startproc
 	pushl	%ebp
 	.cfi_def_cfa_offset 8
@@ -822,46 +923,50 @@ LFB25:
 	movl	%esp, %ebp
 	.cfi_def_cfa_register 5
 	pushl	%ebx
-	subl	$16, %esp
+	subl	$36, %esp
 	.cfi_offset 3, -12
-	.loc 1 377 0
-	movb	$0, -6(%ebp)
-	.loc 1 379 0
-	movb	$0, -5(%ebp)
+	.loc 1 401 0
+	movl	$2, 4(%esp)
+	movl	$_ComputeRegBit, (%esp)
+	call	_Debug_SetWatermark
+	.loc 1 404 0
+	movb	$0, -10(%ebp)
+	.loc 1 406 0
+	movb	$0, -9(%ebp)
 	jmp	L60
 L62:
-	.loc 1 381 0
-	movzbl	-5(%ebp), %eax
+	.loc 1 408 0
+	movzbl	-9(%ebp), %eax
 	movl	8(%ebp), %edx
 	movl	%edx, %ebx
 	movl	%eax, %ecx
 	sall	%cl, %ebx
 	movl	12(%ebp), %eax
 	movl	8(%eax), %edx
-	movzbl	-5(%ebp), %eax
+	movzbl	-9(%ebp), %eax
 	movl	%eax, %ecx
 	sall	%cl, %edx
 	movl	%edx, %eax
 	andl	%ebx, %eax
 	testl	%eax, %eax
 	jns	L61
-	.loc 1 383 0
-	xorb	$1, -6(%ebp)
+	.loc 1 410 0
+	xorb	$1, -10(%ebp)
 L61:
-	.loc 1 379 0 discriminator 2
-	movzbl	-5(%ebp), %eax
+	.loc 1 406 0 discriminator 2
+	movzbl	-9(%ebp), %eax
 	addl	$1, %eax
-	movb	%al, -5(%ebp)
+	movb	%al, -9(%ebp)
 L60:
-	.loc 1 379 0 is_stmt 0 discriminator 1
+	.loc 1 406 0 is_stmt 0 discriminator 1
 	movl	12(%ebp), %eax
 	movzbl	4(%eax), %eax
-	cmpb	-5(%ebp), %al
+	cmpb	-9(%ebp), %al
 	ja	L62
-	.loc 1 387 0 is_stmt 1
-	movzbl	-6(%ebp), %eax
-	.loc 1 388 0
-	addl	$16, %esp
+	.loc 1 414 0 is_stmt 1
+	movzbl	-10(%ebp), %eax
+	.loc 1 415 0
+	addl	$36, %esp
 	popl	%ebx
 	.cfi_restore 3
 	popl	%ebp
@@ -878,9 +983,10 @@ Letext0:
 	.file 6 "src/error.h"
 	.file 7 "src/memory.h"
 	.file 8 "src/scrambling.h"
+	.file 9 "src/debug.h"
 	.section	.debug_info,"dr"
 Ldebug_info0:
-	.long	0xacc
+	.long	0xb22
 	.word	0x4
 	.secrel32	Ldebug_abbrev0
 	.byte	0x4
@@ -1132,7 +1238,7 @@ Ldebug_info0:
 	.byte	0x4
 	.long	0x74
 	.byte	0x6
-	.byte	0x1b
+	.byte	0x1c
 	.long	0x509
 	.uleb128 0xe
 	.ascii "ERR_NONE\0"
@@ -1201,7 +1307,7 @@ Ldebug_info0:
 	.uleb128 0x6
 	.ascii "error_t\0"
 	.byte	0x6
-	.byte	0x32
+	.byte	0x33
 	.long	0x336
 	.uleb128 0xd
 	.byte	0x4
@@ -1263,7 +1369,7 @@ Ldebug_info0:
 	.byte	0x4
 	.long	0x74
 	.byte	0x8
-	.byte	0x1d
+	.byte	0x1f
 	.long	0x607
 	.uleb128 0xe
 	.ascii "SCRAMB_ADT\0"
@@ -1278,186 +1384,206 @@ Ldebug_info0:
 	.uleb128 0x6
 	.ascii "scramb_type_t\0"
 	.byte	0x8
-	.byte	0x22
+	.byte	0x24
 	.long	0x5d3
 	.uleb128 0x3
 	.ascii "_scr_par_t\0"
 	.byte	0x10
 	.byte	0x8
-	.byte	0x25
+	.byte	0x27
 	.long	0x66b
 	.uleb128 0x4
 	.ascii "type\0"
 	.byte	0x8
-	.byte	0x27
+	.byte	0x29
 	.long	0x607
 	.byte	0
 	.uleb128 0x4
 	.ascii "nCells\0"
 	.byte	0x8
-	.byte	0x28
+	.byte	0x2a
 	.long	0x185
 	.byte	0x4
 	.uleb128 0x4
 	.ascii "conVect\0"
 	.byte	0x8
-	.byte	0x29
+	.byte	0x2b
 	.long	0x1b2
 	.byte	0x8
 	.uleb128 0x4
 	.ascii "initSt\0"
 	.byte	0x8
-	.byte	0x2a
+	.byte	0x2c
 	.long	0x1b2
 	.byte	0xc
 	.byte	0
 	.uleb128 0x6
 	.ascii "scr_par_t\0"
 	.byte	0x8
-	.byte	0x2b
+	.byte	0x2d
 	.long	0x61c
 	.uleb128 0xa
 	.long	0x66b
 	.uleb128 0xf
+	.ascii "_wm_level_t\0"
+	.byte	0x4
+	.long	0x74
+	.byte	0x9
+	.byte	0x55
+	.long	0x6d0
+	.uleb128 0xe
+	.ascii "WM_LEVEL_1\0"
+	.byte	0
+	.uleb128 0xe
+	.ascii "WM_LEVEL_2\0"
+	.byte	0x1
+	.uleb128 0xe
+	.ascii "WM_LEVEL_3\0"
+	.byte	0x2
+	.uleb128 0xe
+	.ascii "WM_LEVEL_NUM\0"
+	.byte	0x3
+	.byte	0
+	.uleb128 0x10
 	.ascii "ComputeRegBit\0"
 	.byte	0x1
-	.word	0x176
+	.word	0x18f
 	.long	0x185
 	.long	LFB25
 	.long	LFE25-LFB25
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x6e2
-	.uleb128 0x10
+	.long	0x731
+	.uleb128 0x11
 	.ascii "curSt\0"
 	.byte	0x1
-	.word	0x176
+	.word	0x18f
 	.long	0x1b2
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
-	.uleb128 0x11
+	.uleb128 0x12
 	.secrel32	LASF0
 	.byte	0x1
-	.word	0x176
-	.long	0x6e2
+	.word	0x18f
+	.long	0x731
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 4
-	.uleb128 0x12
+	.uleb128 0x13
 	.ascii "j\0"
 	.byte	0x1
-	.word	0x178
+	.word	0x193
 	.long	0x185
 	.uleb128 0x2
 	.byte	0x91
-	.sleb128 -13
-	.uleb128 0x13
+	.sleb128 -17
+	.uleb128 0x14
 	.secrel32	LASF1
 	.byte	0x1
-	.word	0x179
+	.word	0x194
 	.long	0x185
 	.uleb128 0x2
 	.byte	0x91
-	.sleb128 -14
+	.sleb128 -18
 	.byte	0
 	.uleb128 0x5
 	.byte	0x4
 	.long	0x67c
-	.uleb128 0x14
+	.uleb128 0x10
 	.ascii "Scramb_MultiplicativeDescrambler\0"
 	.byte	0x1
-	.word	0x136
+	.word	0x14b
 	.long	0x509
 	.long	LFB24
 	.long	LFE24-LFB24
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x7c5
-	.uleb128 0x11
+	.long	0x814
+	.uleb128 0x12
 	.secrel32	LASF2
 	.byte	0x1
-	.word	0x136
-	.long	0x7c5
+	.word	0x14b
+	.long	0x814
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
-	.uleb128 0x11
+	.uleb128 0x12
 	.secrel32	LASF3
 	.byte	0x1
-	.word	0x136
-	.long	0x7cb
+	.word	0x14b
+	.long	0x81a
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 4
-	.uleb128 0x11
+	.uleb128 0x12
 	.secrel32	LASF0
 	.byte	0x1
-	.word	0x136
-	.long	0x6e2
+	.word	0x14b
+	.long	0x731
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 8
-	.uleb128 0x13
+	.uleb128 0x14
 	.secrel32	LASF4
 	.byte	0x1
-	.word	0x138
+	.word	0x14f
 	.long	0x509
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
-	.uleb128 0x13
+	.uleb128 0x14
 	.secrel32	LASF5
 	.byte	0x1
-	.word	0x139
+	.word	0x150
 	.long	0x1c2
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -32
-	.uleb128 0x13
+	.uleb128 0x14
 	.secrel32	LASF6
 	.byte	0x1
-	.word	0x13a
+	.word	0x151
 	.long	0x1b2
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -36
-	.uleb128 0x12
+	.uleb128 0x13
 	.ascii "j\0"
 	.byte	0x1
-	.word	0x13b
+	.word	0x152
 	.long	0x1b2
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -24
-	.uleb128 0x13
+	.uleb128 0x14
 	.secrel32	LASF7
 	.byte	0x1
-	.word	0x13c
+	.word	0x153
 	.long	0x1b2
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -28
-	.uleb128 0x12
+	.uleb128 0x13
 	.ascii "inBit\0"
 	.byte	0x1
-	.word	0x13d
+	.word	0x154
 	.long	0x185
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -38
-	.uleb128 0x13
+	.uleb128 0x14
 	.secrel32	LASF1
 	.byte	0x1
-	.word	0x13d
+	.word	0x154
 	.long	0x185
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -39
-	.uleb128 0x13
+	.uleb128 0x14
 	.secrel32	LASF8
 	.byte	0x1
-	.word	0x13e
+	.word	0x155
 	.long	0x185
 	.uleb128 0x2
 	.byte	0x91
@@ -1469,100 +1595,100 @@ Ldebug_info0:
 	.uleb128 0x5
 	.byte	0x4
 	.long	0x5b9
-	.uleb128 0x15
+	.uleb128 0x10
 	.ascii "Scramb_MultiplicativeScrambler\0"
 	.byte	0x1
-	.byte	0xfb
+	.word	0x10c
 	.long	0x509
 	.long	LFB23
 	.long	LFE23-LFB23
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x8a5
-	.uleb128 0x16
+	.long	0x8fb
+	.uleb128 0x12
 	.secrel32	LASF2
 	.byte	0x1
-	.byte	0xfb
-	.long	0x7c5
+	.word	0x10c
+	.long	0x814
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
-	.uleb128 0x16
+	.uleb128 0x12
 	.secrel32	LASF3
 	.byte	0x1
-	.byte	0xfb
-	.long	0x7cb
+	.word	0x10c
+	.long	0x81a
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 4
-	.uleb128 0x16
+	.uleb128 0x12
 	.secrel32	LASF0
 	.byte	0x1
-	.byte	0xfb
-	.long	0x6e2
+	.word	0x10c
+	.long	0x731
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 8
-	.uleb128 0x17
+	.uleb128 0x14
 	.secrel32	LASF4
 	.byte	0x1
-	.byte	0xfd
+	.word	0x110
 	.long	0x509
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
-	.uleb128 0x17
+	.uleb128 0x14
 	.secrel32	LASF5
 	.byte	0x1
-	.byte	0xfe
+	.word	0x111
 	.long	0x1c2
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -32
-	.uleb128 0x17
+	.uleb128 0x14
 	.secrel32	LASF6
 	.byte	0x1
-	.byte	0xff
+	.word	0x112
 	.long	0x1b2
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -36
-	.uleb128 0x12
+	.uleb128 0x13
 	.ascii "j\0"
 	.byte	0x1
-	.word	0x100
+	.word	0x113
 	.long	0x1b2
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -24
-	.uleb128 0x13
+	.uleb128 0x14
 	.secrel32	LASF7
 	.byte	0x1
-	.word	0x101
+	.word	0x114
 	.long	0x1b2
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -28
-	.uleb128 0x12
+	.uleb128 0x13
 	.ascii "inBit\0"
 	.byte	0x1
-	.word	0x102
+	.word	0x115
 	.long	0x185
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -38
-	.uleb128 0x13
+	.uleb128 0x14
 	.secrel32	LASF1
 	.byte	0x1
-	.word	0x102
+	.word	0x115
 	.long	0x185
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -39
-	.uleb128 0x13
+	.uleb128 0x14
 	.secrel32	LASF8
 	.byte	0x1
-	.word	0x103
+	.word	0x116
 	.long	0x185
 	.uleb128 0x2
 	.byte	0x91
@@ -1571,34 +1697,34 @@ Ldebug_info0:
 	.uleb128 0x15
 	.ascii "Scramb_AdditiveDescrambler\0"
 	.byte	0x1
-	.byte	0xec
+	.byte	0xfd
 	.long	0x509
 	.long	LFB22
 	.long	LFE22-LFB22
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x900
+	.long	0x956
 	.uleb128 0x16
 	.secrel32	LASF2
 	.byte	0x1
-	.byte	0xec
-	.long	0x7c5
+	.byte	0xfd
+	.long	0x814
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
 	.uleb128 0x16
 	.secrel32	LASF3
 	.byte	0x1
-	.byte	0xec
-	.long	0x7cb
+	.byte	0xfd
+	.long	0x81a
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 4
 	.uleb128 0x16
 	.secrel32	LASF0
 	.byte	0x1
-	.byte	0xec
-	.long	0x6e2
+	.byte	0xfd
+	.long	0x731
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 8
@@ -1606,41 +1732,41 @@ Ldebug_info0:
 	.uleb128 0x15
 	.ascii "Scramb_AdditiveScrambler\0"
 	.byte	0x1
-	.byte	0xa0
+	.byte	0xad
 	.long	0x509
 	.long	LFB21
 	.long	LFE21-LFB21
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x9bc
+	.long	0xa12
 	.uleb128 0x16
 	.secrel32	LASF2
 	.byte	0x1
-	.byte	0xa0
-	.long	0x7c5
+	.byte	0xad
+	.long	0x814
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
 	.uleb128 0x16
 	.secrel32	LASF3
 	.byte	0x1
-	.byte	0xa0
-	.long	0x7cb
+	.byte	0xad
+	.long	0x81a
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 4
 	.uleb128 0x16
 	.secrel32	LASF0
 	.byte	0x1
-	.byte	0xa0
-	.long	0x6e2
+	.byte	0xad
+	.long	0x731
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 8
 	.uleb128 0x17
 	.secrel32	LASF4
 	.byte	0x1
-	.byte	0xa2
+	.byte	0xb1
 	.long	0x509
 	.uleb128 0x2
 	.byte	0x91
@@ -1648,7 +1774,7 @@ Ldebug_info0:
 	.uleb128 0x17
 	.secrel32	LASF5
 	.byte	0x1
-	.byte	0xa3
+	.byte	0xb2
 	.long	0x1c2
 	.uleb128 0x2
 	.byte	0x91
@@ -1656,7 +1782,7 @@ Ldebug_info0:
 	.uleb128 0x17
 	.secrel32	LASF6
 	.byte	0x1
-	.byte	0xa4
+	.byte	0xb3
 	.long	0x1b2
 	.uleb128 0x2
 	.byte	0x91
@@ -1664,7 +1790,7 @@ Ldebug_info0:
 	.uleb128 0x18
 	.ascii "j\0"
 	.byte	0x1
-	.byte	0xa5
+	.byte	0xb4
 	.long	0x1b2
 	.uleb128 0x2
 	.byte	0x91
@@ -1672,7 +1798,7 @@ Ldebug_info0:
 	.uleb128 0x17
 	.secrel32	LASF7
 	.byte	0x1
-	.byte	0xa6
+	.byte	0xb5
 	.long	0x1b2
 	.uleb128 0x2
 	.byte	0x91
@@ -1680,7 +1806,7 @@ Ldebug_info0:
 	.uleb128 0x18
 	.ascii "scrBit\0"
 	.byte	0x1
-	.byte	0xa7
+	.byte	0xb6
 	.long	0x185
 	.uleb128 0x2
 	.byte	0x91
@@ -1688,7 +1814,7 @@ Ldebug_info0:
 	.uleb128 0x17
 	.secrel32	LASF8
 	.byte	0x1
-	.byte	0xa8
+	.byte	0xb7
 	.long	0x185
 	.uleb128 0x2
 	.byte	0x91
@@ -1697,41 +1823,41 @@ Ldebug_info0:
 	.uleb128 0x19
 	.ascii "Scramb_Descrambler\0"
 	.byte	0x1
-	.byte	0x79
+	.byte	0x82
 	.long	0x509
 	.long	LFB20
 	.long	LFE20-LFB20
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0xa1d
+	.long	0xa73
 	.uleb128 0x16
 	.secrel32	LASF2
 	.byte	0x1
-	.byte	0x79
-	.long	0x7c5
+	.byte	0x82
+	.long	0x814
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
 	.uleb128 0x16
 	.secrel32	LASF3
 	.byte	0x1
-	.byte	0x79
-	.long	0x7cb
+	.byte	0x82
+	.long	0x81a
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 4
 	.uleb128 0x16
 	.secrel32	LASF0
 	.byte	0x1
-	.byte	0x79
-	.long	0x6e2
+	.byte	0x82
+	.long	0x731
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 8
 	.uleb128 0x17
 	.secrel32	LASF4
 	.byte	0x1
-	.byte	0x7b
+	.byte	0x86
 	.long	0x509
 	.uleb128 0x2
 	.byte	0x91
@@ -1740,41 +1866,41 @@ Ldebug_info0:
 	.uleb128 0x19
 	.ascii "Scramb_Scrambler\0"
 	.byte	0x1
-	.byte	0x56
+	.byte	0x5b
 	.long	0x509
 	.long	LFB19
 	.long	LFE19-LFB19
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0xa7c
+	.long	0xad2
 	.uleb128 0x16
 	.secrel32	LASF2
 	.byte	0x1
-	.byte	0x56
-	.long	0x7c5
+	.byte	0x5b
+	.long	0x814
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
 	.uleb128 0x16
 	.secrel32	LASF3
 	.byte	0x1
-	.byte	0x56
-	.long	0x7cb
+	.byte	0x5b
+	.long	0x81a
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 4
 	.uleb128 0x16
 	.secrel32	LASF0
 	.byte	0x1
-	.byte	0x56
-	.long	0x6e2
+	.byte	0x5b
+	.long	0x731
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 8
 	.uleb128 0x17
 	.secrel32	LASF4
 	.byte	0x1
-	.byte	0x58
+	.byte	0x5f
 	.long	0x509
 	.uleb128 0x2
 	.byte	0x91
@@ -1783,25 +1909,25 @@ Ldebug_info0:
 	.uleb128 0x19
 	.ascii "Scramb_ListParameters\0"
 	.byte	0x1
-	.byte	0x2b
+	.byte	0x2e
 	.long	0x509
 	.long	LFB18
 	.long	LFE18-LFB18
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0xac9
+	.long	0xb1f
 	.uleb128 0x1a
 	.ascii "ioParams\0"
 	.byte	0x1
-	.byte	0x2b
-	.long	0xac9
+	.byte	0x2e
+	.long	0xb1f
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
 	.uleb128 0x17
 	.secrel32	LASF4
 	.byte	0x1
-	.byte	0x2d
+	.byte	0x32
 	.long	0x509
 	.uleb128 0x2
 	.byte	0x91
@@ -1984,91 +2110,23 @@ Ldebug_abbrev0:
 	.byte	0
 	.byte	0
 	.uleb128 0xf
-	.uleb128 0x2e
+	.uleb128 0x4
 	.byte	0x1
 	.uleb128 0x3
 	.uleb128 0x8
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
 	.uleb128 0x3a
 	.uleb128 0xb
 	.uleb128 0x3b
-	.uleb128 0x5
-	.uleb128 0x27
-	.uleb128 0x19
-	.uleb128 0x49
-	.uleb128 0x13
-	.uleb128 0x11
-	.uleb128 0x1
-	.uleb128 0x12
-	.uleb128 0x6
-	.uleb128 0x40
-	.uleb128 0x18
-	.uleb128 0x2117
-	.uleb128 0x19
+	.uleb128 0xb
 	.uleb128 0x1
 	.uleb128 0x13
 	.byte	0
 	.byte	0
 	.uleb128 0x10
-	.uleb128 0x5
-	.byte	0
-	.uleb128 0x3
-	.uleb128 0x8
-	.uleb128 0x3a
-	.uleb128 0xb
-	.uleb128 0x3b
-	.uleb128 0x5
-	.uleb128 0x49
-	.uleb128 0x13
-	.uleb128 0x2
-	.uleb128 0x18
-	.byte	0
-	.byte	0
-	.uleb128 0x11
-	.uleb128 0x5
-	.byte	0
-	.uleb128 0x3
-	.uleb128 0xe
-	.uleb128 0x3a
-	.uleb128 0xb
-	.uleb128 0x3b
-	.uleb128 0x5
-	.uleb128 0x49
-	.uleb128 0x13
-	.uleb128 0x2
-	.uleb128 0x18
-	.byte	0
-	.byte	0
-	.uleb128 0x12
-	.uleb128 0x34
-	.byte	0
-	.uleb128 0x3
-	.uleb128 0x8
-	.uleb128 0x3a
-	.uleb128 0xb
-	.uleb128 0x3b
-	.uleb128 0x5
-	.uleb128 0x49
-	.uleb128 0x13
-	.uleb128 0x2
-	.uleb128 0x18
-	.byte	0
-	.byte	0
-	.uleb128 0x13
-	.uleb128 0x34
-	.byte	0
-	.uleb128 0x3
-	.uleb128 0xe
-	.uleb128 0x3a
-	.uleb128 0xb
-	.uleb128 0x3b
-	.uleb128 0x5
-	.uleb128 0x49
-	.uleb128 0x13
-	.uleb128 0x2
-	.uleb128 0x18
-	.byte	0
-	.byte	0
-	.uleb128 0x14
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3
@@ -2091,6 +2149,66 @@ Ldebug_abbrev0:
 	.uleb128 0x19
 	.uleb128 0x1
 	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x11
+	.uleb128 0x5
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0x5
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x18
+	.byte	0
+	.byte	0
+	.uleb128 0x12
+	.uleb128 0x5
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0x5
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x18
+	.byte	0
+	.byte	0
+	.uleb128 0x13
+	.uleb128 0x34
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0x5
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x18
+	.byte	0
+	.byte	0
+	.uleb128 0x14
+	.uleb128 0x34
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0x5
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x18
 	.byte	0
 	.byte	0
 	.uleb128 0x15
@@ -2240,5 +2358,7 @@ LASF2:
 LASF4:
 	.ascii "retErr\0"
 	.ident	"GCC: (MinGW.org GCC-6.3.0-1) 6.3.0"
+	.def	_Debug_SetWatermark;	.scl	2;	.type	32;	.endef
 	.def	_Error_HandleErr;	.scl	2;	.type	32;	.endef
+	.def	_Memory_IsStreamValid;	.scl	2;	.type	32;	.endef
 	.def	_memcpy;	.scl	2;	.type	32;	.endef

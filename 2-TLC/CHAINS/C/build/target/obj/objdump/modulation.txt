@@ -1,0 +1,1347 @@
+
+build\target\obj\modulation.o:     file format pe-i386
+
+
+Disassembly of section .text:
+
+00000000 <_Modulation_ListParameters>:
+ * @param[out] ioParams pointer to i/o parameters structure to be filled
+ * 
+ * @return error ID
+ */
+error_t Modulation_ListParameters( mod_par_t * ioParams )
+{
+   0:	55                   	push   %ebp
+   1:	89 e5                	mov    %esp,%ebp
+   3:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)Modulation_ListParameters,WM_LEVEL_1);
+   6:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+   d:	00 
+   e:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
+  15:	e8 00 00 00 00       	call   1a <_Modulation_ListParameters+0x1a>
+
+  error_t retErr = ERR_NONE;
+  1a:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+
+  if (NULL != ioParams)
+  21:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+  25:	74 25                	je     4c <_Modulation_ListParameters+0x4c>
+  {
+    ioParams->type = MOD_TYPE;
+  27:	8b 45 08             	mov    0x8(%ebp),%eax
+  2a:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
+    ioParams->order = MOD_ORDER;
+  30:	8b 45 08             	mov    0x8(%ebp),%eax
+  33:	c6 40 04 04          	movb   $0x4,0x4(%eax)
+    ioParams->bps = MOD_BPS;
+  37:	8b 45 08             	mov    0x8(%ebp),%eax
+  3a:	c6 40 05 02          	movb   $0x2,0x5(%eax)
+    ioParams ->phOfst = MATH_PI/MOD_ORDER;
+  3e:	8b 45 08             	mov    0x8(%ebp),%eax
+  41:	d9 05 00 00 00 00    	flds   0x0
+  47:	d9 58 08             	fstps  0x8(%eax)
+  4a:	eb 07                	jmp    53 <_Modulation_ListParameters+0x53>
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  4c:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+  53:	8b 45 f4             	mov    -0xc(%ebp),%eax
+  56:	89 04 24             	mov    %eax,(%esp)
+  59:	e8 00 00 00 00       	call   5e <_Modulation_ListParameters+0x5e>
+}
+  5e:	c9                   	leave  
+  5f:	c3                   	ret    
+
+00000060 <_Modulation_Mapper>:
+ * @param[in] pParams pointer to modulation parameters structure
+ * 
+ * @return error ID
+ */
+error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * outStream, const mod_par_t * pParams )
+{
+  60:	55                   	push   %ebp
+  61:	89 e5                	mov    %esp,%ebp
+  63:	56                   	push   %esi
+  64:	53                   	push   %ebx
+  65:	83 ec 50             	sub    $0x50,%esp
+  Debug_SetWatermark((void *)Modulation_Mapper,WM_LEVEL_1);
+  68:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+  6f:	00 
+  70:	c7 04 24 60 00 00 00 	movl   $0x60,(%esp)
+  77:	e8 00 00 00 00       	call   7c <_Modulation_Mapper+0x1c>
+
+  error_t retErr = ERR_NONE;
+  7c:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  mod_maptable_t mapTable;
+  const ulen_t inLenBi = BY2BI_LEN(inStream->len);
+  83:	8b 45 08             	mov    0x8(%ebp),%eax
+  86:	8b 40 04             	mov    0x4(%eax),%eax
+  89:	c1 e0 03             	shl    $0x3,%eax
+  8c:	89 45 e8             	mov    %eax,-0x18(%ebp)
+  ulen_t j = 0;
+  8f:	c7 45 f0 00 00 00 00 	movl   $0x0,-0x10(%ebp)
+  ulen_t byteIdx;
+  uint8_t curBits = 0;
+  96:	c6 45 ef 00          	movb   $0x0,-0x11(%ebp)
+  uint8_t symbIdx = 0;
+  9a:	c6 45 ee 00          	movb   $0x0,-0x12(%ebp)
+  uint8_t bitIdx;
+  uint8_t i;
+
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+  9e:	8b 45 08             	mov    0x8(%ebp),%eax
+  a1:	8b 40 08             	mov    0x8(%eax),%eax
+  a4:	89 44 24 04          	mov    %eax,0x4(%esp)
+  a8:	8b 45 08             	mov    0x8(%ebp),%eax
+  ab:	89 04 24             	mov    %eax,(%esp)
+  ae:	e8 00 00 00 00       	call   b3 <_Modulation_Mapper+0x53>
+  b3:	84 c0                	test   %al,%al
+  b5:	0f 84 29 01 00 00    	je     1e4 <_Modulation_Mapper+0x184>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+  bb:	8b 45 0c             	mov    0xc(%ebp),%eax
+  be:	8b 40 08             	mov    0x8(%eax),%eax
+  c1:	89 44 24 04          	mov    %eax,0x4(%esp)
+  c5:	8b 45 0c             	mov    0xc(%ebp),%eax
+  c8:	89 04 24             	mov    %eax,(%esp)
+  cb:	e8 00 00 00 00       	call   d0 <_Modulation_Mapper+0x70>
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+  d0:	84 c0                	test   %al,%al
+  d2:	0f 84 0c 01 00 00    	je     1e4 <_Modulation_Mapper+0x184>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+  d8:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+  dc:	0f 84 02 01 00 00    	je     1e4 <_Modulation_Mapper+0x184>
+      (NULL != pParams))
+  {
+    GetMappingTable(&mapTable,pParams);
+  e2:	8b 45 10             	mov    0x10(%ebp),%eax
+  e5:	89 44 24 04          	mov    %eax,0x4(%esp)
+  e9:	8d 45 bc             	lea    -0x44(%ebp),%eax
+  ec:	89 04 24             	mov    %eax,(%esp)
+  ef:	e8 66 05 00 00       	call   65a <_GetMappingTable>
+
+    while (j < inLenBi)
+  f4:	e9 dd 00 00 00       	jmp    1d6 <_Modulation_Mapper+0x176>
+    {
+      symbIdx++;
+  f9:	0f b6 45 ee          	movzbl -0x12(%ebp),%eax
+  fd:	83 c0 01             	add    $0x1,%eax
+ 100:	88 45 ee             	mov    %al,-0x12(%ebp)
+      byteIdx = BI2BY_LEN(j);
+ 103:	8b 45 f0             	mov    -0x10(%ebp),%eax
+ 106:	c1 e8 03             	shr    $0x3,%eax
+ 109:	89 45 e4             	mov    %eax,-0x1c(%ebp)
+      bitIdx = (uint8_t)(BITIDX_1LAST-(j&LSBYTE_MASK_U32));
+ 10c:	8b 45 f0             	mov    -0x10(%ebp),%eax
+ 10f:	f7 d0                	not    %eax
+ 111:	83 e0 07             	and    $0x7,%eax
+ 114:	88 45 e3             	mov    %al,-0x1d(%ebp)
+      curBits |= ((inStream->pBuf[byteIdx]>>bitIdx)&LSBIT_MASK_U8)<<(pParams->bps-symbIdx);
+ 117:	8b 45 08             	mov    0x8(%ebp),%eax
+ 11a:	8b 10                	mov    (%eax),%edx
+ 11c:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+ 11f:	01 d0                	add    %edx,%eax
+ 121:	0f b6 00             	movzbl (%eax),%eax
+ 124:	0f b6 d0             	movzbl %al,%edx
+ 127:	0f b6 45 e3          	movzbl -0x1d(%ebp),%eax
+ 12b:	89 c1                	mov    %eax,%ecx
+ 12d:	d3 fa                	sar    %cl,%edx
+ 12f:	89 d0                	mov    %edx,%eax
+ 131:	83 e0 01             	and    $0x1,%eax
+ 134:	89 c3                	mov    %eax,%ebx
+ 136:	8b 45 10             	mov    0x10(%ebp),%eax
+ 139:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 13d:	0f b6 d0             	movzbl %al,%edx
+ 140:	0f b6 45 ee          	movzbl -0x12(%ebp),%eax
+ 144:	29 c2                	sub    %eax,%edx
+ 146:	89 d0                	mov    %edx,%eax
+ 148:	89 c1                	mov    %eax,%ecx
+ 14a:	d3 e3                	shl    %cl,%ebx
+ 14c:	89 d8                	mov    %ebx,%eax
+ 14e:	89 c2                	mov    %eax,%edx
+ 150:	0f b6 45 ef          	movzbl -0x11(%ebp),%eax
+ 154:	09 d0                	or     %edx,%eax
+ 156:	88 45 ef             	mov    %al,-0x11(%ebp)
+      if (pParams->bps == symbIdx)
+ 159:	8b 45 10             	mov    0x10(%ebp),%eax
+ 15c:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 160:	3a 45 ee             	cmp    -0x12(%ebp),%al
+ 163:	75 6d                	jne    1d2 <_Modulation_Mapper+0x172>
+      {
+        for (i=0; i<pParams->order; i++)
+ 165:	c6 45 ed 00          	movb   $0x0,-0x13(%ebp)
+ 169:	eb 53                	jmp    1be <_Modulation_Mapper+0x15e>
+        {
+          if (mapTable.bits[i] == curBits)
+ 16b:	0f b6 45 ed          	movzbl -0x13(%ebp),%eax
+ 16f:	0f b6 44 05 bc       	movzbl -0x44(%ebp,%eax,1),%eax
+ 174:	3a 45 ef             	cmp    -0x11(%ebp),%al
+ 177:	75 3b                	jne    1b4 <_Modulation_Mapper+0x154>
+          {
+            outStream->pBuf[(j+1)/pParams->bps-1] = mapTable.symbs[i];
+ 179:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 17c:	8b 08                	mov    (%eax),%ecx
+ 17e:	8b 45 f0             	mov    -0x10(%ebp),%eax
+ 181:	8d 58 01             	lea    0x1(%eax),%ebx
+ 184:	8b 45 10             	mov    0x10(%ebp),%eax
+ 187:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 18b:	0f b6 f0             	movzbl %al,%esi
+ 18e:	89 d8                	mov    %ebx,%eax
+ 190:	ba 00 00 00 00       	mov    $0x0,%edx
+ 195:	f7 f6                	div    %esi
+ 197:	05 ff ff ff 1f       	add    $0x1fffffff,%eax
+ 19c:	c1 e0 03             	shl    $0x3,%eax
+ 19f:	01 c1                	add    %eax,%ecx
+ 1a1:	0f b6 45 ed          	movzbl -0x13(%ebp),%eax
+ 1a5:	8b 54 c5 c4          	mov    -0x3c(%ebp,%eax,8),%edx
+ 1a9:	8b 44 c5 c0          	mov    -0x40(%ebp,%eax,8),%eax
+ 1ad:	89 01                	mov    %eax,(%ecx)
+ 1af:	89 51 04             	mov    %edx,0x4(%ecx)
+            break;
+ 1b2:	eb 16                	jmp    1ca <_Modulation_Mapper+0x16a>
+        for (i=0; i<pParams->order; i++)
+ 1b4:	0f b6 45 ed          	movzbl -0x13(%ebp),%eax
+ 1b8:	83 c0 01             	add    $0x1,%eax
+ 1bb:	88 45 ed             	mov    %al,-0x13(%ebp)
+ 1be:	8b 45 10             	mov    0x10(%ebp),%eax
+ 1c1:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 1c5:	3a 45 ed             	cmp    -0x13(%ebp),%al
+ 1c8:	77 a1                	ja     16b <_Modulation_Mapper+0x10b>
+          }
+        }
+        symbIdx = 0;
+ 1ca:	c6 45 ee 00          	movb   $0x0,-0x12(%ebp)
+        curBits = 0;
+ 1ce:	c6 45 ef 00          	movb   $0x0,-0x11(%ebp)
+      }
+      j++;
+ 1d2:	83 45 f0 01          	addl   $0x1,-0x10(%ebp)
+    while (j < inLenBi)
+ 1d6:	8b 45 f0             	mov    -0x10(%ebp),%eax
+ 1d9:	3b 45 e8             	cmp    -0x18(%ebp),%eax
+ 1dc:	0f 82 17 ff ff ff    	jb     f9 <_Modulation_Mapper+0x99>
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+ 1e2:	eb 07                	jmp    1eb <_Modulation_Mapper+0x18b>
+    }
+
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+ 1e4:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+ 1eb:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 1ee:	89 04 24             	mov    %eax,(%esp)
+ 1f1:	e8 00 00 00 00       	call   1f6 <_Modulation_Mapper+0x196>
+}
+ 1f6:	83 c4 50             	add    $0x50,%esp
+ 1f9:	5b                   	pop    %ebx
+ 1fa:	5e                   	pop    %esi
+ 1fb:	5d                   	pop    %ebp
+ 1fc:	c3                   	ret    
+
+000001fd <_Modulation_HardDemapper>:
+ * @param[in] pParams pointer to modulation parameters structure
+ * 
+ * @return error ID
+ */
+error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_t * outStream, const mod_par_t * pParams )
+{
+ 1fd:	55                   	push   %ebp
+ 1fe:	89 e5                	mov    %esp,%ebp
+ 200:	56                   	push   %esi
+ 201:	53                   	push   %ebx
+ 202:	83 ec 60             	sub    $0x60,%esp
+  Debug_SetWatermark((void *)Modulation_HardDemapper,WM_LEVEL_1);
+ 205:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+ 20c:	00 
+ 20d:	c7 04 24 fd 01 00 00 	movl   $0x1fd,(%esp)
+ 214:	e8 00 00 00 00       	call   219 <_Modulation_HardDemapper+0x1c>
+
+  error_t retErr = ERR_NONE;
+ 219:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  mod_maptable_t mapTable;
+  float minDist, curDist;
+  uint32_t k = 0;                                                           /** - bit counter for output stream writing */
+ 220:	c7 45 ec 00 00 00 00 	movl   $0x0,-0x14(%ebp)
+  uint32_t j;
+  uint8_t minIdx;
+  uint8_t bitIdx;
+  uint8_t i;
+  
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+ 227:	8b 45 08             	mov    0x8(%ebp),%eax
+ 22a:	8b 40 08             	mov    0x8(%eax),%eax
+ 22d:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 231:	8b 45 08             	mov    0x8(%ebp),%eax
+ 234:	89 04 24             	mov    %eax,(%esp)
+ 237:	e8 00 00 00 00       	call   23c <_Modulation_HardDemapper+0x3f>
+ 23c:	84 c0                	test   %al,%al
+ 23e:	0f 84 b5 01 00 00    	je     3f9 <_Modulation_HardDemapper+0x1fc>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+ 244:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 247:	8b 40 08             	mov    0x8(%eax),%eax
+ 24a:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 24e:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 251:	89 04 24             	mov    %eax,(%esp)
+ 254:	e8 00 00 00 00       	call   259 <_Modulation_HardDemapper+0x5c>
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+ 259:	84 c0                	test   %al,%al
+ 25b:	0f 84 98 01 00 00    	je     3f9 <_Modulation_HardDemapper+0x1fc>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+ 261:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+ 265:	0f 84 8e 01 00 00    	je     3f9 <_Modulation_HardDemapper+0x1fc>
+      (NULL != pParams))
+  {
+    GetMappingTable(&mapTable,pParams);                                     /** - retrieve mapping table */
+ 26b:	8b 45 10             	mov    0x10(%ebp),%eax
+ 26e:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 272:	8d 45 b4             	lea    -0x4c(%ebp),%eax
+ 275:	89 04 24             	mov    %eax,(%esp)
+ 278:	e8 dd 03 00 00       	call   65a <_GetMappingTable>
+    memset(outStream->pBuf,0,outStream->len);                               /** - clear output buffer */
+ 27d:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 280:	8b 50 04             	mov    0x4(%eax),%edx
+ 283:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 286:	8b 00                	mov    (%eax),%eax
+ 288:	89 54 24 08          	mov    %edx,0x8(%esp)
+ 28c:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+ 293:	00 
+ 294:	89 04 24             	mov    %eax,(%esp)
+ 297:	e8 00 00 00 00       	call   29c <_Modulation_HardDemapper+0x9f>
+
+    for (j=0; j<inStream->len; j++)
+ 29c:	c7 45 e8 00 00 00 00 	movl   $0x0,-0x18(%ebp)
+ 2a3:	e9 40 01 00 00       	jmp    3e8 <_Modulation_HardDemapper+0x1eb>
+    {
+      minIdx = 0;
+ 2a8:	c6 45 e7 00          	movb   $0x0,-0x19(%ebp)
+      minDist = fabs(inStream->pBuf[j].re-mapTable.symbs[0].re)+fabs(inStream->pBuf[j].im-mapTable.symbs[0].im);
+ 2ac:	8b 45 08             	mov    0x8(%ebp),%eax
+ 2af:	8b 00                	mov    (%eax),%eax
+ 2b1:	8b 55 e8             	mov    -0x18(%ebp),%edx
+ 2b4:	c1 e2 03             	shl    $0x3,%edx
+ 2b7:	01 d0                	add    %edx,%eax
+ 2b9:	d9 00                	flds   (%eax)
+ 2bb:	d9 45 b8             	flds   -0x48(%ebp)
+ 2be:	de e9                	fsubrp %st,%st(1)
+ 2c0:	d9 e1                	fabs   
+ 2c2:	8b 45 08             	mov    0x8(%ebp),%eax
+ 2c5:	8b 00                	mov    (%eax),%eax
+ 2c7:	8b 55 e8             	mov    -0x18(%ebp),%edx
+ 2ca:	c1 e2 03             	shl    $0x3,%edx
+ 2cd:	01 d0                	add    %edx,%eax
+ 2cf:	d9 40 04             	flds   0x4(%eax)
+ 2d2:	d9 45 bc             	flds   -0x44(%ebp)
+ 2d5:	de e9                	fsubrp %st,%st(1)
+ 2d7:	d9 e1                	fabs   
+ 2d9:	de c1                	faddp  %st,%st(1)
+ 2db:	d9 5d f0             	fstps  -0x10(%ebp)
+      for (i=1; i<pParams->order; i++)
+ 2de:	c6 45 e6 01          	movb   $0x1,-0x1a(%ebp)
+ 2e2:	eb 62                	jmp    346 <_Modulation_HardDemapper+0x149>
+      {
+        curDist = fabs(inStream->pBuf[j].re-mapTable.symbs[i].re)+fabs(inStream->pBuf[j].im-mapTable.symbs[i].im);
+ 2e4:	8b 45 08             	mov    0x8(%ebp),%eax
+ 2e7:	8b 00                	mov    (%eax),%eax
+ 2e9:	8b 55 e8             	mov    -0x18(%ebp),%edx
+ 2ec:	c1 e2 03             	shl    $0x3,%edx
+ 2ef:	01 d0                	add    %edx,%eax
+ 2f1:	d9 00                	flds   (%eax)
+ 2f3:	0f b6 45 e6          	movzbl -0x1a(%ebp),%eax
+ 2f7:	d9 44 c5 b8          	flds   -0x48(%ebp,%eax,8)
+ 2fb:	de e9                	fsubrp %st,%st(1)
+ 2fd:	d9 e1                	fabs   
+ 2ff:	8b 45 08             	mov    0x8(%ebp),%eax
+ 302:	8b 00                	mov    (%eax),%eax
+ 304:	8b 55 e8             	mov    -0x18(%ebp),%edx
+ 307:	c1 e2 03             	shl    $0x3,%edx
+ 30a:	01 d0                	add    %edx,%eax
+ 30c:	d9 40 04             	flds   0x4(%eax)
+ 30f:	0f b6 45 e6          	movzbl -0x1a(%ebp),%eax
+ 313:	d9 44 c5 bc          	flds   -0x44(%ebp,%eax,8)
+ 317:	de e9                	fsubrp %st,%st(1)
+ 319:	d9 e1                	fabs   
+ 31b:	de c1                	faddp  %st,%st(1)
+ 31d:	d9 5d e0             	fstps  -0x20(%ebp)
+        if (curDist < minDist)
+ 320:	d9 45 f0             	flds   -0x10(%ebp)
+ 323:	d9 45 e0             	flds   -0x20(%ebp)
+ 326:	d9 c9                	fxch   %st(1)
+ 328:	da e9                	fucompp 
+ 32a:	df e0                	fnstsw %ax
+ 32c:	9e                   	sahf   
+ 32d:	76 0d                	jbe    33c <_Modulation_HardDemapper+0x13f>
+        {
+          minDist = curDist;
+ 32f:	d9 45 e0             	flds   -0x20(%ebp)
+ 332:	d9 5d f0             	fstps  -0x10(%ebp)
+          minIdx = i;
+ 335:	0f b6 45 e6          	movzbl -0x1a(%ebp),%eax
+ 339:	88 45 e7             	mov    %al,-0x19(%ebp)
+      for (i=1; i<pParams->order; i++)
+ 33c:	0f b6 45 e6          	movzbl -0x1a(%ebp),%eax
+ 340:	83 c0 01             	add    $0x1,%eax
+ 343:	88 45 e6             	mov    %al,-0x1a(%ebp)
+ 346:	8b 45 10             	mov    0x10(%ebp),%eax
+ 349:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 34d:	3a 45 e6             	cmp    -0x1a(%ebp),%al
+ 350:	77 92                	ja     2e4 <_Modulation_HardDemapper+0xe7>
+        }
+      }
+      for (i=0; i<pParams->bps; i++)
+ 352:	c6 45 e6 00          	movb   $0x0,-0x1a(%ebp)
+ 356:	eb 7c                	jmp    3d4 <_Modulation_HardDemapper+0x1d7>
+      {
+        if (mapTable.bits[minIdx] & (LSBIT_MASK_U8<<(pParams->bps-1-i)))
+ 358:	0f b6 45 e7          	movzbl -0x19(%ebp),%eax
+ 35c:	0f b6 44 05 b4       	movzbl -0x4c(%ebp,%eax,1),%eax
+ 361:	0f b6 d0             	movzbl %al,%edx
+ 364:	8b 45 10             	mov    0x10(%ebp),%eax
+ 367:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 36b:	0f b6 c0             	movzbl %al,%eax
+ 36e:	8d 48 ff             	lea    -0x1(%eax),%ecx
+ 371:	0f b6 45 e6          	movzbl -0x1a(%ebp),%eax
+ 375:	29 c1                	sub    %eax,%ecx
+ 377:	89 c8                	mov    %ecx,%eax
+ 379:	89 c1                	mov    %eax,%ecx
+ 37b:	d3 fa                	sar    %cl,%edx
+ 37d:	89 d0                	mov    %edx,%eax
+ 37f:	83 e0 01             	and    $0x1,%eax
+ 382:	85 c0                	test   %eax,%eax
+ 384:	74 40                	je     3c6 <_Modulation_HardDemapper+0x1c9>
+        {
+          byteIdx = BI2BY_LEN(k);
+ 386:	8b 45 ec             	mov    -0x14(%ebp),%eax
+ 389:	c1 e8 03             	shr    $0x3,%eax
+ 38c:	89 45 dc             	mov    %eax,-0x24(%ebp)
+          bitIdx = BITIDX_1LAST-(k&LSBYTE_MASK_U32);
+ 38f:	8b 45 ec             	mov    -0x14(%ebp),%eax
+ 392:	f7 d0                	not    %eax
+ 394:	83 e0 07             	and    $0x7,%eax
+ 397:	88 45 db             	mov    %al,-0x25(%ebp)
+          outStream->pBuf[byteIdx] |= (LSBIT_MASK_U8<<bitIdx); 
+ 39a:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 39d:	8b 10                	mov    (%eax),%edx
+ 39f:	8b 45 dc             	mov    -0x24(%ebp),%eax
+ 3a2:	01 c2                	add    %eax,%edx
+ 3a4:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 3a7:	8b 08                	mov    (%eax),%ecx
+ 3a9:	8b 45 dc             	mov    -0x24(%ebp),%eax
+ 3ac:	01 c8                	add    %ecx,%eax
+ 3ae:	0f b6 00             	movzbl (%eax),%eax
+ 3b1:	89 c6                	mov    %eax,%esi
+ 3b3:	0f b6 45 db          	movzbl -0x25(%ebp),%eax
+ 3b7:	bb 01 00 00 00       	mov    $0x1,%ebx
+ 3bc:	89 c1                	mov    %eax,%ecx
+ 3be:	d3 e3                	shl    %cl,%ebx
+ 3c0:	89 d8                	mov    %ebx,%eax
+ 3c2:	09 f0                	or     %esi,%eax
+ 3c4:	88 02                	mov    %al,(%edx)
+        }
+        k++;
+ 3c6:	83 45 ec 01          	addl   $0x1,-0x14(%ebp)
+      for (i=0; i<pParams->bps; i++)
+ 3ca:	0f b6 45 e6          	movzbl -0x1a(%ebp),%eax
+ 3ce:	83 c0 01             	add    $0x1,%eax
+ 3d1:	88 45 e6             	mov    %al,-0x1a(%ebp)
+ 3d4:	8b 45 10             	mov    0x10(%ebp),%eax
+ 3d7:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 3db:	3a 45 e6             	cmp    -0x1a(%ebp),%al
+ 3de:	0f 87 74 ff ff ff    	ja     358 <_Modulation_HardDemapper+0x15b>
+    for (j=0; j<inStream->len; j++)
+ 3e4:	83 45 e8 01          	addl   $0x1,-0x18(%ebp)
+ 3e8:	8b 45 08             	mov    0x8(%ebp),%eax
+ 3eb:	8b 40 04             	mov    0x4(%eax),%eax
+ 3ee:	3b 45 e8             	cmp    -0x18(%ebp),%eax
+ 3f1:	0f 87 b1 fe ff ff    	ja     2a8 <_Modulation_HardDemapper+0xab>
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+ 3f7:	eb 07                	jmp    400 <_Modulation_HardDemapper+0x203>
+      }
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+ 3f9:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+ 400:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 403:	89 04 24             	mov    %eax,(%esp)
+ 406:	e8 00 00 00 00       	call   40b <_Modulation_HardDemapper+0x20e>
+}
+ 40b:	83 c4 60             	add    $0x60,%esp
+ 40e:	5b                   	pop    %ebx
+ 40f:	5e                   	pop    %esi
+ 410:	5d                   	pop    %ebp
+ 411:	c3                   	ret    
+
+00000412 <_Modulation_SoftDemapper>:
+ * @param[in] pParams pointer to modulation parameters structure
+ * 
+ * @return error ID
+ */
+error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream_t * outStream, const mod_par_t * pParams )
+{
+ 412:	55                   	push   %ebp
+ 413:	89 e5                	mov    %esp,%ebp
+ 415:	53                   	push   %ebx
+ 416:	83 ec 64             	sub    $0x64,%esp
+  Debug_SetWatermark((void *)Modulation_SoftDemapper,WM_LEVEL_1);
+ 419:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+ 420:	00 
+ 421:	c7 04 24 12 04 00 00 	movl   $0x412,(%esp)
+ 428:	e8 00 00 00 00       	call   42d <_Modulation_SoftDemapper+0x1b>
+
+  error_t retErr = ERR_NONE;
+ 42d:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  mod_maptable_t mapTable;
+  const ulen_t punLenBi = BY2BI_LEN(outStream->len);
+ 434:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 437:	8b 40 04             	mov    0x4(%eax),%eax
+ 43a:	c1 e0 03             	shl    $0x3,%eax
+ 43d:	89 45 e0             	mov    %eax,-0x20(%ebp)
+  ulen_t k;
+  float numerator, denominator;
+  float distance;
+  uint8_t i, j;
+
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+ 440:	8b 45 08             	mov    0x8(%ebp),%eax
+ 443:	8b 40 08             	mov    0x8(%eax),%eax
+ 446:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 44a:	8b 45 08             	mov    0x8(%ebp),%eax
+ 44d:	89 04 24             	mov    %eax,(%esp)
+ 450:	e8 00 00 00 00       	call   455 <_Modulation_SoftDemapper+0x43>
+ 455:	84 c0                	test   %al,%al
+ 457:	0f 84 e5 01 00 00    	je     642 <_Modulation_SoftDemapper+0x230>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+ 45d:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 460:	8b 40 08             	mov    0x8(%eax),%eax
+ 463:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 467:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 46a:	89 04 24             	mov    %eax,(%esp)
+ 46d:	e8 00 00 00 00       	call   472 <_Modulation_SoftDemapper+0x60>
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+ 472:	84 c0                	test   %al,%al
+ 474:	0f 84 c8 01 00 00    	je     642 <_Modulation_SoftDemapper+0x230>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+ 47a:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+ 47e:	0f 84 be 01 00 00    	je     642 <_Modulation_SoftDemapper+0x230>
+      (NULL != pParams))
+  {
+    GetMappingTable(&mapTable,pParams);
+ 484:	8b 45 10             	mov    0x10(%ebp),%eax
+ 487:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 48b:	8d 45 b8             	lea    -0x48(%ebp),%eax
+ 48e:	89 04 24             	mov    %eax,(%esp)
+ 491:	e8 c4 01 00 00       	call   65a <_GetMappingTable>
+
+    if (MOD_BINARY == pParams->order)
+ 496:	8b 45 10             	mov    0x10(%ebp),%eax
+ 499:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 49d:	3c 02                	cmp    $0x2,%al
+ 49f:	75 3b                	jne    4dc <_Modulation_SoftDemapper+0xca>
+    {
+      for (k=0; k<punLenBi; k++)
+ 4a1:	c7 45 f0 00 00 00 00 	movl   $0x0,-0x10(%ebp)
+ 4a8:	eb 25                	jmp    4cf <_Modulation_SoftDemapper+0xbd>
+      {
+        outStream->pBuf[k] = -inStream->pBuf[k].im;
+ 4aa:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 4ad:	8b 00                	mov    (%eax),%eax
+ 4af:	8b 55 f0             	mov    -0x10(%ebp),%edx
+ 4b2:	c1 e2 02             	shl    $0x2,%edx
+ 4b5:	01 c2                	add    %eax,%edx
+ 4b7:	8b 45 08             	mov    0x8(%ebp),%eax
+ 4ba:	8b 00                	mov    (%eax),%eax
+ 4bc:	8b 4d f0             	mov    -0x10(%ebp),%ecx
+ 4bf:	c1 e1 03             	shl    $0x3,%ecx
+ 4c2:	01 c8                	add    %ecx,%eax
+ 4c4:	d9 40 04             	flds   0x4(%eax)
+ 4c7:	d9 e0                	fchs   
+ 4c9:	d9 1a                	fstps  (%edx)
+      for (k=0; k<punLenBi; k++)
+ 4cb:	83 45 f0 01          	addl   $0x1,-0x10(%ebp)
+ 4cf:	8b 45 f0             	mov    -0x10(%ebp),%eax
+ 4d2:	3b 45 e0             	cmp    -0x20(%ebp),%eax
+ 4d5:	72 d3                	jb     4aa <_Modulation_SoftDemapper+0x98>
+    if (MOD_BINARY == pParams->order)
+ 4d7:	e9 6d 01 00 00       	jmp    649 <_Modulation_SoftDemapper+0x237>
+      }
+    }
+    else
+    {
+      for (k=0; k<inStream->len; k++)
+ 4dc:	c7 45 f0 00 00 00 00 	movl   $0x0,-0x10(%ebp)
+ 4e3:	e9 49 01 00 00       	jmp    631 <_Modulation_SoftDemapper+0x21f>
+      {
+        for (i=0; i<pParams->bps; i++)
+ 4e8:	c6 45 e7 00          	movb   $0x0,-0x19(%ebp)
+ 4ec:	e9 2c 01 00 00       	jmp    61d <_Modulation_SoftDemapper+0x20b>
+        {
+          numerator = 0;
+ 4f1:	d9 ee                	fldz   
+ 4f3:	d9 5d ec             	fstps  -0x14(%ebp)
+          denominator = 0;
+ 4f6:	d9 ee                	fldz   
+ 4f8:	d9 5d e8             	fstps  -0x18(%ebp)
+          for (j=0; j<pParams->order; j++)
+ 4fb:	c6 45 e6 00          	movb   $0x0,-0x1a(%ebp)
+ 4ff:	e9 bc 00 00 00       	jmp    5c0 <_Modulation_SoftDemapper+0x1ae>
+          {
+            distance = exp(-((inStream->pBuf[k].re-mapTable.symbs[j].re)*(inStream->pBuf[k].re-mapTable.symbs[j].re)+
+ 504:	8b 45 08             	mov    0x8(%ebp),%eax
+ 507:	8b 00                	mov    (%eax),%eax
+ 509:	8b 55 f0             	mov    -0x10(%ebp),%edx
+ 50c:	c1 e2 03             	shl    $0x3,%edx
+ 50f:	01 d0                	add    %edx,%eax
+ 511:	d9 00                	flds   (%eax)
+ 513:	0f b6 45 e6          	movzbl -0x1a(%ebp),%eax
+ 517:	d9 44 c5 bc          	flds   -0x44(%ebp,%eax,8)
+ 51b:	de e9                	fsubrp %st,%st(1)
+ 51d:	8b 45 08             	mov    0x8(%ebp),%eax
+ 520:	8b 00                	mov    (%eax),%eax
+ 522:	8b 55 f0             	mov    -0x10(%ebp),%edx
+ 525:	c1 e2 03             	shl    $0x3,%edx
+ 528:	01 d0                	add    %edx,%eax
+ 52a:	d9 00                	flds   (%eax)
+ 52c:	0f b6 45 e6          	movzbl -0x1a(%ebp),%eax
+ 530:	d9 44 c5 bc          	flds   -0x44(%ebp,%eax,8)
+ 534:	de e9                	fsubrp %st,%st(1)
+ 536:	de c9                	fmulp  %st,%st(1)
+                        (inStream->pBuf[k].im-mapTable.symbs[j].im)*(inStream->pBuf[k].im-mapTable.symbs[j].im))/MOD_SD_N0);
+ 538:	8b 45 08             	mov    0x8(%ebp),%eax
+ 53b:	8b 00                	mov    (%eax),%eax
+ 53d:	8b 55 f0             	mov    -0x10(%ebp),%edx
+ 540:	c1 e2 03             	shl    $0x3,%edx
+ 543:	01 d0                	add    %edx,%eax
+ 545:	d9 40 04             	flds   0x4(%eax)
+ 548:	0f b6 45 e6          	movzbl -0x1a(%ebp),%eax
+ 54c:	d9 44 c5 c0          	flds   -0x40(%ebp,%eax,8)
+ 550:	de e9                	fsubrp %st,%st(1)
+ 552:	8b 45 08             	mov    0x8(%ebp),%eax
+ 555:	8b 00                	mov    (%eax),%eax
+ 557:	8b 55 f0             	mov    -0x10(%ebp),%edx
+ 55a:	c1 e2 03             	shl    $0x3,%edx
+ 55d:	01 d0                	add    %edx,%eax
+ 55f:	d9 40 04             	flds   0x4(%eax)
+ 562:	0f b6 45 e6          	movzbl -0x1a(%ebp),%eax
+ 566:	d9 44 c5 c0          	flds   -0x40(%ebp,%eax,8)
+ 56a:	de e9                	fsubrp %st,%st(1)
+ 56c:	de c9                	fmulp  %st,%st(1)
+            distance = exp(-((inStream->pBuf[k].re-mapTable.symbs[j].re)*(inStream->pBuf[k].re-mapTable.symbs[j].re)+
+ 56e:	de c1                	faddp  %st,%st(1)
+ 570:	d9 e0                	fchs   
+                        (inStream->pBuf[k].im-mapTable.symbs[j].im)*(inStream->pBuf[k].im-mapTable.symbs[j].im))/MOD_SD_N0);
+ 572:	d9 05 04 00 00 00    	flds   0x4
+ 578:	de f9                	fdivrp %st,%st(1)
+            distance = exp(-((inStream->pBuf[k].re-mapTable.symbs[j].re)*(inStream->pBuf[k].re-mapTable.symbs[j].re)+
+ 57a:	dd 1c 24             	fstpl  (%esp)
+ 57d:	e8 00 00 00 00       	call   582 <_Modulation_SoftDemapper+0x170>
+ 582:	d9 5d dc             	fstps  -0x24(%ebp)
+            if ((mapTable.bits[j]>>i) & LSBIT_MASK_U8)
+ 585:	0f b6 45 e6          	movzbl -0x1a(%ebp),%eax
+ 589:	0f b6 44 05 b8       	movzbl -0x48(%ebp,%eax,1),%eax
+ 58e:	0f b6 d0             	movzbl %al,%edx
+ 591:	0f b6 45 e7          	movzbl -0x19(%ebp),%eax
+ 595:	89 c1                	mov    %eax,%ecx
+ 597:	d3 fa                	sar    %cl,%edx
+ 599:	89 d0                	mov    %edx,%eax
+ 59b:	83 e0 01             	and    $0x1,%eax
+ 59e:	85 c0                	test   %eax,%eax
+ 5a0:	74 0b                	je     5ad <_Modulation_SoftDemapper+0x19b>
+            {
+              numerator += distance;
+ 5a2:	d9 45 ec             	flds   -0x14(%ebp)
+ 5a5:	d8 45 dc             	fadds  -0x24(%ebp)
+ 5a8:	d9 5d ec             	fstps  -0x14(%ebp)
+ 5ab:	eb 09                	jmp    5b6 <_Modulation_SoftDemapper+0x1a4>
+            }
+            else
+            {
+              denominator += distance;
+ 5ad:	d9 45 e8             	flds   -0x18(%ebp)
+ 5b0:	d8 45 dc             	fadds  -0x24(%ebp)
+ 5b3:	d9 5d e8             	fstps  -0x18(%ebp)
+          for (j=0; j<pParams->order; j++)
+ 5b6:	0f b6 45 e6          	movzbl -0x1a(%ebp),%eax
+ 5ba:	83 c0 01             	add    $0x1,%eax
+ 5bd:	88 45 e6             	mov    %al,-0x1a(%ebp)
+ 5c0:	8b 45 10             	mov    0x10(%ebp),%eax
+ 5c3:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 5c7:	3a 45 e6             	cmp    -0x1a(%ebp),%al
+ 5ca:	0f 87 34 ff ff ff    	ja     504 <_Modulation_SoftDemapper+0xf2>
+            }
+          }
+          outStream->pBuf[(k+1)*pParams->bps-i-1] = MOD_SD_N0/2*log(numerator/denominator);
+ 5d0:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 5d3:	8b 10                	mov    (%eax),%edx
+ 5d5:	8b 45 f0             	mov    -0x10(%ebp),%eax
+ 5d8:	8d 48 01             	lea    0x1(%eax),%ecx
+ 5db:	8b 45 10             	mov    0x10(%ebp),%eax
+ 5de:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 5e2:	0f b6 c0             	movzbl %al,%eax
+ 5e5:	0f af c8             	imul   %eax,%ecx
+ 5e8:	0f b6 45 e7          	movzbl -0x19(%ebp),%eax
+ 5ec:	29 c1                	sub    %eax,%ecx
+ 5ee:	89 c8                	mov    %ecx,%eax
+ 5f0:	05 ff ff ff 3f       	add    $0x3fffffff,%eax
+ 5f5:	c1 e0 02             	shl    $0x2,%eax
+ 5f8:	8d 1c 02             	lea    (%edx,%eax,1),%ebx
+ 5fb:	d9 45 ec             	flds   -0x14(%ebp)
+ 5fe:	d8 75 e8             	fdivs  -0x18(%ebp)
+ 601:	dd 1c 24             	fstpl  (%esp)
+ 604:	e8 00 00 00 00       	call   609 <_Modulation_SoftDemapper+0x1f7>
+ 609:	d8 c0                	fadd   %st(0),%st
+ 60b:	d9 5d b4             	fstps  -0x4c(%ebp)
+ 60e:	d9 45 b4             	flds   -0x4c(%ebp)
+ 611:	d9 1b                	fstps  (%ebx)
+        for (i=0; i<pParams->bps; i++)
+ 613:	0f b6 45 e7          	movzbl -0x19(%ebp),%eax
+ 617:	83 c0 01             	add    $0x1,%eax
+ 61a:	88 45 e7             	mov    %al,-0x19(%ebp)
+ 61d:	8b 45 10             	mov    0x10(%ebp),%eax
+ 620:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 624:	3a 45 e7             	cmp    -0x19(%ebp),%al
+ 627:	0f 87 c4 fe ff ff    	ja     4f1 <_Modulation_SoftDemapper+0xdf>
+      for (k=0; k<inStream->len; k++)
+ 62d:	83 45 f0 01          	addl   $0x1,-0x10(%ebp)
+ 631:	8b 45 08             	mov    0x8(%ebp),%eax
+ 634:	8b 40 04             	mov    0x4(%eax),%eax
+ 637:	3b 45 f0             	cmp    -0x10(%ebp),%eax
+ 63a:	0f 87 a8 fe ff ff    	ja     4e8 <_Modulation_SoftDemapper+0xd6>
+    if (MOD_BINARY == pParams->order)
+ 640:	eb 07                	jmp    649 <_Modulation_SoftDemapper+0x237>
+      }
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+ 642:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+ 649:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 64c:	89 04 24             	mov    %eax,(%esp)
+ 64f:	e8 00 00 00 00       	call   654 <_Modulation_SoftDemapper+0x242>
+}
+ 654:	83 c4 64             	add    $0x64,%esp
+ 657:	5b                   	pop    %ebx
+ 658:	5d                   	pop    %ebp
+ 659:	c3                   	ret    
+
+0000065a <_GetMappingTable>:
+ * @param[in] pParams pointer to modulation parameters structure
+ * 
+ * @return error ID
+ */
+static error_t GetMappingTable( mod_maptable_t * ioTable, const mod_par_t * pParams )
+{
+ 65a:	55                   	push   %ebp
+ 65b:	89 e5                	mov    %esp,%ebp
+ 65d:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)GetMappingTable,WM_LEVEL_2);
+ 660:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+ 667:	00 
+ 668:	c7 04 24 5a 06 00 00 	movl   $0x65a,(%esp)
+ 66f:	e8 00 00 00 00       	call   674 <_GetMappingTable+0x1a>
+
+  error_t retErr = ERR_NONE;
+ 674:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+
+  if ((NULL != ioTable) && (NULL != pParams))
+ 67b:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+ 67f:	74 68                	je     6e9 <_GetMappingTable+0x8f>
+ 681:	83 7d 0c 00          	cmpl   $0x0,0xc(%ebp)
+ 685:	74 62                	je     6e9 <_GetMappingTable+0x8f>
+  {
+    if ((pParams->bps >= MOD_BPS_MIN) && (pParams->bps <= MOD_BPS_MAX))
+ 687:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 68a:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 68e:	84 c0                	test   %al,%al
+ 690:	74 4e                	je     6e0 <_GetMappingTable+0x86>
+ 692:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 695:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 699:	3c 06                	cmp    $0x6,%al
+ 69b:	77 43                	ja     6e0 <_GetMappingTable+0x86>
+    {
+      switch(pParams->type)
+ 69d:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 6a0:	8b 00                	mov    (%eax),%eax
+ 6a2:	85 c0                	test   %eax,%eax
+ 6a4:	74 07                	je     6ad <_GetMappingTable+0x53>
+ 6a6:	83 f8 01             	cmp    $0x1,%eax
+ 6a9:	74 16                	je     6c1 <_GetMappingTable+0x67>
+ 6ab:	eb 28                	jmp    6d5 <_GetMappingTable+0x7b>
+      {
+        case MOD_PSK:
+          GetPskTable(ioTable,pParams);
+ 6ad:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 6b0:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 6b4:	8b 45 08             	mov    0x8(%ebp),%eax
+ 6b7:	89 04 24             	mov    %eax,(%esp)
+ 6ba:	e8 3e 00 00 00       	call   6fd <_GetPskTable>
+          break;
+ 6bf:	eb 1c                	jmp    6dd <_GetMappingTable+0x83>
+
+        case MOD_QAM:
+          GetQamTable(ioTable,pParams);
+ 6c1:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 6c4:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 6c8:	8b 45 08             	mov    0x8(%ebp),%eax
+ 6cb:	89 04 24             	mov    %eax,(%esp)
+ 6ce:	e8 9a 01 00 00       	call   86d <_GetQamTable>
+          break;
+ 6d3:	eb 08                	jmp    6dd <_GetMappingTable+0x83>
+
+        default:
+          retErr = ERR_INV_MODULATION_TYPE;
+ 6d5:	c7 45 f4 0a 00 00 00 	movl   $0xa,-0xc(%ebp)
+          break;
+ 6dc:	90                   	nop
+      }
+    }
+ 6dd:	90                   	nop
+    if ((pParams->bps >= MOD_BPS_MIN) && (pParams->bps <= MOD_BPS_MAX))
+ 6de:	eb 10                	jmp    6f0 <_GetMappingTable+0x96>
+    else
+    {
+      retErr = ERR_INV_MODULATION_BPS;
+ 6e0:	c7 45 f4 0b 00 00 00 	movl   $0xb,-0xc(%ebp)
+    if ((pParams->bps >= MOD_BPS_MIN) && (pParams->bps <= MOD_BPS_MAX))
+ 6e7:	eb 07                	jmp    6f0 <_GetMappingTable+0x96>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+ 6e9:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+ 6f0:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 6f3:	89 04 24             	mov    %eax,(%esp)
+ 6f6:	e8 00 00 00 00       	call   6fb <_GetMappingTable+0xa1>
+}
+ 6fb:	c9                   	leave  
+ 6fc:	c3                   	ret    
+
+000006fd <_GetPskTable>:
+ * @param[in] pParams pointer to modulation parameters structure
+ * 
+ * @return error ID
+ */
+static error_t GetPskTable( mod_maptable_t * ioTable, const mod_par_t * pParams )
+{
+ 6fd:	55                   	push   %ebp
+ 6fe:	89 e5                	mov    %esp,%ebp
+ 700:	56                   	push   %esi
+ 701:	53                   	push   %ebx
+ 702:	83 ec 30             	sub    $0x30,%esp
+ 705:	89 e0                	mov    %esp,%eax
+ 707:	89 c6                	mov    %eax,%esi
+  Debug_SetWatermark((void *)GetPskTable,WM_LEVEL_2);
+ 709:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+ 710:	00 
+ 711:	c7 04 24 fd 06 00 00 	movl   $0x6fd,(%esp)
+ 718:	e8 00 00 00 00       	call   71d <_GetPskTable+0x20>
+
+  error_t retErr = ERR_NONE;
+ 71d:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  uint8_t graySeq[pParams->order];
+ 724:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 727:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 72b:	0f b6 c0             	movzbl %al,%eax
+ 72e:	83 e8 01             	sub    $0x1,%eax
+ 731:	89 45 ec             	mov    %eax,-0x14(%ebp)
+ 734:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 737:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 73b:	0f b6 c0             	movzbl %al,%eax
+ 73e:	ba 10 00 00 00       	mov    $0x10,%edx
+ 743:	83 ea 01             	sub    $0x1,%edx
+ 746:	01 d0                	add    %edx,%eax
+ 748:	b9 10 00 00 00       	mov    $0x10,%ecx
+ 74d:	ba 00 00 00 00       	mov    $0x0,%edx
+ 752:	f7 f1                	div    %ecx
+ 754:	6b c0 10             	imul   $0x10,%eax,%eax
+ 757:	e8 00 00 00 00       	call   75c <_GetPskTable+0x5f>
+ 75c:	29 c4                	sub    %eax,%esp
+ 75e:	8d 44 24 08          	lea    0x8(%esp),%eax
+ 762:	83 c0 00             	add    $0x0,%eax
+ 765:	89 45 e8             	mov    %eax,-0x18(%ebp)
+  uint8_t j;
+  
+  if ((NULL != ioTable) && (NULL != pParams))
+ 768:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+ 76c:	0f 84 e0 00 00 00    	je     852 <_GetPskTable+0x155>
+ 772:	83 7d 0c 00          	cmpl   $0x0,0xc(%ebp)
+ 776:	0f 84 d6 00 00 00    	je     852 <_GetPskTable+0x155>
+  {
+    GetGraySequence(graySeq,pParams);
+ 77c:	8b 45 e8             	mov    -0x18(%ebp),%eax
+ 77f:	8b 55 0c             	mov    0xc(%ebp),%edx
+ 782:	89 54 24 04          	mov    %edx,0x4(%esp)
+ 786:	89 04 24             	mov    %eax,(%esp)
+ 789:	e8 b8 02 00 00       	call   a46 <_GetGraySequence>
+
+    for (j=0; j<pParams->order; j++)
+ 78e:	c6 45 f3 00          	movb   $0x0,-0xd(%ebp)
+ 792:	e9 a9 00 00 00       	jmp    840 <_GetPskTable+0x143>
+    {
+      ioTable->bits[j] = graySeq[j];
+ 797:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
+ 79b:	0f b6 55 f3          	movzbl -0xd(%ebp),%edx
+ 79f:	8b 4d e8             	mov    -0x18(%ebp),%ecx
+ 7a2:	0f b6 0c 11          	movzbl (%ecx,%edx,1),%ecx
+ 7a6:	8b 55 08             	mov    0x8(%ebp),%edx
+ 7a9:	88 0c 02             	mov    %cl,(%edx,%eax,1)
+      ioTable->symbs[j].re = cos(pParams->phOfst+2*MATH_PI*j/pParams->order);
+ 7ac:	0f b6 5d f3          	movzbl -0xd(%ebp),%ebx
+ 7b0:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 7b3:	d9 40 08             	flds   0x8(%eax)
+ 7b6:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
+ 7ba:	89 45 e0             	mov    %eax,-0x20(%ebp)
+ 7bd:	db 45 e0             	fildl  -0x20(%ebp)
+ 7c0:	d9 05 08 00 00 00    	flds   0x8
+ 7c6:	de c9                	fmulp  %st,%st(1)
+ 7c8:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 7cb:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 7cf:	0f b6 c0             	movzbl %al,%eax
+ 7d2:	89 45 e0             	mov    %eax,-0x20(%ebp)
+ 7d5:	db 45 e0             	fildl  -0x20(%ebp)
+ 7d8:	de f9                	fdivrp %st,%st(1)
+ 7da:	de c1                	faddp  %st,%st(1)
+ 7dc:	dd 1c 24             	fstpl  (%esp)
+ 7df:	e8 00 00 00 00       	call   7e4 <_GetPskTable+0xe7>
+ 7e4:	d9 5d e4             	fstps  -0x1c(%ebp)
+ 7e7:	d9 45 e4             	flds   -0x1c(%ebp)
+ 7ea:	8b 45 08             	mov    0x8(%ebp),%eax
+ 7ed:	d9 5c d8 04          	fstps  0x4(%eax,%ebx,8)
+      ioTable->symbs[j].im = sin(pParams->phOfst+2*MATH_PI*j/pParams->order);
+ 7f1:	0f b6 5d f3          	movzbl -0xd(%ebp),%ebx
+ 7f5:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 7f8:	d9 40 08             	flds   0x8(%eax)
+ 7fb:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
+ 7ff:	89 45 e0             	mov    %eax,-0x20(%ebp)
+ 802:	db 45 e0             	fildl  -0x20(%ebp)
+ 805:	d9 05 08 00 00 00    	flds   0x8
+ 80b:	de c9                	fmulp  %st,%st(1)
+ 80d:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 810:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 814:	0f b6 c0             	movzbl %al,%eax
+ 817:	89 45 e0             	mov    %eax,-0x20(%ebp)
+ 81a:	db 45 e0             	fildl  -0x20(%ebp)
+ 81d:	de f9                	fdivrp %st,%st(1)
+ 81f:	de c1                	faddp  %st,%st(1)
+ 821:	dd 1c 24             	fstpl  (%esp)
+ 824:	e8 00 00 00 00       	call   829 <_GetPskTable+0x12c>
+ 829:	d9 5d e4             	fstps  -0x1c(%ebp)
+ 82c:	d9 45 e4             	flds   -0x1c(%ebp)
+ 82f:	8b 45 08             	mov    0x8(%ebp),%eax
+ 832:	d9 5c d8 08          	fstps  0x8(%eax,%ebx,8)
+    for (j=0; j<pParams->order; j++)
+ 836:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
+ 83a:	83 c0 01             	add    $0x1,%eax
+ 83d:	88 45 f3             	mov    %al,-0xd(%ebp)
+ 840:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 843:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 847:	3a 45 f3             	cmp    -0xd(%ebp),%al
+ 84a:	0f 87 47 ff ff ff    	ja     797 <_GetPskTable+0x9a>
+  if ((NULL != ioTable) && (NULL != pParams))
+ 850:	eb 07                	jmp    859 <_GetPskTable+0x15c>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+ 852:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+ 859:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 85c:	89 04 24             	mov    %eax,(%esp)
+ 85f:	e8 00 00 00 00       	call   864 <_GetPskTable+0x167>
+ 864:	89 f4                	mov    %esi,%esp
+}
+ 866:	8d 65 f8             	lea    -0x8(%ebp),%esp
+ 869:	5b                   	pop    %ebx
+ 86a:	5e                   	pop    %esi
+ 86b:	5d                   	pop    %ebp
+ 86c:	c3                   	ret    
+
+0000086d <_GetQamTable>:
+ * @param[in] pParams pointer to modulation parameters structure
+ * 
+ * @return error ID
+ */
+static error_t GetQamTable( mod_maptable_t * ioTable, const mod_par_t * pParams )
+{
+ 86d:	55                   	push   %ebp
+ 86e:	89 e5                	mov    %esp,%ebp
+ 870:	56                   	push   %esi
+ 871:	53                   	push   %ebx
+ 872:	83 ec 50             	sub    $0x50,%esp
+ 875:	89 e0                	mov    %esp,%eax
+ 877:	89 c6                	mov    %eax,%esi
+  Debug_SetWatermark((void *)GetQamTable,WM_LEVEL_2);
+ 879:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+ 880:	00 
+ 881:	c7 04 24 6d 08 00 00 	movl   $0x86d,(%esp)
+ 888:	e8 00 00 00 00       	call   88d <_GetQamTable+0x20>
+
+  error_t retErr = ERR_NONE;
+ 88d:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  uint8_t graySeq[pParams->order];
+ 894:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 897:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 89b:	0f b6 c0             	movzbl %al,%eax
+ 89e:	83 e8 01             	sub    $0x1,%eax
+ 8a1:	89 45 ec             	mov    %eax,-0x14(%ebp)
+ 8a4:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 8a7:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 8ab:	0f b6 c0             	movzbl %al,%eax
+ 8ae:	ba 10 00 00 00       	mov    $0x10,%edx
+ 8b3:	83 ea 01             	sub    $0x1,%edx
+ 8b6:	01 d0                	add    %edx,%eax
+ 8b8:	bb 10 00 00 00       	mov    $0x10,%ebx
+ 8bd:	ba 00 00 00 00       	mov    $0x0,%edx
+ 8c2:	f7 f3                	div    %ebx
+ 8c4:	6b c0 10             	imul   $0x10,%eax,%eax
+ 8c7:	e8 00 00 00 00       	call   8cc <_GetQamTable+0x5f>
+ 8cc:	29 c4                	sub    %eax,%esp
+ 8ce:	8d 44 24 10          	lea    0x10(%esp),%eax
+ 8d2:	83 c0 00             	add    $0x0,%eax
+ 8d5:	89 45 e8             	mov    %eax,-0x18(%ebp)
+  uint8_t j;
+  uint8_t maxVal = (1<<(pParams->bps/2))-1;
+ 8d8:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 8db:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 8df:	d0 e8                	shr    %al
+ 8e1:	0f b6 c0             	movzbl %al,%eax
+ 8e4:	ba 01 00 00 00       	mov    $0x1,%edx
+ 8e9:	89 c1                	mov    %eax,%ecx
+ 8eb:	d3 e2                	shl    %cl,%edx
+ 8ed:	89 d0                	mov    %edx,%eax
+ 8ef:	83 e8 01             	sub    $0x1,%eax
+ 8f2:	88 45 e7             	mov    %al,-0x19(%ebp)
+  uint8_t nRows = sqrt(pParams->order);
+ 8f5:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 8f8:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 8fc:	0f b6 c0             	movzbl %al,%eax
+ 8ff:	66 89 45 c0          	mov    %ax,-0x40(%ebp)
+ 903:	df 45 c0             	fild   -0x40(%ebp)
+ 906:	dd 1c 24             	fstpl  (%esp)
+ 909:	e8 00 00 00 00       	call   90e <_GetQamTable+0xa1>
+ 90e:	d9 7d d2             	fnstcw -0x2e(%ebp)
+ 911:	0f b7 45 d2          	movzwl -0x2e(%ebp),%eax
+ 915:	b4 0c                	mov    $0xc,%ah
+ 917:	66 89 45 d0          	mov    %ax,-0x30(%ebp)
+ 91b:	d9 6d d0             	fldcw  -0x30(%ebp)
+ 91e:	df 5d ce             	fistp  -0x32(%ebp)
+ 921:	d9 6d d2             	fldcw  -0x2e(%ebp)
+ 924:	0f b7 45 ce          	movzwl -0x32(%ebp),%eax
+ 928:	88 45 e6             	mov    %al,-0x1a(%ebp)
+  div_t divFct; 
+  
+  if ((NULL != ioTable) && (NULL != pParams))
+ 92b:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+ 92f:	0f 84 f6 00 00 00    	je     a2b <_GetQamTable+0x1be>
+ 935:	83 7d 0c 00          	cmpl   $0x0,0xc(%ebp)
+ 939:	0f 84 ec 00 00 00    	je     a2b <_GetQamTable+0x1be>
+  {
+    if (IsQamBpsValid(pParams->bps))
+ 93f:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 942:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 946:	0f b6 c0             	movzbl %al,%eax
+ 949:	89 04 24             	mov    %eax,(%esp)
+ 94c:	e8 27 02 00 00       	call   b78 <_IsQamBpsValid>
+ 951:	84 c0                	test   %al,%al
+ 953:	0f 84 c9 00 00 00    	je     a22 <_GetQamTable+0x1b5>
+    {
+      GetGraySequence(graySeq,pParams);
+ 959:	8b 45 e8             	mov    -0x18(%ebp),%eax
+ 95c:	8b 55 0c             	mov    0xc(%ebp),%edx
+ 95f:	89 54 24 04          	mov    %edx,0x4(%esp)
+ 963:	89 04 24             	mov    %eax,(%esp)
+ 966:	e8 db 00 00 00       	call   a46 <_GetGraySequence>
+
+      for (j=0; j<pParams->order; j++)
+ 96b:	c6 45 f3 00          	movb   $0x0,-0xd(%ebp)
+ 96f:	e9 9c 00 00 00       	jmp    a10 <_GetQamTable+0x1a3>
+      {
+        divFct = div(j,nRows);
+ 974:	0f b6 55 e6          	movzbl -0x1a(%ebp),%edx
+ 978:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
+ 97c:	89 54 24 04          	mov    %edx,0x4(%esp)
+ 980:	89 04 24             	mov    %eax,(%esp)
+ 983:	e8 00 00 00 00       	call   988 <_GetQamTable+0x11b>
+ 988:	89 45 dc             	mov    %eax,-0x24(%ebp)
+ 98b:	89 55 e0             	mov    %edx,-0x20(%ebp)
+        ioTable->bits[j] = graySeq[j];
+ 98e:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
+ 992:	0f b6 55 f3          	movzbl -0xd(%ebp),%edx
+ 996:	8b 4d e8             	mov    -0x18(%ebp),%ecx
+ 999:	0f b6 0c 11          	movzbl (%ecx,%edx,1),%ecx
+ 99d:	8b 55 08             	mov    0x8(%ebp),%edx
+ 9a0:	88 0c 02             	mov    %cl,(%edx,%eax,1)
+        ioTable->symbs[j].re = (-maxVal+2*divFct.rem)*pow(-1,divFct.quot+1);
+ 9a3:	0f b6 5d f3          	movzbl -0xd(%ebp),%ebx
+ 9a7:	8b 45 e0             	mov    -0x20(%ebp),%eax
+ 9aa:	8d 14 00             	lea    (%eax,%eax,1),%edx
+ 9ad:	0f b6 45 e7          	movzbl -0x19(%ebp),%eax
+ 9b1:	29 c2                	sub    %eax,%edx
+ 9b3:	89 d0                	mov    %edx,%eax
+ 9b5:	89 45 c0             	mov    %eax,-0x40(%ebp)
+ 9b8:	db 45 c0             	fildl  -0x40(%ebp)
+ 9bb:	dd 5d c0             	fstpl  -0x40(%ebp)
+ 9be:	8b 45 dc             	mov    -0x24(%ebp),%eax
+ 9c1:	83 c0 01             	add    $0x1,%eax
+ 9c4:	89 45 c8             	mov    %eax,-0x38(%ebp)
+ 9c7:	db 45 c8             	fildl  -0x38(%ebp)
+ 9ca:	dd 5c 24 08          	fstpl  0x8(%esp)
+ 9ce:	d9 e8                	fld1   
+ 9d0:	d9 e0                	fchs   
+ 9d2:	dd 1c 24             	fstpl  (%esp)
+ 9d5:	e8 00 00 00 00       	call   9da <_GetQamTable+0x16d>
+ 9da:	dc 4d c0             	fmull  -0x40(%ebp)
+ 9dd:	d9 5d d4             	fstps  -0x2c(%ebp)
+ 9e0:	d9 45 d4             	flds   -0x2c(%ebp)
+ 9e3:	8b 45 08             	mov    0x8(%ebp),%eax
+ 9e6:	d9 5c d8 04          	fstps  0x4(%eax,%ebx,8)
+        ioTable->symbs[j].im = maxVal-2*divFct.quot;
+ 9ea:	0f b6 55 f3          	movzbl -0xd(%ebp),%edx
+ 9ee:	0f b6 45 e7          	movzbl -0x19(%ebp),%eax
+ 9f2:	8b 4d dc             	mov    -0x24(%ebp),%ecx
+ 9f5:	01 c9                	add    %ecx,%ecx
+ 9f7:	29 c8                	sub    %ecx,%eax
+ 9f9:	89 45 c0             	mov    %eax,-0x40(%ebp)
+ 9fc:	db 45 c0             	fildl  -0x40(%ebp)
+ 9ff:	8b 45 08             	mov    0x8(%ebp),%eax
+ a02:	d9 5c d0 08          	fstps  0x8(%eax,%edx,8)
+      for (j=0; j<pParams->order; j++)
+ a06:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
+ a0a:	83 c0 01             	add    $0x1,%eax
+ a0d:	88 45 f3             	mov    %al,-0xd(%ebp)
+ a10:	8b 45 0c             	mov    0xc(%ebp),%eax
+ a13:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ a17:	3a 45 f3             	cmp    -0xd(%ebp),%al
+ a1a:	0f 87 54 ff ff ff    	ja     974 <_GetQamTable+0x107>
+    if (IsQamBpsValid(pParams->bps))
+ a20:	eb 10                	jmp    a32 <_GetQamTable+0x1c5>
+      }
+    }
+    else
+    {
+      retErr = ERR_INV_MODULATION_BPS;
+ a22:	c7 45 f4 0b 00 00 00 	movl   $0xb,-0xc(%ebp)
+    if (IsQamBpsValid(pParams->bps))
+ a29:	eb 07                	jmp    a32 <_GetQamTable+0x1c5>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+ a2b:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+ a32:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ a35:	89 04 24             	mov    %eax,(%esp)
+ a38:	e8 00 00 00 00       	call   a3d <_GetQamTable+0x1d0>
+ a3d:	89 f4                	mov    %esi,%esp
+}
+ a3f:	8d 65 f8             	lea    -0x8(%ebp),%esp
+ a42:	5b                   	pop    %ebx
+ a43:	5e                   	pop    %esi
+ a44:	5d                   	pop    %ebp
+ a45:	c3                   	ret    
+
+00000a46 <_GetGraySequence>:
+ * @param[in] pParams pointer to modulation parameters structure
+ * 
+ * @return error ID
+ */
+static error_t GetGraySequence( byte_t * ioBuffer, const mod_par_t * pParams )
+{
+ a46:	55                   	push   %ebp
+ a47:	89 e5                	mov    %esp,%ebp
+ a49:	56                   	push   %esi
+ a4a:	53                   	push   %ebx
+ a4b:	83 ec 20             	sub    $0x20,%esp
+  Debug_SetWatermark((void *)GetGraySequence,WM_LEVEL_2);
+ a4e:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+ a55:	00 
+ a56:	c7 04 24 46 0a 00 00 	movl   $0xa46,(%esp)
+ a5d:	e8 00 00 00 00       	call   a62 <_GetGraySequence+0x1c>
+
+  error_t retErr = ERR_NONE;
+ a62:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  uint8_t i, cnt;
+  uint8_t wrIdx;
+  uint8_t shift;
+  uint8_t nBlk;
+
+  if ((NULL != ioBuffer) && (NULL != pParams))
+ a69:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+ a6d:	0f 84 ec 00 00 00    	je     b5f <_GetGraySequence+0x119>
+ a73:	83 7d 0c 00          	cmpl   $0x0,0xc(%ebp)
+ a77:	0f 84 e2 00 00 00    	je     b5f <_GetGraySequence+0x119>
+  {
+    memset(ioBuffer,0,pParams->order);                                      /** - clear buffer content */
+ a7d:	8b 45 0c             	mov    0xc(%ebp),%eax
+ a80:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ a84:	0f b6 c0             	movzbl %al,%eax
+ a87:	89 44 24 08          	mov    %eax,0x8(%esp)
+ a8b:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+ a92:	00 
+ a93:	8b 45 08             	mov    0x8(%ebp),%eax
+ a96:	89 04 24             	mov    %eax,(%esp)
+ a99:	e8 00 00 00 00       	call   a9e <_GetGraySequence+0x58>
+
+    for (i=0; i<pParams->bps; i++)
+ a9e:	c6 45 f3 00          	movb   $0x0,-0xd(%ebp)
+ aa2:	e9 a6 00 00 00       	jmp    b4d <_GetGraySequence+0x107>
+    {
+      nBlk = pParams->order/(1<<i);                                         /** - number of bits per block at i-th iteration */
+ aa7:	8b 45 0c             	mov    0xc(%ebp),%eax
+ aaa:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ aae:	0f b6 d0             	movzbl %al,%edx
+ ab1:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
+ ab5:	89 c1                	mov    %eax,%ecx
+ ab7:	d3 fa                	sar    %cl,%edx
+ ab9:	89 d0                	mov    %edx,%eax
+ abb:	88 45 f0             	mov    %al,-0x10(%ebp)
+      shift = pParams->bps-i-1;                                             /** - bit shift value at i-th iteration */
+ abe:	8b 45 0c             	mov    0xc(%ebp),%eax
+ ac1:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ ac5:	2a 45 f3             	sub    -0xd(%ebp),%al
+ ac8:	83 e8 01             	sub    $0x1,%eax
+ acb:	88 45 ef             	mov    %al,-0x11(%ebp)
+      cnt = 0;                                                              /** - counter within each single block */
+ ace:	c6 45 f2 00          	movb   $0x0,-0xe(%ebp)
+      wrIdx = nBlk/2;                                                       /** - starting value of the writing index */
+ ad2:	0f b6 45 f0          	movzbl -0x10(%ebp),%eax
+ ad6:	d0 e8                	shr    %al
+ ad8:	88 45 f1             	mov    %al,-0xf(%ebp)
+      while (wrIdx < pParams->order)
+ adb:	eb 5a                	jmp    b37 <_GetGraySequence+0xf1>
+      {
+        ioBuffer[wrIdx] |= (LSBIT_MASK_U8<<shift);
+ add:	0f b6 55 f1          	movzbl -0xf(%ebp),%edx
+ ae1:	8b 45 08             	mov    0x8(%ebp),%eax
+ ae4:	01 c2                	add    %eax,%edx
+ ae6:	0f b6 4d f1          	movzbl -0xf(%ebp),%ecx
+ aea:	8b 45 08             	mov    0x8(%ebp),%eax
+ aed:	01 c8                	add    %ecx,%eax
+ aef:	0f b6 00             	movzbl (%eax),%eax
+ af2:	89 c6                	mov    %eax,%esi
+ af4:	0f b6 45 ef          	movzbl -0x11(%ebp),%eax
+ af8:	bb 01 00 00 00       	mov    $0x1,%ebx
+ afd:	89 c1                	mov    %eax,%ecx
+ aff:	d3 e3                	shl    %cl,%ebx
+ b01:	89 d8                	mov    %ebx,%eax
+ b03:	09 f0                	or     %esi,%eax
+ b05:	88 02                	mov    %al,(%edx)
+        if (cnt < (nBlk-1))
+ b07:	0f b6 45 f2          	movzbl -0xe(%ebp),%eax
+ b0b:	0f b6 55 f0          	movzbl -0x10(%ebp),%edx
+ b0f:	83 ea 01             	sub    $0x1,%edx
+ b12:	39 d0                	cmp    %edx,%eax
+ b14:	7d 0c                	jge    b22 <_GetGraySequence+0xdc>
+        {
+          cnt++;
+ b16:	0f b6 45 f2          	movzbl -0xe(%ebp),%eax
+ b1a:	83 c0 01             	add    $0x1,%eax
+ b1d:	88 45 f2             	mov    %al,-0xe(%ebp)
+ b20:	eb 0b                	jmp    b2d <_GetGraySequence+0xe7>
+        }
+        else
+        {
+          cnt = 0;
+ b22:	c6 45 f2 00          	movb   $0x0,-0xe(%ebp)
+          wrIdx += nBlk;
+ b26:	0f b6 45 f0          	movzbl -0x10(%ebp),%eax
+ b2a:	00 45 f1             	add    %al,-0xf(%ebp)
+        }
+        wrIdx++;
+ b2d:	0f b6 45 f1          	movzbl -0xf(%ebp),%eax
+ b31:	83 c0 01             	add    $0x1,%eax
+ b34:	88 45 f1             	mov    %al,-0xf(%ebp)
+      while (wrIdx < pParams->order)
+ b37:	8b 45 0c             	mov    0xc(%ebp),%eax
+ b3a:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ b3e:	3a 45 f1             	cmp    -0xf(%ebp),%al
+ b41:	77 9a                	ja     add <_GetGraySequence+0x97>
+    for (i=0; i<pParams->bps; i++)
+ b43:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
+ b47:	83 c0 01             	add    $0x1,%eax
+ b4a:	88 45 f3             	mov    %al,-0xd(%ebp)
+ b4d:	8b 45 0c             	mov    0xc(%ebp),%eax
+ b50:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ b54:	3a 45 f3             	cmp    -0xd(%ebp),%al
+ b57:	0f 87 4a ff ff ff    	ja     aa7 <_GetGraySequence+0x61>
+  if ((NULL != ioBuffer) && (NULL != pParams))
+ b5d:	eb 07                	jmp    b66 <_GetGraySequence+0x120>
+      }
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+ b5f:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+ b66:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ b69:	89 04 24             	mov    %eax,(%esp)
+ b6c:	e8 00 00 00 00       	call   b71 <_GetGraySequence+0x12b>
+}
+ b71:	83 c4 20             	add    $0x20,%esp
+ b74:	5b                   	pop    %ebx
+ b75:	5e                   	pop    %esi
+ b76:	5d                   	pop    %ebp
+ b77:	c3                   	ret    
+
+00000b78 <_IsQamBpsValid>:
+ * @param[in] bps modulation bits-per-symbol value
+ * 
+ * @return validity outcome
+ */
+static bool IsQamBpsValid( uint8_t bps )
+{
+ b78:	55                   	push   %ebp
+ b79:	89 e5                	mov    %esp,%ebp
+ b7b:	83 ec 38             	sub    $0x38,%esp
+ b7e:	8b 45 08             	mov    0x8(%ebp),%eax
+ b81:	88 45 e4             	mov    %al,-0x1c(%ebp)
+  Debug_SetWatermark((void *)IsQamBpsValid,WM_LEVEL_2);
+ b84:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+ b8b:	00 
+ b8c:	c7 04 24 78 0b 00 00 	movl   $0xb78,(%esp)
+ b93:	e8 00 00 00 00       	call   b98 <_IsQamBpsValid+0x20>
+
+  bool bRet;
+
+  bRet = (0 == (bps%2));
+ b98:	0f b6 45 e4          	movzbl -0x1c(%ebp),%eax
+ b9c:	83 e0 01             	and    $0x1,%eax
+ b9f:	84 c0                	test   %al,%al
+ ba1:	0f 94 c0             	sete   %al
+ ba4:	88 45 f7             	mov    %al,-0x9(%ebp)
+
+  return bRet;
+ ba7:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+}
+ bab:	c9                   	leave  
+ bac:	c3                   	ret    
+ bad:	90                   	nop
+ bae:	90                   	nop
+ baf:	90                   	nop

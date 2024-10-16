@@ -1,0 +1,669 @@
+
+build\target\obj\channel.o:     file format pe-i386
+
+
+Disassembly of section .text:
+
+00000000 <_Channel_ListParameters>:
+ * @param[out] ioParams pointer to i/o parameters structure to be filled
+ * 
+ * @return error ID
+ */
+error_t Channel_ListParameters( chan_par_t * ioParams )
+{
+   0:	55                   	push   %ebp
+   1:	89 e5                	mov    %esp,%ebp
+   3:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)Channel_ListParameters,WM_LEVEL_1);
+   6:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+   d:	00 
+   e:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
+  15:	e8 00 00 00 00       	call   1a <_Channel_ListParameters+0x1a>
+
+  error_t retErr = ERR_NONE;
+  1a:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+
+  if (NULL != ioParams)
+  21:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+  25:	74 40                	je     67 <_Channel_ListParameters+0x67>
+  {
+    ioParams->type = CHAN_TYPE;
+  27:	8b 45 08             	mov    0x8(%ebp),%eax
+  2a:	c7 40 04 01 00 00 00 	movl   $0x1,0x4(%eax)
+    ioParams->bps = MOD_BPS;
+  31:	8b 45 08             	mov    0x8(%ebp),%eax
+  34:	c6 40 08 02          	movb   $0x2,0x8(%eax)
+    ioParams->seed = CHAN_SEED;
+  38:	8b 45 08             	mov    0x8(%ebp),%eax
+  3b:	c7 00 ff ff ff ff    	movl   $0xffffffff,(%eax)
+
+    if (CHAN_BSC == ioParams->type)
+  41:	8b 45 08             	mov    0x8(%ebp),%eax
+  44:	8b 40 04             	mov    0x4(%eax),%eax
+  47:	85 c0                	test   %eax,%eax
+  49:	75 0e                	jne    59 <_Channel_ListParameters+0x59>
+    {
+      ioParams->Peb = BSC_PEB;
+  4b:	8b 45 08             	mov    0x8(%ebp),%eax
+  4e:	d9 05 00 00 00 00    	flds   0x0
+  54:	d9 58 0c             	fstps  0xc(%eax)
+  57:	eb 15                	jmp    6e <_Channel_ListParameters+0x6e>
+    }
+    else
+    {
+      ioParams->EbN0 = AWGN_EBN0;
+  59:	8b 45 08             	mov    0x8(%ebp),%eax
+  5c:	d9 05 04 00 00 00    	flds   0x4
+  62:	d9 58 0c             	fstps  0xc(%eax)
+  65:	eb 07                	jmp    6e <_Channel_ListParameters+0x6e>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  67:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+  6e:	8b 45 f4             	mov    -0xc(%ebp),%eax
+  71:	89 04 24             	mov    %eax,(%esp)
+  74:	e8 00 00 00 00       	call   79 <_Channel_ListParameters+0x79>
+}
+  79:	c9                   	leave  
+  7a:	c3                   	ret    
+
+0000007b <_Channel_BSC>:
+ * @param[in] pParams poiter to channel parameters structure
+ * 
+ * @return error ID
+ */
+error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, const chan_par_t * pParams )
+{
+  7b:	55                   	push   %ebp
+  7c:	89 e5                	mov    %esp,%ebp
+  7e:	56                   	push   %esi
+  7f:	53                   	push   %ebx
+  80:	83 ec 30             	sub    $0x30,%esp
+  Debug_SetWatermark((void *)Channel_BSC,WM_LEVEL_1);
+  83:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+  8a:	00 
+  8b:	c7 04 24 7b 00 00 00 	movl   $0x7b,(%esp)
+  92:	e8 00 00 00 00       	call   97 <_Channel_BSC+0x1c>
+
+  error_t retErr = ERR_NONE;
+  97:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  ulen_t j;
+  ulen_t byteIdx;
+  uint8_t bitIdx;
+
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+  9e:	8b 45 08             	mov    0x8(%ebp),%eax
+  a1:	8b 40 08             	mov    0x8(%eax),%eax
+  a4:	89 44 24 04          	mov    %eax,0x4(%esp)
+  a8:	8b 45 08             	mov    0x8(%ebp),%eax
+  ab:	89 04 24             	mov    %eax,(%esp)
+  ae:	e8 00 00 00 00       	call   b3 <_Channel_BSC+0x38>
+  b3:	84 c0                	test   %al,%al
+  b5:	0f 84 7e 01 00 00    	je     239 <_Channel_BSC+0x1be>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+  bb:	8b 45 0c             	mov    0xc(%ebp),%eax
+  be:	8b 40 08             	mov    0x8(%eax),%eax
+  c1:	89 44 24 04          	mov    %eax,0x4(%esp)
+  c5:	8b 45 0c             	mov    0xc(%ebp),%eax
+  c8:	89 04 24             	mov    %eax,(%esp)
+  cb:	e8 00 00 00 00       	call   d0 <_Channel_BSC+0x55>
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+  d0:	84 c0                	test   %al,%al
+  d2:	0f 84 61 01 00 00    	je     239 <_Channel_BSC+0x1be>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+  d8:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+  dc:	0f 84 57 01 00 00    	je     239 <_Channel_BSC+0x1be>
+      (NULL != pParams))
+  {
+    if (inStream->len == outStream->len)
+  e2:	8b 45 08             	mov    0x8(%ebp),%eax
+  e5:	8b 50 04             	mov    0x4(%eax),%edx
+  e8:	8b 45 0c             	mov    0xc(%ebp),%eax
+  eb:	8b 40 04             	mov    0x4(%eax),%eax
+  ee:	39 c2                	cmp    %eax,%edx
+  f0:	0f 85 3a 01 00 00    	jne    230 <_Channel_BSC+0x1b5>
+    {
+      if (CHAN_BSC == pParams->type)
+  f6:	8b 45 10             	mov    0x10(%ebp),%eax
+  f9:	8b 40 04             	mov    0x4(%eax),%eax
+  fc:	85 c0                	test   %eax,%eax
+  fe:	0f 85 23 01 00 00    	jne    227 <_Channel_BSC+0x1ac>
+      {
+        memcpy(outStream->pBuf,inStream->pBuf,inStream->len);
+ 104:	8b 45 08             	mov    0x8(%ebp),%eax
+ 107:	8b 48 04             	mov    0x4(%eax),%ecx
+ 10a:	8b 45 08             	mov    0x8(%ebp),%eax
+ 10d:	8b 10                	mov    (%eax),%edx
+ 10f:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 112:	8b 00                	mov    (%eax),%eax
+ 114:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+ 118:	89 54 24 04          	mov    %edx,0x4(%esp)
+ 11c:	89 04 24             	mov    %eax,(%esp)
+ 11f:	e8 00 00 00 00       	call   124 <_Channel_BSC+0xa9>
+        if (SEED2TIME == pParams->seed)
+ 124:	8b 45 10             	mov    0x10(%ebp),%eax
+ 127:	8b 00                	mov    (%eax),%eax
+ 129:	83 f8 ff             	cmp    $0xffffffff,%eax
+ 12c:	75 16                	jne    144 <_Channel_BSC+0xc9>
+        {
+          srand(time(NULL));                                          /** - link random seed to current time */
+ 12e:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
+ 135:	e8 00 00 00 00       	call   13a <_Channel_BSC+0xbf>
+ 13a:	89 04 24             	mov    %eax,(%esp)
+ 13d:	e8 00 00 00 00       	call   142 <_Channel_BSC+0xc7>
+ 142:	eb 0d                	jmp    151 <_Channel_BSC+0xd6>
+        }
+        else
+        {
+          srand(pParams->seed);                                       /** - link random seed to provided argument */
+ 144:	8b 45 10             	mov    0x10(%ebp),%eax
+ 147:	8b 00                	mov    (%eax),%eax
+ 149:	89 04 24             	mov    %eax,(%esp)
+ 14c:	e8 00 00 00 00       	call   151 <_Channel_BSC+0xd6>
+        }
+        for (j=0; j<inStream->len; j++)
+ 151:	c7 45 f0 00 00 00 00 	movl   $0x0,-0x10(%ebp)
+ 158:	e9 b9 00 00 00       	jmp    216 <_Channel_BSC+0x19b>
+        {
+          if ((float)rand()/RAND_MAX < pParams->Peb)
+ 15d:	e8 00 00 00 00       	call   162 <_Channel_BSC+0xe7>
+ 162:	89 45 e4             	mov    %eax,-0x1c(%ebp)
+ 165:	db 45 e4             	fildl  -0x1c(%ebp)
+ 168:	d9 05 08 00 00 00    	flds   0x8
+ 16e:	de f9                	fdivrp %st,%st(1)
+ 170:	8b 45 10             	mov    0x10(%ebp),%eax
+ 173:	d9 40 0c             	flds   0xc(%eax)
+ 176:	da e9                	fucompp 
+ 178:	df e0                	fnstsw %ax
+ 17a:	9e                   	sahf   
+ 17b:	0f 86 91 00 00 00    	jbe    212 <_Channel_BSC+0x197>
+          {
+            byteIdx = BI2BY_LEN(j);
+ 181:	8b 45 f0             	mov    -0x10(%ebp),%eax
+ 184:	c1 e8 03             	shr    $0x3,%eax
+ 187:	89 45 ec             	mov    %eax,-0x14(%ebp)
+            bitIdx  = BITIDX_1LAST-(uint8_t)(j&LSBYTE_MASK_U32);
+ 18a:	8b 45 f0             	mov    -0x10(%ebp),%eax
+ 18d:	f7 d0                	not    %eax
+ 18f:	83 e0 07             	and    $0x7,%eax
+ 192:	88 45 eb             	mov    %al,-0x15(%ebp)
+            if (outStream->pBuf[byteIdx] & (LSBIT_MASK_U8<<bitIdx))
+ 195:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 198:	8b 10                	mov    (%eax),%edx
+ 19a:	8b 45 ec             	mov    -0x14(%ebp),%eax
+ 19d:	01 d0                	add    %edx,%eax
+ 19f:	0f b6 00             	movzbl (%eax),%eax
+ 1a2:	0f b6 d0             	movzbl %al,%edx
+ 1a5:	0f b6 45 eb          	movzbl -0x15(%ebp),%eax
+ 1a9:	89 c1                	mov    %eax,%ecx
+ 1ab:	d3 fa                	sar    %cl,%edx
+ 1ad:	89 d0                	mov    %edx,%eax
+ 1af:	83 e0 01             	and    $0x1,%eax
+ 1b2:	85 c0                	test   %eax,%eax
+ 1b4:	74 30                	je     1e6 <_Channel_BSC+0x16b>
+            {
+              outStream->pBuf[byteIdx] &= ~(LSBIT_MASK_U8<<bitIdx);
+ 1b6:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 1b9:	8b 10                	mov    (%eax),%edx
+ 1bb:	8b 45 ec             	mov    -0x14(%ebp),%eax
+ 1be:	01 c2                	add    %eax,%edx
+ 1c0:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 1c3:	8b 08                	mov    (%eax),%ecx
+ 1c5:	8b 45 ec             	mov    -0x14(%ebp),%eax
+ 1c8:	01 c8                	add    %ecx,%eax
+ 1ca:	0f b6 00             	movzbl (%eax),%eax
+ 1cd:	89 c3                	mov    %eax,%ebx
+ 1cf:	0f b6 45 eb          	movzbl -0x15(%ebp),%eax
+ 1d3:	be 01 00 00 00       	mov    $0x1,%esi
+ 1d8:	89 c1                	mov    %eax,%ecx
+ 1da:	d3 e6                	shl    %cl,%esi
+ 1dc:	89 f0                	mov    %esi,%eax
+ 1de:	f7 d0                	not    %eax
+ 1e0:	21 d8                	and    %ebx,%eax
+ 1e2:	88 02                	mov    %al,(%edx)
+ 1e4:	eb 2c                	jmp    212 <_Channel_BSC+0x197>
+            }
+            else
+            {
+              outStream->pBuf[byteIdx] |= (LSBIT_MASK_U8<<bitIdx);
+ 1e6:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 1e9:	8b 10                	mov    (%eax),%edx
+ 1eb:	8b 45 ec             	mov    -0x14(%ebp),%eax
+ 1ee:	01 c2                	add    %eax,%edx
+ 1f0:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 1f3:	8b 08                	mov    (%eax),%ecx
+ 1f5:	8b 45 ec             	mov    -0x14(%ebp),%eax
+ 1f8:	01 c8                	add    %ecx,%eax
+ 1fa:	0f b6 00             	movzbl (%eax),%eax
+ 1fd:	89 c6                	mov    %eax,%esi
+ 1ff:	0f b6 45 eb          	movzbl -0x15(%ebp),%eax
+ 203:	bb 01 00 00 00       	mov    $0x1,%ebx
+ 208:	89 c1                	mov    %eax,%ecx
+ 20a:	d3 e3                	shl    %cl,%ebx
+ 20c:	89 d8                	mov    %ebx,%eax
+ 20e:	09 f0                	or     %esi,%eax
+ 210:	88 02                	mov    %al,(%edx)
+        for (j=0; j<inStream->len; j++)
+ 212:	83 45 f0 01          	addl   $0x1,-0x10(%ebp)
+ 216:	8b 45 08             	mov    0x8(%ebp),%eax
+ 219:	8b 40 04             	mov    0x4(%eax),%eax
+ 21c:	3b 45 f0             	cmp    -0x10(%ebp),%eax
+ 21f:	0f 87 38 ff ff ff    	ja     15d <_Channel_BSC+0xe2>
+    if (inStream->len == outStream->len)
+ 225:	eb 19                	jmp    240 <_Channel_BSC+0x1c5>
+          }
+        }
+      }
+      else
+      {
+        retErr = ERR_INV_CHANNEL_TYPE;
+ 227:	c7 45 f4 0c 00 00 00 	movl   $0xc,-0xc(%ebp)
+    if (inStream->len == outStream->len)
+ 22e:	eb 10                	jmp    240 <_Channel_BSC+0x1c5>
+      }
+    }
+    else
+    {
+      retErr = ERR_INV_BUFFER_SIZE;
+ 230:	c7 45 f4 07 00 00 00 	movl   $0x7,-0xc(%ebp)
+    if (inStream->len == outStream->len)
+ 237:	eb 07                	jmp    240 <_Channel_BSC+0x1c5>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+ 239:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+ 240:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 243:	89 04 24             	mov    %eax,(%esp)
+ 246:	e8 00 00 00 00       	call   24b <_Channel_BSC+0x1d0>
+}
+ 24b:	83 c4 30             	add    $0x30,%esp
+ 24e:	5b                   	pop    %ebx
+ 24f:	5e                   	pop    %esi
+ 250:	5d                   	pop    %ebp
+ 251:	c3                   	ret    
+
+00000252 <_Channel_AWGN>:
+ * @param[in] pParams poiter to channel parameters structure
+ * 
+ * @return error ID
+ */
+error_t Channel_AWGN( const complex_stream_t * inStream, complex_stream_t * outStream, const chan_par_t * pParams )
+{
+ 252:	55                   	push   %ebp
+ 253:	89 e5                	mov    %esp,%ebp
+ 255:	83 ec 58             	sub    $0x58,%esp
+  Debug_SetWatermark((void *)Channel_AWGN,WM_LEVEL_1);
+ 258:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+ 25f:	00 
+ 260:	c7 04 24 52 02 00 00 	movl   $0x252,(%esp)
+ 267:	e8 00 00 00 00       	call   26c <_Channel_AWGN+0x1a>
+
+  error_t retErr = ERR_NONE;
+ 26c:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  const float mu = 0;                                                 /** - noise mean value */
+ 273:	d9 ee                	fldz   
+ 275:	d9 5d ec             	fstps  -0x14(%ebp)
+  const float sgnPwr = GetComplexSgnPower(inStream);                  /** - signal average power [lin] */
+ 278:	8b 45 08             	mov    0x8(%ebp),%eax
+ 27b:	89 04 24             	mov    %eax,(%esp)
+ 27e:	e8 bc 02 00 00       	call   53f <_GetComplexSgnPower>
+ 283:	d9 5d b8             	fstps  -0x48(%ebp)
+ 286:	8b 45 b8             	mov    -0x48(%ebp),%eax
+ 289:	89 45 e8             	mov    %eax,-0x18(%ebp)
+  const float SNR = pParams->EbN0+10*log10(pParams->bps);             /** - signal-to-noise-ratio [dB] */
+ 28c:	8b 45 10             	mov    0x10(%ebp),%eax
+ 28f:	d9 40 0c             	flds   0xc(%eax)
+ 292:	dd 5d b8             	fstpl  -0x48(%ebp)
+ 295:	8b 45 10             	mov    0x10(%ebp),%eax
+ 298:	0f b6 40 08          	movzbl 0x8(%eax),%eax
+ 29c:	0f b6 c0             	movzbl %al,%eax
+ 29f:	66 89 45 c2          	mov    %ax,-0x3e(%ebp)
+ 2a3:	df 45 c2             	fild   -0x3e(%ebp)
+ 2a6:	dd 1c 24             	fstpl  (%esp)
+ 2a9:	e8 00 00 00 00       	call   2ae <_Channel_AWGN+0x5c>
+ 2ae:	dd 05 10 00 00 00    	fldl   0x10
+ 2b4:	de c9                	fmulp  %st,%st(1)
+ 2b6:	dc 45 b8             	faddl  -0x48(%ebp)
+ 2b9:	d9 5d e4             	fstps  -0x1c(%ebp)
+  const float SqSigma = sgnPwr*pow(10,-SNR/10);                       /** - target noise variance (N0) */
+ 2bc:	d9 45 e8             	flds   -0x18(%ebp)
+ 2bf:	dd 5d b8             	fstpl  -0x48(%ebp)
+ 2c2:	d9 45 e4             	flds   -0x1c(%ebp)
+ 2c5:	d9 e0                	fchs   
+ 2c7:	d9 05 18 00 00 00    	flds   0x18
+ 2cd:	de f9                	fdivrp %st,%st(1)
+ 2cf:	dd 5c 24 08          	fstpl  0x8(%esp)
+ 2d3:	dd 05 10 00 00 00    	fldl   0x10
+ 2d9:	dd 1c 24             	fstpl  (%esp)
+ 2dc:	e8 00 00 00 00       	call   2e1 <_Channel_AWGN+0x8f>
+ 2e1:	dc 4d b8             	fmull  -0x48(%ebp)
+ 2e4:	d9 5d e0             	fstps  -0x20(%ebp)
+  float nU1, nU2;                                                     /** - random variables uniformly distributed between 0 and 1 */
+  float nReN, nIm;                                                    /** - random variables normally distributed as Mu|Sigma2 */
+  ulen_t j;
+
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+ 2e7:	8b 45 08             	mov    0x8(%ebp),%eax
+ 2ea:	8b 40 08             	mov    0x8(%eax),%eax
+ 2ed:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 2f1:	8b 45 08             	mov    0x8(%ebp),%eax
+ 2f4:	89 04 24             	mov    %eax,(%esp)
+ 2f7:	e8 00 00 00 00       	call   2fc <_Channel_AWGN+0xaa>
+ 2fc:	84 c0                	test   %al,%al
+ 2fe:	0f 84 27 02 00 00    	je     52b <_Channel_AWGN+0x2d9>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+ 304:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 307:	8b 40 08             	mov    0x8(%eax),%eax
+ 30a:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 30e:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 311:	89 04 24             	mov    %eax,(%esp)
+ 314:	e8 00 00 00 00       	call   319 <_Channel_AWGN+0xc7>
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+ 319:	84 c0                	test   %al,%al
+ 31b:	0f 84 0a 02 00 00    	je     52b <_Channel_AWGN+0x2d9>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+ 321:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+ 325:	0f 84 00 02 00 00    	je     52b <_Channel_AWGN+0x2d9>
+      (NULL != pParams))
+  {
+    if (inStream->len == outStream->len)
+ 32b:	8b 45 08             	mov    0x8(%ebp),%eax
+ 32e:	8b 50 04             	mov    0x4(%eax),%edx
+ 331:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 334:	8b 40 04             	mov    0x4(%eax),%eax
+ 337:	39 c2                	cmp    %eax,%edx
+ 339:	0f 85 e3 01 00 00    	jne    522 <_Channel_AWGN+0x2d0>
+    {
+      if (CHAN_AWGN == pParams->type)
+ 33f:	8b 45 10             	mov    0x10(%ebp),%eax
+ 342:	8b 40 04             	mov    0x4(%eax),%eax
+ 345:	83 f8 01             	cmp    $0x1,%eax
+ 348:	0f 85 cb 01 00 00    	jne    519 <_Channel_AWGN+0x2c7>
+      {
+        memcpy(outStream->pBuf,inStream->pBuf,sizeof(complex_t)*inStream->len);
+ 34e:	8b 45 08             	mov    0x8(%ebp),%eax
+ 351:	8b 40 04             	mov    0x4(%eax),%eax
+ 354:	8d 0c c5 00 00 00 00 	lea    0x0(,%eax,8),%ecx
+ 35b:	8b 45 08             	mov    0x8(%ebp),%eax
+ 35e:	8b 10                	mov    (%eax),%edx
+ 360:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 363:	8b 00                	mov    (%eax),%eax
+ 365:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+ 369:	89 54 24 04          	mov    %edx,0x4(%esp)
+ 36d:	89 04 24             	mov    %eax,(%esp)
+ 370:	e8 00 00 00 00       	call   375 <_Channel_AWGN+0x123>
+        if (SEED2TIME == pParams->seed)
+ 375:	8b 45 10             	mov    0x10(%ebp),%eax
+ 378:	8b 00                	mov    (%eax),%eax
+ 37a:	83 f8 ff             	cmp    $0xffffffff,%eax
+ 37d:	75 16                	jne    395 <_Channel_AWGN+0x143>
+        {
+          srand(time(NULL));                                          /** - link random seed to current time */
+ 37f:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
+ 386:	e8 00 00 00 00       	call   38b <_Channel_AWGN+0x139>
+ 38b:	89 04 24             	mov    %eax,(%esp)
+ 38e:	e8 00 00 00 00       	call   393 <_Channel_AWGN+0x141>
+ 393:	eb 0d                	jmp    3a2 <_Channel_AWGN+0x150>
+        }
+        else
+        {
+          srand(pParams->seed);                                       /** - link random seed to provided argument */
+ 395:	8b 45 10             	mov    0x10(%ebp),%eax
+ 398:	8b 00                	mov    (%eax),%eax
+ 39a:	89 04 24             	mov    %eax,(%esp)
+ 39d:	e8 00 00 00 00       	call   3a2 <_Channel_AWGN+0x150>
+        }
+        for (j=0; j<inStream->len; j++)
+ 3a2:	c7 45 f0 00 00 00 00 	movl   $0x0,-0x10(%ebp)
+ 3a9:	e9 5a 01 00 00       	jmp    508 <_Channel_AWGN+0x2b6>
+        {    
+          nU1 = rand()*(1.0/RAND_MAX);
+ 3ae:	e8 00 00 00 00       	call   3b3 <_Channel_AWGN+0x161>
+ 3b3:	89 45 b8             	mov    %eax,-0x48(%ebp)
+ 3b6:	db 45 b8             	fildl  -0x48(%ebp)
+ 3b9:	dd 05 20 00 00 00    	fldl   0x20
+ 3bf:	de c9                	fmulp  %st,%st(1)
+ 3c1:	d9 5d dc             	fstps  -0x24(%ebp)
+          nU2 = rand()*(1.0/RAND_MAX);
+ 3c4:	e8 00 00 00 00       	call   3c9 <_Channel_AWGN+0x177>
+ 3c9:	89 45 b8             	mov    %eax,-0x48(%ebp)
+ 3cc:	db 45 b8             	fildl  -0x48(%ebp)
+ 3cf:	dd 05 20 00 00 00    	fldl   0x20
+ 3d5:	de c9                	fmulp  %st,%st(1)
+ 3d7:	d9 5d d8             	fstps  -0x28(%ebp)
+          nReN = sqrt(-2*log(nU1))*cos(2*MATH_PI*nU2)*sqrt(SqSigma/2)+mu;
+ 3da:	d9 45 dc             	flds   -0x24(%ebp)
+ 3dd:	dd 1c 24             	fstpl  (%esp)
+ 3e0:	e8 00 00 00 00       	call   3e5 <_Channel_AWGN+0x193>
+ 3e5:	dd 05 28 00 00 00    	fldl   0x28
+ 3eb:	de c9                	fmulp  %st,%st(1)
+ 3ed:	dd 1c 24             	fstpl  (%esp)
+ 3f0:	e8 00 00 00 00       	call   3f5 <_Channel_AWGN+0x1a3>
+ 3f5:	dd 5d b8             	fstpl  -0x48(%ebp)
+ 3f8:	d9 45 d8             	flds   -0x28(%ebp)
+ 3fb:	d9 05 30 00 00 00    	flds   0x30
+ 401:	de c9                	fmulp  %st,%st(1)
+ 403:	dd 1c 24             	fstpl  (%esp)
+ 406:	e8 00 00 00 00       	call   40b <_Channel_AWGN+0x1b9>
+ 40b:	dc 4d b8             	fmull  -0x48(%ebp)
+ 40e:	dd 5d b8             	fstpl  -0x48(%ebp)
+ 411:	d9 45 e0             	flds   -0x20(%ebp)
+ 414:	d9 05 34 00 00 00    	flds   0x34
+ 41a:	de f9                	fdivrp %st,%st(1)
+ 41c:	dd 1c 24             	fstpl  (%esp)
+ 41f:	e8 00 00 00 00       	call   424 <_Channel_AWGN+0x1d2>
+ 424:	dd 45 b8             	fldl   -0x48(%ebp)
+ 427:	de c9                	fmulp  %st,%st(1)
+ 429:	d9 45 ec             	flds   -0x14(%ebp)
+ 42c:	de c1                	faddp  %st,%st(1)
+ 42e:	d9 5d d4             	fstps  -0x2c(%ebp)
+          nIm = sqrt(-2*log(nU1))*sin(2*MATH_PI*nU2)*sqrt(SqSigma/2)+mu;
+ 431:	d9 45 dc             	flds   -0x24(%ebp)
+ 434:	dd 1c 24             	fstpl  (%esp)
+ 437:	e8 00 00 00 00       	call   43c <_Channel_AWGN+0x1ea>
+ 43c:	dd 05 28 00 00 00    	fldl   0x28
+ 442:	de c9                	fmulp  %st,%st(1)
+ 444:	dd 1c 24             	fstpl  (%esp)
+ 447:	e8 00 00 00 00       	call   44c <_Channel_AWGN+0x1fa>
+ 44c:	dd 5d b8             	fstpl  -0x48(%ebp)
+ 44f:	d9 45 d8             	flds   -0x28(%ebp)
+ 452:	d9 05 30 00 00 00    	flds   0x30
+ 458:	de c9                	fmulp  %st,%st(1)
+ 45a:	dd 1c 24             	fstpl  (%esp)
+ 45d:	e8 00 00 00 00       	call   462 <_Channel_AWGN+0x210>
+ 462:	dc 4d b8             	fmull  -0x48(%ebp)
+ 465:	dd 5d b8             	fstpl  -0x48(%ebp)
+ 468:	d9 45 e0             	flds   -0x20(%ebp)
+ 46b:	d9 05 34 00 00 00    	flds   0x34
+ 471:	de f9                	fdivrp %st,%st(1)
+ 473:	dd 1c 24             	fstpl  (%esp)
+ 476:	e8 00 00 00 00       	call   47b <_Channel_AWGN+0x229>
+ 47b:	dd 45 b8             	fldl   -0x48(%ebp)
+ 47e:	de c9                	fmulp  %st,%st(1)
+ 480:	d9 45 ec             	flds   -0x14(%ebp)
+ 483:	de c1                	faddp  %st,%st(1)
+ 485:	d9 5d d0             	fstps  -0x30(%ebp)
+          if ((INFINITY != fabs(nReN)) && (INFINITY !=fabs(nIm)))
+ 488:	d9 45 d4             	flds   -0x2c(%ebp)
+ 48b:	d9 e1                	fabs   
+ 48d:	d9 05 38 00 00 00    	flds   0x38
+ 493:	d9 c9                	fxch   %st(1)
+ 495:	da e9                	fucompp 
+ 497:	df e0                	fnstsw %ax
+ 499:	9e                   	sahf   
+ 49a:	0f 97 c0             	seta   %al
+ 49d:	83 f0 01             	xor    $0x1,%eax
+ 4a0:	84 c0                	test   %al,%al
+ 4a2:	74 60                	je     504 <_Channel_AWGN+0x2b2>
+ 4a4:	d9 45 d0             	flds   -0x30(%ebp)
+ 4a7:	d9 e1                	fabs   
+ 4a9:	d9 05 38 00 00 00    	flds   0x38
+ 4af:	d9 c9                	fxch   %st(1)
+ 4b1:	da e9                	fucompp 
+ 4b3:	df e0                	fnstsw %ax
+ 4b5:	9e                   	sahf   
+ 4b6:	0f 97 c0             	seta   %al
+ 4b9:	83 f0 01             	xor    $0x1,%eax
+ 4bc:	84 c0                	test   %al,%al
+ 4be:	74 44                	je     504 <_Channel_AWGN+0x2b2>
+          {
+            outStream->pBuf[j].re += nReN;
+ 4c0:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 4c3:	8b 00                	mov    (%eax),%eax
+ 4c5:	8b 55 f0             	mov    -0x10(%ebp),%edx
+ 4c8:	c1 e2 03             	shl    $0x3,%edx
+ 4cb:	01 c2                	add    %eax,%edx
+ 4cd:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 4d0:	8b 00                	mov    (%eax),%eax
+ 4d2:	8b 4d f0             	mov    -0x10(%ebp),%ecx
+ 4d5:	c1 e1 03             	shl    $0x3,%ecx
+ 4d8:	01 c8                	add    %ecx,%eax
+ 4da:	d9 00                	flds   (%eax)
+ 4dc:	d8 45 d4             	fadds  -0x2c(%ebp)
+ 4df:	d9 1a                	fstps  (%edx)
+            outStream->pBuf[j].im += nIm;
+ 4e1:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 4e4:	8b 00                	mov    (%eax),%eax
+ 4e6:	8b 55 f0             	mov    -0x10(%ebp),%edx
+ 4e9:	c1 e2 03             	shl    $0x3,%edx
+ 4ec:	01 c2                	add    %eax,%edx
+ 4ee:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 4f1:	8b 00                	mov    (%eax),%eax
+ 4f3:	8b 4d f0             	mov    -0x10(%ebp),%ecx
+ 4f6:	c1 e1 03             	shl    $0x3,%ecx
+ 4f9:	01 c8                	add    %ecx,%eax
+ 4fb:	d9 40 04             	flds   0x4(%eax)
+ 4fe:	d8 45 d0             	fadds  -0x30(%ebp)
+ 501:	d9 5a 04             	fstps  0x4(%edx)
+        for (j=0; j<inStream->len; j++)
+ 504:	83 45 f0 01          	addl   $0x1,-0x10(%ebp)
+ 508:	8b 45 08             	mov    0x8(%ebp),%eax
+ 50b:	8b 40 04             	mov    0x4(%eax),%eax
+ 50e:	3b 45 f0             	cmp    -0x10(%ebp),%eax
+ 511:	0f 87 97 fe ff ff    	ja     3ae <_Channel_AWGN+0x15c>
+    if (inStream->len == outStream->len)
+ 517:	eb 19                	jmp    532 <_Channel_AWGN+0x2e0>
+          }
+        }
+      }
+      else
+      {
+        retErr = ERR_INV_CHANNEL_TYPE;
+ 519:	c7 45 f4 0c 00 00 00 	movl   $0xc,-0xc(%ebp)
+    if (inStream->len == outStream->len)
+ 520:	eb 10                	jmp    532 <_Channel_AWGN+0x2e0>
+      }
+    }
+    else
+    {
+      retErr = ERR_INV_BUFFER_SIZE;
+ 522:	c7 45 f4 07 00 00 00 	movl   $0x7,-0xc(%ebp)
+    if (inStream->len == outStream->len)
+ 529:	eb 07                	jmp    532 <_Channel_AWGN+0x2e0>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+ 52b:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+ 532:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 535:	89 04 24             	mov    %eax,(%esp)
+ 538:	e8 00 00 00 00       	call   53d <_Channel_AWGN+0x2eb>
+}
+ 53d:	c9                   	leave  
+ 53e:	c3                   	ret    
+
+0000053f <_GetComplexSgnPower>:
+ * @param[in] inStream input stream
+ * 
+ * @return signal linea average power
+ */
+static float GetComplexSgnPower( const complex_stream_t * inStream )
+{
+ 53f:	55                   	push   %ebp
+ 540:	89 e5                	mov    %esp,%ebp
+ 542:	83 ec 38             	sub    $0x38,%esp
+  Debug_SetWatermark((void *)GetComplexSgnPower,WM_LEVEL_2);
+ 545:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+ 54c:	00 
+ 54d:	c7 04 24 3f 05 00 00 	movl   $0x53f,(%esp)
+ 554:	e8 00 00 00 00       	call   559 <_GetComplexSgnPower+0x1a>
+
+  float energy = 0;
+ 559:	d9 ee                	fldz   
+ 55b:	d9 5d f4             	fstps  -0xc(%ebp)
+  ulen_t j;
+
+  for (j=0; j<inStream->len; j++)
+ 55e:	c7 45 f0 00 00 00 00 	movl   $0x0,-0x10(%ebp)
+ 565:	eb 50                	jmp    5b7 <_GetComplexSgnPower+0x78>
+  {
+    energy += inStream->pBuf[j].re*inStream->pBuf[j].re+ \
+ 567:	8b 45 08             	mov    0x8(%ebp),%eax
+ 56a:	8b 00                	mov    (%eax),%eax
+ 56c:	8b 55 f0             	mov    -0x10(%ebp),%edx
+ 56f:	c1 e2 03             	shl    $0x3,%edx
+ 572:	01 d0                	add    %edx,%eax
+ 574:	d9 00                	flds   (%eax)
+ 576:	8b 45 08             	mov    0x8(%ebp),%eax
+ 579:	8b 00                	mov    (%eax),%eax
+ 57b:	8b 55 f0             	mov    -0x10(%ebp),%edx
+ 57e:	c1 e2 03             	shl    $0x3,%edx
+ 581:	01 d0                	add    %edx,%eax
+ 583:	d9 00                	flds   (%eax)
+ 585:	de c9                	fmulp  %st,%st(1)
+              inStream->pBuf[j].im*inStream->pBuf[j].im;
+ 587:	8b 45 08             	mov    0x8(%ebp),%eax
+ 58a:	8b 00                	mov    (%eax),%eax
+ 58c:	8b 55 f0             	mov    -0x10(%ebp),%edx
+ 58f:	c1 e2 03             	shl    $0x3,%edx
+ 592:	01 d0                	add    %edx,%eax
+ 594:	d9 40 04             	flds   0x4(%eax)
+ 597:	8b 45 08             	mov    0x8(%ebp),%eax
+ 59a:	8b 00                	mov    (%eax),%eax
+ 59c:	8b 55 f0             	mov    -0x10(%ebp),%edx
+ 59f:	c1 e2 03             	shl    $0x3,%edx
+ 5a2:	01 d0                	add    %edx,%eax
+ 5a4:	d9 40 04             	flds   0x4(%eax)
+ 5a7:	de c9                	fmulp  %st,%st(1)
+    energy += inStream->pBuf[j].re*inStream->pBuf[j].re+ \
+ 5a9:	de c1                	faddp  %st,%st(1)
+ 5ab:	d9 45 f4             	flds   -0xc(%ebp)
+ 5ae:	de c1                	faddp  %st,%st(1)
+ 5b0:	d9 5d f4             	fstps  -0xc(%ebp)
+  for (j=0; j<inStream->len; j++)
+ 5b3:	83 45 f0 01          	addl   $0x1,-0x10(%ebp)
+ 5b7:	8b 45 08             	mov    0x8(%ebp),%eax
+ 5ba:	8b 40 04             	mov    0x4(%eax),%eax
+ 5bd:	3b 45 f0             	cmp    -0x10(%ebp),%eax
+ 5c0:	77 a5                	ja     567 <_GetComplexSgnPower+0x28>
+  }
+
+  return (energy/inStream->len);
+ 5c2:	8b 45 08             	mov    0x8(%ebp),%eax
+ 5c5:	8b 40 04             	mov    0x4(%eax),%eax
+ 5c8:	89 45 d8             	mov    %eax,-0x28(%ebp)
+ 5cb:	c7 45 dc 00 00 00 00 	movl   $0x0,-0x24(%ebp)
+ 5d2:	df 6d d8             	fildll -0x28(%ebp)
+ 5d5:	d9 5d e4             	fstps  -0x1c(%ebp)
+ 5d8:	d9 45 e4             	flds   -0x1c(%ebp)
+ 5db:	d9 45 f4             	flds   -0xc(%ebp)
+ 5de:	de f1                	fdivp  %st,%st(1)
+}
+ 5e0:	c9                   	leave  
+ 5e1:	c3                   	ret    
+ 5e2:	90                   	nop
+ 5e3:	90                   	nop

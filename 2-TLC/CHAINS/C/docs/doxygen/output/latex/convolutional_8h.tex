@@ -1,0 +1,457 @@
+\hypertarget{convolutional_8h}{}\doxysection{src/convolutional.h File Reference}
+\label{convolutional_8h}\index{src/convolutional.h@{src/convolutional.h}}
+
+
+Convolutional coding library header.  
+
+
+{\ttfamily \#include \char`\"{}error.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}memory.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}system.\+h\char`\"{}}\newline
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct__cc__par__t}{\+\_\+cc\+\_\+par\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{struct__cc__encoder__info__t}{\+\_\+cc\+\_\+encoder\+\_\+info\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{struct__cc__trcore__t}{\+\_\+cc\+\_\+trcore\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{struct__cc__trellis__t}{\+\_\+cc\+\_\+trellis\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{struct__cc__hard__dec__info__t}{\+\_\+cc\+\_\+hard\+\_\+dec\+\_\+info\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{struct__cc__soft__dec__info__t}{\+\_\+cc\+\_\+soft\+\_\+dec\+\_\+info\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{convolutional_8h_a056db18145a23480fd1ab524acd92005}\label{convolutional_8h_a056db18145a23480fd1ab524acd92005}} 
+\#define \mbox{\hyperlink{convolutional_8h_a056db18145a23480fd1ab524acd92005}{CC\+\_\+\+RATE}}~CC\+\_\+\+RATE\+\_\+12
+\begin{DoxyCompactList}\small\item\em convolutional code rate \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{convolutional_8h_addc3df7d92a87ea19f27f846ce824ab7}\label{convolutional_8h_addc3df7d92a87ea19f27f846ce824ab7}} 
+\#define \mbox{\hyperlink{convolutional_8h_addc3df7d92a87ea19f27f846ce824ab7}{CC\+\_\+\+KLEN}}~\mbox{\hyperlink{convolutional_8h_a38de18fffd75ccef7581a78855684da3a46e5d6eb20ba557a5532e016f4a0385a}{CC\+\_\+\+KLEN\+\_\+7}}
+\begin{DoxyCompactList}\small\item\em convolutional constrain length \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{convolutional_8h_a0c5fa54b62c0cca41773c4e71c469091}\label{convolutional_8h_a0c5fa54b62c0cca41773c4e71c469091}} 
+\#define \mbox{\hyperlink{convolutional_8h_a0c5fa54b62c0cca41773c4e71c469091}{CC\+\_\+\+MEMFACT}}~10u
+\begin{DoxyCompactList}\small\item\em Viterbi decoder memory factor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{convolutional_8h_a969834cd7cc63f358ee60da9579f4b83}\label{convolutional_8h_a969834cd7cc63f358ee60da9579f4b83}} 
+\#define \mbox{\hyperlink{convolutional_8h_a969834cd7cc63f358ee60da9579f4b83}{CC\+\_\+\+VITDM}}~CC\+\_\+\+VITDM\+\_\+\+HARD
+\begin{DoxyCompactList}\small\item\em Viterbi decoding method. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{convolutional_8h_a37591efabe677cfa1eaad9c3e93f88f5}\label{convolutional_8h_a37591efabe677cfa1eaad9c3e93f88f5}} 
+\#define {\bfseries CC\+\_\+\+NBRANCHES}~2u
+\item 
+\mbox{\Hypertarget{convolutional_8h_a3f5b91765bc9caa65eca602f5832adcb}\label{convolutional_8h_a3f5b91765bc9caa65eca602f5832adcb}} 
+\#define {\bfseries CC\+\_\+\+INMASK}~((LSBIT\+\_\+\+MASK\+\_\+\+U8$<$$<$CC\+\_\+\+NBRANCHES)-\/1)
+\item 
+\mbox{\Hypertarget{convolutional_8h_a9c9d8e711e55c1de888c9abc6979d0f4}\label{convolutional_8h_a9c9d8e711e55c1de888c9abc6979d0f4}} 
+\#define {\bfseries CC\+\_\+\+PUNCTLEN}~(CC\+\_\+\+NBRANCHES$\ast$\mbox{\hyperlink{convolutional_8h_a056db18145a23480fd1ab524acd92005}{CC\+\_\+\+RATE}})
+\item 
+\mbox{\Hypertarget{convolutional_8h_afb2088bb87aececbd01b166239a5e190}\label{convolutional_8h_afb2088bb87aececbd01b166239a5e190}} 
+\#define {\bfseries CC\+\_\+\+NTRELSTATES}~(1$<$$<$(\mbox{\hyperlink{convolutional_8h_addc3df7d92a87ea19f27f846ce824ab7}{CC\+\_\+\+KLEN}}-\/1))                                  /$\ast$$\ast$ number of trellis states $\ast$/
+\item 
+\mbox{\Hypertarget{convolutional_8h_af7cc8b5941dc73221d05aa9ba149d187}\label{convolutional_8h_af7cc8b5941dc73221d05aa9ba149d187}} 
+\#define {\bfseries CC\+\_\+\+MEM\+\_\+\+DIM}~(CC\+\_\+\+NTRELSTATES$\ast$\mbox{\hyperlink{convolutional_8h_a0c5fa54b62c0cca41773c4e71c469091}{CC\+\_\+\+MEMFACT}})                       /$\ast$$\ast$ Viterbi decoder memory dimension for survivor paths storage $\ast$/
+\item 
+\#define {\bfseries LIST\+\_\+\+OF\+\_\+\+CC\+\_\+\+RATES}(ENTRY)
+\item 
+\mbox{\Hypertarget{convolutional_8h_a6d036d9a89469e65bc87216ea4c1215b}\label{convolutional_8h_a6d036d9a89469e65bc87216ea4c1215b}} 
+\#define {\bfseries DEF\+\_\+\+CC\+\_\+\+RATES\+\_\+\+VAL}(num,  den)~CC\+\_\+\+RATE\+\_\+\#\#num\#\#den = num
+\item 
+\mbox{\Hypertarget{convolutional_8h_a3d8aaa0e8450a3258c20b481a8b8bf5f}\label{convolutional_8h_a3d8aaa0e8450a3258c20b481a8b8bf5f}} 
+\#define {\bfseries DEF\+\_\+\+CC\+\_\+\+RATES\+\_\+\+IDX}(num,  den)~CC\+\_\+\+RATE\+\_\+\+IDX\+\_\+\#\#num\#\#den
+\item 
+\mbox{\Hypertarget{convolutional_8h_a265679670c2c7d1f3ca9d890c0b7a064}\label{convolutional_8h_a265679670c2c7d1f3ca9d890c0b7a064}} 
+\#define {\bfseries DEF\+\_\+\+CC\+\_\+\+RATES\+\_\+\+ARRAY}(num,  den)~CC\+\_\+\+RATE\+\_\+\#\#num\#\#den
+\item 
+\#define \mbox{\hyperlink{convolutional_8h_a0971592e0c123f1431c9d699a69086df}{CC\+\_\+\+VDM\+\_\+\+STR}}(x)
+\begin{DoxyCompactList}\small\item\em macro to convert decoding method value into string \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{convolutional_8h_aca02c41a359d4415a5a8fe517a7cec58}\label{convolutional_8h_aca02c41a359d4415a5a8fe517a7cec58}} 
+typedef struct \mbox{\hyperlink{struct__cc__par__t}{\+\_\+cc\+\_\+par\+\_\+t}} {\bfseries cc\+\_\+par\+\_\+t}
+\item 
+\mbox{\Hypertarget{convolutional_8h_a18cad68d6bf65e9194204c48c15b57c0}\label{convolutional_8h_a18cad68d6bf65e9194204c48c15b57c0}} 
+typedef struct \mbox{\hyperlink{struct__cc__encoder__info__t}{\+\_\+cc\+\_\+encoder\+\_\+info\+\_\+t}} {\bfseries cc\+\_\+encoder\+\_\+info\+\_\+t}
+\item 
+\mbox{\Hypertarget{convolutional_8h_a095130f541025bea424ba55dea365163}\label{convolutional_8h_a095130f541025bea424ba55dea365163}} 
+typedef struct \mbox{\hyperlink{struct__cc__trcore__t}{\+\_\+cc\+\_\+trcore\+\_\+t}} {\bfseries cc\+\_\+trcore\+\_\+t}
+\item 
+\mbox{\Hypertarget{convolutional_8h_ac2e1a36de9af8bb715e4087517cee3f7}\label{convolutional_8h_ac2e1a36de9af8bb715e4087517cee3f7}} 
+typedef struct \mbox{\hyperlink{struct__cc__trellis__t}{\+\_\+cc\+\_\+trellis\+\_\+t}} {\bfseries cc\+\_\+trellis\+\_\+t}
+\item 
+\mbox{\Hypertarget{convolutional_8h_ac7bf664883d4f0685368e21e4248af58}\label{convolutional_8h_ac7bf664883d4f0685368e21e4248af58}} 
+typedef struct \mbox{\hyperlink{struct__cc__hard__dec__info__t}{\+\_\+cc\+\_\+hard\+\_\+dec\+\_\+info\+\_\+t}} {\bfseries cc\+\_\+hard\+\_\+dec\+\_\+info\+\_\+t}
+\item 
+\mbox{\Hypertarget{convolutional_8h_a3d088d42afff3e64fbae94c9d0ded806}\label{convolutional_8h_a3d088d42afff3e64fbae94c9d0ded806}} 
+typedef struct \mbox{\hyperlink{struct__cc__soft__dec__info__t}{\+\_\+cc\+\_\+soft\+\_\+dec\+\_\+info\+\_\+t}} {\bfseries cc\+\_\+soft\+\_\+dec\+\_\+info\+\_\+t}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{convolutional_8h_a7206a84f8ad170422b1f459cb290aa3f}\label{convolutional_8h_a7206a84f8ad170422b1f459cb290aa3f}} 
+enum {\bfseries cc\+\_\+rate\+\_\+t} 
+\item 
+\mbox{\Hypertarget{convolutional_8h_abf604ef11e8ca1db1a93b45897f91a12}\label{convolutional_8h_abf604ef11e8ca1db1a93b45897f91a12}} 
+enum {\bfseries cc\+\_\+rate\+\_\+idx\+\_\+t} \{ {\bfseries LIST\+\_\+\+OF\+\_\+\+CC\+\_\+\+RATES} =(DEF\+\_\+\+CC\+\_\+\+RATES\+\_\+\+IDX)
+, {\bfseries CC\+\_\+\+RATE\+\_\+\+NUM}
+ \}
+\item 
+enum \mbox{\hyperlink{convolutional_8h_a38de18fffd75ccef7581a78855684da3}{cc\+\_\+klen\+\_\+t}} \{ \newline
+{\bfseries CC\+\_\+\+KLEN\+\_\+3} = 3
+, \mbox{\hyperlink{convolutional_8h_a38de18fffd75ccef7581a78855684da3a63ac078729a09b4dffc625b8273583f2}{CC\+\_\+\+KLEN\+\_\+4}} = 4
+, \mbox{\hyperlink{convolutional_8h_a38de18fffd75ccef7581a78855684da3a4fe9d55857ec11055110816d94d1910a}{CC\+\_\+\+KLEN\+\_\+5}} = 5
+, \mbox{\hyperlink{convolutional_8h_a38de18fffd75ccef7581a78855684da3a88c528f14c58cba974883b8c2fd74f7c}{CC\+\_\+\+KLEN\+\_\+6}} = 6
+, \newline
+\mbox{\hyperlink{convolutional_8h_a38de18fffd75ccef7581a78855684da3a46e5d6eb20ba557a5532e016f4a0385a}{CC\+\_\+\+KLEN\+\_\+7}} = 7
+, \mbox{\hyperlink{convolutional_8h_a38de18fffd75ccef7581a78855684da3a2d456ba6ce2c98a1e898ca28c9d8ffd0}{CC\+\_\+\+KLEN\+\_\+8}} = 8
+, \mbox{\hyperlink{convolutional_8h_a38de18fffd75ccef7581a78855684da3aff6362ff63fb3eb56194e5110c32dbf0}{CC\+\_\+\+KLEN\+\_\+\+MIN}} = CC\+\_\+\+KLEN\+\_\+3
+, {\bfseries CC\+\_\+\+KLEN\+\_\+\+MAX} = CC\+\_\+\+KLEN\+\_\+8
+ \}
+\item 
+enum \mbox{\hyperlink{convolutional_8h_ab6bf5dd3ca66fd4dcdb8839ae87fc113}{cc\+\_\+dec\+\_\+method\+\_\+t}} \{ {\bfseries CC\+\_\+\+VITDM\+\_\+\+HARD} = 0
+, \mbox{\hyperlink{convolutional_8h_ab6bf5dd3ca66fd4dcdb8839ae87fc113a15c1eee7b6992c527d483b7a026fb17c}{CC\+\_\+\+VITDM\+\_\+\+SOFT}}
+, \mbox{\hyperlink{convolutional_8h_ab6bf5dd3ca66fd4dcdb8839ae87fc113ad2f5c1d0ad8633e1aad5d222fc058eaa}{CC\+\_\+\+VITDM\+\_\+\+NUM}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{convolutional_8h_a51e49f4978711c5a90c574dfcf9ef61a}{Cnv\+Cod\+\_\+\+List\+Parameters}} (\mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} $\ast$io\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for retrieving and listing convolution coding parameters into dedicated structure. } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{convolutional_8h_aa5322d2883c5876e1130ab5e4fd4efee}{Cnv\+Cod\+\_\+\+Encoder}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} $\ast$p\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for convolutional encoding (including puncturing). } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{convolutional_8h_ab7f865b5b9d837622a73797e80321b2c}{Cnv\+Cod\+\_\+\+Hard\+Decoder}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} $\ast$p\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for convolutional hard-\/decoding by implementing Viterbi algorithm (including depuncturing). } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{convolutional_8h_a5914d9324b050c73244da59a0134dc5e}{Cnv\+Cod\+\_\+\+Soft\+Decoder}} (const \mbox{\hyperlink{struct__float__stream__t}{float\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} $\ast$p\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for convolutional soft-\/decoding by implementing Viterbi algorithm (including depuncturing). } \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Convolutional coding library header. 
+
+\begin{DoxyAuthor}{Author}
+Filippo Valmori 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+26/08/2024 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Electrolux S.\+p.\+A. 
+\end{DoxyCopyright}
+\begin{DoxySeeAlso}{See also}
+Digital communications -\/ Fundamentals and applications (Bernard Sklar, 2014) 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{convolutional_8h_a0971592e0c123f1431c9d699a69086df}\label{convolutional_8h_a0971592e0c123f1431c9d699a69086df}} 
+\index{convolutional.h@{convolutional.h}!CC\_VDM\_STR@{CC\_VDM\_STR}}
+\index{CC\_VDM\_STR@{CC\_VDM\_STR}!convolutional.h@{convolutional.h}}
+\doxysubsubsection{\texorpdfstring{CC\_VDM\_STR}{CC\_VDM\_STR}}
+{\footnotesize\ttfamily \#define CC\+\_\+\+VDM\+\_\+\+STR(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                         ((x == CC\_VITDM\_HARD) ? \textcolor{stringliteral}{"{}Hard"{}} : \(\backslash\)}
+\DoxyCodeLine{                         (x == \mbox{\hyperlink{convolutional_8h_ab6bf5dd3ca66fd4dcdb8839ae87fc113a15c1eee7b6992c527d483b7a026fb17c}{CC\_VITDM\_SOFT}}) ? \textcolor{stringliteral}{"{}Soft"{}} : \(\backslash\)}
+\DoxyCodeLine{                         \textcolor{stringliteral}{"{}N/A"{}})}
+
+\end{DoxyCode}
+
+
+macro to convert decoding method value into string 
+
+\mbox{\Hypertarget{convolutional_8h_ac10425b5ef4a18b84ccf63077c2b0781}\label{convolutional_8h_ac10425b5ef4a18b84ccf63077c2b0781}} 
+\index{convolutional.h@{convolutional.h}!LIST\_OF\_CC\_RATES@{LIST\_OF\_CC\_RATES}}
+\index{LIST\_OF\_CC\_RATES@{LIST\_OF\_CC\_RATES}!convolutional.h@{convolutional.h}}
+\doxysubsubsection{\texorpdfstring{LIST\_OF\_CC\_RATES}{LIST\_OF\_CC\_RATES}}
+{\footnotesize\ttfamily \#define LIST\+\_\+\+OF\+\_\+\+CC\+\_\+\+RATES(\begin{DoxyParamCaption}\item[{}]{ENTRY }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  ENTRY( 1, 2 ),                \(\backslash\)}
+\DoxyCodeLine{  ENTRY( 2, 3 ),                \(\backslash\)}
+\DoxyCodeLine{  ENTRY( 3, 4 ),                \(\backslash\)}
+\DoxyCodeLine{  ENTRY( 5, 6 ),                \(\backslash\)}
+\DoxyCodeLine{  ENTRY( 7, 8 )}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{convolutional_8h_ab6bf5dd3ca66fd4dcdb8839ae87fc113}\label{convolutional_8h_ab6bf5dd3ca66fd4dcdb8839ae87fc113}} 
+\index{convolutional.h@{convolutional.h}!cc\_dec\_method\_t@{cc\_dec\_method\_t}}
+\index{cc\_dec\_method\_t@{cc\_dec\_method\_t}!convolutional.h@{convolutional.h}}
+\doxysubsubsection{\texorpdfstring{cc\_dec\_method\_t}{cc\_dec\_method\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{convolutional_8h_ab6bf5dd3ca66fd4dcdb8839ae87fc113}{cc\+\_\+dec\+\_\+method\+\_\+t}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CC\_VITDM\_SOFT@{CC\_VITDM\_SOFT}!convolutional.h@{convolutional.h}}\index{convolutional.h@{convolutional.h}!CC\_VITDM\_SOFT@{CC\_VITDM\_SOFT}}}\mbox{\Hypertarget{convolutional_8h_ab6bf5dd3ca66fd4dcdb8839ae87fc113a15c1eee7b6992c527d483b7a026fb17c}\label{convolutional_8h_ab6bf5dd3ca66fd4dcdb8839ae87fc113a15c1eee7b6992c527d483b7a026fb17c}} 
+CC\+\_\+\+VITDM\+\_\+\+SOFT&
+\begin{DoxyItemize}
+\item viterbi hard decoding method ID 
+\end{DoxyItemize}\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CC\_VITDM\_NUM@{CC\_VITDM\_NUM}!convolutional.h@{convolutional.h}}\index{convolutional.h@{convolutional.h}!CC\_VITDM\_NUM@{CC\_VITDM\_NUM}}}\mbox{\Hypertarget{convolutional_8h_ab6bf5dd3ca66fd4dcdb8839ae87fc113ad2f5c1d0ad8633e1aad5d222fc058eaa}\label{convolutional_8h_ab6bf5dd3ca66fd4dcdb8839ae87fc113ad2f5c1d0ad8633e1aad5d222fc058eaa}} 
+CC\+\_\+\+VITDM\+\_\+\+NUM&
+\begin{DoxyItemize}
+\item viterbi soft decoding method ID 
+\end{DoxyItemize}\\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{convolutional_8h_a38de18fffd75ccef7581a78855684da3}\label{convolutional_8h_a38de18fffd75ccef7581a78855684da3}} 
+\index{convolutional.h@{convolutional.h}!cc\_klen\_t@{cc\_klen\_t}}
+\index{cc\_klen\_t@{cc\_klen\_t}!convolutional.h@{convolutional.h}}
+\doxysubsubsection{\texorpdfstring{cc\_klen\_t}{cc\_klen\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{convolutional_8h_a38de18fffd75ccef7581a78855684da3}{cc\+\_\+klen\+\_\+t}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CC\_KLEN\_4@{CC\_KLEN\_4}!convolutional.h@{convolutional.h}}\index{convolutional.h@{convolutional.h}!CC\_KLEN\_4@{CC\_KLEN\_4}}}\mbox{\Hypertarget{convolutional_8h_a38de18fffd75ccef7581a78855684da3a63ac078729a09b4dffc625b8273583f2}\label{convolutional_8h_a38de18fffd75ccef7581a78855684da3a63ac078729a09b4dffc625b8273583f2}} 
+CC\+\_\+\+KLEN\+\_\+4&
+\begin{DoxyItemize}
+\item constraint length 3 ID 
+\end{DoxyItemize}\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CC\_KLEN\_5@{CC\_KLEN\_5}!convolutional.h@{convolutional.h}}\index{convolutional.h@{convolutional.h}!CC\_KLEN\_5@{CC\_KLEN\_5}}}\mbox{\Hypertarget{convolutional_8h_a38de18fffd75ccef7581a78855684da3a4fe9d55857ec11055110816d94d1910a}\label{convolutional_8h_a38de18fffd75ccef7581a78855684da3a4fe9d55857ec11055110816d94d1910a}} 
+CC\+\_\+\+KLEN\+\_\+5&
+\begin{DoxyItemize}
+\item constraint length 4 ID 
+\end{DoxyItemize}\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CC\_KLEN\_6@{CC\_KLEN\_6}!convolutional.h@{convolutional.h}}\index{convolutional.h@{convolutional.h}!CC\_KLEN\_6@{CC\_KLEN\_6}}}\mbox{\Hypertarget{convolutional_8h_a38de18fffd75ccef7581a78855684da3a88c528f14c58cba974883b8c2fd74f7c}\label{convolutional_8h_a38de18fffd75ccef7581a78855684da3a88c528f14c58cba974883b8c2fd74f7c}} 
+CC\+\_\+\+KLEN\+\_\+6&
+\begin{DoxyItemize}
+\item constraint length 5 ID 
+\end{DoxyItemize}\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CC\_KLEN\_7@{CC\_KLEN\_7}!convolutional.h@{convolutional.h}}\index{convolutional.h@{convolutional.h}!CC\_KLEN\_7@{CC\_KLEN\_7}}}\mbox{\Hypertarget{convolutional_8h_a38de18fffd75ccef7581a78855684da3a46e5d6eb20ba557a5532e016f4a0385a}\label{convolutional_8h_a38de18fffd75ccef7581a78855684da3a46e5d6eb20ba557a5532e016f4a0385a}} 
+CC\+\_\+\+KLEN\+\_\+7&
+\begin{DoxyItemize}
+\item constraint length 6 ID 
+\end{DoxyItemize}\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CC\_KLEN\_8@{CC\_KLEN\_8}!convolutional.h@{convolutional.h}}\index{convolutional.h@{convolutional.h}!CC\_KLEN\_8@{CC\_KLEN\_8}}}\mbox{\Hypertarget{convolutional_8h_a38de18fffd75ccef7581a78855684da3a2d456ba6ce2c98a1e898ca28c9d8ffd0}\label{convolutional_8h_a38de18fffd75ccef7581a78855684da3a2d456ba6ce2c98a1e898ca28c9d8ffd0}} 
+CC\+\_\+\+KLEN\+\_\+8&
+\begin{DoxyItemize}
+\item constraint length 7 ID 
+\end{DoxyItemize}\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CC\_KLEN\_MIN@{CC\_KLEN\_MIN}!convolutional.h@{convolutional.h}}\index{convolutional.h@{convolutional.h}!CC\_KLEN\_MIN@{CC\_KLEN\_MIN}}}\mbox{\Hypertarget{convolutional_8h_a38de18fffd75ccef7581a78855684da3aff6362ff63fb3eb56194e5110c32dbf0}\label{convolutional_8h_a38de18fffd75ccef7581a78855684da3aff6362ff63fb3eb56194e5110c32dbf0}} 
+CC\+\_\+\+KLEN\+\_\+\+MIN&
+\begin{DoxyItemize}
+\item constraint length 8 ID 
+\end{DoxyItemize}\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{convolutional_8h_aa5322d2883c5876e1130ab5e4fd4efee}\label{convolutional_8h_aa5322d2883c5876e1130ab5e4fd4efee}} 
+\index{convolutional.h@{convolutional.h}!CnvCod\_Encoder@{CnvCod\_Encoder}}
+\index{CnvCod\_Encoder@{CnvCod\_Encoder}!convolutional.h@{convolutional.h}}
+\doxysubsubsection{\texorpdfstring{CnvCod\_Encoder()}{CnvCod\_Encoder()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Cnv\+Cod\+\_\+\+Encoder (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for convolutional encoding (including puncturing). } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em in\+Stream} & input stream \\
+\hline
+\mbox{\texttt{ out}}  & {\em out\+Stream} & output stream \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Params} & pointer to convolutional coding parameters structure\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+
+\begin{DoxyItemize}
+\item unpunctured coded length \mbox{[}B\mbox{]}
+\item unpunctured coded length \mbox{[}b\mbox{]}
+\item input buffer length \mbox{[}b\mbox{]}
+\item expected punctured coded length \mbox{[}b\mbox{]}
+\item expected punctured coded length \mbox{[}b\mbox{]}
+\item retrieve convolutional encoder info
+\item update byte index for reading input buffer
+\item update bit index for reading input buffer
+\item update encoder state with latest input bit
+\item update byte index for output stream writing
+\item update bit index for output stream writing
+\item apply puncturing if selected Rc is higher than 1/2
+\item j-\/th bit of unpunctured output stream
+\item check if puncturation has to applied now
+\item check if computed and theoretical punctured length match
+\item copy temporary buffer content to output one
+\end{DoxyItemize}\mbox{\Hypertarget{convolutional_8h_ab7f865b5b9d837622a73797e80321b2c}\label{convolutional_8h_ab7f865b5b9d837622a73797e80321b2c}} 
+\index{convolutional.h@{convolutional.h}!CnvCod\_HardDecoder@{CnvCod\_HardDecoder}}
+\index{CnvCod\_HardDecoder@{CnvCod\_HardDecoder}!convolutional.h@{convolutional.h}}
+\doxysubsubsection{\texorpdfstring{CnvCod\_HardDecoder()}{CnvCod\_HardDecoder()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Cnv\+Cod\+\_\+\+Hard\+Decoder (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for convolutional hard-\/decoding by implementing Viterbi algorithm (including depuncturing). } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em in\+Stream} & input stream \\
+\hline
+\mbox{\texttt{ out}}  & {\em out\+Stream} & output stream \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Params} & pointer to convolutional coding parameters structure\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+
+\begin{DoxyItemize}
+\item retrieve convolutional encoder info
+\item compute convolutional decoder trellis diagram
+\item enable only all-\/zero state at the beginning
+\item check if depuncturing is needed
+\item use no-\/erasure mask for no-\/puncturing case
+\item current pair of input bits
+\item retrieve erasure mask in case depuncturing has been applied
+\end{DoxyItemize}
+
+check if j-\/th state was active in previous iteration
+
+compute Hamming distance assuming hyp\+Idx input bit
+
+compute next state assuming hyp\+Idx input bit
+
+if there\textquotesingle{}s not yet a survivor path for next\+St state at i-\/th cycle
+
+update state iteration counter
+
+update state distance
+
+update state path among previous states
+
+if a survivor path for next\+St state at i-\/th cycle already exists, check if new candidate is better
+
+
+\begin{DoxyItemize}
+\item if input bit stream is over, flush decoder memory and extract final info bits
+\end{DoxyItemize}
+
+look for minimum distance survivor path
+
+check if memory has been completely filled
+
+set departure state
+
+set arrival state
+
+set output bit to \textquotesingle{}0\textquotesingle{}
+
+set output bit to \textquotesingle{}1\textquotesingle{}
+
+
+\begin{DoxyItemize}
+\item if input bit stream is not over but memory is full, extract oldest info bit
+\item keep all survivor paths
+\end{DoxyItemize}\mbox{\Hypertarget{convolutional_8h_a51e49f4978711c5a90c574dfcf9ef61a}\label{convolutional_8h_a51e49f4978711c5a90c574dfcf9ef61a}} 
+\index{convolutional.h@{convolutional.h}!CnvCod\_ListParameters@{CnvCod\_ListParameters}}
+\index{CnvCod\_ListParameters@{CnvCod\_ListParameters}!convolutional.h@{convolutional.h}}
+\doxysubsubsection{\texorpdfstring{CnvCod\_ListParameters()}{CnvCod\_ListParameters()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Cnv\+Cod\+\_\+\+List\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} $\ast$}]{io\+Params }\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for retrieving and listing convolution coding parameters into dedicated structure. } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em io\+Params} & pointer to i/o parameters structure to be filled\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+\mbox{\Hypertarget{convolutional_8h_a5914d9324b050c73244da59a0134dc5e}\label{convolutional_8h_a5914d9324b050c73244da59a0134dc5e}} 
+\index{convolutional.h@{convolutional.h}!CnvCod\_SoftDecoder@{CnvCod\_SoftDecoder}}
+\index{CnvCod\_SoftDecoder@{CnvCod\_SoftDecoder}!convolutional.h@{convolutional.h}}
+\doxysubsubsection{\texorpdfstring{CnvCod\_SoftDecoder()}{CnvCod\_SoftDecoder()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Cnv\+Cod\+\_\+\+Soft\+Decoder (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__float__stream__t}{float\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for convolutional soft-\/decoding by implementing Viterbi algorithm (including depuncturing). } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em in\+Stream} & input stream \\
+\hline
+\mbox{\texttt{ out}}  & {\em out\+Stream} & output stream \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Params} & pointer to convolutional coding parameters structure\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+
+\begin{DoxyItemize}
+\item retrieve convolutional encoder info
+\item compute convolutional decoder trellis diagram
+\item enable only the all-\/zero state at the beginning
+\item use no-\/erasure mask for no-\/puncturing case
+\item apply depuuncturing if needed
+\item estimate specific erasure mask if depuncturing has been applied
+\item check if j-\/th state was active in the previous iteration
+\end{DoxyItemize}
+
+compute Euclidean distance assuming hyp\+Idx-\/value input bit
+
+compute trellis next state assuming hyp\+Idx-\/value input bit
+
+i\+If there\textquotesingle{}s not yet a survivor path for next\+St state at i-\/th cycle
+
+update the state iteration counter
+
+update the state distance
+
+update the state path among previous states
+
+if a survivor path for next\+St state at i-\/th cycle already exists, check if the new candidate is better
+
+
+\begin{DoxyItemize}
+\item if input bit stream is over, flush the decoder memory and extract the final info bits
+\end{DoxyItemize}
+
+look for the minimum distance survivor path
+
+check if memory has been completely filled
+
+departure state
+
+arrival state
+
+set output bit to \textquotesingle{}0\textquotesingle{}
+
+set output bit to \textquotesingle{}1\textquotesingle{}
+
+
+\begin{DoxyItemize}
+\item if input bit stream is not over but memory is full, extract the oldest info bit
+\item set output bit to \textquotesingle{}0\textquotesingle{}
+\item set output bit to \textquotesingle{}1\textquotesingle{}
+\item keep all survivor paths
+\end{DoxyItemize}

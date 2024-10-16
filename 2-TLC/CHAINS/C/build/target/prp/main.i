@@ -3,13 +3,13 @@
 # 1 "<built-in>"
 # 1 "<command-line>"
 # 1 "src\\main.c"
-# 28 "src\\main.c"
+# 30 "src\\main.c"
 # 1 "src\\channel.h" 1
-# 18 "src\\channel.h"
+# 20 "src\\channel.h"
 # 1 "src\\error.h" 1
-# 18 "src\\error.h"
+# 19 "src\\error.h"
 # 1 "src\\system.h" 1
-# 20 "src\\system.h"
+# 21 "src\\system.h"
 # 1 "c:\\mingw\\include\\stdio.h" 1 3
 # 38 "c:\\mingw\\include\\stdio.h" 3
        
@@ -445,9 +445,9 @@ int vswscanf (const wchar_t *__restrict__, const wchar_t * __restrict__, __built
 
 
 
-# 21 "src\\system.h" 2
-# 1 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdbool.h" 1 3 4
 # 22 "src\\system.h" 2
+# 1 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdbool.h" 1 3 4
+# 23 "src\\system.h" 2
 # 1 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 1 3 4
 # 9 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 3 4
 # 1 "c:\\mingw\\include\\stdint.h" 1 3 4
@@ -510,7 +510,7 @@ typedef __uintptr_t uintptr_t;
 typedef long long intmax_t;
 typedef unsigned long long uintmax_t;
 # 10 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 2 3 4
-# 23 "src\\system.h" 2
+# 24 "src\\system.h" 2
 # 1 "c:\\mingw\\include\\string.h" 1 3
 # 34 "c:\\mingw\\include\\string.h" 3
        
@@ -684,7 +684,7 @@ extern inline __attribute__((__gnu_inline__)) __attribute__((__always_inline__))
 
 
 
-# 24 "src\\system.h" 2
+# 25 "src\\system.h" 2
 # 1 "c:\\mingw\\include\\stdlib.h" 1 3
 # 34 "c:\\mingw\\include\\stdlib.h" 3
        
@@ -992,7 +992,7 @@ __attribute__((__cdecl__)) __attribute__((__nothrow__)) int unsetenv( const char
 
 
 
-# 25 "src\\system.h" 2
+# 26 "src\\system.h" 2
 # 1 "c:\\mingw\\include\\time.h" 1 3
 # 33 "c:\\mingw\\include\\time.h" 3
        
@@ -1162,7 +1162,7 @@ int nanosleep( const struct timespec *, struct timespec * );
 size_t wcsftime (wchar_t *, size_t, const wchar_t *, const struct tm *);
 
 
-# 26 "src\\system.h" 2
+# 27 "src\\system.h" 2
 # 1 "c:\\mingw\\include\\math.h" 1 3
 # 35 "c:\\mingw\\include\\math.h" 3
        
@@ -1548,16 +1548,16 @@ extern float __attribute__((__cdecl__)) fmaf (float, float, float);
 extern long double __attribute__((__cdecl__)) fmal (long double, long double, long double);
 # 931 "c:\\mingw\\include\\math.h" 3
 
-# 27 "src\\system.h" 2
-# 58 "src\\system.h"
+# 28 "src\\system.h" 2
+# 59 "src\\system.h"
 
-# 58 "src\\system.h"
+# 59 "src\\system.h"
 typedef struct _complex_t
 {
   float re;
   float im;
 } complex_t;
-# 19 "src\\error.h" 2
+# 20 "src\\error.h" 2
 
 
 
@@ -1600,9 +1600,9 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 76 "src\\error.h"
+# 77 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
-# 19 "src\\channel.h" 2
+# 21 "src\\channel.h" 2
 # 1 "src\\memory.h" 1
 # 28 "src\\memory.h"
 typedef enum
@@ -1649,44 +1649,8 @@ error_t Memory_FreeStream( void * ioStream, memory_type_t type );
 _Bool 
 # 67 "src\\memory.h"
     Memory_IsStreamValid( const void * inStream, memory_type_t type );
-# 20 "src\\channel.h" 2
-# 1 "src\\modulation.h" 1
-# 28 "src\\modulation.h"
-typedef enum
-{
-  MOD_PSK = 0,
-  MOD_QAM,
-
-  MOD_NUM
-} mod_type_t;
-# 73 "src\\modulation.h"
-typedef struct _mod_par_t
-{
-  mod_type_t type;
-  uint8_t order;
-  uint8_t bps;
-  float phOfst;
-} mod_par_t;
-
-
-typedef struct _mod_maptable_t
-{
-  uint8_t bits[(0x01<<2u)];
-  complex_t symbs[(0x01<<2u)];
-} mod_maptable_t;
-
-
-
-
-
-
-
-error_t Modulation_ListParameters( mod_par_t * ioParams );
-error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * outStream, const mod_par_t * pParams );
-error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_t * outStream, const mod_par_t * pParams );
-error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream_t * outStream, const mod_par_t * pParams );
-# 21 "src\\channel.h" 2
-# 29 "src\\channel.h"
+# 22 "src\\channel.h" 2
+# 30 "src\\channel.h"
 typedef enum
 {
   CHAN_BSC = 0,
@@ -1707,13 +1671,13 @@ typedef struct _chan_par_t
     float EbN0;
   };
 } chan_par_t;
-# 75 "src\\channel.h"
+# 76 "src\\channel.h"
 error_t Channel_ListParameters( chan_par_t * ioParams );
 error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, const chan_par_t * pParams );
 error_t Channel_AWGN( const complex_stream_t * inStream, complex_stream_t * outStream, const chan_par_t * pParams );
-# 29 "src\\main.c" 2
+# 31 "src\\main.c" 2
 # 1 "src\\convolutional.h" 1
-# 60 "src\\convolutional.h"
+# 62 "src\\convolutional.h"
 typedef enum
 {
   CC_RATE_12 = 1, CC_RATE_23 = 2, CC_RATE_34 = 3, CC_RATE_56 = 5, CC_RATE_78 = 7
@@ -1725,7 +1689,7 @@ typedef enum
   CC_RATE_IDX_12, CC_RATE_IDX_23, CC_RATE_IDX_34, CC_RATE_IDX_56, CC_RATE_IDX_78,
   CC_RATE_NUM
 } cc_rate_idx_t;
-# 79 "src\\convolutional.h"
+# 81 "src\\convolutional.h"
 typedef enum
 {
   CC_KLEN_3 = 3,
@@ -1806,9 +1770,9 @@ error_t CnvCod_ListParameters( cc_par_t * ioParams );
 error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
 error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
 error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
-# 30 "src\\main.c" 2
+# 32 "src\\main.c" 2
 # 1 "src\\crc.h" 1
-# 28 "src\\crc.h"
+# 30 "src\\crc.h"
 typedef enum
 {
   CRC_DEGREE_8 = 8,
@@ -1824,14 +1788,14 @@ typedef struct _crc_par_t
   const uint8_t * pGenPoly;
   uint8_t lenGenPoly;
 } crc_par_t;
-# 58 "src\\crc.h"
+# 60 "src\\crc.h"
 error_t Crc_ListParameters( crc_par_t * ioParams );
 error_t Crc_CalculateChecksum( const byte_stream_t * inStream, byte_stream_t * outStream, const crc_par_t * pParams );
-# 31 "src\\main.c" 2
+# 33 "src\\main.c" 2
 # 1 "src\\debug.h" 1
-# 21 "src\\debug.h"
+# 22 "src\\debug.h"
 # 1 "src\\interleaving.h" 1
-# 28 "src\\interleaving.h"
+# 30 "src\\interleaving.h"
 typedef enum
 {
   INTRLV_BLOCK = 0,
@@ -1855,21 +1819,56 @@ typedef struct _itlv_par_t
     uint8_t cells;
   };
 } itlv_par_t;
-# 84 "src\\interleaving.h"
+# 86 "src\\interleaving.h"
 error_t Intrlv_ListParameters( itlv_par_t * ioParams );
 error_t Intrlv_Interleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
 error_t Intrlv_Deinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
-# 22 "src\\debug.h" 2
+# 23 "src\\debug.h" 2
+
+# 1 "src\\modulation.h" 1
+# 30 "src\\modulation.h"
+typedef enum
+{
+  MOD_PSK = 0,
+  MOD_QAM,
+
+  MOD_NUM
+} mod_type_t;
+# 75 "src\\modulation.h"
+typedef struct _mod_par_t
+{
+  mod_type_t type;
+  uint8_t order;
+  uint8_t bps;
+  float phOfst;
+} mod_par_t;
 
 
+typedef struct _mod_maptable_t
+{
+  uint8_t bits[(0x01<<2u)];
+  complex_t symbs[(0x01<<2u)];
+} mod_maptable_t;
+
+
+
+
+
+
+
+error_t Modulation_ListParameters( mod_par_t * ioParams );
+error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * outStream, const mod_par_t * pParams );
+error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_t * outStream, const mod_par_t * pParams );
+error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream_t * outStream, const mod_par_t * pParams );
+# 25 "src\\debug.h" 2
 # 1 "src\\reed_solomon.h" 1
-# 28 "src\\reed_solomon.h"
+# 30 "src\\reed_solomon.h"
 typedef enum
 {
   RS_GF_DEGREE_4 = 4,
   RS_GF_DEGREE_8 = 8
 } rs_gf_degree_t;
-# 50 "src\\reed_solomon.h"
+# 52 "src\\reed_solomon.h"
 typedef struct _rs_par_t
 {
   rs_gf_degree_t m;
@@ -1890,9 +1889,9 @@ typedef struct _rs_par_t
 error_t RsCod_ListParameters( rs_par_t * ioParams );
 error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams );
 error_t RcCod_Decoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams );
-# 25 "src\\debug.h" 2
+# 26 "src\\debug.h" 2
 # 1 "src\\scrambling.h" 1
-# 28 "src\\scrambling.h"
+# 30 "src\\scrambling.h"
 typedef enum
 {
   SCRAMB_ADT = 0,
@@ -1909,12 +1908,12 @@ typedef struct _scr_par_t
   uint32_t conVect;
   uint32_t initSt;
 } scr_par_t;
-# 75 "src\\scrambling.h"
+# 77 "src\\scrambling.h"
 error_t Scramb_ListParameters( scr_par_t * ioParams );
 error_t Scramb_Scrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
 error_t Scramb_Descrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
-# 26 "src\\debug.h" 2
-# 51 "src\\debug.h"
+# 27 "src\\debug.h" 2
+# 52 "src\\debug.h"
 typedef struct _debug_par_t
 {
   scr_par_t scrPar;
@@ -1952,6 +1951,7 @@ typedef enum _wm_level_t
 {
   WM_LEVEL_1 = 0,
   WM_LEVEL_2,
+  WM_LEVEL_3,
 
   WM_LEVEL_NUM
 } wm_level_t;
@@ -1988,7 +1988,7 @@ typedef enum _ansi_text_style
   STYLE_FAST_BLINK = 6,
   STYLE_DOUBLE_UNDERLINE = 21,
 } ansi_text_style;
-# 140 "src\\debug.h"
+# 142 "src\\debug.h"
 error_t Debug_PrintParameters( uint32_t orgLen, const debug_par_t * pParams );
 error_t Debug_ListParameters( debug_par_t * ioParams, const scr_par_t * scrParam, const rs_par_t * rsParam, const itlv_par_t * itlvParam, const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam );
 error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed );
@@ -1998,22 +1998,16 @@ error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label
 error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams );
 error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label );
 error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label );
-error_t Debug_SetWatermark( void * funcAddr, wm_level_t level );
+error_t Debug_SetWatermark( const void * funcAddr, const wm_level_t level );
 void Debug_PrintWatermarks( void );
 void Debug_SetTerminalAppearance( ansi_text_color color, ansi_text_style style );
 void Debug_ResetTerminalAppearance( void );
-# 32 "src\\main.c" 2
-# 105 "src\\main.c"
+# 34 "src\\main.c" 2
+# 107 "src\\main.c"
 static crc_par_t crcParam; static scr_par_t scrParam; static rs_par_t rsParam; static itlv_par_t itlvParam; static cc_par_t ccParam; static mod_par_t modParam; static chan_par_t chanParam;;
 static debug_par_t dgbParam;
 static clock_t elapsedTime;
-
-
-
-
-
-
-
+# 122 "src\\main.c"
 int main( void )
 {
 
@@ -2022,65 +2016,65 @@ int main( void )
   elapsedTime = clock();
 
   byte_stream_t txOrgStream = {.pBuf = 
-# 122 "src\\main.c" 3 4
+# 129 "src\\main.c" 3 4
  ((void *)0)
-# 122 "src\\main.c"
+# 129 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t rxOrgStream = {.pBuf = 
-# 122 "src\\main.c" 3 4
+# 129 "src\\main.c" 3 4
  ((void *)0)
-# 122 "src\\main.c"
+# 129 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t txCrcStream = {.pBuf = 
-# 122 "src\\main.c" 3 4
+# 129 "src\\main.c" 3 4
  ((void *)0)
-# 122 "src\\main.c"
+# 129 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t rxCrcStream = {.pBuf = 
-# 122 "src\\main.c" 3 4
+# 129 "src\\main.c" 3 4
  ((void *)0)
-# 122 "src\\main.c"
+# 129 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t txScrStream = {.pBuf = 
-# 122 "src\\main.c" 3 4
+# 129 "src\\main.c" 3 4
  ((void *)0)
-# 122 "src\\main.c"
+# 129 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t rxScrStream = {.pBuf = 
-# 122 "src\\main.c" 3 4
+# 129 "src\\main.c" 3 4
  ((void *)0)
-# 122 "src\\main.c"
+# 129 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t txRsStream = {.pBuf = 
-# 122 "src\\main.c" 3 4
+# 129 "src\\main.c" 3 4
  ((void *)0)
-# 122 "src\\main.c"
+# 129 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t rxRsStream = {.pBuf = 
-# 122 "src\\main.c" 3 4
+# 129 "src\\main.c" 3 4
  ((void *)0)
-# 122 "src\\main.c"
+# 129 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t txItlvStream = {.pBuf = 
-# 122 "src\\main.c" 3 4
+# 129 "src\\main.c" 3 4
  ((void *)0)
-# 122 "src\\main.c"
+# 129 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t rxItlvStream = {.pBuf = 
-# 122 "src\\main.c" 3 4
+# 129 "src\\main.c" 3 4
  ((void *)0)
-# 122 "src\\main.c"
+# 129 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t txCcStream = {.pBuf = 
-# 122 "src\\main.c" 3 4
+# 129 "src\\main.c" 3 4
  ((void *)0)
-# 122 "src\\main.c"
+# 129 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t rxCcStream = {.pBuf = 
-# 122 "src\\main.c" 3 4
+# 129 "src\\main.c" 3 4
  ((void *)0)
-# 122 "src\\main.c"
+# 129 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; complex_stream_t txModStream = {.pBuf = 
-# 122 "src\\main.c" 3 4
+# 129 "src\\main.c" 3 4
  ((void *)0)
-# 122 "src\\main.c"
+# 129 "src\\main.c"
  , .len = 0, .id = memory_type_complex}; complex_stream_t rxModStream = {.pBuf = 
-# 122 "src\\main.c" 3 4
+# 129 "src\\main.c" 3 4
  ((void *)0)
-# 122 "src\\main.c"
+# 129 "src\\main.c"
  , .len = 0, .id = memory_type_complex}; float_stream_t rxLLRStream = {.pBuf = 
-# 122 "src\\main.c" 3 4
+# 129 "src\\main.c" 3 4
  ((void *)0)
-# 122 "src\\main.c"
+# 129 "src\\main.c"
  , .len = 0, .id = memory_type_float};;
   Memory_AllocateStream(&txOrgStream,376u,txOrgStream.id); Memory_AllocateStream(&rxOrgStream,376u,rxOrgStream.id); Memory_AllocateStream(&txCrcStream,((CRC_DEGREE_16)>>3u),txCrcStream.id); Memory_AllocateStream(&rxCrcStream,((CRC_DEGREE_16)>>3u),rxCrcStream.id); Memory_AllocateStream(&txScrStream,376u,txScrStream.id); Memory_AllocateStream(&rxScrStream,376u,rxScrStream.id); Memory_AllocateStream(&txRsStream,(376u*204u/188u),txRsStream.id); Memory_AllocateStream(&rxRsStream,(376u*204u/188u),rxRsStream.id); Memory_AllocateStream(&txItlvStream,(376u*204u/188u),txItlvStream.id); Memory_AllocateStream(&rxItlvStream,(376u*204u/188u),rxItlvStream.id); Memory_AllocateStream(&txCcStream,((2u*(376u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12),txCcStream.id); Memory_AllocateStream(&rxCcStream,((2u*(376u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12),rxCcStream.id); Memory_AllocateStream(&txModStream,(((((2u*(376u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12))<<3u)/2u),txModStream.id); Memory_AllocateStream(&rxModStream,(((((2u*(376u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12))<<3u)/2u),rxModStream.id); Memory_AllocateStream(&rxLLRStream,((((2u*(376u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12))<<3u),rxLLRStream.id);;
   Crc_ListParameters(&crcParam); Scramb_ListParameters(&scrParam); RsCod_ListParameters(&rsParam); Intrlv_ListParameters(&itlvParam); CnvCod_ListParameters(&ccParam); Modulation_ListParameters(&modParam); Channel_ListParameters(&chanParam);;
@@ -2090,9 +2084,9 @@ int main( void )
 
 
   Debug_GenerateRandomBytes(&txOrgStream,
-# 130 "src\\main.c" 3 4
+# 137 "src\\main.c" 3 4
                                         ((void *)0)
-# 130 "src\\main.c"
+# 137 "src\\main.c"
                                             );
   Crc_CalculateChecksum(&txOrgStream,&txCrcStream,&crcParam);
   Scramb_Scrambler(&txOrgStream,&txScrStream,&scrParam);
@@ -2123,7 +2117,7 @@ int main( void )
   RcCod_Decoder(&rxRsStream,&rxScrStream,&rsParam);
   Scramb_Descrambler(&rxScrStream,&rxOrgStream,&scrParam);
   Crc_CalculateChecksum(&rxOrgStream,&rxCrcStream,&crcParam);
-# 179 "src\\main.c"
+# 186 "src\\main.c"
   Debug_CheckWrongBits(&txCcStream,&rxCcStream,PID_RX_CNVCOD,&dgbParam);
   Debug_CheckWrongBits(&txRsStream,&rxRsStream,PID_RX_RSCOD,&dgbParam);
   Debug_CheckWrongBits(&txOrgStream,&rxOrgStream,PID_RX_ORG,&dgbParam);
@@ -2140,9 +2134,9 @@ int main( void )
   elapsedTime = clock()-elapsedTime;
   printf("\n >> Execution completed successfully in %1.3f seconds!\n\n",
     ((float)elapsedTime)/
-# 194 "src\\main.c" 3
+# 201 "src\\main.c" 3
                         ((clock_t)(1000))
-# 194 "src\\main.c"
+# 201 "src\\main.c"
                                       );
   Debug_ResetTerminalAppearance();
 

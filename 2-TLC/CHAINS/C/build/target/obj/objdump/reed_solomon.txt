@@ -1,0 +1,3463 @@
+
+build\target\obj\reed_solomon.o:     file format pe-i386
+
+
+Disassembly of section .text:
+
+00000000 <_RsCod_ListParameters>:
+ * @param[in] ioParams pointer to i/o parameters structure to be filled
+ * 
+ * @return error ID
+ */
+error_t RsCod_ListParameters( rs_par_t * ioParams )
+{
+       0:	55                   	push   %ebp
+       1:	89 e5                	mov    %esp,%ebp
+       3:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)RsCod_ListParameters,WM_LEVEL_1);
+       6:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+       d:	00 
+       e:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
+      15:	e8 00 00 00 00       	call   1a <_RsCod_ListParameters+0x1a>
+
+  error_t retErr = ERR_NONE;
+      1a:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+
+  if (NULL != ioParams)
+      21:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+      25:	0f 84 f7 00 00 00    	je     122 <_RsCod_ListParameters+0x122>
+  {
+    ioParams->m = GF_DEGREE;
+      2b:	8b 45 08             	mov    0x8(%ebp),%eax
+      2e:	c7 00 08 00 00 00    	movl   $0x8,(%eax)
+    ioParams->kSh = MESSAGE_SIZE;
+      34:	8b 45 08             	mov    0x8(%ebp),%eax
+      37:	c6 40 04 bc          	movb   $0xbc,0x4(%eax)
+    ioParams->nSh = CODEWORD_SIZE;
+      3b:	8b 45 08             	mov    0x8(%ebp),%eax
+      3e:	c6 40 05 cc          	movb   $0xcc,0x5(%eax)
+    ioParams->t = (ioParams->nSh-ioParams->kSh)/2;
+      42:	8b 45 08             	mov    0x8(%ebp),%eax
+      45:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+      49:	0f b6 d0             	movzbl %al,%edx
+      4c:	8b 45 08             	mov    0x8(%ebp),%eax
+      4f:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+      53:	0f b6 c0             	movzbl %al,%eax
+      56:	29 c2                	sub    %eax,%edx
+      58:	89 d0                	mov    %edx,%eax
+      5a:	89 c2                	mov    %eax,%edx
+      5c:	c1 ea 1f             	shr    $0x1f,%edx
+      5f:	01 d0                	add    %edx,%eax
+      61:	d1 f8                	sar    %eax
+      63:	89 c2                	mov    %eax,%edx
+      65:	8b 45 08             	mov    0x8(%ebp),%eax
+      68:	88 50 06             	mov    %dl,0x6(%eax)
+    ioParams->dimGF = 1<<ioParams->m;
+      6b:	8b 45 08             	mov    0x8(%ebp),%eax
+      6e:	8b 00                	mov    (%eax),%eax
+      70:	ba 01 00 00 00       	mov    $0x1,%edx
+      75:	89 c1                	mov    %eax,%ecx
+      77:	d3 e2                	shl    %cl,%edx
+      79:	89 d0                	mov    %edx,%eax
+      7b:	89 c2                	mov    %eax,%edx
+      7d:	8b 45 08             	mov    0x8(%ebp),%eax
+      80:	66 89 50 0c          	mov    %dx,0xc(%eax)
+    ioParams->nUn = ioParams->dimGF-1;
+      84:	8b 45 08             	mov    0x8(%ebp),%eax
+      87:	0f b7 40 0c          	movzwl 0xc(%eax),%eax
+      8b:	8d 50 ff             	lea    -0x1(%eax),%edx
+      8e:	8b 45 08             	mov    0x8(%ebp),%eax
+      91:	66 89 50 0a          	mov    %dx,0xa(%eax)
+    ioParams->kUn = ioParams->nUn-2*ioParams->t;
+      95:	8b 45 08             	mov    0x8(%ebp),%eax
+      98:	0f b7 50 0a          	movzwl 0xa(%eax),%edx
+      9c:	8b 45 08             	mov    0x8(%ebp),%eax
+      9f:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+      a3:	0f b6 c0             	movzbl %al,%eax
+      a6:	01 c0                	add    %eax,%eax
+      a8:	29 c2                	sub    %eax,%edx
+      aa:	8b 45 08             	mov    0x8(%ebp),%eax
+      ad:	66 89 50 08          	mov    %dx,0x8(%eax)
+
+    if ((ioParams->kSh <= 0) || (ioParams->nSh <= 0) ||
+      b1:	8b 45 08             	mov    0x8(%ebp),%eax
+      b4:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+      b8:	84 c0                	test   %al,%al
+      ba:	74 5d                	je     119 <_RsCod_ListParameters+0x119>
+      bc:	8b 45 08             	mov    0x8(%ebp),%eax
+      bf:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+      c3:	84 c0                	test   %al,%al
+      c5:	74 52                	je     119 <_RsCod_ListParameters+0x119>
+      ((ioParams->nSh-ioParams->kSh)%2 != 0) ||
+      c7:	8b 45 08             	mov    0x8(%ebp),%eax
+      ca:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+      ce:	0f b6 d0             	movzbl %al,%edx
+      d1:	8b 45 08             	mov    0x8(%ebp),%eax
+      d4:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+      d8:	0f b6 c0             	movzbl %al,%eax
+      db:	29 c2                	sub    %eax,%edx
+      dd:	89 d0                	mov    %edx,%eax
+      df:	83 e0 01             	and    $0x1,%eax
+    if ((ioParams->kSh <= 0) || (ioParams->nSh <= 0) ||
+      e2:	85 c0                	test   %eax,%eax
+      e4:	75 33                	jne    119 <_RsCod_ListParameters+0x119>
+      (ioParams->nSh > (ioParams->dimGF-1)) ||
+      e6:	8b 45 08             	mov    0x8(%ebp),%eax
+      e9:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+      ed:	0f b6 d0             	movzbl %al,%edx
+      f0:	8b 45 08             	mov    0x8(%ebp),%eax
+      f3:	0f b7 40 0c          	movzwl 0xc(%eax),%eax
+      f7:	0f b7 c0             	movzwl %ax,%eax
+      fa:	83 e8 01             	sub    $0x1,%eax
+      ((ioParams->nSh-ioParams->kSh)%2 != 0) ||
+      fd:	39 c2                	cmp    %eax,%edx
+      ff:	7f 18                	jg     119 <_RsCod_ListParameters+0x119>
+      ((RS_GF_DEGREE_4 == ioParams->m) && ((ioParams->nSh%2) != 0)))
+     101:	8b 45 08             	mov    0x8(%ebp),%eax
+     104:	8b 00                	mov    (%eax),%eax
+      (ioParams->nSh > (ioParams->dimGF-1)) ||
+     106:	83 f8 04             	cmp    $0x4,%eax
+     109:	75 1e                	jne    129 <_RsCod_ListParameters+0x129>
+      ((RS_GF_DEGREE_4 == ioParams->m) && ((ioParams->nSh%2) != 0)))
+     10b:	8b 45 08             	mov    0x8(%ebp),%eax
+     10e:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+     112:	83 e0 01             	and    $0x1,%eax
+     115:	84 c0                	test   %al,%al
+     117:	74 10                	je     129 <_RsCod_ListParameters+0x129>
+    {
+      retErr = ERR_INV_RS_MSG_CW_LEN;
+     119:	c7 45 f4 10 00 00 00 	movl   $0x10,-0xc(%ebp)
+     120:	eb 07                	jmp    129 <_RsCod_ListParameters+0x129>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+     122:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+     129:	8b 45 f4             	mov    -0xc(%ebp),%eax
+     12c:	89 04 24             	mov    %eax,(%esp)
+     12f:	e8 00 00 00 00       	call   134 <_RsCod_ListParameters+0x134>
+}
+     134:	c9                   	leave  
+     135:	c3                   	ret    
+
+00000136 <_RcCod_Encoder>:
+ * @param[in] pParams pointer to reed-solomon parameters structure
+ * 
+ * @return error ID
+ */
+error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams )
+{
+     136:	55                   	push   %ebp
+     137:	89 e5                	mov    %esp,%ebp
+     139:	57                   	push   %edi
+     13a:	56                   	push   %esi
+     13b:	53                   	push   %ebx
+     13c:	83 ec 6c             	sub    $0x6c,%esp
+     13f:	89 e0                	mov    %esp,%eax
+     141:	89 45 a4             	mov    %eax,-0x5c(%ebp)
+  Debug_SetWatermark((void *)RcCod_Encoder,WM_LEVEL_1);
+     144:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+     14b:	00 
+     14c:	c7 04 24 36 01 00 00 	movl   $0x136,(%esp)
+     153:	e8 00 00 00 00       	call   158 <_RcCod_Encoder+0x22>
+
+  error_t retErr = ERR_NONE;
+     158:	c7 45 e4 00 00 00 00 	movl   $0x0,-0x1c(%ebp)
+  const uint8_t numMsg = BY2BI_LEN(inStream->len)/(pParams->m*pParams->kSh);
+     15f:	8b 45 08             	mov    0x8(%ebp),%eax
+     162:	8b 40 04             	mov    0x4(%eax),%eax
+     165:	8d 0c c5 00 00 00 00 	lea    0x0(,%eax,8),%ecx
+     16c:	8b 45 10             	mov    0x10(%ebp),%eax
+     16f:	8b 10                	mov    (%eax),%edx
+     171:	8b 45 10             	mov    0x10(%ebp),%eax
+     174:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+     178:	0f b6 c0             	movzbl %al,%eax
+     17b:	89 d7                	mov    %edx,%edi
+     17d:	0f af f8             	imul   %eax,%edi
+     180:	89 c8                	mov    %ecx,%eax
+     182:	ba 00 00 00 00       	mov    $0x0,%edx
+     187:	f7 f7                	div    %edi
+     189:	88 45 db             	mov    %al,-0x25(%ebp)
+  const uint8_t lenGenPoly = 2*pParams->t+1;
+     18c:	8b 45 10             	mov    0x10(%ebp),%eax
+     18f:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+     193:	01 c0                	add    %eax,%eax
+     195:	83 c0 01             	add    $0x1,%eax
+     198:	88 45 da             	mov    %al,-0x26(%ebp)
+  uint8_t genPoly[lenGenPoly];
+     19b:	0f b6 45 da          	movzbl -0x26(%ebp),%eax
+     19f:	83 e8 01             	sub    $0x1,%eax
+     1a2:	89 45 d4             	mov    %eax,-0x2c(%ebp)
+     1a5:	0f b6 45 da          	movzbl -0x26(%ebp),%eax
+     1a9:	ba 10 00 00 00       	mov    $0x10,%edx
+     1ae:	83 ea 01             	sub    $0x1,%edx
+     1b1:	01 d0                	add    %edx,%eax
+     1b3:	bf 10 00 00 00       	mov    $0x10,%edi
+     1b8:	ba 00 00 00 00       	mov    $0x0,%edx
+     1bd:	f7 f7                	div    %edi
+     1bf:	6b c0 10             	imul   $0x10,%eax,%eax
+     1c2:	e8 00 00 00 00       	call   1c7 <_RcCod_Encoder+0x91>
+     1c7:	29 c4                	sub    %eax,%esp
+     1c9:	8d 44 24 10          	lea    0x10(%esp),%eax
+     1cd:	83 c0 00             	add    $0x0,%eax
+     1d0:	89 45 d0             	mov    %eax,-0x30(%ebp)
+  uint8_t mapTable[pParams->dimGF][RS_TABLE_IDX_NUM];                         /** - mapping table between symbols and basis */
+     1d3:	8b 45 10             	mov    0x10(%ebp),%eax
+     1d6:	0f b7 40 0c          	movzwl 0xc(%eax),%eax
+     1da:	0f b7 c0             	movzwl %ax,%eax
+     1dd:	83 e8 01             	sub    $0x1,%eax
+     1e0:	89 45 cc             	mov    %eax,-0x34(%ebp)
+     1e3:	8b 45 10             	mov    0x10(%ebp),%eax
+     1e6:	0f b7 40 0c          	movzwl 0xc(%eax),%eax
+     1ea:	0f b7 c0             	movzwl %ax,%eax
+     1ed:	8d 14 00             	lea    (%eax,%eax,1),%edx
+     1f0:	b8 10 00 00 00       	mov    $0x10,%eax
+     1f5:	83 e8 01             	sub    $0x1,%eax
+     1f8:	01 d0                	add    %edx,%eax
+     1fa:	be 10 00 00 00       	mov    $0x10,%esi
+     1ff:	ba 00 00 00 00       	mov    $0x0,%edx
+     204:	f7 f6                	div    %esi
+     206:	6b c0 10             	imul   $0x10,%eax,%eax
+     209:	e8 00 00 00 00       	call   20e <_RcCod_Encoder+0xd8>
+     20e:	29 c4                	sub    %eax,%esp
+     210:	8d 44 24 10          	lea    0x10(%esp),%eax
+     214:	83 c0 00             	add    $0x0,%eax
+     217:	89 45 c8             	mov    %eax,-0x38(%ebp)
+  int16_t quotDeg;
+  uint16_t quotCoef;
+  uint16_t maxDeg;
+  uint16_t j;
+  uint8_t inSymbs[pParams->kUn];
+     21a:	8b 45 10             	mov    0x10(%ebp),%eax
+     21d:	0f b7 40 08          	movzwl 0x8(%eax),%eax
+     221:	0f b7 c0             	movzwl %ax,%eax
+     224:	83 e8 01             	sub    $0x1,%eax
+     227:	89 45 c4             	mov    %eax,-0x3c(%ebp)
+     22a:	8b 45 10             	mov    0x10(%ebp),%eax
+     22d:	0f b7 40 08          	movzwl 0x8(%eax),%eax
+     231:	0f b7 c0             	movzwl %ax,%eax
+     234:	ba 10 00 00 00       	mov    $0x10,%edx
+     239:	83 ea 01             	sub    $0x1,%edx
+     23c:	01 d0                	add    %edx,%eax
+     23e:	bf 10 00 00 00       	mov    $0x10,%edi
+     243:	ba 00 00 00 00       	mov    $0x0,%edx
+     248:	f7 f7                	div    %edi
+     24a:	6b c0 10             	imul   $0x10,%eax,%eax
+     24d:	e8 00 00 00 00       	call   252 <_RcCod_Encoder+0x11c>
+     252:	29 c4                	sub    %eax,%esp
+     254:	8d 44 24 10          	lea    0x10(%esp),%eax
+     258:	83 c0 00             	add    $0x0,%eax
+     25b:	89 45 c0             	mov    %eax,-0x40(%ebp)
+  uint8_t tmpPoly[pParams->nUn];
+     25e:	8b 45 10             	mov    0x10(%ebp),%eax
+     261:	0f b7 40 0a          	movzwl 0xa(%eax),%eax
+     265:	0f b7 c0             	movzwl %ax,%eax
+     268:	83 e8 01             	sub    $0x1,%eax
+     26b:	89 45 bc             	mov    %eax,-0x44(%ebp)
+     26e:	8b 45 10             	mov    0x10(%ebp),%eax
+     271:	0f b7 40 0a          	movzwl 0xa(%eax),%eax
+     275:	0f b7 c0             	movzwl %ax,%eax
+     278:	ba 10 00 00 00       	mov    $0x10,%edx
+     27d:	83 ea 01             	sub    $0x1,%edx
+     280:	01 d0                	add    %edx,%eax
+     282:	be 10 00 00 00       	mov    $0x10,%esi
+     287:	ba 00 00 00 00       	mov    $0x0,%edx
+     28c:	f7 f6                	div    %esi
+     28e:	6b c0 10             	imul   $0x10,%eax,%eax
+     291:	e8 00 00 00 00       	call   296 <_RcCod_Encoder+0x160>
+     296:	29 c4                	sub    %eax,%esp
+     298:	8d 44 24 10          	lea    0x10(%esp),%eax
+     29c:	83 c0 00             	add    $0x0,%eax
+     29f:	89 45 b8             	mov    %eax,-0x48(%ebp)
+  uint8_t divQuotCoef[pParams->nUn];
+     2a2:	8b 45 10             	mov    0x10(%ebp),%eax
+     2a5:	0f b7 40 0a          	movzwl 0xa(%eax),%eax
+     2a9:	0f b7 c0             	movzwl %ax,%eax
+     2ac:	83 e8 01             	sub    $0x1,%eax
+     2af:	89 45 b4             	mov    %eax,-0x4c(%ebp)
+     2b2:	8b 45 10             	mov    0x10(%ebp),%eax
+     2b5:	0f b7 40 0a          	movzwl 0xa(%eax),%eax
+     2b9:	0f b7 c0             	movzwl %ax,%eax
+     2bc:	ba 10 00 00 00       	mov    $0x10,%edx
+     2c1:	83 ea 01             	sub    $0x1,%edx
+     2c4:	01 d0                	add    %edx,%eax
+     2c6:	bf 10 00 00 00       	mov    $0x10,%edi
+     2cb:	ba 00 00 00 00       	mov    $0x0,%edx
+     2d0:	f7 f7                	div    %edi
+     2d2:	6b c0 10             	imul   $0x10,%eax,%eax
+     2d5:	e8 00 00 00 00       	call   2da <_RcCod_Encoder+0x1a4>
+     2da:	29 c4                	sub    %eax,%esp
+     2dc:	8d 44 24 10          	lea    0x10(%esp),%eax
+     2e0:	83 c0 00             	add    $0x0,%eax
+     2e3:	89 45 b0             	mov    %eax,-0x50(%ebp)
+  uint8_t curSymb;
+  uint8_t i;
+
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+     2e6:	8b 45 08             	mov    0x8(%ebp),%eax
+     2e9:	8b 40 08             	mov    0x8(%eax),%eax
+     2ec:	89 44 24 04          	mov    %eax,0x4(%esp)
+     2f0:	8b 45 08             	mov    0x8(%ebp),%eax
+     2f3:	89 04 24             	mov    %eax,(%esp)
+     2f6:	e8 00 00 00 00       	call   2fb <_RcCod_Encoder+0x1c5>
+     2fb:	84 c0                	test   %al,%al
+     2fd:	0f 84 43 05 00 00    	je     846 <_RcCod_Encoder+0x710>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+     303:	8b 45 0c             	mov    0xc(%ebp),%eax
+     306:	8b 40 08             	mov    0x8(%eax),%eax
+     309:	89 44 24 04          	mov    %eax,0x4(%esp)
+     30d:	8b 45 0c             	mov    0xc(%ebp),%eax
+     310:	89 04 24             	mov    %eax,(%esp)
+     313:	e8 00 00 00 00       	call   318 <_RcCod_Encoder+0x1e2>
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+     318:	84 c0                	test   %al,%al
+     31a:	0f 84 26 05 00 00    	je     846 <_RcCod_Encoder+0x710>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+     320:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+     324:	0f 84 1c 05 00 00    	je     846 <_RcCod_Encoder+0x710>
+      (NULL != pParams))
+  {
+    RetrieveMappingTableGF(mapTable,pParams);
+     32a:	8b 45 c8             	mov    -0x38(%ebp),%eax
+     32d:	8b 55 10             	mov    0x10(%ebp),%edx
+     330:	89 54 24 04          	mov    %edx,0x4(%esp)
+     334:	89 04 24             	mov    %eax,(%esp)
+     337:	e8 19 0d 00 00       	call   1055 <_RetrieveMappingTableGF>
+    RetrieveGeneratorPolynomial(genPoly,lenGenPoly,mapTable,pParams);
+     33c:	8b 4d c8             	mov    -0x38(%ebp),%ecx
+     33f:	0f b6 55 da          	movzbl -0x26(%ebp),%edx
+     343:	8b 45 d0             	mov    -0x30(%ebp),%eax
+     346:	8b 5d 10             	mov    0x10(%ebp),%ebx
+     349:	89 5c 24 0c          	mov    %ebx,0xc(%esp)
+     34d:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+     351:	89 54 24 04          	mov    %edx,0x4(%esp)
+     355:	89 04 24             	mov    %eax,(%esp)
+     358:	e8 a6 0b 00 00       	call   f03 <_RetrieveGeneratorPolynomial>
+
+    for (i=0; i<numMsg; i++)
+     35d:	c6 45 dc 00          	movb   $0x0,-0x24(%ebp)
+     361:	e9 d1 04 00 00       	jmp    837 <_RcCod_Encoder+0x701>
+    {
+      memset(inSymbs,0,pParams->kUn);
+     366:	8b 45 10             	mov    0x10(%ebp),%eax
+     369:	0f b7 40 08          	movzwl 0x8(%eax),%eax
+     36d:	0f b7 d0             	movzwl %ax,%edx
+     370:	8b 45 c0             	mov    -0x40(%ebp),%eax
+     373:	89 54 24 08          	mov    %edx,0x8(%esp)
+     377:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+     37e:	00 
+     37f:	89 04 24             	mov    %eax,(%esp)
+     382:	e8 00 00 00 00       	call   387 <_RcCod_Encoder+0x251>
+
+      for (j=0; j<pParams->kSh; j++)
+     387:	66 c7 45 de 00 00    	movw   $0x0,-0x22(%ebp)
+     38d:	e9 cb 00 00 00       	jmp    45d <_RcCod_Encoder+0x327>
+      {
+        if (RS_GF_DEGREE_4 == pParams->m)
+     392:	8b 45 10             	mov    0x10(%ebp),%eax
+     395:	8b 00                	mov    (%eax),%eax
+     397:	83 f8 04             	cmp    $0x4,%eax
+     39a:	75 73                	jne    40f <_RcCod_Encoder+0x2d9>
+        {
+          if (IS_EVEN(j))
+     39c:	0f b7 45 de          	movzwl -0x22(%ebp),%eax
+     3a0:	83 e0 01             	and    $0x1,%eax
+     3a3:	66 85 c0             	test   %ax,%ax
+     3a6:	75 32                	jne    3da <_RcCod_Encoder+0x2a4>
+          {
+            curSymb = (inStream->pBuf[(j+i*pParams->kSh)/2]>>4);
+     3a8:	8b 45 08             	mov    0x8(%ebp),%eax
+     3ab:	8b 10                	mov    (%eax),%edx
+     3ad:	0f b7 4d de          	movzwl -0x22(%ebp),%ecx
+     3b1:	0f b6 5d dc          	movzbl -0x24(%ebp),%ebx
+     3b5:	8b 45 10             	mov    0x10(%ebp),%eax
+     3b8:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+     3bc:	0f b6 c0             	movzbl %al,%eax
+     3bf:	0f af c3             	imul   %ebx,%eax
+     3c2:	01 c8                	add    %ecx,%eax
+     3c4:	89 c1                	mov    %eax,%ecx
+     3c6:	c1 e9 1f             	shr    $0x1f,%ecx
+     3c9:	01 c8                	add    %ecx,%eax
+     3cb:	d1 f8                	sar    %eax
+     3cd:	01 d0                	add    %edx,%eax
+     3cf:	0f b6 00             	movzbl (%eax),%eax
+     3d2:	c0 e8 04             	shr    $0x4,%al
+     3d5:	88 45 dd             	mov    %al,-0x23(%ebp)
+     3d8:	eb 59                	jmp    433 <_RcCod_Encoder+0x2fd>
+          }
+          else
+          {
+            curSymb = (inStream->pBuf[(j-1+i*pParams->kSh)/2]&0x0F);
+     3da:	8b 45 08             	mov    0x8(%ebp),%eax
+     3dd:	8b 10                	mov    (%eax),%edx
+     3df:	0f b7 45 de          	movzwl -0x22(%ebp),%eax
+     3e3:	8d 58 ff             	lea    -0x1(%eax),%ebx
+     3e6:	0f b6 4d dc          	movzbl -0x24(%ebp),%ecx
+     3ea:	8b 45 10             	mov    0x10(%ebp),%eax
+     3ed:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+     3f1:	0f b6 c0             	movzbl %al,%eax
+     3f4:	0f af c1             	imul   %ecx,%eax
+     3f7:	01 d8                	add    %ebx,%eax
+     3f9:	89 c1                	mov    %eax,%ecx
+     3fb:	c1 e9 1f             	shr    $0x1f,%ecx
+     3fe:	01 c8                	add    %ecx,%eax
+     400:	d1 f8                	sar    %eax
+     402:	01 d0                	add    %edx,%eax
+     404:	0f b6 00             	movzbl (%eax),%eax
+     407:	83 e0 0f             	and    $0xf,%eax
+     40a:	88 45 dd             	mov    %al,-0x23(%ebp)
+     40d:	eb 24                	jmp    433 <_RcCod_Encoder+0x2fd>
+          }
+        }
+        else                                                                  // i.e. "if (RS_GF_DEGREE_8 == pParams->m)"
+        {       
+          curSymb = inStream->pBuf[j+i*pParams->kSh];
+     40f:	8b 45 08             	mov    0x8(%ebp),%eax
+     412:	8b 10                	mov    (%eax),%edx
+     414:	0f b7 4d de          	movzwl -0x22(%ebp),%ecx
+     418:	0f b6 5d dc          	movzbl -0x24(%ebp),%ebx
+     41c:	8b 45 10             	mov    0x10(%ebp),%eax
+     41f:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+     423:	0f b6 c0             	movzbl %al,%eax
+     426:	0f af c3             	imul   %ebx,%eax
+     429:	01 c8                	add    %ecx,%eax
+     42b:	01 d0                	add    %edx,%eax
+     42d:	0f b6 00             	movzbl (%eax),%eax
+     430:	88 45 dd             	mov    %al,-0x23(%ebp)
+        }
+        inSymbs[j] = ConvertBi2Sy(curSymb,mapTable);                          /** - bits-to-symbol conversion */
+     433:	0f b7 5d de          	movzwl -0x22(%ebp),%ebx
+     437:	8b 55 c8             	mov    -0x38(%ebp),%edx
+     43a:	0f b6 45 dd          	movzbl -0x23(%ebp),%eax
+     43e:	89 54 24 04          	mov    %edx,0x4(%esp)
+     442:	89 04 24             	mov    %eax,(%esp)
+     445:	e8 37 0f 00 00       	call   1381 <_ConvertBi2Sy>
+     44a:	89 c2                	mov    %eax,%edx
+     44c:	8b 45 c0             	mov    -0x40(%ebp),%eax
+     44f:	88 14 18             	mov    %dl,(%eax,%ebx,1)
+      for (j=0; j<pParams->kSh; j++)
+     452:	0f b7 45 de          	movzwl -0x22(%ebp),%eax
+     456:	83 c0 01             	add    $0x1,%eax
+     459:	66 89 45 de          	mov    %ax,-0x22(%ebp)
+     45d:	8b 45 10             	mov    0x10(%ebp),%eax
+     460:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+     464:	0f b6 c0             	movzbl %al,%eax
+     467:	66 3b 45 de          	cmp    -0x22(%ebp),%ax
+     46b:	0f 87 21 ff ff ff    	ja     392 <_RcCod_Encoder+0x25c>
+      }
+
+      memset(tmpPoly,0,pParams->nUn);
+     471:	8b 45 10             	mov    0x10(%ebp),%eax
+     474:	0f b7 40 0a          	movzwl 0xa(%eax),%eax
+     478:	0f b7 d0             	movzwl %ax,%edx
+     47b:	8b 45 b8             	mov    -0x48(%ebp),%eax
+     47e:	89 54 24 08          	mov    %edx,0x8(%esp)
+     482:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+     489:	00 
+     48a:	89 04 24             	mov    %eax,(%esp)
+     48d:	e8 00 00 00 00       	call   492 <_RcCod_Encoder+0x35c>
+      memcpy(&tmpPoly[2*pParams->t],inSymbs,pParams->kUn);                    /** - upshift message polynomial by 2t positions */
+     492:	8b 45 10             	mov    0x10(%ebp),%eax
+     495:	0f b7 40 08          	movzwl 0x8(%eax),%eax
+     499:	0f b7 d0             	movzwl %ax,%edx
+     49c:	8b 45 c0             	mov    -0x40(%ebp),%eax
+     49f:	8b 4d 10             	mov    0x10(%ebp),%ecx
+     4a2:	0f b6 49 06          	movzbl 0x6(%ecx),%ecx
+     4a6:	0f b6 c9             	movzbl %cl,%ecx
+     4a9:	8d 1c 09             	lea    (%ecx,%ecx,1),%ebx
+     4ac:	8b 4d b8             	mov    -0x48(%ebp),%ecx
+     4af:	01 d9                	add    %ebx,%ecx
+     4b1:	89 54 24 08          	mov    %edx,0x8(%esp)
+     4b5:	89 44 24 04          	mov    %eax,0x4(%esp)
+     4b9:	89 0c 24             	mov    %ecx,(%esp)
+     4bc:	e8 00 00 00 00       	call   4c1 <_RcCod_Encoder+0x38b>
+      maxDeg = pParams->nUn-1;                                                /** - initialize maximum degree of temporary polynomial */
+     4c1:	8b 45 10             	mov    0x10(%ebp),%eax
+     4c4:	0f b7 40 0a          	movzwl 0xa(%eax),%eax
+     4c8:	83 e8 01             	sub    $0x1,%eax
+     4cb:	66 89 45 e0          	mov    %ax,-0x20(%ebp)
+      quotDeg = maxDeg-2*pParams->t;
+     4cf:	8b 45 10             	mov    0x10(%ebp),%eax
+     4d2:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+     4d6:	0f b6 c0             	movzbl %al,%eax
+     4d9:	8d 14 00             	lea    (%eax,%eax,1),%edx
+     4dc:	0f b7 45 e0          	movzwl -0x20(%ebp),%eax
+     4e0:	29 d0                	sub    %edx,%eax
+     4e2:	66 89 45 e2          	mov    %ax,-0x1e(%ebp)
+
+      while (quotDeg >= 0)
+     4e6:	e9 1a 01 00 00       	jmp    605 <_RcCod_Encoder+0x4cf>
+      {
+        quotCoef = tmpPoly[maxDeg];                                           /** - quotient coefficient at current iteration */
+     4eb:	0f b7 45 e0          	movzwl -0x20(%ebp),%eax
+     4ef:	8b 55 b8             	mov    -0x48(%ebp),%edx
+     4f2:	0f b6 04 02          	movzbl (%edx,%eax,1),%eax
+     4f6:	0f b6 c0             	movzbl %al,%eax
+     4f9:	66 89 45 ae          	mov    %ax,-0x52(%ebp)
+        memset(divQuotCoef,0,pParams->nUn);
+     4fd:	8b 45 10             	mov    0x10(%ebp),%eax
+     500:	0f b7 40 0a          	movzwl 0xa(%eax),%eax
+     504:	0f b7 d0             	movzwl %ax,%edx
+     507:	8b 45 b0             	mov    -0x50(%ebp),%eax
+     50a:	89 54 24 08          	mov    %edx,0x8(%esp)
+     50e:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+     515:	00 
+     516:	89 04 24             	mov    %eax,(%esp)
+     519:	e8 00 00 00 00       	call   51e <_RcCod_Encoder+0x3e8>
+
+        for (j=0; j<lenGenPoly; j++)
+     51e:	66 c7 45 de 00 00    	movw   $0x0,-0x22(%ebp)
+     524:	eb 46                	jmp    56c <_RcCod_Encoder+0x436>
+        {
+          divQuotCoef[j+quotDeg] = MultiplyGF(quotCoef,genPoly[j],pParams);
+     526:	0f b7 55 de          	movzwl -0x22(%ebp),%edx
+     52a:	0f bf 45 e2          	movswl -0x1e(%ebp),%eax
+     52e:	8d 1c 02             	lea    (%edx,%eax,1),%ebx
+     531:	0f b7 45 de          	movzwl -0x22(%ebp),%eax
+     535:	8b 55 d0             	mov    -0x30(%ebp),%edx
+     538:	0f b6 04 02          	movzbl (%edx,%eax,1),%eax
+     53c:	0f b6 d0             	movzbl %al,%edx
+     53f:	0f b7 45 ae          	movzwl -0x52(%ebp),%eax
+     543:	0f b6 c0             	movzbl %al,%eax
+     546:	8b 4d 10             	mov    0x10(%ebp),%ecx
+     549:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+     54d:	89 54 24 04          	mov    %edx,0x4(%esp)
+     551:	89 04 24             	mov    %eax,(%esp)
+     554:	e8 e6 0e 00 00       	call   143f <_MultiplyGF>
+     559:	89 c2                	mov    %eax,%edx
+     55b:	8b 45 b0             	mov    -0x50(%ebp),%eax
+     55e:	88 14 18             	mov    %dl,(%eax,%ebx,1)
+        for (j=0; j<lenGenPoly; j++)
+     561:	0f b7 45 de          	movzwl -0x22(%ebp),%eax
+     565:	83 c0 01             	add    $0x1,%eax
+     568:	66 89 45 de          	mov    %ax,-0x22(%ebp)
+     56c:	0f b6 45 da          	movzbl -0x26(%ebp),%eax
+     570:	66 3b 45 de          	cmp    -0x22(%ebp),%ax
+     574:	77 b0                	ja     526 <_RcCod_Encoder+0x3f0>
+        }
+
+        for (j=0; j<pParams->nUn; j++)
+     576:	66 c7 45 de 00 00    	movw   $0x0,-0x22(%ebp)
+     57c:	eb 46                	jmp    5c4 <_RcCod_Encoder+0x48e>
+        {
+          tmpPoly[j] = AddGF(tmpPoly[j],divQuotCoef[j],mapTable);
+     57e:	0f b7 5d de          	movzwl -0x22(%ebp),%ebx
+     582:	8b 4d c8             	mov    -0x38(%ebp),%ecx
+     585:	0f b7 45 de          	movzwl -0x22(%ebp),%eax
+     589:	8b 55 b0             	mov    -0x50(%ebp),%edx
+     58c:	0f b6 04 02          	movzbl (%edx,%eax,1),%eax
+     590:	0f b6 d0             	movzbl %al,%edx
+     593:	0f b7 45 de          	movzwl -0x22(%ebp),%eax
+     597:	8b 75 b8             	mov    -0x48(%ebp),%esi
+     59a:	0f b6 04 06          	movzbl (%esi,%eax,1),%eax
+     59e:	0f b6 c0             	movzbl %al,%eax
+     5a1:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+     5a5:	89 54 24 04          	mov    %edx,0x4(%esp)
+     5a9:	89 04 24             	mov    %eax,(%esp)
+     5ac:	e8 33 0e 00 00       	call   13e4 <_AddGF>
+     5b1:	89 c2                	mov    %eax,%edx
+     5b3:	8b 45 b8             	mov    -0x48(%ebp),%eax
+     5b6:	88 14 18             	mov    %dl,(%eax,%ebx,1)
+        for (j=0; j<pParams->nUn; j++)
+     5b9:	0f b7 45 de          	movzwl -0x22(%ebp),%eax
+     5bd:	83 c0 01             	add    $0x1,%eax
+     5c0:	66 89 45 de          	mov    %ax,-0x22(%ebp)
+     5c4:	8b 45 10             	mov    0x10(%ebp),%eax
+     5c7:	0f b7 40 0a          	movzwl 0xa(%eax),%eax
+     5cb:	66 3b 45 de          	cmp    -0x22(%ebp),%ax
+     5cf:	77 ad                	ja     57e <_RcCod_Encoder+0x448>
+        }
+
+        maxDeg = FindMaxDeg(tmpPoly,pParams->nUn);
+     5d1:	8b 45 10             	mov    0x10(%ebp),%eax
+     5d4:	0f b7 40 0a          	movzwl 0xa(%eax),%eax
+     5d8:	0f b7 d0             	movzwl %ax,%edx
+     5db:	8b 45 b8             	mov    -0x48(%ebp),%eax
+     5de:	89 54 24 04          	mov    %edx,0x4(%esp)
+     5e2:	89 04 24             	mov    %eax,(%esp)
+     5e5:	e8 c1 0c 00 00       	call   12ab <_FindMaxDeg>
+     5ea:	66 89 45 e0          	mov    %ax,-0x20(%ebp)
+        quotDeg = maxDeg-2*pParams->t;
+     5ee:	8b 45 10             	mov    0x10(%ebp),%eax
+     5f1:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+     5f5:	0f b6 c0             	movzbl %al,%eax
+     5f8:	8d 14 00             	lea    (%eax,%eax,1),%edx
+     5fb:	0f b7 45 e0          	movzwl -0x20(%ebp),%eax
+     5ff:	29 d0                	sub    %edx,%eax
+     601:	66 89 45 e2          	mov    %ax,-0x1e(%ebp)
+      while (quotDeg >= 0)
+     605:	66 83 7d e2 00       	cmpw   $0x0,-0x1e(%ebp)
+     60a:	0f 89 db fe ff ff    	jns    4eb <_RcCod_Encoder+0x3b5>
+      }
+      
+      if (RS_GF_DEGREE_4 == pParams->m)
+     610:	8b 45 10             	mov    0x10(%ebp),%eax
+     613:	8b 00                	mov    (%eax),%eax
+     615:	83 f8 04             	cmp    $0x4,%eax
+     618:	0f 85 51 01 00 00    	jne    76f <_RcCod_Encoder+0x639>
+      {
+        for (j=0; j<2*pParams->t; j++)
+     61e:	66 c7 45 de 00 00    	movw   $0x0,-0x22(%ebp)
+     624:	e9 be 00 00 00       	jmp    6e7 <_RcCod_Encoder+0x5b1>
+        {
+          if (IS_EVEN(j))
+     629:	0f b7 45 de          	movzwl -0x22(%ebp),%eax
+     62d:	83 e0 01             	and    $0x1,%eax
+     630:	66 85 c0             	test   %ax,%ax
+     633:	75 4c                	jne    681 <_RcCod_Encoder+0x54b>
+          {
+            outStream->pBuf[(j+i*pParams->nSh)/2] =
+     635:	8b 45 0c             	mov    0xc(%ebp),%eax
+     638:	8b 10                	mov    (%eax),%edx
+     63a:	0f b7 4d de          	movzwl -0x22(%ebp),%ecx
+     63e:	0f b6 5d dc          	movzbl -0x24(%ebp),%ebx
+     642:	8b 45 10             	mov    0x10(%ebp),%eax
+     645:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+     649:	0f b6 c0             	movzbl %al,%eax
+     64c:	0f af c3             	imul   %ebx,%eax
+     64f:	01 c8                	add    %ecx,%eax
+     651:	89 c1                	mov    %eax,%ecx
+     653:	c1 e9 1f             	shr    $0x1f,%ecx
+     656:	01 c8                	add    %ecx,%eax
+     658:	d1 f8                	sar    %eax
+     65a:	8d 1c 02             	lea    (%edx,%eax,1),%ebx
+              (ConvertSy2Bi(tmpPoly[j],mapTable)<<4);
+     65d:	8b 55 c8             	mov    -0x38(%ebp),%edx
+     660:	0f b7 45 de          	movzwl -0x22(%ebp),%eax
+     664:	8b 4d b8             	mov    -0x48(%ebp),%ecx
+     667:	0f b6 04 01          	movzbl (%ecx,%eax,1),%eax
+     66b:	0f b6 c0             	movzbl %al,%eax
+     66e:	89 54 24 04          	mov    %edx,0x4(%esp)
+     672:	89 04 24             	mov    %eax,(%esp)
+     675:	e8 39 0d 00 00       	call   13b3 <_ConvertSy2Bi>
+     67a:	c1 e0 04             	shl    $0x4,%eax
+            outStream->pBuf[(j+i*pParams->nSh)/2] =
+     67d:	88 03                	mov    %al,(%ebx)
+     67f:	eb 5b                	jmp    6dc <_RcCod_Encoder+0x5a6>
+          }
+          else
+          {
+            outStream->pBuf[(j-1+i*pParams->nSh)/2] |=
+              ConvertSy2Bi(tmpPoly[j],mapTable);
+     681:	8b 55 c8             	mov    -0x38(%ebp),%edx
+     684:	0f b7 45 de          	movzwl -0x22(%ebp),%eax
+     688:	8b 4d b8             	mov    -0x48(%ebp),%ecx
+     68b:	0f b6 04 01          	movzbl (%ecx,%eax,1),%eax
+     68f:	0f b6 c0             	movzbl %al,%eax
+     692:	89 54 24 04          	mov    %edx,0x4(%esp)
+     696:	89 04 24             	mov    %eax,(%esp)
+     699:	e8 15 0d 00 00       	call   13b3 <_ConvertSy2Bi>
+     69e:	89 c6                	mov    %eax,%esi
+            outStream->pBuf[(j-1+i*pParams->nSh)/2] |=
+     6a0:	8b 45 0c             	mov    0xc(%ebp),%eax
+     6a3:	8b 10                	mov    (%eax),%edx
+     6a5:	0f b7 45 de          	movzwl -0x22(%ebp),%eax
+     6a9:	8d 58 ff             	lea    -0x1(%eax),%ebx
+     6ac:	0f b6 4d dc          	movzbl -0x24(%ebp),%ecx
+     6b0:	8b 45 10             	mov    0x10(%ebp),%eax
+     6b3:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+     6b7:	0f b6 c0             	movzbl %al,%eax
+     6ba:	0f af c1             	imul   %ecx,%eax
+     6bd:	01 d8                	add    %ebx,%eax
+     6bf:	89 c1                	mov    %eax,%ecx
+     6c1:	c1 e9 1f             	shr    $0x1f,%ecx
+     6c4:	01 c8                	add    %ecx,%eax
+     6c6:	d1 f8                	sar    %eax
+     6c8:	89 c1                	mov    %eax,%ecx
+     6ca:	89 c8                	mov    %ecx,%eax
+     6cc:	01 c2                	add    %eax,%edx
+     6ce:	8b 45 0c             	mov    0xc(%ebp),%eax
+     6d1:	8b 00                	mov    (%eax),%eax
+     6d3:	01 c8                	add    %ecx,%eax
+     6d5:	0f b6 00             	movzbl (%eax),%eax
+     6d8:	09 f0                	or     %esi,%eax
+     6da:	88 02                	mov    %al,(%edx)
+        for (j=0; j<2*pParams->t; j++)
+     6dc:	0f b7 45 de          	movzwl -0x22(%ebp),%eax
+     6e0:	83 c0 01             	add    $0x1,%eax
+     6e3:	66 89 45 de          	mov    %ax,-0x22(%ebp)
+     6e7:	0f b7 55 de          	movzwl -0x22(%ebp),%edx
+     6eb:	8b 45 10             	mov    0x10(%ebp),%eax
+     6ee:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+     6f2:	0f b6 c0             	movzbl %al,%eax
+     6f5:	01 c0                	add    %eax,%eax
+     6f7:	39 c2                	cmp    %eax,%edx
+     6f9:	0f 8c 2a ff ff ff    	jl     629 <_RcCod_Encoder+0x4f3>
+          }
+        }
+
+        memcpy(&outStream->pBuf[pParams->t+i*pParams->nSh/2],
+               &inStream->pBuf[i*pParams->kSh/2],pParams->kSh/2);
+     6ff:	8b 45 10             	mov    0x10(%ebp),%eax
+     702:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+        memcpy(&outStream->pBuf[pParams->t+i*pParams->nSh/2],
+     706:	d0 e8                	shr    %al
+     708:	0f b6 d8             	movzbl %al,%ebx
+               &inStream->pBuf[i*pParams->kSh/2],pParams->kSh/2);
+     70b:	8b 45 08             	mov    0x8(%ebp),%eax
+     70e:	8b 10                	mov    (%eax),%edx
+     710:	0f b6 4d dc          	movzbl -0x24(%ebp),%ecx
+     714:	8b 45 10             	mov    0x10(%ebp),%eax
+     717:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+     71b:	0f b6 c0             	movzbl %al,%eax
+     71e:	0f af c1             	imul   %ecx,%eax
+     721:	89 c1                	mov    %eax,%ecx
+     723:	c1 e9 1f             	shr    $0x1f,%ecx
+     726:	01 c8                	add    %ecx,%eax
+     728:	d1 f8                	sar    %eax
+     72a:	8d 0c 02             	lea    (%edx,%eax,1),%ecx
+        memcpy(&outStream->pBuf[pParams->t+i*pParams->nSh/2],
+     72d:	8b 45 0c             	mov    0xc(%ebp),%eax
+     730:	8b 30                	mov    (%eax),%esi
+     732:	8b 45 10             	mov    0x10(%ebp),%eax
+     735:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+     739:	0f b6 f8             	movzbl %al,%edi
+     73c:	0f b6 55 dc          	movzbl -0x24(%ebp),%edx
+     740:	8b 45 10             	mov    0x10(%ebp),%eax
+     743:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+     747:	0f b6 c0             	movzbl %al,%eax
+     74a:	0f af c2             	imul   %edx,%eax
+     74d:	89 c2                	mov    %eax,%edx
+     74f:	c1 ea 1f             	shr    $0x1f,%edx
+     752:	01 d0                	add    %edx,%eax
+     754:	d1 f8                	sar    %eax
+     756:	01 f8                	add    %edi,%eax
+     758:	01 f0                	add    %esi,%eax
+     75a:	89 5c 24 08          	mov    %ebx,0x8(%esp)
+     75e:	89 4c 24 04          	mov    %ecx,0x4(%esp)
+     762:	89 04 24             	mov    %eax,(%esp)
+     765:	e8 00 00 00 00       	call   76a <_RcCod_Encoder+0x634>
+     76a:	e9 be 00 00 00       	jmp    82d <_RcCod_Encoder+0x6f7>
+      }
+      else                                                                    // i.e. "if (RS_GF_DEGREE_8 == pParams->m)"
+      {
+        for (j=0; j<2*pParams->t; j++)
+     76f:	66 c7 45 de 00 00    	movw   $0x0,-0x22(%ebp)
+     775:	eb 49                	jmp    7c0 <_RcCod_Encoder+0x68a>
+        {
+          outStream->pBuf[j+i*pParams->nSh] =
+     777:	8b 45 0c             	mov    0xc(%ebp),%eax
+     77a:	8b 10                	mov    (%eax),%edx
+     77c:	0f b7 4d de          	movzwl -0x22(%ebp),%ecx
+     780:	0f b6 5d dc          	movzbl -0x24(%ebp),%ebx
+     784:	8b 45 10             	mov    0x10(%ebp),%eax
+     787:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+     78b:	0f b6 c0             	movzbl %al,%eax
+     78e:	0f af c3             	imul   %ebx,%eax
+     791:	01 c8                	add    %ecx,%eax
+     793:	8d 1c 02             	lea    (%edx,%eax,1),%ebx
+            ConvertSy2Bi(tmpPoly[j],mapTable);                                /** - write redundancy bits into output stream after symbol-to-bits conversion */
+     796:	8b 55 c8             	mov    -0x38(%ebp),%edx
+     799:	0f b7 45 de          	movzwl -0x22(%ebp),%eax
+     79d:	8b 4d b8             	mov    -0x48(%ebp),%ecx
+     7a0:	0f b6 04 01          	movzbl (%ecx,%eax,1),%eax
+     7a4:	0f b6 c0             	movzbl %al,%eax
+     7a7:	89 54 24 04          	mov    %edx,0x4(%esp)
+     7ab:	89 04 24             	mov    %eax,(%esp)
+     7ae:	e8 00 0c 00 00       	call   13b3 <_ConvertSy2Bi>
+          outStream->pBuf[j+i*pParams->nSh] =
+     7b3:	88 03                	mov    %al,(%ebx)
+        for (j=0; j<2*pParams->t; j++)
+     7b5:	0f b7 45 de          	movzwl -0x22(%ebp),%eax
+     7b9:	83 c0 01             	add    $0x1,%eax
+     7bc:	66 89 45 de          	mov    %ax,-0x22(%ebp)
+     7c0:	0f b7 55 de          	movzwl -0x22(%ebp),%edx
+     7c4:	8b 45 10             	mov    0x10(%ebp),%eax
+     7c7:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+     7cb:	0f b6 c0             	movzbl %al,%eax
+     7ce:	01 c0                	add    %eax,%eax
+     7d0:	39 c2                	cmp    %eax,%edx
+     7d2:	7c a3                	jl     777 <_RcCod_Encoder+0x641>
+        }
+        
+        memcpy(&outStream->pBuf[2*pParams->t+i*pParams->nSh],
+               &inStream->pBuf[i*pParams->kSh],pParams->kSh);                 /** - copy current message bits into output stream */
+     7d4:	8b 45 10             	mov    0x10(%ebp),%eax
+     7d7:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+        memcpy(&outStream->pBuf[2*pParams->t+i*pParams->nSh],
+     7db:	0f b6 d8             	movzbl %al,%ebx
+               &inStream->pBuf[i*pParams->kSh],pParams->kSh);                 /** - copy current message bits into output stream */
+     7de:	8b 45 08             	mov    0x8(%ebp),%eax
+     7e1:	8b 10                	mov    (%eax),%edx
+     7e3:	0f b6 4d dc          	movzbl -0x24(%ebp),%ecx
+     7e7:	8b 45 10             	mov    0x10(%ebp),%eax
+     7ea:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+     7ee:	0f b6 c0             	movzbl %al,%eax
+     7f1:	0f af c1             	imul   %ecx,%eax
+     7f4:	01 c2                	add    %eax,%edx
+        memcpy(&outStream->pBuf[2*pParams->t+i*pParams->nSh],
+     7f6:	8b 45 0c             	mov    0xc(%ebp),%eax
+     7f9:	8b 08                	mov    (%eax),%ecx
+     7fb:	8b 45 10             	mov    0x10(%ebp),%eax
+     7fe:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+     802:	0f b6 c0             	movzbl %al,%eax
+     805:	8d 3c 00             	lea    (%eax,%eax,1),%edi
+     808:	0f b6 75 dc          	movzbl -0x24(%ebp),%esi
+     80c:	8b 45 10             	mov    0x10(%ebp),%eax
+     80f:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+     813:	0f b6 c0             	movzbl %al,%eax
+     816:	0f af c6             	imul   %esi,%eax
+     819:	01 f8                	add    %edi,%eax
+     81b:	01 c8                	add    %ecx,%eax
+     81d:	89 5c 24 08          	mov    %ebx,0x8(%esp)
+     821:	89 54 24 04          	mov    %edx,0x4(%esp)
+     825:	89 04 24             	mov    %eax,(%esp)
+     828:	e8 00 00 00 00       	call   82d <_RcCod_Encoder+0x6f7>
+    for (i=0; i<numMsg; i++)
+     82d:	0f b6 45 dc          	movzbl -0x24(%ebp),%eax
+     831:	83 c0 01             	add    $0x1,%eax
+     834:	88 45 dc             	mov    %al,-0x24(%ebp)
+     837:	0f b6 45 dc          	movzbl -0x24(%ebp),%eax
+     83b:	3a 45 db             	cmp    -0x25(%ebp),%al
+     83e:	0f 82 22 fb ff ff    	jb     366 <_RcCod_Encoder+0x230>
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+     844:	eb 07                	jmp    84d <_RcCod_Encoder+0x717>
+      }
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+     846:	c7 45 e4 01 00 00 00 	movl   $0x1,-0x1c(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+     84d:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+     850:	89 04 24             	mov    %eax,(%esp)
+     853:	e8 00 00 00 00       	call   858 <_RcCod_Encoder+0x722>
+     858:	8b 65 a4             	mov    -0x5c(%ebp),%esp
+}
+     85b:	8d 65 f4             	lea    -0xc(%ebp),%esp
+     85e:	5b                   	pop    %ebx
+     85f:	5e                   	pop    %esi
+     860:	5f                   	pop    %edi
+     861:	5d                   	pop    %ebp
+     862:	c3                   	ret    
+
+00000863 <_RcCod_Decoder>:
+ * @param[in] pParams pointer to reed-solomon parameters structure
+ * 
+ * @return error ID
+ */
+error_t RcCod_Decoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams )
+{
+     863:	55                   	push   %ebp
+     864:	89 e5                	mov    %esp,%ebp
+     866:	57                   	push   %edi
+     867:	56                   	push   %esi
+     868:	53                   	push   %ebx
+     869:	83 ec 7c             	sub    $0x7c,%esp
+     86c:	89 e0                	mov    %esp,%eax
+     86e:	89 c6                	mov    %eax,%esi
+  Debug_SetWatermark((void *)RcCod_Decoder,WM_LEVEL_1);
+     870:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+     877:	00 
+     878:	c7 04 24 63 08 00 00 	movl   $0x863,(%esp)
+     87f:	e8 00 00 00 00       	call   884 <_RcCod_Decoder+0x21>
+
+  error_t retErr = ERR_NONE;
+     884:	c7 45 e4 00 00 00 00 	movl   $0x0,-0x1c(%ebp)
+  const uint8_t numMsg = BY2BI_LEN(inStream->len)/(pParams->m*pParams->nSh);
+     88b:	8b 45 08             	mov    0x8(%ebp),%eax
+     88e:	8b 40 04             	mov    0x4(%eax),%eax
+     891:	8d 0c c5 00 00 00 00 	lea    0x0(,%eax,8),%ecx
+     898:	8b 45 10             	mov    0x10(%ebp),%eax
+     89b:	8b 10                	mov    (%eax),%edx
+     89d:	8b 45 10             	mov    0x10(%ebp),%eax
+     8a0:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+     8a4:	0f b6 c0             	movzbl %al,%eax
+     8a7:	89 d7                	mov    %edx,%edi
+     8a9:	0f af f8             	imul   %eax,%edi
+     8ac:	89 c8                	mov    %ecx,%eax
+     8ae:	ba 00 00 00 00       	mov    $0x0,%edx
+     8b3:	f7 f7                	div    %edi
+     8b5:	88 45 e0             	mov    %al,-0x20(%ebp)
+  uint8_t mapTable[pParams->dimGF][RS_TABLE_IDX_NUM];                         /** - mapping table between symbols and basis */
+     8b8:	8b 45 10             	mov    0x10(%ebp),%eax
+     8bb:	0f b7 40 0c          	movzwl 0xc(%eax),%eax
+     8bf:	0f b7 c0             	movzwl %ax,%eax
+     8c2:	83 e8 01             	sub    $0x1,%eax
+     8c5:	89 45 dc             	mov    %eax,-0x24(%ebp)
+     8c8:	8b 45 10             	mov    0x10(%ebp),%eax
+     8cb:	0f b7 40 0c          	movzwl 0xc(%eax),%eax
+     8cf:	0f b7 c0             	movzwl %ax,%eax
+     8d2:	8d 14 00             	lea    (%eax,%eax,1),%edx
+     8d5:	b8 10 00 00 00       	mov    $0x10,%eax
+     8da:	83 e8 01             	sub    $0x1,%eax
+     8dd:	01 d0                	add    %edx,%eax
+     8df:	bf 10 00 00 00       	mov    $0x10,%edi
+     8e4:	ba 00 00 00 00       	mov    $0x0,%edx
+     8e9:	f7 f7                	div    %edi
+     8eb:	6b c0 10             	imul   $0x10,%eax,%eax
+     8ee:	e8 00 00 00 00       	call   8f3 <_RcCod_Decoder+0x90>
+     8f3:	29 c4                	sub    %eax,%esp
+     8f5:	8d 44 24 14          	lea    0x14(%esp),%eax
+     8f9:	83 c0 00             	add    $0x0,%eax
+     8fc:	89 45 d8             	mov    %eax,-0x28(%ebp)
+  uint8_t tmpSymbs[pParams->nUn];
+     8ff:	8b 45 10             	mov    0x10(%ebp),%eax
+     902:	0f b7 40 0a          	movzwl 0xa(%eax),%eax
+     906:	0f b7 c0             	movzwl %ax,%eax
+     909:	83 e8 01             	sub    $0x1,%eax
+     90c:	89 45 d4             	mov    %eax,-0x2c(%ebp)
+     90f:	8b 45 10             	mov    0x10(%ebp),%eax
+     912:	0f b7 40 0a          	movzwl 0xa(%eax),%eax
+     916:	0f b7 c0             	movzwl %ax,%eax
+     919:	ba 10 00 00 00       	mov    $0x10,%edx
+     91e:	83 ea 01             	sub    $0x1,%edx
+     921:	01 d0                	add    %edx,%eax
+     923:	bf 10 00 00 00       	mov    $0x10,%edi
+     928:	ba 00 00 00 00       	mov    $0x0,%edx
+     92d:	f7 f7                	div    %edi
+     92f:	6b c0 10             	imul   $0x10,%eax,%eax
+     932:	e8 00 00 00 00       	call   937 <_RcCod_Decoder+0xd4>
+     937:	29 c4                	sub    %eax,%esp
+     939:	8d 44 24 14          	lea    0x14(%esp),%eax
+     93d:	83 c0 00             	add    $0x0,%eax
+     940:	89 45 d0             	mov    %eax,-0x30(%ebp)
+  uint8_t syndrome[2*pParams->t];
+     943:	8b 45 10             	mov    0x10(%ebp),%eax
+     946:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+     94a:	0f b6 c0             	movzbl %al,%eax
+     94d:	01 c0                	add    %eax,%eax
+     94f:	83 e8 01             	sub    $0x1,%eax
+     952:	89 45 cc             	mov    %eax,-0x34(%ebp)
+     955:	8b 45 10             	mov    0x10(%ebp),%eax
+     958:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+     95c:	0f b6 c0             	movzbl %al,%eax
+     95f:	01 c0                	add    %eax,%eax
+     961:	89 c2                	mov    %eax,%edx
+     963:	b8 10 00 00 00       	mov    $0x10,%eax
+     968:	83 e8 01             	sub    $0x1,%eax
+     96b:	01 d0                	add    %edx,%eax
+     96d:	bf 10 00 00 00       	mov    $0x10,%edi
+     972:	ba 00 00 00 00       	mov    $0x0,%edx
+     977:	f7 f7                	div    %edi
+     979:	6b c0 10             	imul   $0x10,%eax,%eax
+     97c:	e8 00 00 00 00       	call   981 <_RcCod_Decoder+0x11e>
+     981:	29 c4                	sub    %eax,%esp
+     983:	8d 44 24 14          	lea    0x14(%esp),%eax
+     987:	83 c0 00             	add    $0x0,%eax
+     98a:	89 45 c8             	mov    %eax,-0x38(%ebp)
+  uint8_t sigma[pParams->t+1];
+     98d:	8b 45 10             	mov    0x10(%ebp),%eax
+     990:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+     994:	0f b6 c0             	movzbl %al,%eax
+     997:	89 45 c4             	mov    %eax,-0x3c(%ebp)
+     99a:	8b 45 10             	mov    0x10(%ebp),%eax
+     99d:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+     9a1:	0f b6 c0             	movzbl %al,%eax
+     9a4:	8d 50 01             	lea    0x1(%eax),%edx
+     9a7:	b8 10 00 00 00       	mov    $0x10,%eax
+     9ac:	83 e8 01             	sub    $0x1,%eax
+     9af:	01 d0                	add    %edx,%eax
+     9b1:	bf 10 00 00 00       	mov    $0x10,%edi
+     9b6:	ba 00 00 00 00       	mov    $0x0,%edx
+     9bb:	f7 f7                	div    %edi
+     9bd:	6b c0 10             	imul   $0x10,%eax,%eax
+     9c0:	e8 00 00 00 00       	call   9c5 <_RcCod_Decoder+0x162>
+     9c5:	29 c4                	sub    %eax,%esp
+     9c7:	8d 44 24 14          	lea    0x14(%esp),%eax
+     9cb:	83 c0 00             	add    $0x0,%eax
+     9ce:	89 45 c0             	mov    %eax,-0x40(%ebp)
+  uint8_t omega[2*pParams->t+1];
+     9d1:	8b 45 10             	mov    0x10(%ebp),%eax
+     9d4:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+     9d8:	0f b6 c0             	movzbl %al,%eax
+     9db:	01 c0                	add    %eax,%eax
+     9dd:	89 45 bc             	mov    %eax,-0x44(%ebp)
+     9e0:	8b 45 10             	mov    0x10(%ebp),%eax
+     9e3:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+     9e7:	0f b6 c0             	movzbl %al,%eax
+     9ea:	01 c0                	add    %eax,%eax
+     9ec:	8d 50 01             	lea    0x1(%eax),%edx
+     9ef:	b8 10 00 00 00       	mov    $0x10,%eax
+     9f4:	83 e8 01             	sub    $0x1,%eax
+     9f7:	01 d0                	add    %edx,%eax
+     9f9:	bf 10 00 00 00       	mov    $0x10,%edi
+     9fe:	ba 00 00 00 00       	mov    $0x0,%edx
+     a03:	f7 f7                	div    %edi
+     a05:	6b c0 10             	imul   $0x10,%eax,%eax
+     a08:	e8 00 00 00 00       	call   a0d <_RcCod_Decoder+0x1aa>
+     a0d:	29 c4                	sub    %eax,%esp
+     a0f:	8d 44 24 14          	lea    0x14(%esp),%eax
+     a13:	83 c0 00             	add    $0x0,%eax
+     a16:	89 45 b8             	mov    %eax,-0x48(%ebp)
+  uint8_t errLocation[pParams->t];
+     a19:	8b 45 10             	mov    0x10(%ebp),%eax
+     a1c:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+     a20:	0f b6 c0             	movzbl %al,%eax
+     a23:	83 e8 01             	sub    $0x1,%eax
+     a26:	89 45 b4             	mov    %eax,-0x4c(%ebp)
+     a29:	8b 45 10             	mov    0x10(%ebp),%eax
+     a2c:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+     a30:	0f b6 c0             	movzbl %al,%eax
+     a33:	ba 10 00 00 00       	mov    $0x10,%edx
+     a38:	83 ea 01             	sub    $0x1,%edx
+     a3b:	01 d0                	add    %edx,%eax
+     a3d:	bf 10 00 00 00       	mov    $0x10,%edi
+     a42:	ba 00 00 00 00       	mov    $0x0,%edx
+     a47:	f7 f7                	div    %edi
+     a49:	6b c0 10             	imul   $0x10,%eax,%eax
+     a4c:	e8 00 00 00 00       	call   a51 <_RcCod_Decoder+0x1ee>
+     a51:	29 c4                	sub    %eax,%esp
+     a53:	8d 44 24 14          	lea    0x14(%esp),%eax
+     a57:	83 c0 00             	add    $0x0,%eax
+     a5a:	89 45 b0             	mov    %eax,-0x50(%ebp)
+  uint8_t errMagnitude[pParams->t];
+     a5d:	8b 45 10             	mov    0x10(%ebp),%eax
+     a60:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+     a64:	0f b6 c0             	movzbl %al,%eax
+     a67:	83 e8 01             	sub    $0x1,%eax
+     a6a:	89 45 ac             	mov    %eax,-0x54(%ebp)
+     a6d:	8b 45 10             	mov    0x10(%ebp),%eax
+     a70:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+     a74:	0f b6 c0             	movzbl %al,%eax
+     a77:	ba 10 00 00 00       	mov    $0x10,%edx
+     a7c:	83 ea 01             	sub    $0x1,%edx
+     a7f:	01 d0                	add    %edx,%eax
+     a81:	bf 10 00 00 00       	mov    $0x10,%edi
+     a86:	ba 00 00 00 00       	mov    $0x0,%edx
+     a8b:	f7 f7                	div    %edi
+     a8d:	6b c0 10             	imul   $0x10,%eax,%eax
+     a90:	e8 00 00 00 00       	call   a95 <_RcCod_Decoder+0x232>
+     a95:	29 c4                	sub    %eax,%esp
+     a97:	8d 44 24 14          	lea    0x14(%esp),%eax
+     a9b:	83 c0 00             	add    $0x0,%eax
+     a9e:	89 45 a8             	mov    %eax,-0x58(%ebp)
+  uint8_t curSymb;
+  uint8_t i, j;
+  bool errFlag;
+
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+     aa1:	8b 45 08             	mov    0x8(%ebp),%eax
+     aa4:	8b 40 08             	mov    0x8(%eax),%eax
+     aa7:	89 44 24 04          	mov    %eax,0x4(%esp)
+     aab:	8b 45 08             	mov    0x8(%ebp),%eax
+     aae:	89 04 24             	mov    %eax,(%esp)
+     ab1:	e8 00 00 00 00       	call   ab6 <_RcCod_Decoder+0x253>
+     ab6:	84 c0                	test   %al,%al
+     ab8:	0f 84 a9 03 00 00    	je     e67 <_RcCod_Decoder+0x604>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+     abe:	8b 45 0c             	mov    0xc(%ebp),%eax
+     ac1:	8b 40 08             	mov    0x8(%eax),%eax
+     ac4:	89 44 24 04          	mov    %eax,0x4(%esp)
+     ac8:	8b 45 0c             	mov    0xc(%ebp),%eax
+     acb:	89 04 24             	mov    %eax,(%esp)
+     ace:	e8 00 00 00 00       	call   ad3 <_RcCod_Decoder+0x270>
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+     ad3:	84 c0                	test   %al,%al
+     ad5:	0f 84 8c 03 00 00    	je     e67 <_RcCod_Decoder+0x604>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+     adb:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+     adf:	0f 84 82 03 00 00    	je     e67 <_RcCod_Decoder+0x604>
+      (NULL != pParams))
+  {
+    RetrieveMappingTableGF(mapTable,pParams);
+     ae5:	8b 45 d8             	mov    -0x28(%ebp),%eax
+     ae8:	8b 55 10             	mov    0x10(%ebp),%edx
+     aeb:	89 54 24 04          	mov    %edx,0x4(%esp)
+     aef:	89 04 24             	mov    %eax,(%esp)
+     af2:	e8 5e 05 00 00       	call   1055 <_RetrieveMappingTableGF>
+    memset(tmpSymbs,0,pParams->nUn);
+     af7:	8b 45 10             	mov    0x10(%ebp),%eax
+     afa:	0f b7 40 0a          	movzwl 0xa(%eax),%eax
+     afe:	0f b7 d0             	movzwl %ax,%edx
+     b01:	8b 45 d0             	mov    -0x30(%ebp),%eax
+     b04:	89 54 24 08          	mov    %edx,0x8(%esp)
+     b08:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+     b0f:	00 
+     b10:	89 04 24             	mov    %eax,(%esp)
+     b13:	e8 00 00 00 00       	call   b18 <_RcCod_Decoder+0x2b5>
+
+    for (i=0; i<numMsg; i++)
+     b18:	c6 45 e2 00          	movb   $0x0,-0x1e(%ebp)
+     b1c:	e9 37 03 00 00       	jmp    e58 <_RcCod_Decoder+0x5f5>
+    {
+      for (j=0; j<pParams->nSh; j++)
+     b21:	c6 45 e1 00          	movb   $0x0,-0x1f(%ebp)
+     b25:	e9 c9 00 00 00       	jmp    bf3 <_RcCod_Decoder+0x390>
+      {
+        if (RS_GF_DEGREE_4 == pParams->m)
+     b2a:	8b 45 10             	mov    0x10(%ebp),%eax
+     b2d:	8b 00                	mov    (%eax),%eax
+     b2f:	83 f8 04             	cmp    $0x4,%eax
+     b32:	75 72                	jne    ba6 <_RcCod_Decoder+0x343>
+        {
+          if (IS_EVEN(j))
+     b34:	0f b6 45 e1          	movzbl -0x1f(%ebp),%eax
+     b38:	83 e0 01             	and    $0x1,%eax
+     b3b:	84 c0                	test   %al,%al
+     b3d:	75 32                	jne    b71 <_RcCod_Decoder+0x30e>
+          {
+            curSymb = (inStream->pBuf[(j+i*pParams->nSh)/2]>>4);
+     b3f:	8b 45 08             	mov    0x8(%ebp),%eax
+     b42:	8b 10                	mov    (%eax),%edx
+     b44:	0f b6 4d e1          	movzbl -0x1f(%ebp),%ecx
+     b48:	0f b6 5d e2          	movzbl -0x1e(%ebp),%ebx
+     b4c:	8b 45 10             	mov    0x10(%ebp),%eax
+     b4f:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+     b53:	0f b6 c0             	movzbl %al,%eax
+     b56:	0f af c3             	imul   %ebx,%eax
+     b59:	01 c8                	add    %ecx,%eax
+     b5b:	89 c1                	mov    %eax,%ecx
+     b5d:	c1 e9 1f             	shr    $0x1f,%ecx
+     b60:	01 c8                	add    %ecx,%eax
+     b62:	d1 f8                	sar    %eax
+     b64:	01 d0                	add    %edx,%eax
+     b66:	0f b6 00             	movzbl (%eax),%eax
+     b69:	c0 e8 04             	shr    $0x4,%al
+     b6c:	88 45 e3             	mov    %al,-0x1d(%ebp)
+     b6f:	eb 59                	jmp    bca <_RcCod_Decoder+0x367>
+          }
+          else
+          {
+            curSymb = (inStream->pBuf[(j-1+i*pParams->nSh)/2]&0x0F);
+     b71:	8b 45 08             	mov    0x8(%ebp),%eax
+     b74:	8b 10                	mov    (%eax),%edx
+     b76:	0f b6 45 e1          	movzbl -0x1f(%ebp),%eax
+     b7a:	8d 58 ff             	lea    -0x1(%eax),%ebx
+     b7d:	0f b6 4d e2          	movzbl -0x1e(%ebp),%ecx
+     b81:	8b 45 10             	mov    0x10(%ebp),%eax
+     b84:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+     b88:	0f b6 c0             	movzbl %al,%eax
+     b8b:	0f af c1             	imul   %ecx,%eax
+     b8e:	01 d8                	add    %ebx,%eax
+     b90:	89 c1                	mov    %eax,%ecx
+     b92:	c1 e9 1f             	shr    $0x1f,%ecx
+     b95:	01 c8                	add    %ecx,%eax
+     b97:	d1 f8                	sar    %eax
+     b99:	01 d0                	add    %edx,%eax
+     b9b:	0f b6 00             	movzbl (%eax),%eax
+     b9e:	83 e0 0f             	and    $0xf,%eax
+     ba1:	88 45 e3             	mov    %al,-0x1d(%ebp)
+     ba4:	eb 24                	jmp    bca <_RcCod_Decoder+0x367>
+          }
+        }
+        else                                                                  // i.e. "if (RS_GF_DEGREE_8 == pParams->m)"
+        {
+          curSymb = inStream->pBuf[j+i*pParams->nSh];
+     ba6:	8b 45 08             	mov    0x8(%ebp),%eax
+     ba9:	8b 10                	mov    (%eax),%edx
+     bab:	0f b6 4d e1          	movzbl -0x1f(%ebp),%ecx
+     baf:	0f b6 5d e2          	movzbl -0x1e(%ebp),%ebx
+     bb3:	8b 45 10             	mov    0x10(%ebp),%eax
+     bb6:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+     bba:	0f b6 c0             	movzbl %al,%eax
+     bbd:	0f af c3             	imul   %ebx,%eax
+     bc0:	01 c8                	add    %ecx,%eax
+     bc2:	01 d0                	add    %edx,%eax
+     bc4:	0f b6 00             	movzbl (%eax),%eax
+     bc7:	88 45 e3             	mov    %al,-0x1d(%ebp)
+        }
+        tmpSymbs[j] = ConvertBi2Sy(curSymb,mapTable);                         /** - bits-to-symbol conversion */
+     bca:	0f b6 5d e1          	movzbl -0x1f(%ebp),%ebx
+     bce:	8b 55 d8             	mov    -0x28(%ebp),%edx
+     bd1:	0f b6 45 e3          	movzbl -0x1d(%ebp),%eax
+     bd5:	89 54 24 04          	mov    %edx,0x4(%esp)
+     bd9:	89 04 24             	mov    %eax,(%esp)
+     bdc:	e8 a0 07 00 00       	call   1381 <_ConvertBi2Sy>
+     be1:	89 c2                	mov    %eax,%edx
+     be3:	8b 45 d0             	mov    -0x30(%ebp),%eax
+     be6:	88 14 18             	mov    %dl,(%eax,%ebx,1)
+      for (j=0; j<pParams->nSh; j++)
+     be9:	0f b6 45 e1          	movzbl -0x1f(%ebp),%eax
+     bed:	83 c0 01             	add    $0x1,%eax
+     bf0:	88 45 e1             	mov    %al,-0x1f(%ebp)
+     bf3:	8b 45 10             	mov    0x10(%ebp),%eax
+     bf6:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+     bfa:	3a 45 e1             	cmp    -0x1f(%ebp),%al
+     bfd:	0f 87 27 ff ff ff    	ja     b2a <_RcCod_Decoder+0x2c7>
+      }
+
+      errFlag = GetSyndrome(tmpSymbs,syndrome,pParams,mapTable);              /** - estimate syndrome polynomial */
+     c03:	8b 4d d8             	mov    -0x28(%ebp),%ecx
+     c06:	8b 55 c8             	mov    -0x38(%ebp),%edx
+     c09:	8b 45 d0             	mov    -0x30(%ebp),%eax
+     c0c:	89 4c 24 0c          	mov    %ecx,0xc(%esp)
+     c10:	8b 4d 10             	mov    0x10(%ebp),%ecx
+     c13:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+     c17:	89 54 24 04          	mov    %edx,0x4(%esp)
+     c1b:	89 04 24             	mov    %eax,(%esp)
+     c1e:	e8 0a 09 00 00       	call   152d <_GetSyndrome>
+     c23:	88 45 a7             	mov    %al,-0x59(%ebp)
+
+      if (errFlag)                                                            /** - check if any error has been detected on current symbol */
+     c26:	80 7d a7 00          	cmpb   $0x0,-0x59(%ebp)
+     c2a:	0f 84 b5 00 00 00    	je     ce5 <_RcCod_Decoder+0x482>
+      {
+        BerlekampMasseyAlgorithm(sigma,syndrome,pParams,mapTable);            /** - estimate Sigma(x) polynomial */
+     c30:	8b 4d d8             	mov    -0x28(%ebp),%ecx
+     c33:	8b 55 c8             	mov    -0x38(%ebp),%edx
+     c36:	8b 45 c0             	mov    -0x40(%ebp),%eax
+     c39:	89 4c 24 0c          	mov    %ecx,0xc(%esp)
+     c3d:	8b 4d 10             	mov    0x10(%ebp),%ecx
+     c40:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+     c44:	89 54 24 04          	mov    %edx,0x4(%esp)
+     c48:	89 04 24             	mov    %eax,(%esp)
+     c4b:	e8 f7 09 00 00       	call   1647 <_BerlekampMasseyAlgorithm>
+        ChienAlgorithm(errLocation,sigma,pParams,mapTable);                   /** - estimate error locator polynomial */
+     c50:	8b 4d d8             	mov    -0x28(%ebp),%ecx
+     c53:	8b 55 c0             	mov    -0x40(%ebp),%edx
+     c56:	8b 45 b0             	mov    -0x50(%ebp),%eax
+     c59:	89 4c 24 0c          	mov    %ecx,0xc(%esp)
+     c5d:	8b 4d 10             	mov    0x10(%ebp),%ecx
+     c60:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+     c64:	89 54 24 04          	mov    %edx,0x4(%esp)
+     c68:	89 04 24             	mov    %eax,(%esp)
+     c6b:	e8 0c 0e 00 00       	call   1a7c <_ChienAlgorithm>
+        KeyAlgorithm(omega,syndrome,sigma,pParams,mapTable);                  /** - estimate Omega(x) polynomial */
+     c70:	8b 5d d8             	mov    -0x28(%ebp),%ebx
+     c73:	8b 4d c0             	mov    -0x40(%ebp),%ecx
+     c76:	8b 55 c8             	mov    -0x38(%ebp),%edx
+     c79:	8b 45 b8             	mov    -0x48(%ebp),%eax
+     c7c:	89 5c 24 10          	mov    %ebx,0x10(%esp)
+     c80:	8b 5d 10             	mov    0x10(%ebp),%ebx
+     c83:	89 5c 24 0c          	mov    %ebx,0xc(%esp)
+     c87:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+     c8b:	89 54 24 04          	mov    %edx,0x4(%esp)
+     c8f:	89 04 24             	mov    %eax,(%esp)
+     c92:	e8 73 0f 00 00       	call   1c0a <_KeyAlgorithm>
+        ForneyAlgorithm(errMagnitude,omega,errLocation,pParams,mapTable);     /** - estimate error magnitude polynomial */
+     c97:	8b 5d d8             	mov    -0x28(%ebp),%ebx
+     c9a:	8b 4d b0             	mov    -0x50(%ebp),%ecx
+     c9d:	8b 55 b8             	mov    -0x48(%ebp),%edx
+     ca0:	8b 45 a8             	mov    -0x58(%ebp),%eax
+     ca3:	89 5c 24 10          	mov    %ebx,0x10(%esp)
+     ca7:	8b 5d 10             	mov    0x10(%ebp),%ebx
+     caa:	89 5c 24 0c          	mov    %ebx,0xc(%esp)
+     cae:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+     cb2:	89 54 24 04          	mov    %edx,0x4(%esp)
+     cb6:	89 04 24             	mov    %eax,(%esp)
+     cb9:	e8 9c 11 00 00       	call   1e5a <_ForneyAlgorithm>
+        ErrorCorrector(tmpSymbs,errLocation,errMagnitude,pParams,mapTable);   /** - correct the corrupted symbol stream */
+     cbe:	8b 5d d8             	mov    -0x28(%ebp),%ebx
+     cc1:	8b 4d a8             	mov    -0x58(%ebp),%ecx
+     cc4:	8b 55 b0             	mov    -0x50(%ebp),%edx
+     cc7:	8b 45 d0             	mov    -0x30(%ebp),%eax
+     cca:	89 5c 24 10          	mov    %ebx,0x10(%esp)
+     cce:	8b 5d 10             	mov    0x10(%ebp),%ebx
+     cd1:	89 5c 24 0c          	mov    %ebx,0xc(%esp)
+     cd5:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+     cd9:	89 54 24 04          	mov    %edx,0x4(%esp)
+     cdd:	89 04 24             	mov    %eax,(%esp)
+     ce0:	e8 c2 13 00 00       	call   20a7 <_ErrorCorrector>
+      }
+
+      if (RS_GF_DEGREE_4 == pParams->m)
+     ce5:	8b 45 10             	mov    0x10(%ebp),%eax
+     ce8:	8b 00                	mov    (%eax),%eax
+     cea:	83 f8 04             	cmp    $0x4,%eax
+     ced:	0f 85 f3 00 00 00    	jne    de6 <_RcCod_Decoder+0x583>
+      {
+        for (j=0; j<pParams->kSh; j++)
+     cf3:	c6 45 e1 00          	movb   $0x0,-0x1f(%ebp)
+     cf7:	e9 d8 00 00 00       	jmp    dd4 <_RcCod_Decoder+0x571>
+        {
+          if (IS_EVEN(j))
+     cfc:	0f b6 45 e1          	movzbl -0x1f(%ebp),%eax
+     d00:	83 e0 01             	and    $0x1,%eax
+     d03:	84 c0                	test   %al,%al
+     d05:	75 5a                	jne    d61 <_RcCod_Decoder+0x4fe>
+          {
+            outStream->pBuf[(j+i*pParams->kSh)/2] = 
+     d07:	8b 45 0c             	mov    0xc(%ebp),%eax
+     d0a:	8b 10                	mov    (%eax),%edx
+     d0c:	0f b6 4d e1          	movzbl -0x1f(%ebp),%ecx
+     d10:	0f b6 5d e2          	movzbl -0x1e(%ebp),%ebx
+     d14:	8b 45 10             	mov    0x10(%ebp),%eax
+     d17:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+     d1b:	0f b6 c0             	movzbl %al,%eax
+     d1e:	0f af c3             	imul   %ebx,%eax
+     d21:	01 c8                	add    %ecx,%eax
+     d23:	89 c1                	mov    %eax,%ecx
+     d25:	c1 e9 1f             	shr    $0x1f,%ecx
+     d28:	01 c8                	add    %ecx,%eax
+     d2a:	d1 f8                	sar    %eax
+     d2c:	8d 1c 02             	lea    (%edx,%eax,1),%ebx
+              (ConvertSy2Bi(tmpSymbs[j+2*pParams->t],mapTable)<<4);
+     d2f:	8b 55 d8             	mov    -0x28(%ebp),%edx
+     d32:	0f b6 4d e1          	movzbl -0x1f(%ebp),%ecx
+     d36:	8b 45 10             	mov    0x10(%ebp),%eax
+     d39:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+     d3d:	0f b6 c0             	movzbl %al,%eax
+     d40:	01 c0                	add    %eax,%eax
+     d42:	01 c1                	add    %eax,%ecx
+     d44:	8b 45 d0             	mov    -0x30(%ebp),%eax
+     d47:	0f b6 04 08          	movzbl (%eax,%ecx,1),%eax
+     d4b:	0f b6 c0             	movzbl %al,%eax
+     d4e:	89 54 24 04          	mov    %edx,0x4(%esp)
+     d52:	89 04 24             	mov    %eax,(%esp)
+     d55:	e8 59 06 00 00       	call   13b3 <_ConvertSy2Bi>
+     d5a:	c1 e0 04             	shl    $0x4,%eax
+            outStream->pBuf[(j+i*pParams->kSh)/2] = 
+     d5d:	88 03                	mov    %al,(%ebx)
+     d5f:	eb 69                	jmp    dca <_RcCod_Decoder+0x567>
+          }
+          else
+          {
+            outStream->pBuf[(j-1+i*pParams->kSh)/2] |=
+              ConvertSy2Bi(tmpSymbs[j+2*pParams->t],mapTable);
+     d61:	8b 55 d8             	mov    -0x28(%ebp),%edx
+     d64:	0f b6 4d e1          	movzbl -0x1f(%ebp),%ecx
+     d68:	8b 45 10             	mov    0x10(%ebp),%eax
+     d6b:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+     d6f:	0f b6 c0             	movzbl %al,%eax
+     d72:	01 c0                	add    %eax,%eax
+     d74:	01 c1                	add    %eax,%ecx
+     d76:	8b 45 d0             	mov    -0x30(%ebp),%eax
+     d79:	0f b6 04 08          	movzbl (%eax,%ecx,1),%eax
+     d7d:	0f b6 c0             	movzbl %al,%eax
+     d80:	89 54 24 04          	mov    %edx,0x4(%esp)
+     d84:	89 04 24             	mov    %eax,(%esp)
+     d87:	e8 27 06 00 00       	call   13b3 <_ConvertSy2Bi>
+     d8c:	89 c7                	mov    %eax,%edi
+            outStream->pBuf[(j-1+i*pParams->kSh)/2] |=
+     d8e:	8b 45 0c             	mov    0xc(%ebp),%eax
+     d91:	8b 10                	mov    (%eax),%edx
+     d93:	0f b6 45 e1          	movzbl -0x1f(%ebp),%eax
+     d97:	8d 58 ff             	lea    -0x1(%eax),%ebx
+     d9a:	0f b6 4d e2          	movzbl -0x1e(%ebp),%ecx
+     d9e:	8b 45 10             	mov    0x10(%ebp),%eax
+     da1:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+     da5:	0f b6 c0             	movzbl %al,%eax
+     da8:	0f af c1             	imul   %ecx,%eax
+     dab:	01 d8                	add    %ebx,%eax
+     dad:	89 c1                	mov    %eax,%ecx
+     daf:	c1 e9 1f             	shr    $0x1f,%ecx
+     db2:	01 c8                	add    %ecx,%eax
+     db4:	d1 f8                	sar    %eax
+     db6:	89 c1                	mov    %eax,%ecx
+     db8:	89 c8                	mov    %ecx,%eax
+     dba:	01 c2                	add    %eax,%edx
+     dbc:	8b 45 0c             	mov    0xc(%ebp),%eax
+     dbf:	8b 00                	mov    (%eax),%eax
+     dc1:	01 c8                	add    %ecx,%eax
+     dc3:	0f b6 00             	movzbl (%eax),%eax
+     dc6:	09 f8                	or     %edi,%eax
+     dc8:	88 02                	mov    %al,(%edx)
+        for (j=0; j<pParams->kSh; j++)
+     dca:	0f b6 45 e1          	movzbl -0x1f(%ebp),%eax
+     dce:	83 c0 01             	add    $0x1,%eax
+     dd1:	88 45 e1             	mov    %al,-0x1f(%ebp)
+     dd4:	8b 45 10             	mov    0x10(%ebp),%eax
+     dd7:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+     ddb:	3a 45 e1             	cmp    -0x1f(%ebp),%al
+     dde:	0f 87 18 ff ff ff    	ja     cfc <_RcCod_Decoder+0x499>
+     de4:	eb 68                	jmp    e4e <_RcCod_Decoder+0x5eb>
+          }
+        }
+      }
+      else
+      {
+        for (j=0; j<pParams->kSh; j++)
+     de6:	c6 45 e1 00          	movb   $0x0,-0x1f(%ebp)
+     dea:	eb 56                	jmp    e42 <_RcCod_Decoder+0x5df>
+        {
+          outStream->pBuf[j+i*pParams->kSh] =
+     dec:	8b 45 0c             	mov    0xc(%ebp),%eax
+     def:	8b 10                	mov    (%eax),%edx
+     df1:	0f b6 4d e1          	movzbl -0x1f(%ebp),%ecx
+     df5:	0f b6 5d e2          	movzbl -0x1e(%ebp),%ebx
+     df9:	8b 45 10             	mov    0x10(%ebp),%eax
+     dfc:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+     e00:	0f b6 c0             	movzbl %al,%eax
+     e03:	0f af c3             	imul   %ebx,%eax
+     e06:	01 c8                	add    %ecx,%eax
+     e08:	8d 1c 02             	lea    (%edx,%eax,1),%ebx
+            ConvertSy2Bi(tmpSymbs[j+2*pParams->t],mapTable);                  /** - symbol-to-bits conversion */
+     e0b:	8b 55 d8             	mov    -0x28(%ebp),%edx
+     e0e:	0f b6 4d e1          	movzbl -0x1f(%ebp),%ecx
+     e12:	8b 45 10             	mov    0x10(%ebp),%eax
+     e15:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+     e19:	0f b6 c0             	movzbl %al,%eax
+     e1c:	01 c0                	add    %eax,%eax
+     e1e:	01 c1                	add    %eax,%ecx
+     e20:	8b 45 d0             	mov    -0x30(%ebp),%eax
+     e23:	0f b6 04 08          	movzbl (%eax,%ecx,1),%eax
+     e27:	0f b6 c0             	movzbl %al,%eax
+     e2a:	89 54 24 04          	mov    %edx,0x4(%esp)
+     e2e:	89 04 24             	mov    %eax,(%esp)
+     e31:	e8 7d 05 00 00       	call   13b3 <_ConvertSy2Bi>
+          outStream->pBuf[j+i*pParams->kSh] =
+     e36:	88 03                	mov    %al,(%ebx)
+        for (j=0; j<pParams->kSh; j++)
+     e38:	0f b6 45 e1          	movzbl -0x1f(%ebp),%eax
+     e3c:	83 c0 01             	add    $0x1,%eax
+     e3f:	88 45 e1             	mov    %al,-0x1f(%ebp)
+     e42:	8b 45 10             	mov    0x10(%ebp),%eax
+     e45:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+     e49:	3a 45 e1             	cmp    -0x1f(%ebp),%al
+     e4c:	77 9e                	ja     dec <_RcCod_Decoder+0x589>
+    for (i=0; i<numMsg; i++)
+     e4e:	0f b6 45 e2          	movzbl -0x1e(%ebp),%eax
+     e52:	83 c0 01             	add    $0x1,%eax
+     e55:	88 45 e2             	mov    %al,-0x1e(%ebp)
+     e58:	0f b6 45 e2          	movzbl -0x1e(%ebp),%eax
+     e5c:	3a 45 e0             	cmp    -0x20(%ebp),%al
+     e5f:	0f 82 bc fc ff ff    	jb     b21 <_RcCod_Decoder+0x2be>
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+     e65:	eb 07                	jmp    e6e <_RcCod_Decoder+0x60b>
+      }
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+     e67:	c7 45 e4 01 00 00 00 	movl   $0x1,-0x1c(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+     e6e:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+     e71:	89 04 24             	mov    %eax,(%esp)
+     e74:	e8 00 00 00 00       	call   e79 <_RcCod_Decoder+0x616>
+     e79:	89 f4                	mov    %esi,%esp
+}
+     e7b:	8d 65 f4             	lea    -0xc(%ebp),%esp
+     e7e:	5b                   	pop    %ebx
+     e7f:	5e                   	pop    %esi
+     e80:	5f                   	pop    %edi
+     e81:	5d                   	pop    %ebp
+     e82:	c3                   	ret    
+
+00000e83 <_RetrievePrimitivePolynomial>:
+ * @param[in] pParams pointer to reed-solomon parameters structure
+ * 
+ * @return error ID
+ */
+static error_t RetrievePrimitivePolynomial( rs_encoder_info_t * ioInfo, const rs_par_t * pParams )
+{
+     e83:	55                   	push   %ebp
+     e84:	89 e5                	mov    %esp,%ebp
+     e86:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)RetrievePrimitivePolynomial,WM_LEVEL_2);
+     e89:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+     e90:	00 
+     e91:	c7 04 24 83 0e 00 00 	movl   $0xe83,(%esp)
+     e98:	e8 00 00 00 00       	call   e9d <_RetrievePrimitivePolynomial+0x1a>
+
+  error_t retErr = ERR_NONE;
+     e9d:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+
+  if ((NULL != ioInfo) && (NULL != pParams))
+     ea4:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+     ea8:	74 45                	je     eef <_RetrievePrimitivePolynomial+0x6c>
+     eaa:	83 7d 0c 00          	cmpl   $0x0,0xc(%ebp)
+     eae:	74 3f                	je     eef <_RetrievePrimitivePolynomial+0x6c>
+  {
+    switch (pParams->m)
+     eb0:	8b 45 0c             	mov    0xc(%ebp),%eax
+     eb3:	8b 00                	mov    (%eax),%eax
+     eb5:	83 f8 04             	cmp    $0x4,%eax
+     eb8:	74 07                	je     ec1 <_RetrievePrimitivePolynomial+0x3e>
+     eba:	83 f8 08             	cmp    $0x8,%eax
+     ebd:	74 14                	je     ed3 <_RetrievePrimitivePolynomial+0x50>
+     ebf:	eb 24                	jmp    ee5 <_RetrievePrimitivePolynomial+0x62>
+    {
+      case RS_GF_DEGREE_4:
+        ioInfo->pPrimPoly = PrimPolyGF4;
+     ec1:	8b 45 08             	mov    0x8(%ebp),%eax
+     ec4:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
+        ioInfo->lenPrimPoly = sizeof(PrimPolyGF4);
+     eca:	8b 45 08             	mov    0x8(%ebp),%eax
+     ecd:	c6 40 04 02          	movb   $0x2,0x4(%eax)
+        break;
+     ed1:	eb 1a                	jmp    eed <_RetrievePrimitivePolynomial+0x6a>
+
+      case RS_GF_DEGREE_8:
+        ioInfo->pPrimPoly = PrimPolyGF8;
+     ed3:	8b 45 08             	mov    0x8(%ebp),%eax
+     ed6:	c7 00 04 00 00 00    	movl   $0x4,(%eax)
+        ioInfo->lenPrimPoly = sizeof(PrimPolyGF8);
+     edc:	8b 45 08             	mov    0x8(%ebp),%eax
+     edf:	c6 40 04 04          	movb   $0x4,0x4(%eax)
+        break;
+     ee3:	eb 08                	jmp    eed <_RetrievePrimitivePolynomial+0x6a>
+
+      default:
+        retErr = ERR_INV_RS_GF_DEGREE;
+     ee5:	c7 45 f4 0f 00 00 00 	movl   $0xf,-0xc(%ebp)
+        break;
+     eec:	90                   	nop
+    }
+  }
+     eed:	eb 07                	jmp    ef6 <_RetrievePrimitivePolynomial+0x73>
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+     eef:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+     ef6:	8b 45 f4             	mov    -0xc(%ebp),%eax
+     ef9:	89 04 24             	mov    %eax,(%esp)
+     efc:	e8 00 00 00 00       	call   f01 <_RetrievePrimitivePolynomial+0x7e>
+}
+     f01:	c9                   	leave  
+     f02:	c3                   	ret    
+
+00000f03 <_RetrieveGeneratorPolynomial>:
+ * @param[in] len buffer size [B]
+ * 
+ * @return error ID
+ */
+static error_t RetrieveGeneratorPolynomial( uint8_t * ioBuf, uint8_t len, const uint8_t mapTable[][RS_TABLE_IDX_NUM], const rs_par_t * pParams )
+{
+     f03:	55                   	push   %ebp
+     f04:	89 e5                	mov    %esp,%ebp
+     f06:	53                   	push   %ebx
+     f07:	83 ec 34             	sub    $0x34,%esp
+     f0a:	8b 45 0c             	mov    0xc(%ebp),%eax
+     f0d:	88 45 e4             	mov    %al,-0x1c(%ebp)
+  Debug_SetWatermark((void *)RetrieveGeneratorPolynomial,WM_LEVEL_2);
+     f10:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+     f17:	00 
+     f18:	c7 04 24 03 0f 00 00 	movl   $0xf03,(%esp)
+     f1f:	e8 00 00 00 00       	call   f24 <_RetrieveGeneratorPolynomial+0x21>
+
+  error_t retErr = ERR_NONE;
+     f24:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  uint8_t tmpVal;
+  int16_t i, j;
+
+  if (NULL != ioBuf)
+     f2b:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+     f2f:	0f 84 08 01 00 00    	je     103d <_RetrieveGeneratorPolynomial+0x13a>
+  {
+    memset(ioBuf,0,len);
+     f35:	0f b6 45 e4          	movzbl -0x1c(%ebp),%eax
+     f39:	89 44 24 08          	mov    %eax,0x8(%esp)
+     f3d:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+     f44:	00 
+     f45:	8b 45 08             	mov    0x8(%ebp),%eax
+     f48:	89 04 24             	mov    %eax,(%esp)
+     f4b:	e8 00 00 00 00       	call   f50 <_RetrieveGeneratorPolynomial+0x4d>
+
+    ioBuf[0] = 2;                                                             /** - initialize generator polynomial as (x+a) */
+     f50:	8b 45 08             	mov    0x8(%ebp),%eax
+     f53:	c6 00 02             	movb   $0x2,(%eax)
+    ioBuf[1] = 1;
+     f56:	8b 45 08             	mov    0x8(%ebp),%eax
+     f59:	83 c0 01             	add    $0x1,%eax
+     f5c:	c6 00 01             	movb   $0x1,(%eax)
+
+    for (i=2; i<len; i++)
+     f5f:	66 c7 45 f2 02 00    	movw   $0x2,-0xe(%ebp)
+     f65:	e9 c1 00 00 00       	jmp    102b <_RetrieveGeneratorPolynomial+0x128>
+    {
+      for (j=len-1; j>=0; j--)
+     f6a:	0f b6 45 e4          	movzbl -0x1c(%ebp),%eax
+     f6e:	83 e8 01             	sub    $0x1,%eax
+     f71:	66 89 45 f0          	mov    %ax,-0x10(%ebp)
+     f75:	e9 9b 00 00 00       	jmp    1015 <_RetrieveGeneratorPolynomial+0x112>
+      {
+        tmpVal = MultiplyGF(ioBuf[j],PowerGF(2,i,pParams),pParams);
+     f7a:	0f bf 45 f2          	movswl -0xe(%ebp),%eax
+     f7e:	8b 55 14             	mov    0x14(%ebp),%edx
+     f81:	89 54 24 08          	mov    %edx,0x8(%esp)
+     f85:	89 44 24 04          	mov    %eax,0x4(%esp)
+     f89:	c7 04 24 02 00 00 00 	movl   $0x2,(%esp)
+     f90:	e8 0d 05 00 00       	call   14a2 <_PowerGF>
+     f95:	0f b6 d0             	movzbl %al,%edx
+     f98:	0f bf 4d f0          	movswl -0x10(%ebp),%ecx
+     f9c:	8b 45 08             	mov    0x8(%ebp),%eax
+     f9f:	01 c8                	add    %ecx,%eax
+     fa1:	0f b6 00             	movzbl (%eax),%eax
+     fa4:	0f b6 c0             	movzbl %al,%eax
+     fa7:	8b 4d 14             	mov    0x14(%ebp),%ecx
+     faa:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+     fae:	89 54 24 04          	mov    %edx,0x4(%esp)
+     fb2:	89 04 24             	mov    %eax,(%esp)
+     fb5:	e8 85 04 00 00       	call   143f <_MultiplyGF>
+     fba:	88 45 ef             	mov    %al,-0x11(%ebp)
+        if (j > 0)
+     fbd:	66 83 7d f0 00       	cmpw   $0x0,-0x10(%ebp)
+     fc2:	7e 37                	jle    ffb <_RetrieveGeneratorPolynomial+0xf8>
+        {
+          ioBuf[j] = AddGF(tmpVal,ioBuf[j-1],mapTable);
+     fc4:	0f bf 55 f0          	movswl -0x10(%ebp),%edx
+     fc8:	8b 45 08             	mov    0x8(%ebp),%eax
+     fcb:	8d 1c 02             	lea    (%edx,%eax,1),%ebx
+     fce:	0f bf 45 f0          	movswl -0x10(%ebp),%eax
+     fd2:	8d 50 ff             	lea    -0x1(%eax),%edx
+     fd5:	8b 45 08             	mov    0x8(%ebp),%eax
+     fd8:	01 d0                	add    %edx,%eax
+     fda:	0f b6 00             	movzbl (%eax),%eax
+     fdd:	0f b6 d0             	movzbl %al,%edx
+     fe0:	0f b6 45 ef          	movzbl -0x11(%ebp),%eax
+     fe4:	8b 4d 10             	mov    0x10(%ebp),%ecx
+     fe7:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+     feb:	89 54 24 04          	mov    %edx,0x4(%esp)
+     fef:	89 04 24             	mov    %eax,(%esp)
+     ff2:	e8 ed 03 00 00       	call   13e4 <_AddGF>
+     ff7:	88 03                	mov    %al,(%ebx)
+     ff9:	eb 0f                	jmp    100a <_RetrieveGeneratorPolynomial+0x107>
+        }
+        else
+        {
+          ioBuf[j] = tmpVal;
+     ffb:	0f bf 55 f0          	movswl -0x10(%ebp),%edx
+     fff:	8b 45 08             	mov    0x8(%ebp),%eax
+    1002:	01 c2                	add    %eax,%edx
+    1004:	0f b6 45 ef          	movzbl -0x11(%ebp),%eax
+    1008:	88 02                	mov    %al,(%edx)
+      for (j=len-1; j>=0; j--)
+    100a:	0f b7 45 f0          	movzwl -0x10(%ebp),%eax
+    100e:	83 e8 01             	sub    $0x1,%eax
+    1011:	66 89 45 f0          	mov    %ax,-0x10(%ebp)
+    1015:	66 83 7d f0 00       	cmpw   $0x0,-0x10(%ebp)
+    101a:	0f 89 5a ff ff ff    	jns    f7a <_RetrieveGeneratorPolynomial+0x77>
+    for (i=2; i<len; i++)
+    1020:	0f b7 45 f2          	movzwl -0xe(%ebp),%eax
+    1024:	83 c0 01             	add    $0x1,%eax
+    1027:	66 89 45 f2          	mov    %ax,-0xe(%ebp)
+    102b:	0f bf 55 f2          	movswl -0xe(%ebp),%edx
+    102f:	0f b6 45 e4          	movzbl -0x1c(%ebp),%eax
+    1033:	39 c2                	cmp    %eax,%edx
+    1035:	0f 8c 2f ff ff ff    	jl     f6a <_RetrieveGeneratorPolynomial+0x67>
+    103b:	eb 07                	jmp    1044 <_RetrieveGeneratorPolynomial+0x141>
+      }
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+    103d:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+    1044:	8b 45 f4             	mov    -0xc(%ebp),%eax
+    1047:	89 04 24             	mov    %eax,(%esp)
+    104a:	e8 00 00 00 00       	call   104f <_RetrieveGeneratorPolynomial+0x14c>
+}
+    104f:	83 c4 34             	add    $0x34,%esp
+    1052:	5b                   	pop    %ebx
+    1053:	5d                   	pop    %ebp
+    1054:	c3                   	ret    
+
+00001055 <_RetrieveMappingTableGF>:
+ * @param[in] pParams pointer to reed-solomon parameters structure
+ * 
+ * @return error ID
+ */
+static error_t RetrieveMappingTableGF( uint8_t ioTable[][RS_TABLE_IDX_NUM], const rs_par_t * pParams )
+{
+    1055:	55                   	push   %ebp
+    1056:	89 e5                	mov    %esp,%ebp
+    1058:	56                   	push   %esi
+    1059:	53                   	push   %ebx
+    105a:	83 ec 30             	sub    $0x30,%esp
+    105d:	89 e0                	mov    %esp,%eax
+    105f:	89 c6                	mov    %eax,%esi
+  Debug_SetWatermark((void *)RetrieveMappingTableGF,WM_LEVEL_2);
+    1061:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+    1068:	00 
+    1069:	c7 04 24 55 10 00 00 	movl   $0x1055,(%esp)
+    1070:	e8 00 00 00 00       	call   1075 <_RetrieveMappingTableGF+0x20>
+
+  error_t retErr = ERR_NONE;
+    1075:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  rs_encoder_info_t encInfo;
+  int16_t quotDeg;
+  uint16_t maxDeg;
+  uint16_t j;
+  uint8_t tmpPoly[pParams->dimGF];
+    107c:	8b 45 0c             	mov    0xc(%ebp),%eax
+    107f:	0f b7 40 0c          	movzwl 0xc(%eax),%eax
+    1083:	0f b7 c0             	movzwl %ax,%eax
+    1086:	83 e8 01             	sub    $0x1,%eax
+    1089:	89 45 e8             	mov    %eax,-0x18(%ebp)
+    108c:	8b 45 0c             	mov    0xc(%ebp),%eax
+    108f:	0f b7 40 0c          	movzwl 0xc(%eax),%eax
+    1093:	0f b7 c0             	movzwl %ax,%eax
+    1096:	ba 10 00 00 00       	mov    $0x10,%edx
+    109b:	83 ea 01             	sub    $0x1,%edx
+    109e:	01 d0                	add    %edx,%eax
+    10a0:	b9 10 00 00 00       	mov    $0x10,%ecx
+    10a5:	ba 00 00 00 00       	mov    $0x0,%edx
+    10aa:	f7 f1                	div    %ecx
+    10ac:	6b c0 10             	imul   $0x10,%eax,%eax
+    10af:	e8 00 00 00 00       	call   10b4 <_RetrieveMappingTableGF+0x5f>
+    10b4:	29 c4                	sub    %eax,%esp
+    10b6:	8d 44 24 0c          	lea    0xc(%esp),%eax
+    10ba:	83 c0 00             	add    $0x0,%eax
+    10bd:	89 45 e4             	mov    %eax,-0x1c(%ebp)
+  uint8_t i;
+  
+  if ((NULL != ioTable) && (NULL!= pParams))
+    10c0:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+    10c4:	0f 84 c6 01 00 00    	je     1290 <_RetrieveMappingTableGF+0x23b>
+    10ca:	83 7d 0c 00          	cmpl   $0x0,0xc(%ebp)
+    10ce:	0f 84 bc 01 00 00    	je     1290 <_RetrieveMappingTableGF+0x23b>
+  {
+    for (j=0;j<pParams->dimGF;j++)
+    10d4:	66 c7 45 ee 00 00    	movw   $0x0,-0x12(%ebp)
+    10da:	eb 2f                	jmp    110b <_RetrieveMappingTableGF+0xb6>
+    {
+      memset(ioTable[j],0,RS_TABLE_IDX_NUM);
+    10dc:	0f b7 45 ee          	movzwl -0x12(%ebp),%eax
+    10e0:	8d 14 00             	lea    (%eax,%eax,1),%edx
+    10e3:	8b 45 08             	mov    0x8(%ebp),%eax
+    10e6:	01 d0                	add    %edx,%eax
+    10e8:	c7 44 24 08 02 00 00 	movl   $0x2,0x8(%esp)
+    10ef:	00 
+    10f0:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+    10f7:	00 
+    10f8:	89 04 24             	mov    %eax,(%esp)
+    10fb:	e8 00 00 00 00       	call   1100 <_RetrieveMappingTableGF+0xab>
+    for (j=0;j<pParams->dimGF;j++)
+    1100:	0f b7 45 ee          	movzwl -0x12(%ebp),%eax
+    1104:	83 c0 01             	add    $0x1,%eax
+    1107:	66 89 45 ee          	mov    %ax,-0x12(%ebp)
+    110b:	8b 45 0c             	mov    0xc(%ebp),%eax
+    110e:	0f b7 40 0c          	movzwl 0xc(%eax),%eax
+    1112:	66 3b 45 ee          	cmp    -0x12(%ebp),%ax
+    1116:	77 c4                	ja     10dc <_RetrieveMappingTableGF+0x87>
+    }
+
+    RetrievePrimitivePolynomial(&encInfo,pParams);
+    1118:	8b 45 0c             	mov    0xc(%ebp),%eax
+    111b:	89 44 24 04          	mov    %eax,0x4(%esp)
+    111f:	8d 45 dc             	lea    -0x24(%ebp),%eax
+    1122:	89 04 24             	mov    %eax,(%esp)
+    1125:	e8 59 fd ff ff       	call   e83 <_RetrievePrimitivePolynomial>
+
+    for (j=1; j<pParams->dimGF; j++)
+    112a:	66 c7 45 ee 01 00    	movw   $0x1,-0x12(%ebp)
+    1130:	e9 48 01 00 00       	jmp    127d <_RetrieveMappingTableGF+0x228>
+    {
+      memset(tmpPoly,0,pParams->dimGF);                                       /** reset all elements of temporary polynomial to 0 */
+    1135:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1138:	0f b7 40 0c          	movzwl 0xc(%eax),%eax
+    113c:	0f b7 d0             	movzwl %ax,%edx
+    113f:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+    1142:	89 54 24 08          	mov    %edx,0x8(%esp)
+    1146:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+    114d:	00 
+    114e:	89 04 24             	mov    %eax,(%esp)
+    1151:	e8 00 00 00 00       	call   1156 <_RetrieveMappingTableGF+0x101>
+      maxDeg = j-1;                                                           /** polynomial maximum degree at current iteration */
+    1156:	0f b7 45 ee          	movzwl -0x12(%ebp),%eax
+    115a:	83 e8 01             	sub    $0x1,%eax
+    115d:	66 89 45 f0          	mov    %ax,-0x10(%ebp)
+      tmpPoly[maxDeg] = 1;
+    1161:	0f b7 45 f0          	movzwl -0x10(%ebp),%eax
+    1165:	8b 55 e4             	mov    -0x1c(%ebp),%edx
+    1168:	c6 04 02 01          	movb   $0x1,(%edx,%eax,1)
+      quotDeg = maxDeg-pParams->m;
+    116c:	8b 45 0c             	mov    0xc(%ebp),%eax
+    116f:	8b 00                	mov    (%eax),%eax
+    1171:	89 c2                	mov    %eax,%edx
+    1173:	0f b7 45 f0          	movzwl -0x10(%ebp),%eax
+    1177:	29 d0                	sub    %edx,%eax
+    1179:	66 89 45 f2          	mov    %ax,-0xe(%ebp)
+
+      while (quotDeg >= 0)
+    117d:	e9 a3 00 00 00       	jmp    1225 <_RetrieveMappingTableGF+0x1d0>
+      {
+        tmpPoly[maxDeg] = 0;
+    1182:	0f b7 45 f0          	movzwl -0x10(%ebp),%eax
+    1186:	8b 55 e4             	mov    -0x1c(%ebp),%edx
+    1189:	c6 04 02 00          	movb   $0x0,(%edx,%eax,1)
+
+        for (i=0; i<encInfo.lenPrimPoly; i++)
+    118d:	c6 45 ed 00          	movb   $0x0,-0x13(%ebp)
+    1191:	eb 5b                	jmp    11ee <_RetrieveMappingTableGF+0x199>
+        {
+          tmpPoly[quotDeg+encInfo.pPrimPoly[i]] =
+    1193:	0f bf 55 f2          	movswl -0xe(%ebp),%edx
+    1197:	8b 4d dc             	mov    -0x24(%ebp),%ecx
+    119a:	0f b6 45 ed          	movzbl -0x13(%ebp),%eax
+    119e:	01 c8                	add    %ecx,%eax
+    11a0:	0f b6 00             	movzbl (%eax),%eax
+    11a3:	0f b6 c0             	movzbl %al,%eax
+    11a6:	8d 0c 02             	lea    (%edx,%eax,1),%ecx
+            ((tmpPoly[quotDeg+encInfo.pPrimPoly[i]]+1)%2);
+    11a9:	0f bf 55 f2          	movswl -0xe(%ebp),%edx
+    11ad:	8b 5d dc             	mov    -0x24(%ebp),%ebx
+    11b0:	0f b6 45 ed          	movzbl -0x13(%ebp),%eax
+    11b4:	01 d8                	add    %ebx,%eax
+    11b6:	0f b6 00             	movzbl (%eax),%eax
+    11b9:	0f b6 c0             	movzbl %al,%eax
+    11bc:	01 c2                	add    %eax,%edx
+    11be:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+    11c1:	0f b6 04 10          	movzbl (%eax,%edx,1),%eax
+    11c5:	0f b6 c0             	movzbl %al,%eax
+    11c8:	8d 50 01             	lea    0x1(%eax),%edx
+    11cb:	89 d0                	mov    %edx,%eax
+    11cd:	c1 f8 1f             	sar    $0x1f,%eax
+    11d0:	c1 e8 1f             	shr    $0x1f,%eax
+    11d3:	01 c2                	add    %eax,%edx
+    11d5:	83 e2 01             	and    $0x1,%edx
+    11d8:	29 c2                	sub    %eax,%edx
+    11da:	89 d0                	mov    %edx,%eax
+          tmpPoly[quotDeg+encInfo.pPrimPoly[i]] =
+    11dc:	89 c2                	mov    %eax,%edx
+    11de:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+    11e1:	88 14 08             	mov    %dl,(%eax,%ecx,1)
+        for (i=0; i<encInfo.lenPrimPoly; i++)
+    11e4:	0f b6 45 ed          	movzbl -0x13(%ebp),%eax
+    11e8:	83 c0 01             	add    $0x1,%eax
+    11eb:	88 45 ed             	mov    %al,-0x13(%ebp)
+    11ee:	0f b6 45 e0          	movzbl -0x20(%ebp),%eax
+    11f2:	3a 45 ed             	cmp    -0x13(%ebp),%al
+    11f5:	77 9c                	ja     1193 <_RetrieveMappingTableGF+0x13e>
+        }
+        maxDeg = FindMaxDeg(tmpPoly,pParams->dimGF);                          /** find new maximum degree of polynomial */
+    11f7:	8b 45 0c             	mov    0xc(%ebp),%eax
+    11fa:	0f b7 40 0c          	movzwl 0xc(%eax),%eax
+    11fe:	0f b7 d0             	movzwl %ax,%edx
+    1201:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+    1204:	89 54 24 04          	mov    %edx,0x4(%esp)
+    1208:	89 04 24             	mov    %eax,(%esp)
+    120b:	e8 9b 00 00 00       	call   12ab <_FindMaxDeg>
+    1210:	66 89 45 f0          	mov    %ax,-0x10(%ebp)
+        quotDeg = maxDeg-pParams->m;                                          /** update quotient degree of polynomial after division */
+    1214:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1217:	8b 00                	mov    (%eax),%eax
+    1219:	89 c2                	mov    %eax,%edx
+    121b:	0f b7 45 f0          	movzwl -0x10(%ebp),%eax
+    121f:	29 d0                	sub    %edx,%eax
+    1221:	66 89 45 f2          	mov    %ax,-0xe(%ebp)
+      while (quotDeg >= 0)
+    1225:	66 83 7d f2 00       	cmpw   $0x0,-0xe(%ebp)
+    122a:	0f 89 52 ff ff ff    	jns    1182 <_RetrieveMappingTableGF+0x12d>
+      }
+
+      ioTable[j][RS_TABLE_IDX_BIT] = GetBasis(tmpPoly,pParams);               /** retrieve bit basis from remainder */
+    1230:	0f b7 45 ee          	movzwl -0x12(%ebp),%eax
+    1234:	8d 14 00             	lea    (%eax,%eax,1),%edx
+    1237:	8b 45 08             	mov    0x8(%ebp),%eax
+    123a:	8d 1c 02             	lea    (%edx,%eax,1),%ebx
+    123d:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+    1240:	8b 55 0c             	mov    0xc(%ebp),%edx
+    1243:	89 54 24 04          	mov    %edx,0x4(%esp)
+    1247:	89 04 24             	mov    %eax,(%esp)
+    124a:	e8 bb 00 00 00       	call   130a <_GetBasis>
+    124f:	88 03                	mov    %al,(%ebx)
+      ioTable[ioTable[j][RS_TABLE_IDX_BIT]][RS_TABLE_IDX_SYM] = j;
+    1251:	0f b7 45 ee          	movzwl -0x12(%ebp),%eax
+    1255:	8d 14 00             	lea    (%eax,%eax,1),%edx
+    1258:	8b 45 08             	mov    0x8(%ebp),%eax
+    125b:	01 d0                	add    %edx,%eax
+    125d:	0f b6 00             	movzbl (%eax),%eax
+    1260:	0f b6 c0             	movzbl %al,%eax
+    1263:	8d 14 00             	lea    (%eax,%eax,1),%edx
+    1266:	8b 45 08             	mov    0x8(%ebp),%eax
+    1269:	01 d0                	add    %edx,%eax
+    126b:	0f b7 55 ee          	movzwl -0x12(%ebp),%edx
+    126f:	88 50 01             	mov    %dl,0x1(%eax)
+    for (j=1; j<pParams->dimGF; j++)
+    1272:	0f b7 45 ee          	movzwl -0x12(%ebp),%eax
+    1276:	83 c0 01             	add    $0x1,%eax
+    1279:	66 89 45 ee          	mov    %ax,-0x12(%ebp)
+    127d:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1280:	0f b7 40 0c          	movzwl 0xc(%eax),%eax
+    1284:	66 3b 45 ee          	cmp    -0x12(%ebp),%ax
+    1288:	0f 87 a7 fe ff ff    	ja     1135 <_RetrieveMappingTableGF+0xe0>
+  if ((NULL != ioTable) && (NULL!= pParams))
+    128e:	eb 07                	jmp    1297 <_RetrieveMappingTableGF+0x242>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+    1290:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+    1297:	8b 45 f4             	mov    -0xc(%ebp),%eax
+    129a:	89 04 24             	mov    %eax,(%esp)
+    129d:	e8 00 00 00 00       	call   12a2 <_RetrieveMappingTableGF+0x24d>
+    12a2:	89 f4                	mov    %esi,%esp
+}
+    12a4:	8d 65 f8             	lea    -0x8(%ebp),%esp
+    12a7:	5b                   	pop    %ebx
+    12a8:	5e                   	pop    %esi
+    12a9:	5d                   	pop    %ebp
+    12aa:	c3                   	ret    
+
+000012ab <_FindMaxDeg>:
+ * @param[in] len polynomial size
+ * 
+ * @return maximum degree index
+ */
+static uint16_t FindMaxDeg( const uint8_t * poly, uint16_t len )
+{
+    12ab:	55                   	push   %ebp
+    12ac:	89 e5                	mov    %esp,%ebp
+    12ae:	83 ec 38             	sub    $0x38,%esp
+    12b1:	8b 45 0c             	mov    0xc(%ebp),%eax
+    12b4:	66 89 45 e4          	mov    %ax,-0x1c(%ebp)
+  Debug_SetWatermark((void *)FindMaxDeg,WM_LEVEL_3);
+    12b8:	c7 44 24 04 02 00 00 	movl   $0x2,0x4(%esp)
+    12bf:	00 
+    12c0:	c7 04 24 ab 12 00 00 	movl   $0x12ab,(%esp)
+    12c7:	e8 00 00 00 00       	call   12cc <_FindMaxDeg+0x21>
+
+  uint16_t maxDeg;
+  uint16_t j;
+
+  if (NULL != poly)
+    12cc:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+    12d0:	74 32                	je     1304 <_FindMaxDeg+0x59>
+  {
+    for (j=len-1; j>=0; j--)
+    12d2:	0f b7 45 e4          	movzwl -0x1c(%ebp),%eax
+    12d6:	83 e8 01             	sub    $0x1,%eax
+    12d9:	66 89 45 f4          	mov    %ax,-0xc(%ebp)
+    {
+      if (poly[j] > 0)
+    12dd:	0f b7 55 f4          	movzwl -0xc(%ebp),%edx
+    12e1:	8b 45 08             	mov    0x8(%ebp),%eax
+    12e4:	01 d0                	add    %edx,%eax
+    12e6:	0f b6 00             	movzbl (%eax),%eax
+    12e9:	84 c0                	test   %al,%al
+    12eb:	74 0a                	je     12f7 <_FindMaxDeg+0x4c>
+      {
+        maxDeg = j;
+    12ed:	0f b7 45 f4          	movzwl -0xc(%ebp),%eax
+    12f1:	66 89 45 f6          	mov    %ax,-0xa(%ebp)
+        break;
+    12f5:	eb 0d                	jmp    1304 <_FindMaxDeg+0x59>
+    for (j=len-1; j>=0; j--)
+    12f7:	0f b7 45 f4          	movzwl -0xc(%ebp),%eax
+    12fb:	83 e8 01             	sub    $0x1,%eax
+    12fe:	66 89 45 f4          	mov    %ax,-0xc(%ebp)
+      if (poly[j] > 0)
+    1302:	eb d9                	jmp    12dd <_FindMaxDeg+0x32>
+      }
+    }
+  }
+
+  return maxDeg;
+    1304:	0f b7 45 f6          	movzwl -0xa(%ebp),%eax
+}
+    1308:	c9                   	leave  
+    1309:	c3                   	ret    
+
+0000130a <_GetBasis>:
+ * @param[in] pParams pointer to reed-solomon parameters structure
+ * 
+ * @return maximum degree index
+ */
+static uint8_t GetBasis( const uint8_t * poly, const rs_par_t * pParams )
+{
+    130a:	55                   	push   %ebp
+    130b:	89 e5                	mov    %esp,%ebp
+    130d:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)GetBasis,WM_LEVEL_3);
+    1310:	c7 44 24 04 02 00 00 	movl   $0x2,0x4(%esp)
+    1317:	00 
+    1318:	c7 04 24 0a 13 00 00 	movl   $0x130a,(%esp)
+    131f:	e8 00 00 00 00       	call   1324 <_GetBasis+0x1a>
+
+  uint8_t basis = 0;
+    1324:	c6 45 f7 00          	movb   $0x0,-0x9(%ebp)
+  uint8_t j;
+
+  if (NULL != poly)
+    1328:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+    132c:	74 4d                	je     137b <_GetBasis+0x71>
+  {
+    for (j=0; j<pParams->m; j++)
+    132e:	c6 45 f6 00          	movb   $0x0,-0xa(%ebp)
+    1332:	eb 3a                	jmp    136e <_GetBasis+0x64>
+    {
+      basis |= (poly[j]<<(pParams->m-j-1));
+    1334:	0f b6 55 f6          	movzbl -0xa(%ebp),%edx
+    1338:	8b 45 08             	mov    0x8(%ebp),%eax
+    133b:	01 d0                	add    %edx,%eax
+    133d:	0f b6 00             	movzbl (%eax),%eax
+    1340:	0f b6 d0             	movzbl %al,%edx
+    1343:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1346:	8b 08                	mov    (%eax),%ecx
+    1348:	0f b6 45 f6          	movzbl -0xa(%ebp),%eax
+    134c:	29 c1                	sub    %eax,%ecx
+    134e:	89 c8                	mov    %ecx,%eax
+    1350:	83 e8 01             	sub    $0x1,%eax
+    1353:	89 c1                	mov    %eax,%ecx
+    1355:	d3 e2                	shl    %cl,%edx
+    1357:	89 d0                	mov    %edx,%eax
+    1359:	89 c2                	mov    %eax,%edx
+    135b:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+    135f:	09 d0                	or     %edx,%eax
+    1361:	88 45 f7             	mov    %al,-0x9(%ebp)
+    for (j=0; j<pParams->m; j++)
+    1364:	0f b6 45 f6          	movzbl -0xa(%ebp),%eax
+    1368:	83 c0 01             	add    $0x1,%eax
+    136b:	88 45 f6             	mov    %al,-0xa(%ebp)
+    136e:	0f b6 55 f6          	movzbl -0xa(%ebp),%edx
+    1372:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1375:	8b 00                	mov    (%eax),%eax
+    1377:	39 c2                	cmp    %eax,%edx
+    1379:	72 b9                	jb     1334 <_GetBasis+0x2a>
+    }
+  }
+
+  return basis;
+    137b:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+}
+    137f:	c9                   	leave  
+    1380:	c3                   	ret    
+
+00001381 <_ConvertBi2Sy>:
+ * @param[in] mapTable mapping table
+ * 
+ * @return corresponding GF symbol
+ */
+static uint8_t ConvertBi2Sy( uint8_t inBasis, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
+{
+    1381:	55                   	push   %ebp
+    1382:	89 e5                	mov    %esp,%ebp
+    1384:	83 ec 28             	sub    $0x28,%esp
+    1387:	8b 45 08             	mov    0x8(%ebp),%eax
+    138a:	88 45 f4             	mov    %al,-0xc(%ebp)
+  Debug_SetWatermark((void *)GetBasis,WM_LEVEL_3);
+    138d:	c7 44 24 04 02 00 00 	movl   $0x2,0x4(%esp)
+    1394:	00 
+    1395:	c7 04 24 0a 13 00 00 	movl   $0x130a,(%esp)
+    139c:	e8 00 00 00 00       	call   13a1 <_ConvertBi2Sy+0x20>
+
+  return mapTable[inBasis][RS_TABLE_IDX_SYM];
+    13a1:	0f b6 45 f4          	movzbl -0xc(%ebp),%eax
+    13a5:	8d 14 00             	lea    (%eax,%eax,1),%edx
+    13a8:	8b 45 0c             	mov    0xc(%ebp),%eax
+    13ab:	01 d0                	add    %edx,%eax
+    13ad:	0f b6 40 01          	movzbl 0x1(%eax),%eax
+}
+    13b1:	c9                   	leave  
+    13b2:	c3                   	ret    
+
+000013b3 <_ConvertSy2Bi>:
+ * @param[in] mapTable mapping table
+ * 
+ * @return corresponding bit basis
+ */
+static uint8_t ConvertSy2Bi( uint8_t inSymb, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
+{
+    13b3:	55                   	push   %ebp
+    13b4:	89 e5                	mov    %esp,%ebp
+    13b6:	83 ec 28             	sub    $0x28,%esp
+    13b9:	8b 45 08             	mov    0x8(%ebp),%eax
+    13bc:	88 45 f4             	mov    %al,-0xc(%ebp)
+  Debug_SetWatermark((void *)GetBasis,WM_LEVEL_3);
+    13bf:	c7 44 24 04 02 00 00 	movl   $0x2,0x4(%esp)
+    13c6:	00 
+    13c7:	c7 04 24 0a 13 00 00 	movl   $0x130a,(%esp)
+    13ce:	e8 00 00 00 00       	call   13d3 <_ConvertSy2Bi+0x20>
+
+  return mapTable[inSymb][RS_TABLE_IDX_BIT];
+    13d3:	0f b6 45 f4          	movzbl -0xc(%ebp),%eax
+    13d7:	8d 14 00             	lea    (%eax,%eax,1),%edx
+    13da:	8b 45 0c             	mov    0xc(%ebp),%eax
+    13dd:	01 d0                	add    %edx,%eax
+    13df:	0f b6 00             	movzbl (%eax),%eax
+}
+    13e2:	c9                   	leave  
+    13e3:	c3                   	ret    
+
+000013e4 <_AddGF>:
+ * @param[in] mapTable mapping table
+ * 
+ * @return bit basis resulting from addition
+ */
+static uint8_t AddGF( uint8_t symbA, uint8_t symbB, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
+{
+    13e4:	55                   	push   %ebp
+    13e5:	89 e5                	mov    %esp,%ebp
+    13e7:	83 ec 38             	sub    $0x38,%esp
+    13ea:	8b 55 08             	mov    0x8(%ebp),%edx
+    13ed:	8b 45 0c             	mov    0xc(%ebp),%eax
+    13f0:	88 55 e4             	mov    %dl,-0x1c(%ebp)
+    13f3:	88 45 e0             	mov    %al,-0x20(%ebp)
+  Debug_SetWatermark((void *)AddGF,WM_LEVEL_3);
+    13f6:	c7 44 24 04 02 00 00 	movl   $0x2,0x4(%esp)
+    13fd:	00 
+    13fe:	c7 04 24 e4 13 00 00 	movl   $0x13e4,(%esp)
+    1405:	e8 00 00 00 00       	call   140a <_AddGF+0x26>
+
+  uint8_t basisRes;
+
+  basisRes = mapTable[symbA][RS_TABLE_IDX_BIT]^mapTable[symbB][RS_TABLE_IDX_BIT];
+    140a:	0f b6 45 e4          	movzbl -0x1c(%ebp),%eax
+    140e:	8d 14 00             	lea    (%eax,%eax,1),%edx
+    1411:	8b 45 10             	mov    0x10(%ebp),%eax
+    1414:	01 d0                	add    %edx,%eax
+    1416:	0f b6 08             	movzbl (%eax),%ecx
+    1419:	0f b6 45 e0          	movzbl -0x20(%ebp),%eax
+    141d:	8d 14 00             	lea    (%eax,%eax,1),%edx
+    1420:	8b 45 10             	mov    0x10(%ebp),%eax
+    1423:	01 d0                	add    %edx,%eax
+    1425:	0f b6 00             	movzbl (%eax),%eax
+    1428:	31 c8                	xor    %ecx,%eax
+    142a:	88 45 f7             	mov    %al,-0x9(%ebp)
+
+  return mapTable[basisRes][RS_TABLE_IDX_SYM];
+    142d:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+    1431:	8d 14 00             	lea    (%eax,%eax,1),%edx
+    1434:	8b 45 10             	mov    0x10(%ebp),%eax
+    1437:	01 d0                	add    %edx,%eax
+    1439:	0f b6 40 01          	movzbl 0x1(%eax),%eax
+}
+    143d:	c9                   	leave  
+    143e:	c3                   	ret    
+
+0000143f <_MultiplyGF>:
+ * @param[in] pParams pointer to reed-solomon parameters structure
+ * 
+ * @return bit basis resulting from multiplication
+ */
+static uint8_t MultiplyGF( uint8_t symbA, uint8_t symbB, const rs_par_t * pParams )
+{
+    143f:	55                   	push   %ebp
+    1440:	89 e5                	mov    %esp,%ebp
+    1442:	83 ec 38             	sub    $0x38,%esp
+    1445:	8b 55 08             	mov    0x8(%ebp),%edx
+    1448:	8b 45 0c             	mov    0xc(%ebp),%eax
+    144b:	88 55 e4             	mov    %dl,-0x1c(%ebp)
+    144e:	88 45 e0             	mov    %al,-0x20(%ebp)
+  Debug_SetWatermark((void *)MultiplyGF,WM_LEVEL_3);
+    1451:	c7 44 24 04 02 00 00 	movl   $0x2,0x4(%esp)
+    1458:	00 
+    1459:	c7 04 24 3f 14 00 00 	movl   $0x143f,(%esp)
+    1460:	e8 00 00 00 00       	call   1465 <_MultiplyGF+0x26>
+
+  uint8_t symbRes = 0;
+    1465:	c6 45 f7 00          	movb   $0x0,-0x9(%ebp)
+  
+  if ((symbA != 0) && (symbB != 0))
+    1469:	80 7d e4 00          	cmpb   $0x0,-0x1c(%ebp)
+    146d:	74 2d                	je     149c <_MultiplyGF+0x5d>
+    146f:	80 7d e0 00          	cmpb   $0x0,-0x20(%ebp)
+    1473:	74 27                	je     149c <_MultiplyGF+0x5d>
+  {
+    symbRes = ((symbA+symbB-2)%(pParams->dimGF-1))+1;
+    1475:	0f b6 55 e4          	movzbl -0x1c(%ebp),%edx
+    1479:	0f b6 45 e0          	movzbl -0x20(%ebp),%eax
+    147d:	01 d0                	add    %edx,%eax
+    147f:	8d 50 fe             	lea    -0x2(%eax),%edx
+    1482:	8b 45 10             	mov    0x10(%ebp),%eax
+    1485:	0f b7 40 0c          	movzwl 0xc(%eax),%eax
+    1489:	0f b7 c0             	movzwl %ax,%eax
+    148c:	8d 48 ff             	lea    -0x1(%eax),%ecx
+    148f:	89 d0                	mov    %edx,%eax
+    1491:	99                   	cltd   
+    1492:	f7 f9                	idiv   %ecx
+    1494:	89 d0                	mov    %edx,%eax
+    1496:	83 c0 01             	add    $0x1,%eax
+    1499:	88 45 f7             	mov    %al,-0x9(%ebp)
+  }
+
+  return symbRes;
+    149c:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+}
+    14a0:	c9                   	leave  
+    14a1:	c3                   	ret    
+
+000014a2 <_PowerGF>:
+ * @param[in] pParams pointer to reed-solomon parameters structure
+ * 
+ * @return GF stmbol resulting from power raising
+ */
+static uint8_t PowerGF( uint8_t symbBase, int16_t exp, const rs_par_t * pParams )
+{
+    14a2:	55                   	push   %ebp
+    14a3:	89 e5                	mov    %esp,%ebp
+    14a5:	83 ec 38             	sub    $0x38,%esp
+    14a8:	8b 55 08             	mov    0x8(%ebp),%edx
+    14ab:	8b 45 0c             	mov    0xc(%ebp),%eax
+    14ae:	88 55 e4             	mov    %dl,-0x1c(%ebp)
+    14b1:	66 89 45 e0          	mov    %ax,-0x20(%ebp)
+  Debug_SetWatermark((void *)PowerGF,WM_LEVEL_3);
+    14b5:	c7 44 24 04 02 00 00 	movl   $0x2,0x4(%esp)
+    14bc:	00 
+    14bd:	c7 04 24 a2 14 00 00 	movl   $0x14a2,(%esp)
+    14c4:	e8 00 00 00 00       	call   14c9 <_PowerGF+0x27>
+  
+  uint8_t symbRes;
+  int16_t tmpVal;
+
+  if ((0 == symbBase) || (1 == symbBase))
+    14c9:	80 7d e4 00          	cmpb   $0x0,-0x1c(%ebp)
+    14cd:	74 06                	je     14d5 <_PowerGF+0x33>
+    14cf:	80 7d e4 01          	cmpb   $0x1,-0x1c(%ebp)
+    14d3:	75 09                	jne    14de <_PowerGF+0x3c>
+  {
+    symbRes = symbBase;
+    14d5:	0f b6 45 e4          	movzbl -0x1c(%ebp),%eax
+    14d9:	88 45 f7             	mov    %al,-0x9(%ebp)
+    14dc:	eb 49                	jmp    1527 <_PowerGF+0x85>
+  }
+  else
+  {
+    tmpVal = ((int16_t) (((symbBase-1)*exp)%(pParams->dimGF-1)));
+    14de:	0f b6 45 e4          	movzbl -0x1c(%ebp),%eax
+    14e2:	8d 50 ff             	lea    -0x1(%eax),%edx
+    14e5:	0f bf 45 e0          	movswl -0x20(%ebp),%eax
+    14e9:	0f af c2             	imul   %edx,%eax
+    14ec:	8b 55 10             	mov    0x10(%ebp),%edx
+    14ef:	0f b7 52 0c          	movzwl 0xc(%edx),%edx
+    14f3:	0f b7 d2             	movzwl %dx,%edx
+    14f6:	8d 4a ff             	lea    -0x1(%edx),%ecx
+    14f9:	99                   	cltd   
+    14fa:	f7 f9                	idiv   %ecx
+    14fc:	89 d0                	mov    %edx,%eax
+    14fe:	66 89 45 f4          	mov    %ax,-0xc(%ebp)
+    if (exp < 0)
+    1502:	66 83 7d e0 00       	cmpw   $0x0,-0x20(%ebp)
+    1507:	79 14                	jns    151d <_PowerGF+0x7b>
+    {
+      symbRes = ((uint8_t) (tmpVal+pParams->dimGF));
+    1509:	0f b7 45 f4          	movzwl -0xc(%ebp),%eax
+    150d:	89 c2                	mov    %eax,%edx
+    150f:	8b 45 10             	mov    0x10(%ebp),%eax
+    1512:	0f b7 40 0c          	movzwl 0xc(%eax),%eax
+    1516:	01 d0                	add    %edx,%eax
+    1518:	88 45 f7             	mov    %al,-0x9(%ebp)
+    151b:	eb 0a                	jmp    1527 <_PowerGF+0x85>
+    }
+    else
+    {
+      symbRes = ((uint8_t) (tmpVal+1));
+    151d:	0f b7 45 f4          	movzwl -0xc(%ebp),%eax
+    1521:	83 c0 01             	add    $0x1,%eax
+    1524:	88 45 f7             	mov    %al,-0x9(%ebp)
+    }
+  }
+
+  return symbRes;
+    1527:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+}
+    152b:	c9                   	leave  
+    152c:	c3                   	ret    
+
+0000152d <_GetSyndrome>:
+ * @param[in] mapTable mapping table
+ * 
+ * @return flag notifying if a corrupted symbol has been detected
+ */
+static bool GetSyndrome( const uint8_t * cwSymbs, uint8_t * syndrome, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
+{
+    152d:	55                   	push   %ebp
+    152e:	89 e5                	mov    %esp,%ebp
+    1530:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)GetSyndrome,WM_LEVEL_2);
+    1533:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+    153a:	00 
+    153b:	c7 04 24 2d 15 00 00 	movl   $0x152d,(%esp)
+    1542:	e8 00 00 00 00       	call   1547 <_GetSyndrome+0x1a>
+
+  uint16_t i;
+  int16_t j;
+  uint8_t sum;
+  bool errFlag = false;
+    1547:	c6 45 f2 00          	movb   $0x0,-0xe(%ebp)
+
+  if ((NULL != cwSymbs) && (NULL != syndrome) && (NULL != pParams))
+    154b:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+    154f:	0f 84 ec 00 00 00    	je     1641 <_GetSyndrome+0x114>
+    1555:	83 7d 0c 00          	cmpl   $0x0,0xc(%ebp)
+    1559:	0f 84 e2 00 00 00    	je     1641 <_GetSyndrome+0x114>
+    155f:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+    1563:	0f 84 d8 00 00 00    	je     1641 <_GetSyndrome+0x114>
+  {
+    for (i=0; i<2*pParams->t; i++)                                            /** - compute syndrome polynomial Syndr(x) as Cw(x) for x = a, a^2, ..., a^2t */
+    1569:	66 c7 45 f6 00 00    	movw   $0x0,-0xa(%ebp)
+    156f:	e9 b5 00 00 00       	jmp    1629 <_GetSyndrome+0xfc>
+    {
+      sum = cwSymbs[0];
+    1574:	8b 45 08             	mov    0x8(%ebp),%eax
+    1577:	0f b6 00             	movzbl (%eax),%eax
+    157a:	88 45 f3             	mov    %al,-0xd(%ebp)
+
+      for (j=1; j<pParams->nUn; j++)
+    157d:	66 c7 45 f4 01 00    	movw   $0x1,-0xc(%ebp)
+    1583:	eb 6e                	jmp    15f3 <_GetSyndrome+0xc6>
+      {
+        sum = AddGF(sum,MultiplyGF(cwSymbs[j],PowerGF(i+2,j,pParams),pParams),mapTable);
+    1585:	0f bf 55 f4          	movswl -0xc(%ebp),%edx
+    1589:	0f b7 45 f6          	movzwl -0xa(%ebp),%eax
+    158d:	83 c0 02             	add    $0x2,%eax
+    1590:	0f b6 c0             	movzbl %al,%eax
+    1593:	8b 4d 10             	mov    0x10(%ebp),%ecx
+    1596:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+    159a:	89 54 24 04          	mov    %edx,0x4(%esp)
+    159e:	89 04 24             	mov    %eax,(%esp)
+    15a1:	e8 fc fe ff ff       	call   14a2 <_PowerGF>
+    15a6:	0f b6 d0             	movzbl %al,%edx
+    15a9:	0f bf 4d f4          	movswl -0xc(%ebp),%ecx
+    15ad:	8b 45 08             	mov    0x8(%ebp),%eax
+    15b0:	01 c8                	add    %ecx,%eax
+    15b2:	0f b6 00             	movzbl (%eax),%eax
+    15b5:	0f b6 c0             	movzbl %al,%eax
+    15b8:	8b 4d 10             	mov    0x10(%ebp),%ecx
+    15bb:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+    15bf:	89 54 24 04          	mov    %edx,0x4(%esp)
+    15c3:	89 04 24             	mov    %eax,(%esp)
+    15c6:	e8 74 fe ff ff       	call   143f <_MultiplyGF>
+    15cb:	0f b6 d0             	movzbl %al,%edx
+    15ce:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
+    15d2:	8b 4d 14             	mov    0x14(%ebp),%ecx
+    15d5:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+    15d9:	89 54 24 04          	mov    %edx,0x4(%esp)
+    15dd:	89 04 24             	mov    %eax,(%esp)
+    15e0:	e8 ff fd ff ff       	call   13e4 <_AddGF>
+    15e5:	88 45 f3             	mov    %al,-0xd(%ebp)
+      for (j=1; j<pParams->nUn; j++)
+    15e8:	0f b7 45 f4          	movzwl -0xc(%ebp),%eax
+    15ec:	83 c0 01             	add    $0x1,%eax
+    15ef:	66 89 45 f4          	mov    %ax,-0xc(%ebp)
+    15f3:	0f bf 55 f4          	movswl -0xc(%ebp),%edx
+    15f7:	8b 45 10             	mov    0x10(%ebp),%eax
+    15fa:	0f b7 40 0a          	movzwl 0xa(%eax),%eax
+    15fe:	0f b7 c0             	movzwl %ax,%eax
+    1601:	39 c2                	cmp    %eax,%edx
+    1603:	7c 80                	jl     1585 <_GetSyndrome+0x58>
+      }
+
+      syndrome[i] = sum;
+    1605:	0f b7 55 f6          	movzwl -0xa(%ebp),%edx
+    1609:	8b 45 0c             	mov    0xc(%ebp),%eax
+    160c:	01 c2                	add    %eax,%edx
+    160e:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
+    1612:	88 02                	mov    %al,(%edx)
+
+      if (sum != 0)
+    1614:	80 7d f3 00          	cmpb   $0x0,-0xd(%ebp)
+    1618:	74 04                	je     161e <_GetSyndrome+0xf1>
+      {
+        errFlag = true;                                                       /** - assert error flag if one coefficient is not equal to 0 */
+    161a:	c6 45 f2 01          	movb   $0x1,-0xe(%ebp)
+    for (i=0; i<2*pParams->t; i++)                                            /** - compute syndrome polynomial Syndr(x) as Cw(x) for x = a, a^2, ..., a^2t */
+    161e:	0f b7 45 f6          	movzwl -0xa(%ebp),%eax
+    1622:	83 c0 01             	add    $0x1,%eax
+    1625:	66 89 45 f6          	mov    %ax,-0xa(%ebp)
+    1629:	0f b7 55 f6          	movzwl -0xa(%ebp),%edx
+    162d:	8b 45 10             	mov    0x10(%ebp),%eax
+    1630:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    1634:	0f b6 c0             	movzbl %al,%eax
+    1637:	01 c0                	add    %eax,%eax
+    1639:	39 c2                	cmp    %eax,%edx
+    163b:	0f 8c 33 ff ff ff    	jl     1574 <_GetSyndrome+0x47>
+      }
+    }
+  }
+
+  return errFlag;
+    1641:	0f b6 45 f2          	movzbl -0xe(%ebp),%eax
+}
+    1645:	c9                   	leave  
+    1646:	c3                   	ret    
+
+00001647 <_BerlekampMasseyAlgorithm>:
+ * @param[in] mapTable mapping table
+ * 
+ * @return error ID
+ */
+static error_t BerlekampMasseyAlgorithm( uint8_t * sigma, const uint8_t * syndrome, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
+{
+    1647:	55                   	push   %ebp
+    1648:	89 e5                	mov    %esp,%ebp
+    164a:	57                   	push   %edi
+    164b:	56                   	push   %esi
+    164c:	53                   	push   %ebx
+    164d:	83 ec 4c             	sub    $0x4c,%esp
+    1650:	89 e0                	mov    %esp,%eax
+    1652:	89 c7                	mov    %eax,%edi
+  Debug_SetWatermark((void *)BerlekampMasseyAlgorithm,WM_LEVEL_2);
+    1654:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+    165b:	00 
+    165c:	c7 04 24 47 16 00 00 	movl   $0x1647,(%esp)
+    1663:	e8 00 00 00 00       	call   1668 <_BerlekampMasseyAlgorithm+0x21>
+
+  error_t retErr = ERR_NONE;
+    1668:	c7 45 e4 00 00 00 00 	movl   $0x0,-0x1c(%ebp)
+  int16_t curErr = 0;                                                         /** - number of assumed errors at current iteration (Ec) */
+    166f:	66 c7 45 e2 00 00    	movw   $0x0,-0x1e(%ebp)
+  int16_t nextErr;                                                            /** - number of assumed errors at next iteration (En) */
+  int16_t delta;
+  int16_t h = -1;                                                             /** - error iteration counter */
+    1675:	66 c7 45 e0 ff ff    	movw   $0xffff,-0x20(%ebp)
+  uint8_t tmpSigma[pParams->t+1];                                             /** - temporary sigma polynomial (at next iteration) */
+    167b:	8b 45 10             	mov    0x10(%ebp),%eax
+    167e:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    1682:	0f b6 c0             	movzbl %al,%eax
+    1685:	89 45 d8             	mov    %eax,-0x28(%ebp)
+    1688:	8b 45 10             	mov    0x10(%ebp),%eax
+    168b:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    168f:	0f b6 c0             	movzbl %al,%eax
+    1692:	8d 50 01             	lea    0x1(%eax),%edx
+    1695:	b8 10 00 00 00       	mov    $0x10,%eax
+    169a:	83 e8 01             	sub    $0x1,%eax
+    169d:	01 d0                	add    %edx,%eax
+    169f:	be 10 00 00 00       	mov    $0x10,%esi
+    16a4:	ba 00 00 00 00       	mov    $0x0,%edx
+    16a9:	f7 f6                	div    %esi
+    16ab:	6b c0 10             	imul   $0x10,%eax,%eax
+    16ae:	e8 00 00 00 00       	call   16b3 <_BerlekampMasseyAlgorithm+0x6c>
+    16b3:	29 c4                	sub    %eax,%esp
+    16b5:	8d 44 24 18          	lea    0x18(%esp),%eax
+    16b9:	83 c0 00             	add    $0x0,%eax
+    16bc:	89 45 d4             	mov    %eax,-0x2c(%ebp)
+  uint8_t tau[pParams->t+1];                                                  /** - Tau(x) polynomial */
+    16bf:	8b 45 10             	mov    0x10(%ebp),%eax
+    16c2:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    16c6:	0f b6 c0             	movzbl %al,%eax
+    16c9:	89 45 d0             	mov    %eax,-0x30(%ebp)
+    16cc:	8b 45 10             	mov    0x10(%ebp),%eax
+    16cf:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    16d3:	0f b6 c0             	movzbl %al,%eax
+    16d6:	8d 50 01             	lea    0x1(%eax),%edx
+    16d9:	b8 10 00 00 00       	mov    $0x10,%eax
+    16de:	83 e8 01             	sub    $0x1,%eax
+    16e1:	01 d0                	add    %edx,%eax
+    16e3:	bb 10 00 00 00       	mov    $0x10,%ebx
+    16e8:	ba 00 00 00 00       	mov    $0x0,%edx
+    16ed:	f7 f3                	div    %ebx
+    16ef:	6b c0 10             	imul   $0x10,%eax,%eax
+    16f2:	e8 00 00 00 00       	call   16f7 <_BerlekampMasseyAlgorithm+0xb0>
+    16f7:	29 c4                	sub    %eax,%esp
+    16f9:	8d 44 24 18          	lea    0x18(%esp),%eax
+    16fd:	83 c0 00             	add    $0x0,%eax
+    1700:	89 45 cc             	mov    %eax,-0x34(%ebp)
+  uint8_t i, j;
+
+  if ((NULL != sigma) && (NULL != syndrome) && (NULL != pParams) && (NULL != mapTable))
+    1703:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+    1707:	0f 84 7e 02 00 00    	je     198b <_BerlekampMasseyAlgorithm+0x344>
+    170d:	83 7d 0c 00          	cmpl   $0x0,0xc(%ebp)
+    1711:	0f 84 74 02 00 00    	je     198b <_BerlekampMasseyAlgorithm+0x344>
+    1717:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+    171b:	0f 84 6a 02 00 00    	je     198b <_BerlekampMasseyAlgorithm+0x344>
+    1721:	83 7d 14 00          	cmpl   $0x0,0x14(%ebp)
+    1725:	0f 84 60 02 00 00    	je     198b <_BerlekampMasseyAlgorithm+0x344>
+  {
+    memset(tau,0,pParams->t+1);
+    172b:	8b 45 10             	mov    0x10(%ebp),%eax
+    172e:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    1732:	0f b6 c0             	movzbl %al,%eax
+    1735:	83 c0 01             	add    $0x1,%eax
+    1738:	89 c2                	mov    %eax,%edx
+    173a:	8b 45 cc             	mov    -0x34(%ebp),%eax
+    173d:	89 54 24 08          	mov    %edx,0x8(%esp)
+    1741:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+    1748:	00 
+    1749:	89 04 24             	mov    %eax,(%esp)
+    174c:	e8 00 00 00 00       	call   1751 <_BerlekampMasseyAlgorithm+0x10a>
+    memset(sigma,0,pParams->t+1);
+    1751:	8b 45 10             	mov    0x10(%ebp),%eax
+    1754:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    1758:	0f b6 c0             	movzbl %al,%eax
+    175b:	83 c0 01             	add    $0x1,%eax
+    175e:	89 44 24 08          	mov    %eax,0x8(%esp)
+    1762:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+    1769:	00 
+    176a:	8b 45 08             	mov    0x8(%ebp),%eax
+    176d:	89 04 24             	mov    %eax,(%esp)
+    1770:	e8 00 00 00 00       	call   1775 <_BerlekampMasseyAlgorithm+0x12e>
+    tau[1] = 1;
+    1775:	8b 45 cc             	mov    -0x34(%ebp),%eax
+    1778:	c6 40 01 01          	movb   $0x1,0x1(%eax)
+    sigma[0] = 1;
+    177c:	8b 45 08             	mov    0x8(%ebp),%eax
+    177f:	c6 00 01             	movb   $0x1,(%eax)
+
+    for (i=0; i<2*pParams->t; i++)
+    1782:	c6 45 df 00          	movb   $0x0,-0x21(%ebp)
+    1786:	e9 e6 01 00 00       	jmp    1971 <_BerlekampMasseyAlgorithm+0x32a>
+    {
+      if (curErr <= pParams->t)
+    178b:	0f bf 55 e2          	movswl -0x1e(%ebp),%edx
+    178f:	8b 45 10             	mov    0x10(%ebp),%eax
+    1792:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    1796:	0f b6 c0             	movzbl %al,%eax
+    1799:	39 c2                	cmp    %eax,%edx
+    179b:	0f 8f c6 01 00 00    	jg     1967 <_BerlekampMasseyAlgorithm+0x320>
+      {
+        delta = GetDiscrepancy(syndrome,sigma,curErr,i,pParams,mapTable);
+    17a1:	0f b6 55 df          	movzbl -0x21(%ebp),%edx
+    17a5:	0f bf 45 e2          	movswl -0x1e(%ebp),%eax
+    17a9:	8b 4d 14             	mov    0x14(%ebp),%ecx
+    17ac:	89 4c 24 14          	mov    %ecx,0x14(%esp)
+    17b0:	8b 4d 10             	mov    0x10(%ebp),%ecx
+    17b3:	89 4c 24 10          	mov    %ecx,0x10(%esp)
+    17b7:	89 54 24 0c          	mov    %edx,0xc(%esp)
+    17bb:	89 44 24 08          	mov    %eax,0x8(%esp)
+    17bf:	8b 45 08             	mov    0x8(%ebp),%eax
+    17c2:	89 44 24 04          	mov    %eax,0x4(%esp)
+    17c6:	8b 45 0c             	mov    0xc(%ebp),%eax
+    17c9:	89 04 24             	mov    %eax,(%esp)
+    17cc:	e8 d6 01 00 00       	call   19a7 <_GetDiscrepancy>
+    17d1:	66 89 45 ca          	mov    %ax,-0x36(%ebp)
+
+        if (delta != 0)
+    17d5:	66 83 7d ca 00       	cmpw   $0x0,-0x36(%ebp)
+    17da:	0f 84 5e 01 00 00    	je     193e <_BerlekampMasseyAlgorithm+0x2f7>
+        {
+          for (j=0; j<pParams->t+1; j++)
+    17e0:	c6 45 de 00          	movb   $0x0,-0x22(%ebp)
+    17e4:	eb 63                	jmp    1849 <_BerlekampMasseyAlgorithm+0x202>
+          {
+            tmpSigma[j] = AddGF(sigma[j],MultiplyGF(delta,tau[j],pParams),mapTable);
+    17e6:	0f b6 5d de          	movzbl -0x22(%ebp),%ebx
+    17ea:	0f b6 45 de          	movzbl -0x22(%ebp),%eax
+    17ee:	8b 55 cc             	mov    -0x34(%ebp),%edx
+    17f1:	0f b6 04 02          	movzbl (%edx,%eax,1),%eax
+    17f5:	0f b6 d0             	movzbl %al,%edx
+    17f8:	0f b7 45 ca          	movzwl -0x36(%ebp),%eax
+    17fc:	0f b6 c0             	movzbl %al,%eax
+    17ff:	8b 4d 10             	mov    0x10(%ebp),%ecx
+    1802:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+    1806:	89 54 24 04          	mov    %edx,0x4(%esp)
+    180a:	89 04 24             	mov    %eax,(%esp)
+    180d:	e8 2d fc ff ff       	call   143f <_MultiplyGF>
+    1812:	0f b6 d0             	movzbl %al,%edx
+    1815:	0f b6 4d de          	movzbl -0x22(%ebp),%ecx
+    1819:	8b 45 08             	mov    0x8(%ebp),%eax
+    181c:	01 c8                	add    %ecx,%eax
+    181e:	0f b6 00             	movzbl (%eax),%eax
+    1821:	0f b6 c0             	movzbl %al,%eax
+    1824:	8b 4d 14             	mov    0x14(%ebp),%ecx
+    1827:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+    182b:	89 54 24 04          	mov    %edx,0x4(%esp)
+    182f:	89 04 24             	mov    %eax,(%esp)
+    1832:	e8 ad fb ff ff       	call   13e4 <_AddGF>
+    1837:	89 c2                	mov    %eax,%edx
+    1839:	8b 45 d4             	mov    -0x2c(%ebp),%eax
+    183c:	88 14 18             	mov    %dl,(%eax,%ebx,1)
+          for (j=0; j<pParams->t+1; j++)
+    183f:	0f b6 45 de          	movzbl -0x22(%ebp),%eax
+    1843:	83 c0 01             	add    $0x1,%eax
+    1846:	88 45 de             	mov    %al,-0x22(%ebp)
+    1849:	0f b6 55 de          	movzbl -0x22(%ebp),%edx
+    184d:	8b 45 10             	mov    0x10(%ebp),%eax
+    1850:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    1854:	0f b6 c0             	movzbl %al,%eax
+    1857:	83 c0 01             	add    $0x1,%eax
+    185a:	39 c2                	cmp    %eax,%edx
+    185c:	7c 88                	jl     17e6 <_BerlekampMasseyAlgorithm+0x19f>
+          }
+
+          if (curErr < (i-h))
+    185e:	0f bf 45 e2          	movswl -0x1e(%ebp),%eax
+    1862:	0f b6 4d df          	movzbl -0x21(%ebp),%ecx
+    1866:	0f bf 55 e0          	movswl -0x20(%ebp),%edx
+    186a:	29 d1                	sub    %edx,%ecx
+    186c:	89 ca                	mov    %ecx,%edx
+    186e:	39 d0                	cmp    %edx,%eax
+    1870:	0f 8d a3 00 00 00    	jge    1919 <_BerlekampMasseyAlgorithm+0x2d2>
+          {
+            nextErr = i-h;
+    1876:	0f b6 55 df          	movzbl -0x21(%ebp),%edx
+    187a:	0f b7 45 e0          	movzwl -0x20(%ebp),%eax
+    187e:	29 c2                	sub    %eax,%edx
+    1880:	89 d0                	mov    %edx,%eax
+    1882:	66 89 45 c8          	mov    %ax,-0x38(%ebp)
+            h = i-curErr;
+    1886:	0f b6 55 df          	movzbl -0x21(%ebp),%edx
+    188a:	0f b7 45 e2          	movzwl -0x1e(%ebp),%eax
+    188e:	29 c2                	sub    %eax,%edx
+    1890:	89 d0                	mov    %edx,%eax
+    1892:	66 89 45 e0          	mov    %ax,-0x20(%ebp)
+            
+            for (j=0; j<pParams->t+1; j++)
+    1896:	c6 45 de 00          	movb   $0x0,-0x22(%ebp)
+    189a:	eb 60                	jmp    18fc <_BerlekampMasseyAlgorithm+0x2b5>
+            {
+              tau[j] = MultiplyGF(PowerGF(2,-delta+1,pParams),sigma[j],pParams);
+    189c:	0f b6 5d de          	movzbl -0x22(%ebp),%ebx
+    18a0:	0f b6 55 de          	movzbl -0x22(%ebp),%edx
+    18a4:	8b 45 08             	mov    0x8(%ebp),%eax
+    18a7:	01 d0                	add    %edx,%eax
+    18a9:	0f b6 00             	movzbl (%eax),%eax
+    18ac:	0f b6 f0             	movzbl %al,%esi
+    18af:	0f b7 45 ca          	movzwl -0x36(%ebp),%eax
+    18b3:	ba 01 00 00 00       	mov    $0x1,%edx
+    18b8:	29 c2                	sub    %eax,%edx
+    18ba:	89 d0                	mov    %edx,%eax
+    18bc:	98                   	cwtl   
+    18bd:	8b 55 10             	mov    0x10(%ebp),%edx
+    18c0:	89 54 24 08          	mov    %edx,0x8(%esp)
+    18c4:	89 44 24 04          	mov    %eax,0x4(%esp)
+    18c8:	c7 04 24 02 00 00 00 	movl   $0x2,(%esp)
+    18cf:	e8 ce fb ff ff       	call   14a2 <_PowerGF>
+    18d4:	0f b6 c0             	movzbl %al,%eax
+    18d7:	8b 55 10             	mov    0x10(%ebp),%edx
+    18da:	89 54 24 08          	mov    %edx,0x8(%esp)
+    18de:	89 74 24 04          	mov    %esi,0x4(%esp)
+    18e2:	89 04 24             	mov    %eax,(%esp)
+    18e5:	e8 55 fb ff ff       	call   143f <_MultiplyGF>
+    18ea:	89 c2                	mov    %eax,%edx
+    18ec:	8b 45 cc             	mov    -0x34(%ebp),%eax
+    18ef:	88 14 18             	mov    %dl,(%eax,%ebx,1)
+            for (j=0; j<pParams->t+1; j++)
+    18f2:	0f b6 45 de          	movzbl -0x22(%ebp),%eax
+    18f6:	83 c0 01             	add    $0x1,%eax
+    18f9:	88 45 de             	mov    %al,-0x22(%ebp)
+    18fc:	0f b6 55 de          	movzbl -0x22(%ebp),%edx
+    1900:	8b 45 10             	mov    0x10(%ebp),%eax
+    1903:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    1907:	0f b6 c0             	movzbl %al,%eax
+    190a:	83 c0 01             	add    $0x1,%eax
+    190d:	39 c2                	cmp    %eax,%edx
+    190f:	7c 8b                	jl     189c <_BerlekampMasseyAlgorithm+0x255>
+            }
+
+            curErr = nextErr;
+    1911:	0f b7 45 c8          	movzwl -0x38(%ebp),%eax
+    1915:	66 89 45 e2          	mov    %ax,-0x1e(%ebp)
+          }
+
+          memcpy(sigma,tmpSigma,pParams->t+1);
+    1919:	8b 45 10             	mov    0x10(%ebp),%eax
+    191c:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    1920:	0f b6 c0             	movzbl %al,%eax
+    1923:	83 c0 01             	add    $0x1,%eax
+    1926:	89 c2                	mov    %eax,%edx
+    1928:	8b 45 d4             	mov    -0x2c(%ebp),%eax
+    192b:	89 54 24 08          	mov    %edx,0x8(%esp)
+    192f:	89 44 24 04          	mov    %eax,0x4(%esp)
+    1933:	8b 45 08             	mov    0x8(%ebp),%eax
+    1936:	89 04 24             	mov    %eax,(%esp)
+    1939:	e8 00 00 00 00       	call   193e <_BerlekampMasseyAlgorithm+0x2f7>
+        }
+
+        memcpy(&tau[1],tau,pParams->t);
+    193e:	8b 45 10             	mov    0x10(%ebp),%eax
+    1941:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    1945:	0f b6 d0             	movzbl %al,%edx
+    1948:	8b 45 cc             	mov    -0x34(%ebp),%eax
+    194b:	8b 4d cc             	mov    -0x34(%ebp),%ecx
+    194e:	83 c1 01             	add    $0x1,%ecx
+    1951:	89 54 24 08          	mov    %edx,0x8(%esp)
+    1955:	89 44 24 04          	mov    %eax,0x4(%esp)
+    1959:	89 0c 24             	mov    %ecx,(%esp)
+    195c:	e8 00 00 00 00       	call   1961 <_BerlekampMasseyAlgorithm+0x31a>
+        tau[0] = 0;
+    1961:	8b 45 cc             	mov    -0x34(%ebp),%eax
+    1964:	c6 00 00             	movb   $0x0,(%eax)
+    for (i=0; i<2*pParams->t; i++)
+    1967:	0f b6 45 df          	movzbl -0x21(%ebp),%eax
+    196b:	83 c0 01             	add    $0x1,%eax
+    196e:	88 45 df             	mov    %al,-0x21(%ebp)
+    1971:	0f b6 55 df          	movzbl -0x21(%ebp),%edx
+    1975:	8b 45 10             	mov    0x10(%ebp),%eax
+    1978:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    197c:	0f b6 c0             	movzbl %al,%eax
+    197f:	01 c0                	add    %eax,%eax
+    1981:	39 c2                	cmp    %eax,%edx
+    1983:	0f 8c 02 fe ff ff    	jl     178b <_BerlekampMasseyAlgorithm+0x144>
+  if ((NULL != sigma) && (NULL != syndrome) && (NULL != pParams) && (NULL != mapTable))
+    1989:	eb 07                	jmp    1992 <_BerlekampMasseyAlgorithm+0x34b>
+      }
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+    198b:	c7 45 e4 01 00 00 00 	movl   $0x1,-0x1c(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+    1992:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+    1995:	89 04 24             	mov    %eax,(%esp)
+    1998:	e8 00 00 00 00       	call   199d <_BerlekampMasseyAlgorithm+0x356>
+    199d:	89 fc                	mov    %edi,%esp
+}
+    199f:	8d 65 f4             	lea    -0xc(%ebp),%esp
+    19a2:	5b                   	pop    %ebx
+    19a3:	5e                   	pop    %esi
+    19a4:	5f                   	pop    %edi
+    19a5:	5d                   	pop    %ebp
+    19a6:	c3                   	ret    
+
+000019a7 <_GetDiscrepancy>:
+ * @param[in] mapTable mapping table
+ * 
+ * @return discrepancy value
+ */
+static int16_t GetDiscrepancy( const uint8_t * syndrome, const uint8_t * sigma, int16_t errNum, uint8_t iter, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
+{
+    19a7:	55                   	push   %ebp
+    19a8:	89 e5                	mov    %esp,%ebp
+    19aa:	83 ec 38             	sub    $0x38,%esp
+    19ad:	8b 55 10             	mov    0x10(%ebp),%edx
+    19b0:	8b 45 14             	mov    0x14(%ebp),%eax
+    19b3:	66 89 55 e4          	mov    %dx,-0x1c(%ebp)
+    19b7:	88 45 e0             	mov    %al,-0x20(%ebp)
+  Debug_SetWatermark((void *)GetDiscrepancy,WM_LEVEL_2);
+    19ba:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+    19c1:	00 
+    19c2:	c7 04 24 a7 19 00 00 	movl   $0x19a7,(%esp)
+    19c9:	e8 00 00 00 00       	call   19ce <_GetDiscrepancy+0x27>
+  
+  int16_t delta = 0;
+    19ce:	66 c7 45 f6 00 00    	movw   $0x0,-0xa(%ebp)
+  uint8_t j;
+  
+  if ((NULL != syndrome) && (NULL != sigma) && (NULL != pParams) && (NULL != mapTable))
+    19d4:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+    19d8:	0f 84 98 00 00 00    	je     1a76 <_GetDiscrepancy+0xcf>
+    19de:	83 7d 0c 00          	cmpl   $0x0,0xc(%ebp)
+    19e2:	0f 84 8e 00 00 00    	je     1a76 <_GetDiscrepancy+0xcf>
+    19e8:	83 7d 18 00          	cmpl   $0x0,0x18(%ebp)
+    19ec:	0f 84 84 00 00 00    	je     1a76 <_GetDiscrepancy+0xcf>
+    19f2:	83 7d 1c 00          	cmpl   $0x0,0x1c(%ebp)
+    19f6:	74 7e                	je     1a76 <_GetDiscrepancy+0xcf>
+  {
+    for (j=0; j<errNum+1; j++)
+    19f8:	c6 45 f5 00          	movb   $0x0,-0xb(%ebp)
+    19fc:	eb 69                	jmp    1a67 <_GetDiscrepancy+0xc0>
+    {
+      delta = AddGF(delta,MultiplyGF(sigma[j],syndrome[iter-j],pParams),mapTable);
+    19fe:	0f b6 55 e0          	movzbl -0x20(%ebp),%edx
+    1a02:	0f b6 45 f5          	movzbl -0xb(%ebp),%eax
+    1a06:	29 c2                	sub    %eax,%edx
+    1a08:	89 d0                	mov    %edx,%eax
+    1a0a:	89 c2                	mov    %eax,%edx
+    1a0c:	8b 45 08             	mov    0x8(%ebp),%eax
+    1a0f:	01 d0                	add    %edx,%eax
+    1a11:	0f b6 00             	movzbl (%eax),%eax
+    1a14:	0f b6 d0             	movzbl %al,%edx
+    1a17:	0f b6 4d f5          	movzbl -0xb(%ebp),%ecx
+    1a1b:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1a1e:	01 c8                	add    %ecx,%eax
+    1a20:	0f b6 00             	movzbl (%eax),%eax
+    1a23:	0f b6 c0             	movzbl %al,%eax
+    1a26:	8b 4d 18             	mov    0x18(%ebp),%ecx
+    1a29:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+    1a2d:	89 54 24 04          	mov    %edx,0x4(%esp)
+    1a31:	89 04 24             	mov    %eax,(%esp)
+    1a34:	e8 06 fa ff ff       	call   143f <_MultiplyGF>
+    1a39:	0f b6 d0             	movzbl %al,%edx
+    1a3c:	0f b7 45 f6          	movzwl -0xa(%ebp),%eax
+    1a40:	0f b6 c0             	movzbl %al,%eax
+    1a43:	8b 4d 1c             	mov    0x1c(%ebp),%ecx
+    1a46:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+    1a4a:	89 54 24 04          	mov    %edx,0x4(%esp)
+    1a4e:	89 04 24             	mov    %eax,(%esp)
+    1a51:	e8 8e f9 ff ff       	call   13e4 <_AddGF>
+    1a56:	0f b6 c0             	movzbl %al,%eax
+    1a59:	66 89 45 f6          	mov    %ax,-0xa(%ebp)
+    for (j=0; j<errNum+1; j++)
+    1a5d:	0f b6 45 f5          	movzbl -0xb(%ebp),%eax
+    1a61:	83 c0 01             	add    $0x1,%eax
+    1a64:	88 45 f5             	mov    %al,-0xb(%ebp)
+    1a67:	0f b6 45 f5          	movzbl -0xb(%ebp),%eax
+    1a6b:	0f bf 55 e4          	movswl -0x1c(%ebp),%edx
+    1a6f:	83 c2 01             	add    $0x1,%edx
+    1a72:	39 d0                	cmp    %edx,%eax
+    1a74:	7c 88                	jl     19fe <_GetDiscrepancy+0x57>
+    }
+  }
+
+  return delta;
+    1a76:	0f b7 45 f6          	movzwl -0xa(%ebp),%eax
+}
+    1a7a:	c9                   	leave  
+    1a7b:	c3                   	ret    
+
+00001a7c <_ChienAlgorithm>:
+ * @param[in] mapTable mapping table
+ * 
+ * @return error ID
+ */
+static error_t ChienAlgorithm( uint8_t * errLoc, const uint8_t * sigma, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
+{
+    1a7c:	55                   	push   %ebp
+    1a7d:	89 e5                	mov    %esp,%ebp
+    1a7f:	53                   	push   %ebx
+    1a80:	83 ec 24             	sub    $0x24,%esp
+  Debug_SetWatermark((void *)ChienAlgorithm,WM_LEVEL_2);
+    1a83:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+    1a8a:	00 
+    1a8b:	c7 04 24 7c 1a 00 00 	movl   $0x1a7c,(%esp)
+    1a92:	e8 00 00 00 00       	call   1a97 <_ChienAlgorithm+0x1b>
+  
+  error_t retErr = ERR_NONE;
+    1a97:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  uint8_t idx = 0;
+    1a9e:	c6 45 f3 00          	movb   $0x0,-0xd(%ebp)
+  uint8_t root;
+  uint8_t i, j;
+
+  if ((NULL != errLoc) && (NULL != sigma) && (NULL != pParams) && (NULL != mapTable))
+    1aa2:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+    1aa6:	0f 84 46 01 00 00    	je     1bf2 <_ChienAlgorithm+0x176>
+    1aac:	83 7d 0c 00          	cmpl   $0x0,0xc(%ebp)
+    1ab0:	0f 84 3c 01 00 00    	je     1bf2 <_ChienAlgorithm+0x176>
+    1ab6:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+    1aba:	0f 84 32 01 00 00    	je     1bf2 <_ChienAlgorithm+0x176>
+    1ac0:	83 7d 14 00          	cmpl   $0x0,0x14(%ebp)
+    1ac4:	0f 84 28 01 00 00    	je     1bf2 <_ChienAlgorithm+0x176>
+  {
+    memset(errLoc,0,pParams->t);
+    1aca:	8b 45 10             	mov    0x10(%ebp),%eax
+    1acd:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    1ad1:	0f b6 c0             	movzbl %al,%eax
+    1ad4:	89 44 24 08          	mov    %eax,0x8(%esp)
+    1ad8:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+    1adf:	00 
+    1ae0:	8b 45 08             	mov    0x8(%ebp),%eax
+    1ae3:	89 04 24             	mov    %eax,(%esp)
+    1ae6:	e8 00 00 00 00       	call   1aeb <_ChienAlgorithm+0x6f>
+
+    for (i=0; i<pParams->nUn; i++)
+    1aeb:	c6 45 f1 00          	movb   $0x0,-0xf(%ebp)
+    1aef:	e9 e8 00 00 00       	jmp    1bdc <_ChienAlgorithm+0x160>
+    {
+      root = sigma[0];
+    1af4:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1af7:	0f b6 00             	movzbl (%eax),%eax
+    1afa:	88 45 f2             	mov    %al,-0xe(%ebp)
+
+      for (j=1; j<pParams->t+1; j++)
+    1afd:	c6 45 f0 01          	movb   $0x1,-0x10(%ebp)
+    1b01:	eb 6d                	jmp    1b70 <_ChienAlgorithm+0xf4>
+      {
+        root = AddGF(root,MultiplyGF(sigma[j],PowerGF(i+1,j,pParams),pParams),mapTable);
+    1b03:	0f b6 55 f0          	movzbl -0x10(%ebp),%edx
+    1b07:	0f b6 45 f1          	movzbl -0xf(%ebp),%eax
+    1b0b:	83 c0 01             	add    $0x1,%eax
+    1b0e:	0f b6 c0             	movzbl %al,%eax
+    1b11:	8b 4d 10             	mov    0x10(%ebp),%ecx
+    1b14:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+    1b18:	89 54 24 04          	mov    %edx,0x4(%esp)
+    1b1c:	89 04 24             	mov    %eax,(%esp)
+    1b1f:	e8 7e f9 ff ff       	call   14a2 <_PowerGF>
+    1b24:	0f b6 d0             	movzbl %al,%edx
+    1b27:	0f b6 4d f0          	movzbl -0x10(%ebp),%ecx
+    1b2b:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1b2e:	01 c8                	add    %ecx,%eax
+    1b30:	0f b6 00             	movzbl (%eax),%eax
+    1b33:	0f b6 c0             	movzbl %al,%eax
+    1b36:	8b 4d 10             	mov    0x10(%ebp),%ecx
+    1b39:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+    1b3d:	89 54 24 04          	mov    %edx,0x4(%esp)
+    1b41:	89 04 24             	mov    %eax,(%esp)
+    1b44:	e8 f6 f8 ff ff       	call   143f <_MultiplyGF>
+    1b49:	0f b6 d0             	movzbl %al,%edx
+    1b4c:	0f b6 45 f2          	movzbl -0xe(%ebp),%eax
+    1b50:	8b 4d 14             	mov    0x14(%ebp),%ecx
+    1b53:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+    1b57:	89 54 24 04          	mov    %edx,0x4(%esp)
+    1b5b:	89 04 24             	mov    %eax,(%esp)
+    1b5e:	e8 81 f8 ff ff       	call   13e4 <_AddGF>
+    1b63:	88 45 f2             	mov    %al,-0xe(%ebp)
+      for (j=1; j<pParams->t+1; j++)
+    1b66:	0f b6 45 f0          	movzbl -0x10(%ebp),%eax
+    1b6a:	83 c0 01             	add    $0x1,%eax
+    1b6d:	88 45 f0             	mov    %al,-0x10(%ebp)
+    1b70:	0f b6 55 f0          	movzbl -0x10(%ebp),%edx
+    1b74:	8b 45 10             	mov    0x10(%ebp),%eax
+    1b77:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    1b7b:	0f b6 c0             	movzbl %al,%eax
+    1b7e:	83 c0 01             	add    $0x1,%eax
+    1b81:	39 c2                	cmp    %eax,%edx
+    1b83:	0f 8c 7a ff ff ff    	jl     1b03 <_ChienAlgorithm+0x87>
+      }
+      if ((0 == root) && (idx < pParams->t))
+    1b89:	80 7d f2 00          	cmpb   $0x0,-0xe(%ebp)
+    1b8d:	75 43                	jne    1bd2 <_ChienAlgorithm+0x156>
+    1b8f:	8b 45 10             	mov    0x10(%ebp),%eax
+    1b92:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    1b96:	3a 45 f3             	cmp    -0xd(%ebp),%al
+    1b99:	76 37                	jbe    1bd2 <_ChienAlgorithm+0x156>
+      {
+        errLoc[idx] = PowerGF(i+1,-1,pParams);
+    1b9b:	0f b6 55 f3          	movzbl -0xd(%ebp),%edx
+    1b9f:	8b 45 08             	mov    0x8(%ebp),%eax
+    1ba2:	8d 1c 02             	lea    (%edx,%eax,1),%ebx
+    1ba5:	0f b6 45 f1          	movzbl -0xf(%ebp),%eax
+    1ba9:	83 c0 01             	add    $0x1,%eax
+    1bac:	0f b6 c0             	movzbl %al,%eax
+    1baf:	8b 55 10             	mov    0x10(%ebp),%edx
+    1bb2:	89 54 24 08          	mov    %edx,0x8(%esp)
+    1bb6:	c7 44 24 04 ff ff ff 	movl   $0xffffffff,0x4(%esp)
+    1bbd:	ff 
+    1bbe:	89 04 24             	mov    %eax,(%esp)
+    1bc1:	e8 dc f8 ff ff       	call   14a2 <_PowerGF>
+    1bc6:	88 03                	mov    %al,(%ebx)
+        idx++;
+    1bc8:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
+    1bcc:	83 c0 01             	add    $0x1,%eax
+    1bcf:	88 45 f3             	mov    %al,-0xd(%ebp)
+    for (i=0; i<pParams->nUn; i++)
+    1bd2:	0f b6 45 f1          	movzbl -0xf(%ebp),%eax
+    1bd6:	83 c0 01             	add    $0x1,%eax
+    1bd9:	88 45 f1             	mov    %al,-0xf(%ebp)
+    1bdc:	0f b6 55 f1          	movzbl -0xf(%ebp),%edx
+    1be0:	8b 45 10             	mov    0x10(%ebp),%eax
+    1be3:	0f b7 40 0a          	movzwl 0xa(%eax),%eax
+    1be7:	66 39 c2             	cmp    %ax,%dx
+    1bea:	0f 82 04 ff ff ff    	jb     1af4 <_ChienAlgorithm+0x78>
+  if ((NULL != errLoc) && (NULL != sigma) && (NULL != pParams) && (NULL != mapTable))
+    1bf0:	eb 07                	jmp    1bf9 <_ChienAlgorithm+0x17d>
+      }
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+    1bf2:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+    1bf9:	8b 45 f4             	mov    -0xc(%ebp),%eax
+    1bfc:	89 04 24             	mov    %eax,(%esp)
+    1bff:	e8 00 00 00 00       	call   1c04 <_ChienAlgorithm+0x188>
+}
+    1c04:	83 c4 24             	add    $0x24,%esp
+    1c07:	5b                   	pop    %ebx
+    1c08:	5d                   	pop    %ebp
+    1c09:	c3                   	ret    
+
+00001c0a <_KeyAlgorithm>:
+ * @param[in] mapTable mapping table
+ * 
+ * @return error ID
+ */
+static error_t KeyAlgorithm( uint8_t * omega, const uint8_t * syndrome, const uint8_t * sigma, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
+{
+    1c0a:	55                   	push   %ebp
+    1c0b:	89 e5                	mov    %esp,%ebp
+    1c0d:	56                   	push   %esi
+    1c0e:	53                   	push   %ebx
+    1c0f:	83 ec 30             	sub    $0x30,%esp
+    1c12:	89 e0                	mov    %esp,%eax
+    1c14:	89 c6                	mov    %eax,%esi
+  Debug_SetWatermark((void *)KeyAlgorithm,WM_LEVEL_2);
+    1c16:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+    1c1d:	00 
+    1c1e:	c7 04 24 0a 1c 00 00 	movl   $0x1c0a,(%esp)
+    1c25:	e8 00 00 00 00       	call   1c2a <_KeyAlgorithm+0x20>
+
+  error_t retErr = ERR_NONE;
+    1c2a:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  uint8_t tmpOmega[3*pParams->t+1];
+    1c31:	8b 45 14             	mov    0x14(%ebp),%eax
+    1c34:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    1c38:	0f b6 d0             	movzbl %al,%edx
+    1c3b:	89 d0                	mov    %edx,%eax
+    1c3d:	01 c0                	add    %eax,%eax
+    1c3f:	01 d0                	add    %edx,%eax
+    1c41:	89 45 ec             	mov    %eax,-0x14(%ebp)
+    1c44:	8b 45 14             	mov    0x14(%ebp),%eax
+    1c47:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    1c4b:	0f b6 d0             	movzbl %al,%edx
+    1c4e:	89 d0                	mov    %edx,%eax
+    1c50:	01 c0                	add    %eax,%eax
+    1c52:	01 d0                	add    %edx,%eax
+    1c54:	8d 50 01             	lea    0x1(%eax),%edx
+    1c57:	b8 10 00 00 00       	mov    $0x10,%eax
+    1c5c:	83 e8 01             	sub    $0x1,%eax
+    1c5f:	01 d0                	add    %edx,%eax
+    1c61:	bb 10 00 00 00       	mov    $0x10,%ebx
+    1c66:	ba 00 00 00 00       	mov    $0x0,%edx
+    1c6b:	f7 f3                	div    %ebx
+    1c6d:	6b c0 10             	imul   $0x10,%eax,%eax
+    1c70:	e8 00 00 00 00       	call   1c75 <_KeyAlgorithm+0x6b>
+    1c75:	29 c4                	sub    %eax,%esp
+    1c77:	8d 44 24 0c          	lea    0xc(%esp),%eax
+    1c7b:	83 c0 00             	add    $0x0,%eax
+    1c7e:	89 45 e8             	mov    %eax,-0x18(%ebp)
+  uint8_t tmpSyndr[2*pParams->t+1];
+    1c81:	8b 45 14             	mov    0x14(%ebp),%eax
+    1c84:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    1c88:	0f b6 c0             	movzbl %al,%eax
+    1c8b:	01 c0                	add    %eax,%eax
+    1c8d:	89 45 e4             	mov    %eax,-0x1c(%ebp)
+    1c90:	8b 45 14             	mov    0x14(%ebp),%eax
+    1c93:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    1c97:	0f b6 c0             	movzbl %al,%eax
+    1c9a:	01 c0                	add    %eax,%eax
+    1c9c:	8d 50 01             	lea    0x1(%eax),%edx
+    1c9f:	b8 10 00 00 00       	mov    $0x10,%eax
+    1ca4:	83 e8 01             	sub    $0x1,%eax
+    1ca7:	01 d0                	add    %edx,%eax
+    1ca9:	bb 10 00 00 00       	mov    $0x10,%ebx
+    1cae:	ba 00 00 00 00       	mov    $0x0,%edx
+    1cb3:	f7 f3                	div    %ebx
+    1cb5:	6b c0 10             	imul   $0x10,%eax,%eax
+    1cb8:	e8 00 00 00 00       	call   1cbd <_KeyAlgorithm+0xb3>
+    1cbd:	29 c4                	sub    %eax,%esp
+    1cbf:	8d 44 24 0c          	lea    0xc(%esp),%eax
+    1cc3:	83 c0 00             	add    $0x0,%eax
+    1cc6:	89 45 e0             	mov    %eax,-0x20(%ebp)
+  uint8_t i, j;
+  
+  if ((NULL != omega) && (NULL != syndrome) && (NULL != sigma) && (NULL != pParams) && (NULL != mapTable))
+    1cc9:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+    1ccd:	0f 84 6c 01 00 00    	je     1e3f <_KeyAlgorithm+0x235>
+    1cd3:	83 7d 0c 00          	cmpl   $0x0,0xc(%ebp)
+    1cd7:	0f 84 62 01 00 00    	je     1e3f <_KeyAlgorithm+0x235>
+    1cdd:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+    1ce1:	0f 84 58 01 00 00    	je     1e3f <_KeyAlgorithm+0x235>
+    1ce7:	83 7d 14 00          	cmpl   $0x0,0x14(%ebp)
+    1ceb:	0f 84 4e 01 00 00    	je     1e3f <_KeyAlgorithm+0x235>
+    1cf1:	83 7d 18 00          	cmpl   $0x0,0x18(%ebp)
+    1cf5:	0f 84 44 01 00 00    	je     1e3f <_KeyAlgorithm+0x235>
+  uint8_t tmpOmega[3*pParams->t+1];
+    1cfb:	8b 45 14             	mov    0x14(%ebp),%eax
+    1cfe:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    1d02:	0f b6 d0             	movzbl %al,%edx
+    1d05:	89 d0                	mov    %edx,%eax
+    1d07:	01 c0                	add    %eax,%eax
+    1d09:	01 d0                	add    %edx,%eax
+  {
+    memset(tmpOmega,0,sizeof(tmpOmega));
+    1d0b:	8d 50 01             	lea    0x1(%eax),%edx
+    1d0e:	8b 45 e8             	mov    -0x18(%ebp),%eax
+    1d11:	89 54 24 08          	mov    %edx,0x8(%esp)
+    1d15:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+    1d1c:	00 
+    1d1d:	89 04 24             	mov    %eax,(%esp)
+    1d20:	e8 00 00 00 00       	call   1d25 <_KeyAlgorithm+0x11b>
+    tmpSyndr[0] = 1;
+    1d25:	8b 45 e0             	mov    -0x20(%ebp),%eax
+    1d28:	c6 00 01             	movb   $0x1,(%eax)
+    memcpy(&tmpSyndr[1],syndrome,2*pParams->t);                               // tmpSyndr(x) = 1+syndrome(x)
+    1d2b:	8b 45 14             	mov    0x14(%ebp),%eax
+    1d2e:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    1d32:	0f b6 c0             	movzbl %al,%eax
+    1d35:	01 c0                	add    %eax,%eax
+    1d37:	89 c1                	mov    %eax,%ecx
+    1d39:	8b 45 e0             	mov    -0x20(%ebp),%eax
+    1d3c:	8d 50 01             	lea    0x1(%eax),%edx
+    1d3f:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+    1d43:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1d46:	89 44 24 04          	mov    %eax,0x4(%esp)
+    1d4a:	89 14 24             	mov    %edx,(%esp)
+    1d4d:	e8 00 00 00 00       	call   1d52 <_KeyAlgorithm+0x148>
+
+    for (i=0; i<pParams->t+1; i++)
+    1d52:	c6 45 f3 00          	movb   $0x0,-0xd(%ebp)
+    1d56:	e9 a2 00 00 00       	jmp    1dfd <_KeyAlgorithm+0x1f3>
+    {
+      for (j=0; j<2*pParams->t+1; j++)
+    1d5b:	c6 45 f2 00          	movb   $0x0,-0xe(%ebp)
+    1d5f:	eb 77                	jmp    1dd8 <_KeyAlgorithm+0x1ce>
+      {
+        tmpOmega[i+j] = AddGF(tmpOmega[i+j],MultiplyGF(sigma[i],tmpSyndr[j],pParams),mapTable);
+    1d61:	0f b6 55 f3          	movzbl -0xd(%ebp),%edx
+    1d65:	0f b6 45 f2          	movzbl -0xe(%ebp),%eax
+    1d69:	8d 1c 02             	lea    (%edx,%eax,1),%ebx
+    1d6c:	0f b6 45 f2          	movzbl -0xe(%ebp),%eax
+    1d70:	8b 55 e0             	mov    -0x20(%ebp),%edx
+    1d73:	0f b6 04 02          	movzbl (%edx,%eax,1),%eax
+    1d77:	0f b6 d0             	movzbl %al,%edx
+    1d7a:	0f b6 4d f3          	movzbl -0xd(%ebp),%ecx
+    1d7e:	8b 45 10             	mov    0x10(%ebp),%eax
+    1d81:	01 c8                	add    %ecx,%eax
+    1d83:	0f b6 00             	movzbl (%eax),%eax
+    1d86:	0f b6 c0             	movzbl %al,%eax
+    1d89:	8b 4d 14             	mov    0x14(%ebp),%ecx
+    1d8c:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+    1d90:	89 54 24 04          	mov    %edx,0x4(%esp)
+    1d94:	89 04 24             	mov    %eax,(%esp)
+    1d97:	e8 a3 f6 ff ff       	call   143f <_MultiplyGF>
+    1d9c:	0f b6 d0             	movzbl %al,%edx
+    1d9f:	0f b6 4d f3          	movzbl -0xd(%ebp),%ecx
+    1da3:	0f b6 45 f2          	movzbl -0xe(%ebp),%eax
+    1da7:	01 c1                	add    %eax,%ecx
+    1da9:	8b 45 e8             	mov    -0x18(%ebp),%eax
+    1dac:	0f b6 04 08          	movzbl (%eax,%ecx,1),%eax
+    1db0:	0f b6 c0             	movzbl %al,%eax
+    1db3:	8b 4d 18             	mov    0x18(%ebp),%ecx
+    1db6:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+    1dba:	89 54 24 04          	mov    %edx,0x4(%esp)
+    1dbe:	89 04 24             	mov    %eax,(%esp)
+    1dc1:	e8 1e f6 ff ff       	call   13e4 <_AddGF>
+    1dc6:	89 c2                	mov    %eax,%edx
+    1dc8:	8b 45 e8             	mov    -0x18(%ebp),%eax
+    1dcb:	88 14 18             	mov    %dl,(%eax,%ebx,1)
+      for (j=0; j<2*pParams->t+1; j++)
+    1dce:	0f b6 45 f2          	movzbl -0xe(%ebp),%eax
+    1dd2:	83 c0 01             	add    $0x1,%eax
+    1dd5:	88 45 f2             	mov    %al,-0xe(%ebp)
+    1dd8:	0f b6 55 f2          	movzbl -0xe(%ebp),%edx
+    1ddc:	8b 45 14             	mov    0x14(%ebp),%eax
+    1ddf:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    1de3:	0f b6 c0             	movzbl %al,%eax
+    1de6:	01 c0                	add    %eax,%eax
+    1de8:	83 c0 01             	add    $0x1,%eax
+    1deb:	39 c2                	cmp    %eax,%edx
+    1ded:	0f 8c 6e ff ff ff    	jl     1d61 <_KeyAlgorithm+0x157>
+    for (i=0; i<pParams->t+1; i++)
+    1df3:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
+    1df7:	83 c0 01             	add    $0x1,%eax
+    1dfa:	88 45 f3             	mov    %al,-0xd(%ebp)
+    1dfd:	0f b6 55 f3          	movzbl -0xd(%ebp),%edx
+    1e01:	8b 45 14             	mov    0x14(%ebp),%eax
+    1e04:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    1e08:	0f b6 c0             	movzbl %al,%eax
+    1e0b:	83 c0 01             	add    $0x1,%eax
+    1e0e:	39 c2                	cmp    %eax,%edx
+    1e10:	0f 8c 45 ff ff ff    	jl     1d5b <_KeyAlgorithm+0x151>
+      }
+    }
+
+    memcpy(omega,tmpOmega,2*pParams->t+1);
+    1e16:	8b 45 14             	mov    0x14(%ebp),%eax
+    1e19:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    1e1d:	0f b6 c0             	movzbl %al,%eax
+    1e20:	01 c0                	add    %eax,%eax
+    1e22:	83 c0 01             	add    $0x1,%eax
+    1e25:	89 c2                	mov    %eax,%edx
+    1e27:	8b 45 e8             	mov    -0x18(%ebp),%eax
+    1e2a:	89 54 24 08          	mov    %edx,0x8(%esp)
+    1e2e:	89 44 24 04          	mov    %eax,0x4(%esp)
+    1e32:	8b 45 08             	mov    0x8(%ebp),%eax
+    1e35:	89 04 24             	mov    %eax,(%esp)
+    1e38:	e8 00 00 00 00       	call   1e3d <_KeyAlgorithm+0x233>
+    1e3d:	eb 07                	jmp    1e46 <_KeyAlgorithm+0x23c>
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+    1e3f:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+    1e46:	8b 45 f4             	mov    -0xc(%ebp),%eax
+    1e49:	89 04 24             	mov    %eax,(%esp)
+    1e4c:	e8 00 00 00 00       	call   1e51 <_KeyAlgorithm+0x247>
+    1e51:	89 f4                	mov    %esi,%esp
+}
+    1e53:	8d 65 f8             	lea    -0x8(%ebp),%esp
+    1e56:	5b                   	pop    %ebx
+    1e57:	5e                   	pop    %esi
+    1e58:	5d                   	pop    %ebp
+    1e59:	c3                   	ret    
+
+00001e5a <_ForneyAlgorithm>:
+ * @param[in] mapTable mapping table
+ * 
+ * @return error ID
+ */
+static error_t ForneyAlgorithm( uint8_t * errMag, const uint8_t * omega, const uint8_t * errLoc, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
+{
+    1e5a:	55                   	push   %ebp
+    1e5b:	89 e5                	mov    %esp,%ebp
+    1e5d:	53                   	push   %ebx
+    1e5e:	83 ec 24             	sub    $0x24,%esp
+  Debug_SetWatermark((void *)ForneyAlgorithm,WM_LEVEL_2);
+    1e61:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+    1e68:	00 
+    1e69:	c7 04 24 5a 1e 00 00 	movl   $0x1e5a,(%esp)
+    1e70:	e8 00 00 00 00       	call   1e75 <_ForneyAlgorithm+0x1b>
+
+  error_t retErr = ERR_NONE;
+    1e75:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  uint8_t root;
+  uint8_t numer, denom;
+  uint8_t i, j;
+
+  if ((NULL != errMag) && (NULL != omega) && (NULL != errLoc) && (NULL != pParams) && (NULL != mapTable))
+    1e7c:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+    1e80:	0f 84 09 02 00 00    	je     208f <_ForneyAlgorithm+0x235>
+    1e86:	83 7d 0c 00          	cmpl   $0x0,0xc(%ebp)
+    1e8a:	0f 84 ff 01 00 00    	je     208f <_ForneyAlgorithm+0x235>
+    1e90:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+    1e94:	0f 84 f5 01 00 00    	je     208f <_ForneyAlgorithm+0x235>
+    1e9a:	83 7d 14 00          	cmpl   $0x0,0x14(%ebp)
+    1e9e:	0f 84 eb 01 00 00    	je     208f <_ForneyAlgorithm+0x235>
+    1ea4:	83 7d 18 00          	cmpl   $0x0,0x18(%ebp)
+    1ea8:	0f 84 e1 01 00 00    	je     208f <_ForneyAlgorithm+0x235>
+  {
+    memset(errMag,0,pParams->t);
+    1eae:	8b 45 14             	mov    0x14(%ebp),%eax
+    1eb1:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    1eb5:	0f b6 c0             	movzbl %al,%eax
+    1eb8:	89 44 24 08          	mov    %eax,0x8(%esp)
+    1ebc:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+    1ec3:	00 
+    1ec4:	8b 45 08             	mov    0x8(%ebp),%eax
+    1ec7:	89 04 24             	mov    %eax,(%esp)
+    1eca:	e8 00 00 00 00       	call   1ecf <_ForneyAlgorithm+0x75>
+
+    for (i=0; i<pParams->t; i++)
+    1ecf:	c6 45 f1 00          	movb   $0x0,-0xf(%ebp)
+    1ed3:	e9 a5 01 00 00       	jmp    207d <_ForneyAlgorithm+0x223>
+    {
+      if (errLoc[i] != 0)
+    1ed8:	0f b6 55 f1          	movzbl -0xf(%ebp),%edx
+    1edc:	8b 45 10             	mov    0x10(%ebp),%eax
+    1edf:	01 d0                	add    %edx,%eax
+    1ee1:	0f b6 00             	movzbl (%eax),%eax
+    1ee4:	84 c0                	test   %al,%al
+    1ee6:	0f 84 87 01 00 00    	je     2073 <_ForneyAlgorithm+0x219>
+      {
+        root = PowerGF(errLoc[i],-1,pParams);
+    1eec:	0f b6 55 f1          	movzbl -0xf(%ebp),%edx
+    1ef0:	8b 45 10             	mov    0x10(%ebp),%eax
+    1ef3:	01 d0                	add    %edx,%eax
+    1ef5:	0f b6 00             	movzbl (%eax),%eax
+    1ef8:	0f b6 c0             	movzbl %al,%eax
+    1efb:	8b 55 14             	mov    0x14(%ebp),%edx
+    1efe:	89 54 24 08          	mov    %edx,0x8(%esp)
+    1f02:	c7 44 24 04 ff ff ff 	movl   $0xffffffff,0x4(%esp)
+    1f09:	ff 
+    1f0a:	89 04 24             	mov    %eax,(%esp)
+    1f0d:	e8 90 f5 ff ff       	call   14a2 <_PowerGF>
+    1f12:	88 45 ef             	mov    %al,-0x11(%ebp)
+        numer = omega[0];
+    1f15:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1f18:	0f b6 00             	movzbl (%eax),%eax
+    1f1b:	88 45 f3             	mov    %al,-0xd(%ebp)
+
+        for (j=1; j<2*pParams->t+1; j++)
+    1f1e:	c6 45 f0 01          	movb   $0x1,-0x10(%ebp)
+    1f22:	eb 67                	jmp    1f8b <_ForneyAlgorithm+0x131>
+        {
+          numer = AddGF(numer,MultiplyGF(omega[j],PowerGF(root,j,pParams),pParams),mapTable);
+    1f24:	0f b6 55 f0          	movzbl -0x10(%ebp),%edx
+    1f28:	0f b6 45 ef          	movzbl -0x11(%ebp),%eax
+    1f2c:	8b 4d 14             	mov    0x14(%ebp),%ecx
+    1f2f:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+    1f33:	89 54 24 04          	mov    %edx,0x4(%esp)
+    1f37:	89 04 24             	mov    %eax,(%esp)
+    1f3a:	e8 63 f5 ff ff       	call   14a2 <_PowerGF>
+    1f3f:	0f b6 d0             	movzbl %al,%edx
+    1f42:	0f b6 4d f0          	movzbl -0x10(%ebp),%ecx
+    1f46:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1f49:	01 c8                	add    %ecx,%eax
+    1f4b:	0f b6 00             	movzbl (%eax),%eax
+    1f4e:	0f b6 c0             	movzbl %al,%eax
+    1f51:	8b 4d 14             	mov    0x14(%ebp),%ecx
+    1f54:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+    1f58:	89 54 24 04          	mov    %edx,0x4(%esp)
+    1f5c:	89 04 24             	mov    %eax,(%esp)
+    1f5f:	e8 db f4 ff ff       	call   143f <_MultiplyGF>
+    1f64:	0f b6 d0             	movzbl %al,%edx
+    1f67:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
+    1f6b:	8b 4d 18             	mov    0x18(%ebp),%ecx
+    1f6e:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+    1f72:	89 54 24 04          	mov    %edx,0x4(%esp)
+    1f76:	89 04 24             	mov    %eax,(%esp)
+    1f79:	e8 66 f4 ff ff       	call   13e4 <_AddGF>
+    1f7e:	88 45 f3             	mov    %al,-0xd(%ebp)
+        for (j=1; j<2*pParams->t+1; j++)
+    1f81:	0f b6 45 f0          	movzbl -0x10(%ebp),%eax
+    1f85:	83 c0 01             	add    $0x1,%eax
+    1f88:	88 45 f0             	mov    %al,-0x10(%ebp)
+    1f8b:	0f b6 55 f0          	movzbl -0x10(%ebp),%edx
+    1f8f:	8b 45 14             	mov    0x14(%ebp),%eax
+    1f92:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    1f96:	0f b6 c0             	movzbl %al,%eax
+    1f99:	01 c0                	add    %eax,%eax
+    1f9b:	83 c0 01             	add    $0x1,%eax
+    1f9e:	39 c2                	cmp    %eax,%edx
+    1fa0:	7c 82                	jl     1f24 <_ForneyAlgorithm+0xca>
+        }
+
+        denom = 1;
+    1fa2:	c6 45 f2 01          	movb   $0x1,-0xe(%ebp)
+
+        for (j=0; j<pParams->t; j++)
+    1fa6:	c6 45 f0 00          	movb   $0x0,-0x10(%ebp)
+    1faa:	eb 70                	jmp    201c <_ForneyAlgorithm+0x1c2>
+        {
+          if (i != j)
+    1fac:	0f b6 45 f1          	movzbl -0xf(%ebp),%eax
+    1fb0:	3a 45 f0             	cmp    -0x10(%ebp),%al
+    1fb3:	74 5d                	je     2012 <_ForneyAlgorithm+0x1b8>
+          {
+            denom = MultiplyGF(denom,AddGF(1,MultiplyGF(root,errLoc[j],pParams),mapTable),pParams);
+    1fb5:	0f b6 55 f0          	movzbl -0x10(%ebp),%edx
+    1fb9:	8b 45 10             	mov    0x10(%ebp),%eax
+    1fbc:	01 d0                	add    %edx,%eax
+    1fbe:	0f b6 00             	movzbl (%eax),%eax
+    1fc1:	0f b6 d0             	movzbl %al,%edx
+    1fc4:	0f b6 45 ef          	movzbl -0x11(%ebp),%eax
+    1fc8:	8b 4d 14             	mov    0x14(%ebp),%ecx
+    1fcb:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+    1fcf:	89 54 24 04          	mov    %edx,0x4(%esp)
+    1fd3:	89 04 24             	mov    %eax,(%esp)
+    1fd6:	e8 64 f4 ff ff       	call   143f <_MultiplyGF>
+    1fdb:	0f b6 c0             	movzbl %al,%eax
+    1fde:	8b 55 18             	mov    0x18(%ebp),%edx
+    1fe1:	89 54 24 08          	mov    %edx,0x8(%esp)
+    1fe5:	89 44 24 04          	mov    %eax,0x4(%esp)
+    1fe9:	c7 04 24 01 00 00 00 	movl   $0x1,(%esp)
+    1ff0:	e8 ef f3 ff ff       	call   13e4 <_AddGF>
+    1ff5:	0f b6 d0             	movzbl %al,%edx
+    1ff8:	0f b6 45 f2          	movzbl -0xe(%ebp),%eax
+    1ffc:	8b 4d 14             	mov    0x14(%ebp),%ecx
+    1fff:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+    2003:	89 54 24 04          	mov    %edx,0x4(%esp)
+    2007:	89 04 24             	mov    %eax,(%esp)
+    200a:	e8 30 f4 ff ff       	call   143f <_MultiplyGF>
+    200f:	88 45 f2             	mov    %al,-0xe(%ebp)
+        for (j=0; j<pParams->t; j++)
+    2012:	0f b6 45 f0          	movzbl -0x10(%ebp),%eax
+    2016:	83 c0 01             	add    $0x1,%eax
+    2019:	88 45 f0             	mov    %al,-0x10(%ebp)
+    201c:	8b 45 14             	mov    0x14(%ebp),%eax
+    201f:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    2023:	3a 45 f0             	cmp    -0x10(%ebp),%al
+    2026:	77 84                	ja     1fac <_ForneyAlgorithm+0x152>
+          }
+        }
+
+        errMag[i] = MultiplyGF(numer,PowerGF(2,-denom+1,pParams),pParams);
+    2028:	0f b6 55 f1          	movzbl -0xf(%ebp),%edx
+    202c:	8b 45 08             	mov    0x8(%ebp),%eax
+    202f:	8d 1c 02             	lea    (%edx,%eax,1),%ebx
+    2032:	0f b6 45 f2          	movzbl -0xe(%ebp),%eax
+    2036:	ba 01 00 00 00       	mov    $0x1,%edx
+    203b:	29 c2                	sub    %eax,%edx
+    203d:	89 d0                	mov    %edx,%eax
+    203f:	98                   	cwtl   
+    2040:	8b 55 14             	mov    0x14(%ebp),%edx
+    2043:	89 54 24 08          	mov    %edx,0x8(%esp)
+    2047:	89 44 24 04          	mov    %eax,0x4(%esp)
+    204b:	c7 04 24 02 00 00 00 	movl   $0x2,(%esp)
+    2052:	e8 4b f4 ff ff       	call   14a2 <_PowerGF>
+    2057:	0f b6 d0             	movzbl %al,%edx
+    205a:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
+    205e:	8b 4d 14             	mov    0x14(%ebp),%ecx
+    2061:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+    2065:	89 54 24 04          	mov    %edx,0x4(%esp)
+    2069:	89 04 24             	mov    %eax,(%esp)
+    206c:	e8 ce f3 ff ff       	call   143f <_MultiplyGF>
+    2071:	88 03                	mov    %al,(%ebx)
+    for (i=0; i<pParams->t; i++)
+    2073:	0f b6 45 f1          	movzbl -0xf(%ebp),%eax
+    2077:	83 c0 01             	add    $0x1,%eax
+    207a:	88 45 f1             	mov    %al,-0xf(%ebp)
+    207d:	8b 45 14             	mov    0x14(%ebp),%eax
+    2080:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    2084:	3a 45 f1             	cmp    -0xf(%ebp),%al
+    2087:	0f 87 4b fe ff ff    	ja     1ed8 <_ForneyAlgorithm+0x7e>
+  if ((NULL != errMag) && (NULL != omega) && (NULL != errLoc) && (NULL != pParams) && (NULL != mapTable))
+    208d:	eb 07                	jmp    2096 <_ForneyAlgorithm+0x23c>
+      }
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+    208f:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+    2096:	8b 45 f4             	mov    -0xc(%ebp),%eax
+    2099:	89 04 24             	mov    %eax,(%esp)
+    209c:	e8 00 00 00 00       	call   20a1 <_ForneyAlgorithm+0x247>
+}
+    20a1:	83 c4 24             	add    $0x24,%esp
+    20a4:	5b                   	pop    %ebx
+    20a5:	5d                   	pop    %ebp
+    20a6:	c3                   	ret    
+
+000020a7 <_ErrorCorrector>:
+ * @param[in] mapTable mapping table
+ * 
+ * @return error ID
+ */
+static error_t ErrorCorrector( uint8_t * ioSymbs, const uint8_t * errLoc, const uint8_t * errMag, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM])
+{
+    20a7:	55                   	push   %ebp
+    20a8:	89 e5                	mov    %esp,%ebp
+    20aa:	53                   	push   %ebx
+    20ab:	83 ec 24             	sub    $0x24,%esp
+  Debug_SetWatermark((void *)ErrorCorrector,WM_LEVEL_2);
+    20ae:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+    20b5:	00 
+    20b6:	c7 04 24 a7 20 00 00 	movl   $0x20a7,(%esp)
+    20bd:	e8 00 00 00 00       	call   20c2 <_ErrorCorrector+0x1b>
+
+  error_t retErr = ERR_NONE;
+    20c2:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  uint8_t j;
+
+  if ((NULL != ioSymbs) && (NULL != errLoc) && (NULL != errMag) && (NULL != pParams) && (NULL != mapTable))
+    20c9:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+    20cd:	0f 84 af 00 00 00    	je     2182 <_ErrorCorrector+0xdb>
+    20d3:	83 7d 0c 00          	cmpl   $0x0,0xc(%ebp)
+    20d7:	0f 84 a5 00 00 00    	je     2182 <_ErrorCorrector+0xdb>
+    20dd:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+    20e1:	0f 84 9b 00 00 00    	je     2182 <_ErrorCorrector+0xdb>
+    20e7:	83 7d 14 00          	cmpl   $0x0,0x14(%ebp)
+    20eb:	0f 84 91 00 00 00    	je     2182 <_ErrorCorrector+0xdb>
+    20f1:	83 7d 18 00          	cmpl   $0x0,0x18(%ebp)
+    20f5:	0f 84 87 00 00 00    	je     2182 <_ErrorCorrector+0xdb>
+  {
+    for (j=0; j<pParams->t; j++)
+    20fb:	c6 45 f3 00          	movb   $0x0,-0xd(%ebp)
+    20ff:	eb 73                	jmp    2174 <_ErrorCorrector+0xcd>
+    {
+      if (errLoc[j] != 0)
+    2101:	0f b6 55 f3          	movzbl -0xd(%ebp),%edx
+    2105:	8b 45 0c             	mov    0xc(%ebp),%eax
+    2108:	01 d0                	add    %edx,%eax
+    210a:	0f b6 00             	movzbl (%eax),%eax
+    210d:	84 c0                	test   %al,%al
+    210f:	74 59                	je     216a <_ErrorCorrector+0xc3>
+      {
+        ioSymbs[errLoc[j]-1] = AddGF(ioSymbs[errLoc[j]-1],errMag[j],mapTable);
+    2111:	0f b6 55 f3          	movzbl -0xd(%ebp),%edx
+    2115:	8b 45 0c             	mov    0xc(%ebp),%eax
+    2118:	01 d0                	add    %edx,%eax
+    211a:	0f b6 00             	movzbl (%eax),%eax
+    211d:	0f b6 c0             	movzbl %al,%eax
+    2120:	8d 50 ff             	lea    -0x1(%eax),%edx
+    2123:	8b 45 08             	mov    0x8(%ebp),%eax
+    2126:	8d 1c 02             	lea    (%edx,%eax,1),%ebx
+    2129:	0f b6 55 f3          	movzbl -0xd(%ebp),%edx
+    212d:	8b 45 10             	mov    0x10(%ebp),%eax
+    2130:	01 d0                	add    %edx,%eax
+    2132:	0f b6 00             	movzbl (%eax),%eax
+    2135:	0f b6 d0             	movzbl %al,%edx
+    2138:	0f b6 4d f3          	movzbl -0xd(%ebp),%ecx
+    213c:	8b 45 0c             	mov    0xc(%ebp),%eax
+    213f:	01 c8                	add    %ecx,%eax
+    2141:	0f b6 00             	movzbl (%eax),%eax
+    2144:	0f b6 c0             	movzbl %al,%eax
+    2147:	8d 48 ff             	lea    -0x1(%eax),%ecx
+    214a:	8b 45 08             	mov    0x8(%ebp),%eax
+    214d:	01 c8                	add    %ecx,%eax
+    214f:	0f b6 00             	movzbl (%eax),%eax
+    2152:	0f b6 c0             	movzbl %al,%eax
+    2155:	8b 4d 18             	mov    0x18(%ebp),%ecx
+    2158:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+    215c:	89 54 24 04          	mov    %edx,0x4(%esp)
+    2160:	89 04 24             	mov    %eax,(%esp)
+    2163:	e8 7c f2 ff ff       	call   13e4 <_AddGF>
+    2168:	88 03                	mov    %al,(%ebx)
+    for (j=0; j<pParams->t; j++)
+    216a:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
+    216e:	83 c0 01             	add    $0x1,%eax
+    2171:	88 45 f3             	mov    %al,-0xd(%ebp)
+    2174:	8b 45 14             	mov    0x14(%ebp),%eax
+    2177:	0f b6 40 06          	movzbl 0x6(%eax),%eax
+    217b:	3a 45 f3             	cmp    -0xd(%ebp),%al
+    217e:	77 81                	ja     2101 <_ErrorCorrector+0x5a>
+  if ((NULL != ioSymbs) && (NULL != errLoc) && (NULL != errMag) && (NULL != pParams) && (NULL != mapTable))
+    2180:	eb 07                	jmp    2189 <_ErrorCorrector+0xe2>
+      }
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+    2182:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+    2189:	8b 45 f4             	mov    -0xc(%ebp),%eax
+    218c:	89 04 24             	mov    %eax,(%esp)
+    218f:	e8 00 00 00 00       	call   2194 <_ErrorCorrector+0xed>
+}
+    2194:	83 c4 24             	add    $0x24,%esp
+    2197:	5b                   	pop    %ebx
+    2198:	5d                   	pop    %ebp
+    2199:	c3                   	ret    
+    219a:	90                   	nop
+    219b:	90                   	nop

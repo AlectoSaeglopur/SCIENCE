@@ -28,7 +28,8 @@ CMP_FLG = -Wall -g -O0
 CMP_VRS = gcc
 
 # Common source files used by both build types
-COM_FIL = channel.c         \
+
+COM_FIL	= channel.c      	 	\
           convolutional.c   \
           crc.c             \
           debug.c           \
@@ -60,8 +61,11 @@ CNV_TOL = objcopy
 # target build conversion formats/extensions
 CNV_EXT = srec
 
-# target-build source files list
-SRC_FIL = main.c             \
+# target build info tool
+INF_TOL = objdump
+
+# source files list for target-build (.c only)
+SRC_FIL = main.c            	\
           $(COM_FIL)
 
 
@@ -79,11 +83,11 @@ TST_SFD = test
 # test build linker flags
 TST_LKF = -lm
 
-# test files list
-TST_FIL = test_extra.c             \
-          test_convolutional.c     \
-          test_modulation.c        \
-          umain.c                  \
+# source files list for utest-build (.c only)
+TST_FIL = test_extra.c           	\
+          test_convolutional.c    \
+          test_modulation.c       \
+          umain.c                 \
           $(COM_FIL)
 
 # unity files list

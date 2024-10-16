@@ -3,13 +3,15 @@
 # 1 "<built-in>"
 # 1 "<command-line>"
 # 1 "src\\memory.c"
-# 16 "src\\memory.c"
-# 1 "src\\memory.h" 1
-# 19 "src\\memory.h"
+# 17 "src\\memory.c"
+# 1 "src\\debug.h" 1
+# 19 "src\\debug.h"
+# 1 "src\\channel.h" 1
+# 20 "src\\channel.h"
 # 1 "src\\error.h" 1
-# 18 "src\\error.h"
+# 19 "src\\error.h"
 # 1 "src\\system.h" 1
-# 20 "src\\system.h"
+# 21 "src\\system.h"
 # 1 "c:\\mingw\\include\\stdio.h" 1 3
 # 38 "c:\\mingw\\include\\stdio.h" 3
        
@@ -445,9 +447,9 @@ int vswscanf (const wchar_t *__restrict__, const wchar_t * __restrict__, __built
 
 
 
-# 21 "src\\system.h" 2
-# 1 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdbool.h" 1 3 4
 # 22 "src\\system.h" 2
+# 1 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdbool.h" 1 3 4
+# 23 "src\\system.h" 2
 # 1 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 1 3 4
 # 9 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 3 4
 # 1 "c:\\mingw\\include\\stdint.h" 1 3 4
@@ -510,7 +512,7 @@ typedef __uintptr_t uintptr_t;
 typedef long long intmax_t;
 typedef unsigned long long uintmax_t;
 # 10 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 2 3 4
-# 23 "src\\system.h" 2
+# 24 "src\\system.h" 2
 # 1 "c:\\mingw\\include\\string.h" 1 3
 # 34 "c:\\mingw\\include\\string.h" 3
        
@@ -684,7 +686,7 @@ extern inline __attribute__((__gnu_inline__)) __attribute__((__always_inline__))
 
 
 
-# 24 "src\\system.h" 2
+# 25 "src\\system.h" 2
 # 1 "c:\\mingw\\include\\stdlib.h" 1 3
 # 34 "c:\\mingw\\include\\stdlib.h" 3
        
@@ -992,7 +994,7 @@ __attribute__((__cdecl__)) __attribute__((__nothrow__)) int unsetenv( const char
 
 
 
-# 25 "src\\system.h" 2
+# 26 "src\\system.h" 2
 # 1 "c:\\mingw\\include\\time.h" 1 3
 # 33 "c:\\mingw\\include\\time.h" 3
        
@@ -1162,7 +1164,7 @@ int nanosleep( const struct timespec *, struct timespec * );
 size_t wcsftime (wchar_t *, size_t, const wchar_t *, const struct tm *);
 
 
-# 26 "src\\system.h" 2
+# 27 "src\\system.h" 2
 # 1 "c:\\mingw\\include\\math.h" 1 3
 # 35 "c:\\mingw\\include\\math.h" 3
        
@@ -1548,16 +1550,16 @@ extern float __attribute__((__cdecl__)) fmaf (float, float, float);
 extern long double __attribute__((__cdecl__)) fmal (long double, long double, long double);
 # 931 "c:\\mingw\\include\\math.h" 3
 
-# 27 "src\\system.h" 2
-# 58 "src\\system.h"
+# 28 "src\\system.h" 2
+# 59 "src\\system.h"
 
-# 58 "src\\system.h"
+# 59 "src\\system.h"
 typedef struct _complex_t
 {
   float re;
   float im;
 } complex_t;
-# 19 "src\\error.h" 2
+# 20 "src\\error.h" 2
 
 
 
@@ -1600,9 +1602,10 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 76 "src\\error.h"
+# 77 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
-# 20 "src\\memory.h" 2
+# 21 "src\\channel.h" 2
+# 1 "src\\memory.h" 1
 # 28 "src\\memory.h"
 typedef enum
 {
@@ -1648,7 +1651,116 @@ error_t Memory_FreeStream( void * ioStream, memory_type_t type );
 _Bool 
 # 67 "src\\memory.h"
     Memory_IsStreamValid( const void * inStream, memory_type_t type );
-# 17 "src\\memory.c" 2
+# 22 "src\\channel.h" 2
+# 30 "src\\channel.h"
+typedef enum
+{
+  CHAN_BSC = 0,
+  CHAN_AWGN,
+
+  CHAN_NUM
+} chan_type_t;
+
+
+typedef struct _chan_par_t
+{
+  uint32_t seed;
+  chan_type_t type;
+  uint8_t bps;
+  union
+  {
+    float Peb;
+    float EbN0;
+  };
+} chan_par_t;
+# 76 "src\\channel.h"
+error_t Channel_ListParameters( chan_par_t * ioParams );
+error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, const chan_par_t * pParams );
+error_t Channel_AWGN( const complex_stream_t * inStream, complex_stream_t * outStream, const chan_par_t * pParams );
+# 20 "src\\debug.h" 2
+# 1 "src\\convolutional.h" 1
+# 62 "src\\convolutional.h"
+typedef enum
+{
+  CC_RATE_12 = 1, CC_RATE_23 = 2, CC_RATE_34 = 3, CC_RATE_56 = 5, CC_RATE_78 = 7
+} cc_rate_t;
+
+
+typedef enum
+{
+  CC_RATE_IDX_12, CC_RATE_IDX_23, CC_RATE_IDX_34, CC_RATE_IDX_56, CC_RATE_IDX_78,
+  CC_RATE_NUM
+} cc_rate_idx_t;
+# 81 "src\\convolutional.h"
+typedef enum
+{
+  CC_KLEN_3 = 3,
+  CC_KLEN_4 = 4,
+  CC_KLEN_5 = 5,
+  CC_KLEN_6 = 6,
+  CC_KLEN_7 = 7,
+  CC_KLEN_8 = 8,
+  CC_KLEN_MIN = CC_KLEN_3,
+  CC_KLEN_MAX = CC_KLEN_8
+} cc_klen_t;
+
+
+
+typedef enum
+{
+  CC_VITDM_HARD = 0,
+  CC_VITDM_SOFT,
+
+  CC_VITDM_NUM
+} cc_dec_method_t;
+
+
+typedef struct _cc_par_t
+{
+  cc_rate_t cRate;
+  cc_klen_t kLen;
+  uint16_t memFact;
+  cc_dec_method_t vitDM;
+} cc_par_t;
+
+
+typedef struct _cc_encoder_info_t
+{
+  const uint8_t * pConnVect;
+  uint8_t lenConnVect;
+  const uint8_t * pPuncVect;
+  uint8_t lenPuncVect;
+} cc_encoder_info_t;
+
+
+typedef struct _cc_trcore_t
+{
+  uint8_t outBits[2u];
+  uint8_t nextSt[2u];
+} cc_trcore_t;
+
+
+typedef struct _cc_trellis_t
+{
+  cc_trcore_t trSt[(1<<(CC_KLEN_7-1))];
+} cc_trellis_t;
+
+
+typedef struct _cc_hard_dec_info_t
+{
+  uint32_t iter[(1<<(CC_KLEN_7-1))];
+  uint32_t dist[(1<<(CC_KLEN_7-1))];
+  uint8_t path[(1<<(CC_KLEN_7-1))][((1<<(CC_KLEN_7-1))*10u)];
+} cc_hard_dec_info_t;
+
+
+
+typedef struct _cc_soft_dec_info_t
+{
+  uint32_t iter[(1<<(CC_KLEN_7-1))];
+  float dist[(1<<(CC_KLEN_7-1))];
+  uint8_t path[(1<<(CC_KLEN_7-1))][((1<<(CC_KLEN_7-1))*10u)];
+} cc_soft_dec_info_t;
 
 
 
@@ -1656,6 +1768,222 @@ _Bool
 
 
 
+error_t CnvCod_ListParameters( cc_par_t * ioParams );
+error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
+error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
+error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
+# 21 "src\\debug.h" 2
+
+# 1 "src\\interleaving.h" 1
+# 30 "src\\interleaving.h"
+typedef enum
+{
+  INTRLV_BLOCK = 0,
+  INTRLV_CONV,
+
+  INTRLV_NUM
+} itlv_type_t;
+
+
+typedef struct _itlv_par_t
+{
+  itlv_type_t type;
+  union
+  {
+    uint8_t rows;
+    uint8_t dlys;
+  };
+  union
+  {
+    uint8_t cols;
+    uint8_t cells;
+  };
+} itlv_par_t;
+# 86 "src\\interleaving.h"
+error_t Intrlv_ListParameters( itlv_par_t * ioParams );
+error_t Intrlv_Interleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
+error_t Intrlv_Deinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
+# 23 "src\\debug.h" 2
+
+# 1 "src\\modulation.h" 1
+# 30 "src\\modulation.h"
+typedef enum
+{
+  MOD_PSK = 0,
+  MOD_QAM,
+
+  MOD_NUM
+} mod_type_t;
+# 75 "src\\modulation.h"
+typedef struct _mod_par_t
+{
+  mod_type_t type;
+  uint8_t order;
+  uint8_t bps;
+  float phOfst;
+} mod_par_t;
+
+
+typedef struct _mod_maptable_t
+{
+  uint8_t bits[(0x01<<2u)];
+  complex_t symbs[(0x01<<2u)];
+} mod_maptable_t;
+
+
+
+
+
+
+
+error_t Modulation_ListParameters( mod_par_t * ioParams );
+error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * outStream, const mod_par_t * pParams );
+error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_t * outStream, const mod_par_t * pParams );
+error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream_t * outStream, const mod_par_t * pParams );
+# 25 "src\\debug.h" 2
+# 1 "src\\reed_solomon.h" 1
+# 30 "src\\reed_solomon.h"
+typedef enum
+{
+  RS_GF_DEGREE_4 = 4,
+  RS_GF_DEGREE_8 = 8
+} rs_gf_degree_t;
+# 52 "src\\reed_solomon.h"
+typedef struct _rs_par_t
+{
+  rs_gf_degree_t m;
+  uint8_t kSh;
+  uint8_t nSh;
+  uint8_t t;
+  uint16_t kUn;
+  uint16_t nUn;
+  uint16_t dimGF;
+} rs_par_t;
+
+
+
+
+
+
+
+error_t RsCod_ListParameters( rs_par_t * ioParams );
+error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams );
+error_t RcCod_Decoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams );
+# 26 "src\\debug.h" 2
+# 1 "src\\scrambling.h" 1
+# 30 "src\\scrambling.h"
+typedef enum
+{
+  SCRAMB_ADT = 0,
+  SCRAMB_MLT,
+
+  SCRAMB_NUM
+} scramb_type_t;
+
+
+typedef struct _scr_par_t
+{
+  scramb_type_t type;
+  uint8_t nCells;
+  uint32_t conVect;
+  uint32_t initSt;
+} scr_par_t;
+# 77 "src\\scrambling.h"
+error_t Scramb_ListParameters( scr_par_t * ioParams );
+error_t Scramb_Scrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
+error_t Scramb_Descrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
+# 27 "src\\debug.h" 2
+# 52 "src\\debug.h"
+typedef struct _debug_par_t
+{
+  scr_par_t scrPar;
+  rs_par_t rsPar;
+  itlv_par_t itlvPar;
+  cc_par_t ccPar;
+  mod_par_t modPar;
+  chan_par_t chanPar;
+} debug_par_t;
+
+
+typedef enum
+{
+  PID_TX_ORG = 0,
+  PID_RX_ORG,
+  PID_TX_CRC,
+  PID_RX_CRC,
+  PID_TX_SCR,
+  PID_RX_SCR,
+  PID_TX_RSCOD,
+  PID_RX_RSCOD,
+  PID_TX_INTLV,
+  PID_RX_INTLV,
+  PID_TX_CNVCOD,
+  PID_RX_CNVCOD,
+  PID_TX_MAP,
+  PID_RX_MAP,
+  PID_RX_LLR,
+
+  PID_NUM
+} print_label_t;
+
+
+typedef enum _wm_level_t
+{
+  WM_LEVEL_1 = 0,
+  WM_LEVEL_2,
+  WM_LEVEL_3,
+
+  WM_LEVEL_NUM
+} wm_level_t;
+
+
+typedef enum _ansi_text_color
+{
+  COLOR_BLACK = 30,
+  COLOR_RED = 31,
+  COLOR_GREEN = 32,
+  COLOR_YELLOW = 33,
+  COLOR_BLUE = 34,
+  COLOR_PURPLE = 35,
+  COLOR_CYAN = 36,
+  COLOR_WHITE = 37,
+  COLOR_GREY = 90,
+  COLOR_BRIGHT_RED = 91,
+  COLOR_BRIGHT_GREEN = 92,
+  COLOR_BRIGHT_YELLOW = 93,
+  COLOR_BRIGHT_BLUE = 94,
+  COLOR_BRIGHT_PURPLE = 95,
+  COLOR_BRIGHT_CYAN = 96,
+  COLOR_BRIGHT_WHITE = 97,
+} ansi_text_color;
+
+
+typedef enum _ansi_text_style
+{
+  STYLE_RESET = 0,
+  STYLE_BOLD = 1,
+  STYLE_ITALIC = 3,
+  STYLE_SINGLE_UNDERLINE = 4,
+  STYLE_SLOW_BLINK = 5,
+  STYLE_FAST_BLINK = 6,
+  STYLE_DOUBLE_UNDERLINE = 21,
+} ansi_text_style;
+# 142 "src\\debug.h"
+error_t Debug_PrintParameters( uint32_t orgLen, const debug_par_t * pParams );
+error_t Debug_ListParameters( debug_par_t * ioParams, const scr_par_t * scrParam, const rs_par_t * rsParam, const itlv_par_t * itlvParam, const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam );
+error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed );
+error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
+error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
+error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
+error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams );
+error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label );
+error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label );
+error_t Debug_SetWatermark( const void * funcAddr, const wm_level_t level );
+void Debug_PrintWatermarks( void );
+void Debug_SetTerminalAppearance( ansi_text_color color, ansi_text_style style );
+void Debug_ResetTerminalAppearance( void );
+# 18 "src\\memory.c" 2
+# 26 "src\\memory.c"
 static error_t AllocateByteStream( byte_stream_t * ioStream, uint32_t len );
 static error_t AllocateFloatStream( float_stream_t * ioStream, uint32_t len );
 static error_t AllocateComplexStream( complex_stream_t * ioStream, uint32_t len );
@@ -1663,32 +1991,34 @@ static error_t FreeByteStream( byte_stream_t * ioStream );
 static error_t FreeFloatStream( float_stream_t * ioStream );
 static error_t FreeComplexStream( complex_stream_t * ioStream );
 static 
-# 30 "src\\memory.c" 3 4
-      _Bool 
-# 30 "src\\memory.c"
-           IsByteStreamValid( const byte_stream_t * inStream );
-static 
-# 31 "src\\memory.c" 3 4
-      _Bool 
-# 31 "src\\memory.c"
-           IsFloatStreamValid( const float_stream_t * inStream );
-static 
 # 32 "src\\memory.c" 3 4
       _Bool 
 # 32 "src\\memory.c"
+           IsByteStreamValid( const byte_stream_t * inStream );
+static 
+# 33 "src\\memory.c" 3 4
+      _Bool 
+# 33 "src\\memory.c"
+           IsFloatStreamValid( const float_stream_t * inStream );
+static 
+# 34 "src\\memory.c" 3 4
+      _Bool 
+# 34 "src\\memory.c"
            IsComplexStreamValid( const complex_stream_t * inStream );
-# 49 "src\\memory.c"
+# 51 "src\\memory.c"
 error_t Memory_AllocateStream( void * ioStream, uint32_t len, memory_type_t type )
 {
+  Debug_SetWatermark((void *)Memory_AllocateStream,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   byte_stream_t * tmpByteStream;
   float_stream_t * tmpFloatStream;
   complex_stream_t * tmpComplexStream;
 
   if (
-# 56 "src\\memory.c" 3 4
+# 60 "src\\memory.c" 3 4
      ((void *)0) 
-# 56 "src\\memory.c"
+# 60 "src\\memory.c"
           != ioStream)
   {
     switch(type)
@@ -1720,18 +2050,20 @@ error_t Memory_AllocateStream( void * ioStream, uint32_t len, memory_type_t type
 
   return Error_HandleErr(retErr);
 }
-# 97 "src\\memory.c"
+# 101 "src\\memory.c"
 error_t Memory_FreeStream( void * ioStream, memory_type_t type )
 {
+  Debug_SetWatermark((void *)Memory_FreeStream,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   byte_stream_t * tmpByteStream;
   float_stream_t * tmpFloatStream;
   complex_stream_t * tmpComplexStream;
 
   if (
-# 104 "src\\memory.c" 3 4
+# 110 "src\\memory.c" 3 4
      ((void *)0) 
-# 104 "src\\memory.c"
+# 110 "src\\memory.c"
           != ioStream)
   {
     switch(type)
@@ -1763,17 +2095,17 @@ error_t Memory_FreeStream( void * ioStream, memory_type_t type )
 
   return Error_HandleErr(retErr);
 }
-# 145 "src\\memory.c"
+# 151 "src\\memory.c"
 
-# 145 "src\\memory.c" 3 4
+# 151 "src\\memory.c" 3 4
 _Bool 
-# 145 "src\\memory.c"
+# 151 "src\\memory.c"
     Memory_IsStreamValid( const void * inStream, memory_type_t type )
 {
   
-# 147 "src\\memory.c" 3 4
+# 153 "src\\memory.c" 3 4
  _Bool 
-# 147 "src\\memory.c"
+# 153 "src\\memory.c"
       bRet;
   byte_stream_t * tmpByteStream;
   float_stream_t * tmpFloatStream;
@@ -1798,31 +2130,33 @@ _Bool
 
     default:
       bRet = 
-# 170 "src\\memory.c" 3 4
+# 176 "src\\memory.c" 3 4
             0
-# 170 "src\\memory.c"
+# 176 "src\\memory.c"
                  ;
       break;
   }
 
   return bRet;
 }
-# 191 "src\\memory.c"
+# 197 "src\\memory.c"
 static error_t AllocateByteStream( byte_stream_t * ioStream, uint32_t len )
 {
+  Debug_SetWatermark((void *)AllocateByteStream,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
 
   if (
-# 195 "src\\memory.c" 3 4
+# 203 "src\\memory.c" 3 4
      ((void *)0) 
-# 195 "src\\memory.c"
+# 203 "src\\memory.c"
           != ioStream)
   {
     ioStream->pBuf = calloc(len,sizeof(uint8_t));
     if (
-# 198 "src\\memory.c" 3 4
+# 206 "src\\memory.c" 3 4
        ((void *)0) 
-# 198 "src\\memory.c"
+# 206 "src\\memory.c"
             == ioStream->pBuf)
     {
       retErr = ERR_INV_DYNAMIC_ALLOC;
@@ -1839,22 +2173,24 @@ static error_t AllocateByteStream( byte_stream_t * ioStream, uint32_t len )
 
   return Error_HandleErr(retErr);
 }
-# 224 "src\\memory.c"
+# 232 "src\\memory.c"
 static error_t AllocateFloatStream( float_stream_t * ioStream, uint32_t len )
 {
+  Debug_SetWatermark((void *)AllocateFloatStream,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
 
   if (
-# 228 "src\\memory.c" 3 4
+# 238 "src\\memory.c" 3 4
      ((void *)0) 
-# 228 "src\\memory.c"
+# 238 "src\\memory.c"
           != ioStream)
   {
     ioStream->pBuf = calloc(len,sizeof(float));
     if (
-# 231 "src\\memory.c" 3 4
+# 241 "src\\memory.c" 3 4
        ((void *)0) 
-# 231 "src\\memory.c"
+# 241 "src\\memory.c"
             == ioStream->pBuf)
     {
       retErr = ERR_INV_DYNAMIC_ALLOC;
@@ -1871,22 +2207,24 @@ static error_t AllocateFloatStream( float_stream_t * ioStream, uint32_t len )
 
   return Error_HandleErr(retErr);
 }
-# 257 "src\\memory.c"
+# 267 "src\\memory.c"
 static error_t AllocateComplexStream( complex_stream_t * ioStream, uint32_t len )
 {
+  Debug_SetWatermark((void *)AllocateComplexStream,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
 
   if (
-# 261 "src\\memory.c" 3 4
+# 273 "src\\memory.c" 3 4
      ((void *)0) 
-# 261 "src\\memory.c"
+# 273 "src\\memory.c"
           != ioStream)
   {
     ioStream->pBuf = calloc(len,sizeof(complex_t));
     if (
-# 264 "src\\memory.c" 3 4
+# 276 "src\\memory.c" 3 4
        ((void *)0) 
-# 264 "src\\memory.c"
+# 276 "src\\memory.c"
             == ioStream->pBuf)
     {
       retErr = ERR_INV_DYNAMIC_ALLOC;
@@ -1903,26 +2241,28 @@ static error_t AllocateComplexStream( complex_stream_t * ioStream, uint32_t len 
 
   return Error_HandleErr(retErr);
 }
-# 289 "src\\memory.c"
+# 301 "src\\memory.c"
 static error_t FreeByteStream( byte_stream_t * ioStream )
 {
+  Debug_SetWatermark((void *)FreeByteStream,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
 
   if ((
-# 293 "src\\memory.c" 3 4
+# 307 "src\\memory.c" 3 4
       ((void *)0) 
-# 293 "src\\memory.c"
+# 307 "src\\memory.c"
            != ioStream) && (
-# 293 "src\\memory.c" 3 4
+# 307 "src\\memory.c" 3 4
                             ((void *)0) 
-# 293 "src\\memory.c"
+# 307 "src\\memory.c"
                                  != ioStream->pBuf))
   {
     free(ioStream->pBuf);
     ioStream->pBuf = 
-# 296 "src\\memory.c" 3 4
+# 310 "src\\memory.c" 3 4
                     ((void *)0)
-# 296 "src\\memory.c"
+# 310 "src\\memory.c"
                         ;
     ioStream->len = 0;
   }
@@ -1933,26 +2273,28 @@ static error_t FreeByteStream( byte_stream_t * ioStream )
 
   return Error_HandleErr(retErr);
 }
-# 315 "src\\memory.c"
+# 329 "src\\memory.c"
 static error_t FreeFloatStream( float_stream_t * ioStream )
 {
+  Debug_SetWatermark((void *)FreeFloatStream,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
 
   if ((
-# 319 "src\\memory.c" 3 4
+# 335 "src\\memory.c" 3 4
       ((void *)0) 
-# 319 "src\\memory.c"
+# 335 "src\\memory.c"
            != ioStream) && (
-# 319 "src\\memory.c" 3 4
+# 335 "src\\memory.c" 3 4
                             ((void *)0) 
-# 319 "src\\memory.c"
+# 335 "src\\memory.c"
                                  != ioStream->pBuf))
   {
     free(ioStream->pBuf);
     ioStream->pBuf = 
-# 322 "src\\memory.c" 3 4
+# 338 "src\\memory.c" 3 4
                     ((void *)0)
-# 322 "src\\memory.c"
+# 338 "src\\memory.c"
                         ;
     ioStream->len = 0;
   }
@@ -1963,26 +2305,28 @@ static error_t FreeFloatStream( float_stream_t * ioStream )
 
   return Error_HandleErr(retErr);
 }
-# 341 "src\\memory.c"
+# 357 "src\\memory.c"
 static error_t FreeComplexStream( complex_stream_t * ioStream )
 {
+  Debug_SetWatermark((void *)FreeComplexStream,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
 
   if ((
-# 345 "src\\memory.c" 3 4
+# 363 "src\\memory.c" 3 4
       ((void *)0) 
-# 345 "src\\memory.c"
+# 363 "src\\memory.c"
            != ioStream) && (
-# 345 "src\\memory.c" 3 4
+# 363 "src\\memory.c" 3 4
                             ((void *)0) 
-# 345 "src\\memory.c"
+# 363 "src\\memory.c"
                                  != ioStream->pBuf))
   {
     free(ioStream->pBuf);
     ioStream->pBuf = 
-# 348 "src\\memory.c" 3 4
+# 366 "src\\memory.c" 3 4
                     ((void *)0)
-# 348 "src\\memory.c"
+# 366 "src\\memory.c"
                         ;
     ioStream->len = 0;
   }
@@ -1993,115 +2337,121 @@ static error_t FreeComplexStream( complex_stream_t * ioStream )
 
   return Error_HandleErr(retErr);
 }
-# 368 "src\\memory.c"
+# 386 "src\\memory.c"
 static 
-# 368 "src\\memory.c" 3 4
+# 386 "src\\memory.c" 3 4
       _Bool 
-# 368 "src\\memory.c"
+# 386 "src\\memory.c"
            IsByteStreamValid( const byte_stream_t * inStream )
 {
+  Debug_SetWatermark((void *)IsByteStreamValid,WM_LEVEL_2);
+
   
-# 370 "src\\memory.c" 3 4
+# 390 "src\\memory.c" 3 4
  _Bool 
-# 370 "src\\memory.c"
+# 390 "src\\memory.c"
       bRet = 
-# 370 "src\\memory.c" 3 4
+# 390 "src\\memory.c" 3 4
              0
-# 370 "src\\memory.c"
+# 390 "src\\memory.c"
                   ;
 
   if ((
-# 372 "src\\memory.c" 3 4
+# 392 "src\\memory.c" 3 4
       ((void *)0) 
-# 372 "src\\memory.c"
+# 392 "src\\memory.c"
            != inStream) &&
       (
-# 373 "src\\memory.c" 3 4
+# 393 "src\\memory.c" 3 4
       ((void *)0) 
-# 373 "src\\memory.c"
+# 393 "src\\memory.c"
            != inStream->pBuf) &&
       (inStream->len != 0))
   {
     bRet = 
-# 376 "src\\memory.c" 3 4
+# 396 "src\\memory.c" 3 4
           1
-# 376 "src\\memory.c"
+# 396 "src\\memory.c"
               ;
   }
 
   return bRet;
 }
-# 391 "src\\memory.c"
+# 411 "src\\memory.c"
 static 
-# 391 "src\\memory.c" 3 4
+# 411 "src\\memory.c" 3 4
       _Bool 
-# 391 "src\\memory.c"
+# 411 "src\\memory.c"
            IsFloatStreamValid( const float_stream_t * inStream )
 {
+  Debug_SetWatermark((void *)IsFloatStreamValid,WM_LEVEL_2);
+
   
-# 393 "src\\memory.c" 3 4
+# 415 "src\\memory.c" 3 4
  _Bool 
-# 393 "src\\memory.c"
+# 415 "src\\memory.c"
       bRet = 
-# 393 "src\\memory.c" 3 4
+# 415 "src\\memory.c" 3 4
              0
-# 393 "src\\memory.c"
+# 415 "src\\memory.c"
                   ;
 
   if ((
-# 395 "src\\memory.c" 3 4
+# 417 "src\\memory.c" 3 4
       ((void *)0) 
-# 395 "src\\memory.c"
+# 417 "src\\memory.c"
            != inStream) &&
       (
-# 396 "src\\memory.c" 3 4
-      ((void *)0) 
-# 396 "src\\memory.c"
-           != inStream->pBuf) &&
-      (inStream->len != 0))
-  {
-    bRet = 
-# 399 "src\\memory.c" 3 4
-          1
-# 399 "src\\memory.c"
-              ;
-  }
-
-  return bRet;
-}
-# 414 "src\\memory.c"
-static 
-# 414 "src\\memory.c" 3 4
-      _Bool 
-# 414 "src\\memory.c"
-           IsComplexStreamValid( const complex_stream_t * inStream )
-{
-  
-# 416 "src\\memory.c" 3 4
- _Bool 
-# 416 "src\\memory.c"
-      bRet = 
-# 416 "src\\memory.c" 3 4
-             0
-# 416 "src\\memory.c"
-                  ;
-
-  if ((
 # 418 "src\\memory.c" 3 4
       ((void *)0) 
 # 418 "src\\memory.c"
-           != inStream) &&
-      (
-# 419 "src\\memory.c" 3 4
-      ((void *)0) 
-# 419 "src\\memory.c"
            != inStream->pBuf) &&
       (inStream->len != 0))
   {
     bRet = 
-# 422 "src\\memory.c" 3 4
+# 421 "src\\memory.c" 3 4
           1
-# 422 "src\\memory.c"
+# 421 "src\\memory.c"
+              ;
+  }
+
+  return bRet;
+}
+# 436 "src\\memory.c"
+static 
+# 436 "src\\memory.c" 3 4
+      _Bool 
+# 436 "src\\memory.c"
+           IsComplexStreamValid( const complex_stream_t * inStream )
+{
+  Debug_SetWatermark((void *)IsComplexStreamValid,WM_LEVEL_2);
+
+  
+# 440 "src\\memory.c" 3 4
+ _Bool 
+# 440 "src\\memory.c"
+      bRet = 
+# 440 "src\\memory.c" 3 4
+             0
+# 440 "src\\memory.c"
+                  ;
+
+  if ((
+# 442 "src\\memory.c" 3 4
+      ((void *)0) 
+# 442 "src\\memory.c"
+           != inStream) &&
+      (
+# 443 "src\\memory.c" 3 4
+      ((void *)0) 
+# 443 "src\\memory.c"
+           != inStream->pBuf) &&
+      (inStream->len != 0))
+  {
+    bRet = 
+# 446 "src\\memory.c" 3 4
+          1
+# 446 "src\\memory.c"
               ;
   }
 

@@ -3,13 +3,15 @@
 # 1 "<built-in>"
 # 1 "<command-line>"
 # 1 "src\\interleaving.c"
-# 16 "src\\interleaving.c"
-# 1 "src\\interleaving.h" 1
-# 18 "src\\interleaving.h"
+# 18 "src\\interleaving.c"
+# 1 "src\\debug.h" 1
+# 19 "src\\debug.h"
+# 1 "src\\channel.h" 1
+# 20 "src\\channel.h"
 # 1 "src\\error.h" 1
-# 18 "src\\error.h"
+# 19 "src\\error.h"
 # 1 "src\\system.h" 1
-# 20 "src\\system.h"
+# 21 "src\\system.h"
 # 1 "c:\\mingw\\include\\stdio.h" 1 3
 # 38 "c:\\mingw\\include\\stdio.h" 3
        
@@ -445,9 +447,9 @@ int vswscanf (const wchar_t *__restrict__, const wchar_t * __restrict__, __built
 
 
 
-# 21 "src\\system.h" 2
-# 1 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdbool.h" 1 3 4
 # 22 "src\\system.h" 2
+# 1 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdbool.h" 1 3 4
+# 23 "src\\system.h" 2
 # 1 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 1 3 4
 # 9 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 3 4
 # 1 "c:\\mingw\\include\\stdint.h" 1 3 4
@@ -510,7 +512,7 @@ typedef __uintptr_t uintptr_t;
 typedef long long intmax_t;
 typedef unsigned long long uintmax_t;
 # 10 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 2 3 4
-# 23 "src\\system.h" 2
+# 24 "src\\system.h" 2
 # 1 "c:\\mingw\\include\\string.h" 1 3
 # 34 "c:\\mingw\\include\\string.h" 3
        
@@ -684,7 +686,7 @@ extern inline __attribute__((__gnu_inline__)) __attribute__((__always_inline__))
 
 
 
-# 24 "src\\system.h" 2
+# 25 "src\\system.h" 2
 # 1 "c:\\mingw\\include\\stdlib.h" 1 3
 # 34 "c:\\mingw\\include\\stdlib.h" 3
        
@@ -992,7 +994,7 @@ __attribute__((__cdecl__)) __attribute__((__nothrow__)) int unsetenv( const char
 
 
 
-# 25 "src\\system.h" 2
+# 26 "src\\system.h" 2
 # 1 "c:\\mingw\\include\\time.h" 1 3
 # 33 "c:\\mingw\\include\\time.h" 3
        
@@ -1162,7 +1164,7 @@ int nanosleep( const struct timespec *, struct timespec * );
 size_t wcsftime (wchar_t *, size_t, const wchar_t *, const struct tm *);
 
 
-# 26 "src\\system.h" 2
+# 27 "src\\system.h" 2
 # 1 "c:\\mingw\\include\\math.h" 1 3
 # 35 "c:\\mingw\\include\\math.h" 3
        
@@ -1548,16 +1550,16 @@ extern float __attribute__((__cdecl__)) fmaf (float, float, float);
 extern long double __attribute__((__cdecl__)) fmal (long double, long double, long double);
 # 931 "c:\\mingw\\include\\math.h" 3
 
-# 27 "src\\system.h" 2
-# 58 "src\\system.h"
+# 28 "src\\system.h" 2
+# 59 "src\\system.h"
 
-# 58 "src\\system.h"
+# 59 "src\\system.h"
 typedef struct _complex_t
 {
   float re;
   float im;
 } complex_t;
-# 19 "src\\error.h" 2
+# 20 "src\\error.h" 2
 
 
 
@@ -1600,9 +1602,9 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 76 "src\\error.h"
+# 77 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
-# 19 "src\\interleaving.h" 2
+# 21 "src\\channel.h" 2
 # 1 "src\\memory.h" 1
 # 28 "src\\memory.h"
 typedef enum
@@ -1649,8 +1651,131 @@ error_t Memory_FreeStream( void * ioStream, memory_type_t type );
 _Bool 
 # 67 "src\\memory.h"
     Memory_IsStreamValid( const void * inStream, memory_type_t type );
-# 20 "src\\interleaving.h" 2
-# 28 "src\\interleaving.h"
+# 22 "src\\channel.h" 2
+# 30 "src\\channel.h"
+typedef enum
+{
+  CHAN_BSC = 0,
+  CHAN_AWGN,
+
+  CHAN_NUM
+} chan_type_t;
+
+
+typedef struct _chan_par_t
+{
+  uint32_t seed;
+  chan_type_t type;
+  uint8_t bps;
+  union
+  {
+    float Peb;
+    float EbN0;
+  };
+} chan_par_t;
+# 76 "src\\channel.h"
+error_t Channel_ListParameters( chan_par_t * ioParams );
+error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, const chan_par_t * pParams );
+error_t Channel_AWGN( const complex_stream_t * inStream, complex_stream_t * outStream, const chan_par_t * pParams );
+# 20 "src\\debug.h" 2
+# 1 "src\\convolutional.h" 1
+# 62 "src\\convolutional.h"
+typedef enum
+{
+  CC_RATE_12 = 1, CC_RATE_23 = 2, CC_RATE_34 = 3, CC_RATE_56 = 5, CC_RATE_78 = 7
+} cc_rate_t;
+
+
+typedef enum
+{
+  CC_RATE_IDX_12, CC_RATE_IDX_23, CC_RATE_IDX_34, CC_RATE_IDX_56, CC_RATE_IDX_78,
+  CC_RATE_NUM
+} cc_rate_idx_t;
+# 81 "src\\convolutional.h"
+typedef enum
+{
+  CC_KLEN_3 = 3,
+  CC_KLEN_4 = 4,
+  CC_KLEN_5 = 5,
+  CC_KLEN_6 = 6,
+  CC_KLEN_7 = 7,
+  CC_KLEN_8 = 8,
+  CC_KLEN_MIN = CC_KLEN_3,
+  CC_KLEN_MAX = CC_KLEN_8
+} cc_klen_t;
+
+
+
+typedef enum
+{
+  CC_VITDM_HARD = 0,
+  CC_VITDM_SOFT,
+
+  CC_VITDM_NUM
+} cc_dec_method_t;
+
+
+typedef struct _cc_par_t
+{
+  cc_rate_t cRate;
+  cc_klen_t kLen;
+  uint16_t memFact;
+  cc_dec_method_t vitDM;
+} cc_par_t;
+
+
+typedef struct _cc_encoder_info_t
+{
+  const uint8_t * pConnVect;
+  uint8_t lenConnVect;
+  const uint8_t * pPuncVect;
+  uint8_t lenPuncVect;
+} cc_encoder_info_t;
+
+
+typedef struct _cc_trcore_t
+{
+  uint8_t outBits[2u];
+  uint8_t nextSt[2u];
+} cc_trcore_t;
+
+
+typedef struct _cc_trellis_t
+{
+  cc_trcore_t trSt[(1<<(CC_KLEN_7-1))];
+} cc_trellis_t;
+
+
+typedef struct _cc_hard_dec_info_t
+{
+  uint32_t iter[(1<<(CC_KLEN_7-1))];
+  uint32_t dist[(1<<(CC_KLEN_7-1))];
+  uint8_t path[(1<<(CC_KLEN_7-1))][((1<<(CC_KLEN_7-1))*10u)];
+} cc_hard_dec_info_t;
+
+
+
+typedef struct _cc_soft_dec_info_t
+{
+  uint32_t iter[(1<<(CC_KLEN_7-1))];
+  float dist[(1<<(CC_KLEN_7-1))];
+  uint8_t path[(1<<(CC_KLEN_7-1))][((1<<(CC_KLEN_7-1))*10u)];
+} cc_soft_dec_info_t;
+
+
+
+
+
+
+
+error_t CnvCod_ListParameters( cc_par_t * ioParams );
+error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
+error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
+error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
+# 21 "src\\debug.h" 2
+
+# 1 "src\\interleaving.h" 1
+# 30 "src\\interleaving.h"
 typedef enum
 {
   INTRLV_BLOCK = 0,
@@ -1674,11 +1799,36 @@ typedef struct _itlv_par_t
     uint8_t cells;
   };
 } itlv_par_t;
-# 84 "src\\interleaving.h"
+# 86 "src\\interleaving.h"
 error_t Intrlv_ListParameters( itlv_par_t * ioParams );
 error_t Intrlv_Interleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
 error_t Intrlv_Deinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
-# 17 "src\\interleaving.c" 2
+# 23 "src\\debug.h" 2
+
+# 1 "src\\modulation.h" 1
+# 30 "src\\modulation.h"
+typedef enum
+{
+  MOD_PSK = 0,
+  MOD_QAM,
+
+  MOD_NUM
+} mod_type_t;
+# 75 "src\\modulation.h"
+typedef struct _mod_par_t
+{
+  mod_type_t type;
+  uint8_t order;
+  uint8_t bps;
+  float phOfst;
+} mod_par_t;
+
+
+typedef struct _mod_maptable_t
+{
+  uint8_t bits[(0x01<<2u)];
+  complex_t symbs[(0x01<<2u)];
+} mod_maptable_t;
 
 
 
@@ -1686,19 +1836,169 @@ error_t Intrlv_Deinterleaver( const byte_stream_t * inStream, byte_stream_t * ou
 
 
 
+error_t Modulation_ListParameters( mod_par_t * ioParams );
+error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * outStream, const mod_par_t * pParams );
+error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_t * outStream, const mod_par_t * pParams );
+error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream_t * outStream, const mod_par_t * pParams );
+# 25 "src\\debug.h" 2
+# 1 "src\\reed_solomon.h" 1
+# 30 "src\\reed_solomon.h"
+typedef enum
+{
+  RS_GF_DEGREE_4 = 4,
+  RS_GF_DEGREE_8 = 8
+} rs_gf_degree_t;
+# 52 "src\\reed_solomon.h"
+typedef struct _rs_par_t
+{
+  rs_gf_degree_t m;
+  uint8_t kSh;
+  uint8_t nSh;
+  uint8_t t;
+  uint16_t kUn;
+  uint16_t nUn;
+  uint16_t dimGF;
+} rs_par_t;
+
+
+
+
+
+
+
+error_t RsCod_ListParameters( rs_par_t * ioParams );
+error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams );
+error_t RcCod_Decoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams );
+# 26 "src\\debug.h" 2
+# 1 "src\\scrambling.h" 1
+# 30 "src\\scrambling.h"
+typedef enum
+{
+  SCRAMB_ADT = 0,
+  SCRAMB_MLT,
+
+  SCRAMB_NUM
+} scramb_type_t;
+
+
+typedef struct _scr_par_t
+{
+  scramb_type_t type;
+  uint8_t nCells;
+  uint32_t conVect;
+  uint32_t initSt;
+} scr_par_t;
+# 77 "src\\scrambling.h"
+error_t Scramb_ListParameters( scr_par_t * ioParams );
+error_t Scramb_Scrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
+error_t Scramb_Descrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
+# 27 "src\\debug.h" 2
+# 52 "src\\debug.h"
+typedef struct _debug_par_t
+{
+  scr_par_t scrPar;
+  rs_par_t rsPar;
+  itlv_par_t itlvPar;
+  cc_par_t ccPar;
+  mod_par_t modPar;
+  chan_par_t chanPar;
+} debug_par_t;
+
+
+typedef enum
+{
+  PID_TX_ORG = 0,
+  PID_RX_ORG,
+  PID_TX_CRC,
+  PID_RX_CRC,
+  PID_TX_SCR,
+  PID_RX_SCR,
+  PID_TX_RSCOD,
+  PID_RX_RSCOD,
+  PID_TX_INTLV,
+  PID_RX_INTLV,
+  PID_TX_CNVCOD,
+  PID_RX_CNVCOD,
+  PID_TX_MAP,
+  PID_RX_MAP,
+  PID_RX_LLR,
+
+  PID_NUM
+} print_label_t;
+
+
+typedef enum _wm_level_t
+{
+  WM_LEVEL_1 = 0,
+  WM_LEVEL_2,
+  WM_LEVEL_3,
+
+  WM_LEVEL_NUM
+} wm_level_t;
+
+
+typedef enum _ansi_text_color
+{
+  COLOR_BLACK = 30,
+  COLOR_RED = 31,
+  COLOR_GREEN = 32,
+  COLOR_YELLOW = 33,
+  COLOR_BLUE = 34,
+  COLOR_PURPLE = 35,
+  COLOR_CYAN = 36,
+  COLOR_WHITE = 37,
+  COLOR_GREY = 90,
+  COLOR_BRIGHT_RED = 91,
+  COLOR_BRIGHT_GREEN = 92,
+  COLOR_BRIGHT_YELLOW = 93,
+  COLOR_BRIGHT_BLUE = 94,
+  COLOR_BRIGHT_PURPLE = 95,
+  COLOR_BRIGHT_CYAN = 96,
+  COLOR_BRIGHT_WHITE = 97,
+} ansi_text_color;
+
+
+typedef enum _ansi_text_style
+{
+  STYLE_RESET = 0,
+  STYLE_BOLD = 1,
+  STYLE_ITALIC = 3,
+  STYLE_SINGLE_UNDERLINE = 4,
+  STYLE_SLOW_BLINK = 5,
+  STYLE_FAST_BLINK = 6,
+  STYLE_DOUBLE_UNDERLINE = 21,
+} ansi_text_style;
+# 142 "src\\debug.h"
+error_t Debug_PrintParameters( uint32_t orgLen, const debug_par_t * pParams );
+error_t Debug_ListParameters( debug_par_t * ioParams, const scr_par_t * scrParam, const rs_par_t * rsParam, const itlv_par_t * itlvParam, const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam );
+error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed );
+error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
+error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
+error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
+error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams );
+error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label );
+error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label );
+error_t Debug_SetWatermark( const void * funcAddr, const wm_level_t level );
+void Debug_PrintWatermarks( void );
+void Debug_SetTerminalAppearance( ansi_text_color color, ansi_text_style style );
+void Debug_ResetTerminalAppearance( void );
+# 19 "src\\interleaving.c" 2
+# 27 "src\\interleaving.c"
 static error_t BlockInterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * ioParams );
 static error_t BlockDeinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
 static error_t ConvolutionalInterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
 static error_t ConvolutionalDeinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
-# 42 "src\\interleaving.c"
+# 45 "src\\interleaving.c"
 error_t Intrlv_ListParameters( itlv_par_t * ioParams )
 {
+  Debug_SetWatermark((void *)Intrlv_ListParameters,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
 
   if (
-# 46 "src\\interleaving.c" 3 4
+# 51 "src\\interleaving.c" 3 4
      ((void *)0) 
-# 46 "src\\interleaving.c"
+# 51 "src\\interleaving.c"
           != ioParams)
   {
     ioParams->type = INTRLV_CONV;
@@ -1725,15 +2025,17 @@ error_t Intrlv_ListParameters( itlv_par_t * ioParams )
 
   return Error_HandleErr(retErr);
 }
-# 83 "src\\interleaving.c"
+# 88 "src\\interleaving.c"
 error_t Intrlv_Interleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
 {
+  Debug_SetWatermark((void *)Intrlv_Interleaver,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
 
   if (
-# 87 "src\\interleaving.c" 3 4
+# 94 "src\\interleaving.c" 3 4
      ((void *)0) 
-# 87 "src\\interleaving.c"
+# 94 "src\\interleaving.c"
           != pParams)
   {
     switch (pParams->type)
@@ -1754,15 +2056,17 @@ error_t Intrlv_Interleaver( const byte_stream_t * inStream, byte_stream_t * outS
 
   return Error_HandleErr(retErr);
 }
-# 118 "src\\interleaving.c"
+# 125 "src\\interleaving.c"
 error_t Intrlv_Deinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
 {
+  Debug_SetWatermark((void *)Intrlv_Deinterleaver,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
 
   if (
-# 122 "src\\interleaving.c" 3 4
+# 131 "src\\interleaving.c" 3 4
      ((void *)0) 
-# 122 "src\\interleaving.c"
+# 131 "src\\interleaving.c"
           != pParams)
   {
     switch (pParams->type)
@@ -1783,9 +2087,11 @@ error_t Intrlv_Deinterleaver( const byte_stream_t * inStream, byte_stream_t * ou
 
   return Error_HandleErr(retErr);
 }
-# 162 "src\\interleaving.c"
+# 172 "src\\interleaving.c"
 static error_t BlockInterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
 {
+  Debug_SetWatermark((void *)BlockInterleaver,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   const uint32_t cycNum = (inStream->len-1)/(pParams->rows*pParams->cols)+1;
   uint32_t cycLen;
@@ -1837,9 +2143,11 @@ static error_t BlockInterleaver( const byte_stream_t * inStream, byte_stream_t *
 
   return Error_HandleErr(retErr);
 }
-# 230 "src\\interleaving.c"
+# 242 "src\\interleaving.c"
 static error_t BlockDeinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
 {
+  Debug_SetWatermark((void *)BlockDeinterleaver,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   const uint32_t cycNum = (inStream->len-1)/(pParams->rows*pParams->cols)+1;
   const uint32_t misElem = cycNum*pParams->rows*pParams->cols-inStream->len;
@@ -1917,9 +2225,11 @@ static error_t BlockDeinterleaver( const byte_stream_t * inStream, byte_stream_t
 
   return Error_HandleErr(retErr);
 }
-# 320 "src\\interleaving.c"
+# 334 "src\\interleaving.c"
 static error_t ConvolutionalInterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
 {
+  Debug_SetWatermark((void *)ConvolutionalInterleaver,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   const uint16_t shiftRegRows = pParams->dlys-1;
   const uint16_t shiftRegCols = pParams->cells*(pParams->dlys-1);
@@ -1939,9 +2249,9 @@ static error_t ConvolutionalInterleaver( const byte_stream_t * inStream, byte_st
         for (j=0; j<shiftRegCols; j++)
         {
           shiftRegMtx[i][j] = 
-# 340 "src\\interleaving.c" 3
+# 356 "src\\interleaving.c" 3
                              0xffffU
-# 340 "src\\interleaving.c"
+# 356 "src\\interleaving.c"
                                        ;
         }
       }
@@ -1956,9 +2266,9 @@ static error_t ConvolutionalInterleaver( const byte_stream_t * inStream, byte_st
         else
         {
           if (
-# 353 "src\\interleaving.c" 3
+# 369 "src\\interleaving.c" 3
              0xffffU 
-# 353 "src\\interleaving.c"
+# 369 "src\\interleaving.c"
                         != shiftRegMtx[rowIdx][pParams->cells*(rowIdx+1)-1])
           {
             outStream->pBuf[outIdx] =
@@ -1993,9 +2303,9 @@ static error_t ConvolutionalInterleaver( const byte_stream_t * inStream, byte_st
       while (outIdx < inStream->len)
       {
         if (
-# 386 "src\\interleaving.c" 3
+# 402 "src\\interleaving.c" 3
            0xffffU 
-# 386 "src\\interleaving.c"
+# 402 "src\\interleaving.c"
                       != shiftRegMtx[rowIdx][pParams->cells*(rowIdx+1)-1])
         {
             outStream->pBuf[outIdx] =
@@ -2009,9 +2319,9 @@ static error_t ConvolutionalInterleaver( const byte_stream_t * inStream, byte_st
         }
 
         shiftRegMtx[rowIdx][0] = 
-# 398 "src\\interleaving.c" 3
+# 414 "src\\interleaving.c" 3
                                 0xffffU
-# 398 "src\\interleaving.c"
+# 414 "src\\interleaving.c"
                                           ;
 
         if ((pParams->dlys-2) == rowIdx)
@@ -2036,9 +2346,11 @@ static error_t ConvolutionalInterleaver( const byte_stream_t * inStream, byte_st
 
   return Error_HandleErr(retErr);
 }
-# 433 "src\\interleaving.c"
+# 449 "src\\interleaving.c"
 static error_t ConvolutionalDeinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
 {
+  Debug_SetWatermark((void *)ConvolutionalDeinterleaver,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   const uint16_t shiftRegRows = pParams->dlys-1;
   const uint16_t shiftRegCols = pParams->cells*(pParams->dlys-1);
@@ -2059,9 +2371,9 @@ static error_t ConvolutionalDeinterleaver( const byte_stream_t * inStream, byte_
         for (j=0; j<shiftRegCols; j++)
         {
           shiftRegMtx[i][j] = 
-# 454 "src\\interleaving.c" 3
+# 472 "src\\interleaving.c" 3
                              0xffffU
-# 454 "src\\interleaving.c"
+# 472 "src\\interleaving.c"
                                        ;
         }
       }
@@ -2078,9 +2390,9 @@ static error_t ConvolutionalDeinterleaver( const byte_stream_t * inStream, byte_
         else
         {
           if (
-# 469 "src\\interleaving.c" 3
+# 487 "src\\interleaving.c" 3
              0xffffU 
-# 469 "src\\interleaving.c"
+# 487 "src\\interleaving.c"
                         != shiftRegMtx[rowIdx][pParams->cells*(pParams->dlys-rowIdx-1)-1])
           {
             outStream->pBuf[outIdx] =
@@ -2101,9 +2413,9 @@ static error_t ConvolutionalDeinterleaver( const byte_stream_t * inStream, byte_
           else
           {
             shiftRegMtx[rowIdx][0] = 
-# 488 "src\\interleaving.c" 3
+# 506 "src\\interleaving.c" 3
                                     0xffffU
-# 488 "src\\interleaving.c"
+# 506 "src\\interleaving.c"
                                               ;
           }
         }

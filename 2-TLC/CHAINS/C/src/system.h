@@ -2,6 +2,7 @@
  * @file system.h
  * @author Filippo Valmori
  * @date 26/08/2024
+ * @copyright Electrolux S.p.A.
  * @ingroup TLC_CHAIN
  * @brief System header
  * 
@@ -51,7 +52,7 @@
 /*** TYPEDEFS ***/
 /****************/
 
-#define ulen_t                   uint32_t                   //!< bit/byte buffer length type (unsigned)
+#define ulen_t                  uint32_t                    //!< bit/byte buffer length type (unsigned)
 #define slen_t                  int32_t                     //!< bit/byte buffer length type (signed)
 #define byte_t                  uint8_t                     //!< byte type
 

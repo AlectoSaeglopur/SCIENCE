@@ -1,0 +1,53 @@
+
+build\target\obj\error.o:     file format pe-i386
+
+
+Disassembly of section .text:
+
+00000000 <_Error_HandleErr>:
+ * @param[in] inErr detected error
+ * 
+ * @return error ID
+ */
+error_t Error_HandleErr( error_t inErr )
+{
+   0:	55                   	push   %ebp
+   1:	89 e5                	mov    %esp,%ebp
+   3:	83 ec 18             	sub    $0x18,%esp
+  if (ERR_NONE != inErr)
+   6:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+   a:	74 3d                	je     49 <_Error_HandleErr+0x49>
+        Debug_ResetTerminalAppearance();
+        Debug_SetTerminalAppearance(COLOR_DEFAULT,STYLE_DEFAULT);
+        break;
+
+      case ALARM_STOP:
+        Debug_SetTerminalAppearance(COLOR_ERROR,STYLE_ERROR);
+   c:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+  13:	00 
+  14:	c7 04 24 5b 00 00 00 	movl   $0x5b,(%esp)
+  1b:	e8 00 00 00 00       	call   20 <_Error_HandleErr+0x20>
+        printf(" >> ERROR: DETECTED ALARM #%d\n",inErr);
+  20:	8b 45 08             	mov    0x8(%ebp),%eax
+  23:	89 44 24 04          	mov    %eax,0x4(%esp)
+  27:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
+  2e:	e8 00 00 00 00       	call   33 <_Error_HandleErr+0x33>
+        Debug_PrintWatermarks();
+  33:	e8 00 00 00 00       	call   38 <_Error_HandleErr+0x38>
+        Debug_ResetTerminalAppearance();
+  38:	e8 00 00 00 00       	call   3d <_Error_HandleErr+0x3d>
+        exit(EXIT_FAILURE);
+  3d:	c7 04 24 01 00 00 00 	movl   $0x1,(%esp)
+  44:	e8 00 00 00 00       	call   49 <_Error_HandleErr+0x49>
+        // do nothing
+        break;
+    }
+  }
+
+  return inErr;
+  49:	8b 45 08             	mov    0x8(%ebp),%eax
+}
+  4c:	c9                   	leave  
+  4d:	c3                   	ret    
+  4e:	90                   	nop
+  4f:	90                   	nop

@@ -3,10 +3,10 @@
   "tasks":
   [
     {
-      "label": "vkn_build",
+      "label": "vkn_prelaunch_target",
       "type": "shell",  
-      "command": "./build.bat",
-      "args": ["target"],
+      "command": ".vscode/prelaunch.bat",
+      "args": ["TARGET"],
       "problemMatcher": [],
     }
   ]

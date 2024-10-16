@@ -1,0 +1,760 @@
+
+build\target\obj\memory.o:     file format pe-i386
+
+
+Disassembly of section .text:
+
+00000000 <_Memory_AllocateStream>:
+ * @param[in] type stream type ID
+ * 
+ * @return error ID
+ */
+error_t Memory_AllocateStream( void * ioStream, ulen_t len, memory_type_t type )
+{
+   0:	55                   	push   %ebp
+   1:	89 e5                	mov    %esp,%ebp
+   3:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)Memory_AllocateStream,WM_LEVEL_1);
+   6:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+   d:	00 
+   e:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
+  15:	e8 00 00 00 00       	call   1a <_Memory_AllocateStream+0x1a>
+
+  error_t retErr = ERR_NONE;
+  1a:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  byte_stream_t * tmpByteStream;
+  float_stream_t * tmpFloatStream;
+  complex_stream_t * tmpComplexStream;
+
+  if (NULL != ioStream)
+  21:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+  25:	74 6c                	je     93 <_Memory_AllocateStream+0x93>
+  {
+    switch(type)
+  27:	8b 45 10             	mov    0x10(%ebp),%eax
+  2a:	83 f8 01             	cmp    $0x1,%eax
+  2d:	74 26                	je     55 <_Memory_AllocateStream+0x55>
+  2f:	83 f8 01             	cmp    $0x1,%eax
+  32:	72 07                	jb     3b <_Memory_AllocateStream+0x3b>
+  34:	83 f8 02             	cmp    $0x2,%eax
+  37:	74 36                	je     6f <_Memory_AllocateStream+0x6f>
+  39:	eb 4e                	jmp    89 <_Memory_AllocateStream+0x89>
+    {
+      case memory_type_byte:
+        tmpByteStream = (byte_stream_t *) ioStream;
+  3b:	8b 45 08             	mov    0x8(%ebp),%eax
+  3e:	89 45 f0             	mov    %eax,-0x10(%ebp)
+        AllocateByteStream(tmpByteStream,len);
+  41:	8b 45 0c             	mov    0xc(%ebp),%eax
+  44:	89 44 24 04          	mov    %eax,0x4(%esp)
+  48:	8b 45 f0             	mov    -0x10(%ebp),%eax
+  4b:	89 04 24             	mov    %eax,(%esp)
+  4e:	e8 4d 01 00 00       	call   1a0 <_AllocateByteStream>
+        break;
+  53:	eb 45                	jmp    9a <_Memory_AllocateStream+0x9a>
+
+      case memory_type_float:
+        tmpFloatStream = (float_stream_t *) ioStream;
+  55:	8b 45 08             	mov    0x8(%ebp),%eax
+  58:	89 45 ec             	mov    %eax,-0x14(%ebp)
+        AllocateFloatStream(tmpFloatStream,len);
+  5b:	8b 45 0c             	mov    0xc(%ebp),%eax
+  5e:	89 44 24 04          	mov    %eax,0x4(%esp)
+  62:	8b 45 ec             	mov    -0x14(%ebp),%eax
+  65:	89 04 24             	mov    %eax,(%esp)
+  68:	e8 a5 01 00 00       	call   212 <_AllocateFloatStream>
+        break;
+  6d:	eb 2b                	jmp    9a <_Memory_AllocateStream+0x9a>
+
+      case memory_type_complex:
+        tmpComplexStream = (complex_stream_t *) ioStream;
+  6f:	8b 45 08             	mov    0x8(%ebp),%eax
+  72:	89 45 e8             	mov    %eax,-0x18(%ebp)
+        AllocateComplexStream(tmpComplexStream,len);
+  75:	8b 45 0c             	mov    0xc(%ebp),%eax
+  78:	89 44 24 04          	mov    %eax,0x4(%esp)
+  7c:	8b 45 e8             	mov    -0x18(%ebp),%eax
+  7f:	89 04 24             	mov    %eax,(%esp)
+  82:	e8 fd 01 00 00       	call   284 <_AllocateComplexStream>
+        break;
+  87:	eb 11                	jmp    9a <_Memory_AllocateStream+0x9a>
+
+      default:
+        retErr = ERR_INV_STREAM_TYPE;
+  89:	c7 45 f4 09 00 00 00 	movl   $0x9,-0xc(%ebp)
+        break;
+  90:	90                   	nop
+  91:	eb 07                	jmp    9a <_Memory_AllocateStream+0x9a>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  93:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+  9a:	8b 45 f4             	mov    -0xc(%ebp),%eax
+  9d:	89 04 24             	mov    %eax,(%esp)
+  a0:	e8 00 00 00 00       	call   a5 <_Memory_AllocateStream+0xa5>
+}
+  a5:	c9                   	leave  
+  a6:	c3                   	ret    
+
+000000a7 <_Memory_FreeStream>:
+ * @param[in] type stream type ID
+ * 
+ * @return error ID
+ */
+error_t Memory_FreeStream( void * ioStream, memory_type_t type )
+{
+  a7:	55                   	push   %ebp
+  a8:	89 e5                	mov    %esp,%ebp
+  aa:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)Memory_FreeStream,WM_LEVEL_1);
+  ad:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+  b4:	00 
+  b5:	c7 04 24 a7 00 00 00 	movl   $0xa7,(%esp)
+  bc:	e8 00 00 00 00       	call   c1 <_Memory_FreeStream+0x1a>
+  
+  error_t retErr = ERR_NONE;
+  c1:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  byte_stream_t * tmpByteStream;
+  float_stream_t * tmpFloatStream;
+  complex_stream_t * tmpComplexStream;
+
+  if (NULL != ioStream)
+  c8:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+  cc:	74 57                	je     125 <_Memory_FreeStream+0x7e>
+  {
+    switch(type)
+  ce:	8b 45 0c             	mov    0xc(%ebp),%eax
+  d1:	83 f8 01             	cmp    $0x1,%eax
+  d4:	74 1f                	je     f5 <_Memory_FreeStream+0x4e>
+  d6:	83 f8 01             	cmp    $0x1,%eax
+  d9:	72 07                	jb     e2 <_Memory_FreeStream+0x3b>
+  db:	83 f8 02             	cmp    $0x2,%eax
+  de:	74 28                	je     108 <_Memory_FreeStream+0x61>
+  e0:	eb 39                	jmp    11b <_Memory_FreeStream+0x74>
+    {
+      case memory_type_byte:
+        tmpByteStream = (byte_stream_t *) ioStream;
+  e2:	8b 45 08             	mov    0x8(%ebp),%eax
+  e5:	89 45 f0             	mov    %eax,-0x10(%ebp)
+        FreeByteStream(tmpByteStream);
+  e8:	8b 45 f0             	mov    -0x10(%ebp),%eax
+  eb:	89 04 24             	mov    %eax,(%esp)
+  ee:	e8 03 02 00 00       	call   2f6 <_FreeByteStream>
+        break;
+  f3:	eb 37                	jmp    12c <_Memory_FreeStream+0x85>
+
+      case memory_type_float:
+        tmpFloatStream = (float_stream_t *) ioStream;
+  f5:	8b 45 08             	mov    0x8(%ebp),%eax
+  f8:	89 45 ec             	mov    %eax,-0x14(%ebp)
+        FreeFloatStream(tmpFloatStream);
+  fb:	8b 45 ec             	mov    -0x14(%ebp),%eax
+  fe:	89 04 24             	mov    %eax,(%esp)
+ 101:	e8 56 02 00 00       	call   35c <_FreeFloatStream>
+        break;
+ 106:	eb 24                	jmp    12c <_Memory_FreeStream+0x85>
+
+      case memory_type_complex:
+        tmpComplexStream = (complex_stream_t *) ioStream;
+ 108:	8b 45 08             	mov    0x8(%ebp),%eax
+ 10b:	89 45 e8             	mov    %eax,-0x18(%ebp)
+        FreeComplexStream(tmpComplexStream);
+ 10e:	8b 45 e8             	mov    -0x18(%ebp),%eax
+ 111:	89 04 24             	mov    %eax,(%esp)
+ 114:	e8 a9 02 00 00       	call   3c2 <_FreeComplexStream>
+        break;
+ 119:	eb 11                	jmp    12c <_Memory_FreeStream+0x85>
+      
+      default:
+        retErr = ERR_INV_STREAM_TYPE;
+ 11b:	c7 45 f4 09 00 00 00 	movl   $0x9,-0xc(%ebp)
+        break;
+ 122:	90                   	nop
+ 123:	eb 07                	jmp    12c <_Memory_FreeStream+0x85>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+ 125:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+ 12c:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 12f:	89 04 24             	mov    %eax,(%esp)
+ 132:	e8 00 00 00 00       	call   137 <_Memory_FreeStream+0x90>
+}
+ 137:	c9                   	leave  
+ 138:	c3                   	ret    
+
+00000139 <_Memory_IsStreamValid>:
+ * @param[in] type stream type ID
+ * 
+ * @return validity outcome
+ */
+bool Memory_IsStreamValid( const void * inStream, memory_type_t type )
+{
+ 139:	55                   	push   %ebp
+ 13a:	89 e5                	mov    %esp,%ebp
+ 13c:	83 ec 28             	sub    $0x28,%esp
+  bool bRet;
+  byte_stream_t * tmpByteStream;
+  float_stream_t * tmpFloatStream;
+  complex_stream_t * tmpComplexStream;
+
+  switch (type)
+ 13f:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 142:	83 f8 01             	cmp    $0x1,%eax
+ 145:	74 22                	je     169 <_Memory_IsStreamValid+0x30>
+ 147:	83 f8 01             	cmp    $0x1,%eax
+ 14a:	72 07                	jb     153 <_Memory_IsStreamValid+0x1a>
+ 14c:	83 f8 02             	cmp    $0x2,%eax
+ 14f:	74 2e                	je     17f <_Memory_IsStreamValid+0x46>
+ 151:	eb 42                	jmp    195 <_Memory_IsStreamValid+0x5c>
+  {
+    case memory_type_byte:
+      tmpByteStream = (byte_stream_t *) inStream;
+ 153:	8b 45 08             	mov    0x8(%ebp),%eax
+ 156:	89 45 f0             	mov    %eax,-0x10(%ebp)
+      bRet = IsByteStreamValid(tmpByteStream);
+ 159:	8b 45 f0             	mov    -0x10(%ebp),%eax
+ 15c:	89 04 24             	mov    %eax,(%esp)
+ 15f:	e8 c4 02 00 00       	call   428 <_IsByteStreamValid>
+ 164:	88 45 f7             	mov    %al,-0x9(%ebp)
+      break;
+ 167:	eb 31                	jmp    19a <_Memory_IsStreamValid+0x61>
+
+    case memory_type_float:
+      tmpFloatStream = (float_stream_t *) inStream;
+ 169:	8b 45 08             	mov    0x8(%ebp),%eax
+ 16c:	89 45 ec             	mov    %eax,-0x14(%ebp)
+      bRet = IsFloatStreamValid(tmpFloatStream);
+ 16f:	8b 45 ec             	mov    -0x14(%ebp),%eax
+ 172:	89 04 24             	mov    %eax,(%esp)
+ 175:	e8 ef 02 00 00       	call   469 <_IsFloatStreamValid>
+ 17a:	88 45 f7             	mov    %al,-0x9(%ebp)
+      break;
+ 17d:	eb 1b                	jmp    19a <_Memory_IsStreamValid+0x61>
+
+    case memory_type_complex:
+      tmpComplexStream = (complex_stream_t *) inStream;
+ 17f:	8b 45 08             	mov    0x8(%ebp),%eax
+ 182:	89 45 e8             	mov    %eax,-0x18(%ebp)
+      bRet = IsComplexStreamValid(tmpComplexStream);
+ 185:	8b 45 e8             	mov    -0x18(%ebp),%eax
+ 188:	89 04 24             	mov    %eax,(%esp)
+ 18b:	e8 1a 03 00 00       	call   4aa <_IsComplexStreamValid>
+ 190:	88 45 f7             	mov    %al,-0x9(%ebp)
+      break;
+ 193:	eb 05                	jmp    19a <_Memory_IsStreamValid+0x61>
+
+    default:
+      bRet = false;
+ 195:	c6 45 f7 00          	movb   $0x0,-0x9(%ebp)
+      break;
+ 199:	90                   	nop
+  }
+
+  return bRet;
+ 19a:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+}
+ 19e:	c9                   	leave  
+ 19f:	c3                   	ret    
+
+000001a0 <_AllocateByteStream>:
+ * @param[in] len buffer length
+ * 
+ * @return error ID
+ */
+static error_t AllocateByteStream( byte_stream_t * ioStream, ulen_t len )
+{
+ 1a0:	55                   	push   %ebp
+ 1a1:	89 e5                	mov    %esp,%ebp
+ 1a3:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)AllocateByteStream,WM_LEVEL_2);
+ 1a6:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+ 1ad:	00 
+ 1ae:	c7 04 24 a0 01 00 00 	movl   $0x1a0,(%esp)
+ 1b5:	e8 00 00 00 00       	call   1ba <_AllocateByteStream+0x1a>
+
+  error_t retErr = ERR_NONE;
+ 1ba:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+
+  if (NULL != ioStream)
+ 1c1:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+ 1c5:	74 37                	je     1fe <_AllocateByteStream+0x5e>
+  {
+    ioStream->pBuf = calloc(len,sizeof(byte_t));
+ 1c7:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+ 1ce:	00 
+ 1cf:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 1d2:	89 04 24             	mov    %eax,(%esp)
+ 1d5:	e8 00 00 00 00       	call   1da <_AllocateByteStream+0x3a>
+ 1da:	89 c2                	mov    %eax,%edx
+ 1dc:	8b 45 08             	mov    0x8(%ebp),%eax
+ 1df:	89 10                	mov    %edx,(%eax)
+    if (NULL == ioStream->pBuf)
+ 1e1:	8b 45 08             	mov    0x8(%ebp),%eax
+ 1e4:	8b 00                	mov    (%eax),%eax
+ 1e6:	85 c0                	test   %eax,%eax
+ 1e8:	75 09                	jne    1f3 <_AllocateByteStream+0x53>
+    {
+      retErr = ERR_INV_DYNAMIC_ALLOC;
+ 1ea:	c7 45 f4 08 00 00 00 	movl   $0x8,-0xc(%ebp)
+ 1f1:	eb 12                	jmp    205 <_AllocateByteStream+0x65>
+    }
+    else
+    {
+      ioStream->len = len;
+ 1f3:	8b 45 08             	mov    0x8(%ebp),%eax
+ 1f6:	8b 55 0c             	mov    0xc(%ebp),%edx
+ 1f9:	89 50 04             	mov    %edx,0x4(%eax)
+ 1fc:	eb 07                	jmp    205 <_AllocateByteStream+0x65>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+ 1fe:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+ 205:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 208:	89 04 24             	mov    %eax,(%esp)
+ 20b:	e8 00 00 00 00       	call   210 <_AllocateByteStream+0x70>
+}
+ 210:	c9                   	leave  
+ 211:	c3                   	ret    
+
+00000212 <_AllocateFloatStream>:
+ * @param[in] len buffer length
+ * 
+ * @return error ID
+ */
+static error_t AllocateFloatStream( float_stream_t * ioStream, ulen_t len )
+{
+ 212:	55                   	push   %ebp
+ 213:	89 e5                	mov    %esp,%ebp
+ 215:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)AllocateFloatStream,WM_LEVEL_2);
+ 218:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+ 21f:	00 
+ 220:	c7 04 24 12 02 00 00 	movl   $0x212,(%esp)
+ 227:	e8 00 00 00 00       	call   22c <_AllocateFloatStream+0x1a>
+  
+  error_t retErr = ERR_NONE;
+ 22c:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+
+  if (NULL != ioStream)
+ 233:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+ 237:	74 37                	je     270 <_AllocateFloatStream+0x5e>
+  {
+    ioStream->pBuf = calloc(len,sizeof(float));
+ 239:	c7 44 24 04 04 00 00 	movl   $0x4,0x4(%esp)
+ 240:	00 
+ 241:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 244:	89 04 24             	mov    %eax,(%esp)
+ 247:	e8 00 00 00 00       	call   24c <_AllocateFloatStream+0x3a>
+ 24c:	89 c2                	mov    %eax,%edx
+ 24e:	8b 45 08             	mov    0x8(%ebp),%eax
+ 251:	89 10                	mov    %edx,(%eax)
+    if (NULL == ioStream->pBuf)
+ 253:	8b 45 08             	mov    0x8(%ebp),%eax
+ 256:	8b 00                	mov    (%eax),%eax
+ 258:	85 c0                	test   %eax,%eax
+ 25a:	75 09                	jne    265 <_AllocateFloatStream+0x53>
+    {
+      retErr = ERR_INV_DYNAMIC_ALLOC;
+ 25c:	c7 45 f4 08 00 00 00 	movl   $0x8,-0xc(%ebp)
+ 263:	eb 12                	jmp    277 <_AllocateFloatStream+0x65>
+    }
+    else
+    {
+      ioStream->len = len;
+ 265:	8b 45 08             	mov    0x8(%ebp),%eax
+ 268:	8b 55 0c             	mov    0xc(%ebp),%edx
+ 26b:	89 50 04             	mov    %edx,0x4(%eax)
+ 26e:	eb 07                	jmp    277 <_AllocateFloatStream+0x65>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+ 270:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+ 277:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 27a:	89 04 24             	mov    %eax,(%esp)
+ 27d:	e8 00 00 00 00       	call   282 <_AllocateFloatStream+0x70>
+}
+ 282:	c9                   	leave  
+ 283:	c3                   	ret    
+
+00000284 <_AllocateComplexStream>:
+ * @param[in] len buffer length
+ * 
+ * @return error ID
+ */
+static error_t AllocateComplexStream( complex_stream_t * ioStream, ulen_t len )
+{
+ 284:	55                   	push   %ebp
+ 285:	89 e5                	mov    %esp,%ebp
+ 287:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)AllocateComplexStream,WM_LEVEL_2);
+ 28a:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+ 291:	00 
+ 292:	c7 04 24 84 02 00 00 	movl   $0x284,(%esp)
+ 299:	e8 00 00 00 00       	call   29e <_AllocateComplexStream+0x1a>
+
+  error_t retErr = ERR_NONE;
+ 29e:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+
+  if (NULL != ioStream)
+ 2a5:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+ 2a9:	74 37                	je     2e2 <_AllocateComplexStream+0x5e>
+  {
+    ioStream->pBuf = calloc(len,sizeof(complex_t));
+ 2ab:	c7 44 24 04 08 00 00 	movl   $0x8,0x4(%esp)
+ 2b2:	00 
+ 2b3:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 2b6:	89 04 24             	mov    %eax,(%esp)
+ 2b9:	e8 00 00 00 00       	call   2be <_AllocateComplexStream+0x3a>
+ 2be:	89 c2                	mov    %eax,%edx
+ 2c0:	8b 45 08             	mov    0x8(%ebp),%eax
+ 2c3:	89 10                	mov    %edx,(%eax)
+    if (NULL == ioStream->pBuf)
+ 2c5:	8b 45 08             	mov    0x8(%ebp),%eax
+ 2c8:	8b 00                	mov    (%eax),%eax
+ 2ca:	85 c0                	test   %eax,%eax
+ 2cc:	75 09                	jne    2d7 <_AllocateComplexStream+0x53>
+    {
+      retErr = ERR_INV_DYNAMIC_ALLOC;
+ 2ce:	c7 45 f4 08 00 00 00 	movl   $0x8,-0xc(%ebp)
+ 2d5:	eb 12                	jmp    2e9 <_AllocateComplexStream+0x65>
+    }
+    else
+    {
+      ioStream->len = len;
+ 2d7:	8b 45 08             	mov    0x8(%ebp),%eax
+ 2da:	8b 55 0c             	mov    0xc(%ebp),%edx
+ 2dd:	89 50 04             	mov    %edx,0x4(%eax)
+ 2e0:	eb 07                	jmp    2e9 <_AllocateComplexStream+0x65>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+ 2e2:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+ 2e9:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 2ec:	89 04 24             	mov    %eax,(%esp)
+ 2ef:	e8 00 00 00 00       	call   2f4 <_AllocateComplexStream+0x70>
+}
+ 2f4:	c9                   	leave  
+ 2f5:	c3                   	ret    
+
+000002f6 <_FreeByteStream>:
+ * @param ioStream[in, out] i/o stream whose buffer has to be deallocated
+ * 
+ * @return error ID
+ */
+static error_t FreeByteStream( byte_stream_t * ioStream )
+{
+ 2f6:	55                   	push   %ebp
+ 2f7:	89 e5                	mov    %esp,%ebp
+ 2f9:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)FreeByteStream,WM_LEVEL_2);
+ 2fc:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+ 303:	00 
+ 304:	c7 04 24 f6 02 00 00 	movl   $0x2f6,(%esp)
+ 30b:	e8 00 00 00 00       	call   310 <_FreeByteStream+0x1a>
+
+  error_t retErr = ERR_NONE;
+ 310:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+
+  if ((NULL != ioStream) && (NULL != ioStream->pBuf))
+ 317:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+ 31b:	74 2b                	je     348 <_FreeByteStream+0x52>
+ 31d:	8b 45 08             	mov    0x8(%ebp),%eax
+ 320:	8b 00                	mov    (%eax),%eax
+ 322:	85 c0                	test   %eax,%eax
+ 324:	74 22                	je     348 <_FreeByteStream+0x52>
+  {
+    free(ioStream->pBuf);
+ 326:	8b 45 08             	mov    0x8(%ebp),%eax
+ 329:	8b 00                	mov    (%eax),%eax
+ 32b:	89 04 24             	mov    %eax,(%esp)
+ 32e:	e8 00 00 00 00       	call   333 <_FreeByteStream+0x3d>
+    ioStream->pBuf = NULL;
+ 333:	8b 45 08             	mov    0x8(%ebp),%eax
+ 336:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
+    ioStream->len = 0;
+ 33c:	8b 45 08             	mov    0x8(%ebp),%eax
+ 33f:	c7 40 04 00 00 00 00 	movl   $0x0,0x4(%eax)
+ 346:	eb 07                	jmp    34f <_FreeByteStream+0x59>
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+ 348:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+ 34f:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 352:	89 04 24             	mov    %eax,(%esp)
+ 355:	e8 00 00 00 00       	call   35a <_FreeByteStream+0x64>
+}
+ 35a:	c9                   	leave  
+ 35b:	c3                   	ret    
+
+0000035c <_FreeFloatStream>:
+ * @param ioStream[in, out] i/o stream whose buffer has to be deallocated
+ * 
+ * @return error ID
+ */
+static error_t FreeFloatStream( float_stream_t * ioStream )
+{
+ 35c:	55                   	push   %ebp
+ 35d:	89 e5                	mov    %esp,%ebp
+ 35f:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)FreeFloatStream,WM_LEVEL_2);
+ 362:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+ 369:	00 
+ 36a:	c7 04 24 5c 03 00 00 	movl   $0x35c,(%esp)
+ 371:	e8 00 00 00 00       	call   376 <_FreeFloatStream+0x1a>
+
+  error_t retErr = ERR_NONE;
+ 376:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+
+  if ((NULL != ioStream) && (NULL != ioStream->pBuf))
+ 37d:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+ 381:	74 2b                	je     3ae <_FreeFloatStream+0x52>
+ 383:	8b 45 08             	mov    0x8(%ebp),%eax
+ 386:	8b 00                	mov    (%eax),%eax
+ 388:	85 c0                	test   %eax,%eax
+ 38a:	74 22                	je     3ae <_FreeFloatStream+0x52>
+  {
+    free(ioStream->pBuf);
+ 38c:	8b 45 08             	mov    0x8(%ebp),%eax
+ 38f:	8b 00                	mov    (%eax),%eax
+ 391:	89 04 24             	mov    %eax,(%esp)
+ 394:	e8 00 00 00 00       	call   399 <_FreeFloatStream+0x3d>
+    ioStream->pBuf = NULL;
+ 399:	8b 45 08             	mov    0x8(%ebp),%eax
+ 39c:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
+    ioStream->len = 0;
+ 3a2:	8b 45 08             	mov    0x8(%ebp),%eax
+ 3a5:	c7 40 04 00 00 00 00 	movl   $0x0,0x4(%eax)
+ 3ac:	eb 07                	jmp    3b5 <_FreeFloatStream+0x59>
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+ 3ae:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+ 3b5:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 3b8:	89 04 24             	mov    %eax,(%esp)
+ 3bb:	e8 00 00 00 00       	call   3c0 <_FreeFloatStream+0x64>
+}
+ 3c0:	c9                   	leave  
+ 3c1:	c3                   	ret    
+
+000003c2 <_FreeComplexStream>:
+ * @param ioStream[in, out] i/o stream whose buffer has to be deallocated
+ * 
+ * @return error ID
+ */
+static error_t FreeComplexStream( complex_stream_t * ioStream )
+{
+ 3c2:	55                   	push   %ebp
+ 3c3:	89 e5                	mov    %esp,%ebp
+ 3c5:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)FreeComplexStream,WM_LEVEL_2);
+ 3c8:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+ 3cf:	00 
+ 3d0:	c7 04 24 c2 03 00 00 	movl   $0x3c2,(%esp)
+ 3d7:	e8 00 00 00 00       	call   3dc <_FreeComplexStream+0x1a>
+
+  error_t retErr = ERR_NONE;
+ 3dc:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+
+  if ((NULL != ioStream) && (NULL != ioStream->pBuf))
+ 3e3:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+ 3e7:	74 2b                	je     414 <_FreeComplexStream+0x52>
+ 3e9:	8b 45 08             	mov    0x8(%ebp),%eax
+ 3ec:	8b 00                	mov    (%eax),%eax
+ 3ee:	85 c0                	test   %eax,%eax
+ 3f0:	74 22                	je     414 <_FreeComplexStream+0x52>
+  {
+    free(ioStream->pBuf);
+ 3f2:	8b 45 08             	mov    0x8(%ebp),%eax
+ 3f5:	8b 00                	mov    (%eax),%eax
+ 3f7:	89 04 24             	mov    %eax,(%esp)
+ 3fa:	e8 00 00 00 00       	call   3ff <_FreeComplexStream+0x3d>
+    ioStream->pBuf = NULL;
+ 3ff:	8b 45 08             	mov    0x8(%ebp),%eax
+ 402:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
+    ioStream->len = 0;
+ 408:	8b 45 08             	mov    0x8(%ebp),%eax
+ 40b:	c7 40 04 00 00 00 00 	movl   $0x0,0x4(%eax)
+ 412:	eb 07                	jmp    41b <_FreeComplexStream+0x59>
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+ 414:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+ 41b:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 41e:	89 04 24             	mov    %eax,(%esp)
+ 421:	e8 00 00 00 00       	call   426 <_FreeComplexStream+0x64>
+}
+ 426:	c9                   	leave  
+ 427:	c3                   	ret    
+
+00000428 <_IsByteStreamValid>:
+ * @param[in] type stream type ID
+ * 
+ * @return validity outcome
+ */
+static bool IsByteStreamValid( const byte_stream_t * inStream )
+{
+ 428:	55                   	push   %ebp
+ 429:	89 e5                	mov    %esp,%ebp
+ 42b:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)IsByteStreamValid,WM_LEVEL_2);
+ 42e:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+ 435:	00 
+ 436:	c7 04 24 28 04 00 00 	movl   $0x428,(%esp)
+ 43d:	e8 00 00 00 00       	call   442 <_IsByteStreamValid+0x1a>
+
+  bool bRet = false;
+ 442:	c6 45 f7 00          	movb   $0x0,-0x9(%ebp)
+
+  if ((NULL != inStream) &&
+ 446:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+ 44a:	74 17                	je     463 <_IsByteStreamValid+0x3b>
+      (NULL != inStream->pBuf) &&
+ 44c:	8b 45 08             	mov    0x8(%ebp),%eax
+ 44f:	8b 00                	mov    (%eax),%eax
+  if ((NULL != inStream) &&
+ 451:	85 c0                	test   %eax,%eax
+ 453:	74 0e                	je     463 <_IsByteStreamValid+0x3b>
+      (inStream->len != 0))
+ 455:	8b 45 08             	mov    0x8(%ebp),%eax
+ 458:	8b 40 04             	mov    0x4(%eax),%eax
+      (NULL != inStream->pBuf) &&
+ 45b:	85 c0                	test   %eax,%eax
+ 45d:	74 04                	je     463 <_IsByteStreamValid+0x3b>
+  {
+    bRet = true;
+ 45f:	c6 45 f7 01          	movb   $0x1,-0x9(%ebp)
+  }
+
+  return bRet;
+ 463:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+}
+ 467:	c9                   	leave  
+ 468:	c3                   	ret    
+
+00000469 <_IsFloatStreamValid>:
+ * @param[in] type stream type ID
+ * 
+ * @return validity outcome
+ */
+static bool IsFloatStreamValid( const float_stream_t * inStream )
+{
+ 469:	55                   	push   %ebp
+ 46a:	89 e5                	mov    %esp,%ebp
+ 46c:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)IsFloatStreamValid,WM_LEVEL_2);
+ 46f:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+ 476:	00 
+ 477:	c7 04 24 69 04 00 00 	movl   $0x469,(%esp)
+ 47e:	e8 00 00 00 00       	call   483 <_IsFloatStreamValid+0x1a>
+
+  bool bRet = false;
+ 483:	c6 45 f7 00          	movb   $0x0,-0x9(%ebp)
+
+  if ((NULL != inStream) &&
+ 487:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+ 48b:	74 17                	je     4a4 <_IsFloatStreamValid+0x3b>
+      (NULL != inStream->pBuf) &&
+ 48d:	8b 45 08             	mov    0x8(%ebp),%eax
+ 490:	8b 00                	mov    (%eax),%eax
+  if ((NULL != inStream) &&
+ 492:	85 c0                	test   %eax,%eax
+ 494:	74 0e                	je     4a4 <_IsFloatStreamValid+0x3b>
+      (inStream->len != 0))
+ 496:	8b 45 08             	mov    0x8(%ebp),%eax
+ 499:	8b 40 04             	mov    0x4(%eax),%eax
+      (NULL != inStream->pBuf) &&
+ 49c:	85 c0                	test   %eax,%eax
+ 49e:	74 04                	je     4a4 <_IsFloatStreamValid+0x3b>
+  {
+    bRet = true;
+ 4a0:	c6 45 f7 01          	movb   $0x1,-0x9(%ebp)
+  }
+
+  return bRet;
+ 4a4:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+}
+ 4a8:	c9                   	leave  
+ 4a9:	c3                   	ret    
+
+000004aa <_IsComplexStreamValid>:
+ * @param[in] type stream type ID
+ * 
+ * @return validity outcome
+ */
+static bool IsComplexStreamValid( const complex_stream_t * inStream )
+{
+ 4aa:	55                   	push   %ebp
+ 4ab:	89 e5                	mov    %esp,%ebp
+ 4ad:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)IsComplexStreamValid,WM_LEVEL_2);
+ 4b0:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+ 4b7:	00 
+ 4b8:	c7 04 24 aa 04 00 00 	movl   $0x4aa,(%esp)
+ 4bf:	e8 00 00 00 00       	call   4c4 <_IsComplexStreamValid+0x1a>
+
+  bool bRet = false;
+ 4c4:	c6 45 f7 00          	movb   $0x0,-0x9(%ebp)
+
+  if ((NULL != inStream) &&
+ 4c8:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+ 4cc:	74 17                	je     4e5 <_IsComplexStreamValid+0x3b>
+      (NULL != inStream->pBuf) &&
+ 4ce:	8b 45 08             	mov    0x8(%ebp),%eax
+ 4d1:	8b 00                	mov    (%eax),%eax
+  if ((NULL != inStream) &&
+ 4d3:	85 c0                	test   %eax,%eax
+ 4d5:	74 0e                	je     4e5 <_IsComplexStreamValid+0x3b>
+      (inStream->len != 0))
+ 4d7:	8b 45 08             	mov    0x8(%ebp),%eax
+ 4da:	8b 40 04             	mov    0x4(%eax),%eax
+      (NULL != inStream->pBuf) &&
+ 4dd:	85 c0                	test   %eax,%eax
+ 4df:	74 04                	je     4e5 <_IsComplexStreamValid+0x3b>
+  {
+    bRet = true;
+ 4e1:	c6 45 f7 01          	movb   $0x1,-0x9(%ebp)
+  }
+
+  return bRet;
+ 4e5:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+}
+ 4e9:	c9                   	leave  
+ 4ea:	c3                   	ret    
+ 4eb:	90                   	nop

@@ -1,0 +1,598 @@
+\hypertarget{debug_8h}{}\doxysection{src/debug.h File Reference}
+\label{debug_8h}\index{src/debug.h@{src/debug.h}}
+
+
+Debug library header.  
+
+
+{\ttfamily \#include \char`\"{}channel.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}convolutional.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}error.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interleaving.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}memory.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}modulation.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}reed\+\_\+solomon.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}scrambling.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}system.\+h\char`\"{}}\newline
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct__debug__par__t}{\+\_\+debug\+\_\+par\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{debug_8h_abe6eab342e066779eb244d29f2e80efc}\label{debug_8h_abe6eab342e066779eb244d29f2e80efc}} 
+\#define \mbox{\hyperlink{debug_8h_abe6eab342e066779eb244d29f2e80efc}{PID\+\_\+\+NCOLS\+\_\+\+BYTE}}~30u
+\begin{DoxyCompactList}\small\item\em Number of byte columns per row to print before wrapping. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_a20fed7151ff85ca1e80aa0fdd62dea22}\label{debug_8h_a20fed7151ff85ca1e80aa0fdd62dea22}} 
+\#define \mbox{\hyperlink{debug_8h_a20fed7151ff85ca1e80aa0fdd62dea22}{PID\+\_\+\+NCOLS\+\_\+\+FLOAT}}~15u
+\begin{DoxyCompactList}\small\item\em Number of float columns per row to print before wrapping. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_aee18d8fb7fe440b014e73fddd279f5df}\label{debug_8h_aee18d8fb7fe440b014e73fddd279f5df}} 
+\#define \mbox{\hyperlink{debug_8h_aee18d8fb7fe440b014e73fddd279f5df}{PID\+\_\+\+NCOLS\+\_\+\+SYMB}}~8u
+\begin{DoxyCompactList}\small\item\em Number of symbol columns per row to print before wrapping. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_a869a707d572970db6f9d0bdaea8ee7ae}\label{debug_8h_a869a707d572970db6f9d0bdaea8ee7ae}} 
+\#define \mbox{\hyperlink{debug_8h_a869a707d572970db6f9d0bdaea8ee7ae}{STYLE\+\_\+\+DEFAULT}}~STYLE\+\_\+\+ITALIC
+\begin{DoxyCompactList}\small\item\em Print-\/on-\/shell default style. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_a3fc0772f0f72e17fbaa0362a9ac4f516}\label{debug_8h_a3fc0772f0f72e17fbaa0362a9ac4f516}} 
+\#define \mbox{\hyperlink{debug_8h_a3fc0772f0f72e17fbaa0362a9ac4f516}{STYLE\+\_\+\+SUCCESS}}~STYLE\+\_\+\+BOLD
+\begin{DoxyCompactList}\small\item\em Print-\/on-\/shell successful style. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_a011bb291a0f03af56da9c5fff3fcacf9}\label{debug_8h_a011bb291a0f03af56da9c5fff3fcacf9}} 
+\#define \mbox{\hyperlink{debug_8h_a011bb291a0f03af56da9c5fff3fcacf9}{STYLE\+\_\+\+ERROR}}~STYLE\+\_\+\+BOLD
+\begin{DoxyCompactList}\small\item\em Print-\/on-\/shell error style. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_a56e1aea61ee305e3648158362333b3a8}\label{debug_8h_a56e1aea61ee305e3648158362333b3a8}} 
+\#define \mbox{\hyperlink{debug_8h_a56e1aea61ee305e3648158362333b3a8}{COLOR\+\_\+\+DEFAULT}}~COLOR\+\_\+\+BRIGHT\+\_\+\+WHITE
+\begin{DoxyCompactList}\small\item\em Print-\/on-\/shell default color. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_a49ad0d2196700c1fa0a3a2a60dad41d3}\label{debug_8h_a49ad0d2196700c1fa0a3a2a60dad41d3}} 
+\#define \mbox{\hyperlink{debug_8h_a49ad0d2196700c1fa0a3a2a60dad41d3}{COLOR\+\_\+\+SUCCESS}}~COLOR\+\_\+\+BRIGHT\+\_\+\+GREEN
+\begin{DoxyCompactList}\small\item\em Print-\/on-\/shell successful color. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_ac7bab6591a09366d23b86d710ecc54af}\label{debug_8h_ac7bab6591a09366d23b86d710ecc54af}} 
+\#define \mbox{\hyperlink{debug_8h_ac7bab6591a09366d23b86d710ecc54af}{COLOR\+\_\+\+ERROR}}~COLOR\+\_\+\+BRIGHT\+\_\+\+RED
+\begin{DoxyCompactList}\small\item\em Print-\/on-\/shell error color. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_a2c39eedcf14c124ca9792c09a9c2507f}\label{debug_8h_a2c39eedcf14c124ca9792c09a9c2507f}} 
+\#define {\bfseries watermark\+\_\+t}~uint32\+\_\+t
+\item 
+\mbox{\Hypertarget{debug_8h_a84dbc180672a704aa0571c19cdbc6d07}\label{debug_8h_a84dbc180672a704aa0571c19cdbc6d07}} 
+\#define {\bfseries WATERMARK\+\_\+\+MASK}~((watermark\+\_\+t)0x0000\+FFFF)
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{debug_8h_aa5081459a17a66a521de316c98f3b84c}\label{debug_8h_aa5081459a17a66a521de316c98f3b84c}} 
+typedef struct \mbox{\hyperlink{struct__debug__par__t}{\+\_\+debug\+\_\+par\+\_\+t}} {\bfseries debug\+\_\+par\+\_\+t}
+\item 
+\mbox{\Hypertarget{debug_8h_a41350a8c18b2fd003518870edb2140f1}\label{debug_8h_a41350a8c18b2fd003518870edb2140f1}} 
+typedef enum \mbox{\hyperlink{debug_8h_ad6ceddf080df079de9843ab336deca7d}{\+\_\+wm\+\_\+level\+\_\+t}} {\bfseries wm\+\_\+level\+\_\+t}
+\item 
+\mbox{\Hypertarget{debug_8h_af985040572d5ac5b732b8243ad3fb495}\label{debug_8h_af985040572d5ac5b732b8243ad3fb495}} 
+typedef enum \+\_\+ansi\+\_\+text\+\_\+color \mbox{\hyperlink{debug_8h_af985040572d5ac5b732b8243ad3fb495}{ansi\+\_\+text\+\_\+color}}
+\begin{DoxyCompactList}\small\item\em ANSI escape code for terminal text color. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{debug_8h_a65ebce3ee05a977a17b97d961de90391}\label{debug_8h_a65ebce3ee05a977a17b97d961de90391}} 
+typedef enum \+\_\+ansi\+\_\+text\+\_\+style \mbox{\hyperlink{debug_8h_a65ebce3ee05a977a17b97d961de90391}{ansi\+\_\+text\+\_\+style}}
+\begin{DoxyCompactList}\small\item\em ANSI escape code for terminal text styles. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9a}{print\+\_\+label\+\_\+t}} \{ \newline
+{\bfseries PID\+\_\+\+TX\+\_\+\+ORG} = 0
+, \mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9aa542c91839a08b7be23a84b2aa7d748c5}{PID\+\_\+\+RX\+\_\+\+ORG}}
+, \mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9aa86408af4209fcb45aad8a4a6d3248672}{PID\+\_\+\+TX\+\_\+\+CRC}}
+, \mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9aaaa187d53bb6957d57be35a9937706c6f}{PID\+\_\+\+RX\+\_\+\+CRC}}
+, \newline
+\mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9aa0fedd28ac1b064572c86a198b978fde1}{PID\+\_\+\+TX\+\_\+\+SCR}}
+, \mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9aa715bcf896a35fe23fe3c7b7b282ccca3}{PID\+\_\+\+RX\+\_\+\+SCR}}
+, \mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9aaefd78841a689faaa88e5d7bc356921e8}{PID\+\_\+\+TX\+\_\+\+RSCOD}}
+, \mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9aa2b9f588d34f514e1f6c95f1fec3a519a}{PID\+\_\+\+RX\+\_\+\+RSCOD}}
+, \newline
+\mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9aa9a62434c7cd4e554484e7d9ba45810e3}{PID\+\_\+\+TX\+\_\+\+INTLV}}
+, \mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9aa781e15c9edd048c41cee3d2abd64357c}{PID\+\_\+\+RX\+\_\+\+INTLV}}
+, \mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9aaf1f2f6da50bd1561a6dad401a358a3ed}{PID\+\_\+\+TX\+\_\+\+CNVCOD}}
+, \mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9aa85f5a3f8dced985e8beb4d7b7ed71374}{PID\+\_\+\+RX\+\_\+\+CNVCOD}}
+, \newline
+\mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9aa27065ba322b0a7a33baa9588bb1d24aa}{PID\+\_\+\+TX\+\_\+\+MAP}}
+, \mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9aa80b38183a531e02e7bf708c6b5c4a7b1}{PID\+\_\+\+RX\+\_\+\+MAP}}
+, \mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9aaf73f84d32063750226bd98c9953e26f2}{PID\+\_\+\+RX\+\_\+\+LLR}}
+, \mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9aacdfc44f05aed4c5bf345a612d08c6645}{PID\+\_\+\+NUM}}
+ \}
+\item 
+enum \mbox{\hyperlink{debug_8h_ad6ceddf080df079de9843ab336deca7d}{\+\_\+wm\+\_\+level\+\_\+t}} \{ {\bfseries WM\+\_\+\+LEVEL\+\_\+1} = 0
+, \mbox{\hyperlink{debug_8h_ad6ceddf080df079de9843ab336deca7dafe6f9fda7f4806c0704512aec16c5f57}{WM\+\_\+\+LEVEL\+\_\+2}}
+, \mbox{\hyperlink{debug_8h_ad6ceddf080df079de9843ab336deca7dab515e493dffc8d57de229cf059078dce}{WM\+\_\+\+LEVEL\+\_\+3}}
+, \mbox{\hyperlink{debug_8h_ad6ceddf080df079de9843ab336deca7dab73ab47155864de944114cef70393908}{WM\+\_\+\+LEVEL\+\_\+\+NUM}}
+ \}
+\item 
+\mbox{\Hypertarget{debug_8h_ab10a025d50abd22b3a60a08613f39cfe}\label{debug_8h_ab10a025d50abd22b3a60a08613f39cfe}} 
+enum {\bfseries \+\_\+ansi\+\_\+text\+\_\+color} \{ \newline
+{\bfseries COLOR\+\_\+\+BLACK} = 30
+, {\bfseries COLOR\+\_\+\+RED} = 31
+, {\bfseries COLOR\+\_\+\+GREEN} = 32
+, {\bfseries COLOR\+\_\+\+YELLOW} = 33
+, \newline
+{\bfseries COLOR\+\_\+\+BLUE} = 34
+, {\bfseries COLOR\+\_\+\+PURPLE} = 35
+, {\bfseries COLOR\+\_\+\+CYAN} = 36
+, {\bfseries COLOR\+\_\+\+WHITE} = 37
+, \newline
+{\bfseries COLOR\+\_\+\+GREY} = 90
+, {\bfseries COLOR\+\_\+\+BRIGHT\+\_\+\+RED} = 91
+, {\bfseries COLOR\+\_\+\+BRIGHT\+\_\+\+GREEN} = 92
+, {\bfseries COLOR\+\_\+\+BRIGHT\+\_\+\+YELLOW} = 93
+, \newline
+{\bfseries COLOR\+\_\+\+BRIGHT\+\_\+\+BLUE} = 94
+, {\bfseries COLOR\+\_\+\+BRIGHT\+\_\+\+PURPLE} = 95
+, {\bfseries COLOR\+\_\+\+BRIGHT\+\_\+\+CYAN} = 96
+, {\bfseries COLOR\+\_\+\+BRIGHT\+\_\+\+WHITE} = 97
+ \}
+\item 
+\mbox{\Hypertarget{debug_8h_acaa50bba214b93d88a1870b84dc29d4b}\label{debug_8h_acaa50bba214b93d88a1870b84dc29d4b}} 
+enum {\bfseries \+\_\+ansi\+\_\+text\+\_\+style} \{ \newline
+{\bfseries STYLE\+\_\+\+RESET} = 0
+, {\bfseries STYLE\+\_\+\+BOLD} = 1
+, {\bfseries STYLE\+\_\+\+ITALIC} = 3
+, {\bfseries STYLE\+\_\+\+SINGLE\+\_\+\+UNDERLINE} = 4
+, \newline
+{\bfseries STYLE\+\_\+\+SLOW\+\_\+\+BLINK} = 5
+, {\bfseries STYLE\+\_\+\+FAST\+\_\+\+BLINK} = 6
+, {\bfseries STYLE\+\_\+\+DOUBLE\+\_\+\+UNDERLINE} = 21
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{debug_8h_adb884804d0cf1f2b893d424516aec968}{Debug\+\_\+\+Print\+Parameters}} (\mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}} org\+Len, const \mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} $\ast$p\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for checking origin length validity and printing on terminal all simulation parameters. } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{debug_8h_a48a8da1b9f1001adbc98d6e37662872d}{Debug\+\_\+\+List\+Parameters}} (\mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} $\ast$io\+Params, const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} $\ast$scr\+Param, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$rs\+Param, const \mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} $\ast$itlv\+Param, const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} $\ast$cc\+Param, const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} $\ast$mod\+Param, const \mbox{\hyperlink{struct__chan__par__t}{chan\+\_\+par\+\_\+t}} $\ast$chan\+Param)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for retrieving and listing all simulation parameters into dedicated structure. } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{debug_8h_aba4a6c0f401b9c1cb015b06a380ee3f6}{Debug\+\_\+\+Generate\+Random\+Bytes}} (\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$io\+Stream, const uint32\+\_\+t $\ast$p\+Seed)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for filling input buffer with random bytes. } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{debug_8h_ace7fe46248728e83bbcd599be59597a6}{Debug\+\_\+\+Print\+Byte\+Stream}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9a}{print\+\_\+label\+\_\+t}} label, const \mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} $\ast$p\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for printing on terminal a byte buffer content (in hexadecimal format). } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{debug_8h_a7efd49ee29248721f504ea3f27373d96}{Debug\+\_\+\+Print\+Float\+Stream}} (const \mbox{\hyperlink{struct__float__stream__t}{float\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9a}{print\+\_\+label\+\_\+t}} label, const \mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} $\ast$p\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for printing on terminal a float buffer content. } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{debug_8h_a838ad6e053c6068a10cf101099ceb9c9}{Debug\+\_\+\+Print\+Complex\+Stream}} (const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9a}{print\+\_\+label\+\_\+t}} label, const \mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} $\ast$p\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for printing on terminal a complex buffer content. } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{debug_8h_a079b58faed1e6f6d1a339d3b46154777}{Debug\+\_\+\+Check\+Wrong\+Bits}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+StreamA, const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+StreamB, \mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9a}{print\+\_\+label\+\_\+t}} label, const \mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} $\ast$p\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for estimating and printing on terminal the number of mismatched bits between two byte streams. } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{debug_8h_a9b0cc1a0eb9986c1ab5351d60ff9432b}{Debug\+\_\+\+Write\+Byte\+Stream\+To\+Csv}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9a}{print\+\_\+label\+\_\+t}} label)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for writing byte stream content into CSV file. } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{debug_8h_a03cfc2cb4e85fde595e52e3bcd3caab9}{Debug\+\_\+\+Write\+Complex\+Stream\+To\+Csv}} (const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9a}{print\+\_\+label\+\_\+t}} label)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for writing complex stream content into CSV file. } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{debug_8h_a4431fbe53fc6b3d96cc16fe47ec9a436}{Debug\+\_\+\+Set\+Watermark}} (const void $\ast$func\+Addr, const wm\+\_\+level\+\_\+t level)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for setting watermark. } \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{debug_8h_a14d16ebd453369796c31391de89d67c7}{Debug\+\_\+\+Print\+Watermarks}} (void)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for printing watermarks fo all levels. } \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{debug_8h_a84eb8dd8c30b68e05503995f84fa93c5}{Debug\+\_\+\+Set\+Terminal\+Appearance}} (\mbox{\hyperlink{debug_8h_af985040572d5ac5b732b8243ad3fb495}{ansi\+\_\+text\+\_\+color}} color, \mbox{\hyperlink{debug_8h_a65ebce3ee05a977a17b97d961de90391}{ansi\+\_\+text\+\_\+style}} style)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for setting terminal appearance. } \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{debug_8h_a8d4ada6d82e588f995d36f27da379b58}{Debug\+\_\+\+Reset\+Terminal\+Appearance}} (void)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for resetting terminal appearance. } \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Debug library header. 
+
+\begin{DoxyAuthor}{Author}
+Filippo Valmori 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+26/08/2024 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Electrolux S.\+p.\+A. 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{debug_8h_ad6ceddf080df079de9843ab336deca7d}\label{debug_8h_ad6ceddf080df079de9843ab336deca7d}} 
+\index{debug.h@{debug.h}!\_wm\_level\_t@{\_wm\_level\_t}}
+\index{\_wm\_level\_t@{\_wm\_level\_t}!debug.h@{debug.h}}
+\doxysubsubsection{\texorpdfstring{\_wm\_level\_t}{\_wm\_level\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{debug_8h_ad6ceddf080df079de9843ab336deca7d}{\+\_\+wm\+\_\+level\+\_\+t}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WM\_LEVEL\_2@{WM\_LEVEL\_2}!debug.h@{debug.h}}\index{debug.h@{debug.h}!WM\_LEVEL\_2@{WM\_LEVEL\_2}}}\mbox{\Hypertarget{debug_8h_ad6ceddf080df079de9843ab336deca7dafe6f9fda7f4806c0704512aec16c5f57}\label{debug_8h_ad6ceddf080df079de9843ab336deca7dafe6f9fda7f4806c0704512aec16c5f57}} 
+WM\+\_\+\+LEVEL\+\_\+2&
+\begin{DoxyItemize}
+\item watermark level for public functions 
+\end{DoxyItemize}\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WM\_LEVEL\_3@{WM\_LEVEL\_3}!debug.h@{debug.h}}\index{debug.h@{debug.h}!WM\_LEVEL\_3@{WM\_LEVEL\_3}}}\mbox{\Hypertarget{debug_8h_ad6ceddf080df079de9843ab336deca7dab515e493dffc8d57de229cf059078dce}\label{debug_8h_ad6ceddf080df079de9843ab336deca7dab515e493dffc8d57de229cf059078dce}} 
+WM\+\_\+\+LEVEL\+\_\+3&
+\begin{DoxyItemize}
+\item watermark level for private functions 
+\end{DoxyItemize}\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WM\_LEVEL\_NUM@{WM\_LEVEL\_NUM}!debug.h@{debug.h}}\index{debug.h@{debug.h}!WM\_LEVEL\_NUM@{WM\_LEVEL\_NUM}}}\mbox{\Hypertarget{debug_8h_ad6ceddf080df079de9843ab336deca7dab73ab47155864de944114cef70393908}\label{debug_8h_ad6ceddf080df079de9843ab336deca7dab73ab47155864de944114cef70393908}} 
+WM\+\_\+\+LEVEL\+\_\+\+NUM&
+\begin{DoxyItemize}
+\item watermark level for private subfunctions 
+\end{DoxyItemize}\\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{debug_8h_aa1f72215e902c484e3e478b2db942d9a}\label{debug_8h_aa1f72215e902c484e3e478b2db942d9a}} 
+\index{debug.h@{debug.h}!print\_label\_t@{print\_label\_t}}
+\index{print\_label\_t@{print\_label\_t}!debug.h@{debug.h}}
+\doxysubsubsection{\texorpdfstring{print\_label\_t}{print\_label\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9a}{print\+\_\+label\+\_\+t}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PID\_RX\_ORG@{PID\_RX\_ORG}!debug.h@{debug.h}}\index{debug.h@{debug.h}!PID\_RX\_ORG@{PID\_RX\_ORG}}}\mbox{\Hypertarget{debug_8h_aa1f72215e902c484e3e478b2db942d9aa542c91839a08b7be23a84b2aa7d748c5}\label{debug_8h_aa1f72215e902c484e3e478b2db942d9aa542c91839a08b7be23a84b2aa7d748c5}} 
+PID\+\_\+\+RX\+\_\+\+ORG&
+\begin{DoxyItemize}
+\item tx origin bytes print-\/id 
+\end{DoxyItemize}\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PID\_TX\_CRC@{PID\_TX\_CRC}!debug.h@{debug.h}}\index{debug.h@{debug.h}!PID\_TX\_CRC@{PID\_TX\_CRC}}}\mbox{\Hypertarget{debug_8h_aa1f72215e902c484e3e478b2db942d9aa86408af4209fcb45aad8a4a6d3248672}\label{debug_8h_aa1f72215e902c484e3e478b2db942d9aa86408af4209fcb45aad8a4a6d3248672}} 
+PID\+\_\+\+TX\+\_\+\+CRC&
+\begin{DoxyItemize}
+\item rx origin bytes print-\/id 
+\end{DoxyItemize}\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PID\_RX\_CRC@{PID\_RX\_CRC}!debug.h@{debug.h}}\index{debug.h@{debug.h}!PID\_RX\_CRC@{PID\_RX\_CRC}}}\mbox{\Hypertarget{debug_8h_aa1f72215e902c484e3e478b2db942d9aaaa187d53bb6957d57be35a9937706c6f}\label{debug_8h_aa1f72215e902c484e3e478b2db942d9aaaa187d53bb6957d57be35a9937706c6f}} 
+PID\+\_\+\+RX\+\_\+\+CRC&
+\begin{DoxyItemize}
+\item tx CRC print-\/id 
+\end{DoxyItemize}\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PID\_TX\_SCR@{PID\_TX\_SCR}!debug.h@{debug.h}}\index{debug.h@{debug.h}!PID\_TX\_SCR@{PID\_TX\_SCR}}}\mbox{\Hypertarget{debug_8h_aa1f72215e902c484e3e478b2db942d9aa0fedd28ac1b064572c86a198b978fde1}\label{debug_8h_aa1f72215e902c484e3e478b2db942d9aa0fedd28ac1b064572c86a198b978fde1}} 
+PID\+\_\+\+TX\+\_\+\+SCR&
+\begin{DoxyItemize}
+\item rx CRC print-\/id 
+\end{DoxyItemize}\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PID\_RX\_SCR@{PID\_RX\_SCR}!debug.h@{debug.h}}\index{debug.h@{debug.h}!PID\_RX\_SCR@{PID\_RX\_SCR}}}\mbox{\Hypertarget{debug_8h_aa1f72215e902c484e3e478b2db942d9aa715bcf896a35fe23fe3c7b7b282ccca3}\label{debug_8h_aa1f72215e902c484e3e478b2db942d9aa715bcf896a35fe23fe3c7b7b282ccca3}} 
+PID\+\_\+\+RX\+\_\+\+SCR&
+\begin{DoxyItemize}
+\item tx scrambled bytes print-\/id 
+\end{DoxyItemize}\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PID\_TX\_RSCOD@{PID\_TX\_RSCOD}!debug.h@{debug.h}}\index{debug.h@{debug.h}!PID\_TX\_RSCOD@{PID\_TX\_RSCOD}}}\mbox{\Hypertarget{debug_8h_aa1f72215e902c484e3e478b2db942d9aaefd78841a689faaa88e5d7bc356921e8}\label{debug_8h_aa1f72215e902c484e3e478b2db942d9aaefd78841a689faaa88e5d7bc356921e8}} 
+PID\+\_\+\+TX\+\_\+\+RSCOD&
+\begin{DoxyItemize}
+\item rx scrambled bytes print-\/id 
+\end{DoxyItemize}\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PID\_RX\_RSCOD@{PID\_RX\_RSCOD}!debug.h@{debug.h}}\index{debug.h@{debug.h}!PID\_RX\_RSCOD@{PID\_RX\_RSCOD}}}\mbox{\Hypertarget{debug_8h_aa1f72215e902c484e3e478b2db942d9aa2b9f588d34f514e1f6c95f1fec3a519a}\label{debug_8h_aa1f72215e902c484e3e478b2db942d9aa2b9f588d34f514e1f6c95f1fec3a519a}} 
+PID\+\_\+\+RX\+\_\+\+RSCOD&
+\begin{DoxyItemize}
+\item tx reed-\/solomon coded bytes print-\/id 
+\end{DoxyItemize}\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PID\_TX\_INTLV@{PID\_TX\_INTLV}!debug.h@{debug.h}}\index{debug.h@{debug.h}!PID\_TX\_INTLV@{PID\_TX\_INTLV}}}\mbox{\Hypertarget{debug_8h_aa1f72215e902c484e3e478b2db942d9aa9a62434c7cd4e554484e7d9ba45810e3}\label{debug_8h_aa1f72215e902c484e3e478b2db942d9aa9a62434c7cd4e554484e7d9ba45810e3}} 
+PID\+\_\+\+TX\+\_\+\+INTLV&
+\begin{DoxyItemize}
+\item tx reed-\/solomon coded bytes print-\/id 
+\end{DoxyItemize}\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PID\_RX\_INTLV@{PID\_RX\_INTLV}!debug.h@{debug.h}}\index{debug.h@{debug.h}!PID\_RX\_INTLV@{PID\_RX\_INTLV}}}\mbox{\Hypertarget{debug_8h_aa1f72215e902c484e3e478b2db942d9aa781e15c9edd048c41cee3d2abd64357c}\label{debug_8h_aa1f72215e902c484e3e478b2db942d9aa781e15c9edd048c41cee3d2abd64357c}} 
+PID\+\_\+\+RX\+\_\+\+INTLV&
+\begin{DoxyItemize}
+\item tx interleaved bytes print-\/id 
+\end{DoxyItemize}\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PID\_TX\_CNVCOD@{PID\_TX\_CNVCOD}!debug.h@{debug.h}}\index{debug.h@{debug.h}!PID\_TX\_CNVCOD@{PID\_TX\_CNVCOD}}}\mbox{\Hypertarget{debug_8h_aa1f72215e902c484e3e478b2db942d9aaf1f2f6da50bd1561a6dad401a358a3ed}\label{debug_8h_aa1f72215e902c484e3e478b2db942d9aaf1f2f6da50bd1561a6dad401a358a3ed}} 
+PID\+\_\+\+TX\+\_\+\+CNVCOD&
+\begin{DoxyItemize}
+\item rx interleaved bytes print-\/id 
+\end{DoxyItemize}\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PID\_RX\_CNVCOD@{PID\_RX\_CNVCOD}!debug.h@{debug.h}}\index{debug.h@{debug.h}!PID\_RX\_CNVCOD@{PID\_RX\_CNVCOD}}}\mbox{\Hypertarget{debug_8h_aa1f72215e902c484e3e478b2db942d9aa85f5a3f8dced985e8beb4d7b7ed71374}\label{debug_8h_aa1f72215e902c484e3e478b2db942d9aa85f5a3f8dced985e8beb4d7b7ed71374}} 
+PID\+\_\+\+RX\+\_\+\+CNVCOD&
+\begin{DoxyItemize}
+\item tx convolution coded bytes print-\/id 
+\end{DoxyItemize}\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PID\_TX\_MAP@{PID\_TX\_MAP}!debug.h@{debug.h}}\index{debug.h@{debug.h}!PID\_TX\_MAP@{PID\_TX\_MAP}}}\mbox{\Hypertarget{debug_8h_aa1f72215e902c484e3e478b2db942d9aa27065ba322b0a7a33baa9588bb1d24aa}\label{debug_8h_aa1f72215e902c484e3e478b2db942d9aa27065ba322b0a7a33baa9588bb1d24aa}} 
+PID\+\_\+\+TX\+\_\+\+MAP&
+\begin{DoxyItemize}
+\item rx convolution coded bytes print-\/id 
+\end{DoxyItemize}\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PID\_RX\_MAP@{PID\_RX\_MAP}!debug.h@{debug.h}}\index{debug.h@{debug.h}!PID\_RX\_MAP@{PID\_RX\_MAP}}}\mbox{\Hypertarget{debug_8h_aa1f72215e902c484e3e478b2db942d9aa80b38183a531e02e7bf708c6b5c4a7b1}\label{debug_8h_aa1f72215e902c484e3e478b2db942d9aa80b38183a531e02e7bf708c6b5c4a7b1}} 
+PID\+\_\+\+RX\+\_\+\+MAP&
+\begin{DoxyItemize}
+\item tx mapped symbols print-\/id 
+\end{DoxyItemize}\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PID\_RX\_LLR@{PID\_RX\_LLR}!debug.h@{debug.h}}\index{debug.h@{debug.h}!PID\_RX\_LLR@{PID\_RX\_LLR}}}\mbox{\Hypertarget{debug_8h_aa1f72215e902c484e3e478b2db942d9aaf73f84d32063750226bd98c9953e26f2}\label{debug_8h_aa1f72215e902c484e3e478b2db942d9aaf73f84d32063750226bd98c9953e26f2}} 
+PID\+\_\+\+RX\+\_\+\+LLR&
+\begin{DoxyItemize}
+\item rx mapped symbols print-\/id 
+\end{DoxyItemize}\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PID\_NUM@{PID\_NUM}!debug.h@{debug.h}}\index{debug.h@{debug.h}!PID\_NUM@{PID\_NUM}}}\mbox{\Hypertarget{debug_8h_aa1f72215e902c484e3e478b2db942d9aacdfc44f05aed4c5bf345a612d08c6645}\label{debug_8h_aa1f72215e902c484e3e478b2db942d9aacdfc44f05aed4c5bf345a612d08c6645}} 
+PID\+\_\+\+NUM&
+\begin{DoxyItemize}
+\item rx demapped LLRs print-\/id 
+\end{DoxyItemize}\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{debug_8h_a079b58faed1e6f6d1a339d3b46154777}\label{debug_8h_a079b58faed1e6f6d1a339d3b46154777}} 
+\index{debug.h@{debug.h}!Debug\_CheckWrongBits@{Debug\_CheckWrongBits}}
+\index{Debug\_CheckWrongBits@{Debug\_CheckWrongBits}!debug.h@{debug.h}}
+\doxysubsubsection{\texorpdfstring{Debug\_CheckWrongBits()}{Debug\_CheckWrongBits()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Debug\+\_\+\+Check\+Wrong\+Bits (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+StreamA,  }\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+StreamB,  }\item[{\mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9a}{print\+\_\+label\+\_\+t}}}]{label,  }\item[{const \mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for estimating and printing on terminal the number of mismatched bits between two byte streams. } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em in\+StreamA} & 1st input stream \\
+\hline
+\mbox{\texttt{ in}}  & {\em in\+StreamB} & 2nd input stream \\
+\hline
+\mbox{\texttt{ in}}  & {\em label} & label ID \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Params} & pointer to debug parameters structure\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+\mbox{\Hypertarget{debug_8h_aba4a6c0f401b9c1cb015b06a380ee3f6}\label{debug_8h_aba4a6c0f401b9c1cb015b06a380ee3f6}} 
+\index{debug.h@{debug.h}!Debug\_GenerateRandomBytes@{Debug\_GenerateRandomBytes}}
+\index{Debug\_GenerateRandomBytes@{Debug\_GenerateRandomBytes}!debug.h@{debug.h}}
+\doxysubsubsection{\texorpdfstring{Debug\_GenerateRandomBytes()}{Debug\_GenerateRandomBytes()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Debug\+\_\+\+Generate\+Random\+Bytes (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{io\+Stream,  }\item[{const uint32\+\_\+t $\ast$}]{p\+Seed }\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for filling input buffer with random bytes. } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em io\+Stream} & i/o stream to be filled \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Seed} & poiter to seed value\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+link random seed to current time
+
+link random seed to provided argument\mbox{\Hypertarget{debug_8h_a48a8da1b9f1001adbc98d6e37662872d}\label{debug_8h_a48a8da1b9f1001adbc98d6e37662872d}} 
+\index{debug.h@{debug.h}!Debug\_ListParameters@{Debug\_ListParameters}}
+\index{Debug\_ListParameters@{Debug\_ListParameters}!debug.h@{debug.h}}
+\doxysubsubsection{\texorpdfstring{Debug\_ListParameters()}{Debug\_ListParameters()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Debug\+\_\+\+List\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} $\ast$}]{io\+Params,  }\item[{const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} $\ast$}]{scr\+Param,  }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$}]{rs\+Param,  }\item[{const \mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} $\ast$}]{itlv\+Param,  }\item[{const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} $\ast$}]{cc\+Param,  }\item[{const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} $\ast$}]{mod\+Param,  }\item[{const \mbox{\hyperlink{struct__chan__par__t}{chan\+\_\+par\+\_\+t}} $\ast$}]{chan\+Param }\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for retrieving and listing all simulation parameters into dedicated structure. } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em io\+Params} & pointer to i/o parameters structure to be filled \\
+\hline
+\mbox{\texttt{ in}}  & {\em src\+Param} & pointer to scrambling parameters structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em rs\+Param} & pointer to reed-\/solomon coding parameters structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em itlv\+Param} & pointer to interleaving parameters structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em cc\+Param} & pointer to convolutionan coding parameters structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em mod\+Param} & pointer to modulation coding parameters structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em chan\+Param} & pointer to channel parameters structure\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+\mbox{\Hypertarget{debug_8h_ace7fe46248728e83bbcd599be59597a6}\label{debug_8h_ace7fe46248728e83bbcd599be59597a6}} 
+\index{debug.h@{debug.h}!Debug\_PrintByteStream@{Debug\_PrintByteStream}}
+\index{Debug\_PrintByteStream@{Debug\_PrintByteStream}!debug.h@{debug.h}}
+\doxysubsubsection{\texorpdfstring{Debug\_PrintByteStream()}{Debug\_PrintByteStream()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Debug\+\_\+\+Print\+Byte\+Stream (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9a}{print\+\_\+label\+\_\+t}}}]{label,  }\item[{const \mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for printing on terminal a byte buffer content (in hexadecimal format). } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em in\+Stream} & input stream \\
+\hline
+\mbox{\texttt{ in}}  & {\em label} & label ID \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Params} & pointer to debug parameters structure\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+\mbox{\Hypertarget{debug_8h_a838ad6e053c6068a10cf101099ceb9c9}\label{debug_8h_a838ad6e053c6068a10cf101099ceb9c9}} 
+\index{debug.h@{debug.h}!Debug\_PrintComplexStream@{Debug\_PrintComplexStream}}
+\index{Debug\_PrintComplexStream@{Debug\_PrintComplexStream}!debug.h@{debug.h}}
+\doxysubsubsection{\texorpdfstring{Debug\_PrintComplexStream()}{Debug\_PrintComplexStream()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Debug\+\_\+\+Print\+Complex\+Stream (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9a}{print\+\_\+label\+\_\+t}}}]{label,  }\item[{const \mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for printing on terminal a complex buffer content. } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em in\+Stream} & input stream \\
+\hline
+\mbox{\texttt{ in}}  & {\em label} & label ID \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Params} & pointer to debug parameters structure\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+\mbox{\Hypertarget{debug_8h_a7efd49ee29248721f504ea3f27373d96}\label{debug_8h_a7efd49ee29248721f504ea3f27373d96}} 
+\index{debug.h@{debug.h}!Debug\_PrintFloatStream@{Debug\_PrintFloatStream}}
+\index{Debug\_PrintFloatStream@{Debug\_PrintFloatStream}!debug.h@{debug.h}}
+\doxysubsubsection{\texorpdfstring{Debug\_PrintFloatStream()}{Debug\_PrintFloatStream()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Debug\+\_\+\+Print\+Float\+Stream (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__float__stream__t}{float\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9a}{print\+\_\+label\+\_\+t}}}]{label,  }\item[{const \mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for printing on terminal a float buffer content. } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em in\+Stream} & input stream \\
+\hline
+\mbox{\texttt{ in}}  & {\em label} & label ID \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Params} & pointer to debug parameters structure\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+\mbox{\Hypertarget{debug_8h_adb884804d0cf1f2b893d424516aec968}\label{debug_8h_adb884804d0cf1f2b893d424516aec968}} 
+\index{debug.h@{debug.h}!Debug\_PrintParameters@{Debug\_PrintParameters}}
+\index{Debug\_PrintParameters@{Debug\_PrintParameters}!debug.h@{debug.h}}
+\doxysubsubsection{\texorpdfstring{Debug\_PrintParameters()}{Debug\_PrintParameters()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Debug\+\_\+\+Print\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}}}]{org\+Len,  }\item[{const \mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for checking origin length validity and printing on terminal all simulation parameters. } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em org\+Len} & source buffer length \mbox{[}B\mbox{]} \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Params} & pointer to debug parameters structure\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+\mbox{\Hypertarget{debug_8h_a14d16ebd453369796c31391de89d67c7}\label{debug_8h_a14d16ebd453369796c31391de89d67c7}} 
+\index{debug.h@{debug.h}!Debug\_PrintWatermarks@{Debug\_PrintWatermarks}}
+\index{Debug\_PrintWatermarks@{Debug\_PrintWatermarks}!debug.h@{debug.h}}
+\doxysubsubsection{\texorpdfstring{Debug\_PrintWatermarks()}{Debug\_PrintWatermarks()}}
+{\footnotesize\ttfamily void Debug\+\_\+\+Print\+Watermarks (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for printing watermarks fo all levels. } 
+
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+\mbox{\Hypertarget{debug_8h_a8d4ada6d82e588f995d36f27da379b58}\label{debug_8h_a8d4ada6d82e588f995d36f27da379b58}} 
+\index{debug.h@{debug.h}!Debug\_ResetTerminalAppearance@{Debug\_ResetTerminalAppearance}}
+\index{Debug\_ResetTerminalAppearance@{Debug\_ResetTerminalAppearance}!debug.h@{debug.h}}
+\doxysubsubsection{\texorpdfstring{Debug\_ResetTerminalAppearance()}{Debug\_ResetTerminalAppearance()}}
+{\footnotesize\ttfamily void Debug\+\_\+\+Reset\+Terminal\+Appearance (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for resetting terminal appearance. } 
+
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+\mbox{\Hypertarget{debug_8h_a84eb8dd8c30b68e05503995f84fa93c5}\label{debug_8h_a84eb8dd8c30b68e05503995f84fa93c5}} 
+\index{debug.h@{debug.h}!Debug\_SetTerminalAppearance@{Debug\_SetTerminalAppearance}}
+\index{Debug\_SetTerminalAppearance@{Debug\_SetTerminalAppearance}!debug.h@{debug.h}}
+\doxysubsubsection{\texorpdfstring{Debug\_SetTerminalAppearance()}{Debug\_SetTerminalAppearance()}}
+{\footnotesize\ttfamily void Debug\+\_\+\+Set\+Terminal\+Appearance (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{debug_8h_af985040572d5ac5b732b8243ad3fb495}{ansi\+\_\+text\+\_\+color}}}]{color,  }\item[{\mbox{\hyperlink{debug_8h_a65ebce3ee05a977a17b97d961de90391}{ansi\+\_\+text\+\_\+style}}}]{style }\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for setting terminal appearance. } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em color} & ANSI escape code for shell text color \\
+\hline
+\mbox{\texttt{ in}}  & {\em style} & ANSI escape code for shell text style\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+\mbox{\Hypertarget{debug_8h_a4431fbe53fc6b3d96cc16fe47ec9a436}\label{debug_8h_a4431fbe53fc6b3d96cc16fe47ec9a436}} 
+\index{debug.h@{debug.h}!Debug\_SetWatermark@{Debug\_SetWatermark}}
+\index{Debug\_SetWatermark@{Debug\_SetWatermark}!debug.h@{debug.h}}
+\doxysubsubsection{\texorpdfstring{Debug\_SetWatermark()}{Debug\_SetWatermark()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Debug\+\_\+\+Set\+Watermark (\begin{DoxyParamCaption}\item[{const void $\ast$}]{func\+Addr,  }\item[{const wm\+\_\+level\+\_\+t}]{level }\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for setting watermark. } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em func\+Addr} & memory address where function is stored \\
+\hline
+\mbox{\texttt{ in}}  & {\em level} & watermark level\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+reset lower level watermarks\mbox{\Hypertarget{debug_8h_a9b0cc1a0eb9986c1ab5351d60ff9432b}\label{debug_8h_a9b0cc1a0eb9986c1ab5351d60ff9432b}} 
+\index{debug.h@{debug.h}!Debug\_WriteByteStreamToCsv@{Debug\_WriteByteStreamToCsv}}
+\index{Debug\_WriteByteStreamToCsv@{Debug\_WriteByteStreamToCsv}!debug.h@{debug.h}}
+\doxysubsubsection{\texorpdfstring{Debug\_WriteByteStreamToCsv()}{Debug\_WriteByteStreamToCsv()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Debug\+\_\+\+Write\+Byte\+Stream\+To\+Csv (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9a}{print\+\_\+label\+\_\+t}}}]{label }\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for writing byte stream content into CSV file. } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em in\+Stream} & input stream \\
+\hline
+\mbox{\texttt{ in}}  & {\em label} & label ID\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+write stream length as 1st element\mbox{\Hypertarget{debug_8h_a03cfc2cb4e85fde595e52e3bcd3caab9}\label{debug_8h_a03cfc2cb4e85fde595e52e3bcd3caab9}} 
+\index{debug.h@{debug.h}!Debug\_WriteComplexStreamToCsv@{Debug\_WriteComplexStreamToCsv}}
+\index{Debug\_WriteComplexStreamToCsv@{Debug\_WriteComplexStreamToCsv}!debug.h@{debug.h}}
+\doxysubsubsection{\texorpdfstring{Debug\_WriteComplexStreamToCsv()}{Debug\_WriteComplexStreamToCsv()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Debug\+\_\+\+Write\+Complex\+Stream\+To\+Csv (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{debug_8h_aa1f72215e902c484e3e478b2db942d9a}{print\+\_\+label\+\_\+t}}}]{label }\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for writing complex stream content into CSV file. } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em in\+Stream} & input stream \\
+\hline
+\mbox{\texttt{ in}}  & {\em label} & label ID\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+write stream length as 1st element

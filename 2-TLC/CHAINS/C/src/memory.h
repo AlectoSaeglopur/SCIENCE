@@ -2,6 +2,7 @@
  * @file system.h
  * @author Filippo Valmori
  * @date 26/08/2024
+ * @copyright Electrolux S.p.A.
  * @ingroup TLC_CHAIN
  * @brief Dynamic memory allocation library header
  */
@@ -14,7 +15,6 @@
 /****************/
 /*** INCLUDES ***/
 /****************/
-
 
 #include "error.h"
 #include "system.h"

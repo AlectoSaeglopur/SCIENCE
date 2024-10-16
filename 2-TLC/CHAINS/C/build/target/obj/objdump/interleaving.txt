@@ -1,0 +1,1680 @@
+
+build\target\obj\interleaving.o:     file format pe-i386
+
+
+Disassembly of section .text:
+
+00000000 <_Intrlv_ListParameters>:
+ * @param[in] ioParams pointer to i/o parameters structure to be filled
+ * 
+ * @return error ID
+ */
+error_t Intrlv_ListParameters( itlv_par_t * ioParams )
+{
+   0:	55                   	push   %ebp
+   1:	89 e5                	mov    %esp,%ebp
+   3:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)Intrlv_ListParameters,WM_LEVEL_1);
+   6:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+   d:	00 
+   e:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
+  15:	e8 00 00 00 00       	call   1a <_Intrlv_ListParameters+0x1a>
+
+  error_t retErr = ERR_NONE;
+  1a:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+
+  if (NULL != ioParams)
+  21:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+  25:	74 45                	je     6c <_Intrlv_ListParameters+0x6c>
+  {
+    ioParams->type = INTRLV_TYPE;
+  27:	8b 45 08             	mov    0x8(%ebp),%eax
+  2a:	c7 00 01 00 00 00    	movl   $0x1,(%eax)
+
+    if (INTRLV_BLOCK == ioParams->type)
+  30:	8b 45 08             	mov    0x8(%ebp),%eax
+  33:	8b 00                	mov    (%eax),%eax
+  35:	85 c0                	test   %eax,%eax
+  37:	75 10                	jne    49 <_Intrlv_ListParameters+0x49>
+    {
+      ioParams->rows = BLK_NROWS;
+  39:	8b 45 08             	mov    0x8(%ebp),%eax
+  3c:	c6 40 04 04          	movb   $0x4,0x4(%eax)
+      ioParams->cols = BLK_NCOLS;
+  40:	8b 45 08             	mov    0x8(%ebp),%eax
+  43:	c6 40 05 33          	movb   $0x33,0x5(%eax)
+  47:	eb 2a                	jmp    73 <_Intrlv_ListParameters+0x73>
+    }
+    else if (INTRLV_CONV == ioParams->type)
+  49:	8b 45 08             	mov    0x8(%ebp),%eax
+  4c:	8b 00                	mov    (%eax),%eax
+  4e:	83 f8 01             	cmp    $0x1,%eax
+  51:	75 10                	jne    63 <_Intrlv_ListParameters+0x63>
+    {
+      ioParams->dlys = CONV_NDLYS;
+  53:	8b 45 08             	mov    0x8(%ebp),%eax
+  56:	c6 40 04 0c          	movb   $0xc,0x4(%eax)
+      ioParams->cells = CONV_NCELLS;
+  5a:	8b 45 08             	mov    0x8(%ebp),%eax
+  5d:	c6 40 05 11          	movb   $0x11,0x5(%eax)
+  61:	eb 10                	jmp    73 <_Intrlv_ListParameters+0x73>
+    }
+    else
+    {
+      retErr = ERR_INV_INTERLEAVING_TYPE;
+  63:	c7 45 f4 12 00 00 00 	movl   $0x12,-0xc(%ebp)
+  6a:	eb 07                	jmp    73 <_Intrlv_ListParameters+0x73>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  6c:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+  73:	8b 45 f4             	mov    -0xc(%ebp),%eax
+  76:	89 04 24             	mov    %eax,(%esp)
+  79:	e8 00 00 00 00       	call   7e <_Intrlv_ListParameters+0x7e>
+}
+  7e:	c9                   	leave  
+  7f:	c3                   	ret    
+
+00000080 <_Intrlv_Interleaver>:
+ * @param[in] pParams pointer to interleaving parameters structure
+ * 
+ * @return error ID
+ */
+error_t Intrlv_Interleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
+{
+  80:	55                   	push   %ebp
+  81:	89 e5                	mov    %esp,%ebp
+  83:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)Intrlv_Interleaver,WM_LEVEL_1);
+  86:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+  8d:	00 
+  8e:	c7 04 24 80 00 00 00 	movl   $0x80,(%esp)
+  95:	e8 00 00 00 00       	call   9a <_Intrlv_Interleaver+0x1a>
+
+  error_t retErr = ERR_NONE;
+  9a:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+
+  if (NULL != pParams)
+  a1:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+  a5:	74 54                	je     fb <_Intrlv_Interleaver+0x7b>
+  {
+    switch (pParams->type)
+  a7:	8b 45 10             	mov    0x10(%ebp),%eax
+  aa:	8b 00                	mov    (%eax),%eax
+  ac:	85 c0                	test   %eax,%eax
+  ae:	74 07                	je     b7 <_Intrlv_Interleaver+0x37>
+  b0:	83 f8 01             	cmp    $0x1,%eax
+  b3:	74 20                	je     d5 <_Intrlv_Interleaver+0x55>
+  b5:	eb 3c                	jmp    f3 <_Intrlv_Interleaver+0x73>
+    {
+      case INTRLV_BLOCK:
+        retErr = BlockInterleaver(inStream,outStream,pParams);
+  b7:	8b 45 10             	mov    0x10(%ebp),%eax
+  ba:	89 44 24 08          	mov    %eax,0x8(%esp)
+  be:	8b 45 0c             	mov    0xc(%ebp),%eax
+  c1:	89 44 24 04          	mov    %eax,0x4(%esp)
+  c5:	8b 45 08             	mov    0x8(%ebp),%eax
+  c8:	89 04 24             	mov    %eax,(%esp)
+  cb:	e8 c0 00 00 00       	call   190 <_BlockInterleaver>
+  d0:	89 45 f4             	mov    %eax,-0xc(%ebp)
+        break;
+  d3:	eb 26                	jmp    fb <_Intrlv_Interleaver+0x7b>
+
+      case INTRLV_CONV:
+        retErr = ConvolutionalInterleaver(inStream,outStream,pParams);
+  d5:	8b 45 10             	mov    0x10(%ebp),%eax
+  d8:	89 44 24 08          	mov    %eax,0x8(%esp)
+  dc:	8b 45 0c             	mov    0xc(%ebp),%eax
+  df:	89 44 24 04          	mov    %eax,0x4(%esp)
+  e3:	8b 45 08             	mov    0x8(%ebp),%eax
+  e6:	89 04 24             	mov    %eax,(%esp)
+  e9:	e8 4f 05 00 00       	call   63d <_ConvolutionalInterleaver>
+  ee:	89 45 f4             	mov    %eax,-0xc(%ebp)
+        break;
+  f1:	eb 08                	jmp    fb <_Intrlv_Interleaver+0x7b>
+
+      default:
+        retErr = ERR_INV_SCRAMBLING_TYPE;
+  f3:	c7 45 f4 0d 00 00 00 	movl   $0xd,-0xc(%ebp)
+        break;
+  fa:	90                   	nop
+    }
+  }
+
+  return Error_HandleErr(retErr);
+  fb:	8b 45 f4             	mov    -0xc(%ebp),%eax
+  fe:	89 04 24             	mov    %eax,(%esp)
+ 101:	e8 00 00 00 00       	call   106 <_Intrlv_Interleaver+0x86>
+}
+ 106:	c9                   	leave  
+ 107:	c3                   	ret    
+
+00000108 <_Intrlv_Deinterleaver>:
+ * @param[in] pParams pointer to interleaving parameters structure
+ * 
+ * @return error ID
+ */
+error_t Intrlv_Deinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
+{
+ 108:	55                   	push   %ebp
+ 109:	89 e5                	mov    %esp,%ebp
+ 10b:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)Intrlv_Deinterleaver,WM_LEVEL_1);
+ 10e:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+ 115:	00 
+ 116:	c7 04 24 08 01 00 00 	movl   $0x108,(%esp)
+ 11d:	e8 00 00 00 00       	call   122 <_Intrlv_Deinterleaver+0x1a>
+
+  error_t retErr = ERR_NONE;
+ 122:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+
+  if (NULL != pParams)
+ 129:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+ 12d:	74 54                	je     183 <_Intrlv_Deinterleaver+0x7b>
+  {
+    switch (pParams->type)
+ 12f:	8b 45 10             	mov    0x10(%ebp),%eax
+ 132:	8b 00                	mov    (%eax),%eax
+ 134:	85 c0                	test   %eax,%eax
+ 136:	74 07                	je     13f <_Intrlv_Deinterleaver+0x37>
+ 138:	83 f8 01             	cmp    $0x1,%eax
+ 13b:	74 20                	je     15d <_Intrlv_Deinterleaver+0x55>
+ 13d:	eb 3c                	jmp    17b <_Intrlv_Deinterleaver+0x73>
+    {
+      case INTRLV_BLOCK:
+        retErr = BlockDeinterleaver(inStream,outStream,pParams);
+ 13f:	8b 45 10             	mov    0x10(%ebp),%eax
+ 142:	89 44 24 08          	mov    %eax,0x8(%esp)
+ 146:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 149:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 14d:	8b 45 08             	mov    0x8(%ebp),%eax
+ 150:	89 04 24             	mov    %eax,(%esp)
+ 153:	e8 04 02 00 00       	call   35c <_BlockDeinterleaver>
+ 158:	89 45 f4             	mov    %eax,-0xc(%ebp)
+        break;
+ 15b:	eb 26                	jmp    183 <_Intrlv_Deinterleaver+0x7b>
+
+      case INTRLV_CONV:
+        retErr = ConvolutionalDeinterleaver(inStream,outStream,pParams);
+ 15d:	8b 45 10             	mov    0x10(%ebp),%eax
+ 160:	89 44 24 08          	mov    %eax,0x8(%esp)
+ 164:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 167:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 16b:	8b 45 08             	mov    0x8(%ebp),%eax
+ 16e:	89 04 24             	mov    %eax,(%esp)
+ 171:	e8 27 09 00 00       	call   a9d <_ConvolutionalDeinterleaver>
+ 176:	89 45 f4             	mov    %eax,-0xc(%ebp)
+        break;
+ 179:	eb 08                	jmp    183 <_Intrlv_Deinterleaver+0x7b>
+
+      default:
+        retErr = ERR_INV_SCRAMBLING_TYPE;
+ 17b:	c7 45 f4 0d 00 00 00 	movl   $0xd,-0xc(%ebp)
+        break;
+ 182:	90                   	nop
+    }
+  }
+
+  return Error_HandleErr(retErr);
+ 183:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 186:	89 04 24             	mov    %eax,(%esp)
+ 189:	e8 00 00 00 00       	call   18e <_Intrlv_Deinterleaver+0x86>
+}
+ 18e:	c9                   	leave  
+ 18f:	c3                   	ret    
+
+00000190 <_BlockInterleaver>:
+ * @param[in] pParams pointer to interleaving parameters structure
+ * 
+ * @return error ID
+ */
+static error_t BlockInterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
+{
+ 190:	55                   	push   %ebp
+ 191:	89 e5                	mov    %esp,%ebp
+ 193:	53                   	push   %ebx
+ 194:	83 ec 34             	sub    $0x34,%esp
+  Debug_SetWatermark((void *)BlockInterleaver,WM_LEVEL_2);
+ 197:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+ 19e:	00 
+ 19f:	c7 04 24 90 01 00 00 	movl   $0x190,(%esp)
+ 1a6:	e8 00 00 00 00       	call   1ab <_BlockInterleaver+0x1b>
+
+  error_t retErr = ERR_NONE;
+ 1ab:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  const uint32_t cycNum = (inStream->len-1)/(pParams->rows*pParams->cols)+1;      /** - number of cycles needed to process input stream */
+ 1b2:	8b 45 08             	mov    0x8(%ebp),%eax
+ 1b5:	8b 40 04             	mov    0x4(%eax),%eax
+ 1b8:	8d 50 ff             	lea    -0x1(%eax),%edx
+ 1bb:	8b 45 10             	mov    0x10(%ebp),%eax
+ 1be:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 1c2:	0f b6 c8             	movzbl %al,%ecx
+ 1c5:	8b 45 10             	mov    0x10(%ebp),%eax
+ 1c8:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 1cc:	0f b6 c0             	movzbl %al,%eax
+ 1cf:	0f af c1             	imul   %ecx,%eax
+ 1d2:	89 c1                	mov    %eax,%ecx
+ 1d4:	89 d0                	mov    %edx,%eax
+ 1d6:	ba 00 00 00 00       	mov    $0x0,%edx
+ 1db:	f7 f1                	div    %ecx
+ 1dd:	83 c0 01             	add    $0x1,%eax
+ 1e0:	89 45 dc             	mov    %eax,-0x24(%ebp)
+  uint32_t cycLen;
+  uint32_t i, j, k;
+  uint8_t rowIdx;
+
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+ 1e3:	8b 45 08             	mov    0x8(%ebp),%eax
+ 1e6:	8b 40 08             	mov    0x8(%eax),%eax
+ 1e9:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 1ed:	8b 45 08             	mov    0x8(%ebp),%eax
+ 1f0:	89 04 24             	mov    %eax,(%esp)
+ 1f3:	e8 00 00 00 00       	call   1f8 <_BlockInterleaver+0x68>
+ 1f8:	84 c0                	test   %al,%al
+ 1fa:	0f 84 44 01 00 00    	je     344 <_BlockInterleaver+0x1b4>
+      Memory_IsStreamValid(outStream,outStream->id))
+ 200:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 203:	8b 40 08             	mov    0x8(%eax),%eax
+ 206:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 20a:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 20d:	89 04 24             	mov    %eax,(%esp)
+ 210:	e8 00 00 00 00       	call   215 <_BlockInterleaver+0x85>
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+ 215:	84 c0                	test   %al,%al
+ 217:	0f 84 27 01 00 00    	je     344 <_BlockInterleaver+0x1b4>
+  {
+    if (inStream->len == outStream->len)
+ 21d:	8b 45 08             	mov    0x8(%ebp),%eax
+ 220:	8b 50 04             	mov    0x4(%eax),%edx
+ 223:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 226:	8b 40 04             	mov    0x4(%eax),%eax
+ 229:	39 c2                	cmp    %eax,%edx
+ 22b:	0f 85 0a 01 00 00    	jne    33b <_BlockInterleaver+0x1ab>
+    {
+      for (k=0; k<cycNum; k++)
+ 231:	c7 45 e4 00 00 00 00 	movl   $0x0,-0x1c(%ebp)
+ 238:	e9 f0 00 00 00       	jmp    32d <_BlockInterleaver+0x19d>
+      {
+        rowIdx = 0;
+ 23d:	c6 45 e3 00          	movb   $0x0,-0x1d(%ebp)
+        j = 0;
+ 241:	c7 45 e8 00 00 00 00 	movl   $0x0,-0x18(%ebp)
+
+        if (cycNum-1 == k)
+ 248:	8b 45 dc             	mov    -0x24(%ebp),%eax
+ 24b:	83 e8 01             	sub    $0x1,%eax
+ 24e:	3b 45 e4             	cmp    -0x1c(%ebp),%eax
+ 251:	75 2c                	jne    27f <_BlockInterleaver+0xef>
+        {
+          cycLen = inStream->len-k*pParams->rows*pParams->cols;                   /** - number of input elements to be processed during last cycle */
+ 253:	8b 45 08             	mov    0x8(%ebp),%eax
+ 256:	8b 50 04             	mov    0x4(%eax),%edx
+ 259:	8b 45 10             	mov    0x10(%ebp),%eax
+ 25c:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 260:	0f b6 c0             	movzbl %al,%eax
+ 263:	0f af 45 e4          	imul   -0x1c(%ebp),%eax
+ 267:	89 c1                	mov    %eax,%ecx
+ 269:	8b 45 10             	mov    0x10(%ebp),%eax
+ 26c:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 270:	0f b6 c0             	movzbl %al,%eax
+ 273:	0f af c1             	imul   %ecx,%eax
+ 276:	29 c2                	sub    %eax,%edx
+ 278:	89 d0                	mov    %edx,%eax
+ 27a:	89 45 f0             	mov    %eax,-0x10(%ebp)
+ 27d:	eb 1a                	jmp    299 <_BlockInterleaver+0x109>
+        }
+        else
+        {
+          cycLen = pParams->rows*pParams->cols;
+ 27f:	8b 45 10             	mov    0x10(%ebp),%eax
+ 282:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 286:	0f b6 d0             	movzbl %al,%edx
+ 289:	8b 45 10             	mov    0x10(%ebp),%eax
+ 28c:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 290:	0f b6 c0             	movzbl %al,%eax
+ 293:	0f af c2             	imul   %edx,%eax
+ 296:	89 45 f0             	mov    %eax,-0x10(%ebp)
+        }
+
+        for (i=0; i<cycLen; i++)
+ 299:	c7 45 ec 00 00 00 00 	movl   $0x0,-0x14(%ebp)
+ 2a0:	eb 7b                	jmp    31d <_BlockInterleaver+0x18d>
+        {
+          outStream->pBuf[i+k*pParams->rows*pParams->cols] =
+ 2a2:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 2a5:	8b 10                	mov    (%eax),%edx
+ 2a7:	8b 45 10             	mov    0x10(%ebp),%eax
+ 2aa:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 2ae:	0f b6 c0             	movzbl %al,%eax
+ 2b1:	0f af 45 e4          	imul   -0x1c(%ebp),%eax
+ 2b5:	89 c1                	mov    %eax,%ecx
+ 2b7:	8b 45 10             	mov    0x10(%ebp),%eax
+ 2ba:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 2be:	0f b6 c0             	movzbl %al,%eax
+ 2c1:	0f af c8             	imul   %eax,%ecx
+ 2c4:	8b 45 ec             	mov    -0x14(%ebp),%eax
+ 2c7:	01 c8                	add    %ecx,%eax
+ 2c9:	01 c2                	add    %eax,%edx
+            inStream->pBuf[j+k*pParams->rows*pParams->cols];
+ 2cb:	8b 45 08             	mov    0x8(%ebp),%eax
+ 2ce:	8b 08                	mov    (%eax),%ecx
+ 2d0:	8b 45 10             	mov    0x10(%ebp),%eax
+ 2d3:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 2d7:	0f b6 c0             	movzbl %al,%eax
+ 2da:	0f af 45 e4          	imul   -0x1c(%ebp),%eax
+ 2de:	89 c3                	mov    %eax,%ebx
+ 2e0:	8b 45 10             	mov    0x10(%ebp),%eax
+ 2e3:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 2e7:	0f b6 c0             	movzbl %al,%eax
+ 2ea:	0f af d8             	imul   %eax,%ebx
+ 2ed:	8b 45 e8             	mov    -0x18(%ebp),%eax
+ 2f0:	01 d8                	add    %ebx,%eax
+ 2f2:	01 c8                	add    %ecx,%eax
+ 2f4:	0f b6 00             	movzbl (%eax),%eax
+          outStream->pBuf[i+k*pParams->rows*pParams->cols] =
+ 2f7:	88 02                	mov    %al,(%edx)
+          j += pParams->rows;
+ 2f9:	8b 45 10             	mov    0x10(%ebp),%eax
+ 2fc:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 300:	0f b6 c0             	movzbl %al,%eax
+ 303:	01 45 e8             	add    %eax,-0x18(%ebp)
+
+          if (j >= cycLen)
+ 306:	8b 45 e8             	mov    -0x18(%ebp),%eax
+ 309:	3b 45 f0             	cmp    -0x10(%ebp),%eax
+ 30c:	72 0b                	jb     319 <_BlockInterleaver+0x189>
+          {
+            rowIdx += 1;
+ 30e:	80 45 e3 01          	addb   $0x1,-0x1d(%ebp)
+            j = rowIdx;
+ 312:	0f b6 45 e3          	movzbl -0x1d(%ebp),%eax
+ 316:	89 45 e8             	mov    %eax,-0x18(%ebp)
+        for (i=0; i<cycLen; i++)
+ 319:	83 45 ec 01          	addl   $0x1,-0x14(%ebp)
+ 31d:	8b 45 ec             	mov    -0x14(%ebp),%eax
+ 320:	3b 45 f0             	cmp    -0x10(%ebp),%eax
+ 323:	0f 82 79 ff ff ff    	jb     2a2 <_BlockInterleaver+0x112>
+      for (k=0; k<cycNum; k++)
+ 329:	83 45 e4 01          	addl   $0x1,-0x1c(%ebp)
+ 32d:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+ 330:	3b 45 dc             	cmp    -0x24(%ebp),%eax
+ 333:	0f 82 04 ff ff ff    	jb     23d <_BlockInterleaver+0xad>
+    if (inStream->len == outStream->len)
+ 339:	eb 10                	jmp    34b <_BlockInterleaver+0x1bb>
+        }
+      }
+    }
+    else
+    {
+      retErr = ERR_INV_BUFFER_SIZE;
+ 33b:	c7 45 f4 07 00 00 00 	movl   $0x7,-0xc(%ebp)
+    if (inStream->len == outStream->len)
+ 342:	eb 07                	jmp    34b <_BlockInterleaver+0x1bb>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_STREAM;
+ 344:	c7 45 f4 13 00 00 00 	movl   $0x13,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+ 34b:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 34e:	89 04 24             	mov    %eax,(%esp)
+ 351:	e8 00 00 00 00       	call   356 <_BlockInterleaver+0x1c6>
+}
+ 356:	83 c4 34             	add    $0x34,%esp
+ 359:	5b                   	pop    %ebx
+ 35a:	5d                   	pop    %ebp
+ 35b:	c3                   	ret    
+
+0000035c <_BlockDeinterleaver>:
+ * @param[in] pParams pointer to interleaving parameters structure
+ * 
+ * @return error ID
+ */
+static error_t BlockDeinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
+{
+ 35c:	55                   	push   %ebp
+ 35d:	89 e5                	mov    %esp,%ebp
+ 35f:	56                   	push   %esi
+ 360:	53                   	push   %ebx
+ 361:	83 ec 40             	sub    $0x40,%esp
+ 364:	89 e0                	mov    %esp,%eax
+ 366:	89 c6                	mov    %eax,%esi
+  Debug_SetWatermark((void *)BlockDeinterleaver,WM_LEVEL_2);
+ 368:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+ 36f:	00 
+ 370:	c7 04 24 5c 03 00 00 	movl   $0x35c,(%esp)
+ 377:	e8 00 00 00 00       	call   37c <_BlockDeinterleaver+0x20>
+
+  error_t retErr = ERR_NONE;
+ 37c:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  const uint32_t cycNum = (inStream->len-1)/(pParams->rows*pParams->cols)+1;      /** - number of cycles needed to process input stream */
+ 383:	8b 45 08             	mov    0x8(%ebp),%eax
+ 386:	8b 40 04             	mov    0x4(%eax),%eax
+ 389:	8d 50 ff             	lea    -0x1(%eax),%edx
+ 38c:	8b 45 10             	mov    0x10(%ebp),%eax
+ 38f:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 393:	0f b6 c8             	movzbl %al,%ecx
+ 396:	8b 45 10             	mov    0x10(%ebp),%eax
+ 399:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 39d:	0f b6 c0             	movzbl %al,%eax
+ 3a0:	0f af c1             	imul   %ecx,%eax
+ 3a3:	89 c1                	mov    %eax,%ecx
+ 3a5:	89 d0                	mov    %edx,%eax
+ 3a7:	ba 00 00 00 00       	mov    $0x0,%edx
+ 3ac:	f7 f1                	div    %ecx
+ 3ae:	83 c0 01             	add    $0x1,%eax
+ 3b1:	89 45 dc             	mov    %eax,-0x24(%ebp)
+  const uint32_t misElem = cycNum*pParams->rows*pParams->cols-inStream->len;      /** - number of missing elements to completely fill the matrix during final cycle */
+ 3b4:	8b 45 10             	mov    0x10(%ebp),%eax
+ 3b7:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 3bb:	0f b6 c0             	movzbl %al,%eax
+ 3be:	0f af 45 dc          	imul   -0x24(%ebp),%eax
+ 3c2:	89 c2                	mov    %eax,%edx
+ 3c4:	8b 45 10             	mov    0x10(%ebp),%eax
+ 3c7:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 3cb:	0f b6 c0             	movzbl %al,%eax
+ 3ce:	0f af d0             	imul   %eax,%edx
+ 3d1:	8b 45 08             	mov    0x8(%ebp),%eax
+ 3d4:	8b 40 04             	mov    0x4(%eax),%eax
+ 3d7:	29 c2                	sub    %eax,%edx
+ 3d9:	89 d0                	mov    %edx,%eax
+ 3db:	89 45 d8             	mov    %eax,-0x28(%ebp)
+  uint32_t cycLen;
+  uint32_t i, j, k;
+  uint8_t skipElem[pParams->rows];                                                /** - number of elements to be skipped for each row */
+ 3de:	8b 45 10             	mov    0x10(%ebp),%eax
+ 3e1:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 3e5:	0f b6 c0             	movzbl %al,%eax
+ 3e8:	83 e8 01             	sub    $0x1,%eax
+ 3eb:	89 45 d4             	mov    %eax,-0x2c(%ebp)
+ 3ee:	8b 45 10             	mov    0x10(%ebp),%eax
+ 3f1:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 3f5:	0f b6 c0             	movzbl %al,%eax
+ 3f8:	ba 10 00 00 00       	mov    $0x10,%edx
+ 3fd:	83 ea 01             	sub    $0x1,%edx
+ 400:	01 d0                	add    %edx,%eax
+ 402:	bb 10 00 00 00       	mov    $0x10,%ebx
+ 407:	ba 00 00 00 00       	mov    $0x0,%edx
+ 40c:	f7 f3                	div    %ebx
+ 40e:	6b c0 10             	imul   $0x10,%eax,%eax
+ 411:	e8 00 00 00 00       	call   416 <_BlockDeinterleaver+0xba>
+ 416:	29 c4                	sub    %eax,%esp
+ 418:	8d 44 24 0c          	lea    0xc(%esp),%eax
+ 41c:	83 c0 00             	add    $0x0,%eax
+ 41f:	89 45 d0             	mov    %eax,-0x30(%ebp)
+  uint8_t rowIdx, colIdx;
+
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+ 422:	8b 45 08             	mov    0x8(%ebp),%eax
+ 425:	8b 40 08             	mov    0x8(%eax),%eax
+ 428:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 42c:	8b 45 08             	mov    0x8(%ebp),%eax
+ 42f:	89 04 24             	mov    %eax,(%esp)
+ 432:	e8 00 00 00 00       	call   437 <_BlockDeinterleaver+0xdb>
+ 437:	84 c0                	test   %al,%al
+ 439:	0f 84 e3 01 00 00    	je     622 <_BlockDeinterleaver+0x2c6>
+      Memory_IsStreamValid(outStream,outStream->id))
+ 43f:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 442:	8b 40 08             	mov    0x8(%eax),%eax
+ 445:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 449:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 44c:	89 04 24             	mov    %eax,(%esp)
+ 44f:	e8 00 00 00 00       	call   454 <_BlockDeinterleaver+0xf8>
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+ 454:	84 c0                	test   %al,%al
+ 456:	0f 84 c6 01 00 00    	je     622 <_BlockDeinterleaver+0x2c6>
+  {
+    if (inStream->len == outStream->len)
+ 45c:	8b 45 08             	mov    0x8(%ebp),%eax
+ 45f:	8b 50 04             	mov    0x4(%eax),%edx
+ 462:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 465:	8b 40 04             	mov    0x4(%eax),%eax
+ 468:	39 c2                	cmp    %eax,%edx
+ 46a:	0f 85 a9 01 00 00    	jne    619 <_BlockDeinterleaver+0x2bd>
+    {
+      memset(skipElem,0,pParams->rows);
+ 470:	8b 45 10             	mov    0x10(%ebp),%eax
+ 473:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 477:	0f b6 d0             	movzbl %al,%edx
+ 47a:	8b 45 d0             	mov    -0x30(%ebp),%eax
+ 47d:	89 54 24 08          	mov    %edx,0x8(%esp)
+ 481:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+ 488:	00 
+ 489:	89 04 24             	mov    %eax,(%esp)
+ 48c:	e8 00 00 00 00       	call   491 <_BlockDeinterleaver+0x135>
+      rowIdx = pParams->rows-1;
+ 491:	8b 45 10             	mov    0x10(%ebp),%eax
+ 494:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 498:	83 e8 01             	sub    $0x1,%eax
+ 49b:	88 45 e3             	mov    %al,-0x1d(%ebp)
+      for (k=0; k<misElem; k++)
+ 49e:	c7 45 e4 00 00 00 00 	movl   $0x0,-0x1c(%ebp)
+ 4a5:	eb 35                	jmp    4dc <_BlockDeinterleaver+0x180>
+      {
+        skipElem[rowIdx] += 1;
+ 4a7:	0f b6 45 e3          	movzbl -0x1d(%ebp),%eax
+ 4ab:	0f b6 55 e3          	movzbl -0x1d(%ebp),%edx
+ 4af:	8b 4d d0             	mov    -0x30(%ebp),%ecx
+ 4b2:	0f b6 14 11          	movzbl (%ecx,%edx,1),%edx
+ 4b6:	8d 4a 01             	lea    0x1(%edx),%ecx
+ 4b9:	8b 55 d0             	mov    -0x30(%ebp),%edx
+ 4bc:	88 0c 02             	mov    %cl,(%edx,%eax,1)
+
+        if (0 == rowIdx)
+ 4bf:	80 7d e3 00          	cmpb   $0x0,-0x1d(%ebp)
+ 4c3:	75 0f                	jne    4d4 <_BlockDeinterleaver+0x178>
+        {
+          rowIdx = pParams->rows-1;
+ 4c5:	8b 45 10             	mov    0x10(%ebp),%eax
+ 4c8:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 4cc:	83 e8 01             	sub    $0x1,%eax
+ 4cf:	88 45 e3             	mov    %al,-0x1d(%ebp)
+ 4d2:	eb 04                	jmp    4d8 <_BlockDeinterleaver+0x17c>
+        }
+        else
+        {
+          rowIdx -= 1;
+ 4d4:	80 6d e3 01          	subb   $0x1,-0x1d(%ebp)
+      for (k=0; k<misElem; k++)
+ 4d8:	83 45 e4 01          	addl   $0x1,-0x1c(%ebp)
+ 4dc:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+ 4df:	3b 45 d8             	cmp    -0x28(%ebp),%eax
+ 4e2:	72 c3                	jb     4a7 <_BlockDeinterleaver+0x14b>
+        }
+      }
+
+      for (k=0; k<cycNum; k++)
+ 4e4:	c7 45 e4 00 00 00 00 	movl   $0x0,-0x1c(%ebp)
+ 4eb:	e9 1b 01 00 00       	jmp    60b <_BlockDeinterleaver+0x2af>
+      {
+        rowIdx = 0;
+ 4f0:	c6 45 e3 00          	movb   $0x0,-0x1d(%ebp)
+        colIdx = 0;
+ 4f4:	c6 45 e2 00          	movb   $0x0,-0x1e(%ebp)
+        j = 0;
+ 4f8:	c7 45 e8 00 00 00 00 	movl   $0x0,-0x18(%ebp)
+
+        if (cycNum-1 == k)
+ 4ff:	8b 45 dc             	mov    -0x24(%ebp),%eax
+ 502:	83 e8 01             	sub    $0x1,%eax
+ 505:	3b 45 e4             	cmp    -0x1c(%ebp),%eax
+ 508:	75 2c                	jne    536 <_BlockDeinterleaver+0x1da>
+        {
+          cycLen = inStream->len-k*pParams->rows*pParams->cols;                   /** number of input elements to be processed during last cycle */
+ 50a:	8b 45 08             	mov    0x8(%ebp),%eax
+ 50d:	8b 50 04             	mov    0x4(%eax),%edx
+ 510:	8b 45 10             	mov    0x10(%ebp),%eax
+ 513:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 517:	0f b6 c0             	movzbl %al,%eax
+ 51a:	0f af 45 e4          	imul   -0x1c(%ebp),%eax
+ 51e:	89 c1                	mov    %eax,%ecx
+ 520:	8b 45 10             	mov    0x10(%ebp),%eax
+ 523:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 527:	0f b6 c0             	movzbl %al,%eax
+ 52a:	0f af c1             	imul   %ecx,%eax
+ 52d:	29 c2                	sub    %eax,%edx
+ 52f:	89 d0                	mov    %edx,%eax
+ 531:	89 45 f0             	mov    %eax,-0x10(%ebp)
+ 534:	eb 1a                	jmp    550 <_BlockDeinterleaver+0x1f4>
+        }
+        else
+        {
+          cycLen = pParams->rows*pParams->cols;
+ 536:	8b 45 10             	mov    0x10(%ebp),%eax
+ 539:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 53d:	0f b6 d0             	movzbl %al,%edx
+ 540:	8b 45 10             	mov    0x10(%ebp),%eax
+ 543:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 547:	0f b6 c0             	movzbl %al,%eax
+ 54a:	0f af c2             	imul   %edx,%eax
+ 54d:	89 45 f0             	mov    %eax,-0x10(%ebp)
+        }
+
+        for (i=0; i<cycLen; i++)
+ 550:	c7 45 ec 00 00 00 00 	movl   $0x0,-0x14(%ebp)
+ 557:	e9 9f 00 00 00       	jmp    5fb <_BlockDeinterleaver+0x29f>
+        {
+          outStream->pBuf[i+k*pParams->rows*pParams->cols] = 
+ 55c:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 55f:	8b 10                	mov    (%eax),%edx
+ 561:	8b 45 10             	mov    0x10(%ebp),%eax
+ 564:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 568:	0f b6 c0             	movzbl %al,%eax
+ 56b:	0f af 45 e4          	imul   -0x1c(%ebp),%eax
+ 56f:	89 c1                	mov    %eax,%ecx
+ 571:	8b 45 10             	mov    0x10(%ebp),%eax
+ 574:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 578:	0f b6 c0             	movzbl %al,%eax
+ 57b:	0f af c8             	imul   %eax,%ecx
+ 57e:	8b 45 ec             	mov    -0x14(%ebp),%eax
+ 581:	01 c8                	add    %ecx,%eax
+ 583:	01 c2                	add    %eax,%edx
+            inStream->pBuf[j+k*pParams->rows*pParams->cols];
+ 585:	8b 45 08             	mov    0x8(%ebp),%eax
+ 588:	8b 08                	mov    (%eax),%ecx
+ 58a:	8b 45 10             	mov    0x10(%ebp),%eax
+ 58d:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 591:	0f b6 c0             	movzbl %al,%eax
+ 594:	0f af 45 e4          	imul   -0x1c(%ebp),%eax
+ 598:	89 c3                	mov    %eax,%ebx
+ 59a:	8b 45 10             	mov    0x10(%ebp),%eax
+ 59d:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 5a1:	0f b6 c0             	movzbl %al,%eax
+ 5a4:	0f af d8             	imul   %eax,%ebx
+ 5a7:	8b 45 e8             	mov    -0x18(%ebp),%eax
+ 5aa:	01 d8                	add    %ebx,%eax
+ 5ac:	01 c8                	add    %ecx,%eax
+ 5ae:	0f b6 00             	movzbl (%eax),%eax
+          outStream->pBuf[i+k*pParams->rows*pParams->cols] = 
+ 5b1:	88 02                	mov    %al,(%edx)
+          j += pParams->cols;
+ 5b3:	8b 45 10             	mov    0x10(%ebp),%eax
+ 5b6:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 5ba:	0f b6 c0             	movzbl %al,%eax
+ 5bd:	01 45 e8             	add    %eax,-0x18(%ebp)
+
+          if (cycNum-1 == k)
+ 5c0:	8b 45 dc             	mov    -0x24(%ebp),%eax
+ 5c3:	83 e8 01             	sub    $0x1,%eax
+ 5c6:	3b 45 e4             	cmp    -0x1c(%ebp),%eax
+ 5c9:	75 15                	jne    5e0 <_BlockDeinterleaver+0x284>
+          {
+            j -= skipElem[rowIdx];                                                /** update counter in case of missing elements during final cycle */
+ 5cb:	0f b6 45 e3          	movzbl -0x1d(%ebp),%eax
+ 5cf:	8b 55 d0             	mov    -0x30(%ebp),%edx
+ 5d2:	0f b6 04 02          	movzbl (%edx,%eax,1),%eax
+ 5d6:	0f b6 c0             	movzbl %al,%eax
+ 5d9:	29 45 e8             	sub    %eax,-0x18(%ebp)
+            rowIdx += 1;
+ 5dc:	80 45 e3 01          	addb   $0x1,-0x1d(%ebp)
+          }
+
+          if (j >= cycLen)
+ 5e0:	8b 45 e8             	mov    -0x18(%ebp),%eax
+ 5e3:	3b 45 f0             	cmp    -0x10(%ebp),%eax
+ 5e6:	72 0f                	jb     5f7 <_BlockDeinterleaver+0x29b>
+          {
+            colIdx += 1;
+ 5e8:	80 45 e2 01          	addb   $0x1,-0x1e(%ebp)
+            j = colIdx;
+ 5ec:	0f b6 45 e2          	movzbl -0x1e(%ebp),%eax
+ 5f0:	89 45 e8             	mov    %eax,-0x18(%ebp)
+            rowIdx = 0;
+ 5f3:	c6 45 e3 00          	movb   $0x0,-0x1d(%ebp)
+        for (i=0; i<cycLen; i++)
+ 5f7:	83 45 ec 01          	addl   $0x1,-0x14(%ebp)
+ 5fb:	8b 45 ec             	mov    -0x14(%ebp),%eax
+ 5fe:	3b 45 f0             	cmp    -0x10(%ebp),%eax
+ 601:	0f 82 55 ff ff ff    	jb     55c <_BlockDeinterleaver+0x200>
+      for (k=0; k<cycNum; k++)
+ 607:	83 45 e4 01          	addl   $0x1,-0x1c(%ebp)
+ 60b:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+ 60e:	3b 45 dc             	cmp    -0x24(%ebp),%eax
+ 611:	0f 82 d9 fe ff ff    	jb     4f0 <_BlockDeinterleaver+0x194>
+    if (inStream->len == outStream->len)
+ 617:	eb 10                	jmp    629 <_BlockDeinterleaver+0x2cd>
+        }
+      }
+    }
+    else
+    {
+      retErr = ERR_INV_BUFFER_SIZE;
+ 619:	c7 45 f4 07 00 00 00 	movl   $0x7,-0xc(%ebp)
+    if (inStream->len == outStream->len)
+ 620:	eb 07                	jmp    629 <_BlockDeinterleaver+0x2cd>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_STREAM;
+ 622:	c7 45 f4 13 00 00 00 	movl   $0x13,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+ 629:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 62c:	89 04 24             	mov    %eax,(%esp)
+ 62f:	e8 00 00 00 00       	call   634 <_BlockDeinterleaver+0x2d8>
+ 634:	89 f4                	mov    %esi,%esp
+}
+ 636:	8d 65 f8             	lea    -0x8(%ebp),%esp
+ 639:	5b                   	pop    %ebx
+ 63a:	5e                   	pop    %esi
+ 63b:	5d                   	pop    %ebp
+ 63c:	c3                   	ret    
+
+0000063d <_ConvolutionalInterleaver>:
+ * @param[in] pParams pointer to interleaving parameters structure
+ * 
+ * @return error ID
+ */
+static error_t ConvolutionalInterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
+{
+ 63d:	55                   	push   %ebp
+ 63e:	89 e5                	mov    %esp,%ebp
+ 640:	57                   	push   %edi
+ 641:	56                   	push   %esi
+ 642:	53                   	push   %ebx
+ 643:	83 ec 5c             	sub    $0x5c,%esp
+ 646:	89 e0                	mov    %esp,%eax
+ 648:	89 45 b0             	mov    %eax,-0x50(%ebp)
+  Debug_SetWatermark((void *)ConvolutionalInterleaver,WM_LEVEL_2);
+ 64b:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+ 652:	00 
+ 653:	c7 04 24 3d 06 00 00 	movl   $0x63d,(%esp)
+ 65a:	e8 00 00 00 00       	call   65f <_ConvolutionalInterleaver+0x22>
+
+  error_t retErr = ERR_NONE;
+ 65f:	c7 45 e4 00 00 00 00 	movl   $0x0,-0x1c(%ebp)
+  const uint16_t shiftRegRows = pParams->dlys-1;
+ 666:	8b 45 10             	mov    0x10(%ebp),%eax
+ 669:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 66d:	0f b6 c0             	movzbl %al,%eax
+ 670:	83 e8 01             	sub    $0x1,%eax
+ 673:	66 89 45 d0          	mov    %ax,-0x30(%ebp)
+  const uint16_t shiftRegCols = pParams->cells*(pParams->dlys-1);
+ 677:	8b 45 10             	mov    0x10(%ebp),%eax
+ 67a:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 67e:	0f b6 d0             	movzbl %al,%edx
+ 681:	8b 45 10             	mov    0x10(%ebp),%eax
+ 684:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 688:	0f b6 c0             	movzbl %al,%eax
+ 68b:	83 e8 01             	sub    $0x1,%eax
+ 68e:	0f af c2             	imul   %edx,%eax
+ 691:	66 89 45 ce          	mov    %ax,-0x32(%ebp)
+  uint16_t shiftRegMtx[shiftRegRows][shiftRegCols];                               /** - shift-register matrix */
+ 695:	0f b7 45 ce          	movzwl -0x32(%ebp),%eax
+ 699:	83 e8 01             	sub    $0x1,%eax
+ 69c:	89 45 c8             	mov    %eax,-0x38(%ebp)
+ 69f:	0f b7 45 ce          	movzwl -0x32(%ebp),%eax
+ 6a3:	01 c0                	add    %eax,%eax
+ 6a5:	89 45 b4             	mov    %eax,-0x4c(%ebp)
+ 6a8:	0f b7 45 d0          	movzwl -0x30(%ebp),%eax
+ 6ac:	83 e8 01             	sub    $0x1,%eax
+ 6af:	89 45 c4             	mov    %eax,-0x3c(%ebp)
+ 6b2:	0f b7 45 ce          	movzwl -0x32(%ebp),%eax
+ 6b6:	89 c1                	mov    %eax,%ecx
+ 6b8:	bb 00 00 00 00       	mov    $0x0,%ebx
+ 6bd:	0f b7 45 d0          	movzwl -0x30(%ebp),%eax
+ 6c1:	ba 00 00 00 00       	mov    $0x0,%edx
+ 6c6:	89 df                	mov    %ebx,%edi
+ 6c8:	0f af f8             	imul   %eax,%edi
+ 6cb:	89 d6                	mov    %edx,%esi
+ 6cd:	0f af f1             	imul   %ecx,%esi
+ 6d0:	01 fe                	add    %edi,%esi
+ 6d2:	f7 e1                	mul    %ecx
+ 6d4:	8d 0c 16             	lea    (%esi,%edx,1),%ecx
+ 6d7:	89 ca                	mov    %ecx,%edx
+ 6d9:	0f b7 45 ce          	movzwl -0x32(%ebp),%eax
+ 6dd:	89 c1                	mov    %eax,%ecx
+ 6df:	bb 00 00 00 00       	mov    $0x0,%ebx
+ 6e4:	0f b7 45 d0          	movzwl -0x30(%ebp),%eax
+ 6e8:	ba 00 00 00 00       	mov    $0x0,%edx
+ 6ed:	89 df                	mov    %ebx,%edi
+ 6ef:	0f af f8             	imul   %eax,%edi
+ 6f2:	89 d6                	mov    %edx,%esi
+ 6f4:	0f af f1             	imul   %ecx,%esi
+ 6f7:	01 fe                	add    %edi,%esi
+ 6f9:	f7 e1                	mul    %ecx
+ 6fb:	8d 0c 16             	lea    (%esi,%edx,1),%ecx
+ 6fe:	89 ca                	mov    %ecx,%edx
+ 700:	0f b7 55 ce          	movzwl -0x32(%ebp),%edx
+ 704:	0f b7 45 d0          	movzwl -0x30(%ebp),%eax
+ 708:	0f af c2             	imul   %edx,%eax
+ 70b:	01 c0                	add    %eax,%eax
+ 70d:	8d 50 01             	lea    0x1(%eax),%edx
+ 710:	b8 10 00 00 00       	mov    $0x10,%eax
+ 715:	83 e8 01             	sub    $0x1,%eax
+ 718:	01 d0                	add    %edx,%eax
+ 71a:	bf 10 00 00 00       	mov    $0x10,%edi
+ 71f:	ba 00 00 00 00       	mov    $0x0,%edx
+ 724:	f7 f7                	div    %edi
+ 726:	6b c0 10             	imul   $0x10,%eax,%eax
+ 729:	e8 00 00 00 00       	call   72e <_ConvolutionalInterleaver+0xf1>
+ 72e:	29 c4                	sub    %eax,%esp
+ 730:	8d 44 24 08          	lea    0x8(%esp),%eax
+ 734:	83 c0 01             	add    $0x1,%eax
+ 737:	d1 e8                	shr    %eax
+ 739:	01 c0                	add    %eax,%eax
+ 73b:	89 45 c0             	mov    %eax,-0x40(%ebp)
+  uint32_t i, j;
+  ulen_t inIdx = 0;                                                               /** - index over input stream buffer */
+ 73e:	c7 45 d8 00 00 00 00 	movl   $0x0,-0x28(%ebp)
+  ulen_t outIdx = 0;                                                              /** - index over output stream buffer */
+ 745:	c7 45 d4 00 00 00 00 	movl   $0x0,-0x2c(%ebp)
+  int16_t rowIdx = -1;                                                            /** - row index ("-1" represents the line with no delay) */
+ 74c:	66 c7 45 d2 ff ff    	movw   $0xffff,-0x2e(%ebp)
+
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+ 752:	8b 45 08             	mov    0x8(%ebp),%eax
+ 755:	8b 40 08             	mov    0x8(%eax),%eax
+ 758:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 75c:	8b 45 08             	mov    0x8(%ebp),%eax
+ 75f:	89 04 24             	mov    %eax,(%esp)
+ 762:	e8 00 00 00 00       	call   767 <_ConvolutionalInterleaver+0x12a>
+ 767:	84 c0                	test   %al,%al
+ 769:	0f 84 11 03 00 00    	je     a80 <_ConvolutionalInterleaver+0x443>
+      Memory_IsStreamValid(outStream,outStream->id))
+ 76f:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 772:	8b 40 08             	mov    0x8(%eax),%eax
+ 775:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 779:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 77c:	89 04 24             	mov    %eax,(%esp)
+ 77f:	e8 00 00 00 00       	call   784 <_ConvolutionalInterleaver+0x147>
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+ 784:	84 c0                	test   %al,%al
+ 786:	0f 84 f4 02 00 00    	je     a80 <_ConvolutionalInterleaver+0x443>
+  {
+    if (inStream->len == outStream->len)
+ 78c:	8b 45 08             	mov    0x8(%ebp),%eax
+ 78f:	8b 50 04             	mov    0x4(%eax),%edx
+ 792:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 795:	8b 40 04             	mov    0x4(%eax),%eax
+ 798:	39 c2                	cmp    %eax,%edx
+ 79a:	0f 85 d7 02 00 00    	jne    a77 <_ConvolutionalInterleaver+0x43a>
+    {
+      for (i=0; i<shiftRegRows; i++)
+ 7a0:	c7 45 e0 00 00 00 00 	movl   $0x0,-0x20(%ebp)
+ 7a7:	eb 33                	jmp    7dc <_ConvolutionalInterleaver+0x19f>
+      {
+        for (j=0; j<shiftRegCols; j++)
+ 7a9:	c7 45 dc 00 00 00 00 	movl   $0x0,-0x24(%ebp)
+ 7b0:	eb 1d                	jmp    7cf <_ConvolutionalInterleaver+0x192>
+        {
+          shiftRegMtx[i][j] = INTRLV_NAN;                                         /** - initialize shift-register matrix */
+ 7b2:	8b 55 b4             	mov    -0x4c(%ebp),%edx
+ 7b5:	d1 ea                	shr    %edx
+ 7b7:	8b 45 c0             	mov    -0x40(%ebp),%eax
+ 7ba:	89 d1                	mov    %edx,%ecx
+ 7bc:	0f af 4d e0          	imul   -0x20(%ebp),%ecx
+ 7c0:	8b 55 dc             	mov    -0x24(%ebp),%edx
+ 7c3:	01 ca                	add    %ecx,%edx
+ 7c5:	66 c7 04 50 ff ff    	movw   $0xffff,(%eax,%edx,2)
+        for (j=0; j<shiftRegCols; j++)
+ 7cb:	83 45 dc 01          	addl   $0x1,-0x24(%ebp)
+ 7cf:	0f b7 45 ce          	movzwl -0x32(%ebp),%eax
+ 7d3:	3b 45 dc             	cmp    -0x24(%ebp),%eax
+ 7d6:	77 da                	ja     7b2 <_ConvolutionalInterleaver+0x175>
+      for (i=0; i<shiftRegRows; i++)
+ 7d8:	83 45 e0 01          	addl   $0x1,-0x20(%ebp)
+ 7dc:	0f b7 45 d0          	movzwl -0x30(%ebp),%eax
+ 7e0:	3b 45 e0             	cmp    -0x20(%ebp),%eax
+ 7e3:	77 c4                	ja     7a9 <_ConvolutionalInterleaver+0x16c>
+        }
+      }
+
+      while (inIdx < inStream->len)                                               /** - loop until all input elements are consumed */
+ 7e5:	e9 49 01 00 00       	jmp    933 <_ConvolutionalInterleaver+0x2f6>
+      {
+        if (-1 == rowIdx)
+ 7ea:	66 83 7d d2 ff       	cmpw   $0xffff,-0x2e(%ebp)
+ 7ef:	75 22                	jne    813 <_ConvolutionalInterleaver+0x1d6>
+        {
+          outStream->pBuf[outIdx] = inStream->pBuf[inIdx];                        /** - output from no-delay line */
+ 7f1:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 7f4:	8b 10                	mov    (%eax),%edx
+ 7f6:	8b 45 d4             	mov    -0x2c(%ebp),%eax
+ 7f9:	01 c2                	add    %eax,%edx
+ 7fb:	8b 45 08             	mov    0x8(%ebp),%eax
+ 7fe:	8b 08                	mov    (%eax),%ecx
+ 800:	8b 45 d8             	mov    -0x28(%ebp),%eax
+ 803:	01 c8                	add    %ecx,%eax
+ 805:	0f b6 00             	movzbl (%eax),%eax
+ 808:	88 02                	mov    %al,(%edx)
+          outIdx += 1;
+ 80a:	83 45 d4 01          	addl   $0x1,-0x2c(%ebp)
+ 80e:	e9 f4 00 00 00       	jmp    907 <_ConvolutionalInterleaver+0x2ca>
+        }
+        else
+        {
+          if (INTRLV_NAN != shiftRegMtx[rowIdx][pParams->cells*(rowIdx+1)-1])
+ 813:	8b 5d b4             	mov    -0x4c(%ebp),%ebx
+ 816:	d1 eb                	shr    %ebx
+ 818:	0f bf 55 d2          	movswl -0x2e(%ebp),%edx
+ 81c:	8b 45 10             	mov    0x10(%ebp),%eax
+ 81f:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 823:	0f b6 c0             	movzbl %al,%eax
+ 826:	0f bf 4d d2          	movswl -0x2e(%ebp),%ecx
+ 82a:	83 c1 01             	add    $0x1,%ecx
+ 82d:	0f af c1             	imul   %ecx,%eax
+ 830:	8d 48 ff             	lea    -0x1(%eax),%ecx
+ 833:	8b 45 c0             	mov    -0x40(%ebp),%eax
+ 836:	0f af d3             	imul   %ebx,%edx
+ 839:	01 ca                	add    %ecx,%edx
+ 83b:	0f b7 04 50          	movzwl (%eax,%edx,2),%eax
+ 83f:	66 83 f8 ff          	cmp    $0xffff,%ax
+ 843:	74 3f                	je     884 <_ConvolutionalInterleaver+0x247>
+          {
+            outStream->pBuf[outIdx] =
+ 845:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 848:	8b 10                	mov    (%eax),%edx
+ 84a:	8b 45 d4             	mov    -0x2c(%ebp),%eax
+ 84d:	8d 1c 02             	lea    (%edx,%eax,1),%ebx
+              shiftRegMtx[rowIdx][pParams->cells*(rowIdx+1)-1];                   /** - output from shift-registers */
+ 850:	8b 7d b4             	mov    -0x4c(%ebp),%edi
+ 853:	d1 ef                	shr    %edi
+ 855:	0f bf 75 d2          	movswl -0x2e(%ebp),%esi
+ 859:	8b 45 10             	mov    0x10(%ebp),%eax
+ 85c:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 860:	0f b6 d0             	movzbl %al,%edx
+ 863:	0f bf 45 d2          	movswl -0x2e(%ebp),%eax
+ 867:	83 c0 01             	add    $0x1,%eax
+ 86a:	0f af c2             	imul   %edx,%eax
+ 86d:	8d 48 ff             	lea    -0x1(%eax),%ecx
+ 870:	8b 55 c0             	mov    -0x40(%ebp),%edx
+ 873:	89 f8                	mov    %edi,%eax
+ 875:	0f af c6             	imul   %esi,%eax
+ 878:	01 c8                	add    %ecx,%eax
+ 87a:	0f b7 04 42          	movzwl (%edx,%eax,2),%eax
+            outStream->pBuf[outIdx] =
+ 87e:	88 03                	mov    %al,(%ebx)
+            outIdx += 1;
+ 880:	83 45 d4 01          	addl   $0x1,-0x2c(%ebp)
+          }
+
+          for (j=pParams->cells*(rowIdx+1)-1; j>0; j--)
+ 884:	8b 45 10             	mov    0x10(%ebp),%eax
+ 887:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 88b:	0f b6 c0             	movzbl %al,%eax
+ 88e:	0f bf 55 d2          	movswl -0x2e(%ebp),%edx
+ 892:	83 c2 01             	add    $0x1,%edx
+ 895:	0f af c2             	imul   %edx,%eax
+ 898:	83 e8 01             	sub    $0x1,%eax
+ 89b:	89 45 dc             	mov    %eax,-0x24(%ebp)
+ 89e:	eb 3e                	jmp    8de <_ConvolutionalInterleaver+0x2a1>
+          {
+            shiftRegMtx[rowIdx][j] = shiftRegMtx[rowIdx][j-1];                    /** - update shift-registers (by right-shifting) */
+ 8a0:	8b 75 b4             	mov    -0x4c(%ebp),%esi
+ 8a3:	89 f0                	mov    %esi,%eax
+ 8a5:	d1 e8                	shr    %eax
+ 8a7:	89 45 ac             	mov    %eax,-0x54(%ebp)
+ 8aa:	0f bf 7d d2          	movswl -0x2e(%ebp),%edi
+ 8ae:	d1 ee                	shr    %esi
+ 8b0:	0f bf 4d d2          	movswl -0x2e(%ebp),%ecx
+ 8b4:	8b 45 dc             	mov    -0x24(%ebp),%eax
+ 8b7:	8d 58 ff             	lea    -0x1(%eax),%ebx
+ 8ba:	8b 55 c0             	mov    -0x40(%ebp),%edx
+ 8bd:	0f af f1             	imul   %ecx,%esi
+ 8c0:	89 f0                	mov    %esi,%eax
+ 8c2:	01 d8                	add    %ebx,%eax
+ 8c4:	0f b7 14 42          	movzwl (%edx,%eax,2),%edx
+ 8c8:	8b 45 c0             	mov    -0x40(%ebp),%eax
+ 8cb:	8b 5d ac             	mov    -0x54(%ebp),%ebx
+ 8ce:	0f af df             	imul   %edi,%ebx
+ 8d1:	8b 4d dc             	mov    -0x24(%ebp),%ecx
+ 8d4:	01 d9                	add    %ebx,%ecx
+ 8d6:	66 89 14 48          	mov    %dx,(%eax,%ecx,2)
+          for (j=pParams->cells*(rowIdx+1)-1; j>0; j--)
+ 8da:	83 6d dc 01          	subl   $0x1,-0x24(%ebp)
+ 8de:	83 7d dc 00          	cmpl   $0x0,-0x24(%ebp)
+ 8e2:	75 bc                	jne    8a0 <_ConvolutionalInterleaver+0x263>
+          }
+          shiftRegMtx[rowIdx][0] = inStream->pBuf[inIdx];
+ 8e4:	8b 5d b4             	mov    -0x4c(%ebp),%ebx
+ 8e7:	d1 eb                	shr    %ebx
+ 8e9:	0f bf 55 d2          	movswl -0x2e(%ebp),%edx
+ 8ed:	8b 45 08             	mov    0x8(%ebp),%eax
+ 8f0:	8b 08                	mov    (%eax),%ecx
+ 8f2:	8b 45 d8             	mov    -0x28(%ebp),%eax
+ 8f5:	01 c8                	add    %ecx,%eax
+ 8f7:	0f b6 00             	movzbl (%eax),%eax
+ 8fa:	0f b6 c8             	movzbl %al,%ecx
+ 8fd:	8b 45 c0             	mov    -0x40(%ebp),%eax
+ 900:	0f af d3             	imul   %ebx,%edx
+ 903:	66 89 0c 50          	mov    %cx,(%eax,%edx,2)
+        }
+
+        inIdx += 1;
+ 907:	83 45 d8 01          	addl   $0x1,-0x28(%ebp)
+
+        if ((pParams->dlys-2) == rowIdx)
+ 90b:	8b 45 10             	mov    0x10(%ebp),%eax
+ 90e:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 912:	0f b6 c0             	movzbl %al,%eax
+ 915:	8d 50 fe             	lea    -0x2(%eax),%edx
+ 918:	0f bf 45 d2          	movswl -0x2e(%ebp),%eax
+ 91c:	39 c2                	cmp    %eax,%edx
+ 91e:	75 08                	jne    928 <_ConvolutionalInterleaver+0x2eb>
+        {
+            rowIdx = -1;
+ 920:	66 c7 45 d2 ff ff    	movw   $0xffff,-0x2e(%ebp)
+ 926:	eb 0b                	jmp    933 <_ConvolutionalInterleaver+0x2f6>
+        }
+        else
+        {
+          rowIdx += 1;
+ 928:	0f b7 45 d2          	movzwl -0x2e(%ebp),%eax
+ 92c:	83 c0 01             	add    $0x1,%eax
+ 92f:	66 89 45 d2          	mov    %ax,-0x2e(%ebp)
+      while (inIdx < inStream->len)                                               /** - loop until all input elements are consumed */
+ 933:	8b 45 08             	mov    0x8(%ebp),%eax
+ 936:	8b 40 04             	mov    0x4(%eax),%eax
+ 939:	3b 45 d8             	cmp    -0x28(%ebp),%eax
+ 93c:	0f 87 a8 fe ff ff    	ja     7ea <_ConvolutionalInterleaver+0x1ad>
+        }
+      }
+
+      if (-1 == rowIdx)
+ 942:	66 83 7d d2 ff       	cmpw   $0xffff,-0x2e(%ebp)
+ 947:	0f 85 19 01 00 00    	jne    a66 <_ConvolutionalInterleaver+0x429>
+      {
+        rowIdx = 0;
+ 94d:	66 c7 45 d2 00 00    	movw   $0x0,-0x2e(%ebp)
+      }
+
+      while (outIdx < inStream->len)                                              /** loop until all elements still stored in the shift-register has been completely consumed */
+ 953:	e9 0e 01 00 00       	jmp    a66 <_ConvolutionalInterleaver+0x429>
+      {
+        if (INTRLV_NAN != shiftRegMtx[rowIdx][pParams->cells*(rowIdx+1)-1])
+ 958:	8b 5d b4             	mov    -0x4c(%ebp),%ebx
+ 95b:	d1 eb                	shr    %ebx
+ 95d:	0f bf 55 d2          	movswl -0x2e(%ebp),%edx
+ 961:	8b 45 10             	mov    0x10(%ebp),%eax
+ 964:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 968:	0f b6 c0             	movzbl %al,%eax
+ 96b:	0f bf 4d d2          	movswl -0x2e(%ebp),%ecx
+ 96f:	83 c1 01             	add    $0x1,%ecx
+ 972:	0f af c1             	imul   %ecx,%eax
+ 975:	8d 48 ff             	lea    -0x1(%eax),%ecx
+ 978:	8b 45 c0             	mov    -0x40(%ebp),%eax
+ 97b:	0f af d3             	imul   %ebx,%edx
+ 97e:	01 ca                	add    %ecx,%edx
+ 980:	0f b7 04 50          	movzwl (%eax,%edx,2),%eax
+ 984:	66 83 f8 ff          	cmp    $0xffff,%ax
+ 988:	74 3f                	je     9c9 <_ConvolutionalInterleaver+0x38c>
+        {
+            outStream->pBuf[outIdx] =
+ 98a:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 98d:	8b 10                	mov    (%eax),%edx
+ 98f:	8b 45 d4             	mov    -0x2c(%ebp),%eax
+ 992:	8d 1c 02             	lea    (%edx,%eax,1),%ebx
+              shiftRegMtx[rowIdx][pParams->cells*(rowIdx+1)-1];
+ 995:	8b 7d b4             	mov    -0x4c(%ebp),%edi
+ 998:	d1 ef                	shr    %edi
+ 99a:	0f bf 75 d2          	movswl -0x2e(%ebp),%esi
+ 99e:	8b 45 10             	mov    0x10(%ebp),%eax
+ 9a1:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 9a5:	0f b6 d0             	movzbl %al,%edx
+ 9a8:	0f bf 45 d2          	movswl -0x2e(%ebp),%eax
+ 9ac:	83 c0 01             	add    $0x1,%eax
+ 9af:	0f af c2             	imul   %edx,%eax
+ 9b2:	8d 48 ff             	lea    -0x1(%eax),%ecx
+ 9b5:	8b 55 c0             	mov    -0x40(%ebp),%edx
+ 9b8:	89 f8                	mov    %edi,%eax
+ 9ba:	0f af c6             	imul   %esi,%eax
+ 9bd:	01 c8                	add    %ecx,%eax
+ 9bf:	0f b7 04 42          	movzwl (%edx,%eax,2),%eax
+            outStream->pBuf[outIdx] =
+ 9c3:	88 03                	mov    %al,(%ebx)
+            outIdx += 1;
+ 9c5:	83 45 d4 01          	addl   $0x1,-0x2c(%ebp)
+        }
+
+        for (j=pParams->cells*(rowIdx+1)-1; j>0; j--)
+ 9c9:	8b 45 10             	mov    0x10(%ebp),%eax
+ 9cc:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ 9d0:	0f b6 c0             	movzbl %al,%eax
+ 9d3:	0f bf 55 d2          	movswl -0x2e(%ebp),%edx
+ 9d7:	83 c2 01             	add    $0x1,%edx
+ 9da:	0f af c2             	imul   %edx,%eax
+ 9dd:	83 e8 01             	sub    $0x1,%eax
+ 9e0:	89 45 dc             	mov    %eax,-0x24(%ebp)
+ 9e3:	eb 3e                	jmp    a23 <_ConvolutionalInterleaver+0x3e6>
+        {
+          shiftRegMtx[rowIdx][j] = shiftRegMtx[rowIdx][j-1];
+ 9e5:	8b 75 b4             	mov    -0x4c(%ebp),%esi
+ 9e8:	89 f0                	mov    %esi,%eax
+ 9ea:	d1 e8                	shr    %eax
+ 9ec:	89 45 ac             	mov    %eax,-0x54(%ebp)
+ 9ef:	0f bf 7d d2          	movswl -0x2e(%ebp),%edi
+ 9f3:	d1 ee                	shr    %esi
+ 9f5:	0f bf 4d d2          	movswl -0x2e(%ebp),%ecx
+ 9f9:	8b 45 dc             	mov    -0x24(%ebp),%eax
+ 9fc:	8d 58 ff             	lea    -0x1(%eax),%ebx
+ 9ff:	8b 55 c0             	mov    -0x40(%ebp),%edx
+ a02:	0f af f1             	imul   %ecx,%esi
+ a05:	89 f0                	mov    %esi,%eax
+ a07:	01 d8                	add    %ebx,%eax
+ a09:	0f b7 14 42          	movzwl (%edx,%eax,2),%edx
+ a0d:	8b 45 c0             	mov    -0x40(%ebp),%eax
+ a10:	8b 5d ac             	mov    -0x54(%ebp),%ebx
+ a13:	0f af df             	imul   %edi,%ebx
+ a16:	8b 4d dc             	mov    -0x24(%ebp),%ecx
+ a19:	01 d9                	add    %ebx,%ecx
+ a1b:	66 89 14 48          	mov    %dx,(%eax,%ecx,2)
+        for (j=pParams->cells*(rowIdx+1)-1; j>0; j--)
+ a1f:	83 6d dc 01          	subl   $0x1,-0x24(%ebp)
+ a23:	83 7d dc 00          	cmpl   $0x0,-0x24(%ebp)
+ a27:	75 bc                	jne    9e5 <_ConvolutionalInterleaver+0x3a8>
+        }
+
+        shiftRegMtx[rowIdx][0] = INTRLV_NAN;
+ a29:	8b 4d b4             	mov    -0x4c(%ebp),%ecx
+ a2c:	d1 e9                	shr    %ecx
+ a2e:	0f bf 55 d2          	movswl -0x2e(%ebp),%edx
+ a32:	8b 45 c0             	mov    -0x40(%ebp),%eax
+ a35:	0f af d1             	imul   %ecx,%edx
+ a38:	66 c7 04 50 ff ff    	movw   $0xffff,(%eax,%edx,2)
+
+        if ((pParams->dlys-2) == rowIdx)
+ a3e:	8b 45 10             	mov    0x10(%ebp),%eax
+ a41:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ a45:	0f b6 c0             	movzbl %al,%eax
+ a48:	8d 50 fe             	lea    -0x2(%eax),%edx
+ a4b:	0f bf 45 d2          	movswl -0x2e(%ebp),%eax
+ a4f:	39 c2                	cmp    %eax,%edx
+ a51:	75 08                	jne    a5b <_ConvolutionalInterleaver+0x41e>
+        {
+          rowIdx = 0;
+ a53:	66 c7 45 d2 00 00    	movw   $0x0,-0x2e(%ebp)
+ a59:	eb 0b                	jmp    a66 <_ConvolutionalInterleaver+0x429>
+        }
+        else
+        {
+          rowIdx += 1;
+ a5b:	0f b7 45 d2          	movzwl -0x2e(%ebp),%eax
+ a5f:	83 c0 01             	add    $0x1,%eax
+ a62:	66 89 45 d2          	mov    %ax,-0x2e(%ebp)
+      while (outIdx < inStream->len)                                              /** loop until all elements still stored in the shift-register has been completely consumed */
+ a66:	8b 45 08             	mov    0x8(%ebp),%eax
+ a69:	8b 40 04             	mov    0x4(%eax),%eax
+ a6c:	3b 45 d4             	cmp    -0x2c(%ebp),%eax
+ a6f:	0f 87 e3 fe ff ff    	ja     958 <_ConvolutionalInterleaver+0x31b>
+    if (inStream->len == outStream->len)
+ a75:	eb 10                	jmp    a87 <_ConvolutionalInterleaver+0x44a>
+        }
+      }
+    }
+    else
+    {
+      retErr = ERR_INV_BUFFER_SIZE;
+ a77:	c7 45 e4 07 00 00 00 	movl   $0x7,-0x1c(%ebp)
+    if (inStream->len == outStream->len)
+ a7e:	eb 07                	jmp    a87 <_ConvolutionalInterleaver+0x44a>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_STREAM;
+ a80:	c7 45 e4 13 00 00 00 	movl   $0x13,-0x1c(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+ a87:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+ a8a:	89 04 24             	mov    %eax,(%esp)
+ a8d:	e8 00 00 00 00       	call   a92 <_ConvolutionalInterleaver+0x455>
+ a92:	8b 65 b0             	mov    -0x50(%ebp),%esp
+}
+ a95:	8d 65 f4             	lea    -0xc(%ebp),%esp
+ a98:	5b                   	pop    %ebx
+ a99:	5e                   	pop    %esi
+ a9a:	5f                   	pop    %edi
+ a9b:	5d                   	pop    %ebp
+ a9c:	c3                   	ret    
+
+00000a9d <_ConvolutionalDeinterleaver>:
+ * @param[in] pParams pointer to interleaving parameters structure
+ * 
+ * @return error ID
+ */
+static error_t ConvolutionalDeinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
+{
+ a9d:	55                   	push   %ebp
+ a9e:	89 e5                	mov    %esp,%ebp
+ aa0:	57                   	push   %edi
+ aa1:	56                   	push   %esi
+ aa2:	53                   	push   %ebx
+ aa3:	83 ec 5c             	sub    $0x5c,%esp
+ aa6:	89 e0                	mov    %esp,%eax
+ aa8:	89 45 b0             	mov    %eax,-0x50(%ebp)
+  Debug_SetWatermark((void *)ConvolutionalDeinterleaver,WM_LEVEL_2);
+ aab:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+ ab2:	00 
+ ab3:	c7 04 24 9d 0a 00 00 	movl   $0xa9d,(%esp)
+ aba:	e8 00 00 00 00       	call   abf <_ConvolutionalDeinterleaver+0x22>
+
+  error_t retErr = ERR_NONE;
+ abf:	c7 45 e4 00 00 00 00 	movl   $0x0,-0x1c(%ebp)
+  const uint16_t shiftRegRows = pParams->dlys-1;
+ ac6:	8b 45 10             	mov    0x10(%ebp),%eax
+ ac9:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ acd:	0f b6 c0             	movzbl %al,%eax
+ ad0:	83 e8 01             	sub    $0x1,%eax
+ ad3:	66 89 45 ce          	mov    %ax,-0x32(%ebp)
+  const uint16_t shiftRegCols = pParams->cells*(pParams->dlys-1);
+ ad7:	8b 45 10             	mov    0x10(%ebp),%eax
+ ada:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ ade:	0f b6 d0             	movzbl %al,%edx
+ ae1:	8b 45 10             	mov    0x10(%ebp),%eax
+ ae4:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ ae8:	0f b6 c0             	movzbl %al,%eax
+ aeb:	83 e8 01             	sub    $0x1,%eax
+ aee:	0f af c2             	imul   %edx,%eax
+ af1:	66 89 45 cc          	mov    %ax,-0x34(%ebp)
+  uint16_t shiftRegMtx[shiftRegRows][shiftRegCols];                               /** - shift-register matrix */
+ af5:	0f b7 45 cc          	movzwl -0x34(%ebp),%eax
+ af9:	83 e8 01             	sub    $0x1,%eax
+ afc:	89 45 c8             	mov    %eax,-0x38(%ebp)
+ aff:	0f b7 45 cc          	movzwl -0x34(%ebp),%eax
+ b03:	01 c0                	add    %eax,%eax
+ b05:	89 45 b4             	mov    %eax,-0x4c(%ebp)
+ b08:	0f b7 45 ce          	movzwl -0x32(%ebp),%eax
+ b0c:	83 e8 01             	sub    $0x1,%eax
+ b0f:	89 45 c4             	mov    %eax,-0x3c(%ebp)
+ b12:	0f b7 45 cc          	movzwl -0x34(%ebp),%eax
+ b16:	89 c1                	mov    %eax,%ecx
+ b18:	bb 00 00 00 00       	mov    $0x0,%ebx
+ b1d:	0f b7 45 ce          	movzwl -0x32(%ebp),%eax
+ b21:	ba 00 00 00 00       	mov    $0x0,%edx
+ b26:	89 df                	mov    %ebx,%edi
+ b28:	0f af f8             	imul   %eax,%edi
+ b2b:	89 d6                	mov    %edx,%esi
+ b2d:	0f af f1             	imul   %ecx,%esi
+ b30:	01 fe                	add    %edi,%esi
+ b32:	f7 e1                	mul    %ecx
+ b34:	8d 0c 16             	lea    (%esi,%edx,1),%ecx
+ b37:	89 ca                	mov    %ecx,%edx
+ b39:	0f b7 45 cc          	movzwl -0x34(%ebp),%eax
+ b3d:	89 c1                	mov    %eax,%ecx
+ b3f:	bb 00 00 00 00       	mov    $0x0,%ebx
+ b44:	0f b7 45 ce          	movzwl -0x32(%ebp),%eax
+ b48:	ba 00 00 00 00       	mov    $0x0,%edx
+ b4d:	89 df                	mov    %ebx,%edi
+ b4f:	0f af f8             	imul   %eax,%edi
+ b52:	89 d6                	mov    %edx,%esi
+ b54:	0f af f1             	imul   %ecx,%esi
+ b57:	01 fe                	add    %edi,%esi
+ b59:	f7 e1                	mul    %ecx
+ b5b:	8d 0c 16             	lea    (%esi,%edx,1),%ecx
+ b5e:	89 ca                	mov    %ecx,%edx
+ b60:	0f b7 55 cc          	movzwl -0x34(%ebp),%edx
+ b64:	0f b7 45 ce          	movzwl -0x32(%ebp),%eax
+ b68:	0f af c2             	imul   %edx,%eax
+ b6b:	01 c0                	add    %eax,%eax
+ b6d:	8d 50 01             	lea    0x1(%eax),%edx
+ b70:	b8 10 00 00 00       	mov    $0x10,%eax
+ b75:	83 e8 01             	sub    $0x1,%eax
+ b78:	01 d0                	add    %edx,%eax
+ b7a:	bf 10 00 00 00       	mov    $0x10,%edi
+ b7f:	ba 00 00 00 00       	mov    $0x0,%edx
+ b84:	f7 f7                	div    %edi
+ b86:	6b c0 10             	imul   $0x10,%eax,%eax
+ b89:	e8 00 00 00 00       	call   b8e <_ConvolutionalDeinterleaver+0xf1>
+ b8e:	29 c4                	sub    %eax,%esp
+ b90:	8d 44 24 08          	lea    0x8(%esp),%eax
+ b94:	83 c0 01             	add    $0x1,%eax
+ b97:	d1 e8                	shr    %eax
+ b99:	01 c0                	add    %eax,%eax
+ b9b:	89 45 c0             	mov    %eax,-0x40(%ebp)
+  uint32_t i, j;
+  ulen_t inIdx = 0;                                                               /** - index over input array */
+ b9e:	c7 45 d8 00 00 00 00 	movl   $0x0,-0x28(%ebp)
+  ulen_t outIdx = 0;                                                              /** - index over output array */
+ ba5:	c7 45 d4 00 00 00 00 	movl   $0x0,-0x2c(%ebp)
+  uint16_t rowIdx = 0;                                                            /** - row index */
+ bac:	66 c7 45 d2 00 00    	movw   $0x0,-0x2e(%ebp)
+  uint16_t colIdx = 0;                                                            /** - column index */
+ bb2:	66 c7 45 d0 00 00    	movw   $0x0,-0x30(%ebp)
+
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+ bb8:	8b 45 08             	mov    0x8(%ebp),%eax
+ bbb:	8b 40 08             	mov    0x8(%eax),%eax
+ bbe:	89 44 24 04          	mov    %eax,0x4(%esp)
+ bc2:	8b 45 08             	mov    0x8(%ebp),%eax
+ bc5:	89 04 24             	mov    %eax,(%esp)
+ bc8:	e8 00 00 00 00       	call   bcd <_ConvolutionalDeinterleaver+0x130>
+ bcd:	84 c0                	test   %al,%al
+ bcf:	0f 84 ef 02 00 00    	je     ec4 <_ConvolutionalDeinterleaver+0x427>
+      Memory_IsStreamValid(outStream,outStream->id))
+ bd5:	8b 45 0c             	mov    0xc(%ebp),%eax
+ bd8:	8b 40 08             	mov    0x8(%eax),%eax
+ bdb:	89 44 24 04          	mov    %eax,0x4(%esp)
+ bdf:	8b 45 0c             	mov    0xc(%ebp),%eax
+ be2:	89 04 24             	mov    %eax,(%esp)
+ be5:	e8 00 00 00 00       	call   bea <_ConvolutionalDeinterleaver+0x14d>
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+ bea:	84 c0                	test   %al,%al
+ bec:	0f 84 d2 02 00 00    	je     ec4 <_ConvolutionalDeinterleaver+0x427>
+  {
+    if (inStream->len == outStream->len)
+ bf2:	8b 45 08             	mov    0x8(%ebp),%eax
+ bf5:	8b 50 04             	mov    0x4(%eax),%edx
+ bf8:	8b 45 0c             	mov    0xc(%ebp),%eax
+ bfb:	8b 40 04             	mov    0x4(%eax),%eax
+ bfe:	39 c2                	cmp    %eax,%edx
+ c00:	0f 85 b5 02 00 00    	jne    ebb <_ConvolutionalDeinterleaver+0x41e>
+    {
+      for (i=0; i<shiftRegRows; i++)
+ c06:	c7 45 e0 00 00 00 00 	movl   $0x0,-0x20(%ebp)
+ c0d:	eb 33                	jmp    c42 <_ConvolutionalDeinterleaver+0x1a5>
+      {
+        for (j=0; j<shiftRegCols; j++)
+ c0f:	c7 45 dc 00 00 00 00 	movl   $0x0,-0x24(%ebp)
+ c16:	eb 1d                	jmp    c35 <_ConvolutionalDeinterleaver+0x198>
+        {
+          shiftRegMtx[i][j] = INTRLV_NAN;                                         /** - initialize shift-register matrix */
+ c18:	8b 55 b4             	mov    -0x4c(%ebp),%edx
+ c1b:	d1 ea                	shr    %edx
+ c1d:	8b 45 c0             	mov    -0x40(%ebp),%eax
+ c20:	89 d1                	mov    %edx,%ecx
+ c22:	0f af 4d e0          	imul   -0x20(%ebp),%ecx
+ c26:	8b 55 dc             	mov    -0x24(%ebp),%edx
+ c29:	01 ca                	add    %ecx,%edx
+ c2b:	66 c7 04 50 ff ff    	movw   $0xffff,(%eax,%edx,2)
+        for (j=0; j<shiftRegCols; j++)
+ c31:	83 45 dc 01          	addl   $0x1,-0x24(%ebp)
+ c35:	0f b7 45 cc          	movzwl -0x34(%ebp),%eax
+ c39:	3b 45 dc             	cmp    -0x24(%ebp),%eax
+ c3c:	77 da                	ja     c18 <_ConvolutionalDeinterleaver+0x17b>
+      for (i=0; i<shiftRegRows; i++)
+ c3e:	83 45 e0 01          	addl   $0x1,-0x20(%ebp)
+ c42:	0f b7 45 ce          	movzwl -0x32(%ebp),%eax
+ c46:	3b 45 e0             	cmp    -0x20(%ebp),%eax
+ c49:	77 c4                	ja     c0f <_ConvolutionalDeinterleaver+0x172>
+        }
+      }
+
+      while (outIdx < inStream->len)
+ c4b:	e9 5a 02 00 00       	jmp    eaa <_ConvolutionalDeinterleaver+0x40d>
+      {
+        if ((pParams->dlys-1 == rowIdx) &&
+ c50:	8b 45 10             	mov    0x10(%ebp),%eax
+ c53:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ c57:	0f b6 c0             	movzbl %al,%eax
+ c5a:	8d 50 ff             	lea    -0x1(%eax),%edx
+ c5d:	0f b7 45 d2          	movzwl -0x2e(%ebp),%eax
+ c61:	39 c2                	cmp    %eax,%edx
+ c63:	75 5e                	jne    cc3 <_ConvolutionalDeinterleaver+0x226>
+            (rowIdx+pParams->dlys*(colIdx-pParams->cells*rowIdx) < inStream->len))
+ c65:	0f b7 55 d2          	movzwl -0x2e(%ebp),%edx
+ c69:	8b 45 10             	mov    0x10(%ebp),%eax
+ c6c:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ c70:	0f b6 c8             	movzbl %al,%ecx
+ c73:	0f b7 5d d0          	movzwl -0x30(%ebp),%ebx
+ c77:	8b 45 10             	mov    0x10(%ebp),%eax
+ c7a:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ c7e:	0f b6 f0             	movzbl %al,%esi
+ c81:	0f b7 45 d2          	movzwl -0x2e(%ebp),%eax
+ c85:	0f af c6             	imul   %esi,%eax
+ c88:	29 c3                	sub    %eax,%ebx
+ c8a:	89 d8                	mov    %ebx,%eax
+ c8c:	0f af c1             	imul   %ecx,%eax
+ c8f:	01 d0                	add    %edx,%eax
+ c91:	89 c2                	mov    %eax,%edx
+ c93:	8b 45 08             	mov    0x8(%ebp),%eax
+ c96:	8b 40 04             	mov    0x4(%eax),%eax
+        if ((pParams->dlys-1 == rowIdx) &&
+ c99:	39 c2                	cmp    %eax,%edx
+ c9b:	73 26                	jae    cc3 <_ConvolutionalDeinterleaver+0x226>
+        {
+          outStream->pBuf[outIdx] = inStream->pBuf[inIdx];                        /** - output from no-delay line */
+ c9d:	8b 45 0c             	mov    0xc(%ebp),%eax
+ ca0:	8b 10                	mov    (%eax),%edx
+ ca2:	8b 45 d4             	mov    -0x2c(%ebp),%eax
+ ca5:	01 c2                	add    %eax,%edx
+ ca7:	8b 45 08             	mov    0x8(%ebp),%eax
+ caa:	8b 08                	mov    (%eax),%ecx
+ cac:	8b 45 d8             	mov    -0x28(%ebp),%eax
+ caf:	01 c8                	add    %ecx,%eax
+ cb1:	0f b6 00             	movzbl (%eax),%eax
+ cb4:	88 02                	mov    %al,(%edx)
+          outIdx += 1;
+ cb6:	83 45 d4 01          	addl   $0x1,-0x2c(%ebp)
+          inIdx += 1;
+ cba:	83 45 d8 01          	addl   $0x1,-0x28(%ebp)
+ cbe:	e9 71 01 00 00       	jmp    e34 <_ConvolutionalDeinterleaver+0x397>
+        }
+        else
+        {
+          if (INTRLV_NAN != shiftRegMtx[rowIdx][pParams->cells*(pParams->dlys-rowIdx-1)-1])
+ cc3:	8b 75 b4             	mov    -0x4c(%ebp),%esi
+ cc6:	d1 ee                	shr    %esi
+ cc8:	0f b7 55 d2          	movzwl -0x2e(%ebp),%edx
+ ccc:	8b 45 10             	mov    0x10(%ebp),%eax
+ ccf:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ cd3:	0f b6 c8             	movzbl %al,%ecx
+ cd6:	8b 45 10             	mov    0x10(%ebp),%eax
+ cd9:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ cdd:	0f b6 d8             	movzbl %al,%ebx
+ ce0:	0f b7 45 d2          	movzwl -0x2e(%ebp),%eax
+ ce4:	29 c3                	sub    %eax,%ebx
+ ce6:	89 d8                	mov    %ebx,%eax
+ ce8:	83 e8 01             	sub    $0x1,%eax
+ ceb:	0f af c1             	imul   %ecx,%eax
+ cee:	8d 48 ff             	lea    -0x1(%eax),%ecx
+ cf1:	8b 45 c0             	mov    -0x40(%ebp),%eax
+ cf4:	0f af d6             	imul   %esi,%edx
+ cf7:	01 ca                	add    %ecx,%edx
+ cf9:	0f b7 04 50          	movzwl (%eax,%edx,2),%eax
+ cfd:	66 83 f8 ff          	cmp    $0xffff,%ax
+ d01:	74 4d                	je     d50 <_ConvolutionalDeinterleaver+0x2b3>
+          {
+            outStream->pBuf[outIdx] =
+ d03:	8b 45 0c             	mov    0xc(%ebp),%eax
+ d06:	8b 10                	mov    (%eax),%edx
+ d08:	8b 45 d4             	mov    -0x2c(%ebp),%eax
+ d0b:	8d 1c 02             	lea    (%edx,%eax,1),%ebx
+              shiftRegMtx[rowIdx][pParams->cells*(pParams->dlys-rowIdx-1)-1];     /** - output from shift registers */
+ d0e:	8b 7d b4             	mov    -0x4c(%ebp),%edi
+ d11:	d1 ef                	shr    %edi
+ d13:	0f b7 75 d2          	movzwl -0x2e(%ebp),%esi
+ d17:	8b 45 10             	mov    0x10(%ebp),%eax
+ d1a:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ d1e:	0f b6 c8             	movzbl %al,%ecx
+ d21:	8b 45 10             	mov    0x10(%ebp),%eax
+ d24:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ d28:	0f b6 d0             	movzbl %al,%edx
+ d2b:	0f b7 45 d2          	movzwl -0x2e(%ebp),%eax
+ d2f:	29 c2                	sub    %eax,%edx
+ d31:	89 d0                	mov    %edx,%eax
+ d33:	83 e8 01             	sub    $0x1,%eax
+ d36:	0f af c1             	imul   %ecx,%eax
+ d39:	8d 48 ff             	lea    -0x1(%eax),%ecx
+ d3c:	8b 55 c0             	mov    -0x40(%ebp),%edx
+ d3f:	89 f8                	mov    %edi,%eax
+ d41:	0f af c6             	imul   %esi,%eax
+ d44:	01 c8                	add    %ecx,%eax
+ d46:	0f b7 04 42          	movzwl (%edx,%eax,2),%eax
+            outStream->pBuf[outIdx] =
+ d4a:	88 03                	mov    %al,(%ebx)
+            outIdx += 1;
+ d4c:	83 45 d4 01          	addl   $0x1,-0x2c(%ebp)
+          }
+
+          for (j=pParams->cells*(pParams->dlys-rowIdx-1)-1; j>0; j--)
+ d50:	8b 45 10             	mov    0x10(%ebp),%eax
+ d53:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ d57:	0f b6 d0             	movzbl %al,%edx
+ d5a:	8b 45 10             	mov    0x10(%ebp),%eax
+ d5d:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ d61:	0f b6 c8             	movzbl %al,%ecx
+ d64:	0f b7 45 d2          	movzwl -0x2e(%ebp),%eax
+ d68:	29 c1                	sub    %eax,%ecx
+ d6a:	89 c8                	mov    %ecx,%eax
+ d6c:	83 e8 01             	sub    $0x1,%eax
+ d6f:	0f af c2             	imul   %edx,%eax
+ d72:	83 e8 01             	sub    $0x1,%eax
+ d75:	89 45 dc             	mov    %eax,-0x24(%ebp)
+ d78:	eb 3e                	jmp    db8 <_ConvolutionalDeinterleaver+0x31b>
+          {
+            shiftRegMtx[rowIdx][j] = shiftRegMtx[rowIdx][j-1];                    /** - update shift-registers (by right-shifting) */
+ d7a:	8b 75 b4             	mov    -0x4c(%ebp),%esi
+ d7d:	89 f0                	mov    %esi,%eax
+ d7f:	d1 e8                	shr    %eax
+ d81:	89 45 ac             	mov    %eax,-0x54(%ebp)
+ d84:	0f b7 7d d2          	movzwl -0x2e(%ebp),%edi
+ d88:	d1 ee                	shr    %esi
+ d8a:	0f b7 4d d2          	movzwl -0x2e(%ebp),%ecx
+ d8e:	8b 45 dc             	mov    -0x24(%ebp),%eax
+ d91:	8d 58 ff             	lea    -0x1(%eax),%ebx
+ d94:	8b 55 c0             	mov    -0x40(%ebp),%edx
+ d97:	0f af f1             	imul   %ecx,%esi
+ d9a:	89 f0                	mov    %esi,%eax
+ d9c:	01 d8                	add    %ebx,%eax
+ d9e:	0f b7 14 42          	movzwl (%edx,%eax,2),%edx
+ da2:	8b 45 c0             	mov    -0x40(%ebp),%eax
+ da5:	8b 5d ac             	mov    -0x54(%ebp),%ebx
+ da8:	0f af df             	imul   %edi,%ebx
+ dab:	8b 4d dc             	mov    -0x24(%ebp),%ecx
+ dae:	01 d9                	add    %ebx,%ecx
+ db0:	66 89 14 48          	mov    %dx,(%eax,%ecx,2)
+          for (j=pParams->cells*(pParams->dlys-rowIdx-1)-1; j>0; j--)
+ db4:	83 6d dc 01          	subl   $0x1,-0x24(%ebp)
+ db8:	83 7d dc 00          	cmpl   $0x0,-0x24(%ebp)
+ dbc:	75 bc                	jne    d7a <_ConvolutionalDeinterleaver+0x2dd>
+          }
+
+          if (rowIdx+pParams->dlys*(colIdx-pParams->cells*rowIdx) < inStream->len)
+ dbe:	0f b7 55 d2          	movzwl -0x2e(%ebp),%edx
+ dc2:	8b 45 10             	mov    0x10(%ebp),%eax
+ dc5:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ dc9:	0f b6 c8             	movzbl %al,%ecx
+ dcc:	0f b7 5d d0          	movzwl -0x30(%ebp),%ebx
+ dd0:	8b 45 10             	mov    0x10(%ebp),%eax
+ dd3:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ dd7:	0f b6 f0             	movzbl %al,%esi
+ dda:	0f b7 45 d2          	movzwl -0x2e(%ebp),%eax
+ dde:	0f af c6             	imul   %esi,%eax
+ de1:	29 c3                	sub    %eax,%ebx
+ de3:	89 d8                	mov    %ebx,%eax
+ de5:	0f af c1             	imul   %ecx,%eax
+ de8:	01 d0                	add    %edx,%eax
+ dea:	89 c2                	mov    %eax,%edx
+ dec:	8b 45 08             	mov    0x8(%ebp),%eax
+ def:	8b 40 04             	mov    0x4(%eax),%eax
+ df2:	39 c2                	cmp    %eax,%edx
+ df4:	73 29                	jae    e1f <_ConvolutionalDeinterleaver+0x382>
+          {
+            shiftRegMtx[rowIdx][0] = inStream->pBuf[inIdx];
+ df6:	8b 5d b4             	mov    -0x4c(%ebp),%ebx
+ df9:	d1 eb                	shr    %ebx
+ dfb:	0f b7 55 d2          	movzwl -0x2e(%ebp),%edx
+ dff:	8b 45 08             	mov    0x8(%ebp),%eax
+ e02:	8b 08                	mov    (%eax),%ecx
+ e04:	8b 45 d8             	mov    -0x28(%ebp),%eax
+ e07:	01 c8                	add    %ecx,%eax
+ e09:	0f b6 00             	movzbl (%eax),%eax
+ e0c:	0f b6 c8             	movzbl %al,%ecx
+ e0f:	8b 45 c0             	mov    -0x40(%ebp),%eax
+ e12:	0f af d3             	imul   %ebx,%edx
+ e15:	66 89 0c 50          	mov    %cx,(%eax,%edx,2)
+            inIdx += 1;
+ e19:	83 45 d8 01          	addl   $0x1,-0x28(%ebp)
+ e1d:	eb 15                	jmp    e34 <_ConvolutionalDeinterleaver+0x397>
+          }
+          else
+          {
+            shiftRegMtx[rowIdx][0] = INTRLV_NAN;
+ e1f:	8b 4d b4             	mov    -0x4c(%ebp),%ecx
+ e22:	d1 e9                	shr    %ecx
+ e24:	0f b7 55 d2          	movzwl -0x2e(%ebp),%edx
+ e28:	8b 45 c0             	mov    -0x40(%ebp),%eax
+ e2b:	0f af d1             	imul   %ecx,%edx
+ e2e:	66 c7 04 50 ff ff    	movw   $0xffff,(%eax,%edx,2)
+          }
+        }
+
+        if (colIdx < pParams->cells*(pParams->dlys-1))                            /** - case for 1st algorithm phase (initial transient) */
+ e34:	0f b7 55 d0          	movzwl -0x30(%ebp),%edx
+ e38:	8b 45 10             	mov    0x10(%ebp),%eax
+ e3b:	0f b6 40 05          	movzbl 0x5(%eax),%eax
+ e3f:	0f b6 c8             	movzbl %al,%ecx
+ e42:	8b 45 10             	mov    0x10(%ebp),%eax
+ e45:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ e49:	0f b6 c0             	movzbl %al,%eax
+ e4c:	83 e8 01             	sub    $0x1,%eax
+ e4f:	0f af c1             	imul   %ecx,%eax
+ e52:	39 c2                	cmp    %eax,%edx
+ e54:	7d 2d                	jge    e83 <_ConvolutionalDeinterleaver+0x3e6>
+        {
+          if (rowIdx == colIdx/pParams->cells)
+ e56:	0f b7 4d d2          	movzwl -0x2e(%ebp),%ecx
+ e5a:	0f b7 45 d0          	movzwl -0x30(%ebp),%eax
+ e5e:	8b 55 10             	mov    0x10(%ebp),%edx
+ e61:	0f b6 52 05          	movzbl 0x5(%edx),%edx
+ e65:	0f b6 fa             	movzbl %dl,%edi
+ e68:	99                   	cltd   
+ e69:	f7 ff                	idiv   %edi
+ e6b:	39 c1                	cmp    %eax,%ecx
+ e6d:	75 0d                	jne    e7c <_ConvolutionalDeinterleaver+0x3df>
+          {
+            rowIdx = 0;
+ e6f:	66 c7 45 d2 00 00    	movw   $0x0,-0x2e(%ebp)
+            colIdx += 1;
+ e75:	66 83 45 d0 01       	addw   $0x1,-0x30(%ebp)
+ e7a:	eb 2e                	jmp    eaa <_ConvolutionalDeinterleaver+0x40d>
+          }
+          else
+          {
+            rowIdx += 1;
+ e7c:	66 83 45 d2 01       	addw   $0x1,-0x2e(%ebp)
+ e81:	eb 27                	jmp    eaa <_ConvolutionalDeinterleaver+0x40d>
+          }
+        }
+        else                                                                      /* - case for 2nd algorithm phase (shift-registers filled) */
+        {
+          if (pParams->dlys-1 == rowIdx)
+ e83:	8b 45 10             	mov    0x10(%ebp),%eax
+ e86:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ e8a:	0f b6 c0             	movzbl %al,%eax
+ e8d:	8d 50 ff             	lea    -0x1(%eax),%edx
+ e90:	0f b7 45 d2          	movzwl -0x2e(%ebp),%eax
+ e94:	39 c2                	cmp    %eax,%edx
+ e96:	75 0d                	jne    ea5 <_ConvolutionalDeinterleaver+0x408>
+          {
+            rowIdx = 0;
+ e98:	66 c7 45 d2 00 00    	movw   $0x0,-0x2e(%ebp)
+            colIdx += 1;
+ e9e:	66 83 45 d0 01       	addw   $0x1,-0x30(%ebp)
+ ea3:	eb 05                	jmp    eaa <_ConvolutionalDeinterleaver+0x40d>
+          }
+          else
+          {
+            rowIdx += 1;
+ ea5:	66 83 45 d2 01       	addw   $0x1,-0x2e(%ebp)
+      while (outIdx < inStream->len)
+ eaa:	8b 45 08             	mov    0x8(%ebp),%eax
+ ead:	8b 40 04             	mov    0x4(%eax),%eax
+ eb0:	3b 45 d4             	cmp    -0x2c(%ebp),%eax
+ eb3:	0f 87 97 fd ff ff    	ja     c50 <_ConvolutionalDeinterleaver+0x1b3>
+    if (inStream->len == outStream->len)
+ eb9:	eb 10                	jmp    ecb <_ConvolutionalDeinterleaver+0x42e>
+        }
+      }
+    }
+    else
+    {
+      retErr = ERR_INV_BUFFER_SIZE;
+ ebb:	c7 45 e4 07 00 00 00 	movl   $0x7,-0x1c(%ebp)
+    if (inStream->len == outStream->len)
+ ec2:	eb 07                	jmp    ecb <_ConvolutionalDeinterleaver+0x42e>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_STREAM;
+ ec4:	c7 45 e4 13 00 00 00 	movl   $0x13,-0x1c(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+ ecb:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+ ece:	89 04 24             	mov    %eax,(%esp)
+ ed1:	e8 00 00 00 00       	call   ed6 <_ConvolutionalDeinterleaver+0x439>
+ ed6:	8b 65 b0             	mov    -0x50(%ebp),%esp
+}
+ ed9:	8d 65 f4             	lea    -0xc(%ebp),%esp
+ edc:	5b                   	pop    %ebx
+ edd:	5e                   	pop    %esi
+ ede:	5f                   	pop    %edi
+ edf:	5d                   	pop    %ebp
+ ee0:	c3                   	ret    
+ ee1:	90                   	nop
+ ee2:	90                   	nop
+ ee3:	90                   	nop

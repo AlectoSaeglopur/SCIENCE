@@ -3,6 +3,8 @@
  * @file main.c
  * @author Filippo Valmori
  * @date 26/08/2024
+ * @copyright Electrolux S.p.A.
+ * @see Digital communications - Fundamentals and applications (Bernard Sklar, 2014)
  * @ingroup TLC_CHAIN
  * @brief Main file
  * 
@@ -112,6 +114,11 @@ static clock_t elapsedTime;
 /*** MAIN ***/
 /************/
 
+/**
+ * @brief <i> Function for running main loop. </i>
+ * 
+ * @return error ID
+ */
 int main( void )
 {
   // 1. INITIALIZATION
@@ -196,35 +203,3 @@ int main( void )
 
   return 0;
 }
-
-
-
-/*************/
-/*** NOTES ***/
-/*************/
-
-// 1. To debug code via GDB within Visual Studio Code (VSC):
-//    - switch VSC default console to Git bash ("F1 > "Terminal: Select Default Profile > Git bash");
-//    - add "-g" flag to compiler flags to enable debugging;
-//    - keep compiler optimization disabled while debugging (i.e. use "-O0" as compiler flag);
-//    - 
-
-// doppio file launch e tasks .json
-// F5 to start debug
-// need to recompile if any change has been made on source files before startin debug!
-
-// add doxygen detailed description for more complex functions! (instead of simply @brief)
-// usa "Memory_IsStreamValid" in giro
-// add references for libraries
-// add watermarks everywhere as inline function (?)
-// generate .elf file and find out how this may come in handy!
-// try to add watermark mechanism to know which function caused an error! >> or try to debug using GDB
-// try to add linker file (.icf file?)
-// stampa in .log anche messagi di shell (e.g eventuali errori!)
-// add CC with rate lower than 1/2 (e.g 1/3!) >> prova mettendo in cascata più encorer da 1/2! (fai simulazione in python e vedi se performance sono effettivamente migliori!)
-// aggiungi interleaver
-// sistema Makefile (print, utest, etc..)
-// sistema makefile in modo che non sia obbligatorio cancellare ogni volta cartella di build (solo se esplicitato in comando), così più veloce a ricompilare!
-// aggiungi comando di solo target exe in makefile
-// write instruction about how to clean/compile/run
-// lancia doxygen da shell: https://www.doxygen.nl/manual/doxygen_usage.html

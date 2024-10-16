@@ -1,0 +1,174 @@
+\hypertarget{reed__solomon_8h}{}\doxysection{src/reed\+\_\+solomon.h File Reference}
+\label{reed__solomon_8h}\index{src/reed\_solomon.h@{src/reed\_solomon.h}}
+
+
+Reed-\/\+Solomon library header.  
+
+
+{\ttfamily \#include \char`\"{}error.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}memory.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}system.\+h\char`\"{}}\newline
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct__rs__par__t}{\+\_\+rs\+\_\+par\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{reed__solomon_8h_a07f2d43f7b78f970672b81b20a552645}\label{reed__solomon_8h_a07f2d43f7b78f970672b81b20a552645}} 
+\#define \mbox{\hyperlink{reed__solomon_8h_a07f2d43f7b78f970672b81b20a552645}{GF\+\_\+\+DEGREE}}~\mbox{\hyperlink{reed__solomon_8h_a4e768562ae0f0da6d9705ffad235a3a6a9a8334c9c8b675860f4b006c7a06b547}{RS\+\_\+\+GF\+\_\+\+DEGREE\+\_\+8}}
+\begin{DoxyCompactList}\small\item\em extended Galois field degree \mbox{[}b/\+Sy\mbox{]} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{reed__solomon_8h_aeca90e1c1c62b70670514ffc18c9dfd4}\label{reed__solomon_8h_aeca90e1c1c62b70670514ffc18c9dfd4}} 
+\#define \mbox{\hyperlink{reed__solomon_8h_aeca90e1c1c62b70670514ffc18c9dfd4}{MESSAGE\+\_\+\+SIZE}}~188u
+\begin{DoxyCompactList}\small\item\em message length \mbox{[}Sy\mbox{]} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{reed__solomon_8h_a49419cff0869dbe4725bc86b04d93d91}\label{reed__solomon_8h_a49419cff0869dbe4725bc86b04d93d91}} 
+\#define \mbox{\hyperlink{reed__solomon_8h_a49419cff0869dbe4725bc86b04d93d91}{CODEWORD\+\_\+\+SIZE}}~204u
+\begin{DoxyCompactList}\small\item\em codeword length \mbox{[}Sy\mbox{]} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{reed__solomon_8h_a78796b89173c7d02d081dc073122bb37}\label{reed__solomon_8h_a78796b89173c7d02d081dc073122bb37}} 
+typedef struct \mbox{\hyperlink{struct__rs__par__t}{\+\_\+rs\+\_\+par\+\_\+t}} {\bfseries rs\+\_\+par\+\_\+t}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{reed__solomon_8h_a4e768562ae0f0da6d9705ffad235a3a6}{rs\+\_\+gf\+\_\+degree\+\_\+t}} \{ {\bfseries RS\+\_\+\+GF\+\_\+\+DEGREE\+\_\+4} = 4
+, \mbox{\hyperlink{reed__solomon_8h_a4e768562ae0f0da6d9705ffad235a3a6a9a8334c9c8b675860f4b006c7a06b547}{RS\+\_\+\+GF\+\_\+\+DEGREE\+\_\+8}} = 8
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8h_a578373b27d35cdf390538bf58e3d7a54}{Rs\+Cod\+\_\+\+List\+Parameters}} (\mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$io\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for retrieving and listing Reed-\/\+Solomon coding parameters into dedicated structure. } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8h_a8d0400ebf3aceca73c08b1b1a8e67808}{Rc\+Cod\+\_\+\+Encoder}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$p\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for Reed-\/\+Solomon encoding in systematic form. } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8h_a213eec64045f18379405efd4b2e19d3d}{Rc\+Cod\+\_\+\+Decoder}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$p\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for Reed-\/\+Solomon decoding in systematic form. } \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Reed-\/\+Solomon library header. 
+
+\begin{DoxyAuthor}{Author}
+Filippo Valmori 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+26/08/2024 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Electrolux S.\+p.\+A. 
+\end{DoxyCopyright}
+\begin{DoxySeeAlso}{See also}
+Digital communications -\/ Fundamentals and applications (Bernard Sklar, 2014) 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{reed__solomon_8h_a4e768562ae0f0da6d9705ffad235a3a6}\label{reed__solomon_8h_a4e768562ae0f0da6d9705ffad235a3a6}} 
+\index{reed\_solomon.h@{reed\_solomon.h}!rs\_gf\_degree\_t@{rs\_gf\_degree\_t}}
+\index{rs\_gf\_degree\_t@{rs\_gf\_degree\_t}!reed\_solomon.h@{reed\_solomon.h}}
+\doxysubsubsection{\texorpdfstring{rs\_gf\_degree\_t}{rs\_gf\_degree\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{reed__solomon_8h_a4e768562ae0f0da6d9705ffad235a3a6}{rs\+\_\+gf\+\_\+degree\+\_\+t}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RS\_GF\_DEGREE\_8@{RS\_GF\_DEGREE\_8}!reed\_solomon.h@{reed\_solomon.h}}\index{reed\_solomon.h@{reed\_solomon.h}!RS\_GF\_DEGREE\_8@{RS\_GF\_DEGREE\_8}}}\mbox{\Hypertarget{reed__solomon_8h_a4e768562ae0f0da6d9705ffad235a3a6a9a8334c9c8b675860f4b006c7a06b547}\label{reed__solomon_8h_a4e768562ae0f0da6d9705ffad235a3a6a9a8334c9c8b675860f4b006c7a06b547}} 
+RS\+\_\+\+GF\+\_\+\+DEGREE\+\_\+8&
+\begin{DoxyItemize}
+\item 4-\/bit Galois filed ID 
+\end{DoxyItemize}\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{reed__solomon_8h_a213eec64045f18379405efd4b2e19d3d}\label{reed__solomon_8h_a213eec64045f18379405efd4b2e19d3d}} 
+\index{reed\_solomon.h@{reed\_solomon.h}!RcCod\_Decoder@{RcCod\_Decoder}}
+\index{RcCod\_Decoder@{RcCod\_Decoder}!reed\_solomon.h@{reed\_solomon.h}}
+\doxysubsubsection{\texorpdfstring{RcCod\_Decoder()}{RcCod\_Decoder()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Rc\+Cod\+\_\+\+Decoder (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for Reed-\/\+Solomon decoding in systematic form. } 
+
+Redundancy bytes are expected at the beginning of codewords and calculated as remainder of the upshifted message polynomial divided by the generator polynomial.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em in\+Stream} & input stream \\
+\hline
+\mbox{\texttt{ out}}  & {\em out\+Stream} & output stream \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Params} & pointer to reed-\/solomon parameters structure\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+
+\begin{DoxyItemize}
+\item mapping table between symbols and basis
+\item bits-\/to-\/symbol conversion
+\item estimate syndrome polynomial
+\item check if any error has been detected on current symbol
+\item estimate Sigma(x) polynomial
+\item estimate error locator polynomial
+\item estimate Omega(x) polynomial
+\item estimate error magnitude polynomial
+\item correct the corrupted symbol stream
+\item symbol-\/to-\/bits conversion
+\end{DoxyItemize}\mbox{\Hypertarget{reed__solomon_8h_a8d0400ebf3aceca73c08b1b1a8e67808}\label{reed__solomon_8h_a8d0400ebf3aceca73c08b1b1a8e67808}} 
+\index{reed\_solomon.h@{reed\_solomon.h}!RcCod\_Encoder@{RcCod\_Encoder}}
+\index{RcCod\_Encoder@{RcCod\_Encoder}!reed\_solomon.h@{reed\_solomon.h}}
+\doxysubsubsection{\texorpdfstring{RcCod\_Encoder()}{RcCod\_Encoder()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Rc\+Cod\+\_\+\+Encoder (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for Reed-\/\+Solomon encoding in systematic form. } 
+
+Redundancy bytes are appendend at the beginning of codewords and calculated as remainder of the upshifted message polynomial divided by the generator polynomial.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em in\+Stream} & input stream \\
+\hline
+\mbox{\texttt{ out}}  & {\em out\+Stream} & output stream \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Params} & pointer to reed-\/solomon parameters structure\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+
+\begin{DoxyItemize}
+\item mapping table between symbols and basis
+\item bits-\/to-\/symbol conversion
+\item upshift message polynomial by 2t positions
+\item initialize maximum degree of temporary polynomial
+\item quotient coefficient at current iteration
+\item write redundancy bits into output stream after symbol-\/to-\/bits conversion
+\item copy current message bits into output stream
+\end{DoxyItemize}\mbox{\Hypertarget{reed__solomon_8h_a578373b27d35cdf390538bf58e3d7a54}\label{reed__solomon_8h_a578373b27d35cdf390538bf58e3d7a54}} 
+\index{reed\_solomon.h@{reed\_solomon.h}!RsCod\_ListParameters@{RsCod\_ListParameters}}
+\index{RsCod\_ListParameters@{RsCod\_ListParameters}!reed\_solomon.h@{reed\_solomon.h}}
+\doxysubsubsection{\texorpdfstring{RsCod\_ListParameters()}{RsCod\_ListParameters()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Rs\+Cod\+\_\+\+List\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$}]{io\+Params }\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for retrieving and listing Reed-\/\+Solomon coding parameters into dedicated structure. } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em io\+Params} & pointer to i/o parameters structure to be filled\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}

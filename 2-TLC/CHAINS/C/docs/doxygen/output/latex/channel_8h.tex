@@ -1,0 +1,177 @@
+\hypertarget{channel_8h}{}\doxysection{src/channel.h File Reference}
+\label{channel_8h}\index{src/channel.h@{src/channel.h}}
+
+
+Channel library header.  
+
+
+{\ttfamily \#include \char`\"{}error.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}memory.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}system.\+h\char`\"{}}\newline
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct__chan__par__t}{\+\_\+chan\+\_\+par\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{channel_8h_a832309ce02c70c603d56ec709c529f1b}\label{channel_8h_a832309ce02c70c603d56ec709c529f1b}} 
+\#define \mbox{\hyperlink{channel_8h_a832309ce02c70c603d56ec709c529f1b}{SEED2\+TIME}}~UINT32\+\_\+\+MAX
+\begin{DoxyCompactList}\small\item\em wildcard for linkinf seed to current time \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{channel_8h_a02ad48dad989be9466d6180ad89e387d}\label{channel_8h_a02ad48dad989be9466d6180ad89e387d}} 
+\#define \mbox{\hyperlink{channel_8h_a02ad48dad989be9466d6180ad89e387d}{CHAN\+\_\+\+TYPE}}~\mbox{\hyperlink{channel_8h_afe350c7813c36d532a69cfc851076544a9499b84ff8af27271cd56f2753c3b5c1}{CHAN\+\_\+\+AWGN}}
+\begin{DoxyCompactList}\small\item\em channel type \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{channel_8h_a62adc672c4f93a9855b907dab925874d}\label{channel_8h_a62adc672c4f93a9855b907dab925874d}} 
+\#define \mbox{\hyperlink{channel_8h_a62adc672c4f93a9855b907dab925874d}{BSC\+\_\+\+PEB}}~3.\+5E-\/2
+\begin{DoxyCompactList}\small\item\em BSC channel bit-\/error probability. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{channel_8h_ab0291378557df7c7d9a287bc8b7ac523}\label{channel_8h_ab0291378557df7c7d9a287bc8b7ac523}} 
+\#define \mbox{\hyperlink{channel_8h_ab0291378557df7c7d9a287bc8b7ac523}{AWGN\+\_\+\+EBN0}}~1.\+6f
+\begin{DoxyCompactList}\small\item\em AWGN channel energy-\/per-\/bit-\/to-\/noise-\/power-\/spectral-\/density ratio \href{NB: SNR=Eb/N0*log2(M)/sps}{\texttt{ dB}} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{channel_8h_aef22dad27cbfbf8d98d6fb044525ffb0}\label{channel_8h_aef22dad27cbfbf8d98d6fb044525ffb0}} 
+\#define \mbox{\hyperlink{channel_8h_aef22dad27cbfbf8d98d6fb044525ffb0}{CHAN\+\_\+\+SEED}}~\mbox{\hyperlink{channel_8h_a832309ce02c70c603d56ec709c529f1b}{SEED2\+TIME}}
+\begin{DoxyCompactList}\small\item\em random seed (linked dinamically to current time via SEED2\+TIME wildcard) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{channel_8h_a61c3351984a5d1156d5a22682a6a73c2}\label{channel_8h_a61c3351984a5d1156d5a22682a6a73c2}} 
+typedef struct \mbox{\hyperlink{struct__chan__par__t}{\+\_\+chan\+\_\+par\+\_\+t}} {\bfseries chan\+\_\+par\+\_\+t}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{channel_8h_afe350c7813c36d532a69cfc851076544}{chan\+\_\+type\+\_\+t}} \{ {\bfseries CHAN\+\_\+\+BSC} = 0
+, \mbox{\hyperlink{channel_8h_afe350c7813c36d532a69cfc851076544a9499b84ff8af27271cd56f2753c3b5c1}{CHAN\+\_\+\+AWGN}}
+, \mbox{\hyperlink{channel_8h_afe350c7813c36d532a69cfc851076544a50ccfbb19d46a65127a2f8c429e9eaec}{CHAN\+\_\+\+NUM}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{channel_8h_afd34dc089fd01a3617342289200cef93}{Channel\+\_\+\+List\+Parameters}} (\mbox{\hyperlink{struct__chan__par__t}{chan\+\_\+par\+\_\+t}} $\ast$io\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for retrieving and listing channel parameters into dedicated structure. } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{channel_8h_a447fb3627e3adb47767913e12783c552}{Channel\+\_\+\+BSC}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__chan__par__t}{chan\+\_\+par\+\_\+t}} $\ast$p\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for applying Binary Symmetric Channel (BSC) corruption. } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{channel_8h_a7fbdb35e62e6f7572b56acee57350263}{Channel\+\_\+\+AWGN}} (const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__chan__par__t}{chan\+\_\+par\+\_\+t}} $\ast$p\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for applying Additive White Gaussian Noise (AWGN) corruption based on Box-\/\+Muller method. } \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Channel library header. 
+
+\begin{DoxyAuthor}{Author}
+Filippo Valmori 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+26/08/2024 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Electrolux S.\+p.\+A. 
+\end{DoxyCopyright}
+\begin{DoxySeeAlso}{See also}
+Digital communications -\/ Fundamentals and applications (Bernard Sklar, 2014) 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{channel_8h_afe350c7813c36d532a69cfc851076544}\label{channel_8h_afe350c7813c36d532a69cfc851076544}} 
+\index{channel.h@{channel.h}!chan\_type\_t@{chan\_type\_t}}
+\index{chan\_type\_t@{chan\_type\_t}!channel.h@{channel.h}}
+\doxysubsubsection{\texorpdfstring{chan\_type\_t}{chan\_type\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{channel_8h_afe350c7813c36d532a69cfc851076544}{chan\+\_\+type\+\_\+t}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CHAN\_AWGN@{CHAN\_AWGN}!channel.h@{channel.h}}\index{channel.h@{channel.h}!CHAN\_AWGN@{CHAN\_AWGN}}}\mbox{\Hypertarget{channel_8h_afe350c7813c36d532a69cfc851076544a9499b84ff8af27271cd56f2753c3b5c1}\label{channel_8h_afe350c7813c36d532a69cfc851076544a9499b84ff8af27271cd56f2753c3b5c1}} 
+CHAN\+\_\+\+AWGN&
+\begin{DoxyItemize}
+\item BSC channel ID 
+\end{DoxyItemize}\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CHAN\_NUM@{CHAN\_NUM}!channel.h@{channel.h}}\index{channel.h@{channel.h}!CHAN\_NUM@{CHAN\_NUM}}}\mbox{\Hypertarget{channel_8h_afe350c7813c36d532a69cfc851076544a50ccfbb19d46a65127a2f8c429e9eaec}\label{channel_8h_afe350c7813c36d532a69cfc851076544a50ccfbb19d46a65127a2f8c429e9eaec}} 
+CHAN\+\_\+\+NUM&
+\begin{DoxyItemize}
+\item AWGN channel ID 
+\end{DoxyItemize}\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{channel_8h_a7fbdb35e62e6f7572b56acee57350263}\label{channel_8h_a7fbdb35e62e6f7572b56acee57350263}} 
+\index{channel.h@{channel.h}!Channel\_AWGN@{Channel\_AWGN}}
+\index{Channel\_AWGN@{Channel\_AWGN}!channel.h@{channel.h}}
+\doxysubsubsection{\texorpdfstring{Channel\_AWGN()}{Channel\_AWGN()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Channel\+\_\+\+AWGN (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__chan__par__t}{chan\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for applying Additive White Gaussian Noise (AWGN) corruption based on Box-\/\+Muller method. } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em in\+Stream} & input stream \\
+\hline
+\mbox{\texttt{ out}}  & {\em out\+Stream} & output stream \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Params} & poiter to channel parameters structure\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+
+\begin{DoxyItemize}
+\item noise mean value
+\item signal average power \mbox{[}lin\mbox{]}
+\item signal-\/to-\/noise-\/ratio \mbox{[}dB\mbox{]}
+\item target noise variance (N0)
+\item random variables uniformly distributed between 0 and 1
+\item random variables normally distributed as Mu$\vert$\+Sigma2
+\item link random seed to current time
+\item link random seed to provided argument
+\end{DoxyItemize}\mbox{\Hypertarget{channel_8h_a447fb3627e3adb47767913e12783c552}\label{channel_8h_a447fb3627e3adb47767913e12783c552}} 
+\index{channel.h@{channel.h}!Channel\_BSC@{Channel\_BSC}}
+\index{Channel\_BSC@{Channel\_BSC}!channel.h@{channel.h}}
+\doxysubsubsection{\texorpdfstring{Channel\_BSC()}{Channel\_BSC()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Channel\+\_\+\+BSC (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__chan__par__t}{chan\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for applying Binary Symmetric Channel (BSC) corruption. } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em in\+Stream} & input stream \\
+\hline
+\mbox{\texttt{ out}}  & {\em out\+Stream} & output stream \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Params} & poiter to channel parameters structure\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+
+\begin{DoxyItemize}
+\item link random seed to current time
+\item link random seed to provided argument
+\end{DoxyItemize}\mbox{\Hypertarget{channel_8h_afd34dc089fd01a3617342289200cef93}\label{channel_8h_afd34dc089fd01a3617342289200cef93}} 
+\index{channel.h@{channel.h}!Channel\_ListParameters@{Channel\_ListParameters}}
+\index{Channel\_ListParameters@{Channel\_ListParameters}!channel.h@{channel.h}}
+\doxysubsubsection{\texorpdfstring{Channel\_ListParameters()}{Channel\_ListParameters()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Channel\+\_\+\+List\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__chan__par__t}{chan\+\_\+par\+\_\+t}} $\ast$}]{io\+Params }\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for retrieving and listing channel parameters into dedicated structure. } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em io\+Params} & pointer to i/o parameters structure to be filled\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}

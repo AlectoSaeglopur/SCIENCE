@@ -46,7 +46,6 @@
 >>> 6. NOTES <<<
 
 - to type "~" (tilde) : enable "blocknum" and click "alt"+"126"
-- to type "È" : enable "blocknum" and click "alt"+"0200"
-- to type "ó" : enable "blocknum" and click "alt"+"162"
-
+- to type "ï¿½" : enable "blocknum" and click "alt"+"0200"
+- to type "ï¿½" : enable "blocknum" and click "alt"+"162"
 

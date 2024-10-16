@@ -1,12 +1,15 @@
 >> Cleaning "target" build directory...
 if not exist build mkdir build
 if exist build\target rmdir build\target /s /q
+build\target\target.log - The process cannot access the file because it is being used by another process.
 if not exist build\target mkdir build\target
 if not exist build\target\asm mkdir build\target\asm
 if not exist build\target\bin mkdir build\target\bin
 if not exist build\target\lis mkdir build\target\lis
 if not exist build\target\obj mkdir build\target\obj
 if not exist build\target\prp mkdir build\target\prp
+if not exist build\target\obj\objdump mkdir build\target\obj\objdump
+if not exist build\target\lis\objdump mkdir build\target\lis\objdump
 ------------------------------------------------
 >> "target"-build folder cleaned successfully!
 ------------------------------------------------
@@ -54,29 +57,36 @@ for %%j in (srec) do objcopy build\target\bin\target.exe -O %%j build\target\bin
 ------------------------------------------------
 >> "target"-build converted successfully!
 ------------------------------------------------
+Extracting info from "target"-build executable...
+objdump -D build\target\bin\target.exe > build\target\lis\objdump\target.txt
+Extracting info from "target"-build objects...
+for %%j in (main channel convolutional crc debug error interleaving memory modulation reed_solomon scrambling) do objdump -d -S build\target\obj\%%j.o > build\target\obj\objdump\%%j.txt
+------------------------------------------------
+>> "target"-build info extracted successfully!
+------------------------------------------------
 Launching "target"-build output...
 build\target\bin\target.exe
-[97;3m
+
  >> Starting execution...
 
  # PARAMETERS
     * Scrambling : Additive | Ncells = 15
     * Reed-Solomon coding : m = 8 | n = 204 | k = 188
     * Interleaving : Convolutional | Ndelays = 12 | Ncells = 17
-    * Convolutional coding :  K = 7 | Rc = 1/2 | DM = Hard
+    * Convolutional coding : K = 7 | Rc = 1/2 | DM = Hard
     * Modulation : 4-PSK
     * Channel : AWGN | EbN0 = 1.6
 
- * Errors at convolutional encoding level: 303 out of 6528 bits (MD = 1)
+ * Errors at convolutional encoding level: 292 out of 6528 bits (MD = 1)
 
- * Errors at reed-solomon encoding level: 13 out of 3264 bits (MD = 1)
+ * Errors at reed-solomon encoding level: 0 out of 3264 bits (MD = 0)
 
  * Errors at source level: 0 out of 3008 bits (MD = 0)
 
- * CRC check: [92;1mPASSED
-[0m[97;3m
- >> Execution completed successfully in 0.640 seconds!
+ * CRC check: PASSED
 
-[0m------------------------------------------------
+ >> Execution completed successfully in 0.612 seconds!
+
+------------------------------------------------
 >> "target"-build executed successfully!
 ------------------------------------------------

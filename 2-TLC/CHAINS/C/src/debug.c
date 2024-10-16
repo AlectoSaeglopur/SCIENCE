@@ -2,6 +2,7 @@
  * @file debug.c
  * @author Filippo Valmori
  * @date 26/08/2024
+ * @copyright Electrolux S.p.A.
  * @ingroup TLC_CHAIN
  * @brief Debug library
  * 
@@ -22,6 +23,7 @@
 /************************/
 
 static watermark_t gWatermarks[WM_LEVEL_NUM] = {0};
+static const bool bShAppChgEnabled = false;                     //!< Flag specifying if terminal appearance change at run-time is enabled or not
 
 
 
@@ -91,7 +93,7 @@ error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pS
   uint32_t j;
   error_t retErr = ERR_NONE;
 
-  if ((NULL != ioStream) && ((NULL != ioStream->pBuf)))
+  if (Memory_IsStreamValid(ioStream,ioStream->id))
   {
     if (NULL == pSeed)
     {
@@ -132,7 +134,8 @@ error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t lab
   error_t retErr = ERR_NONE;
   ulen_t j;
 
-  if ((NULL != inStream) && (NULL != inStream->pBuf) && (NULL != pParams))
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      (NULL != pParams))
   {
     if (!((CHAN_AWGN == pParams->chanPar.type) && (CC_VITDM_SOFT == pParams->ccPar.vitDM) && (PID_RX_CNVCOD == label)))
     {
@@ -232,7 +235,8 @@ error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t l
   error_t retErr = ERR_NONE;
   ulen_t j;
 
-  if ((NULL != inStream) && (NULL != inStream->pBuf) && (NULL != pParams))
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      (NULL != pParams))
   {
 
     if ((CHAN_AWGN == pParams->chanPar.type) && (CC_VITDM_SOFT == pParams->ccPar.vitDM))
@@ -300,7 +304,8 @@ error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label
   error_t retErr = ERR_NONE;
   ulen_t j;
 
-  if ((NULL != inStream) && (NULL != inStream->pBuf) && (NULL != pParams))
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      (NULL != pParams))
   {
     if (CHAN_AWGN == pParams->chanPar.type)
     {
@@ -369,54 +374,61 @@ error_t Debug_PrintParameters( ulen_t orgLen, const debug_par_t * pParams )
 
   error_t retErr = ERR_NONE;
 
-  if (IsOrgLenValid(orgLen,pParams))
+  if (NULL != pParams)
   {
-    printf("\n # PARAMETERS\n");
-    printf("    * Scrambling : ");
-    printf("%s",SCR_TYPE_STR(pParams->scrPar.type));
-    printf(" | Ncells = %u\n",pParams->scrPar.nCells);
-
-    printf("    * Reed-Solomon coding : ");
-    printf("m = %u",pParams->rsPar.m);
-    printf(" | n = %u",pParams->rsPar.nSh);
-    printf(" | k = %u\n",pParams->rsPar.kSh);
-
-    printf("    * Interleaving : ");
-    printf("%s",INTRLV_TYPE_STR(pParams->itlvPar.type));
-    if (INTRLV_BLOCK == pParams->itlvPar.type)
+    if (IsOrgLenValid(orgLen,pParams))
     {
-      printf(" | Nrows = %u",pParams->itlvPar.rows);
-      printf(" | Ncols = %u\n",pParams->itlvPar.cols);
+      printf("\n # PARAMETERS\n");
+      printf("    * Scrambling : ");
+      printf("%s",SCR_TYPE_STR(pParams->scrPar.type));
+      printf(" | Ncells = %u\n",pParams->scrPar.nCells);
+
+      printf("    * Reed-Solomon coding : ");
+      printf("m = %u",pParams->rsPar.m);
+      printf(" | n = %u",pParams->rsPar.nSh);
+      printf(" | k = %u\n",pParams->rsPar.kSh);
+
+      printf("    * Interleaving : ");
+      printf("%s",INTRLV_TYPE_STR(pParams->itlvPar.type));
+      if (INTRLV_BLOCK == pParams->itlvPar.type)
+      {
+        printf(" | Nrows = %u",pParams->itlvPar.rows);
+        printf(" | Ncols = %u\n",pParams->itlvPar.cols);
+      }
+      else if (INTRLV_CONV == pParams->itlvPar.type)
+      {
+        printf(" | Ndelays = %u",pParams->itlvPar.dlys);
+        printf(" | Ncells = %u\n",pParams->itlvPar.cells);
+      }
+
+      printf("    * Convolutional coding : ");
+      printf("K = %u",pParams->ccPar.kLen);
+      printf(" | Rc = %u/%u",pParams->ccPar.cRate,pParams->ccPar.cRate+1);
+      printf(" | DM = %s\n",CC_VDM_STR(pParams->ccPar.vitDM));
+
+      printf("    * Modulation : ");
+      printf("%u-%s\n",pParams->modPar.order,MOD_TYPE_STR(pParams->modPar.type));
+
+      printf("    * Channel : ");
+      if (CHAN_BSC == pParams->chanPar.type)
+      {
+        printf("BSC | Peb = %1.1e\n",pParams->chanPar.Peb);
+      }
+      else if (CHAN_AWGN == pParams->chanPar.type)
+      {
+        printf("AWGN | EbN0 = %1.1f\n",pParams->chanPar.EbN0);
+      }
+
+      printf("\n");
     }
-    else if (INTRLV_CONV == pParams->itlvPar.type)
+    else
     {
-      printf(" | Ndelays = %u",pParams->itlvPar.dlys);
-      printf(" | Ncells = %u\n",pParams->itlvPar.cells);
+      retErr = ERR_INV_ORIG_LEN;
     }
-
-    printf("    * Convolutional coding : ");
-    printf(" K = %d",pParams->ccPar.kLen);
-    printf(" | Rc = %d/%d",pParams->ccPar.cRate,pParams->ccPar.cRate+1);
-    printf(" | DM = %s\n",CC_VDM_STR(pParams->ccPar.vitDM));
-
-    printf("    * Modulation : ");
-    printf("%u-%s\n",pParams->modPar.order,MOD_TYPE_STR(pParams->modPar.type));
-
-    printf("    * Channel : ");
-    if (CHAN_BSC == pParams->chanPar.type)
-    {
-      printf("BSC | Peb = %1.1e\n",pParams->chanPar.Peb);
-    }
-    else if (CHAN_AWGN == pParams->chanPar.type)
-    {
-      printf("AWGN | EbN0 = %1.1f\n",pParams->chanPar.EbN0);
-    }
-
-    printf("\n");
   }
   else
   {
-    retErr = ERR_INV_ORIG_LEN;
+    retErr = ERR_INV_NULL_POINTER;
   }
 
   return Error_HandleErr(retErr);
@@ -446,7 +458,9 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
   ulen_t byteIdx;
   uint8_t bitIdx;
 
-  if ((NULL != inStreamA) && (NULL != inStreamA->pBuf) && (NULL != inStreamB) && (NULL != inStreamB->pBuf) && (NULL != pParams))
+  if (Memory_IsStreamValid(inStreamA,inStreamA->id) &&
+      Memory_IsStreamValid(inStreamB,inStreamB->id) &&
+      (NULL != pParams))
   {
     if (!((CHAN_AWGN == pParams->chanPar.type) && (CC_VITDM_SOFT == pParams->ccPar.vitDM) && (PID_RX_CNVCOD == label)))
     {
@@ -539,7 +553,7 @@ error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_
   FILE * fid = NULL;
   ulen_t j;
   
-  if ((NULL != inStream) && (NULL != inStream->pBuf))
+  if (Memory_IsStreamValid(inStream,inStream->id))
   {
     switch (label)
     {
@@ -603,7 +617,7 @@ error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_
   FILE * fid = NULL;
   ulen_t j;
   
-  if ((NULL != inStream) && (NULL != inStream->pBuf))
+  if (Memory_IsStreamValid(inStream,inStream->id))
   {
     switch (label)
     {
@@ -651,13 +665,19 @@ error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_
  * 
  * @return error ID
  */
-error_t Debug_SetWatermark( void * funcAddr, wm_level_t level )
+error_t Debug_SetWatermark( const void * funcAddr, const wm_level_t level )
 {
   error_t retErr = ERR_NONE;
+  uint8_t j;
 
   if (level <WM_LEVEL_NUM)
   {
     gWatermarks[level] = ((watermark_t)funcAddr)&WATERMARK_MASK;
+
+    for (j=level+1; j<WM_LEVEL_NUM; j++)
+    {
+      gWatermarks[j] = 0;                                                             /** reset lower level watermarks */
+    }
   }
   else
   {
@@ -694,7 +714,10 @@ void Debug_PrintWatermarks( void )
  */
 void Debug_SetTerminalAppearance( ansi_text_color color, ansi_text_style style )
 {
-  printf("\033[%u;%um",color,style);
+  if (bShAppChgEnabled)
+  {
+    printf("\033[%u;%um",color,style);
+  }
 }
 
 
@@ -705,7 +728,10 @@ void Debug_SetTerminalAppearance( ansi_text_color color, ansi_text_style style )
  */
 void Debug_ResetTerminalAppearance( void )
 {
-  printf("\033[%um",STYLE_RESET);
+  if (bShAppChgEnabled)
+  {
+    printf("\033[%um",STYLE_RESET);
+  }
 }
 
 

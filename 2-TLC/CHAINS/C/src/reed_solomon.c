@@ -2,16 +2,20 @@
  * @file reed_solomon.c
  * @author Filippo Valmori
  * @date 26/08/2024
+ * @copyright Electrolux S.p.A.
+ * @see Digital communications - Fundamentals and applications (Bernard Sklar, 2014)
  * @ingroup TLC_CHAIN
  * @brief Reed-Solomon coding library
  * 
  * Library containing Reed-Solomon coding functions.
  */
 
+
 /****************/
 /*** INCLUDES ***/
 /****************/
 
+#include "debug.h"
 #include "reed_solomon.h"
 
 
@@ -80,6 +84,8 @@ static error_t ErrorCorrector( uint8_t * ioSymbs, const uint8_t * errLoc, const 
  */
 error_t RsCod_ListParameters( rs_par_t * ioParams )
 {
+  Debug_SetWatermark((void *)RsCod_ListParameters,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
 
   if (NULL != ioParams)
@@ -110,10 +116,10 @@ error_t RsCod_ListParameters( rs_par_t * ioParams )
 
 
 /**
- * @brief <i> Function for Reed-Solomon encoding in systematic form.
- *        Redundancy bytes are appendend at the beginning of codewords
- *        and calculated as remainder of the upshifted message polynomial
- *        divided by the generator polynomial. </i>
+ * @brief <i> Function for Reed-Solomon encoding in systematic form. </i>
+ * 
+ * Redundancy bytes are appendend at the beginning of codewords and calculated as
+ * remainder of the upshifted message polynomial divided by the generator polynomial. 
  * 
  * @param[in] inStream input stream
  * @param[out] outStream output stream
@@ -123,6 +129,8 @@ error_t RsCod_ListParameters( rs_par_t * ioParams )
  */
 error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams )
 {
+  Debug_SetWatermark((void *)RcCod_Encoder,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   const uint8_t numMsg = BY2BI_LEN(inStream->len)/(pParams->m*pParams->kSh);
   const uint8_t lenGenPoly = 2*pParams->t+1;
@@ -138,8 +146,9 @@ error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream
   uint8_t curSymb;
   uint8_t i;
 
-  if ((NULL != inStream) && (NULL != outStream) && (NULL != pParams) &&
-      (NULL != inStream->pBuf) && (NULL != outStream->pBuf))
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id) &&
+      (NULL != pParams))
   {
     RetrieveMappingTableGF(mapTable,pParams);
     RetrieveGeneratorPolynomial(genPoly,lenGenPoly,mapTable,pParams);
@@ -234,10 +243,10 @@ error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream
 
 
 /**
- * @brief <i> Function for Reed-Solomon decoding in systematic form.
- *        Redundancy bytes are expected at the beginning of codewords
- *        and calculated as remainder of the upshifted message polynomial
- *        divided by the generator polynomial. </i>
+ * @brief <i> Function for Reed-Solomon decoding in systematic form. </i>
+ * 
+ * Redundancy bytes are expected at the beginning of codewords and calculated as
+ * remainder of the upshifted message polynomial divided by the generator polynomial.
  * 
  * @param[in] inStream input stream
  * @param[out] outStream output stream
@@ -247,6 +256,8 @@ error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream
  */
 error_t RcCod_Decoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams )
 {
+  Debug_SetWatermark((void *)RcCod_Decoder,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   const uint8_t numMsg = BY2BI_LEN(inStream->len)/(pParams->m*pParams->nSh);
   uint8_t mapTable[pParams->dimGF][RS_TABLE_IDX_NUM];                         /** - mapping table between symbols and basis */
@@ -260,8 +271,9 @@ error_t RcCod_Decoder( const byte_stream_t * inStream, byte_stream_t * outStream
   uint8_t i, j;
   bool errFlag;
 
-  if ((NULL != inStream) && (NULL != outStream) && (NULL != pParams) &&
-      (NULL != inStream->pBuf) && (NULL != outStream->pBuf))
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id) &&
+      (NULL != pParams))
   {
     RetrieveMappingTableGF(mapTable,pParams);
     memset(tmpSymbs,0,pParams->nUn);
@@ -349,6 +361,8 @@ error_t RcCod_Decoder( const byte_stream_t * inStream, byte_stream_t * outStream
  */
 static error_t RetrievePrimitivePolynomial( rs_encoder_info_t * ioInfo, const rs_par_t * pParams )
 {
+  Debug_SetWatermark((void *)RetrievePrimitivePolynomial,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
 
   if ((NULL != ioInfo) && (NULL != pParams))
@@ -390,6 +404,8 @@ static error_t RetrievePrimitivePolynomial( rs_encoder_info_t * ioInfo, const rs
  */
 static error_t RetrieveGeneratorPolynomial( uint8_t * ioBuf, uint8_t len, const uint8_t mapTable[][RS_TABLE_IDX_NUM], const rs_par_t * pParams )
 {
+  Debug_SetWatermark((void *)RetrieveGeneratorPolynomial,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   uint8_t tmpVal;
   int16_t i, j;
@@ -437,6 +453,8 @@ static error_t RetrieveGeneratorPolynomial( uint8_t * ioBuf, uint8_t len, const 
  */
 static error_t RetrieveMappingTableGF( uint8_t ioTable[][RS_TABLE_IDX_NUM], const rs_par_t * pParams )
 {
+  Debug_SetWatermark((void *)RetrieveMappingTableGF,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   rs_encoder_info_t encInfo;
   int16_t quotDeg;
@@ -497,6 +515,8 @@ static error_t RetrieveMappingTableGF( uint8_t ioTable[][RS_TABLE_IDX_NUM], cons
  */
 static uint16_t FindMaxDeg( const uint8_t * poly, uint16_t len )
 {
+  Debug_SetWatermark((void *)FindMaxDeg,WM_LEVEL_3);
+
   uint16_t maxDeg;
   uint16_t j;
 
@@ -526,6 +546,8 @@ static uint16_t FindMaxDeg( const uint8_t * poly, uint16_t len )
  */
 static uint8_t GetBasis( const uint8_t * poly, const rs_par_t * pParams )
 {
+  Debug_SetWatermark((void *)GetBasis,WM_LEVEL_3);
+
   uint8_t basis = 0;
   uint8_t j;
 
@@ -551,6 +573,8 @@ static uint8_t GetBasis( const uint8_t * poly, const rs_par_t * pParams )
  */
 static uint8_t ConvertBi2Sy( uint8_t inBasis, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
+  Debug_SetWatermark((void *)GetBasis,WM_LEVEL_3);
+
   return mapTable[inBasis][RS_TABLE_IDX_SYM];
 }
 
@@ -565,6 +589,8 @@ static uint8_t ConvertBi2Sy( uint8_t inBasis, const uint8_t mapTable[][RS_TABLE_
  */
 static uint8_t ConvertSy2Bi( uint8_t inSymb, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
+  Debug_SetWatermark((void *)GetBasis,WM_LEVEL_3);
+
   return mapTable[inSymb][RS_TABLE_IDX_BIT];
 }
 
@@ -580,6 +606,8 @@ static uint8_t ConvertSy2Bi( uint8_t inSymb, const uint8_t mapTable[][RS_TABLE_I
  */
 static uint8_t AddGF( uint8_t symbA, uint8_t symbB, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
+  Debug_SetWatermark((void *)AddGF,WM_LEVEL_3);
+
   uint8_t basisRes;
 
   basisRes = mapTable[symbA][RS_TABLE_IDX_BIT]^mapTable[symbB][RS_TABLE_IDX_BIT];
@@ -599,6 +627,8 @@ static uint8_t AddGF( uint8_t symbA, uint8_t symbB, const uint8_t mapTable[][RS_
  */
 static uint8_t MultiplyGF( uint8_t symbA, uint8_t symbB, const rs_par_t * pParams )
 {
+  Debug_SetWatermark((void *)MultiplyGF,WM_LEVEL_3);
+
   uint8_t symbRes = 0;
   
   if ((symbA != 0) && (symbB != 0))
@@ -612,10 +642,11 @@ static uint8_t MultiplyGF( uint8_t symbA, uint8_t symbB, const rs_par_t * pParam
 
 /**
  * @brief <i> Function for performing power raising operations in GF(2^m). </i>
- *        - NB#1: to get "alpha^(w)" use "PowerGF(2,w)";
- *        - NB#2: to get "alpha^(-w)" use "PowerGF(2,-w)";
- *        - NB#3: to get "Symb^-1" use "PowerGF(2,-Symb+1)";
- *        - NB#4: keep in mind the identity "MultiplyGF(Symb,PowGF(2,-Symb+1))=1".
+ * 
+ * - NB#1: to get "alpha^(w)" use "PowerGF(2,w)";
+ * - NB#2: to get "alpha^(-w)" use "PowerGF(2,-w)";
+ * - NB#3: to get "Symb^-1" use "PowerGF(2,-Symb+1)";
+ * - NB#4: keep in mind the identity "MultiplyGF(Symb,PowGF(2,-Symb+1))=1".
  * 
  * @param[in] symbBase symbol base
  * @param[in] exp exponent value
@@ -625,6 +656,8 @@ static uint8_t MultiplyGF( uint8_t symbA, uint8_t symbB, const rs_par_t * pParam
  */
 static uint8_t PowerGF( uint8_t symbBase, int16_t exp, const rs_par_t * pParams )
 {
+  Debug_SetWatermark((void *)PowerGF,WM_LEVEL_3);
+  
   uint8_t symbRes;
   int16_t tmpVal;
 
@@ -662,6 +695,8 @@ static uint8_t PowerGF( uint8_t symbBase, int16_t exp, const rs_par_t * pParams 
  */
 static bool GetSyndrome( const uint8_t * cwSymbs, uint8_t * syndrome, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
+  Debug_SetWatermark((void *)GetSyndrome,WM_LEVEL_2);
+
   uint16_t i;
   int16_t j;
   uint8_t sum;
@@ -704,6 +739,8 @@ static bool GetSyndrome( const uint8_t * cwSymbs, uint8_t * syndrome, const rs_p
  */
 static error_t BerlekampMasseyAlgorithm( uint8_t * sigma, const uint8_t * syndrome, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
+  Debug_SetWatermark((void *)BerlekampMasseyAlgorithm,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   int16_t curErr = 0;                                                         /** - number of assumed errors at current iteration (Ec) */
   int16_t nextErr;                                                            /** - number of assumed errors at next iteration (En) */
@@ -777,6 +814,7 @@ static error_t BerlekampMasseyAlgorithm( uint8_t * sigma, const uint8_t * syndro
  */
 static int16_t GetDiscrepancy( const uint8_t * syndrome, const uint8_t * sigma, int16_t errNum, uint8_t iter, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
+  Debug_SetWatermark((void *)GetDiscrepancy,WM_LEVEL_2);
   
   int16_t delta = 0;
   uint8_t j;
@@ -806,6 +844,8 @@ static int16_t GetDiscrepancy( const uint8_t * syndrome, const uint8_t * sigma, 
  */
 static error_t ChienAlgorithm( uint8_t * errLoc, const uint8_t * sigma, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
+  Debug_SetWatermark((void *)ChienAlgorithm,WM_LEVEL_2);
+  
   error_t retErr = ERR_NONE;
   uint8_t idx = 0;
   uint8_t root;
@@ -853,6 +893,8 @@ static error_t ChienAlgorithm( uint8_t * errLoc, const uint8_t * sigma, const rs
  */
 static error_t KeyAlgorithm( uint8_t * omega, const uint8_t * syndrome, const uint8_t * sigma, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
+  Debug_SetWatermark((void *)KeyAlgorithm,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   uint8_t tmpOmega[3*pParams->t+1];
   uint8_t tmpSyndr[2*pParams->t+1];
@@ -897,6 +939,8 @@ static error_t KeyAlgorithm( uint8_t * omega, const uint8_t * syndrome, const ui
  */
 static error_t ForneyAlgorithm( uint8_t * errMag, const uint8_t * omega, const uint8_t * errLoc, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
+  Debug_SetWatermark((void *)ForneyAlgorithm,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   uint8_t root;
   uint8_t numer, denom;
@@ -955,6 +999,8 @@ static error_t ForneyAlgorithm( uint8_t * errMag, const uint8_t * omega, const u
  */
 static error_t ErrorCorrector( uint8_t * ioSymbs, const uint8_t * errLoc, const uint8_t * errMag, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM])
 {
+  Debug_SetWatermark((void *)ErrorCorrector,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   uint8_t j;
 

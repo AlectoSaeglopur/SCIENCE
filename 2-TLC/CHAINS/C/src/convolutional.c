@@ -2,17 +2,21 @@
  * @file convolutional.c
  * @author Filippo Valmori
  * @date 26/08/2024
+ * @copyright Electrolux S.p.A.
+ * @see Digital communications - Fundamentals and applications (Bernard Sklar, 2014)
  * @ingroup TLC_CHAIN
  * @brief Convolutional coding library
  * 
  * Library containing convolutional coding functions.
  */
 
+
 /****************/
 /*** INCLUDES ***/
 /****************/
 
 #include "convolutional.h"
+#include "debug.h"
 
 
 
@@ -66,6 +70,8 @@ static uint8_t FindMinSurvPathSoft( const cc_soft_dec_info_t * inPaths);
  */
 error_t CnvCod_ListParameters( cc_par_t * ioParams )
 {
+  Debug_SetWatermark((void *)CnvCod_ListParameters,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
 
   if (NULL != ioParams)
@@ -95,6 +101,8 @@ error_t CnvCod_ListParameters( cc_par_t * ioParams )
  */
 error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams )
 {
+  Debug_SetWatermark((void *)CnvCod_Encoder,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   const ulen_t unpLenBy = CC_NBRANCHES*inStream->len;                               /** - unpunctured coded length [B] */
   const ulen_t unpLenBi = BY2BI_LEN(unpLenBy);                                      /** - unpunctured coded length [b] */
@@ -111,8 +119,9 @@ error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStrea
   uint8_t rdBit;
   uint8_t k;
 
-  if ((NULL != inStream) && (NULL != inStream->pBuf) && (NULL != outStream) &&
-      (NULL != outStream->pBuf) && (NULL != pParams))
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id) &&
+      (NULL != pParams))
   {
     RetrieveConnectorPuncturationVectors(&encInfo,pParams);                         /** - retrieve convolutional encoder info */
     Memory_AllocateStream(&tmpStream,unpLenBy,memory_type_byte);
@@ -197,6 +206,8 @@ error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStrea
  */
 error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams )
 {
+  Debug_SetWatermark((void *)CnvCod_HardDecoder,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   const ulen_t outLenBi = BY2BI_LEN(outStream->len);
   const ulen_t inLenBi = BY2BI_LEN(inStream->len);
@@ -217,8 +228,9 @@ error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outS
   uint8_t erasMask;
   uint8_t j;
   
-  if ((NULL != inStream) && (NULL != inStream->pBuf) && (NULL != outStream) && 
-      (NULL != outStream->pBuf) && (NULL != pParams))
+  if (Memory_IsStreamValid(inStream,inStream->id) && 
+      Memory_IsStreamValid(outStream,outStream->id) &&
+      (NULL != pParams))
   {
     if (CC_VITDM_HARD == pParams->vitDM)
     {
@@ -384,6 +396,8 @@ error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outS
  */
 error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams )
 {
+  Debug_SetWatermark((void *)CnvCod_SoftDecoder,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   const ulen_t outLenBi = BY2BI_LEN(outStream->len);
   const ulen_t unpLenBi = CC_NBRANCHES*outLenBi;
@@ -402,8 +416,9 @@ error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * out
   uint8_t j, bitIdx, hypIdx;
   uint8_t erasMask;
 
-  if ((NULL != inStream) && (NULL != inStream->pBuf) && (NULL != outStream) &&
-      (NULL != outStream->pBuf) && (NULL != pParams))
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id) &&
+      (NULL != pParams))
   {
     if (CC_VITDM_SOFT == pParams->vitDM)
     {
@@ -574,6 +589,8 @@ error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * out
  */
 static error_t RetrieveConnectorPuncturationVectors( cc_encoder_info_t * ioInfo, const cc_par_t * pParams )
 {
+  Debug_SetWatermark((void *)RetrieveConnectorPuncturationVectors,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
 
   if ((NULL != ioInfo) && (NULL != pParams))
@@ -640,6 +657,8 @@ static error_t RetrieveConnectorPuncturationVectors( cc_encoder_info_t * ioInfo,
  */
 static bool IsRateValid( cc_rate_t rateVal )
 {
+  Debug_SetWatermark((void *)IsRateValid,WM_LEVEL_2);
+
   bool bRet = false;
   uint8_t j;
 
@@ -665,6 +684,8 @@ static bool IsRateValid( cc_rate_t rateVal )
  */
 static bool IsKlenValid( cc_klen_t kVal )
 {
+  Debug_SetWatermark((void *)IsKlenValid,WM_LEVEL_2);
+
   bool bRet;
 
   bRet = (kVal >= CC_KLEN_MIN) && (kVal <= CC_KLEN_MAX);
@@ -684,6 +705,8 @@ static bool IsKlenValid( cc_klen_t kVal )
  */
 static uint8_t ComputeEncBit( uint8_t cState, uint8_t cvVal, cc_klen_t kLen )
 {
+  Debug_SetWatermark((void *)ComputeEncBit,WM_LEVEL_3);
+
   uint8_t outBit = 0;
   uint8_t j;
 
@@ -707,6 +730,8 @@ static uint8_t ComputeEncBit( uint8_t cState, uint8_t cvVal, cc_klen_t kLen )
  */
 static error_t ComputeTrellisDiagram( cc_trellis_t * ioTrellisDiagr, const cc_encoder_info_t * encInfo, const cc_par_t * pParams )
 {
+  Debug_SetWatermark((void *)ComputeTrellisDiagram,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   uint8_t StBin[CC_NTRELSTATES];
   uint8_t i, j;
@@ -773,6 +798,8 @@ static error_t ComputeTrellisDiagram( cc_trellis_t * ioTrellisDiagr, const cc_en
  */
 static error_t HardDepuncturer( byte_t * ioBuffer, ulen_t inLenBi, ulen_t outLenBi, const uint8_t * punctVect, const cc_par_t * pParams )
 {
+  Debug_SetWatermark((void *)HardDepuncturer,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   uint32_t rdIdx = inLenBi-1;                                                                     /** - final bit index of input stream length */
   uint32_t byteIdx;
@@ -834,6 +861,8 @@ static error_t HardDepuncturer( byte_t * ioBuffer, ulen_t inLenBi, ulen_t outLen
  */
 static uint8_t CountByteOnes( byte_t inByte )
 {
+  Debug_SetWatermark((void *)CountByteOnes,WM_LEVEL_3);
+
   uint8_t j;
   uint8_t cnt = 0;
 
@@ -858,6 +887,8 @@ static uint8_t CountByteOnes( byte_t inByte )
  */
 static uint8_t FindMinSurvPathHard( const cc_hard_dec_info_t * inPaths )
 {
+  Debug_SetWatermark((void *)FindMinSurvPathHard,WM_LEVEL_3);
+
   uint32_t minDist;
   uint8_t minStateIdx;
   uint8_t j;
@@ -893,6 +924,8 @@ static uint8_t FindMinSurvPathHard( const cc_hard_dec_info_t * inPaths )
  */
 static error_t SoftDepuncturer( float * ioBuffer, ulen_t inLenBi, ulen_t outLenBi, const cc_encoder_info_t * encInfo, const cc_par_t * pParams )
 {
+  Debug_SetWatermark((void *)SoftDepuncturer,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   ulen_t i = inLenBi-1;                                                                           /** - reading index over LLR array */
   ulen_t j;
@@ -942,6 +975,8 @@ static error_t SoftDepuncturer( float * ioBuffer, ulen_t inLenBi, ulen_t outLenB
  */
 static float EstimateEuclideanDist( const float * inBuf, uint8_t trlByte, uint8_t erasMask )
 {
+  Debug_SetWatermark((void *)EstimateEuclideanDist,WM_LEVEL_3);
+
   uint8_t j;
   float Dist = 0;
 
@@ -969,6 +1004,8 @@ static float EstimateEuclideanDist( const float * inBuf, uint8_t trlByte, uint8_
  */
 static uint8_t FindMinSurvPathSoft( const cc_soft_dec_info_t * inPaths)
 {
+  Debug_SetWatermark((void *)FindMinSurvPathSoft,WM_LEVEL_3);
+
   float minDist;
   uint8_t minStIdx;
   uint8_t j;

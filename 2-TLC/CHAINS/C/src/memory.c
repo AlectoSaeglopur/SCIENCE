@@ -2,6 +2,7 @@
  * @file memory.c
  * @author Filippo Valmori
  * @date 26/08/2024
+ * @copyright Electrolux S.p.A.
  * @ingroup TLC_CHAIN
  * @brief Memory ibrary
  * 
@@ -13,6 +14,7 @@
 /*** INCLUDES ***/
 /****************/
 
+#include "debug.h"
 #include "memory.h"
 
 
@@ -48,6 +50,8 @@ static bool IsComplexStreamValid( const complex_stream_t * inStream );
  */
 error_t Memory_AllocateStream( void * ioStream, ulen_t len, memory_type_t type )
 {
+  Debug_SetWatermark((void *)Memory_AllocateStream,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   byte_stream_t * tmpByteStream;
   float_stream_t * tmpFloatStream;
@@ -96,6 +100,8 @@ error_t Memory_AllocateStream( void * ioStream, ulen_t len, memory_type_t type )
  */
 error_t Memory_FreeStream( void * ioStream, memory_type_t type )
 {
+  Debug_SetWatermark((void *)Memory_FreeStream,WM_LEVEL_1);
+  
   error_t retErr = ERR_NONE;
   byte_stream_t * tmpByteStream;
   float_stream_t * tmpFloatStream;
@@ -190,6 +196,8 @@ bool Memory_IsStreamValid( const void * inStream, memory_type_t type )
  */
 static error_t AllocateByteStream( byte_stream_t * ioStream, ulen_t len )
 {
+  Debug_SetWatermark((void *)AllocateByteStream,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
 
   if (NULL != ioStream)
@@ -223,6 +231,8 @@ static error_t AllocateByteStream( byte_stream_t * ioStream, ulen_t len )
  */
 static error_t AllocateFloatStream( float_stream_t * ioStream, ulen_t len )
 {
+  Debug_SetWatermark((void *)AllocateFloatStream,WM_LEVEL_2);
+  
   error_t retErr = ERR_NONE;
 
   if (NULL != ioStream)
@@ -256,6 +266,8 @@ static error_t AllocateFloatStream( float_stream_t * ioStream, ulen_t len )
  */
 static error_t AllocateComplexStream( complex_stream_t * ioStream, ulen_t len )
 {
+  Debug_SetWatermark((void *)AllocateComplexStream,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
 
   if (NULL != ioStream)
@@ -288,6 +300,8 @@ static error_t AllocateComplexStream( complex_stream_t * ioStream, ulen_t len )
  */
 static error_t FreeByteStream( byte_stream_t * ioStream )
 {
+  Debug_SetWatermark((void *)FreeByteStream,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
 
   if ((NULL != ioStream) && (NULL != ioStream->pBuf))
@@ -314,6 +328,8 @@ static error_t FreeByteStream( byte_stream_t * ioStream )
  */
 static error_t FreeFloatStream( float_stream_t * ioStream )
 {
+  Debug_SetWatermark((void *)FreeFloatStream,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
 
   if ((NULL != ioStream) && (NULL != ioStream->pBuf))
@@ -340,6 +356,8 @@ static error_t FreeFloatStream( float_stream_t * ioStream )
  */
 static error_t FreeComplexStream( complex_stream_t * ioStream )
 {
+  Debug_SetWatermark((void *)FreeComplexStream,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
 
   if ((NULL != ioStream) && (NULL != ioStream->pBuf))
@@ -367,6 +385,8 @@ static error_t FreeComplexStream( complex_stream_t * ioStream )
  */
 static bool IsByteStreamValid( const byte_stream_t * inStream )
 {
+  Debug_SetWatermark((void *)IsByteStreamValid,WM_LEVEL_2);
+
   bool bRet = false;
 
   if ((NULL != inStream) &&
@@ -390,6 +410,8 @@ static bool IsByteStreamValid( const byte_stream_t * inStream )
  */
 static bool IsFloatStreamValid( const float_stream_t * inStream )
 {
+  Debug_SetWatermark((void *)IsFloatStreamValid,WM_LEVEL_2);
+
   bool bRet = false;
 
   if ((NULL != inStream) &&
@@ -413,6 +435,8 @@ static bool IsFloatStreamValid( const float_stream_t * inStream )
  */
 static bool IsComplexStreamValid( const complex_stream_t * inStream )
 {
+  Debug_SetWatermark((void *)IsComplexStreamValid,WM_LEVEL_2);
+
   bool bRet = false;
 
   if ((NULL != inStream) &&

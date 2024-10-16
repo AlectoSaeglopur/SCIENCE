@@ -11,7 +11,7 @@ LC0:
 _Error_HandleErr:
 LFB18:
 	.file 1 "src/error.c"
-	.loc 1 34 0
+	.loc 1 35 0
 	.cfi_startproc
 	pushl	%ebp
 	.cfi_def_cfa_offset 8
@@ -19,29 +19,29 @@ LFB18:
 	movl	%esp, %ebp
 	.cfi_def_cfa_register 5
 	subl	$24, %esp
-	.loc 1 35 0
+	.loc 1 36 0
 	cmpl	$0, 8(%ebp)
 	je	L2
-	.loc 1 48 0
+	.loc 1 49 0
 	movl	$1, 4(%esp)
 	movl	$91, (%esp)
 	call	_Debug_SetTerminalAppearance
-	.loc 1 49 0
+	.loc 1 50 0
 	movl	8(%ebp), %eax
 	movl	%eax, 4(%esp)
 	movl	$LC0, (%esp)
 	call	_printf
-	.loc 1 50 0
-	call	_Debug_PrintWatermarks
 	.loc 1 51 0
-	call	_Debug_ResetTerminalAppearance
+	call	_Debug_PrintWatermarks
 	.loc 1 52 0
+	call	_Debug_ResetTerminalAppearance
+	.loc 1 53 0
 	movl	$1, (%esp)
 	call	_exit
 L2:
-	.loc 1 61 0
-	movl	8(%ebp), %eax
 	.loc 1 62 0
+	movl	8(%ebp), %eax
+	.loc 1 63 0
 	leave
 	.cfi_restore 5
 	.cfi_def_cfa 4, 4
@@ -296,7 +296,7 @@ Ldebug_info0:
 	.byte	0x4
 	.long	0x6f
 	.byte	0x5
-	.byte	0x1b
+	.byte	0x1c
 	.long	0x4e0
 	.uleb128 0xd
 	.ascii "ERR_NONE\0"
@@ -365,13 +365,13 @@ Ldebug_info0:
 	.uleb128 0x6
 	.ascii "error_t\0"
 	.byte	0x5
-	.byte	0x32
+	.byte	0x33
 	.long	0x30d
 	.uleb128 0xc
 	.byte	0x4
 	.long	0x6f
 	.byte	0x5
-	.byte	0x36
+	.byte	0x37
 	.long	0x530
 	.uleb128 0xd
 	.ascii "ALARM_NONE\0"
@@ -391,7 +391,7 @@ Ldebug_info0:
 	.byte	0x4
 	.long	0x6f
 	.byte	0x6
-	.byte	0x5d
+	.byte	0x5f
 	.long	0x65a
 	.uleb128 0xd
 	.ascii "COLOR_BLACK\0"
@@ -447,7 +447,7 @@ Ldebug_info0:
 	.byte	0x4
 	.long	0x6f
 	.byte	0x6
-	.byte	0x72
+	.byte	0x74
 	.long	0x6fa
 	.uleb128 0xd
 	.ascii "STYLE_RESET\0"
@@ -474,7 +474,7 @@ Ldebug_info0:
 	.uleb128 0xf
 	.ascii "Error_HandleErr\0"
 	.byte	0x1
-	.byte	0x21
+	.byte	0x22
 	.long	0x4e0
 	.long	LFB18
 	.long	LFE18-LFB18
@@ -483,7 +483,7 @@ Ldebug_info0:
 	.uleb128 0x10
 	.ascii "inErr\0"
 	.byte	0x1
-	.byte	0x21
+	.byte	0x22
 	.long	0x4e0
 	.uleb128 0x2
 	.byte	0x91

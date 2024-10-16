@@ -2,6 +2,8 @@
  * @file interleaving.c
  * @author Filippo Valmori
  * @date 26/08/2024
+ * @copyright Electrolux S.p.A.
+ * @see Digital communications - Fundamentals and applications (Bernard Sklar, 2014)
  * @ingroup TLC_CHAIN
  * @brief Interleaving library
  * 
@@ -13,6 +15,7 @@
 /*** INCLUDES ***/
 /****************/
 
+#include "debug.h"
 #include "interleaving.h"
 
 
@@ -41,6 +44,8 @@ static error_t ConvolutionalDeinterleaver( const byte_stream_t * inStream, byte_
  */
 error_t Intrlv_ListParameters( itlv_par_t * ioParams )
 {
+  Debug_SetWatermark((void *)Intrlv_ListParameters,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
 
   if (NULL != ioParams)
@@ -82,6 +87,8 @@ error_t Intrlv_ListParameters( itlv_par_t * ioParams )
  */
 error_t Intrlv_Interleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
 {
+  Debug_SetWatermark((void *)Intrlv_Interleaver,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
 
   if (NULL != pParams)
@@ -117,6 +124,8 @@ error_t Intrlv_Interleaver( const byte_stream_t * inStream, byte_stream_t * outS
  */
 error_t Intrlv_Deinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
 {
+  Debug_SetWatermark((void *)Intrlv_Deinterleaver,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
 
   if (NULL != pParams)
@@ -148,6 +157,7 @@ error_t Intrlv_Deinterleaver( const byte_stream_t * inStream, byte_stream_t * ou
 
 /**
  * @brief <i> Function for block interleaving byte-streams.
+ * 
  *        The matrix is filled column-wise and then emptied row-wise.
  *        In case streams length is larger than R*C, the algorithm is
  *        executed in multiple cycles by filling and emptying the matrix 
@@ -161,6 +171,8 @@ error_t Intrlv_Deinterleaver( const byte_stream_t * inStream, byte_stream_t * ou
  */
 static error_t BlockInterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
 {
+  Debug_SetWatermark((void *)BlockInterleaver,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   const uint32_t cycNum = (inStream->len-1)/(pParams->rows*pParams->cols)+1;      /** - number of cycles needed to process input stream */
   uint32_t cycLen;
@@ -215,11 +227,11 @@ static error_t BlockInterleaver( const byte_stream_t * inStream, byte_stream_t *
 
 
 /**
- * @brief <i> Function for block deinterleaving byte-streams.
- *        The the matrix is filled row-wise and then emptied column-wise.
- *        In case streams length is larger than R*C, the algorithm is
- *        executed in multiple cycles by filling and emptying the matrix 
- *        completely at each time. </i>
+ * @brief <i> Function for block deinterleaving byte-streams. </i>
+ * 
+ * The the matrix is filled row-wise and then emptied column-wise.
+ * In case streams length is larger than R*C, the algorithm is executed in multiple
+ * cycles by filling and emptying the matrix completely at each time.
  * 
  * @param[in] inStream input stream
  * @param[out] outStream output stream
@@ -229,6 +241,8 @@ static error_t BlockInterleaver( const byte_stream_t * inStream, byte_stream_t *
  */
 static error_t BlockDeinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
 {
+  Debug_SetWatermark((void *)BlockDeinterleaver,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   const uint32_t cycNum = (inStream->len-1)/(pParams->rows*pParams->cols)+1;      /** - number of cycles needed to process input stream */
   const uint32_t misElem = cycNum*pParams->rows*pParams->cols-inStream->len;      /** - number of missing elements to completely fill the matrix during final cycle */
@@ -319,6 +333,8 @@ static error_t BlockDeinterleaver( const byte_stream_t * inStream, byte_stream_t
  */
 static error_t ConvolutionalInterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
 {
+  Debug_SetWatermark((void *)ConvolutionalInterleaver,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   const uint16_t shiftRegRows = pParams->dlys-1;
   const uint16_t shiftRegCols = pParams->cells*(pParams->dlys-1);
@@ -432,6 +448,8 @@ static error_t ConvolutionalInterleaver( const byte_stream_t * inStream, byte_st
  */
 static error_t ConvolutionalDeinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams )
 {
+  Debug_SetWatermark((void *)ConvolutionalDeinterleaver,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   const uint16_t shiftRegRows = pParams->dlys-1;
   const uint16_t shiftRegCols = pParams->cells*(pParams->dlys-1);

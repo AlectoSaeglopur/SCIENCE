@@ -2,6 +2,8 @@
  * @file crc.c
  * @author Filippo Valmori
  * @date 26/08/2024
+ * @copyright Electrolux S.p.A.
+ * @see Digital communications - Fundamentals and applications (Bernard Sklar, 2014)
  * @ingroup TLC_CHAIN
  * @brief CRC ibrary
  * 
@@ -15,7 +17,6 @@
 
 #include "crc.h"
 #include "debug.h"
-
 
 
 
@@ -126,8 +127,9 @@ error_t Crc_CalculateChecksum( const byte_stream_t * inStream, byte_stream_t * o
   uint8_t bitIdx;
   uint8_t j;
 
-  if ((NULL != inStream) && (NULL != outStream) && (NULL != pParams) &&
-      (NULL != inStream->pBuf) && (NULL != outStream->pBuf))
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id) &&
+      (NULL != pParams))
   {
     if (crcLenBy == outStream->len)
     {

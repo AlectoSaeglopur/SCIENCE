@@ -3,13 +3,15 @@
 # 1 "<built-in>"
 # 1 "<command-line>"
 # 1 "src\\reed_solomon.c"
-# 15 "src\\reed_solomon.c"
-# 1 "src\\reed_solomon.h" 1
-# 18 "src\\reed_solomon.h"
+# 18 "src\\reed_solomon.c"
+# 1 "src\\debug.h" 1
+# 19 "src\\debug.h"
+# 1 "src\\channel.h" 1
+# 20 "src\\channel.h"
 # 1 "src\\error.h" 1
-# 18 "src\\error.h"
+# 19 "src\\error.h"
 # 1 "src\\system.h" 1
-# 20 "src\\system.h"
+# 21 "src\\system.h"
 # 1 "c:\\mingw\\include\\stdio.h" 1 3
 # 38 "c:\\mingw\\include\\stdio.h" 3
        
@@ -445,9 +447,9 @@ int vswscanf (const wchar_t *__restrict__, const wchar_t * __restrict__, __built
 
 
 
-# 21 "src\\system.h" 2
-# 1 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdbool.h" 1 3 4
 # 22 "src\\system.h" 2
+# 1 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdbool.h" 1 3 4
+# 23 "src\\system.h" 2
 # 1 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 1 3 4
 # 9 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 3 4
 # 1 "c:\\mingw\\include\\stdint.h" 1 3 4
@@ -510,7 +512,7 @@ typedef __uintptr_t uintptr_t;
 typedef long long intmax_t;
 typedef unsigned long long uintmax_t;
 # 10 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 2 3 4
-# 23 "src\\system.h" 2
+# 24 "src\\system.h" 2
 # 1 "c:\\mingw\\include\\string.h" 1 3
 # 34 "c:\\mingw\\include\\string.h" 3
        
@@ -684,7 +686,7 @@ extern inline __attribute__((__gnu_inline__)) __attribute__((__always_inline__))
 
 
 
-# 24 "src\\system.h" 2
+# 25 "src\\system.h" 2
 # 1 "c:\\mingw\\include\\stdlib.h" 1 3
 # 34 "c:\\mingw\\include\\stdlib.h" 3
        
@@ -992,7 +994,7 @@ __attribute__((__cdecl__)) __attribute__((__nothrow__)) int unsetenv( const char
 
 
 
-# 25 "src\\system.h" 2
+# 26 "src\\system.h" 2
 # 1 "c:\\mingw\\include\\time.h" 1 3
 # 33 "c:\\mingw\\include\\time.h" 3
        
@@ -1162,7 +1164,7 @@ int nanosleep( const struct timespec *, struct timespec * );
 size_t wcsftime (wchar_t *, size_t, const wchar_t *, const struct tm *);
 
 
-# 26 "src\\system.h" 2
+# 27 "src\\system.h" 2
 # 1 "c:\\mingw\\include\\math.h" 1 3
 # 35 "c:\\mingw\\include\\math.h" 3
        
@@ -1548,16 +1550,16 @@ extern float __attribute__((__cdecl__)) fmaf (float, float, float);
 extern long double __attribute__((__cdecl__)) fmal (long double, long double, long double);
 # 931 "c:\\mingw\\include\\math.h" 3
 
-# 27 "src\\system.h" 2
-# 58 "src\\system.h"
+# 28 "src\\system.h" 2
+# 59 "src\\system.h"
 
-# 58 "src\\system.h"
+# 59 "src\\system.h"
 typedef struct _complex_t
 {
   float re;
   float im;
 } complex_t;
-# 19 "src\\error.h" 2
+# 20 "src\\error.h" 2
 
 
 
@@ -1600,9 +1602,9 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 76 "src\\error.h"
+# 77 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
-# 19 "src\\reed_solomon.h" 2
+# 21 "src\\channel.h" 2
 # 1 "src\\memory.h" 1
 # 28 "src\\memory.h"
 typedef enum
@@ -1649,14 +1651,204 @@ error_t Memory_FreeStream( void * ioStream, memory_type_t type );
 _Bool 
 # 67 "src\\memory.h"
     Memory_IsStreamValid( const void * inStream, memory_type_t type );
-# 20 "src\\reed_solomon.h" 2
-# 28 "src\\reed_solomon.h"
+# 22 "src\\channel.h" 2
+# 30 "src\\channel.h"
+typedef enum
+{
+  CHAN_BSC = 0,
+  CHAN_AWGN,
+
+  CHAN_NUM
+} chan_type_t;
+
+
+typedef struct _chan_par_t
+{
+  uint32_t seed;
+  chan_type_t type;
+  uint8_t bps;
+  union
+  {
+    float Peb;
+    float EbN0;
+  };
+} chan_par_t;
+# 76 "src\\channel.h"
+error_t Channel_ListParameters( chan_par_t * ioParams );
+error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, const chan_par_t * pParams );
+error_t Channel_AWGN( const complex_stream_t * inStream, complex_stream_t * outStream, const chan_par_t * pParams );
+# 20 "src\\debug.h" 2
+# 1 "src\\convolutional.h" 1
+# 62 "src\\convolutional.h"
+typedef enum
+{
+  CC_RATE_12 = 1, CC_RATE_23 = 2, CC_RATE_34 = 3, CC_RATE_56 = 5, CC_RATE_78 = 7
+} cc_rate_t;
+
+
+typedef enum
+{
+  CC_RATE_IDX_12, CC_RATE_IDX_23, CC_RATE_IDX_34, CC_RATE_IDX_56, CC_RATE_IDX_78,
+  CC_RATE_NUM
+} cc_rate_idx_t;
+# 81 "src\\convolutional.h"
+typedef enum
+{
+  CC_KLEN_3 = 3,
+  CC_KLEN_4 = 4,
+  CC_KLEN_5 = 5,
+  CC_KLEN_6 = 6,
+  CC_KLEN_7 = 7,
+  CC_KLEN_8 = 8,
+  CC_KLEN_MIN = CC_KLEN_3,
+  CC_KLEN_MAX = CC_KLEN_8
+} cc_klen_t;
+
+
+
+typedef enum
+{
+  CC_VITDM_HARD = 0,
+  CC_VITDM_SOFT,
+
+  CC_VITDM_NUM
+} cc_dec_method_t;
+
+
+typedef struct _cc_par_t
+{
+  cc_rate_t cRate;
+  cc_klen_t kLen;
+  uint16_t memFact;
+  cc_dec_method_t vitDM;
+} cc_par_t;
+
+
+typedef struct _cc_encoder_info_t
+{
+  const uint8_t * pConnVect;
+  uint8_t lenConnVect;
+  const uint8_t * pPuncVect;
+  uint8_t lenPuncVect;
+} cc_encoder_info_t;
+
+
+typedef struct _cc_trcore_t
+{
+  uint8_t outBits[2u];
+  uint8_t nextSt[2u];
+} cc_trcore_t;
+
+
+typedef struct _cc_trellis_t
+{
+  cc_trcore_t trSt[(1<<(CC_KLEN_7-1))];
+} cc_trellis_t;
+
+
+typedef struct _cc_hard_dec_info_t
+{
+  uint32_t iter[(1<<(CC_KLEN_7-1))];
+  uint32_t dist[(1<<(CC_KLEN_7-1))];
+  uint8_t path[(1<<(CC_KLEN_7-1))][((1<<(CC_KLEN_7-1))*10u)];
+} cc_hard_dec_info_t;
+
+
+
+typedef struct _cc_soft_dec_info_t
+{
+  uint32_t iter[(1<<(CC_KLEN_7-1))];
+  float dist[(1<<(CC_KLEN_7-1))];
+  uint8_t path[(1<<(CC_KLEN_7-1))][((1<<(CC_KLEN_7-1))*10u)];
+} cc_soft_dec_info_t;
+
+
+
+
+
+
+
+error_t CnvCod_ListParameters( cc_par_t * ioParams );
+error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
+error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
+error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
+# 21 "src\\debug.h" 2
+
+# 1 "src\\interleaving.h" 1
+# 30 "src\\interleaving.h"
+typedef enum
+{
+  INTRLV_BLOCK = 0,
+  INTRLV_CONV,
+
+  INTRLV_NUM
+} itlv_type_t;
+
+
+typedef struct _itlv_par_t
+{
+  itlv_type_t type;
+  union
+  {
+    uint8_t rows;
+    uint8_t dlys;
+  };
+  union
+  {
+    uint8_t cols;
+    uint8_t cells;
+  };
+} itlv_par_t;
+# 86 "src\\interleaving.h"
+error_t Intrlv_ListParameters( itlv_par_t * ioParams );
+error_t Intrlv_Interleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
+error_t Intrlv_Deinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
+# 23 "src\\debug.h" 2
+
+# 1 "src\\modulation.h" 1
+# 30 "src\\modulation.h"
+typedef enum
+{
+  MOD_PSK = 0,
+  MOD_QAM,
+
+  MOD_NUM
+} mod_type_t;
+# 75 "src\\modulation.h"
+typedef struct _mod_par_t
+{
+  mod_type_t type;
+  uint8_t order;
+  uint8_t bps;
+  float phOfst;
+} mod_par_t;
+
+
+typedef struct _mod_maptable_t
+{
+  uint8_t bits[(0x01<<2u)];
+  complex_t symbs[(0x01<<2u)];
+} mod_maptable_t;
+
+
+
+
+
+
+
+error_t Modulation_ListParameters( mod_par_t * ioParams );
+error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * outStream, const mod_par_t * pParams );
+error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_t * outStream, const mod_par_t * pParams );
+error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream_t * outStream, const mod_par_t * pParams );
+# 25 "src\\debug.h" 2
+# 1 "src\\reed_solomon.h" 1
+# 30 "src\\reed_solomon.h"
 typedef enum
 {
   RS_GF_DEGREE_4 = 4,
   RS_GF_DEGREE_8 = 8
 } rs_gf_degree_t;
-# 50 "src\\reed_solomon.h"
+# 52 "src\\reed_solomon.h"
 typedef struct _rs_par_t
 {
   rs_gf_degree_t m;
@@ -1677,14 +1869,121 @@ typedef struct _rs_par_t
 error_t RsCod_ListParameters( rs_par_t * ioParams );
 error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams );
 error_t RcCod_Decoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams );
-# 16 "src\\reed_solomon.c" 2
+# 26 "src\\debug.h" 2
+# 1 "src\\scrambling.h" 1
+# 30 "src\\scrambling.h"
+typedef enum
+{
+  SCRAMB_ADT = 0,
+  SCRAMB_MLT,
+
+  SCRAMB_NUM
+} scramb_type_t;
 
 
+typedef struct _scr_par_t
+{
+  scramb_type_t type;
+  uint8_t nCells;
+  uint32_t conVect;
+  uint32_t initSt;
+} scr_par_t;
+# 77 "src\\scrambling.h"
+error_t Scramb_ListParameters( scr_par_t * ioParams );
+error_t Scramb_Scrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
+error_t Scramb_Descrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
+# 27 "src\\debug.h" 2
+# 52 "src\\debug.h"
+typedef struct _debug_par_t
+{
+  scr_par_t scrPar;
+  rs_par_t rsPar;
+  itlv_par_t itlvPar;
+  cc_par_t ccPar;
+  mod_par_t modPar;
+  chan_par_t chanPar;
+} debug_par_t;
 
 
+typedef enum
+{
+  PID_TX_ORG = 0,
+  PID_RX_ORG,
+  PID_TX_CRC,
+  PID_RX_CRC,
+  PID_TX_SCR,
+  PID_RX_SCR,
+  PID_TX_RSCOD,
+  PID_RX_RSCOD,
+  PID_TX_INTLV,
+  PID_RX_INTLV,
+  PID_TX_CNVCOD,
+  PID_RX_CNVCOD,
+  PID_TX_MAP,
+  PID_RX_MAP,
+  PID_RX_LLR,
+
+  PID_NUM
+} print_label_t;
 
 
+typedef enum _wm_level_t
+{
+  WM_LEVEL_1 = 0,
+  WM_LEVEL_2,
+  WM_LEVEL_3,
 
+  WM_LEVEL_NUM
+} wm_level_t;
+
+
+typedef enum _ansi_text_color
+{
+  COLOR_BLACK = 30,
+  COLOR_RED = 31,
+  COLOR_GREEN = 32,
+  COLOR_YELLOW = 33,
+  COLOR_BLUE = 34,
+  COLOR_PURPLE = 35,
+  COLOR_CYAN = 36,
+  COLOR_WHITE = 37,
+  COLOR_GREY = 90,
+  COLOR_BRIGHT_RED = 91,
+  COLOR_BRIGHT_GREEN = 92,
+  COLOR_BRIGHT_YELLOW = 93,
+  COLOR_BRIGHT_BLUE = 94,
+  COLOR_BRIGHT_PURPLE = 95,
+  COLOR_BRIGHT_CYAN = 96,
+  COLOR_BRIGHT_WHITE = 97,
+} ansi_text_color;
+
+
+typedef enum _ansi_text_style
+{
+  STYLE_RESET = 0,
+  STYLE_BOLD = 1,
+  STYLE_ITALIC = 3,
+  STYLE_SINGLE_UNDERLINE = 4,
+  STYLE_SLOW_BLINK = 5,
+  STYLE_FAST_BLINK = 6,
+  STYLE_DOUBLE_UNDERLINE = 21,
+} ansi_text_style;
+# 142 "src\\debug.h"
+error_t Debug_PrintParameters( uint32_t orgLen, const debug_par_t * pParams );
+error_t Debug_ListParameters( debug_par_t * ioParams, const scr_par_t * scrParam, const rs_par_t * rsParam, const itlv_par_t * itlvParam, const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam );
+error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed );
+error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
+error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
+error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
+error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams );
+error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label );
+error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label );
+error_t Debug_SetWatermark( const void * funcAddr, const wm_level_t level );
+void Debug_PrintWatermarks( void );
+void Debug_SetTerminalAppearance( ansi_text_color color, ansi_text_style style );
+void Debug_ResetTerminalAppearance( void );
+# 19 "src\\reed_solomon.c" 2
+# 27 "src\\reed_solomon.c"
 static const uint8_t PrimPolyGF4[] = {0,1};
 static const uint8_t PrimPolyGF8[] = {0,2,3,4};
 
@@ -1724,9 +2023,9 @@ static uint8_t AddGF( uint8_t symbA, uint8_t symbB, const uint8_t mapTable[][RS_
 static uint8_t MultiplyGF( uint8_t symbA, uint8_t symbB, const rs_par_t * pParams );
 static uint8_t PowerGF( uint8_t symbBase, int16_t exp, const rs_par_t * pParams );
 static 
-# 61 "src\\reed_solomon.c" 3 4
+# 65 "src\\reed_solomon.c" 3 4
       _Bool 
-# 61 "src\\reed_solomon.c"
+# 65 "src\\reed_solomon.c"
            GetSyndrome( const uint8_t * cwSymbs, uint8_t * syndrome, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] );
 static error_t BerlekampMasseyAlgorithm( uint8_t * curSigma, const uint8_t * syndrome, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] );
 static int16_t GetDiscrepancy( const uint8_t * syndrome, const uint8_t * sigma, int16_t errNum, uint8_t iter, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] );
@@ -1734,15 +2033,17 @@ static error_t ChienAlgorithm( uint8_t * errLoc, const uint8_t * sigma, const rs
 static error_t KeyAlgorithm( uint8_t * omega, const uint8_t * syndrome, const uint8_t * sigma, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] );
 static error_t ForneyAlgorithm( uint8_t * errMag, const uint8_t * omega, const uint8_t * errLoc, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] );
 static error_t ErrorCorrector( uint8_t * ioSymbs, const uint8_t * errLoc, const uint8_t * errMag, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM]);
-# 81 "src\\reed_solomon.c"
+# 85 "src\\reed_solomon.c"
 error_t RsCod_ListParameters( rs_par_t * ioParams )
 {
+  Debug_SetWatermark((void *)RsCod_ListParameters,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
 
   if (
-# 85 "src\\reed_solomon.c" 3 4
+# 91 "src\\reed_solomon.c" 3 4
      ((void *)0) 
-# 85 "src\\reed_solomon.c"
+# 91 "src\\reed_solomon.c"
           != ioParams)
   {
     ioParams->m = RS_GF_DEGREE_8;
@@ -1768,9 +2069,11 @@ error_t RsCod_ListParameters( rs_par_t * ioParams )
 
   return Error_HandleErr(retErr);
 }
-# 124 "src\\reed_solomon.c"
+# 130 "src\\reed_solomon.c"
 error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams )
 {
+  Debug_SetWatermark((void *)RcCod_Encoder,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   const uint8_t numMsg = ((inStream->len)<<3u)/(pParams->m*pParams->kSh);
   const uint8_t lenGenPoly = 2*pParams->t+1;
@@ -1786,28 +2089,13 @@ error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream
   uint8_t curSymb;
   uint8_t i;
 
-  if ((
-# 141 "src\\reed_solomon.c" 3 4
-      ((void *)0) 
-# 141 "src\\reed_solomon.c"
-           != inStream) && (
-# 141 "src\\reed_solomon.c" 3 4
-                            ((void *)0) 
-# 141 "src\\reed_solomon.c"
-                                 != outStream) && (
-# 141 "src\\reed_solomon.c" 3 4
-                                                   ((void *)0) 
-# 141 "src\\reed_solomon.c"
-                                                        != pParams) &&
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id) &&
       (
-# 142 "src\\reed_solomon.c" 3 4
+# 151 "src\\reed_solomon.c" 3 4
       ((void *)0) 
-# 142 "src\\reed_solomon.c"
-           != inStream->pBuf) && (
-# 142 "src\\reed_solomon.c" 3 4
-                                  ((void *)0) 
-# 142 "src\\reed_solomon.c"
-                                       != outStream->pBuf))
+# 151 "src\\reed_solomon.c"
+           != pParams))
   {
     RetrieveMappingTableGF(mapTable,pParams);
     RetrieveGeneratorPolynomial(genPoly,lenGenPoly,mapTable,pParams);
@@ -1899,9 +2187,11 @@ error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream
 
   return Error_HandleErr(retErr);
 }
-# 248 "src\\reed_solomon.c"
+# 257 "src\\reed_solomon.c"
 error_t RcCod_Decoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams )
 {
+  Debug_SetWatermark((void *)RcCod_Decoder,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   const uint8_t numMsg = ((inStream->len)<<3u)/(pParams->m*pParams->nSh);
   uint8_t mapTable[pParams->dimGF][RS_TABLE_IDX_NUM];
@@ -1914,33 +2204,18 @@ error_t RcCod_Decoder( const byte_stream_t * inStream, byte_stream_t * outStream
   uint8_t curSymb;
   uint8_t i, j;
   
-# 261 "src\\reed_solomon.c" 3 4
+# 272 "src\\reed_solomon.c" 3 4
  _Bool 
-# 261 "src\\reed_solomon.c"
+# 272 "src\\reed_solomon.c"
       errFlag;
 
-  if ((
-# 263 "src\\reed_solomon.c" 3 4
-      ((void *)0) 
-# 263 "src\\reed_solomon.c"
-           != inStream) && (
-# 263 "src\\reed_solomon.c" 3 4
-                            ((void *)0) 
-# 263 "src\\reed_solomon.c"
-                                 != outStream) && (
-# 263 "src\\reed_solomon.c" 3 4
-                                                   ((void *)0) 
-# 263 "src\\reed_solomon.c"
-                                                        != pParams) &&
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id) &&
       (
-# 264 "src\\reed_solomon.c" 3 4
+# 276 "src\\reed_solomon.c" 3 4
       ((void *)0) 
-# 264 "src\\reed_solomon.c"
-           != inStream->pBuf) && (
-# 264 "src\\reed_solomon.c" 3 4
-                                  ((void *)0) 
-# 264 "src\\reed_solomon.c"
-                                       != outStream->pBuf))
+# 276 "src\\reed_solomon.c"
+           != pParams))
   {
     RetrieveMappingTableGF(mapTable,pParams);
     memset(tmpSymbs,0,pParams->nUn);
@@ -2011,19 +2286,21 @@ error_t RcCod_Decoder( const byte_stream_t * inStream, byte_stream_t * outStream
 
   return Error_HandleErr(retErr);
 }
-# 350 "src\\reed_solomon.c"
+# 362 "src\\reed_solomon.c"
 static error_t RetrievePrimitivePolynomial( rs_encoder_info_t * ioInfo, const rs_par_t * pParams )
 {
+  Debug_SetWatermark((void *)RetrievePrimitivePolynomial,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
 
   if ((
-# 354 "src\\reed_solomon.c" 3 4
+# 368 "src\\reed_solomon.c" 3 4
       ((void *)0) 
-# 354 "src\\reed_solomon.c"
+# 368 "src\\reed_solomon.c"
            != ioInfo) && (
-# 354 "src\\reed_solomon.c" 3 4
+# 368 "src\\reed_solomon.c" 3 4
                           ((void *)0) 
-# 354 "src\\reed_solomon.c"
+# 368 "src\\reed_solomon.c"
                                != pParams))
   {
     switch (pParams->m)
@@ -2050,17 +2327,19 @@ static error_t RetrievePrimitivePolynomial( rs_encoder_info_t * ioInfo, const rs
 
   return Error_HandleErr(retErr);
 }
-# 391 "src\\reed_solomon.c"
+# 405 "src\\reed_solomon.c"
 static error_t RetrieveGeneratorPolynomial( uint8_t * ioBuf, uint8_t len, const uint8_t mapTable[][RS_TABLE_IDX_NUM], const rs_par_t * pParams )
 {
+  Debug_SetWatermark((void *)RetrieveGeneratorPolynomial,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   uint8_t tmpVal;
   int16_t i, j;
 
   if (
-# 397 "src\\reed_solomon.c" 3 4
+# 413 "src\\reed_solomon.c" 3 4
      ((void *)0) 
-# 397 "src\\reed_solomon.c"
+# 413 "src\\reed_solomon.c"
           != ioBuf)
   {
     memset(ioBuf,0,len);
@@ -2091,9 +2370,11 @@ static error_t RetrieveGeneratorPolynomial( uint8_t * ioBuf, uint8_t len, const 
 
   return Error_HandleErr(retErr);
 }
-# 438 "src\\reed_solomon.c"
+# 454 "src\\reed_solomon.c"
 static error_t RetrieveMappingTableGF( uint8_t ioTable[][RS_TABLE_IDX_NUM], const rs_par_t * pParams )
 {
+  Debug_SetWatermark((void *)RetrieveMappingTableGF,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   rs_encoder_info_t encInfo;
   int16_t quotDeg;
@@ -2103,13 +2384,13 @@ static error_t RetrieveMappingTableGF( uint8_t ioTable[][RS_TABLE_IDX_NUM], cons
   uint8_t i;
 
   if ((
-# 448 "src\\reed_solomon.c" 3 4
+# 466 "src\\reed_solomon.c" 3 4
       ((void *)0) 
-# 448 "src\\reed_solomon.c"
+# 466 "src\\reed_solomon.c"
            != ioTable) && (
-# 448 "src\\reed_solomon.c" 3 4
+# 466 "src\\reed_solomon.c" 3 4
                            ((void *)0)
-# 448 "src\\reed_solomon.c"
+# 466 "src\\reed_solomon.c"
                                != pParams))
   {
     for (j=0;j<pParams->dimGF;j++)
@@ -2150,16 +2431,18 @@ static error_t RetrieveMappingTableGF( uint8_t ioTable[][RS_TABLE_IDX_NUM], cons
 
   return Error_HandleErr(retErr);
 }
-# 498 "src\\reed_solomon.c"
+# 516 "src\\reed_solomon.c"
 static uint16_t FindMaxDeg( const uint8_t * poly, uint16_t len )
 {
+  Debug_SetWatermark((void *)FindMaxDeg,WM_LEVEL_3);
+
   uint16_t maxDeg;
   uint16_t j;
 
   if (
-# 503 "src\\reed_solomon.c" 3 4
+# 523 "src\\reed_solomon.c" 3 4
      ((void *)0) 
-# 503 "src\\reed_solomon.c"
+# 523 "src\\reed_solomon.c"
           != poly)
   {
     for (j=len-1; j>=0; j--)
@@ -2174,16 +2457,18 @@ static uint16_t FindMaxDeg( const uint8_t * poly, uint16_t len )
 
   return maxDeg;
 }
-# 527 "src\\reed_solomon.c"
+# 547 "src\\reed_solomon.c"
 static uint8_t GetBasis( const uint8_t * poly, const rs_par_t * pParams )
 {
+  Debug_SetWatermark((void *)GetBasis,WM_LEVEL_3);
+
   uint8_t basis = 0;
   uint8_t j;
 
   if (
-# 532 "src\\reed_solomon.c" 3 4
+# 554 "src\\reed_solomon.c" 3 4
      ((void *)0) 
-# 532 "src\\reed_solomon.c"
+# 554 "src\\reed_solomon.c"
           != poly)
   {
     for (j=0; j<pParams->m; j++)
@@ -2194,28 +2479,36 @@ static uint8_t GetBasis( const uint8_t * poly, const rs_par_t * pParams )
 
   return basis;
 }
-# 552 "src\\reed_solomon.c"
+# 574 "src\\reed_solomon.c"
 static uint8_t ConvertBi2Sy( uint8_t inBasis, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
+  Debug_SetWatermark((void *)GetBasis,WM_LEVEL_3);
+
   return mapTable[inBasis][RS_TABLE_IDX_SYM];
 }
-# 566 "src\\reed_solomon.c"
+# 590 "src\\reed_solomon.c"
 static uint8_t ConvertSy2Bi( uint8_t inSymb, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
+  Debug_SetWatermark((void *)GetBasis,WM_LEVEL_3);
+
   return mapTable[inSymb][RS_TABLE_IDX_BIT];
 }
-# 581 "src\\reed_solomon.c"
+# 607 "src\\reed_solomon.c"
 static uint8_t AddGF( uint8_t symbA, uint8_t symbB, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
+  Debug_SetWatermark((void *)AddGF,WM_LEVEL_3);
+
   uint8_t basisRes;
 
   basisRes = mapTable[symbA][RS_TABLE_IDX_BIT]^mapTable[symbB][RS_TABLE_IDX_BIT];
 
   return mapTable[basisRes][RS_TABLE_IDX_SYM];
 }
-# 600 "src\\reed_solomon.c"
+# 628 "src\\reed_solomon.c"
 static uint8_t MultiplyGF( uint8_t symbA, uint8_t symbB, const rs_par_t * pParams )
 {
+  Debug_SetWatermark((void *)MultiplyGF,WM_LEVEL_3);
+
   uint8_t symbRes = 0;
 
   if ((symbA != 0) && (symbB != 0))
@@ -2225,9 +2518,11 @@ static uint8_t MultiplyGF( uint8_t symbA, uint8_t symbB, const rs_par_t * pParam
 
   return symbRes;
 }
-# 626 "src\\reed_solomon.c"
+# 657 "src\\reed_solomon.c"
 static uint8_t PowerGF( uint8_t symbBase, int16_t exp, const rs_par_t * pParams )
 {
+  Debug_SetWatermark((void *)PowerGF,WM_LEVEL_3);
+
   uint8_t symbRes;
   int16_t tmpVal;
 
@@ -2250,38 +2545,40 @@ static uint8_t PowerGF( uint8_t symbBase, int16_t exp, const rs_par_t * pParams 
 
   return symbRes;
 }
-# 663 "src\\reed_solomon.c"
+# 696 "src\\reed_solomon.c"
 static 
-# 663 "src\\reed_solomon.c" 3 4
+# 696 "src\\reed_solomon.c" 3 4
       _Bool 
-# 663 "src\\reed_solomon.c"
+# 696 "src\\reed_solomon.c"
            GetSyndrome( const uint8_t * cwSymbs, uint8_t * syndrome, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
+  Debug_SetWatermark((void *)GetSyndrome,WM_LEVEL_2);
+
   uint16_t i;
   int16_t j;
   uint8_t sum;
   
-# 668 "src\\reed_solomon.c" 3 4
+# 703 "src\\reed_solomon.c" 3 4
  _Bool 
-# 668 "src\\reed_solomon.c"
+# 703 "src\\reed_solomon.c"
       errFlag = 
-# 668 "src\\reed_solomon.c" 3 4
+# 703 "src\\reed_solomon.c" 3 4
                 0
-# 668 "src\\reed_solomon.c"
+# 703 "src\\reed_solomon.c"
                      ;
 
   if ((
-# 670 "src\\reed_solomon.c" 3 4
+# 705 "src\\reed_solomon.c" 3 4
       ((void *)0) 
-# 670 "src\\reed_solomon.c"
+# 705 "src\\reed_solomon.c"
            != cwSymbs) && (
-# 670 "src\\reed_solomon.c" 3 4
+# 705 "src\\reed_solomon.c" 3 4
                            ((void *)0) 
-# 670 "src\\reed_solomon.c"
+# 705 "src\\reed_solomon.c"
                                 != syndrome) && (
-# 670 "src\\reed_solomon.c" 3 4
+# 705 "src\\reed_solomon.c" 3 4
                                                  ((void *)0) 
-# 670 "src\\reed_solomon.c"
+# 705 "src\\reed_solomon.c"
                                                       != pParams))
   {
     for (i=0; i<2*pParams->t; i++)
@@ -2298,9 +2595,9 @@ static
       if (sum != 0)
       {
         errFlag = 
-# 685 "src\\reed_solomon.c" 3 4
+# 720 "src\\reed_solomon.c" 3 4
                  1
-# 685 "src\\reed_solomon.c"
+# 720 "src\\reed_solomon.c"
                      ;
       }
     }
@@ -2308,9 +2605,11 @@ static
 
   return errFlag;
 }
-# 705 "src\\reed_solomon.c"
+# 740 "src\\reed_solomon.c"
 static error_t BerlekampMasseyAlgorithm( uint8_t * sigma, const uint8_t * syndrome, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
+  Debug_SetWatermark((void *)BerlekampMasseyAlgorithm,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   int16_t curErr = 0;
   int16_t nextErr;
@@ -2321,21 +2620,21 @@ static error_t BerlekampMasseyAlgorithm( uint8_t * sigma, const uint8_t * syndro
   uint8_t i, j;
 
   if ((
-# 716 "src\\reed_solomon.c" 3 4
+# 753 "src\\reed_solomon.c" 3 4
       ((void *)0) 
-# 716 "src\\reed_solomon.c"
+# 753 "src\\reed_solomon.c"
            != sigma) && (
-# 716 "src\\reed_solomon.c" 3 4
+# 753 "src\\reed_solomon.c" 3 4
                          ((void *)0) 
-# 716 "src\\reed_solomon.c"
+# 753 "src\\reed_solomon.c"
                               != syndrome) && (
-# 716 "src\\reed_solomon.c" 3 4
+# 753 "src\\reed_solomon.c" 3 4
                                                ((void *)0) 
-# 716 "src\\reed_solomon.c"
+# 753 "src\\reed_solomon.c"
                                                     != pParams) && (
-# 716 "src\\reed_solomon.c" 3 4
+# 753 "src\\reed_solomon.c" 3 4
                                                                     ((void *)0) 
-# 716 "src\\reed_solomon.c"
+# 753 "src\\reed_solomon.c"
                                                                          != mapTable))
   {
     memset(tau,0,pParams->t+1);
@@ -2384,29 +2683,30 @@ static error_t BerlekampMasseyAlgorithm( uint8_t * sigma, const uint8_t * syndro
 
   return Error_HandleErr(retErr);
 }
-# 778 "src\\reed_solomon.c"
+# 815 "src\\reed_solomon.c"
 static int16_t GetDiscrepancy( const uint8_t * syndrome, const uint8_t * sigma, int16_t errNum, uint8_t iter, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
+  Debug_SetWatermark((void *)GetDiscrepancy,WM_LEVEL_2);
 
   int16_t delta = 0;
   uint8_t j;
 
   if ((
-# 784 "src\\reed_solomon.c" 3 4
+# 822 "src\\reed_solomon.c" 3 4
       ((void *)0) 
-# 784 "src\\reed_solomon.c"
+# 822 "src\\reed_solomon.c"
            != syndrome) && (
-# 784 "src\\reed_solomon.c" 3 4
+# 822 "src\\reed_solomon.c" 3 4
                             ((void *)0) 
-# 784 "src\\reed_solomon.c"
+# 822 "src\\reed_solomon.c"
                                  != sigma) && (
-# 784 "src\\reed_solomon.c" 3 4
+# 822 "src\\reed_solomon.c" 3 4
                                                ((void *)0) 
-# 784 "src\\reed_solomon.c"
+# 822 "src\\reed_solomon.c"
                                                     != pParams) && (
-# 784 "src\\reed_solomon.c" 3 4
+# 822 "src\\reed_solomon.c" 3 4
                                                                     ((void *)0) 
-# 784 "src\\reed_solomon.c"
+# 822 "src\\reed_solomon.c"
                                                                          != mapTable))
   {
     for (j=0; j<errNum+1; j++)
@@ -2417,30 +2717,32 @@ static int16_t GetDiscrepancy( const uint8_t * syndrome, const uint8_t * sigma, 
 
   return delta;
 }
-# 807 "src\\reed_solomon.c"
+# 845 "src\\reed_solomon.c"
 static error_t ChienAlgorithm( uint8_t * errLoc, const uint8_t * sigma, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
+  Debug_SetWatermark((void *)ChienAlgorithm,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   uint8_t idx = 0;
   uint8_t root;
   uint8_t i, j;
 
   if ((
-# 814 "src\\reed_solomon.c" 3 4
+# 854 "src\\reed_solomon.c" 3 4
       ((void *)0) 
-# 814 "src\\reed_solomon.c"
+# 854 "src\\reed_solomon.c"
            != errLoc) && (
-# 814 "src\\reed_solomon.c" 3 4
+# 854 "src\\reed_solomon.c" 3 4
                           ((void *)0) 
-# 814 "src\\reed_solomon.c"
+# 854 "src\\reed_solomon.c"
                                != sigma) && (
-# 814 "src\\reed_solomon.c" 3 4
+# 854 "src\\reed_solomon.c" 3 4
                                              ((void *)0) 
-# 814 "src\\reed_solomon.c"
+# 854 "src\\reed_solomon.c"
                                                   != pParams) && (
-# 814 "src\\reed_solomon.c" 3 4
+# 854 "src\\reed_solomon.c" 3 4
                                                                   ((void *)0) 
-# 814 "src\\reed_solomon.c"
+# 854 "src\\reed_solomon.c"
                                                                        != mapTable))
   {
     memset(errLoc,0,pParams->t);
@@ -2467,34 +2769,36 @@ static error_t ChienAlgorithm( uint8_t * errLoc, const uint8_t * sigma, const rs
 
   return Error_HandleErr(retErr);
 }
-# 854 "src\\reed_solomon.c"
+# 894 "src\\reed_solomon.c"
 static error_t KeyAlgorithm( uint8_t * omega, const uint8_t * syndrome, const uint8_t * sigma, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
+  Debug_SetWatermark((void *)KeyAlgorithm,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   uint8_t tmpOmega[3*pParams->t+1];
   uint8_t tmpSyndr[2*pParams->t+1];
   uint8_t i, j;
 
   if ((
-# 861 "src\\reed_solomon.c" 3 4
+# 903 "src\\reed_solomon.c" 3 4
       ((void *)0) 
-# 861 "src\\reed_solomon.c"
+# 903 "src\\reed_solomon.c"
            != omega) && (
-# 861 "src\\reed_solomon.c" 3 4
+# 903 "src\\reed_solomon.c" 3 4
                          ((void *)0) 
-# 861 "src\\reed_solomon.c"
+# 903 "src\\reed_solomon.c"
                               != syndrome) && (
-# 861 "src\\reed_solomon.c" 3 4
+# 903 "src\\reed_solomon.c" 3 4
                                                ((void *)0) 
-# 861 "src\\reed_solomon.c"
+# 903 "src\\reed_solomon.c"
                                                     != sigma) && (
-# 861 "src\\reed_solomon.c" 3 4
+# 903 "src\\reed_solomon.c" 3 4
                                                                   ((void *)0) 
-# 861 "src\\reed_solomon.c"
+# 903 "src\\reed_solomon.c"
                                                                        != pParams) && (
-# 861 "src\\reed_solomon.c" 3 4
+# 903 "src\\reed_solomon.c" 3 4
                                                                                        ((void *)0) 
-# 861 "src\\reed_solomon.c"
+# 903 "src\\reed_solomon.c"
                                                                                             != mapTable))
   {
     memset(tmpOmega,0,sizeof(tmpOmega));
@@ -2518,34 +2822,36 @@ static error_t KeyAlgorithm( uint8_t * omega, const uint8_t * syndrome, const ui
 
   return Error_HandleErr(retErr);
 }
-# 898 "src\\reed_solomon.c"
+# 940 "src\\reed_solomon.c"
 static error_t ForneyAlgorithm( uint8_t * errMag, const uint8_t * omega, const uint8_t * errLoc, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM] )
 {
+  Debug_SetWatermark((void *)ForneyAlgorithm,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   uint8_t root;
   uint8_t numer, denom;
   uint8_t i, j;
 
   if ((
-# 905 "src\\reed_solomon.c" 3 4
+# 949 "src\\reed_solomon.c" 3 4
       ((void *)0) 
-# 905 "src\\reed_solomon.c"
+# 949 "src\\reed_solomon.c"
            != errMag) && (
-# 905 "src\\reed_solomon.c" 3 4
+# 949 "src\\reed_solomon.c" 3 4
                           ((void *)0) 
-# 905 "src\\reed_solomon.c"
+# 949 "src\\reed_solomon.c"
                                != omega) && (
-# 905 "src\\reed_solomon.c" 3 4
+# 949 "src\\reed_solomon.c" 3 4
                                              ((void *)0) 
-# 905 "src\\reed_solomon.c"
+# 949 "src\\reed_solomon.c"
                                                   != errLoc) && (
-# 905 "src\\reed_solomon.c" 3 4
+# 949 "src\\reed_solomon.c" 3 4
                                                                  ((void *)0) 
-# 905 "src\\reed_solomon.c"
+# 949 "src\\reed_solomon.c"
                                                                       != pParams) && (
-# 905 "src\\reed_solomon.c" 3 4
+# 949 "src\\reed_solomon.c" 3 4
                                                                                       ((void *)0) 
-# 905 "src\\reed_solomon.c"
+# 949 "src\\reed_solomon.c"
                                                                                            != mapTable))
   {
     memset(errMag,0,pParams->t);
@@ -2583,32 +2889,34 @@ static error_t ForneyAlgorithm( uint8_t * errMag, const uint8_t * omega, const u
 
   return Error_HandleErr(retErr);
 }
-# 956 "src\\reed_solomon.c"
+# 1000 "src\\reed_solomon.c"
 static error_t ErrorCorrector( uint8_t * ioSymbs, const uint8_t * errLoc, const uint8_t * errMag, const rs_par_t * pParams, const uint8_t mapTable[][RS_TABLE_IDX_NUM])
 {
+  Debug_SetWatermark((void *)ErrorCorrector,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   uint8_t j;
 
   if ((
-# 961 "src\\reed_solomon.c" 3 4
+# 1007 "src\\reed_solomon.c" 3 4
       ((void *)0) 
-# 961 "src\\reed_solomon.c"
+# 1007 "src\\reed_solomon.c"
            != ioSymbs) && (
-# 961 "src\\reed_solomon.c" 3 4
+# 1007 "src\\reed_solomon.c" 3 4
                            ((void *)0) 
-# 961 "src\\reed_solomon.c"
+# 1007 "src\\reed_solomon.c"
                                 != errLoc) && (
-# 961 "src\\reed_solomon.c" 3 4
+# 1007 "src\\reed_solomon.c" 3 4
                                                ((void *)0) 
-# 961 "src\\reed_solomon.c"
+# 1007 "src\\reed_solomon.c"
                                                     != errMag) && (
-# 961 "src\\reed_solomon.c" 3 4
+# 1007 "src\\reed_solomon.c" 3 4
                                                                    ((void *)0) 
-# 961 "src\\reed_solomon.c"
+# 1007 "src\\reed_solomon.c"
                                                                         != pParams) && (
-# 961 "src\\reed_solomon.c" 3 4
+# 1007 "src\\reed_solomon.c" 3 4
                                                                                         ((void *)0) 
-# 961 "src\\reed_solomon.c"
+# 1007 "src\\reed_solomon.c"
                                                                                              != mapTable))
   {
     for (j=0; j<pParams->t; j++)

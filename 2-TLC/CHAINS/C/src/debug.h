@@ -2,6 +2,7 @@
  * @file debug.h
  * @author Filippo Valmori
  * @date 26/08/2024
+ * @copyright Electrolux S.p.A.
  * @ingroup TLC_CHAIN
  * @brief Debug library header
  */
@@ -83,8 +84,9 @@ typedef enum
 
 typedef enum _wm_level_t
 {
-  WM_LEVEL_1 = 0,
-  WM_LEVEL_2,
+  WM_LEVEL_1 = 0,                                           /** - watermark level for public functions */
+  WM_LEVEL_2,                                               /** - watermark level for private functions */
+  WM_LEVEL_3,                                               /** - watermark level for private subfunctions */
   // keep NUM as final entry
   WM_LEVEL_NUM
 } wm_level_t;
@@ -146,7 +148,7 @@ error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label
 error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams );
 error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label );
 error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label );
-error_t Debug_SetWatermark( void * funcAddr, wm_level_t level );
+error_t Debug_SetWatermark( const void * funcAddr, const wm_level_t level );
 void Debug_PrintWatermarks( void );
 void Debug_SetTerminalAppearance( ansi_text_color color, ansi_text_style style );
 void Debug_ResetTerminalAppearance( void );

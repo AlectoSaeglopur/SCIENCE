@@ -1,0 +1,1956 @@
+
+build\target\obj\debug.o:     file format pe-i386
+
+
+Disassembly of section .text:
+
+00000000 <_Debug_ListParameters>:
+ * 
+ * @return error ID
+ */
+error_t Debug_ListParameters( debug_par_t * ioParams, const scr_par_t * scrParam, const rs_par_t * rsParam, const itlv_par_t * itlvParam,
+                              const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam )
+{
+       0:	55                   	push   %ebp
+       1:	89 e5                	mov    %esp,%ebp
+       3:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)Debug_ListParameters,WM_LEVEL_1);
+       6:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+       d:	00 
+       e:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
+      15:	e8 c2 0f 00 00       	call   fdc <_Debug_SetWatermark>
+
+  error_t retErr = ERR_NONE;
+      1a:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+
+  if ((NULL != ioParams) && (NULL != scrParam) && (NULL != rsParam) && (NULL != ccParam) && 
+      21:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+      25:	0f 84 cf 00 00 00    	je     fa <_Debug_ListParameters+0xfa>
+      2b:	83 7d 0c 00          	cmpl   $0x0,0xc(%ebp)
+      2f:	0f 84 c5 00 00 00    	je     fa <_Debug_ListParameters+0xfa>
+      35:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+      39:	0f 84 bb 00 00 00    	je     fa <_Debug_ListParameters+0xfa>
+      3f:	83 7d 18 00          	cmpl   $0x0,0x18(%ebp)
+      43:	0f 84 b1 00 00 00    	je     fa <_Debug_ListParameters+0xfa>
+      49:	83 7d 1c 00          	cmpl   $0x0,0x1c(%ebp)
+      4d:	0f 84 a7 00 00 00    	je     fa <_Debug_ListParameters+0xfa>
+      (NULL != modParam) && (NULL != chanParam))
+      53:	83 7d 20 00          	cmpl   $0x0,0x20(%ebp)
+      57:	0f 84 9d 00 00 00    	je     fa <_Debug_ListParameters+0xfa>
+  {
+    ioParams->scrPar = *scrParam;
+      5d:	8b 45 08             	mov    0x8(%ebp),%eax
+      60:	8b 55 0c             	mov    0xc(%ebp),%edx
+      63:	8b 0a                	mov    (%edx),%ecx
+      65:	89 08                	mov    %ecx,(%eax)
+      67:	8b 4a 04             	mov    0x4(%edx),%ecx
+      6a:	89 48 04             	mov    %ecx,0x4(%eax)
+      6d:	8b 4a 08             	mov    0x8(%edx),%ecx
+      70:	89 48 08             	mov    %ecx,0x8(%eax)
+      73:	8b 52 0c             	mov    0xc(%edx),%edx
+      76:	89 50 0c             	mov    %edx,0xc(%eax)
+    ioParams->rsPar = *rsParam;
+      79:	8b 45 08             	mov    0x8(%ebp),%eax
+      7c:	8b 55 10             	mov    0x10(%ebp),%edx
+      7f:	8b 0a                	mov    (%edx),%ecx
+      81:	89 48 10             	mov    %ecx,0x10(%eax)
+      84:	8b 4a 04             	mov    0x4(%edx),%ecx
+      87:	89 48 14             	mov    %ecx,0x14(%eax)
+      8a:	8b 4a 08             	mov    0x8(%edx),%ecx
+      8d:	89 48 18             	mov    %ecx,0x18(%eax)
+      90:	8b 52 0c             	mov    0xc(%edx),%edx
+      93:	89 50 1c             	mov    %edx,0x1c(%eax)
+    ioParams->itlvPar = *itlvParam;
+      96:	8b 4d 08             	mov    0x8(%ebp),%ecx
+      99:	8b 45 14             	mov    0x14(%ebp),%eax
+      9c:	8b 50 04             	mov    0x4(%eax),%edx
+      9f:	8b 00                	mov    (%eax),%eax
+      a1:	89 41 20             	mov    %eax,0x20(%ecx)
+      a4:	89 51 24             	mov    %edx,0x24(%ecx)
+    ioParams->ccPar = *ccParam;
+      a7:	8b 45 08             	mov    0x8(%ebp),%eax
+      aa:	8b 55 18             	mov    0x18(%ebp),%edx
+      ad:	8b 0a                	mov    (%edx),%ecx
+      af:	89 48 28             	mov    %ecx,0x28(%eax)
+      b2:	8b 4a 04             	mov    0x4(%edx),%ecx
+      b5:	89 48 2c             	mov    %ecx,0x2c(%eax)
+      b8:	8b 4a 08             	mov    0x8(%edx),%ecx
+      bb:	89 48 30             	mov    %ecx,0x30(%eax)
+      be:	8b 52 0c             	mov    0xc(%edx),%edx
+      c1:	89 50 34             	mov    %edx,0x34(%eax)
+    ioParams->modPar = *modParam;
+      c4:	8b 45 08             	mov    0x8(%ebp),%eax
+      c7:	8b 55 1c             	mov    0x1c(%ebp),%edx
+      ca:	8b 0a                	mov    (%edx),%ecx
+      cc:	89 48 38             	mov    %ecx,0x38(%eax)
+      cf:	8b 4a 04             	mov    0x4(%edx),%ecx
+      d2:	89 48 3c             	mov    %ecx,0x3c(%eax)
+      d5:	8b 52 08             	mov    0x8(%edx),%edx
+      d8:	89 50 40             	mov    %edx,0x40(%eax)
+    ioParams->chanPar = *chanParam;
+      db:	8b 45 08             	mov    0x8(%ebp),%eax
+      de:	8b 55 20             	mov    0x20(%ebp),%edx
+      e1:	8b 0a                	mov    (%edx),%ecx
+      e3:	89 48 44             	mov    %ecx,0x44(%eax)
+      e6:	8b 4a 04             	mov    0x4(%edx),%ecx
+      e9:	89 48 48             	mov    %ecx,0x48(%eax)
+      ec:	8b 4a 08             	mov    0x8(%edx),%ecx
+      ef:	89 48 4c             	mov    %ecx,0x4c(%eax)
+      f2:	8b 52 0c             	mov    0xc(%edx),%edx
+      f5:	89 50 50             	mov    %edx,0x50(%eax)
+      f8:	eb 07                	jmp    101 <_Debug_ListParameters+0x101>
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+      fa:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+     101:	8b 45 f4             	mov    -0xc(%ebp),%eax
+     104:	89 04 24             	mov    %eax,(%esp)
+     107:	e8 00 00 00 00       	call   10c <_Debug_ListParameters+0x10c>
+}
+     10c:	c9                   	leave  
+     10d:	c3                   	ret    
+
+0000010e <_Debug_GenerateRandomBytes>:
+ * @param[in] pSeed: poiter to seed value
+ * 
+ * @return error ID
+ */
+error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed )
+{
+     10e:	55                   	push   %ebp
+     10f:	89 e5                	mov    %esp,%ebp
+     111:	53                   	push   %ebx
+     112:	83 ec 24             	sub    $0x24,%esp
+  Debug_SetWatermark((void *)Debug_GenerateRandomBytes,WM_LEVEL_1);
+     115:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+     11c:	00 
+     11d:	c7 04 24 0e 01 00 00 	movl   $0x10e,(%esp)
+     124:	e8 b3 0e 00 00       	call   fdc <_Debug_SetWatermark>
+
+  uint32_t j;
+  error_t retErr = ERR_NONE;
+     129:	c7 45 f0 00 00 00 00 	movl   $0x0,-0x10(%ebp)
+
+  if (Memory_IsStreamValid(ioStream,ioStream->id))
+     130:	8b 45 08             	mov    0x8(%ebp),%eax
+     133:	8b 40 08             	mov    0x8(%eax),%eax
+     136:	89 44 24 04          	mov    %eax,0x4(%esp)
+     13a:	8b 45 08             	mov    0x8(%ebp),%eax
+     13d:	89 04 24             	mov    %eax,(%esp)
+     140:	e8 00 00 00 00       	call   145 <_Debug_GenerateRandomBytes+0x37>
+     145:	84 c0                	test   %al,%al
+     147:	74 55                	je     19e <_Debug_GenerateRandomBytes+0x90>
+  {
+    if (NULL == pSeed)
+     149:	83 7d 0c 00          	cmpl   $0x0,0xc(%ebp)
+     14d:	75 16                	jne    165 <_Debug_GenerateRandomBytes+0x57>
+    {
+      srand(time(NULL));                                                                /** link random seed to current time */
+     14f:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
+     156:	e8 00 00 00 00       	call   15b <_Debug_GenerateRandomBytes+0x4d>
+     15b:	89 04 24             	mov    %eax,(%esp)
+     15e:	e8 00 00 00 00       	call   163 <_Debug_GenerateRandomBytes+0x55>
+     163:	eb 0d                	jmp    172 <_Debug_GenerateRandomBytes+0x64>
+    }
+    else
+    {
+      srand(*pSeed);                                                                    /** link random seed to provided argument */
+     165:	8b 45 0c             	mov    0xc(%ebp),%eax
+     168:	8b 00                	mov    (%eax),%eax
+     16a:	89 04 24             	mov    %eax,(%esp)
+     16d:	e8 00 00 00 00       	call   172 <_Debug_GenerateRandomBytes+0x64>
+    }
+    
+    for (j=0; j<ioStream->len; j++)
+     172:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+     179:	eb 16                	jmp    191 <_Debug_GenerateRandomBytes+0x83>
+    {
+      ioStream->pBuf[j] = (uint8_t)rand();
+     17b:	8b 45 08             	mov    0x8(%ebp),%eax
+     17e:	8b 10                	mov    (%eax),%edx
+     180:	8b 45 f4             	mov    -0xc(%ebp),%eax
+     183:	8d 1c 02             	lea    (%edx,%eax,1),%ebx
+     186:	e8 00 00 00 00       	call   18b <_Debug_GenerateRandomBytes+0x7d>
+     18b:	88 03                	mov    %al,(%ebx)
+    for (j=0; j<ioStream->len; j++)
+     18d:	83 45 f4 01          	addl   $0x1,-0xc(%ebp)
+     191:	8b 45 08             	mov    0x8(%ebp),%eax
+     194:	8b 40 04             	mov    0x4(%eax),%eax
+     197:	3b 45 f4             	cmp    -0xc(%ebp),%eax
+     19a:	77 df                	ja     17b <_Debug_GenerateRandomBytes+0x6d>
+     19c:	eb 07                	jmp    1a5 <_Debug_GenerateRandomBytes+0x97>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+     19e:	c7 45 f0 01 00 00 00 	movl   $0x1,-0x10(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+     1a5:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     1a8:	89 04 24             	mov    %eax,(%esp)
+     1ab:	e8 00 00 00 00       	call   1b0 <_Debug_GenerateRandomBytes+0xa2>
+}
+     1b0:	83 c4 24             	add    $0x24,%esp
+     1b3:	5b                   	pop    %ebx
+     1b4:	5d                   	pop    %ebp
+     1b5:	c3                   	ret    
+
+000001b6 <_Debug_PrintByteStream>:
+ * @param[in] pParams pointer to debug parameters structure
+ * 
+ * @return error ID
+ */
+error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t label, const debug_par_t * pParams )
+{
+     1b6:	55                   	push   %ebp
+     1b7:	89 e5                	mov    %esp,%ebp
+     1b9:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)Debug_PrintByteStream,WM_LEVEL_1);
+     1bc:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+     1c3:	00 
+     1c4:	c7 04 24 b6 01 00 00 	movl   $0x1b6,(%esp)
+     1cb:	e8 0c 0e 00 00       	call   fdc <_Debug_SetWatermark>
+
+  error_t retErr = ERR_NONE;
+     1d0:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  ulen_t j;
+
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+     1d7:	8b 45 08             	mov    0x8(%ebp),%eax
+     1da:	8b 40 08             	mov    0x8(%eax),%eax
+     1dd:	89 44 24 04          	mov    %eax,0x4(%esp)
+     1e1:	8b 45 08             	mov    0x8(%ebp),%eax
+     1e4:	89 04 24             	mov    %eax,(%esp)
+     1e7:	e8 00 00 00 00       	call   1ec <_Debug_PrintByteStream+0x36>
+     1ec:	84 c0                	test   %al,%al
+     1ee:	0f 84 0f 02 00 00    	je     403 <_Debug_PrintByteStream+0x24d>
+     1f4:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+     1f8:	0f 84 05 02 00 00    	je     403 <_Debug_PrintByteStream+0x24d>
+      (NULL != pParams))
+  {
+    if (!((CHAN_AWGN == pParams->chanPar.type) && (CC_VITDM_SOFT == pParams->ccPar.vitDM) && (PID_RX_CNVCOD == label)))
+     1fe:	8b 45 10             	mov    0x10(%ebp),%eax
+     201:	8b 40 48             	mov    0x48(%eax),%eax
+     204:	83 f8 01             	cmp    $0x1,%eax
+     207:	75 15                	jne    21e <_Debug_PrintByteStream+0x68>
+     209:	8b 45 10             	mov    0x10(%ebp),%eax
+     20c:	8b 40 34             	mov    0x34(%eax),%eax
+     20f:	83 f8 01             	cmp    $0x1,%eax
+     212:	75 0a                	jne    21e <_Debug_PrintByteStream+0x68>
+     214:	83 7d 0c 0b          	cmpl   $0xb,0xc(%ebp)
+     218:	0f 84 ee 01 00 00    	je     40c <_Debug_PrintByteStream+0x256>
+    {
+      switch (label)
+     21e:	83 7d 0c 0b          	cmpl   $0xb,0xc(%ebp)
+     222:	0f 87 44 01 00 00    	ja     36c <_Debug_PrintByteStream+0x1b6>
+     228:	8b 45 0c             	mov    0xc(%ebp),%eax
+     22b:	c1 e0 02             	shl    $0x2,%eax
+     22e:	05 88 01 00 00       	add    $0x188,%eax
+     233:	8b 00                	mov    (%eax),%eax
+     235:	ff e0                	jmp    *%eax
+      {
+        case PID_TX_ORG:
+          printf(" * TX ORIGIN BYTES (%d)\n\t",inStream->len);
+     237:	8b 45 08             	mov    0x8(%ebp),%eax
+     23a:	8b 40 04             	mov    0x4(%eax),%eax
+     23d:	89 44 24 04          	mov    %eax,0x4(%esp)
+     241:	c7 04 24 01 00 00 00 	movl   $0x1,(%esp)
+     248:	e8 00 00 00 00       	call   24d <_Debug_PrintByteStream+0x97>
+          break;
+     24d:	e9 22 01 00 00       	jmp    374 <_Debug_PrintByteStream+0x1be>
+
+        case PID_RX_ORG:
+          printf(" * RX ORIGIN BYTES (%d)\n\t",inStream->len);
+     252:	8b 45 08             	mov    0x8(%ebp),%eax
+     255:	8b 40 04             	mov    0x4(%eax),%eax
+     258:	89 44 24 04          	mov    %eax,0x4(%esp)
+     25c:	c7 04 24 1b 00 00 00 	movl   $0x1b,(%esp)
+     263:	e8 00 00 00 00       	call   268 <_Debug_PrintByteStream+0xb2>
+          break;
+     268:	e9 07 01 00 00       	jmp    374 <_Debug_PrintByteStream+0x1be>
+
+        case PID_TX_CRC:
+          printf(" * TX CRC BYTES (%d)\n\t",inStream->len);
+     26d:	8b 45 08             	mov    0x8(%ebp),%eax
+     270:	8b 40 04             	mov    0x4(%eax),%eax
+     273:	89 44 24 04          	mov    %eax,0x4(%esp)
+     277:	c7 04 24 35 00 00 00 	movl   $0x35,(%esp)
+     27e:	e8 00 00 00 00       	call   283 <_Debug_PrintByteStream+0xcd>
+          break;
+     283:	e9 ec 00 00 00       	jmp    374 <_Debug_PrintByteStream+0x1be>
+
+        case PID_RX_CRC:
+          printf(" * RX CRC BYTES (%d)\n\t",inStream->len);
+     288:	8b 45 08             	mov    0x8(%ebp),%eax
+     28b:	8b 40 04             	mov    0x4(%eax),%eax
+     28e:	89 44 24 04          	mov    %eax,0x4(%esp)
+     292:	c7 04 24 4c 00 00 00 	movl   $0x4c,(%esp)
+     299:	e8 00 00 00 00       	call   29e <_Debug_PrintByteStream+0xe8>
+          break;
+     29e:	e9 d1 00 00 00       	jmp    374 <_Debug_PrintByteStream+0x1be>
+
+        case PID_TX_SCR:
+          printf(" * TX SCRAMBLED BYTES (%d)\n\t",inStream->len);
+     2a3:	8b 45 08             	mov    0x8(%ebp),%eax
+     2a6:	8b 40 04             	mov    0x4(%eax),%eax
+     2a9:	89 44 24 04          	mov    %eax,0x4(%esp)
+     2ad:	c7 04 24 63 00 00 00 	movl   $0x63,(%esp)
+     2b4:	e8 00 00 00 00       	call   2b9 <_Debug_PrintByteStream+0x103>
+          break;
+     2b9:	e9 b6 00 00 00       	jmp    374 <_Debug_PrintByteStream+0x1be>
+
+        case PID_RX_SCR:
+          printf(" * RX SCRAMBLED BYTES (%d)\n\t",inStream->len);
+     2be:	8b 45 08             	mov    0x8(%ebp),%eax
+     2c1:	8b 40 04             	mov    0x4(%eax),%eax
+     2c4:	89 44 24 04          	mov    %eax,0x4(%esp)
+     2c8:	c7 04 24 80 00 00 00 	movl   $0x80,(%esp)
+     2cf:	e8 00 00 00 00       	call   2d4 <_Debug_PrintByteStream+0x11e>
+          break;
+     2d4:	e9 9b 00 00 00       	jmp    374 <_Debug_PrintByteStream+0x1be>
+
+        case PID_TX_RSCOD:
+          printf(" * TX REED-SOLOMON CODED BYTES (%d)\n\t",inStream->len);
+     2d9:	8b 45 08             	mov    0x8(%ebp),%eax
+     2dc:	8b 40 04             	mov    0x4(%eax),%eax
+     2df:	89 44 24 04          	mov    %eax,0x4(%esp)
+     2e3:	c7 04 24 a0 00 00 00 	movl   $0xa0,(%esp)
+     2ea:	e8 00 00 00 00       	call   2ef <_Debug_PrintByteStream+0x139>
+          break;
+     2ef:	e9 80 00 00 00       	jmp    374 <_Debug_PrintByteStream+0x1be>
+
+        case PID_RX_RSCOD:
+          printf(" * RX REED-SOLOMON CODED BYTES (%d)\n\t",inStream->len);
+     2f4:	8b 45 08             	mov    0x8(%ebp),%eax
+     2f7:	8b 40 04             	mov    0x4(%eax),%eax
+     2fa:	89 44 24 04          	mov    %eax,0x4(%esp)
+     2fe:	c7 04 24 c8 00 00 00 	movl   $0xc8,(%esp)
+     305:	e8 00 00 00 00       	call   30a <_Debug_PrintByteStream+0x154>
+          break;
+     30a:	eb 68                	jmp    374 <_Debug_PrintByteStream+0x1be>
+
+        case PID_TX_INTLV:
+          printf(" * TX INTERLEAVED BYTES (%d)\n\t",inStream->len);
+     30c:	8b 45 08             	mov    0x8(%ebp),%eax
+     30f:	8b 40 04             	mov    0x4(%eax),%eax
+     312:	89 44 24 04          	mov    %eax,0x4(%esp)
+     316:	c7 04 24 f0 00 00 00 	movl   $0xf0,(%esp)
+     31d:	e8 00 00 00 00       	call   322 <_Debug_PrintByteStream+0x16c>
+          break;
+     322:	eb 50                	jmp    374 <_Debug_PrintByteStream+0x1be>
+
+        case PID_RX_INTLV:
+          printf(" * RX INTERLEAVED BYTES (%d)\n\t",inStream->len);
+     324:	8b 45 08             	mov    0x8(%ebp),%eax
+     327:	8b 40 04             	mov    0x4(%eax),%eax
+     32a:	89 44 24 04          	mov    %eax,0x4(%esp)
+     32e:	c7 04 24 10 01 00 00 	movl   $0x110,(%esp)
+     335:	e8 00 00 00 00       	call   33a <_Debug_PrintByteStream+0x184>
+          break;
+     33a:	eb 38                	jmp    374 <_Debug_PrintByteStream+0x1be>
+
+        case PID_TX_CNVCOD:
+          printf(" * TX CONVOLUTIONAL CODED BYTES (%d)\n\t",inStream->len);
+     33c:	8b 45 08             	mov    0x8(%ebp),%eax
+     33f:	8b 40 04             	mov    0x4(%eax),%eax
+     342:	89 44 24 04          	mov    %eax,0x4(%esp)
+     346:	c7 04 24 30 01 00 00 	movl   $0x130,(%esp)
+     34d:	e8 00 00 00 00       	call   352 <_Debug_PrintByteStream+0x19c>
+          break;
+     352:	eb 20                	jmp    374 <_Debug_PrintByteStream+0x1be>
+
+        case PID_RX_CNVCOD:
+          printf(" * RX CONVOLUTIONAL CODED BYTES (%d)\n\t",inStream->len);
+     354:	8b 45 08             	mov    0x8(%ebp),%eax
+     357:	8b 40 04             	mov    0x4(%eax),%eax
+     35a:	89 44 24 04          	mov    %eax,0x4(%esp)
+     35e:	c7 04 24 58 01 00 00 	movl   $0x158,(%esp)
+     365:	e8 00 00 00 00       	call   36a <_Debug_PrintByteStream+0x1b4>
+          break;
+     36a:	eb 08                	jmp    374 <_Debug_PrintByteStream+0x1be>
+
+        default:
+          retErr = ERR_INV_PRINTID;
+     36c:	c7 45 f4 03 00 00 00 	movl   $0x3,-0xc(%ebp)
+          break;
+     373:	90                   	nop
+      }
+
+      if (ERR_NONE == retErr)
+     374:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
+     378:	75 7b                	jne    3f5 <_Debug_PrintByteStream+0x23f>
+      {
+        for (j=0; j<inStream->len; j++)
+     37a:	c7 45 f0 00 00 00 00 	movl   $0x0,-0x10(%ebp)
+     381:	eb 5b                	jmp    3de <_Debug_PrintByteStream+0x228>
+        {
+          printf("%2X ",inStream->pBuf[j]);
+     383:	8b 45 08             	mov    0x8(%ebp),%eax
+     386:	8b 10                	mov    (%eax),%edx
+     388:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     38b:	01 d0                	add    %edx,%eax
+     38d:	0f b6 00             	movzbl (%eax),%eax
+     390:	0f b6 c0             	movzbl %al,%eax
+     393:	89 44 24 04          	mov    %eax,0x4(%esp)
+     397:	c7 04 24 7f 01 00 00 	movl   $0x17f,(%esp)
+     39e:	e8 00 00 00 00       	call   3a3 <_Debug_PrintByteStream+0x1ed>
+          if (((PID_NCOLS_BYTE-1) == (j%PID_NCOLS_BYTE)) && (j<(inStream->len-1)))
+     3a3:	8b 4d f0             	mov    -0x10(%ebp),%ecx
+     3a6:	ba 89 88 88 88       	mov    $0x88888889,%edx
+     3ab:	89 c8                	mov    %ecx,%eax
+     3ad:	f7 e2                	mul    %edx
+     3af:	89 d0                	mov    %edx,%eax
+     3b1:	c1 e8 04             	shr    $0x4,%eax
+     3b4:	6b c0 1e             	imul   $0x1e,%eax,%eax
+     3b7:	29 c1                	sub    %eax,%ecx
+     3b9:	89 c8                	mov    %ecx,%eax
+     3bb:	83 f8 1d             	cmp    $0x1d,%eax
+     3be:	75 1a                	jne    3da <_Debug_PrintByteStream+0x224>
+     3c0:	8b 45 08             	mov    0x8(%ebp),%eax
+     3c3:	8b 40 04             	mov    0x4(%eax),%eax
+     3c6:	83 e8 01             	sub    $0x1,%eax
+     3c9:	3b 45 f0             	cmp    -0x10(%ebp),%eax
+     3cc:	76 0c                	jbe    3da <_Debug_PrintByteStream+0x224>
+          {
+            printf("\n\t");
+     3ce:	c7 04 24 84 01 00 00 	movl   $0x184,(%esp)
+     3d5:	e8 00 00 00 00       	call   3da <_Debug_PrintByteStream+0x224>
+        for (j=0; j<inStream->len; j++)
+     3da:	83 45 f0 01          	addl   $0x1,-0x10(%ebp)
+     3de:	8b 45 08             	mov    0x8(%ebp),%eax
+     3e1:	8b 40 04             	mov    0x4(%eax),%eax
+     3e4:	3b 45 f0             	cmp    -0x10(%ebp),%eax
+     3e7:	77 9a                	ja     383 <_Debug_PrintByteStream+0x1cd>
+          }
+        }
+        printf("\n");
+     3e9:	c7 04 24 0a 00 00 00 	movl   $0xa,(%esp)
+     3f0:	e8 00 00 00 00       	call   3f5 <_Debug_PrintByteStream+0x23f>
+      }
+
+      printf("\n");
+     3f5:	c7 04 24 0a 00 00 00 	movl   $0xa,(%esp)
+     3fc:	e8 00 00 00 00       	call   401 <_Debug_PrintByteStream+0x24b>
+    if (!((CHAN_AWGN == pParams->chanPar.type) && (CC_VITDM_SOFT == pParams->ccPar.vitDM) && (PID_RX_CNVCOD == label)))
+     401:	eb 09                	jmp    40c <_Debug_PrintByteStream+0x256>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+     403:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+     40a:	eb 01                	jmp    40d <_Debug_PrintByteStream+0x257>
+    if (!((CHAN_AWGN == pParams->chanPar.type) && (CC_VITDM_SOFT == pParams->ccPar.vitDM) && (PID_RX_CNVCOD == label)))
+     40c:	90                   	nop
+  }
+
+  return Error_HandleErr(retErr);
+     40d:	8b 45 f4             	mov    -0xc(%ebp),%eax
+     410:	89 04 24             	mov    %eax,(%esp)
+     413:	e8 00 00 00 00       	call   418 <_Debug_PrintByteStream+0x262>
+}
+     418:	c9                   	leave  
+     419:	c3                   	ret    
+
+0000041a <_Debug_PrintFloatStream>:
+ * @param[in] pParams pointer to debug parameters structure
+ * 
+ * @return error ID
+ */
+error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t label, const debug_par_t * pParams )
+{
+     41a:	55                   	push   %ebp
+     41b:	89 e5                	mov    %esp,%ebp
+     41d:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)Debug_PrintFloatStream,WM_LEVEL_1);
+     420:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+     427:	00 
+     428:	c7 04 24 1a 04 00 00 	movl   $0x41a,(%esp)
+     42f:	e8 a8 0b 00 00       	call   fdc <_Debug_SetWatermark>
+
+  error_t retErr = ERR_NONE;
+     434:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  ulen_t j;
+
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+     43b:	8b 45 08             	mov    0x8(%ebp),%eax
+     43e:	8b 40 08             	mov    0x8(%eax),%eax
+     441:	89 44 24 04          	mov    %eax,0x4(%esp)
+     445:	8b 45 08             	mov    0x8(%ebp),%eax
+     448:	89 04 24             	mov    %eax,(%esp)
+     44b:	e8 00 00 00 00       	call   450 <_Debug_PrintFloatStream+0x36>
+     450:	84 c0                	test   %al,%al
+     452:	0f 84 46 01 00 00    	je     59e <_Debug_PrintFloatStream+0x184>
+     458:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+     45c:	0f 84 3c 01 00 00    	je     59e <_Debug_PrintFloatStream+0x184>
+      (NULL != pParams))
+  {
+
+    if ((CHAN_AWGN == pParams->chanPar.type) && (CC_VITDM_SOFT == pParams->ccPar.vitDM))
+     462:	8b 45 10             	mov    0x10(%ebp),%eax
+     465:	8b 40 48             	mov    0x48(%eax),%eax
+     468:	83 f8 01             	cmp    $0x1,%eax
+     46b:	0f 85 36 01 00 00    	jne    5a7 <_Debug_PrintFloatStream+0x18d>
+     471:	8b 45 10             	mov    0x10(%ebp),%eax
+     474:	8b 40 34             	mov    0x34(%eax),%eax
+     477:	83 f8 01             	cmp    $0x1,%eax
+     47a:	0f 85 27 01 00 00    	jne    5a7 <_Debug_PrintFloatStream+0x18d>
+    {
+      switch (label)
+     480:	8b 45 0c             	mov    0xc(%ebp),%eax
+     483:	83 f8 0e             	cmp    $0xe,%eax
+     486:	75 18                	jne    4a0 <_Debug_PrintFloatStream+0x86>
+      {
+        case PID_RX_LLR:
+          printf(" * RX LLRS (%d)\n\t",inStream->len);
+     488:	8b 45 08             	mov    0x8(%ebp),%eax
+     48b:	8b 40 04             	mov    0x4(%eax),%eax
+     48e:	89 44 24 04          	mov    %eax,0x4(%esp)
+     492:	c7 04 24 b8 01 00 00 	movl   $0x1b8,(%esp)
+     499:	e8 00 00 00 00       	call   49e <_Debug_PrintFloatStream+0x84>
+          break;
+     49e:	eb 08                	jmp    4a8 <_Debug_PrintFloatStream+0x8e>
+
+        default:
+          retErr = ERR_INV_PRINTID;
+     4a0:	c7 45 f4 03 00 00 00 	movl   $0x3,-0xc(%ebp)
+          break;
+     4a7:	90                   	nop
+      }
+
+      if (ERR_NONE == retErr)
+     4a8:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
+     4ac:	0f 85 de 00 00 00    	jne    590 <_Debug_PrintFloatStream+0x176>
+      {
+        for (j=0; j<inStream->len; j++)
+     4b2:	c7 45 f0 00 00 00 00 	movl   $0x0,-0x10(%ebp)
+     4b9:	e9 b7 00 00 00       	jmp    575 <_Debug_PrintFloatStream+0x15b>
+        {
+          if (0 < inStream->pBuf[j])
+     4be:	8b 45 08             	mov    0x8(%ebp),%eax
+     4c1:	8b 00                	mov    (%eax),%eax
+     4c3:	8b 55 f0             	mov    -0x10(%ebp),%edx
+     4c6:	c1 e2 02             	shl    $0x2,%edx
+     4c9:	01 d0                	add    %edx,%eax
+     4cb:	d9 00                	flds   (%eax)
+     4cd:	d9 ee                	fldz   
+     4cf:	d9 c9                	fxch   %st(1)
+     4d1:	da e9                	fucompp 
+     4d3:	df e0                	fnstsw %ax
+     4d5:	9e                   	sahf   
+     4d6:	76 0e                	jbe    4e6 <_Debug_PrintFloatStream+0xcc>
+          {
+            printf("+");
+     4d8:	c7 04 24 2b 00 00 00 	movl   $0x2b,(%esp)
+     4df:	e8 00 00 00 00       	call   4e4 <_Debug_PrintFloatStream+0xca>
+     4e4:	eb 31                	jmp    517 <_Debug_PrintFloatStream+0xfd>
+          }
+          else if (0 == inStream->pBuf[j])
+     4e6:	8b 45 08             	mov    0x8(%ebp),%eax
+     4e9:	8b 00                	mov    (%eax),%eax
+     4eb:	8b 55 f0             	mov    -0x10(%ebp),%edx
+     4ee:	c1 e2 02             	shl    $0x2,%edx
+     4f1:	01 d0                	add    %edx,%eax
+     4f3:	d9 00                	flds   (%eax)
+     4f5:	d9 ee                	fldz   
+     4f7:	dd e9                	fucomp %st(1)
+     4f9:	df e0                	fnstsw %ax
+     4fb:	9e                   	sahf   
+     4fc:	7a 17                	jp     515 <_Debug_PrintFloatStream+0xfb>
+     4fe:	d9 ee                	fldz   
+     500:	da e9                	fucompp 
+     502:	df e0                	fnstsw %ax
+     504:	9e                   	sahf   
+     505:	75 10                	jne    517 <_Debug_PrintFloatStream+0xfd>
+          {
+            printf(" ");
+     507:	c7 04 24 20 00 00 00 	movl   $0x20,(%esp)
+     50e:	e8 00 00 00 00       	call   513 <_Debug_PrintFloatStream+0xf9>
+     513:	eb 02                	jmp    517 <_Debug_PrintFloatStream+0xfd>
+     515:	dd d8                	fstp   %st(0)
+          }
+
+          printf("%1.3f ",inStream->pBuf[j]);
+     517:	8b 45 08             	mov    0x8(%ebp),%eax
+     51a:	8b 00                	mov    (%eax),%eax
+     51c:	8b 55 f0             	mov    -0x10(%ebp),%edx
+     51f:	c1 e2 02             	shl    $0x2,%edx
+     522:	01 d0                	add    %edx,%eax
+     524:	d9 00                	flds   (%eax)
+     526:	dd 5c 24 04          	fstpl  0x4(%esp)
+     52a:	c7 04 24 ca 01 00 00 	movl   $0x1ca,(%esp)
+     531:	e8 00 00 00 00       	call   536 <_Debug_PrintFloatStream+0x11c>
+
+          if (((PID_NCOLS_FLOAT-1) == (j%PID_NCOLS_FLOAT)) && (j<(inStream->len-1)))
+     536:	8b 4d f0             	mov    -0x10(%ebp),%ecx
+     539:	ba 89 88 88 88       	mov    $0x88888889,%edx
+     53e:	89 c8                	mov    %ecx,%eax
+     540:	f7 e2                	mul    %edx
+     542:	89 d0                	mov    %edx,%eax
+     544:	c1 e8 03             	shr    $0x3,%eax
+     547:	89 c2                	mov    %eax,%edx
+     549:	c1 e2 04             	shl    $0x4,%edx
+     54c:	29 c2                	sub    %eax,%edx
+     54e:	89 c8                	mov    %ecx,%eax
+     550:	29 d0                	sub    %edx,%eax
+     552:	83 f8 0e             	cmp    $0xe,%eax
+     555:	75 1a                	jne    571 <_Debug_PrintFloatStream+0x157>
+     557:	8b 45 08             	mov    0x8(%ebp),%eax
+     55a:	8b 40 04             	mov    0x4(%eax),%eax
+     55d:	83 e8 01             	sub    $0x1,%eax
+     560:	3b 45 f0             	cmp    -0x10(%ebp),%eax
+     563:	76 0c                	jbe    571 <_Debug_PrintFloatStream+0x157>
+          {
+            printf("\n\t");
+     565:	c7 04 24 84 01 00 00 	movl   $0x184,(%esp)
+     56c:	e8 00 00 00 00       	call   571 <_Debug_PrintFloatStream+0x157>
+        for (j=0; j<inStream->len; j++)
+     571:	83 45 f0 01          	addl   $0x1,-0x10(%ebp)
+     575:	8b 45 08             	mov    0x8(%ebp),%eax
+     578:	8b 40 04             	mov    0x4(%eax),%eax
+     57b:	3b 45 f0             	cmp    -0x10(%ebp),%eax
+     57e:	0f 87 3a ff ff ff    	ja     4be <_Debug_PrintFloatStream+0xa4>
+          }
+        }
+
+        printf("\n\n");
+     584:	c7 04 24 d1 01 00 00 	movl   $0x1d1,(%esp)
+     58b:	e8 00 00 00 00       	call   590 <_Debug_PrintFloatStream+0x176>
+      }
+
+      printf("\n");
+     590:	c7 04 24 0a 00 00 00 	movl   $0xa,(%esp)
+     597:	e8 00 00 00 00       	call   59c <_Debug_PrintFloatStream+0x182>
+    if ((CHAN_AWGN == pParams->chanPar.type) && (CC_VITDM_SOFT == pParams->ccPar.vitDM))
+     59c:	eb 09                	jmp    5a7 <_Debug_PrintFloatStream+0x18d>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+     59e:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+     5a5:	eb 01                	jmp    5a8 <_Debug_PrintFloatStream+0x18e>
+    if ((CHAN_AWGN == pParams->chanPar.type) && (CC_VITDM_SOFT == pParams->ccPar.vitDM))
+     5a7:	90                   	nop
+  }
+
+  return Error_HandleErr(retErr);
+     5a8:	8b 45 f4             	mov    -0xc(%ebp),%eax
+     5ab:	89 04 24             	mov    %eax,(%esp)
+     5ae:	e8 00 00 00 00       	call   5b3 <_Debug_PrintFloatStream+0x199>
+}
+     5b3:	c9                   	leave  
+     5b4:	c3                   	ret    
+
+000005b5 <_Debug_PrintComplexStream>:
+ * @param[in] pParams pointer to debug parameters structure
+ * 
+ * @return error ID
+ */
+error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label_t label, const debug_par_t * pParams )
+{
+     5b5:	55                   	push   %ebp
+     5b6:	89 e5                	mov    %esp,%ebp
+     5b8:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)Debug_PrintComplexStream,WM_LEVEL_1);
+     5bb:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+     5c2:	00 
+     5c3:	c7 04 24 b5 05 00 00 	movl   $0x5b5,(%esp)
+     5ca:	e8 0d 0a 00 00       	call   fdc <_Debug_SetWatermark>
+
+  error_t retErr = ERR_NONE;
+     5cf:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  ulen_t j;
+
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+     5d6:	8b 45 08             	mov    0x8(%ebp),%eax
+     5d9:	8b 40 08             	mov    0x8(%eax),%eax
+     5dc:	89 44 24 04          	mov    %eax,0x4(%esp)
+     5e0:	8b 45 08             	mov    0x8(%ebp),%eax
+     5e3:	89 04 24             	mov    %eax,(%esp)
+     5e6:	e8 00 00 00 00       	call   5eb <_Debug_PrintComplexStream+0x36>
+     5eb:	84 c0                	test   %al,%al
+     5ed:	0f 84 54 01 00 00    	je     747 <_Debug_PrintComplexStream+0x192>
+     5f3:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+     5f7:	0f 84 4a 01 00 00    	je     747 <_Debug_PrintComplexStream+0x192>
+      (NULL != pParams))
+  {
+    if (CHAN_AWGN == pParams->chanPar.type)
+     5fd:	8b 45 10             	mov    0x10(%ebp),%eax
+     600:	8b 40 48             	mov    0x48(%eax),%eax
+     603:	83 f8 01             	cmp    $0x1,%eax
+     606:	0f 85 42 01 00 00    	jne    74e <_Debug_PrintComplexStream+0x199>
+    {
+      switch (label)
+     60c:	8b 45 0c             	mov    0xc(%ebp),%eax
+     60f:	83 f8 0c             	cmp    $0xc,%eax
+     612:	74 07                	je     61b <_Debug_PrintComplexStream+0x66>
+     614:	83 f8 0d             	cmp    $0xd,%eax
+     617:	74 1a                	je     633 <_Debug_PrintComplexStream+0x7e>
+     619:	eb 30                	jmp    64b <_Debug_PrintComplexStream+0x96>
+      {
+        case PID_TX_MAP:
+          printf(" * TX MAPPED SYMBOLS (%d)\n\t",inStream->len);
+     61b:	8b 45 08             	mov    0x8(%ebp),%eax
+     61e:	8b 40 04             	mov    0x4(%eax),%eax
+     621:	89 44 24 04          	mov    %eax,0x4(%esp)
+     625:	c7 04 24 d3 01 00 00 	movl   $0x1d3,(%esp)
+     62c:	e8 00 00 00 00       	call   631 <_Debug_PrintComplexStream+0x7c>
+          break;
+     631:	eb 20                	jmp    653 <_Debug_PrintComplexStream+0x9e>
+
+        case PID_RX_MAP:
+          printf(" * RX MAPPED SYMBOLS (%d)\n\t",inStream->len);
+     633:	8b 45 08             	mov    0x8(%ebp),%eax
+     636:	8b 40 04             	mov    0x4(%eax),%eax
+     639:	89 44 24 04          	mov    %eax,0x4(%esp)
+     63d:	c7 04 24 ef 01 00 00 	movl   $0x1ef,(%esp)
+     644:	e8 00 00 00 00       	call   649 <_Debug_PrintComplexStream+0x94>
+          break;
+     649:	eb 08                	jmp    653 <_Debug_PrintComplexStream+0x9e>
+
+        default:
+          retErr = ERR_INV_PRINTID;
+     64b:	c7 45 f4 03 00 00 00 	movl   $0x3,-0xc(%ebp)
+          break;
+     652:	90                   	nop
+      }
+
+      if (ERR_NONE == retErr)
+     653:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
+     657:	0f 85 dc 00 00 00    	jne    739 <_Debug_PrintComplexStream+0x184>
+      {
+        for (j=0; j<inStream->len; j++)
+     65d:	c7 45 f0 00 00 00 00 	movl   $0x0,-0x10(%ebp)
+     664:	e9 b5 00 00 00       	jmp    71e <_Debug_PrintComplexStream+0x169>
+        {
+          if (inStream->pBuf[j].re >= 0)
+     669:	8b 45 08             	mov    0x8(%ebp),%eax
+     66c:	8b 00                	mov    (%eax),%eax
+     66e:	8b 55 f0             	mov    -0x10(%ebp),%edx
+     671:	c1 e2 03             	shl    $0x3,%edx
+     674:	01 d0                	add    %edx,%eax
+     676:	d9 00                	flds   (%eax)
+     678:	d9 ee                	fldz   
+     67a:	d9 c9                	fxch   %st(1)
+     67c:	da e9                	fucompp 
+     67e:	df e0                	fnstsw %ax
+     680:	9e                   	sahf   
+     681:	72 0c                	jb     68f <_Debug_PrintComplexStream+0xda>
+          {
+            printf("+");
+     683:	c7 04 24 2b 00 00 00 	movl   $0x2b,(%esp)
+     68a:	e8 00 00 00 00       	call   68f <_Debug_PrintComplexStream+0xda>
+          }
+          printf("%1.2f",inStream->pBuf[j].re);
+     68f:	8b 45 08             	mov    0x8(%ebp),%eax
+     692:	8b 00                	mov    (%eax),%eax
+     694:	8b 55 f0             	mov    -0x10(%ebp),%edx
+     697:	c1 e2 03             	shl    $0x3,%edx
+     69a:	01 d0                	add    %edx,%eax
+     69c:	d9 00                	flds   (%eax)
+     69e:	dd 5c 24 04          	fstpl  0x4(%esp)
+     6a2:	c7 04 24 0b 02 00 00 	movl   $0x20b,(%esp)
+     6a9:	e8 00 00 00 00       	call   6ae <_Debug_PrintComplexStream+0xf9>
+
+          if (inStream->pBuf[j].im >= 0)
+     6ae:	8b 45 08             	mov    0x8(%ebp),%eax
+     6b1:	8b 00                	mov    (%eax),%eax
+     6b3:	8b 55 f0             	mov    -0x10(%ebp),%edx
+     6b6:	c1 e2 03             	shl    $0x3,%edx
+     6b9:	01 d0                	add    %edx,%eax
+     6bb:	d9 40 04             	flds   0x4(%eax)
+     6be:	d9 ee                	fldz   
+     6c0:	d9 c9                	fxch   %st(1)
+     6c2:	da e9                	fucompp 
+     6c4:	df e0                	fnstsw %ax
+     6c6:	9e                   	sahf   
+     6c7:	72 0c                	jb     6d5 <_Debug_PrintComplexStream+0x120>
+          {
+            printf("+");
+     6c9:	c7 04 24 2b 00 00 00 	movl   $0x2b,(%esp)
+     6d0:	e8 00 00 00 00       	call   6d5 <_Debug_PrintComplexStream+0x120>
+          }
+          printf("%1.2fi | ",inStream->pBuf[j].im);
+     6d5:	8b 45 08             	mov    0x8(%ebp),%eax
+     6d8:	8b 00                	mov    (%eax),%eax
+     6da:	8b 55 f0             	mov    -0x10(%ebp),%edx
+     6dd:	c1 e2 03             	shl    $0x3,%edx
+     6e0:	01 d0                	add    %edx,%eax
+     6e2:	d9 40 04             	flds   0x4(%eax)
+     6e5:	dd 5c 24 04          	fstpl  0x4(%esp)
+     6e9:	c7 04 24 11 02 00 00 	movl   $0x211,(%esp)
+     6f0:	e8 00 00 00 00       	call   6f5 <_Debug_PrintComplexStream+0x140>
+
+          if (((PID_NCOLS_SYMB-1) == j%PID_NCOLS_SYMB) && (j<(inStream->len-1)))
+     6f5:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     6f8:	83 e0 07             	and    $0x7,%eax
+     6fb:	83 f8 07             	cmp    $0x7,%eax
+     6fe:	75 1a                	jne    71a <_Debug_PrintComplexStream+0x165>
+     700:	8b 45 08             	mov    0x8(%ebp),%eax
+     703:	8b 40 04             	mov    0x4(%eax),%eax
+     706:	83 e8 01             	sub    $0x1,%eax
+     709:	3b 45 f0             	cmp    -0x10(%ebp),%eax
+     70c:	76 0c                	jbe    71a <_Debug_PrintComplexStream+0x165>
+          {
+            printf("\n\t");
+     70e:	c7 04 24 84 01 00 00 	movl   $0x184,(%esp)
+     715:	e8 00 00 00 00       	call   71a <_Debug_PrintComplexStream+0x165>
+        for (j=0; j<inStream->len; j++)
+     71a:	83 45 f0 01          	addl   $0x1,-0x10(%ebp)
+     71e:	8b 45 08             	mov    0x8(%ebp),%eax
+     721:	8b 40 04             	mov    0x4(%eax),%eax
+     724:	3b 45 f0             	cmp    -0x10(%ebp),%eax
+     727:	0f 87 3c ff ff ff    	ja     669 <_Debug_PrintComplexStream+0xb4>
+          }
+        }
+        printf("\n");
+     72d:	c7 04 24 0a 00 00 00 	movl   $0xa,(%esp)
+     734:	e8 00 00 00 00       	call   739 <_Debug_PrintComplexStream+0x184>
+      }
+
+      printf("\n");
+     739:	c7 04 24 0a 00 00 00 	movl   $0xa,(%esp)
+     740:	e8 00 00 00 00       	call   745 <_Debug_PrintComplexStream+0x190>
+    if (CHAN_AWGN == pParams->chanPar.type)
+     745:	eb 07                	jmp    74e <_Debug_PrintComplexStream+0x199>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+     747:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+     74e:	8b 45 f4             	mov    -0xc(%ebp),%eax
+     751:	89 04 24             	mov    %eax,(%esp)
+     754:	e8 00 00 00 00       	call   759 <_Debug_PrintComplexStream+0x1a4>
+}
+     759:	c9                   	leave  
+     75a:	c3                   	ret    
+
+0000075b <_Debug_PrintParameters>:
+ * @param[in] pParams pointer to debug parameters structure
+ * 
+ * @return error ID
+ */
+error_t Debug_PrintParameters( ulen_t orgLen, const debug_par_t * pParams )
+{
+     75b:	55                   	push   %ebp
+     75c:	89 e5                	mov    %esp,%ebp
+     75e:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)Debug_PrintParameters,WM_LEVEL_1);
+     761:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+     768:	00 
+     769:	c7 04 24 5b 07 00 00 	movl   $0x75b,(%esp)
+     770:	e8 67 08 00 00       	call   fdc <_Debug_SetWatermark>
+
+  error_t retErr = ERR_NONE;
+     775:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+
+  if (NULL != pParams)
+     77c:	83 7d 0c 00          	cmpl   $0x0,0xc(%ebp)
+     780:	0f 84 d0 02 00 00    	je     a56 <_Debug_PrintParameters+0x2fb>
+  {
+    if (IsOrgLenValid(orgLen,pParams))
+     786:	8b 45 0c             	mov    0xc(%ebp),%eax
+     789:	89 44 24 04          	mov    %eax,0x4(%esp)
+     78d:	8b 45 08             	mov    0x8(%ebp),%eax
+     790:	89 04 24             	mov    %eax,(%esp)
+     793:	e8 3e 09 00 00       	call   10d6 <_IsOrgLenValid>
+     798:	84 c0                	test   %al,%al
+     79a:	0f 84 ad 02 00 00    	je     a4d <_Debug_PrintParameters+0x2f2>
+    {
+      printf("\n # PARAMETERS\n");
+     7a0:	c7 04 24 1b 02 00 00 	movl   $0x21b,(%esp)
+     7a7:	e8 00 00 00 00       	call   7ac <_Debug_PrintParameters+0x51>
+      printf("    * Scrambling : ");
+     7ac:	c7 04 24 2a 02 00 00 	movl   $0x22a,(%esp)
+     7b3:	e8 00 00 00 00       	call   7b8 <_Debug_PrintParameters+0x5d>
+      printf("%s",SCR_TYPE_STR(pParams->scrPar.type));
+     7b8:	8b 45 0c             	mov    0xc(%ebp),%eax
+     7bb:	8b 00                	mov    (%eax),%eax
+     7bd:	85 c0                	test   %eax,%eax
+     7bf:	74 18                	je     7d9 <_Debug_PrintParameters+0x7e>
+     7c1:	8b 45 0c             	mov    0xc(%ebp),%eax
+     7c4:	8b 00                	mov    (%eax),%eax
+     7c6:	83 f8 01             	cmp    $0x1,%eax
+     7c9:	75 07                	jne    7d2 <_Debug_PrintParameters+0x77>
+     7cb:	b8 3e 02 00 00       	mov    $0x23e,%eax
+     7d0:	eb 0c                	jmp    7de <_Debug_PrintParameters+0x83>
+     7d2:	b8 4d 02 00 00       	mov    $0x24d,%eax
+     7d7:	eb 05                	jmp    7de <_Debug_PrintParameters+0x83>
+     7d9:	b8 51 02 00 00       	mov    $0x251,%eax
+     7de:	89 44 24 04          	mov    %eax,0x4(%esp)
+     7e2:	c7 04 24 5a 02 00 00 	movl   $0x25a,(%esp)
+     7e9:	e8 00 00 00 00       	call   7ee <_Debug_PrintParameters+0x93>
+      printf(" | Ncells = %u\n",pParams->scrPar.nCells);
+     7ee:	8b 45 0c             	mov    0xc(%ebp),%eax
+     7f1:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+     7f5:	0f b6 c0             	movzbl %al,%eax
+     7f8:	89 44 24 04          	mov    %eax,0x4(%esp)
+     7fc:	c7 04 24 5d 02 00 00 	movl   $0x25d,(%esp)
+     803:	e8 00 00 00 00       	call   808 <_Debug_PrintParameters+0xad>
+
+      printf("    * Reed-Solomon coding : ");
+     808:	c7 04 24 6d 02 00 00 	movl   $0x26d,(%esp)
+     80f:	e8 00 00 00 00       	call   814 <_Debug_PrintParameters+0xb9>
+      printf("m = %u",pParams->rsPar.m);
+     814:	8b 45 0c             	mov    0xc(%ebp),%eax
+     817:	8b 40 10             	mov    0x10(%eax),%eax
+     81a:	89 44 24 04          	mov    %eax,0x4(%esp)
+     81e:	c7 04 24 8a 02 00 00 	movl   $0x28a,(%esp)
+     825:	e8 00 00 00 00       	call   82a <_Debug_PrintParameters+0xcf>
+      printf(" | n = %u",pParams->rsPar.nSh);
+     82a:	8b 45 0c             	mov    0xc(%ebp),%eax
+     82d:	0f b6 40 15          	movzbl 0x15(%eax),%eax
+     831:	0f b6 c0             	movzbl %al,%eax
+     834:	89 44 24 04          	mov    %eax,0x4(%esp)
+     838:	c7 04 24 91 02 00 00 	movl   $0x291,(%esp)
+     83f:	e8 00 00 00 00       	call   844 <_Debug_PrintParameters+0xe9>
+      printf(" | k = %u\n",pParams->rsPar.kSh);
+     844:	8b 45 0c             	mov    0xc(%ebp),%eax
+     847:	0f b6 40 14          	movzbl 0x14(%eax),%eax
+     84b:	0f b6 c0             	movzbl %al,%eax
+     84e:	89 44 24 04          	mov    %eax,0x4(%esp)
+     852:	c7 04 24 9b 02 00 00 	movl   $0x29b,(%esp)
+     859:	e8 00 00 00 00       	call   85e <_Debug_PrintParameters+0x103>
+
+      printf("    * Interleaving : ");
+     85e:	c7 04 24 a6 02 00 00 	movl   $0x2a6,(%esp)
+     865:	e8 00 00 00 00       	call   86a <_Debug_PrintParameters+0x10f>
+      printf("%s",INTRLV_TYPE_STR(pParams->itlvPar.type));
+     86a:	8b 45 0c             	mov    0xc(%ebp),%eax
+     86d:	8b 40 20             	mov    0x20(%eax),%eax
+     870:	85 c0                	test   %eax,%eax
+     872:	74 19                	je     88d <_Debug_PrintParameters+0x132>
+     874:	8b 45 0c             	mov    0xc(%ebp),%eax
+     877:	8b 40 20             	mov    0x20(%eax),%eax
+     87a:	83 f8 01             	cmp    $0x1,%eax
+     87d:	75 07                	jne    886 <_Debug_PrintParameters+0x12b>
+     87f:	b8 bc 02 00 00       	mov    $0x2bc,%eax
+     884:	eb 0c                	jmp    892 <_Debug_PrintParameters+0x137>
+     886:	b8 4d 02 00 00       	mov    $0x24d,%eax
+     88b:	eb 05                	jmp    892 <_Debug_PrintParameters+0x137>
+     88d:	b8 ca 02 00 00       	mov    $0x2ca,%eax
+     892:	89 44 24 04          	mov    %eax,0x4(%esp)
+     896:	c7 04 24 5a 02 00 00 	movl   $0x25a,(%esp)
+     89d:	e8 00 00 00 00       	call   8a2 <_Debug_PrintParameters+0x147>
+      if (INTRLV_BLOCK == pParams->itlvPar.type)
+     8a2:	8b 45 0c             	mov    0xc(%ebp),%eax
+     8a5:	8b 40 20             	mov    0x20(%eax),%eax
+     8a8:	85 c0                	test   %eax,%eax
+     8aa:	75 36                	jne    8e2 <_Debug_PrintParameters+0x187>
+      {
+        printf(" | Nrows = %u",pParams->itlvPar.rows);
+     8ac:	8b 45 0c             	mov    0xc(%ebp),%eax
+     8af:	0f b6 40 24          	movzbl 0x24(%eax),%eax
+     8b3:	0f b6 c0             	movzbl %al,%eax
+     8b6:	89 44 24 04          	mov    %eax,0x4(%esp)
+     8ba:	c7 04 24 d0 02 00 00 	movl   $0x2d0,(%esp)
+     8c1:	e8 00 00 00 00       	call   8c6 <_Debug_PrintParameters+0x16b>
+        printf(" | Ncols = %u\n",pParams->itlvPar.cols);
+     8c6:	8b 45 0c             	mov    0xc(%ebp),%eax
+     8c9:	0f b6 40 25          	movzbl 0x25(%eax),%eax
+     8cd:	0f b6 c0             	movzbl %al,%eax
+     8d0:	89 44 24 04          	mov    %eax,0x4(%esp)
+     8d4:	c7 04 24 de 02 00 00 	movl   $0x2de,(%esp)
+     8db:	e8 00 00 00 00       	call   8e0 <_Debug_PrintParameters+0x185>
+     8e0:	eb 3f                	jmp    921 <_Debug_PrintParameters+0x1c6>
+      }
+      else if (INTRLV_CONV == pParams->itlvPar.type)
+     8e2:	8b 45 0c             	mov    0xc(%ebp),%eax
+     8e5:	8b 40 20             	mov    0x20(%eax),%eax
+     8e8:	83 f8 01             	cmp    $0x1,%eax
+     8eb:	75 34                	jne    921 <_Debug_PrintParameters+0x1c6>
+      {
+        printf(" | Ndelays = %u",pParams->itlvPar.dlys);
+     8ed:	8b 45 0c             	mov    0xc(%ebp),%eax
+     8f0:	0f b6 40 24          	movzbl 0x24(%eax),%eax
+     8f4:	0f b6 c0             	movzbl %al,%eax
+     8f7:	89 44 24 04          	mov    %eax,0x4(%esp)
+     8fb:	c7 04 24 ed 02 00 00 	movl   $0x2ed,(%esp)
+     902:	e8 00 00 00 00       	call   907 <_Debug_PrintParameters+0x1ac>
+        printf(" | Ncells = %u\n",pParams->itlvPar.cells);
+     907:	8b 45 0c             	mov    0xc(%ebp),%eax
+     90a:	0f b6 40 25          	movzbl 0x25(%eax),%eax
+     90e:	0f b6 c0             	movzbl %al,%eax
+     911:	89 44 24 04          	mov    %eax,0x4(%esp)
+     915:	c7 04 24 5d 02 00 00 	movl   $0x25d,(%esp)
+     91c:	e8 00 00 00 00       	call   921 <_Debug_PrintParameters+0x1c6>
+      }
+
+      printf("    * Convolutional coding : ");
+     921:	c7 04 24 fd 02 00 00 	movl   $0x2fd,(%esp)
+     928:	e8 00 00 00 00       	call   92d <_Debug_PrintParameters+0x1d2>
+      printf("K = %u",pParams->ccPar.kLen);
+     92d:	8b 45 0c             	mov    0xc(%ebp),%eax
+     930:	8b 40 2c             	mov    0x2c(%eax),%eax
+     933:	89 44 24 04          	mov    %eax,0x4(%esp)
+     937:	c7 04 24 1b 03 00 00 	movl   $0x31b,(%esp)
+     93e:	e8 00 00 00 00       	call   943 <_Debug_PrintParameters+0x1e8>
+      printf(" | Rc = %u/%u",pParams->ccPar.cRate,pParams->ccPar.cRate+1);
+     943:	8b 45 0c             	mov    0xc(%ebp),%eax
+     946:	8b 40 28             	mov    0x28(%eax),%eax
+     949:	8d 50 01             	lea    0x1(%eax),%edx
+     94c:	8b 45 0c             	mov    0xc(%ebp),%eax
+     94f:	8b 40 28             	mov    0x28(%eax),%eax
+     952:	89 54 24 08          	mov    %edx,0x8(%esp)
+     956:	89 44 24 04          	mov    %eax,0x4(%esp)
+     95a:	c7 04 24 22 03 00 00 	movl   $0x322,(%esp)
+     961:	e8 00 00 00 00       	call   966 <_Debug_PrintParameters+0x20b>
+      printf(" | DM = %s\n",CC_VDM_STR(pParams->ccPar.vitDM));
+     966:	8b 45 0c             	mov    0xc(%ebp),%eax
+     969:	8b 40 34             	mov    0x34(%eax),%eax
+     96c:	85 c0                	test   %eax,%eax
+     96e:	74 19                	je     989 <_Debug_PrintParameters+0x22e>
+     970:	8b 45 0c             	mov    0xc(%ebp),%eax
+     973:	8b 40 34             	mov    0x34(%eax),%eax
+     976:	83 f8 01             	cmp    $0x1,%eax
+     979:	75 07                	jne    982 <_Debug_PrintParameters+0x227>
+     97b:	b8 30 03 00 00       	mov    $0x330,%eax
+     980:	eb 0c                	jmp    98e <_Debug_PrintParameters+0x233>
+     982:	b8 4d 02 00 00       	mov    $0x24d,%eax
+     987:	eb 05                	jmp    98e <_Debug_PrintParameters+0x233>
+     989:	b8 35 03 00 00       	mov    $0x335,%eax
+     98e:	89 44 24 04          	mov    %eax,0x4(%esp)
+     992:	c7 04 24 3a 03 00 00 	movl   $0x33a,(%esp)
+     999:	e8 00 00 00 00       	call   99e <_Debug_PrintParameters+0x243>
+
+      printf("    * Modulation : ");
+     99e:	c7 04 24 46 03 00 00 	movl   $0x346,(%esp)
+     9a5:	e8 00 00 00 00       	call   9aa <_Debug_PrintParameters+0x24f>
+      printf("%u-%s\n",pParams->modPar.order,MOD_TYPE_STR(pParams->modPar.type));
+     9aa:	8b 45 0c             	mov    0xc(%ebp),%eax
+     9ad:	8b 40 38             	mov    0x38(%eax),%eax
+     9b0:	85 c0                	test   %eax,%eax
+     9b2:	74 19                	je     9cd <_Debug_PrintParameters+0x272>
+     9b4:	8b 45 0c             	mov    0xc(%ebp),%eax
+     9b7:	8b 40 38             	mov    0x38(%eax),%eax
+     9ba:	83 f8 01             	cmp    $0x1,%eax
+     9bd:	75 07                	jne    9c6 <_Debug_PrintParameters+0x26b>
+     9bf:	b8 5a 03 00 00       	mov    $0x35a,%eax
+     9c4:	eb 0c                	jmp    9d2 <_Debug_PrintParameters+0x277>
+     9c6:	b8 4d 02 00 00       	mov    $0x24d,%eax
+     9cb:	eb 05                	jmp    9d2 <_Debug_PrintParameters+0x277>
+     9cd:	b8 5e 03 00 00       	mov    $0x35e,%eax
+     9d2:	8b 55 0c             	mov    0xc(%ebp),%edx
+     9d5:	0f b6 52 3c          	movzbl 0x3c(%edx),%edx
+     9d9:	0f b6 d2             	movzbl %dl,%edx
+     9dc:	89 44 24 08          	mov    %eax,0x8(%esp)
+     9e0:	89 54 24 04          	mov    %edx,0x4(%esp)
+     9e4:	c7 04 24 62 03 00 00 	movl   $0x362,(%esp)
+     9eb:	e8 00 00 00 00       	call   9f0 <_Debug_PrintParameters+0x295>
+
+      printf("    * Channel : ");
+     9f0:	c7 04 24 69 03 00 00 	movl   $0x369,(%esp)
+     9f7:	e8 00 00 00 00       	call   9fc <_Debug_PrintParameters+0x2a1>
+      if (CHAN_BSC == pParams->chanPar.type)
+     9fc:	8b 45 0c             	mov    0xc(%ebp),%eax
+     9ff:	8b 40 48             	mov    0x48(%eax),%eax
+     a02:	85 c0                	test   %eax,%eax
+     a04:	75 18                	jne    a1e <_Debug_PrintParameters+0x2c3>
+      {
+        printf("BSC | Peb = %1.1e\n",pParams->chanPar.Peb);
+     a06:	8b 45 0c             	mov    0xc(%ebp),%eax
+     a09:	d9 40 50             	flds   0x50(%eax)
+     a0c:	dd 5c 24 04          	fstpl  0x4(%esp)
+     a10:	c7 04 24 7a 03 00 00 	movl   $0x37a,(%esp)
+     a17:	e8 00 00 00 00       	call   a1c <_Debug_PrintParameters+0x2c1>
+     a1c:	eb 21                	jmp    a3f <_Debug_PrintParameters+0x2e4>
+      }
+      else if (CHAN_AWGN == pParams->chanPar.type)
+     a1e:	8b 45 0c             	mov    0xc(%ebp),%eax
+     a21:	8b 40 48             	mov    0x48(%eax),%eax
+     a24:	83 f8 01             	cmp    $0x1,%eax
+     a27:	75 16                	jne    a3f <_Debug_PrintParameters+0x2e4>
+      {
+        printf("AWGN | EbN0 = %1.1f\n",pParams->chanPar.EbN0);
+     a29:	8b 45 0c             	mov    0xc(%ebp),%eax
+     a2c:	d9 40 50             	flds   0x50(%eax)
+     a2f:	dd 5c 24 04          	fstpl  0x4(%esp)
+     a33:	c7 04 24 8d 03 00 00 	movl   $0x38d,(%esp)
+     a3a:	e8 00 00 00 00       	call   a3f <_Debug_PrintParameters+0x2e4>
+      }
+
+      printf("\n");
+     a3f:	c7 04 24 0a 00 00 00 	movl   $0xa,(%esp)
+     a46:	e8 00 00 00 00       	call   a4b <_Debug_PrintParameters+0x2f0>
+     a4b:	eb 10                	jmp    a5d <_Debug_PrintParameters+0x302>
+    }
+    else
+    {
+      retErr = ERR_INV_ORIG_LEN;
+     a4d:	c7 45 f4 02 00 00 00 	movl   $0x2,-0xc(%ebp)
+     a54:	eb 07                	jmp    a5d <_Debug_PrintParameters+0x302>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+     a56:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+     a5d:	8b 45 f4             	mov    -0xc(%ebp),%eax
+     a60:	89 04 24             	mov    %eax,(%esp)
+     a63:	e8 00 00 00 00       	call   a68 <_Debug_PrintParameters+0x30d>
+}
+     a68:	c9                   	leave  
+     a69:	c3                   	ret    
+
+00000a6a <_Debug_CheckWrongBits>:
+ * @param[in] pParams pointer to debug parameters structure
+ * 
+ * @return error ID
+ */
+error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams )
+{
+     a6a:	55                   	push   %ebp
+     a6b:	89 e5                	mov    %esp,%ebp
+     a6d:	53                   	push   %ebx
+     a6e:	83 ec 34             	sub    $0x34,%esp
+  Debug_SetWatermark((void *)Debug_CheckWrongBits,WM_LEVEL_1);
+     a71:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+     a78:	00 
+     a79:	c7 04 24 6a 0a 00 00 	movl   $0xa6a,(%esp)
+     a80:	e8 57 05 00 00       	call   fdc <_Debug_SetWatermark>
+
+  error_t retErr = ERR_NONE;
+     a85:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  const ulen_t bitLen = BY2BI_LEN(inStreamA->len);
+     a8c:	8b 45 08             	mov    0x8(%ebp),%eax
+     a8f:	8b 40 04             	mov    0x4(%eax),%eax
+     a92:	c1 e0 03             	shl    $0x3,%eax
+     a95:	89 45 e0             	mov    %eax,-0x20(%ebp)
+  ulen_t bitErrCnt = 0;
+     a98:	c7 45 f0 00 00 00 00 	movl   $0x0,-0x10(%ebp)
+  ulen_t minErrDist = bitLen;
+     a9f:	8b 45 e0             	mov    -0x20(%ebp),%eax
+     aa2:	89 45 ec             	mov    %eax,-0x14(%ebp)
+  ulen_t curErrDist = 0;
+     aa5:	c7 45 e8 00 00 00 00 	movl   $0x0,-0x18(%ebp)
+  ulen_t j;
+  ulen_t byteIdx;
+  uint8_t bitIdx;
+
+  if (Memory_IsStreamValid(inStreamA,inStreamA->id) &&
+     aac:	8b 45 08             	mov    0x8(%ebp),%eax
+     aaf:	8b 40 08             	mov    0x8(%eax),%eax
+     ab2:	89 44 24 04          	mov    %eax,0x4(%esp)
+     ab6:	8b 45 08             	mov    0x8(%ebp),%eax
+     ab9:	89 04 24             	mov    %eax,(%esp)
+     abc:	e8 00 00 00 00       	call   ac1 <_Debug_CheckWrongBits+0x57>
+     ac1:	84 c0                	test   %al,%al
+     ac3:	0f 84 27 02 00 00    	je     cf0 <_Debug_CheckWrongBits+0x286>
+      Memory_IsStreamValid(inStreamB,inStreamB->id) &&
+     ac9:	8b 45 0c             	mov    0xc(%ebp),%eax
+     acc:	8b 40 08             	mov    0x8(%eax),%eax
+     acf:	89 44 24 04          	mov    %eax,0x4(%esp)
+     ad3:	8b 45 0c             	mov    0xc(%ebp),%eax
+     ad6:	89 04 24             	mov    %eax,(%esp)
+     ad9:	e8 00 00 00 00       	call   ade <_Debug_CheckWrongBits+0x74>
+  if (Memory_IsStreamValid(inStreamA,inStreamA->id) &&
+     ade:	84 c0                	test   %al,%al
+     ae0:	0f 84 0a 02 00 00    	je     cf0 <_Debug_CheckWrongBits+0x286>
+      Memory_IsStreamValid(inStreamB,inStreamB->id) &&
+     ae6:	83 7d 14 00          	cmpl   $0x0,0x14(%ebp)
+     aea:	0f 84 00 02 00 00    	je     cf0 <_Debug_CheckWrongBits+0x286>
+      (NULL != pParams))
+  {
+    if (!((CHAN_AWGN == pParams->chanPar.type) && (CC_VITDM_SOFT == pParams->ccPar.vitDM) && (PID_RX_CNVCOD == label)))
+     af0:	8b 45 14             	mov    0x14(%ebp),%eax
+     af3:	8b 40 48             	mov    0x48(%eax),%eax
+     af6:	83 f8 01             	cmp    $0x1,%eax
+     af9:	75 15                	jne    b10 <_Debug_CheckWrongBits+0xa6>
+     afb:	8b 45 14             	mov    0x14(%ebp),%eax
+     afe:	8b 40 34             	mov    0x34(%eax),%eax
+     b01:	83 f8 01             	cmp    $0x1,%eax
+     b04:	75 0a                	jne    b10 <_Debug_CheckWrongBits+0xa6>
+     b06:	83 7d 10 0b          	cmpl   $0xb,0x10(%ebp)
+     b0a:	0f 84 e9 01 00 00    	je     cf9 <_Debug_CheckWrongBits+0x28f>
+    {
+      if (inStreamA->len == inStreamB->len)
+     b10:	8b 45 08             	mov    0x8(%ebp),%eax
+     b13:	8b 50 04             	mov    0x4(%eax),%edx
+     b16:	8b 45 0c             	mov    0xc(%ebp),%eax
+     b19:	8b 40 04             	mov    0x4(%eax),%eax
+     b1c:	39 c2                	cmp    %eax,%edx
+     b1e:	0f 85 c1 01 00 00    	jne    ce5 <_Debug_CheckWrongBits+0x27b>
+      {
+        for (j=0; j<bitLen; j++)
+     b24:	c7 45 e4 00 00 00 00 	movl   $0x0,-0x1c(%ebp)
+     b2b:	e9 88 00 00 00       	jmp    bb8 <_Debug_CheckWrongBits+0x14e>
+        {
+          byteIdx = BI2BY_LEN(j);
+     b30:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+     b33:	c1 e8 03             	shr    $0x3,%eax
+     b36:	89 45 dc             	mov    %eax,-0x24(%ebp)
+          bitIdx = (uint8_t)(j&LSBYTE_MASK_U32);
+     b39:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+     b3c:	83 e0 07             	and    $0x7,%eax
+     b3f:	88 45 db             	mov    %al,-0x25(%ebp)
+          curErrDist++;
+     b42:	83 45 e8 01          	addl   $0x1,-0x18(%ebp)
+          if ((((inStreamA->pBuf[byteIdx])>>(BITIDX_1LAST-bitIdx))&LSBIT_MASK_U8) !=
+     b46:	8b 45 08             	mov    0x8(%ebp),%eax
+     b49:	8b 10                	mov    (%eax),%edx
+     b4b:	8b 45 dc             	mov    -0x24(%ebp),%eax
+     b4e:	01 d0                	add    %edx,%eax
+     b50:	0f b6 00             	movzbl (%eax),%eax
+     b53:	0f b6 d0             	movzbl %al,%edx
+     b56:	0f b6 45 db          	movzbl -0x25(%ebp),%eax
+     b5a:	b9 07 00 00 00       	mov    $0x7,%ecx
+     b5f:	29 c1                	sub    %eax,%ecx
+     b61:	89 c8                	mov    %ecx,%eax
+     b63:	89 d3                	mov    %edx,%ebx
+     b65:	89 c1                	mov    %eax,%ecx
+     b67:	d3 fb                	sar    %cl,%ebx
+              (((inStreamB->pBuf[byteIdx])>>(BITIDX_1LAST-bitIdx))&LSBIT_MASK_U8))
+     b69:	8b 45 0c             	mov    0xc(%ebp),%eax
+     b6c:	8b 10                	mov    (%eax),%edx
+     b6e:	8b 45 dc             	mov    -0x24(%ebp),%eax
+     b71:	01 d0                	add    %edx,%eax
+     b73:	0f b6 00             	movzbl (%eax),%eax
+     b76:	0f b6 d0             	movzbl %al,%edx
+     b79:	0f b6 45 db          	movzbl -0x25(%ebp),%eax
+     b7d:	b9 07 00 00 00       	mov    $0x7,%ecx
+     b82:	29 c1                	sub    %eax,%ecx
+     b84:	89 c8                	mov    %ecx,%eax
+     b86:	89 c1                	mov    %eax,%ecx
+     b88:	d3 fa                	sar    %cl,%edx
+     b8a:	89 d0                	mov    %edx,%eax
+          if ((((inStreamA->pBuf[byteIdx])>>(BITIDX_1LAST-bitIdx))&LSBIT_MASK_U8) !=
+     b8c:	31 d8                	xor    %ebx,%eax
+     b8e:	83 e0 01             	and    $0x1,%eax
+     b91:	85 c0                	test   %eax,%eax
+     b93:	74 1f                	je     bb4 <_Debug_CheckWrongBits+0x14a>
+          {
+            bitErrCnt++;
+     b95:	83 45 f0 01          	addl   $0x1,-0x10(%ebp)
+            if ((bitErrCnt > 1) && (curErrDist < minErrDist))
+     b99:	83 7d f0 01          	cmpl   $0x1,-0x10(%ebp)
+     b9d:	76 0e                	jbe    bad <_Debug_CheckWrongBits+0x143>
+     b9f:	8b 45 e8             	mov    -0x18(%ebp),%eax
+     ba2:	3b 45 ec             	cmp    -0x14(%ebp),%eax
+     ba5:	73 06                	jae    bad <_Debug_CheckWrongBits+0x143>
+            {
+              minErrDist = curErrDist;
+     ba7:	8b 45 e8             	mov    -0x18(%ebp),%eax
+     baa:	89 45 ec             	mov    %eax,-0x14(%ebp)
+            }
+            curErrDist = 0;
+     bad:	c7 45 e8 00 00 00 00 	movl   $0x0,-0x18(%ebp)
+        for (j=0; j<bitLen; j++)
+     bb4:	83 45 e4 01          	addl   $0x1,-0x1c(%ebp)
+     bb8:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+     bbb:	3b 45 e0             	cmp    -0x20(%ebp),%eax
+     bbe:	0f 82 6c ff ff ff    	jb     b30 <_Debug_CheckWrongBits+0xc6>
+          }
+        }
+        if (bitErrCnt < 2)
+     bc4:	83 7d f0 01          	cmpl   $0x1,-0x10(%ebp)
+     bc8:	77 07                	ja     bd1 <_Debug_CheckWrongBits+0x167>
+        {
+          minErrDist = 0;
+     bca:	c7 45 ec 00 00 00 00 	movl   $0x0,-0x14(%ebp)
+        }
+
+        switch (label)
+     bd1:	8b 45 10             	mov    0x10(%ebp),%eax
+     bd4:	83 f8 03             	cmp    $0x3,%eax
+     bd7:	0f 84 8f 00 00 00    	je     c6c <_Debug_CheckWrongBits+0x202>
+     bdd:	83 f8 03             	cmp    $0x3,%eax
+     be0:	77 0a                	ja     bec <_Debug_CheckWrongBits+0x182>
+     be2:	83 f8 01             	cmp    $0x1,%eax
+     be5:	74 5f                	je     c46 <_Debug_CheckWrongBits+0x1dc>
+     be7:	e9 ef 00 00 00       	jmp    cdb <_Debug_CheckWrongBits+0x271>
+     bec:	83 f8 07             	cmp    $0x7,%eax
+     bef:	74 2f                	je     c20 <_Debug_CheckWrongBits+0x1b6>
+     bf1:	83 f8 0b             	cmp    $0xb,%eax
+     bf4:	0f 85 e1 00 00 00    	jne    cdb <_Debug_CheckWrongBits+0x271>
+        {
+          case PID_RX_CNVCOD:
+            printf(" * Errors at convolutional encoding level: %u out of %u bits (MD = %u)\n\n",bitErrCnt,bitLen,minErrDist);
+     bfa:	8b 45 ec             	mov    -0x14(%ebp),%eax
+     bfd:	89 44 24 0c          	mov    %eax,0xc(%esp)
+     c01:	8b 45 e0             	mov    -0x20(%ebp),%eax
+     c04:	89 44 24 08          	mov    %eax,0x8(%esp)
+     c08:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     c0b:	89 44 24 04          	mov    %eax,0x4(%esp)
+     c0f:	c7 04 24 a4 03 00 00 	movl   $0x3a4,(%esp)
+     c16:	e8 00 00 00 00       	call   c1b <_Debug_CheckWrongBits+0x1b1>
+            break;
+     c1b:	e9 ce 00 00 00       	jmp    cee <_Debug_CheckWrongBits+0x284>
+
+          case PID_RX_RSCOD:
+            printf(" * Errors at reed-solomon encoding level: %u out of %u bits (MD = %u)\n\n",bitErrCnt,bitLen,minErrDist);
+     c20:	8b 45 ec             	mov    -0x14(%ebp),%eax
+     c23:	89 44 24 0c          	mov    %eax,0xc(%esp)
+     c27:	8b 45 e0             	mov    -0x20(%ebp),%eax
+     c2a:	89 44 24 08          	mov    %eax,0x8(%esp)
+     c2e:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     c31:	89 44 24 04          	mov    %eax,0x4(%esp)
+     c35:	c7 04 24 f0 03 00 00 	movl   $0x3f0,(%esp)
+     c3c:	e8 00 00 00 00       	call   c41 <_Debug_CheckWrongBits+0x1d7>
+            break;
+     c41:	e9 a8 00 00 00       	jmp    cee <_Debug_CheckWrongBits+0x284>
+
+          case PID_RX_ORG:
+            printf(" * Errors at source level: %u out of %u bits (MD = %u)\n\n",bitErrCnt,bitLen,minErrDist);
+     c46:	8b 45 ec             	mov    -0x14(%ebp),%eax
+     c49:	89 44 24 0c          	mov    %eax,0xc(%esp)
+     c4d:	8b 45 e0             	mov    -0x20(%ebp),%eax
+     c50:	89 44 24 08          	mov    %eax,0x8(%esp)
+     c54:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     c57:	89 44 24 04          	mov    %eax,0x4(%esp)
+     c5b:	c7 04 24 38 04 00 00 	movl   $0x438,(%esp)
+     c62:	e8 00 00 00 00       	call   c67 <_Debug_CheckWrongBits+0x1fd>
+            break;
+     c67:	e9 82 00 00 00       	jmp    cee <_Debug_CheckWrongBits+0x284>
+
+          case PID_RX_CRC:
+            printf(" * CRC check: ");
+     c6c:	c7 04 24 71 04 00 00 	movl   $0x471,(%esp)
+     c73:	e8 00 00 00 00       	call   c78 <_Debug_CheckWrongBits+0x20e>
+            if (0 == bitErrCnt)
+     c78:	83 7d f0 00          	cmpl   $0x0,-0x10(%ebp)
+     c7c:	75 22                	jne    ca0 <_Debug_CheckWrongBits+0x236>
+            {
+              Debug_SetTerminalAppearance(COLOR_SUCCESS,STYLE_SUCCESS);
+     c7e:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+     c85:	00 
+     c86:	c7 04 24 5c 00 00 00 	movl   $0x5c,(%esp)
+     c8d:	e8 f2 03 00 00       	call   1084 <_Debug_SetTerminalAppearance>
+              printf("PASSED\n");
+     c92:	c7 04 24 80 04 00 00 	movl   $0x480,(%esp)
+     c99:	e8 00 00 00 00       	call   c9e <_Debug_CheckWrongBits+0x234>
+     c9e:	eb 20                	jmp    cc0 <_Debug_CheckWrongBits+0x256>
+            }
+            else
+            {
+              Debug_SetTerminalAppearance(COLOR_ERROR,STYLE_ERROR);
+     ca0:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+     ca7:	00 
+     ca8:	c7 04 24 5b 00 00 00 	movl   $0x5b,(%esp)
+     caf:	e8 d0 03 00 00       	call   1084 <_Debug_SetTerminalAppearance>
+              printf("FAILED\n");
+     cb4:	c7 04 24 87 04 00 00 	movl   $0x487,(%esp)
+     cbb:	e8 00 00 00 00       	call   cc0 <_Debug_CheckWrongBits+0x256>
+            }
+            Debug_ResetTerminalAppearance();
+     cc0:	e8 eb 03 00 00       	call   10b0 <_Debug_ResetTerminalAppearance>
+            Debug_SetTerminalAppearance(COLOR_DEFAULT,STYLE_DEFAULT);
+     cc5:	c7 44 24 04 03 00 00 	movl   $0x3,0x4(%esp)
+     ccc:	00 
+     ccd:	c7 04 24 61 00 00 00 	movl   $0x61,(%esp)
+     cd4:	e8 ab 03 00 00       	call   1084 <_Debug_SetTerminalAppearance>
+            break;
+     cd9:	eb 13                	jmp    cee <_Debug_CheckWrongBits+0x284>
+
+          default:
+            retErr = ERR_INV_PRINTID;
+     cdb:	c7 45 f4 03 00 00 00 	movl   $0x3,-0xc(%ebp)
+            break;
+     ce2:	90                   	nop
+     ce3:	eb 09                	jmp    cee <_Debug_CheckWrongBits+0x284>
+        }
+      }
+      else
+      {
+        retErr = ERR_INV_BUFFER_SIZE;
+     ce5:	c7 45 f4 07 00 00 00 	movl   $0x7,-0xc(%ebp)
+    if (!((CHAN_AWGN == pParams->chanPar.type) && (CC_VITDM_SOFT == pParams->ccPar.vitDM) && (PID_RX_CNVCOD == label)))
+     cec:	eb 0b                	jmp    cf9 <_Debug_CheckWrongBits+0x28f>
+     cee:	eb 09                	jmp    cf9 <_Debug_CheckWrongBits+0x28f>
+      }
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+     cf0:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+     cf7:	eb 01                	jmp    cfa <_Debug_CheckWrongBits+0x290>
+    if (!((CHAN_AWGN == pParams->chanPar.type) && (CC_VITDM_SOFT == pParams->ccPar.vitDM) && (PID_RX_CNVCOD == label)))
+     cf9:	90                   	nop
+  }
+
+  return Error_HandleErr(retErr);
+     cfa:	8b 45 f4             	mov    -0xc(%ebp),%eax
+     cfd:	89 04 24             	mov    %eax,(%esp)
+     d00:	e8 00 00 00 00       	call   d05 <_Debug_CheckWrongBits+0x29b>
+}
+     d05:	83 c4 34             	add    $0x34,%esp
+     d08:	5b                   	pop    %ebx
+     d09:	5d                   	pop    %ebp
+     d0a:	c3                   	ret    
+
+00000d0b <_Debug_WriteByteStreamToCsv>:
+ * @param[in] label label ID
+ * 
+ * @return error ID
+ */
+error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label )
+{
+     d0b:	55                   	push   %ebp
+     d0c:	89 e5                	mov    %esp,%ebp
+     d0e:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)Debug_WriteByteStreamToCsv,WM_LEVEL_1);
+     d11:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+     d18:	00 
+     d19:	c7 04 24 0b 0d 00 00 	movl   $0xd0b,(%esp)
+     d20:	e8 b7 02 00 00       	call   fdc <_Debug_SetWatermark>
+
+  error_t retErr = ERR_NONE;
+     d25:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  FILE * fid = NULL;
+     d2c:	c7 45 f0 00 00 00 00 	movl   $0x0,-0x10(%ebp)
+  ulen_t j;
+  
+  if (Memory_IsStreamValid(inStream,inStream->id))
+     d33:	8b 45 08             	mov    0x8(%ebp),%eax
+     d36:	8b 40 08             	mov    0x8(%eax),%eax
+     d39:	89 44 24 04          	mov    %eax,0x4(%esp)
+     d3d:	8b 45 08             	mov    0x8(%ebp),%eax
+     d40:	89 04 24             	mov    %eax,(%esp)
+     d43:	e8 00 00 00 00       	call   d48 <_Debug_WriteByteStreamToCsv+0x3d>
+     d48:	84 c0                	test   %al,%al
+     d4a:	0f 84 23 01 00 00    	je     e73 <_Debug_WriteByteStreamToCsv+0x168>
+  {
+    switch (label)
+     d50:	8b 45 0c             	mov    0xc(%ebp),%eax
+     d53:	83 f8 01             	cmp    $0x1,%eax
+     d56:	74 2a                	je     d82 <_Debug_WriteByteStreamToCsv+0x77>
+     d58:	83 f8 01             	cmp    $0x1,%eax
+     d5b:	72 0c                	jb     d69 <_Debug_WriteByteStreamToCsv+0x5e>
+     d5d:	83 f8 04             	cmp    $0x4,%eax
+     d60:	74 39                	je     d9b <_Debug_WriteByteStreamToCsv+0x90>
+     d62:	83 f8 05             	cmp    $0x5,%eax
+     d65:	74 4d                	je     db4 <_Debug_WriteByteStreamToCsv+0xa9>
+     d67:	eb 64                	jmp    dcd <_Debug_WriteByteStreamToCsv+0xc2>
+    {
+      case PID_TX_ORG:
+        fid = fopen("txOrgBytes.csv","w");
+     d69:	c7 44 24 04 8e 04 00 	movl   $0x48e,0x4(%esp)
+     d70:	00 
+     d71:	c7 04 24 90 04 00 00 	movl   $0x490,(%esp)
+     d78:	e8 00 00 00 00       	call   d7d <_Debug_WriteByteStreamToCsv+0x72>
+     d7d:	89 45 f0             	mov    %eax,-0x10(%ebp)
+        break;
+     d80:	eb 53                	jmp    dd5 <_Debug_WriteByteStreamToCsv+0xca>
+
+      case PID_RX_ORG:
+        fid = fopen("rxOrgBytes.csv","w");
+     d82:	c7 44 24 04 8e 04 00 	movl   $0x48e,0x4(%esp)
+     d89:	00 
+     d8a:	c7 04 24 9f 04 00 00 	movl   $0x49f,(%esp)
+     d91:	e8 00 00 00 00       	call   d96 <_Debug_WriteByteStreamToCsv+0x8b>
+     d96:	89 45 f0             	mov    %eax,-0x10(%ebp)
+        break;
+     d99:	eb 3a                	jmp    dd5 <_Debug_WriteByteStreamToCsv+0xca>
+
+      case PID_TX_SCR:
+        fid = fopen("txScrBytes.csv","w");
+     d9b:	c7 44 24 04 8e 04 00 	movl   $0x48e,0x4(%esp)
+     da2:	00 
+     da3:	c7 04 24 ae 04 00 00 	movl   $0x4ae,(%esp)
+     daa:	e8 00 00 00 00       	call   daf <_Debug_WriteByteStreamToCsv+0xa4>
+     daf:	89 45 f0             	mov    %eax,-0x10(%ebp)
+        break;
+     db2:	eb 21                	jmp    dd5 <_Debug_WriteByteStreamToCsv+0xca>
+      
+      case PID_RX_SCR:
+        fid = fopen("rxScrBytes.csv","w");
+     db4:	c7 44 24 04 8e 04 00 	movl   $0x48e,0x4(%esp)
+     dbb:	00 
+     dbc:	c7 04 24 bd 04 00 00 	movl   $0x4bd,(%esp)
+     dc3:	e8 00 00 00 00       	call   dc8 <_Debug_WriteByteStreamToCsv+0xbd>
+     dc8:	89 45 f0             	mov    %eax,-0x10(%ebp)
+        break;
+     dcb:	eb 08                	jmp    dd5 <_Debug_WriteByteStreamToCsv+0xca>
+
+      default:
+        retErr = ERR_INV_PRINTID;
+     dcd:	c7 45 f4 03 00 00 00 	movl   $0x3,-0xc(%ebp)
+        break;
+     dd4:	90                   	nop
+    }
+
+    if ((ERR_NONE == retErr) && (NULL != fid))
+     dd5:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
+     dd9:	0f 85 9b 00 00 00    	jne    e7a <_Debug_WriteByteStreamToCsv+0x16f>
+     ddf:	83 7d f0 00          	cmpl   $0x0,-0x10(%ebp)
+     de3:	0f 84 91 00 00 00    	je     e7a <_Debug_WriteByteStreamToCsv+0x16f>
+    {
+      fprintf(fid,"%u,",inStream->len);                                               /** write stream length as 1st element */
+     de9:	8b 45 08             	mov    0x8(%ebp),%eax
+     dec:	8b 40 04             	mov    0x4(%eax),%eax
+     def:	89 44 24 08          	mov    %eax,0x8(%esp)
+     df3:	c7 44 24 04 cc 04 00 	movl   $0x4cc,0x4(%esp)
+     dfa:	00 
+     dfb:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     dfe:	89 04 24             	mov    %eax,(%esp)
+     e01:	e8 00 00 00 00       	call   e06 <_Debug_WriteByteStreamToCsv+0xfb>
+      for (j=0; j<inStream->len; j++)
+     e06:	c7 45 ec 00 00 00 00 	movl   $0x0,-0x14(%ebp)
+     e0d:	eb 4c                	jmp    e5b <_Debug_WriteByteStreamToCsv+0x150>
+      {
+        fprintf(fid,"%u",inStream->pBuf[j]);
+     e0f:	8b 45 08             	mov    0x8(%ebp),%eax
+     e12:	8b 10                	mov    (%eax),%edx
+     e14:	8b 45 ec             	mov    -0x14(%ebp),%eax
+     e17:	01 d0                	add    %edx,%eax
+     e19:	0f b6 00             	movzbl (%eax),%eax
+     e1c:	0f b6 c0             	movzbl %al,%eax
+     e1f:	89 44 24 08          	mov    %eax,0x8(%esp)
+     e23:	c7 44 24 04 d0 04 00 	movl   $0x4d0,0x4(%esp)
+     e2a:	00 
+     e2b:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     e2e:	89 04 24             	mov    %eax,(%esp)
+     e31:	e8 00 00 00 00       	call   e36 <_Debug_WriteByteStreamToCsv+0x12b>
+        if (j < inStream->len-1)
+     e36:	8b 45 08             	mov    0x8(%ebp),%eax
+     e39:	8b 40 04             	mov    0x4(%eax),%eax
+     e3c:	83 e8 01             	sub    $0x1,%eax
+     e3f:	3b 45 ec             	cmp    -0x14(%ebp),%eax
+     e42:	76 13                	jbe    e57 <_Debug_WriteByteStreamToCsv+0x14c>
+        {
+          fprintf(fid,",");
+     e44:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     e47:	89 44 24 04          	mov    %eax,0x4(%esp)
+     e4b:	c7 04 24 2c 00 00 00 	movl   $0x2c,(%esp)
+     e52:	e8 00 00 00 00       	call   e57 <_Debug_WriteByteStreamToCsv+0x14c>
+      for (j=0; j<inStream->len; j++)
+     e57:	83 45 ec 01          	addl   $0x1,-0x14(%ebp)
+     e5b:	8b 45 08             	mov    0x8(%ebp),%eax
+     e5e:	8b 40 04             	mov    0x4(%eax),%eax
+     e61:	3b 45 ec             	cmp    -0x14(%ebp),%eax
+     e64:	77 a9                	ja     e0f <_Debug_WriteByteStreamToCsv+0x104>
+        }
+      }
+      fclose(fid);
+     e66:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     e69:	89 04 24             	mov    %eax,(%esp)
+     e6c:	e8 00 00 00 00       	call   e71 <_Debug_WriteByteStreamToCsv+0x166>
+     e71:	eb 07                	jmp    e7a <_Debug_WriteByteStreamToCsv+0x16f>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+     e73:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+     e7a:	8b 45 f4             	mov    -0xc(%ebp),%eax
+     e7d:	89 04 24             	mov    %eax,(%esp)
+     e80:	e8 00 00 00 00       	call   e85 <_Debug_WriteByteStreamToCsv+0x17a>
+}
+     e85:	c9                   	leave  
+     e86:	c3                   	ret    
+
+00000e87 <_Debug_WriteComplexStreamToCsv>:
+ * @param[in] label label ID
+ * 
+ * @return error ID
+ */
+error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label )
+{
+     e87:	55                   	push   %ebp
+     e88:	89 e5                	mov    %esp,%ebp
+     e8a:	83 ec 38             	sub    $0x38,%esp
+  Debug_SetWatermark((void *)Debug_WriteComplexStreamToCsv,WM_LEVEL_1);
+     e8d:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+     e94:	00 
+     e95:	c7 04 24 87 0e 00 00 	movl   $0xe87,(%esp)
+     e9c:	e8 3b 01 00 00       	call   fdc <_Debug_SetWatermark>
+
+  error_t retErr = ERR_NONE;
+     ea1:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  FILE * fid = NULL;
+     ea8:	c7 45 f0 00 00 00 00 	movl   $0x0,-0x10(%ebp)
+  ulen_t j;
+  
+  if (Memory_IsStreamValid(inStream,inStream->id))
+     eaf:	8b 45 08             	mov    0x8(%ebp),%eax
+     eb2:	8b 40 08             	mov    0x8(%eax),%eax
+     eb5:	89 44 24 04          	mov    %eax,0x4(%esp)
+     eb9:	8b 45 08             	mov    0x8(%ebp),%eax
+     ebc:	89 04 24             	mov    %eax,(%esp)
+     ebf:	e8 00 00 00 00       	call   ec4 <_Debug_WriteComplexStreamToCsv+0x3d>
+     ec4:	84 c0                	test   %al,%al
+     ec6:	0f 84 fc 00 00 00    	je     fc8 <_Debug_WriteComplexStreamToCsv+0x141>
+  {
+    switch (label)
+     ecc:	8b 45 0c             	mov    0xc(%ebp),%eax
+     ecf:	83 f8 0c             	cmp    $0xc,%eax
+     ed2:	74 07                	je     edb <_Debug_WriteComplexStreamToCsv+0x54>
+     ed4:	83 f8 0d             	cmp    $0xd,%eax
+     ed7:	74 1b                	je     ef4 <_Debug_WriteComplexStreamToCsv+0x6d>
+     ed9:	eb 32                	jmp    f0d <_Debug_WriteComplexStreamToCsv+0x86>
+    {
+      case PID_TX_MAP:
+        fid = fopen("txModSymbs.csv","w");
+     edb:	c7 44 24 04 8e 04 00 	movl   $0x48e,0x4(%esp)
+     ee2:	00 
+     ee3:	c7 04 24 d3 04 00 00 	movl   $0x4d3,(%esp)
+     eea:	e8 00 00 00 00       	call   eef <_Debug_WriteComplexStreamToCsv+0x68>
+     eef:	89 45 f0             	mov    %eax,-0x10(%ebp)
+        break;
+     ef2:	eb 21                	jmp    f15 <_Debug_WriteComplexStreamToCsv+0x8e>
+
+      case PID_RX_MAP:
+        fid = fopen("rxModSymbs.csv","w");
+     ef4:	c7 44 24 04 8e 04 00 	movl   $0x48e,0x4(%esp)
+     efb:	00 
+     efc:	c7 04 24 e2 04 00 00 	movl   $0x4e2,(%esp)
+     f03:	e8 00 00 00 00       	call   f08 <_Debug_WriteComplexStreamToCsv+0x81>
+     f08:	89 45 f0             	mov    %eax,-0x10(%ebp)
+        break;
+     f0b:	eb 08                	jmp    f15 <_Debug_WriteComplexStreamToCsv+0x8e>
+
+      default:
+        retErr = ERR_INV_PRINTID;
+     f0d:	c7 45 f4 03 00 00 00 	movl   $0x3,-0xc(%ebp)
+        break;
+     f14:	90                   	nop
+    }
+
+    if ((ERR_NONE == retErr) && (NULL != fid))
+     f15:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
+     f19:	0f 85 b0 00 00 00    	jne    fcf <_Debug_WriteComplexStreamToCsv+0x148>
+     f1f:	83 7d f0 00          	cmpl   $0x0,-0x10(%ebp)
+     f23:	0f 84 a6 00 00 00    	je     fcf <_Debug_WriteComplexStreamToCsv+0x148>
+    {
+      fprintf(fid,"%u,",inStream->len);                                               /** write stream length as 1st element */
+     f29:	8b 45 08             	mov    0x8(%ebp),%eax
+     f2c:	8b 40 04             	mov    0x4(%eax),%eax
+     f2f:	89 44 24 08          	mov    %eax,0x8(%esp)
+     f33:	c7 44 24 04 cc 04 00 	movl   $0x4cc,0x4(%esp)
+     f3a:	00 
+     f3b:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     f3e:	89 04 24             	mov    %eax,(%esp)
+     f41:	e8 00 00 00 00       	call   f46 <_Debug_WriteComplexStreamToCsv+0xbf>
+      for (j=0; j<inStream->len; j++)
+     f46:	c7 45 ec 00 00 00 00 	movl   $0x0,-0x14(%ebp)
+     f4d:	eb 61                	jmp    fb0 <_Debug_WriteComplexStreamToCsv+0x129>
+      {
+        fprintf(fid,"%1.4f,%1.4f",inStream->pBuf[j].re,inStream->pBuf[j].im);
+     f4f:	8b 45 08             	mov    0x8(%ebp),%eax
+     f52:	8b 00                	mov    (%eax),%eax
+     f54:	8b 55 ec             	mov    -0x14(%ebp),%edx
+     f57:	c1 e2 03             	shl    $0x3,%edx
+     f5a:	01 d0                	add    %edx,%eax
+     f5c:	d9 40 04             	flds   0x4(%eax)
+     f5f:	8b 45 08             	mov    0x8(%ebp),%eax
+     f62:	8b 00                	mov    (%eax),%eax
+     f64:	8b 55 ec             	mov    -0x14(%ebp),%edx
+     f67:	c1 e2 03             	shl    $0x3,%edx
+     f6a:	01 d0                	add    %edx,%eax
+     f6c:	d9 00                	flds   (%eax)
+     f6e:	d9 c9                	fxch   %st(1)
+     f70:	dd 5c 24 10          	fstpl  0x10(%esp)
+     f74:	dd 5c 24 08          	fstpl  0x8(%esp)
+     f78:	c7 44 24 04 f1 04 00 	movl   $0x4f1,0x4(%esp)
+     f7f:	00 
+     f80:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     f83:	89 04 24             	mov    %eax,(%esp)
+     f86:	e8 00 00 00 00       	call   f8b <_Debug_WriteComplexStreamToCsv+0x104>
+        if (j < inStream->len-1)
+     f8b:	8b 45 08             	mov    0x8(%ebp),%eax
+     f8e:	8b 40 04             	mov    0x4(%eax),%eax
+     f91:	83 e8 01             	sub    $0x1,%eax
+     f94:	3b 45 ec             	cmp    -0x14(%ebp),%eax
+     f97:	76 13                	jbe    fac <_Debug_WriteComplexStreamToCsv+0x125>
+        {
+          fprintf(fid,",");
+     f99:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     f9c:	89 44 24 04          	mov    %eax,0x4(%esp)
+     fa0:	c7 04 24 2c 00 00 00 	movl   $0x2c,(%esp)
+     fa7:	e8 00 00 00 00       	call   fac <_Debug_WriteComplexStreamToCsv+0x125>
+      for (j=0; j<inStream->len; j++)
+     fac:	83 45 ec 01          	addl   $0x1,-0x14(%ebp)
+     fb0:	8b 45 08             	mov    0x8(%ebp),%eax
+     fb3:	8b 40 04             	mov    0x4(%eax),%eax
+     fb6:	3b 45 ec             	cmp    -0x14(%ebp),%eax
+     fb9:	77 94                	ja     f4f <_Debug_WriteComplexStreamToCsv+0xc8>
+        }
+      }
+      fclose(fid);
+     fbb:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     fbe:	89 04 24             	mov    %eax,(%esp)
+     fc1:	e8 00 00 00 00       	call   fc6 <_Debug_WriteComplexStreamToCsv+0x13f>
+     fc6:	eb 07                	jmp    fcf <_Debug_WriteComplexStreamToCsv+0x148>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+     fc8:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+     fcf:	8b 45 f4             	mov    -0xc(%ebp),%eax
+     fd2:	89 04 24             	mov    %eax,(%esp)
+     fd5:	e8 00 00 00 00       	call   fda <_Debug_WriteComplexStreamToCsv+0x153>
+}
+     fda:	c9                   	leave  
+     fdb:	c3                   	ret    
+
+00000fdc <_Debug_SetWatermark>:
+ * @param[in] level watermark level
+ * 
+ * @return error ID
+ */
+error_t Debug_SetWatermark( const void * funcAddr, const wm_level_t level )
+{
+     fdc:	55                   	push   %ebp
+     fdd:	89 e5                	mov    %esp,%ebp
+     fdf:	83 ec 28             	sub    $0x28,%esp
+  error_t retErr = ERR_NONE;
+     fe2:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  uint8_t j;
+
+  if (level <WM_LEVEL_NUM)
+     fe9:	83 7d 0c 02          	cmpl   $0x2,0xc(%ebp)
+     fed:	77 3c                	ja     102b <_Debug_SetWatermark+0x4f>
+  {
+    gWatermarks[level] = ((watermark_t)funcAddr)&WATERMARK_MASK;
+     fef:	8b 45 08             	mov    0x8(%ebp),%eax
+     ff2:	0f b7 d0             	movzwl %ax,%edx
+     ff5:	8b 45 0c             	mov    0xc(%ebp),%eax
+     ff8:	89 14 85 00 00 00 00 	mov    %edx,0x0(,%eax,4)
+
+    for (j=level+1; j<WM_LEVEL_NUM; j++)
+     fff:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1002:	83 c0 01             	add    $0x1,%eax
+    1005:	88 45 f3             	mov    %al,-0xd(%ebp)
+    1008:	eb 19                	jmp    1023 <_Debug_SetWatermark+0x47>
+    {
+      gWatermarks[j] = 0;                                                             /** reset lower level watermarks */
+    100a:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
+    100e:	c7 04 85 00 00 00 00 	movl   $0x0,0x0(,%eax,4)
+    1015:	00 00 00 00 
+    for (j=level+1; j<WM_LEVEL_NUM; j++)
+    1019:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
+    101d:	83 c0 01             	add    $0x1,%eax
+    1020:	88 45 f3             	mov    %al,-0xd(%ebp)
+    1023:	80 7d f3 02          	cmpb   $0x2,-0xd(%ebp)
+    1027:	76 e1                	jbe    100a <_Debug_SetWatermark+0x2e>
+    1029:	eb 07                	jmp    1032 <_Debug_SetWatermark+0x56>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_WATERMARK_LEV;
+    102b:	c7 45 f4 11 00 00 00 	movl   $0x11,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+    1032:	8b 45 f4             	mov    -0xc(%ebp),%eax
+    1035:	89 04 24             	mov    %eax,(%esp)
+    1038:	e8 00 00 00 00       	call   103d <_Debug_SetWatermark+0x61>
+}
+    103d:	c9                   	leave  
+    103e:	c3                   	ret    
+
+0000103f <_Debug_PrintWatermarks>:
+ * @brief <i> Function for printing watermarks fo all levels. </i>
+ * 
+ * @return none
+ */
+void Debug_PrintWatermarks( void )
+{
+    103f:	55                   	push   %ebp
+    1040:	89 e5                	mov    %esp,%ebp
+    1042:	83 ec 28             	sub    $0x28,%esp
+  uint8_t lev;
+
+  for (lev=0; lev<WM_LEVEL_NUM; lev++)
+    1045:	c6 45 f7 00          	movb   $0x0,-0x9(%ebp)
+    1049:	eb 30                	jmp    107b <_Debug_PrintWatermarks+0x3c>
+  {
+    printf("    - Watermark Lv.%u = %X\n",lev+1,(unsigned int)gWatermarks[lev]);
+    104b:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+    104f:	8b 04 85 00 00 00 00 	mov    0x0(,%eax,4),%eax
+    1056:	0f b6 55 f7          	movzbl -0x9(%ebp),%edx
+    105a:	83 c2 01             	add    $0x1,%edx
+    105d:	89 44 24 08          	mov    %eax,0x8(%esp)
+    1061:	89 54 24 04          	mov    %edx,0x4(%esp)
+    1065:	c7 04 24 fd 04 00 00 	movl   $0x4fd,(%esp)
+    106c:	e8 00 00 00 00       	call   1071 <_Debug_PrintWatermarks+0x32>
+  for (lev=0; lev<WM_LEVEL_NUM; lev++)
+    1071:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+    1075:	83 c0 01             	add    $0x1,%eax
+    1078:	88 45 f7             	mov    %al,-0x9(%ebp)
+    107b:	80 7d f7 02          	cmpb   $0x2,-0x9(%ebp)
+    107f:	76 ca                	jbe    104b <_Debug_PrintWatermarks+0xc>
+  }
+}
+    1081:	90                   	nop
+    1082:	c9                   	leave  
+    1083:	c3                   	ret    
+
+00001084 <_Debug_SetTerminalAppearance>:
+ * @param[in] style ANSI escape code for shell text style
+ * 
+ * @return none
+ */
+void Debug_SetTerminalAppearance( ansi_text_color color, ansi_text_style style )
+{
+    1084:	55                   	push   %ebp
+    1085:	89 e5                	mov    %esp,%ebp
+    1087:	83 ec 18             	sub    $0x18,%esp
+  if (bShAppChgEnabled)
+    108a:	b8 00 00 00 00       	mov    $0x0,%eax
+    108f:	84 c0                	test   %al,%al
+    1091:	74 1a                	je     10ad <_Debug_SetTerminalAppearance+0x29>
+  {
+    printf("\033[%u;%um",color,style);
+    1093:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1096:	89 44 24 08          	mov    %eax,0x8(%esp)
+    109a:	8b 45 08             	mov    0x8(%ebp),%eax
+    109d:	89 44 24 04          	mov    %eax,0x4(%esp)
+    10a1:	c7 04 24 19 05 00 00 	movl   $0x519,(%esp)
+    10a8:	e8 00 00 00 00       	call   10ad <_Debug_SetTerminalAppearance+0x29>
+  }
+}
+    10ad:	90                   	nop
+    10ae:	c9                   	leave  
+    10af:	c3                   	ret    
+
+000010b0 <_Debug_ResetTerminalAppearance>:
+ * @brief <i> Function for resetting terminal appearance. </i>
+ * 
+ * @return none
+ */
+void Debug_ResetTerminalAppearance( void )
+{
+    10b0:	55                   	push   %ebp
+    10b1:	89 e5                	mov    %esp,%ebp
+    10b3:	83 ec 18             	sub    $0x18,%esp
+  if (bShAppChgEnabled)
+    10b6:	b8 00 00 00 00       	mov    $0x0,%eax
+    10bb:	84 c0                	test   %al,%al
+    10bd:	74 14                	je     10d3 <_Debug_ResetTerminalAppearance+0x23>
+  {
+    printf("\033[%um",STYLE_RESET);
+    10bf:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+    10c6:	00 
+    10c7:	c7 04 24 22 05 00 00 	movl   $0x522,(%esp)
+    10ce:	e8 00 00 00 00       	call   10d3 <_Debug_ResetTerminalAppearance+0x23>
+  }
+}
+    10d3:	90                   	nop
+    10d4:	c9                   	leave  
+    10d5:	c3                   	ret    
+
+000010d6 <_IsOrgLenValid>:
+ * @param lenBy : source buffer length [B]
+ * 
+ * @return validity outcome
+ */
+static bool IsOrgLenValid( ulen_t orgLenBy, const debug_par_t * dbgParams )
+{
+    10d6:	55                   	push   %ebp
+    10d7:	89 e5                	mov    %esp,%ebp
+    10d9:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)IsOrgLenValid,WM_LEVEL_2);
+    10dc:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+    10e3:	00 
+    10e4:	c7 04 24 d6 10 00 00 	movl   $0x10d6,(%esp)
+    10eb:	e8 ec fe ff ff       	call   fdc <_Debug_SetWatermark>
+
+  bool bRet = false;
+    10f0:	c6 45 f7 00          	movb   $0x0,-0x9(%ebp)
+  const ulen_t orgLenBi = BY2BI_LEN(orgLenBy);
+    10f4:	8b 45 08             	mov    0x8(%ebp),%eax
+    10f7:	c1 e0 03             	shl    $0x3,%eax
+    10fa:	89 45 f0             	mov    %eax,-0x10(%ebp)
+  const ulen_t rsLenBi = orgLenBi*dbgParams->rsPar.nSh/dbgParams->rsPar.kSh;              /** shortened reed-solomon encoded bit-length */
+    10fd:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1100:	0f b6 40 15          	movzbl 0x15(%eax),%eax
+    1104:	0f b6 c0             	movzbl %al,%eax
+    1107:	0f af 45 f0          	imul   -0x10(%ebp),%eax
+    110b:	8b 55 0c             	mov    0xc(%ebp),%edx
+    110e:	0f b6 52 14          	movzbl 0x14(%edx),%edx
+    1112:	0f b6 ca             	movzbl %dl,%ecx
+    1115:	ba 00 00 00 00       	mov    $0x0,%edx
+    111a:	f7 f1                	div    %ecx
+    111c:	89 45 ec             	mov    %eax,-0x14(%ebp)
+  const ulen_t ccLenBi = (rsLenBi/(dbgParams->ccPar.cRate)*(1+dbgParams->ccPar.cRate));   /** punctured convolutional encoded bit-length */
+    111f:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1122:	8b 48 28             	mov    0x28(%eax),%ecx
+    1125:	8b 45 ec             	mov    -0x14(%ebp),%eax
+    1128:	ba 00 00 00 00       	mov    $0x0,%edx
+    112d:	f7 f1                	div    %ecx
+    112f:	89 c2                	mov    %eax,%edx
+    1131:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1134:	8b 40 28             	mov    0x28(%eax),%eax
+    1137:	83 c0 01             	add    $0x1,%eax
+    113a:	0f af c2             	imul   %edx,%eax
+    113d:	89 45 e8             	mov    %eax,-0x18(%ebp)
+
+  if ((orgLenBy > 0) &&                                                                   /** - origin message length shall be positive */
+    1140:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+    1144:	74 63                	je     11a9 <_IsOrgLenValid+0xd3>
+      (0 == (orgLenBi%(dbgParams->rsPar.m*dbgParams->rsPar.kSh))) &&                      /** - reed-solomon encoder input stream bit-length shall be divisible by GF dimension times message size */
+    1146:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1149:	8b 50 10             	mov    0x10(%eax),%edx
+    114c:	8b 45 0c             	mov    0xc(%ebp),%eax
+    114f:	0f b6 40 14          	movzbl 0x14(%eax),%eax
+    1153:	0f b6 c0             	movzbl %al,%eax
+    1156:	89 d1                	mov    %edx,%ecx
+    1158:	0f af c8             	imul   %eax,%ecx
+    115b:	8b 45 f0             	mov    -0x10(%ebp),%eax
+    115e:	ba 00 00 00 00       	mov    $0x0,%edx
+    1163:	f7 f1                	div    %ecx
+    1165:	89 d0                	mov    %edx,%eax
+  if ((orgLenBy > 0) &&                                                                   /** - origin message length shall be positive */
+    1167:	85 c0                	test   %eax,%eax
+    1169:	75 3e                	jne    11a9 <_IsOrgLenValid+0xd3>
+      (0 == (rsLenBi%dbgParams->ccPar.cRate)) &&                                          /** - convolutional encoder input stream bit-length shall be divisible by code rate denominator */
+    116b:	8b 45 0c             	mov    0xc(%ebp),%eax
+    116e:	8b 48 28             	mov    0x28(%eax),%ecx
+    1171:	8b 45 ec             	mov    -0x14(%ebp),%eax
+    1174:	ba 00 00 00 00       	mov    $0x0,%edx
+    1179:	f7 f1                	div    %ecx
+    117b:	89 d0                	mov    %edx,%eax
+      (0 == (orgLenBi%(dbgParams->rsPar.m*dbgParams->rsPar.kSh))) &&                      /** - reed-solomon encoder input stream bit-length shall be divisible by GF dimension times message size */
+    117d:	85 c0                	test   %eax,%eax
+    117f:	75 28                	jne    11a9 <_IsOrgLenValid+0xd3>
+      (0 == (ccLenBi%NUM_BITS_PER_BYTE)) &&                                               /** - convolutional punctured bit length shall be a multiple of NUM_BITS_PER_BYTE */
+    1181:	8b 45 e8             	mov    -0x18(%ebp),%eax
+    1184:	83 e0 07             	and    $0x7,%eax
+      (0 == (rsLenBi%dbgParams->ccPar.cRate)) &&                                          /** - convolutional encoder input stream bit-length shall be divisible by code rate denominator */
+    1187:	85 c0                	test   %eax,%eax
+    1189:	75 1e                	jne    11a9 <_IsOrgLenValid+0xd3>
+      (0 == (ccLenBi%dbgParams->modPar.bps)))                                             /** - convolutional punctured bit length shall be a multiple of MOD_BPS */
+    118b:	8b 45 0c             	mov    0xc(%ebp),%eax
+    118e:	0f b6 40 3d          	movzbl 0x3d(%eax),%eax
+    1192:	0f b6 c8             	movzbl %al,%ecx
+    1195:	8b 45 e8             	mov    -0x18(%ebp),%eax
+    1198:	ba 00 00 00 00       	mov    $0x0,%edx
+    119d:	f7 f1                	div    %ecx
+    119f:	89 d0                	mov    %edx,%eax
+      (0 == (ccLenBi%NUM_BITS_PER_BYTE)) &&                                               /** - convolutional punctured bit length shall be a multiple of NUM_BITS_PER_BYTE */
+    11a1:	85 c0                	test   %eax,%eax
+    11a3:	75 04                	jne    11a9 <_IsOrgLenValid+0xd3>
+  {
+    bRet = true;
+    11a5:	c6 45 f7 01          	movb   $0x1,-0x9(%ebp)
+  }
+
+  return bRet;
+    11a9:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+}
+    11ad:	c9                   	leave  
+    11ae:	c3                   	ret    
+    11af:	90                   	nop

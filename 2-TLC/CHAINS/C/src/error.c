@@ -2,6 +2,7 @@
  * @file error.c
  * @author Filippo Valmori
  * @date 26/08/2024
+ * @copyright Electrolux S.p.A.
  * @ingroup TLC_CHAIN
  * @brief Error library
  * 

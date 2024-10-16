@@ -40,13 +40,16 @@ error_msg:
 ##### TARGET #####
 ##################
 
-# Create an object file for each source file (with the same name).
+# Create list of source files names without extension.
+NAM_SFIL = $(SRC_FIL:.c=)
+
+# Create object files list based on source files list.
 OBJ_SFIL = $(SRC_FIL:.c=.o)
 
-# Create an assembly file for each source file (with the same name) [NOT ESSENTIAL].
+# Create assembly files list based on source files list.
 ASM_SFIL = $(SRC_FIL:.c=.s)
 
-# Create a preprocessor file for each source file (with the same name) [NOT ESSENTIAL].
+# Create preprocessor files list based on source files list.
 PRP_SFIL = $(SRC_FIL:.c=.i)
 
 # Recursive rule for compiling each source file into the corresponding object file
@@ -62,7 +65,7 @@ PRP_SFIL = $(SRC_FIL:.c=.i)
 	$(CMP_VRS) -E $< $(CMP_FLG) -o $(BLD_FLD)\prp\$@
 
 ## Rule #0: TARGET ##
-$(TRG_NAM) : $(TRG_NAM)_clean $(TRG_NAM)_build $(TRG_NAM)_conv run_exe
+$(TRG_NAM) : $(TRG_NAM)_clean $(TRG_NAM)_build $(TRG_NAM)_conv $(TRG_NAM)_extr run_exe
 
 ## Rule #1: TARGET_CLEAN ##
 $(TRG_NAM)_clean :
@@ -78,6 +81,8 @@ $(TRG_NAM)_clean :
 	if not exist $(BLD_FLD)\lis mkdir $(BLD_FLD)\lis
 	if not exist $(BLD_FLD)\obj mkdir $(BLD_FLD)\obj
 	if not exist $(BLD_FLD)\prp mkdir $(BLD_FLD)\prp
+	if not exist $(BLD_FLD)\obj\$(INF_TOL) mkdir $(BLD_FLD)\obj\$(INF_TOL)
+	if not exist $(BLD_FLD)\lis\$(INF_TOL) mkdir $(BLD_FLD)\lis\$(INF_TOL)
 	@echo ------------------------------------------------
 	@echo ^>^> "$(TRG_NAM)"-build folder cleaned successfully!
 	@echo ------------------------------------------------
@@ -96,6 +101,16 @@ $(TRG_NAM)_conv :
 	for %%j in ($(CNV_EXT)) do $(CNV_TOL) $(BLD_FLD)\bin\$(TRG_NAM).exe -O %%j $(BLD_FLD)\bin\$(TRG_NAM).%%j
 	@echo ------------------------------------------------
 	@echo ^>^> "$(TRG_NAM)"-build converted successfully!
+	@echo ------------------------------------------------
+
+## Rule #4: EXTRACT_INFO ##
+$(TRG_NAM)_extr : $(OBJ_SFIL)
+	@echo Extracting info from "$(TRG_NAM)"-build executable...
+	$(INF_TOL) -D $(BLD_FLD)\bin\$(TRG_NAM).exe > $(BLD_FLD)\lis\$(INF_TOL)\$(TRG_NAM).txt
+	@echo Extracting info from "$(TRG_NAM)"-build objects...
+	for %%j in ($(NAM_SFIL)) do $(INF_TOL) -d -S $(BLD_FLD)\obj\%%j.o > $(BLD_FLD)\obj\$(INF_TOL)\%%j.txt
+	@echo ------------------------------------------------
+	@echo ^>^> "$(TRG_NAM)"-build info extracted successfully!
 	@echo ------------------------------------------------
 
 

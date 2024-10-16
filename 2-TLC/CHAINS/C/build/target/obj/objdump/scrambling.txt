@@ -1,0 +1,1043 @@
+
+build\target\obj\scrambling.o:     file format pe-i386
+
+
+Disassembly of section .text:
+
+00000000 <_Scramb_ListParameters>:
+ * @param[in] ioParams pointer to i/o parameters structure to be filled
+ * 
+ * @return error ID
+ */
+error_t Scramb_ListParameters( scr_par_t * ioParams )
+{
+   0:	55                   	push   %ebp
+   1:	89 e5                	mov    %esp,%ebp
+   3:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)Scramb_ListParameters,WM_LEVEL_1);
+   6:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+   d:	00 
+   e:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
+  15:	e8 00 00 00 00       	call   1a <_Scramb_ListParameters+0x1a>
+
+  error_t retErr = ERR_NONE;
+  1a:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+
+  if (NULL != ioParams)
+  21:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+  25:	74 5f                	je     86 <_Scramb_ListParameters+0x86>
+  {
+    ioParams->type = SCRAMB_TYPE;
+  27:	8b 45 08             	mov    0x8(%ebp),%eax
+  2a:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
+
+    if (SCRAMB_ADT == ioParams->type)
+  30:	8b 45 08             	mov    0x8(%ebp),%eax
+  33:	8b 00                	mov    (%eax),%eax
+  35:	85 c0                	test   %eax,%eax
+  37:	75 1d                	jne    56 <_Scramb_ListParameters+0x56>
+    {
+      ioParams->nCells = NCELLS_ADT;
+  39:	8b 45 08             	mov    0x8(%ebp),%eax
+  3c:	c6 40 04 0f          	movb   $0xf,0x4(%eax)
+      ioParams->conVect = CONVECT_ADT;
+  40:	8b 45 08             	mov    0x8(%ebp),%eax
+  43:	c7 40 08 00 00 06 00 	movl   $0x60000,0x8(%eax)
+      ioParams->initSt = INITST_ADT;
+  4a:	8b 45 08             	mov    0x8(%ebp),%eax
+  4d:	c7 40 0c 00 00 00 95 	movl   $0x95000000,0xc(%eax)
+  54:	eb 37                	jmp    8d <_Scramb_ListParameters+0x8d>
+    }
+    else if (SCRAMB_MLT == ioParams->type)
+  56:	8b 45 08             	mov    0x8(%ebp),%eax
+  59:	8b 00                	mov    (%eax),%eax
+  5b:	83 f8 01             	cmp    $0x1,%eax
+  5e:	75 1d                	jne    7d <_Scramb_ListParameters+0x7d>
+    {
+      ioParams->nCells = NCELLS_MLT;
+  60:	8b 45 08             	mov    0x8(%ebp),%eax
+  63:	c6 40 04 11          	movb   $0x11,0x4(%eax)
+      ioParams->conVect = CONVECT_MLT;
+  67:	8b 45 08             	mov    0x8(%ebp),%eax
+  6a:	c7 40 08 00 80 10 00 	movl   $0x108000,0x8(%eax)
+      ioParams->initSt = INITST_MLT;
+  71:	8b 45 08             	mov    0x8(%ebp),%eax
+  74:	c7 40 0c 00 00 35 2c 	movl   $0x2c350000,0xc(%eax)
+  7b:	eb 10                	jmp    8d <_Scramb_ListParameters+0x8d>
+    }
+    else
+    {
+      retErr = ERR_INV_SCRAMBLING_TYPE;
+  7d:	c7 45 f4 0d 00 00 00 	movl   $0xd,-0xc(%ebp)
+  84:	eb 07                	jmp    8d <_Scramb_ListParameters+0x8d>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+  86:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+  8d:	8b 45 f4             	mov    -0xc(%ebp),%eax
+  90:	89 04 24             	mov    %eax,(%esp)
+  93:	e8 00 00 00 00       	call   98 <_Scramb_ListParameters+0x98>
+}
+  98:	c9                   	leave  
+  99:	c3                   	ret    
+
+0000009a <_Scramb_Scrambler>:
+ * @param[in] pParams pointer to scrambling parameters structure
+ * 
+ * @return error ID
+ */
+error_t Scramb_Scrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams )
+{
+  9a:	55                   	push   %ebp
+  9b:	89 e5                	mov    %esp,%ebp
+  9d:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)Scramb_Scrambler,WM_LEVEL_1);
+  a0:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+  a7:	00 
+  a8:	c7 04 24 9a 00 00 00 	movl   $0x9a,(%esp)
+  af:	e8 00 00 00 00       	call   b4 <_Scramb_Scrambler+0x1a>
+
+  error_t retErr = ERR_NONE;
+  b4:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+  bb:	8b 45 08             	mov    0x8(%ebp),%eax
+  be:	8b 40 08             	mov    0x8(%eax),%eax
+  c1:	89 44 24 04          	mov    %eax,0x4(%esp)
+  c5:	8b 45 08             	mov    0x8(%ebp),%eax
+  c8:	89 04 24             	mov    %eax,(%esp)
+  cb:	e8 00 00 00 00       	call   d0 <_Scramb_Scrambler+0x36>
+  d0:	84 c0                	test   %al,%al
+  d2:	74 73                	je     147 <_Scramb_Scrambler+0xad>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+  d4:	8b 45 0c             	mov    0xc(%ebp),%eax
+  d7:	8b 40 08             	mov    0x8(%eax),%eax
+  da:	89 44 24 04          	mov    %eax,0x4(%esp)
+  de:	8b 45 0c             	mov    0xc(%ebp),%eax
+  e1:	89 04 24             	mov    %eax,(%esp)
+  e4:	e8 00 00 00 00       	call   e9 <_Scramb_Scrambler+0x4f>
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+  e9:	84 c0                	test   %al,%al
+  eb:	74 5a                	je     147 <_Scramb_Scrambler+0xad>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+  ed:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+  f1:	74 54                	je     147 <_Scramb_Scrambler+0xad>
+      (NULL != pParams))
+  {
+    switch (pParams->type)
+  f3:	8b 45 10             	mov    0x10(%ebp),%eax
+  f6:	8b 00                	mov    (%eax),%eax
+  f8:	85 c0                	test   %eax,%eax
+  fa:	74 07                	je     103 <_Scramb_Scrambler+0x69>
+  fc:	83 f8 01             	cmp    $0x1,%eax
+  ff:	74 20                	je     121 <_Scramb_Scrambler+0x87>
+ 101:	eb 3c                	jmp    13f <_Scramb_Scrambler+0xa5>
+    {
+      case SCRAMB_ADT:
+        retErr = Scramb_AdditiveScrambler(inStream,outStream,pParams);
+ 103:	8b 45 10             	mov    0x10(%ebp),%eax
+ 106:	89 44 24 08          	mov    %eax,0x8(%esp)
+ 10a:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 10d:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 111:	8b 45 08             	mov    0x8(%ebp),%eax
+ 114:	89 04 24             	mov    %eax,(%esp)
+ 117:	e8 f2 00 00 00       	call   20e <_Scramb_AdditiveScrambler>
+ 11c:	89 45 f4             	mov    %eax,-0xc(%ebp)
+        break;
+ 11f:	eb 26                	jmp    147 <_Scramb_Scrambler+0xad>
+
+      case SCRAMB_MLT:
+        retErr = Scramb_MultiplicativeScrambler(inStream,outStream,pParams);
+ 121:	8b 45 10             	mov    0x10(%ebp),%eax
+ 124:	89 44 24 08          	mov    %eax,0x8(%esp)
+ 128:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 12b:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 12f:	8b 45 08             	mov    0x8(%ebp),%eax
+ 132:	89 04 24             	mov    %eax,(%esp)
+ 135:	e8 45 03 00 00       	call   47f <_Scramb_MultiplicativeScrambler>
+ 13a:	89 45 f4             	mov    %eax,-0xc(%ebp)
+        break;
+ 13d:	eb 08                	jmp    147 <_Scramb_Scrambler+0xad>
+
+      default:
+        retErr = ERR_INV_SCRAMBLING_TYPE;
+ 13f:	c7 45 f4 0d 00 00 00 	movl   $0xd,-0xc(%ebp)
+        break;
+ 146:	90                   	nop
+    }
+  }
+
+  return Error_HandleErr(retErr);
+ 147:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 14a:	89 04 24             	mov    %eax,(%esp)
+ 14d:	e8 00 00 00 00       	call   152 <_Scramb_Scrambler+0xb8>
+}
+ 152:	c9                   	leave  
+ 153:	c3                   	ret    
+
+00000154 <_Scramb_Descrambler>:
+ * @param[in] pParams pointer to scrambling parameters structure
+ * 
+ * @return error ID
+ */
+error_t Scramb_Descrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams )
+{
+ 154:	55                   	push   %ebp
+ 155:	89 e5                	mov    %esp,%ebp
+ 157:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)Scramb_Descrambler,WM_LEVEL_1);
+ 15a:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+ 161:	00 
+ 162:	c7 04 24 54 01 00 00 	movl   $0x154,(%esp)
+ 169:	e8 00 00 00 00       	call   16e <_Scramb_Descrambler+0x1a>
+
+  error_t retErr = ERR_NONE;
+ 16e:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+ 175:	8b 45 08             	mov    0x8(%ebp),%eax
+ 178:	8b 40 08             	mov    0x8(%eax),%eax
+ 17b:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 17f:	8b 45 08             	mov    0x8(%ebp),%eax
+ 182:	89 04 24             	mov    %eax,(%esp)
+ 185:	e8 00 00 00 00       	call   18a <_Scramb_Descrambler+0x36>
+ 18a:	84 c0                	test   %al,%al
+ 18c:	74 73                	je     201 <_Scramb_Descrambler+0xad>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+ 18e:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 191:	8b 40 08             	mov    0x8(%eax),%eax
+ 194:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 198:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 19b:	89 04 24             	mov    %eax,(%esp)
+ 19e:	e8 00 00 00 00       	call   1a3 <_Scramb_Descrambler+0x4f>
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+ 1a3:	84 c0                	test   %al,%al
+ 1a5:	74 5a                	je     201 <_Scramb_Descrambler+0xad>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+ 1a7:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+ 1ab:	74 54                	je     201 <_Scramb_Descrambler+0xad>
+      (NULL != pParams))
+  {
+    switch (pParams->type)
+ 1ad:	8b 45 10             	mov    0x10(%ebp),%eax
+ 1b0:	8b 00                	mov    (%eax),%eax
+ 1b2:	85 c0                	test   %eax,%eax
+ 1b4:	74 07                	je     1bd <_Scramb_Descrambler+0x69>
+ 1b6:	83 f8 01             	cmp    $0x1,%eax
+ 1b9:	74 20                	je     1db <_Scramb_Descrambler+0x87>
+ 1bb:	eb 3c                	jmp    1f9 <_Scramb_Descrambler+0xa5>
+    {
+      case SCRAMB_ADT:
+        retErr = Scramb_AdditiveDescrambler(inStream,outStream,pParams);
+ 1bd:	8b 45 10             	mov    0x10(%ebp),%eax
+ 1c0:	89 44 24 08          	mov    %eax,0x8(%esp)
+ 1c4:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 1c7:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 1cb:	8b 45 08             	mov    0x8(%ebp),%eax
+ 1ce:	89 04 24             	mov    %eax,(%esp)
+ 1d1:	e8 88 02 00 00       	call   45e <_Scramb_AdditiveDescrambler>
+ 1d6:	89 45 f4             	mov    %eax,-0xc(%ebp)
+        break;
+ 1d9:	eb 26                	jmp    201 <_Scramb_Descrambler+0xad>
+
+      case SCRAMB_MLT:
+        retErr = Scramb_MultiplicativeDescrambler(inStream,outStream,pParams);
+ 1db:	8b 45 10             	mov    0x10(%ebp),%eax
+ 1de:	89 44 24 08          	mov    %eax,0x8(%esp)
+ 1e2:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 1e5:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 1e9:	8b 45 08             	mov    0x8(%ebp),%eax
+ 1ec:	89 04 24             	mov    %eax,(%esp)
+ 1ef:	e8 3a 04 00 00       	call   62e <_Scramb_MultiplicativeDescrambler>
+ 1f4:	89 45 f4             	mov    %eax,-0xc(%ebp)
+        break;
+ 1f7:	eb 08                	jmp    201 <_Scramb_Descrambler+0xad>
+
+      default:
+        retErr = ERR_INV_SCRAMBLING_TYPE;
+ 1f9:	c7 45 f4 0d 00 00 00 	movl   $0xd,-0xc(%ebp)
+        break;
+ 200:	90                   	nop
+    }
+  }
+
+  return Error_HandleErr(retErr);
+ 201:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 204:	89 04 24             	mov    %eax,(%esp)
+ 207:	e8 00 00 00 00       	call   20c <_Scramb_Descrambler+0xb8>
+}
+ 20c:	c9                   	leave  
+ 20d:	c3                   	ret    
+
+0000020e <_Scramb_AdditiveScrambler>:
+ * @param[in] pParams pointer to scrambling parameters structure
+ * 
+ * @return error ID
+ */
+static error_t Scramb_AdditiveScrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams )
+{
+ 20e:	55                   	push   %ebp
+ 20f:	89 e5                	mov    %esp,%ebp
+ 211:	56                   	push   %esi
+ 212:	53                   	push   %ebx
+ 213:	83 ec 30             	sub    $0x30,%esp
+  Debug_SetWatermark((void *)Scramb_AdditiveScrambler,WM_LEVEL_2);
+ 216:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+ 21d:	00 
+ 21e:	c7 04 24 0e 02 00 00 	movl   $0x20e,(%esp)
+ 225:	e8 00 00 00 00       	call   22a <_Scramb_AdditiveScrambler+0x1c>
+
+  error_t retErr = ERR_NONE;
+ 22a:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  const ulen_t bitLen = BY2BI_LEN(inStream->len);
+ 231:	8b 45 08             	mov    0x8(%ebp),%eax
+ 234:	8b 40 04             	mov    0x4(%eax),%eax
+ 237:	c1 e0 03             	shl    $0x3,%eax
+ 23a:	89 45 e8             	mov    %eax,-0x18(%ebp)
+  ulen_t byteIdx;
+  ulen_t j;
+  uint32_t lfsrSt = pParams->initSt;
+ 23d:	8b 45 10             	mov    0x10(%ebp),%eax
+ 240:	8b 40 0c             	mov    0xc(%eax),%eax
+ 243:	89 45 ec             	mov    %eax,-0x14(%ebp)
+  uint8_t scrBit;
+  uint8_t bitIdx;
+  
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+ 246:	8b 45 08             	mov    0x8(%ebp),%eax
+ 249:	8b 40 08             	mov    0x8(%eax),%eax
+ 24c:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 250:	8b 45 08             	mov    0x8(%ebp),%eax
+ 253:	89 04 24             	mov    %eax,(%esp)
+ 256:	e8 00 00 00 00       	call   25b <_Scramb_AdditiveScrambler+0x4d>
+ 25b:	84 c0                	test   %al,%al
+ 25d:	0f 84 e2 01 00 00    	je     445 <_Scramb_AdditiveScrambler+0x237>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+ 263:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 266:	8b 40 08             	mov    0x8(%eax),%eax
+ 269:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 26d:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 270:	89 04 24             	mov    %eax,(%esp)
+ 273:	e8 00 00 00 00       	call   278 <_Scramb_AdditiveScrambler+0x6a>
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+ 278:	84 c0                	test   %al,%al
+ 27a:	0f 84 c5 01 00 00    	je     445 <_Scramb_AdditiveScrambler+0x237>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+ 280:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+ 284:	0f 84 bb 01 00 00    	je     445 <_Scramb_AdditiveScrambler+0x237>
+      (NULL != pParams))
+  {
+    if (inStream->len == outStream->len)
+ 28a:	8b 45 08             	mov    0x8(%ebp),%eax
+ 28d:	8b 50 04             	mov    0x4(%eax),%edx
+ 290:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 293:	8b 40 04             	mov    0x4(%eax),%eax
+ 296:	39 c2                	cmp    %eax,%edx
+ 298:	0f 85 9e 01 00 00    	jne    43c <_Scramb_AdditiveScrambler+0x22e>
+    {
+      memcpy(outStream->pBuf,inStream->pBuf,inStream->len);
+ 29e:	8b 45 08             	mov    0x8(%ebp),%eax
+ 2a1:	8b 48 04             	mov    0x4(%eax),%ecx
+ 2a4:	8b 45 08             	mov    0x8(%ebp),%eax
+ 2a7:	8b 10                	mov    (%eax),%edx
+ 2a9:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 2ac:	8b 00                	mov    (%eax),%eax
+ 2ae:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+ 2b2:	89 54 24 04          	mov    %edx,0x4(%esp)
+ 2b6:	89 04 24             	mov    %eax,(%esp)
+ 2b9:	e8 00 00 00 00       	call   2be <_Scramb_AdditiveScrambler+0xb0>
+
+      for (j=0; j<bitLen; j++)
+ 2be:	c7 45 f0 00 00 00 00 	movl   $0x0,-0x10(%ebp)
+ 2c5:	e9 64 01 00 00       	jmp    42e <_Scramb_AdditiveScrambler+0x220>
+      {
+        byteIdx = BI2BY_LEN(j);
+ 2ca:	8b 45 f0             	mov    -0x10(%ebp),%eax
+ 2cd:	c1 e8 03             	shr    $0x3,%eax
+ 2d0:	89 45 e4             	mov    %eax,-0x1c(%ebp)
+        bitIdx = (uint8_t)(BITIDX_1LAST-(j&LSBYTE_MASK_U32));
+ 2d3:	8b 45 f0             	mov    -0x10(%ebp),%eax
+ 2d6:	f7 d0                	not    %eax
+ 2d8:	83 e0 07             	and    $0x7,%eax
+ 2db:	88 45 e3             	mov    %al,-0x1d(%ebp)
+        scrBit = ComputeRegBit(lfsrSt,pParams);                             /** - bit outgoing from shift register connections */
+ 2de:	8b 45 10             	mov    0x10(%ebp),%eax
+ 2e1:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 2e5:	8b 45 ec             	mov    -0x14(%ebp),%eax
+ 2e8:	89 04 24             	mov    %eax,(%esp)
+ 2eb:	e8 f5 04 00 00       	call   7e5 <_ComputeRegBit>
+ 2f0:	88 45 e2             	mov    %al,-0x1e(%ebp)
+        lfsrSt >>= 1;                                                       /** - update scrambler shift register */
+ 2f3:	d1 6d ec             	shrl   -0x14(%ebp)
+    
+        if (1 == scrBit)
+ 2f6:	80 7d e2 01          	cmpb   $0x1,-0x1e(%ebp)
+ 2fa:	0f 85 99 00 00 00    	jne    399 <_Scramb_AdditiveScrambler+0x18b>
+        {
+          lfsrSt |= MSBIT_MASK_U32;                                         /** - update content of shift register's first cell */
+ 300:	81 4d ec 00 00 00 80 	orl    $0x80000000,-0x14(%ebp)
+          scrBit ^= (outStream->pBuf[byteIdx]>>bitIdx) & LSBIT_MASK_U8;     /** - compute output bit at j-th cycle */
+ 307:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 30a:	8b 10                	mov    (%eax),%edx
+ 30c:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+ 30f:	01 d0                	add    %edx,%eax
+ 311:	0f b6 00             	movzbl (%eax),%eax
+ 314:	0f b6 d0             	movzbl %al,%edx
+ 317:	0f b6 45 e3          	movzbl -0x1d(%ebp),%eax
+ 31b:	89 c1                	mov    %eax,%ecx
+ 31d:	d3 fa                	sar    %cl,%edx
+ 31f:	89 d0                	mov    %edx,%eax
+ 321:	83 e0 01             	and    $0x1,%eax
+ 324:	89 c2                	mov    %eax,%edx
+ 326:	0f b6 45 e2          	movzbl -0x1e(%ebp),%eax
+ 32a:	31 d0                	xor    %edx,%eax
+ 32c:	88 45 e2             	mov    %al,-0x1e(%ebp)
+    
+          if (scrBit)
+ 32f:	80 7d e2 00          	cmpb   $0x0,-0x1e(%ebp)
+ 333:	74 31                	je     366 <_Scramb_AdditiveScrambler+0x158>
+          {
+            outStream->pBuf[byteIdx] |= (LSBIT_MASK_U8<<bitIdx);            /** - write the the output bit into output stream */
+ 335:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 338:	8b 10                	mov    (%eax),%edx
+ 33a:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+ 33d:	01 c2                	add    %eax,%edx
+ 33f:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 342:	8b 08                	mov    (%eax),%ecx
+ 344:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+ 347:	01 c8                	add    %ecx,%eax
+ 349:	0f b6 00             	movzbl (%eax),%eax
+ 34c:	89 c6                	mov    %eax,%esi
+ 34e:	0f b6 45 e3          	movzbl -0x1d(%ebp),%eax
+ 352:	bb 01 00 00 00       	mov    $0x1,%ebx
+ 357:	89 c1                	mov    %eax,%ecx
+ 359:	d3 e3                	shl    %cl,%ebx
+ 35b:	89 d8                	mov    %ebx,%eax
+ 35d:	09 f0                	or     %esi,%eax
+ 35f:	88 02                	mov    %al,(%edx)
+ 361:	e9 c4 00 00 00       	jmp    42a <_Scramb_AdditiveScrambler+0x21c>
+          }
+          else
+          {
+            outStream->pBuf[byteIdx] &= ~(LSBIT_MASK_U8<<bitIdx);
+ 366:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 369:	8b 10                	mov    (%eax),%edx
+ 36b:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+ 36e:	01 c2                	add    %eax,%edx
+ 370:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 373:	8b 08                	mov    (%eax),%ecx
+ 375:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+ 378:	01 c8                	add    %ecx,%eax
+ 37a:	0f b6 00             	movzbl (%eax),%eax
+ 37d:	89 c3                	mov    %eax,%ebx
+ 37f:	0f b6 45 e3          	movzbl -0x1d(%ebp),%eax
+ 383:	be 01 00 00 00       	mov    $0x1,%esi
+ 388:	89 c1                	mov    %eax,%ecx
+ 38a:	d3 e6                	shl    %cl,%esi
+ 38c:	89 f0                	mov    %esi,%eax
+ 38e:	f7 d0                	not    %eax
+ 390:	21 d8                	and    %ebx,%eax
+ 392:	88 02                	mov    %al,(%edx)
+ 394:	e9 91 00 00 00       	jmp    42a <_Scramb_AdditiveScrambler+0x21c>
+          }
+        }
+        else
+        {
+          lfsrSt &= (~MSBIT_MASK_U32);
+ 399:	81 65 ec ff ff ff 7f 	andl   $0x7fffffff,-0x14(%ebp)
+          scrBit ^= (outStream->pBuf[byteIdx]>>bitIdx) & LSBIT_MASK_U8;
+ 3a0:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 3a3:	8b 10                	mov    (%eax),%edx
+ 3a5:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+ 3a8:	01 d0                	add    %edx,%eax
+ 3aa:	0f b6 00             	movzbl (%eax),%eax
+ 3ad:	0f b6 d0             	movzbl %al,%edx
+ 3b0:	0f b6 45 e3          	movzbl -0x1d(%ebp),%eax
+ 3b4:	89 c1                	mov    %eax,%ecx
+ 3b6:	d3 fa                	sar    %cl,%edx
+ 3b8:	89 d0                	mov    %edx,%eax
+ 3ba:	83 e0 01             	and    $0x1,%eax
+ 3bd:	89 c2                	mov    %eax,%edx
+ 3bf:	0f b6 45 e2          	movzbl -0x1e(%ebp),%eax
+ 3c3:	31 d0                	xor    %edx,%eax
+ 3c5:	88 45 e2             	mov    %al,-0x1e(%ebp)
+
+          if (scrBit)
+ 3c8:	80 7d e2 00          	cmpb   $0x0,-0x1e(%ebp)
+ 3cc:	74 2e                	je     3fc <_Scramb_AdditiveScrambler+0x1ee>
+          {
+            outStream->pBuf[byteIdx] |= (LSBIT_MASK_U8<<bitIdx);
+ 3ce:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 3d1:	8b 10                	mov    (%eax),%edx
+ 3d3:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+ 3d6:	01 c2                	add    %eax,%edx
+ 3d8:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 3db:	8b 08                	mov    (%eax),%ecx
+ 3dd:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+ 3e0:	01 c8                	add    %ecx,%eax
+ 3e2:	0f b6 00             	movzbl (%eax),%eax
+ 3e5:	89 c6                	mov    %eax,%esi
+ 3e7:	0f b6 45 e3          	movzbl -0x1d(%ebp),%eax
+ 3eb:	bb 01 00 00 00       	mov    $0x1,%ebx
+ 3f0:	89 c1                	mov    %eax,%ecx
+ 3f2:	d3 e3                	shl    %cl,%ebx
+ 3f4:	89 d8                	mov    %ebx,%eax
+ 3f6:	09 f0                	or     %esi,%eax
+ 3f8:	88 02                	mov    %al,(%edx)
+ 3fa:	eb 2e                	jmp    42a <_Scramb_AdditiveScrambler+0x21c>
+          }
+          else
+          {
+            outStream->pBuf[byteIdx] &= ~(LSBIT_MASK_U8<<bitIdx);
+ 3fc:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 3ff:	8b 10                	mov    (%eax),%edx
+ 401:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+ 404:	01 c2                	add    %eax,%edx
+ 406:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 409:	8b 08                	mov    (%eax),%ecx
+ 40b:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+ 40e:	01 c8                	add    %ecx,%eax
+ 410:	0f b6 00             	movzbl (%eax),%eax
+ 413:	89 c3                	mov    %eax,%ebx
+ 415:	0f b6 45 e3          	movzbl -0x1d(%ebp),%eax
+ 419:	be 01 00 00 00       	mov    $0x1,%esi
+ 41e:	89 c1                	mov    %eax,%ecx
+ 420:	d3 e6                	shl    %cl,%esi
+ 422:	89 f0                	mov    %esi,%eax
+ 424:	f7 d0                	not    %eax
+ 426:	21 d8                	and    %ebx,%eax
+ 428:	88 02                	mov    %al,(%edx)
+      for (j=0; j<bitLen; j++)
+ 42a:	83 45 f0 01          	addl   $0x1,-0x10(%ebp)
+ 42e:	8b 45 f0             	mov    -0x10(%ebp),%eax
+ 431:	3b 45 e8             	cmp    -0x18(%ebp),%eax
+ 434:	0f 82 90 fe ff ff    	jb     2ca <_Scramb_AdditiveScrambler+0xbc>
+    if (inStream->len == outStream->len)
+ 43a:	eb 10                	jmp    44c <_Scramb_AdditiveScrambler+0x23e>
+        }
+      }
+    }
+    else
+    {
+      retErr = ERR_INV_BUFFER_SIZE;
+ 43c:	c7 45 f4 07 00 00 00 	movl   $0x7,-0xc(%ebp)
+    if (inStream->len == outStream->len)
+ 443:	eb 07                	jmp    44c <_Scramb_AdditiveScrambler+0x23e>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+ 445:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+ 44c:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 44f:	89 04 24             	mov    %eax,(%esp)
+ 452:	e8 00 00 00 00       	call   457 <_Scramb_AdditiveScrambler+0x249>
+}
+ 457:	83 c4 30             	add    $0x30,%esp
+ 45a:	5b                   	pop    %ebx
+ 45b:	5e                   	pop    %esi
+ 45c:	5d                   	pop    %ebp
+ 45d:	c3                   	ret    
+
+0000045e <_Scramb_AdditiveDescrambler>:
+ * @param[in] pParams pointer to scrambling parameters structure
+ * 
+ * @return error ID
+ */
+static error_t Scramb_AdditiveDescrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams )
+{
+ 45e:	55                   	push   %ebp
+ 45f:	89 e5                	mov    %esp,%ebp
+ 461:	83 ec 18             	sub    $0x18,%esp
+  return Scramb_AdditiveScrambler(inStream,outStream,pParams);
+ 464:	8b 45 10             	mov    0x10(%ebp),%eax
+ 467:	89 44 24 08          	mov    %eax,0x8(%esp)
+ 46b:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 46e:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 472:	8b 45 08             	mov    0x8(%ebp),%eax
+ 475:	89 04 24             	mov    %eax,(%esp)
+ 478:	e8 91 fd ff ff       	call   20e <_Scramb_AdditiveScrambler>
+}
+ 47d:	c9                   	leave  
+ 47e:	c3                   	ret    
+
+0000047f <_Scramb_MultiplicativeScrambler>:
+ * @param[in] pParams pointer to scrambling parameters structure
+ * 
+ * @return error ID
+ */
+static error_t Scramb_MultiplicativeScrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams )
+{
+ 47f:	55                   	push   %ebp
+ 480:	89 e5                	mov    %esp,%ebp
+ 482:	56                   	push   %esi
+ 483:	53                   	push   %ebx
+ 484:	83 ec 30             	sub    $0x30,%esp
+  Debug_SetWatermark((void *)Scramb_MultiplicativeScrambler,WM_LEVEL_2);
+ 487:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+ 48e:	00 
+ 48f:	c7 04 24 7f 04 00 00 	movl   $0x47f,(%esp)
+ 496:	e8 00 00 00 00       	call   49b <_Scramb_MultiplicativeScrambler+0x1c>
+
+  error_t retErr = ERR_NONE;
+ 49b:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  const ulen_t bitLen = BY2BI_LEN(inStream->len);
+ 4a2:	8b 45 08             	mov    0x8(%ebp),%eax
+ 4a5:	8b 40 04             	mov    0x4(%eax),%eax
+ 4a8:	c1 e0 03             	shl    $0x3,%eax
+ 4ab:	89 45 e8             	mov    %eax,-0x18(%ebp)
+  ulen_t byteIdx;
+  ulen_t j;
+  uint32_t lfsrSt = pParams->initSt;
+ 4ae:	8b 45 10             	mov    0x10(%ebp),%eax
+ 4b1:	8b 40 0c             	mov    0xc(%eax),%eax
+ 4b4:	89 45 ec             	mov    %eax,-0x14(%ebp)
+  uint8_t inBit, outBit;
+  uint8_t bitIdx;
+  
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+ 4b7:	8b 45 08             	mov    0x8(%ebp),%eax
+ 4ba:	8b 40 08             	mov    0x8(%eax),%eax
+ 4bd:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 4c1:	8b 45 08             	mov    0x8(%ebp),%eax
+ 4c4:	89 04 24             	mov    %eax,(%esp)
+ 4c7:	e8 00 00 00 00       	call   4cc <_Scramb_MultiplicativeScrambler+0x4d>
+ 4cc:	84 c0                	test   %al,%al
+ 4ce:	0f 84 41 01 00 00    	je     615 <_Scramb_MultiplicativeScrambler+0x196>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+ 4d4:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 4d7:	8b 40 08             	mov    0x8(%eax),%eax
+ 4da:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 4de:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 4e1:	89 04 24             	mov    %eax,(%esp)
+ 4e4:	e8 00 00 00 00       	call   4e9 <_Scramb_MultiplicativeScrambler+0x6a>
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+ 4e9:	84 c0                	test   %al,%al
+ 4eb:	0f 84 24 01 00 00    	je     615 <_Scramb_MultiplicativeScrambler+0x196>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+ 4f1:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+ 4f5:	0f 84 1a 01 00 00    	je     615 <_Scramb_MultiplicativeScrambler+0x196>
+      (NULL != pParams))
+  {
+    if (inStream->len == outStream->len)
+ 4fb:	8b 45 08             	mov    0x8(%ebp),%eax
+ 4fe:	8b 50 04             	mov    0x4(%eax),%edx
+ 501:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 504:	8b 40 04             	mov    0x4(%eax),%eax
+ 507:	39 c2                	cmp    %eax,%edx
+ 509:	0f 85 fd 00 00 00    	jne    60c <_Scramb_MultiplicativeScrambler+0x18d>
+    {
+      memcpy(outStream->pBuf,inStream->pBuf,inStream->len);
+ 50f:	8b 45 08             	mov    0x8(%ebp),%eax
+ 512:	8b 48 04             	mov    0x4(%eax),%ecx
+ 515:	8b 45 08             	mov    0x8(%ebp),%eax
+ 518:	8b 10                	mov    (%eax),%edx
+ 51a:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 51d:	8b 00                	mov    (%eax),%eax
+ 51f:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+ 523:	89 54 24 04          	mov    %edx,0x4(%esp)
+ 527:	89 04 24             	mov    %eax,(%esp)
+ 52a:	e8 00 00 00 00       	call   52f <_Scramb_MultiplicativeScrambler+0xb0>
+
+      for (j=0; j<bitLen; j++)
+ 52f:	c7 45 f0 00 00 00 00 	movl   $0x0,-0x10(%ebp)
+ 536:	e9 c3 00 00 00       	jmp    5fe <_Scramb_MultiplicativeScrambler+0x17f>
+      {
+        byteIdx = BI2BY_LEN(j);
+ 53b:	8b 45 f0             	mov    -0x10(%ebp),%eax
+ 53e:	c1 e8 03             	shr    $0x3,%eax
+ 541:	89 45 e4             	mov    %eax,-0x1c(%ebp)
+        bitIdx = (uint8_t)(BITIDX_1LAST-(j&LSBYTE_MASK_U32));
+ 544:	8b 45 f0             	mov    -0x10(%ebp),%eax
+ 547:	f7 d0                	not    %eax
+ 549:	83 e0 07             	and    $0x7,%eax
+ 54c:	88 45 e3             	mov    %al,-0x1d(%ebp)
+        inBit = ((inStream->pBuf[byteIdx]>>bitIdx)&LSBIT_MASK_U8);          /** - input bit at j-th cycle */
+ 54f:	8b 45 08             	mov    0x8(%ebp),%eax
+ 552:	8b 10                	mov    (%eax),%edx
+ 554:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+ 557:	01 d0                	add    %edx,%eax
+ 559:	0f b6 00             	movzbl (%eax),%eax
+ 55c:	0f b6 d0             	movzbl %al,%edx
+ 55f:	0f b6 45 e3          	movzbl -0x1d(%ebp),%eax
+ 563:	89 c1                	mov    %eax,%ecx
+ 565:	d3 fa                	sar    %cl,%edx
+ 567:	89 d0                	mov    %edx,%eax
+ 569:	83 e0 01             	and    $0x1,%eax
+ 56c:	88 45 e2             	mov    %al,-0x1e(%ebp)
+        outBit = ComputeRegBit(lfsrSt,pParams)^inBit;                       /** - output bit at j-th cycle */
+ 56f:	8b 45 10             	mov    0x10(%ebp),%eax
+ 572:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 576:	8b 45 ec             	mov    -0x14(%ebp),%eax
+ 579:	89 04 24             	mov    %eax,(%esp)
+ 57c:	e8 64 02 00 00       	call   7e5 <_ComputeRegBit>
+ 581:	32 45 e2             	xor    -0x1e(%ebp),%al
+ 584:	88 45 e1             	mov    %al,-0x1f(%ebp)
+        lfsrSt >>= 1;                                                       /** - right-shift the LFSR */
+ 587:	d1 6d ec             	shrl   -0x14(%ebp)
+    
+        if (1 == outBit)
+ 58a:	80 7d e1 01          	cmpb   $0x1,-0x1f(%ebp)
+ 58e:	75 35                	jne    5c5 <_Scramb_MultiplicativeScrambler+0x146>
+        {                          
+          lfsrSt |= MSBIT_MASK_U32;                                         /** - update content of LFSR first's cell to '1' */
+ 590:	81 4d ec 00 00 00 80 	orl    $0x80000000,-0x14(%ebp)
+          outStream->pBuf[byteIdx] |= (LSBIT_MASK_U8<<bitIdx);              /** - write the output bit into the I/O stream */
+ 597:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 59a:	8b 10                	mov    (%eax),%edx
+ 59c:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+ 59f:	01 c2                	add    %eax,%edx
+ 5a1:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 5a4:	8b 08                	mov    (%eax),%ecx
+ 5a6:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+ 5a9:	01 c8                	add    %ecx,%eax
+ 5ab:	0f b6 00             	movzbl (%eax),%eax
+ 5ae:	89 c6                	mov    %eax,%esi
+ 5b0:	0f b6 45 e3          	movzbl -0x1d(%ebp),%eax
+ 5b4:	bb 01 00 00 00       	mov    $0x1,%ebx
+ 5b9:	89 c1                	mov    %eax,%ecx
+ 5bb:	d3 e3                	shl    %cl,%ebx
+ 5bd:	89 d8                	mov    %ebx,%eax
+ 5bf:	09 f0                	or     %esi,%eax
+ 5c1:	88 02                	mov    %al,(%edx)
+ 5c3:	eb 35                	jmp    5fa <_Scramb_MultiplicativeScrambler+0x17b>
+        }
+        else
+        {
+          lfsrSt &= (~MSBIT_MASK_U32);                                      /** - update content of LFSR's first cell to '0' */
+ 5c5:	81 65 ec ff ff ff 7f 	andl   $0x7fffffff,-0x14(%ebp)
+          outStream->pBuf[byteIdx] &= ~(LSBIT_MASK_U8<<bitIdx);
+ 5cc:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 5cf:	8b 10                	mov    (%eax),%edx
+ 5d1:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+ 5d4:	01 c2                	add    %eax,%edx
+ 5d6:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 5d9:	8b 08                	mov    (%eax),%ecx
+ 5db:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+ 5de:	01 c8                	add    %ecx,%eax
+ 5e0:	0f b6 00             	movzbl (%eax),%eax
+ 5e3:	89 c3                	mov    %eax,%ebx
+ 5e5:	0f b6 45 e3          	movzbl -0x1d(%ebp),%eax
+ 5e9:	be 01 00 00 00       	mov    $0x1,%esi
+ 5ee:	89 c1                	mov    %eax,%ecx
+ 5f0:	d3 e6                	shl    %cl,%esi
+ 5f2:	89 f0                	mov    %esi,%eax
+ 5f4:	f7 d0                	not    %eax
+ 5f6:	21 d8                	and    %ebx,%eax
+ 5f8:	88 02                	mov    %al,(%edx)
+      for (j=0; j<bitLen; j++)
+ 5fa:	83 45 f0 01          	addl   $0x1,-0x10(%ebp)
+ 5fe:	8b 45 f0             	mov    -0x10(%ebp),%eax
+ 601:	3b 45 e8             	cmp    -0x18(%ebp),%eax
+ 604:	0f 82 31 ff ff ff    	jb     53b <_Scramb_MultiplicativeScrambler+0xbc>
+    if (inStream->len == outStream->len)
+ 60a:	eb 10                	jmp    61c <_Scramb_MultiplicativeScrambler+0x19d>
+        }
+      }
+    }
+    else
+    {
+      retErr = ERR_INV_BUFFER_SIZE;
+ 60c:	c7 45 f4 07 00 00 00 	movl   $0x7,-0xc(%ebp)
+    if (inStream->len == outStream->len)
+ 613:	eb 07                	jmp    61c <_Scramb_MultiplicativeScrambler+0x19d>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+ 615:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+ 61c:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 61f:	89 04 24             	mov    %eax,(%esp)
+ 622:	e8 00 00 00 00       	call   627 <_Scramb_MultiplicativeScrambler+0x1a8>
+}
+ 627:	83 c4 30             	add    $0x30,%esp
+ 62a:	5b                   	pop    %ebx
+ 62b:	5e                   	pop    %esi
+ 62c:	5d                   	pop    %ebp
+ 62d:	c3                   	ret    
+
+0000062e <_Scramb_MultiplicativeDescrambler>:
+ * @param[in] pParams pointer to scrambling parameters structure
+ * 
+ * @return error ID
+ */
+static error_t Scramb_MultiplicativeDescrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams )
+{
+ 62e:	55                   	push   %ebp
+ 62f:	89 e5                	mov    %esp,%ebp
+ 631:	56                   	push   %esi
+ 632:	53                   	push   %ebx
+ 633:	83 ec 30             	sub    $0x30,%esp
+  Debug_SetWatermark((void *)Scramb_MultiplicativeDescrambler,WM_LEVEL_2);
+ 636:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+ 63d:	00 
+ 63e:	c7 04 24 2e 06 00 00 	movl   $0x62e,(%esp)
+ 645:	e8 00 00 00 00       	call   64a <_Scramb_MultiplicativeDescrambler+0x1c>
+
+  error_t retErr = ERR_NONE;
+ 64a:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  const ulen_t bitLen = BY2BI_LEN(inStream->len);
+ 651:	8b 45 08             	mov    0x8(%ebp),%eax
+ 654:	8b 40 04             	mov    0x4(%eax),%eax
+ 657:	c1 e0 03             	shl    $0x3,%eax
+ 65a:	89 45 e8             	mov    %eax,-0x18(%ebp)
+  ulen_t byteIdx;
+  ulen_t j;
+  uint32_t lfsrSt = pParams->initSt;
+ 65d:	8b 45 10             	mov    0x10(%ebp),%eax
+ 660:	8b 40 0c             	mov    0xc(%eax),%eax
+ 663:	89 45 ec             	mov    %eax,-0x14(%ebp)
+  uint8_t inBit, outBit;
+  uint8_t bitIdx;
+  
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+ 666:	8b 45 08             	mov    0x8(%ebp),%eax
+ 669:	8b 40 08             	mov    0x8(%eax),%eax
+ 66c:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 670:	8b 45 08             	mov    0x8(%ebp),%eax
+ 673:	89 04 24             	mov    %eax,(%esp)
+ 676:	e8 00 00 00 00       	call   67b <_Scramb_MultiplicativeDescrambler+0x4d>
+ 67b:	84 c0                	test   %al,%al
+ 67d:	0f 84 49 01 00 00    	je     7cc <_Scramb_MultiplicativeDescrambler+0x19e>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+ 683:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 686:	8b 40 08             	mov    0x8(%eax),%eax
+ 689:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 68d:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 690:	89 04 24             	mov    %eax,(%esp)
+ 693:	e8 00 00 00 00       	call   698 <_Scramb_MultiplicativeDescrambler+0x6a>
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+ 698:	84 c0                	test   %al,%al
+ 69a:	0f 84 2c 01 00 00    	je     7cc <_Scramb_MultiplicativeDescrambler+0x19e>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+ 6a0:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+ 6a4:	0f 84 22 01 00 00    	je     7cc <_Scramb_MultiplicativeDescrambler+0x19e>
+      (NULL != pParams))
+  {
+    if (inStream->len == outStream->len)
+ 6aa:	8b 45 08             	mov    0x8(%ebp),%eax
+ 6ad:	8b 50 04             	mov    0x4(%eax),%edx
+ 6b0:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 6b3:	8b 40 04             	mov    0x4(%eax),%eax
+ 6b6:	39 c2                	cmp    %eax,%edx
+ 6b8:	0f 85 05 01 00 00    	jne    7c3 <_Scramb_MultiplicativeDescrambler+0x195>
+    {
+      memcpy(outStream->pBuf,inStream->pBuf,inStream->len);
+ 6be:	8b 45 08             	mov    0x8(%ebp),%eax
+ 6c1:	8b 48 04             	mov    0x4(%eax),%ecx
+ 6c4:	8b 45 08             	mov    0x8(%ebp),%eax
+ 6c7:	8b 10                	mov    (%eax),%edx
+ 6c9:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 6cc:	8b 00                	mov    (%eax),%eax
+ 6ce:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+ 6d2:	89 54 24 04          	mov    %edx,0x4(%esp)
+ 6d6:	89 04 24             	mov    %eax,(%esp)
+ 6d9:	e8 00 00 00 00       	call   6de <_Scramb_MultiplicativeDescrambler+0xb0>
+
+      for (j=0; j<bitLen; j++)
+ 6de:	c7 45 f0 00 00 00 00 	movl   $0x0,-0x10(%ebp)
+ 6e5:	e9 cb 00 00 00       	jmp    7b5 <_Scramb_MultiplicativeDescrambler+0x187>
+      {
+        byteIdx = BI2BY_LEN(j);
+ 6ea:	8b 45 f0             	mov    -0x10(%ebp),%eax
+ 6ed:	c1 e8 03             	shr    $0x3,%eax
+ 6f0:	89 45 e4             	mov    %eax,-0x1c(%ebp)
+        bitIdx = (uint8_t)(BITIDX_1LAST-(j&LSBYTE_MASK_U32));
+ 6f3:	8b 45 f0             	mov    -0x10(%ebp),%eax
+ 6f6:	f7 d0                	not    %eax
+ 6f8:	83 e0 07             	and    $0x7,%eax
+ 6fb:	88 45 e3             	mov    %al,-0x1d(%ebp)
+        inBit = ((inStream->pBuf[byteIdx]>>bitIdx)&LSBIT_MASK_U8);
+ 6fe:	8b 45 08             	mov    0x8(%ebp),%eax
+ 701:	8b 10                	mov    (%eax),%edx
+ 703:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+ 706:	01 d0                	add    %edx,%eax
+ 708:	0f b6 00             	movzbl (%eax),%eax
+ 70b:	0f b6 d0             	movzbl %al,%edx
+ 70e:	0f b6 45 e3          	movzbl -0x1d(%ebp),%eax
+ 712:	89 c1                	mov    %eax,%ecx
+ 714:	d3 fa                	sar    %cl,%edx
+ 716:	89 d0                	mov    %edx,%eax
+ 718:	83 e0 01             	and    $0x1,%eax
+ 71b:	88 45 e2             	mov    %al,-0x1e(%ebp)
+        outBit = ComputeRegBit(lfsrSt,pParams)^inBit;
+ 71e:	8b 45 10             	mov    0x10(%ebp),%eax
+ 721:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 725:	8b 45 ec             	mov    -0x14(%ebp),%eax
+ 728:	89 04 24             	mov    %eax,(%esp)
+ 72b:	e8 b5 00 00 00       	call   7e5 <_ComputeRegBit>
+ 730:	32 45 e2             	xor    -0x1e(%ebp),%al
+ 733:	88 45 e1             	mov    %al,-0x1f(%ebp)
+        lfsrSt >>= 1;
+ 736:	d1 6d ec             	shrl   -0x14(%ebp)
+
+        if (1 == outBit)
+ 739:	80 7d e1 01          	cmpb   $0x1,-0x1f(%ebp)
+ 73d:	75 2e                	jne    76d <_Scramb_MultiplicativeDescrambler+0x13f>
+        {
+          outStream->pBuf[byteIdx] |= (LSBIT_MASK_U8<<bitIdx);
+ 73f:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 742:	8b 10                	mov    (%eax),%edx
+ 744:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+ 747:	01 c2                	add    %eax,%edx
+ 749:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 74c:	8b 08                	mov    (%eax),%ecx
+ 74e:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+ 751:	01 c8                	add    %ecx,%eax
+ 753:	0f b6 00             	movzbl (%eax),%eax
+ 756:	89 c6                	mov    %eax,%esi
+ 758:	0f b6 45 e3          	movzbl -0x1d(%ebp),%eax
+ 75c:	bb 01 00 00 00       	mov    $0x1,%ebx
+ 761:	89 c1                	mov    %eax,%ecx
+ 763:	d3 e3                	shl    %cl,%ebx
+ 765:	89 d8                	mov    %ebx,%eax
+ 767:	09 f0                	or     %esi,%eax
+ 769:	88 02                	mov    %al,(%edx)
+ 76b:	eb 2e                	jmp    79b <_Scramb_MultiplicativeDescrambler+0x16d>
+        }
+        else
+        {
+          outStream->pBuf[byteIdx] &= ~(LSBIT_MASK_U8<<bitIdx);
+ 76d:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 770:	8b 10                	mov    (%eax),%edx
+ 772:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+ 775:	01 c2                	add    %eax,%edx
+ 777:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 77a:	8b 08                	mov    (%eax),%ecx
+ 77c:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+ 77f:	01 c8                	add    %ecx,%eax
+ 781:	0f b6 00             	movzbl (%eax),%eax
+ 784:	89 c3                	mov    %eax,%ebx
+ 786:	0f b6 45 e3          	movzbl -0x1d(%ebp),%eax
+ 78a:	be 01 00 00 00       	mov    $0x1,%esi
+ 78f:	89 c1                	mov    %eax,%ecx
+ 791:	d3 e6                	shl    %cl,%esi
+ 793:	89 f0                	mov    %esi,%eax
+ 795:	f7 d0                	not    %eax
+ 797:	21 d8                	and    %ebx,%eax
+ 799:	88 02                	mov    %al,(%edx)
+        }
+
+        if (1 == inBit)
+ 79b:	80 7d e2 01          	cmpb   $0x1,-0x1e(%ebp)
+ 79f:	75 09                	jne    7aa <_Scramb_MultiplicativeDescrambler+0x17c>
+        {
+          lfsrSt |= MSBIT_MASK_U32;                                         /** update content of the LFSR's first cell to '1' */
+ 7a1:	81 4d ec 00 00 00 80 	orl    $0x80000000,-0x14(%ebp)
+ 7a8:	eb 07                	jmp    7b1 <_Scramb_MultiplicativeDescrambler+0x183>
+        }
+        else
+        {
+          lfsrSt &= (~MSBIT_MASK_U32);                                      /** Update content of the LFSR's first cell to '0' */
+ 7aa:	81 65 ec ff ff ff 7f 	andl   $0x7fffffff,-0x14(%ebp)
+      for (j=0; j<bitLen; j++)
+ 7b1:	83 45 f0 01          	addl   $0x1,-0x10(%ebp)
+ 7b5:	8b 45 f0             	mov    -0x10(%ebp),%eax
+ 7b8:	3b 45 e8             	cmp    -0x18(%ebp),%eax
+ 7bb:	0f 82 29 ff ff ff    	jb     6ea <_Scramb_MultiplicativeDescrambler+0xbc>
+    if (inStream->len == outStream->len)
+ 7c1:	eb 10                	jmp    7d3 <_Scramb_MultiplicativeDescrambler+0x1a5>
+        }
+      }
+    }
+    else
+    {
+      retErr = ERR_INV_BUFFER_SIZE;
+ 7c3:	c7 45 f4 07 00 00 00 	movl   $0x7,-0xc(%ebp)
+    if (inStream->len == outStream->len)
+ 7ca:	eb 07                	jmp    7d3 <_Scramb_MultiplicativeDescrambler+0x1a5>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+ 7cc:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+ 7d3:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 7d6:	89 04 24             	mov    %eax,(%esp)
+ 7d9:	e8 00 00 00 00       	call   7de <_Scramb_MultiplicativeDescrambler+0x1b0>
+}
+ 7de:	83 c4 30             	add    $0x30,%esp
+ 7e1:	5b                   	pop    %ebx
+ 7e2:	5e                   	pop    %esi
+ 7e3:	5d                   	pop    %ebp
+ 7e4:	c3                   	ret    
+
+000007e5 <_ComputeRegBit>:
+ * @param[in] curSt current LFSR state
+ * 
+ * @return LFSR output bit
+ */
+static uint8_t ComputeRegBit( uint32_t curSt, const scr_par_t * pParams )
+{
+ 7e5:	55                   	push   %ebp
+ 7e6:	89 e5                	mov    %esp,%ebp
+ 7e8:	53                   	push   %ebx
+ 7e9:	83 ec 24             	sub    $0x24,%esp
+  Debug_SetWatermark((void *)ComputeRegBit,WM_LEVEL_3);
+ 7ec:	c7 44 24 04 02 00 00 	movl   $0x2,0x4(%esp)
+ 7f3:	00 
+ 7f4:	c7 04 24 e5 07 00 00 	movl   $0x7e5,(%esp)
+ 7fb:	e8 00 00 00 00       	call   800 <_ComputeRegBit+0x1b>
+
+  uint8_t j;
+  uint8_t outBit = 0;
+ 800:	c6 45 f6 00          	movb   $0x0,-0xa(%ebp)
+
+  for (j=0; j<pParams->nCells; j++)
+ 804:	c6 45 f7 00          	movb   $0x0,-0x9(%ebp)
+ 808:	eb 31                	jmp    83b <_ComputeRegBit+0x56>
+  {
+    if (((curSt<<j)&MSBIT_MASK_U32) & ((pParams->conVect<<j)&MSBIT_MASK_U32))
+ 80a:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+ 80e:	8b 55 08             	mov    0x8(%ebp),%edx
+ 811:	89 d3                	mov    %edx,%ebx
+ 813:	89 c1                	mov    %eax,%ecx
+ 815:	d3 e3                	shl    %cl,%ebx
+ 817:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 81a:	8b 50 08             	mov    0x8(%eax),%edx
+ 81d:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+ 821:	89 c1                	mov    %eax,%ecx
+ 823:	d3 e2                	shl    %cl,%edx
+ 825:	89 d0                	mov    %edx,%eax
+ 827:	21 d8                	and    %ebx,%eax
+ 829:	85 c0                	test   %eax,%eax
+ 82b:	79 04                	jns    831 <_ComputeRegBit+0x4c>
+    {
+      outBit ^= LSBIT_MASK_U8;
+ 82d:	80 75 f6 01          	xorb   $0x1,-0xa(%ebp)
+  for (j=0; j<pParams->nCells; j++)
+ 831:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+ 835:	83 c0 01             	add    $0x1,%eax
+ 838:	88 45 f7             	mov    %al,-0x9(%ebp)
+ 83b:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 83e:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+ 842:	3a 45 f7             	cmp    -0x9(%ebp),%al
+ 845:	77 c3                	ja     80a <_ComputeRegBit+0x25>
+    }
+  }
+  
+  return outBit;
+ 847:	0f b6 45 f6          	movzbl -0xa(%ebp),%eax
+}
+ 84b:	83 c4 24             	add    $0x24,%esp
+ 84e:	5b                   	pop    %ebx
+ 84f:	5d                   	pop    %ebp
+ 850:	c3                   	ret    
+ 851:	90                   	nop
+ 852:	90                   	nop
+ 853:	90                   	nop

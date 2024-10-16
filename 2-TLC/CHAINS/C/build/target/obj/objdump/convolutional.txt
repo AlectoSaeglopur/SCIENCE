@@ -1,0 +1,3114 @@
+
+build\target\obj\convolutional.o:     file format pe-i386
+
+
+Disassembly of section .text:
+
+00000000 <_CnvCod_ListParameters>:
+ * @param[in] ioParams pointer to i/o parameters structure to be filled
+ * 
+ * @return error ID
+ */
+error_t CnvCod_ListParameters( cc_par_t * ioParams )
+{
+       0:	55                   	push   %ebp
+       1:	89 e5                	mov    %esp,%ebp
+       3:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)CnvCod_ListParameters,WM_LEVEL_1);
+       6:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+       d:	00 
+       e:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
+      15:	e8 00 00 00 00       	call   1a <_CnvCod_ListParameters+0x1a>
+
+  error_t retErr = ERR_NONE;
+      1a:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+
+  if (NULL != ioParams)
+      21:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+      25:	74 28                	je     4f <_CnvCod_ListParameters+0x4f>
+  {
+    ioParams->cRate = CC_RATE;
+      27:	8b 45 08             	mov    0x8(%ebp),%eax
+      2a:	c7 00 01 00 00 00    	movl   $0x1,(%eax)
+    ioParams->kLen = CC_KLEN;
+      30:	8b 45 08             	mov    0x8(%ebp),%eax
+      33:	c7 40 04 07 00 00 00 	movl   $0x7,0x4(%eax)
+    ioParams->memFact = CC_MEMFACT;
+      3a:	8b 45 08             	mov    0x8(%ebp),%eax
+      3d:	66 c7 40 08 0a 00    	movw   $0xa,0x8(%eax)
+    ioParams->vitDM = CC_VITDM;
+      43:	8b 45 08             	mov    0x8(%ebp),%eax
+      46:	c7 40 0c 00 00 00 00 	movl   $0x0,0xc(%eax)
+      4d:	eb 07                	jmp    56 <_CnvCod_ListParameters+0x56>
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+      4f:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+      56:	8b 45 f4             	mov    -0xc(%ebp),%eax
+      59:	89 04 24             	mov    %eax,(%esp)
+      5c:	e8 00 00 00 00       	call   61 <_CnvCod_ListParameters+0x61>
+}
+      61:	c9                   	leave  
+      62:	c3                   	ret    
+
+00000063 <_CnvCod_Encoder>:
+ * @param[in] pParams pointer to convolutional coding parameters structure
+ * 
+ * @return error ID
+ */
+error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams )
+{
+      63:	55                   	push   %ebp
+      64:	89 e5                	mov    %esp,%ebp
+      66:	56                   	push   %esi
+      67:	53                   	push   %ebx
+      68:	83 ec 60             	sub    $0x60,%esp
+  Debug_SetWatermark((void *)CnvCod_Encoder,WM_LEVEL_1);
+      6b:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+      72:	00 
+      73:	c7 04 24 63 00 00 00 	movl   $0x63,(%esp)
+      7a:	e8 00 00 00 00       	call   7f <_CnvCod_Encoder+0x1c>
+
+  error_t retErr = ERR_NONE;
+      7f:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  const ulen_t unpLenBy = CC_NBRANCHES*inStream->len;                               /** - unpunctured coded length [B] */
+      86:	8b 45 08             	mov    0x8(%ebp),%eax
+      89:	8b 40 04             	mov    0x4(%eax),%eax
+      8c:	01 c0                	add    %eax,%eax
+      8e:	89 45 e4             	mov    %eax,-0x1c(%ebp)
+  const ulen_t unpLenBi = BY2BI_LEN(unpLenBy);                                      /** - unpunctured coded length [b] */
+      91:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+      94:	c1 e0 03             	shl    $0x3,%eax
+      97:	89 45 e0             	mov    %eax,-0x20(%ebp)
+  const ulen_t inLenBi = BY2BI_LEN(inStream->len);                                  /** - input buffer length [b] */
+      9a:	8b 45 08             	mov    0x8(%ebp),%eax
+      9d:	8b 40 04             	mov    0x4(%eax),%eax
+      a0:	c1 e0 03             	shl    $0x3,%eax
+      a3:	89 45 dc             	mov    %eax,-0x24(%ebp)
+  const ulen_t punLenBi = inLenBi*(pParams->cRate+1)/pParams->cRate;                /** - expected punctured coded length [b] */
+      a6:	8b 45 10             	mov    0x10(%ebp),%eax
+      a9:	8b 00                	mov    (%eax),%eax
+      ab:	83 c0 01             	add    $0x1,%eax
+      ae:	0f af 45 dc          	imul   -0x24(%ebp),%eax
+      b2:	8b 55 10             	mov    0x10(%ebp),%edx
+      b5:	8b 32                	mov    (%edx),%esi
+      b7:	ba 00 00 00 00       	mov    $0x0,%edx
+      bc:	f7 f6                	div    %esi
+      be:	89 45 d8             	mov    %eax,-0x28(%ebp)
+  const ulen_t punLenBy = BI2BY_LEN(punLenBi);                                      /** - expected punctured coded length [b] */
+      c1:	8b 45 d8             	mov    -0x28(%ebp),%eax
+      c4:	c1 e8 03             	shr    $0x3,%eax
+      c7:	89 45 d4             	mov    %eax,-0x2c(%ebp)
+  cc_encoder_info_t encInfo;
+  byte_stream_t tmpStream = {.len = unpLenBy, .id = memory_type_byte};
+      ca:	c7 45 b0 00 00 00 00 	movl   $0x0,-0x50(%ebp)
+      d1:	c7 45 b4 00 00 00 00 	movl   $0x0,-0x4c(%ebp)
+      d8:	c7 45 b8 00 00 00 00 	movl   $0x0,-0x48(%ebp)
+      df:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+      e2:	89 45 b4             	mov    %eax,-0x4c(%ebp)
+  ulen_t wrIdx = 0;
+      e5:	c7 45 f0 00 00 00 00 	movl   $0x0,-0x10(%ebp)
+  ulen_t byteIdx;
+  ulen_t j;
+  uint8_t encState = 0;
+      ec:	c6 45 eb 00          	movb   $0x0,-0x15(%ebp)
+  uint8_t bitIdx;
+  uint8_t rdBit;
+  uint8_t k;
+
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      f0:	8b 45 08             	mov    0x8(%ebp),%eax
+      f3:	8b 40 08             	mov    0x8(%eax),%eax
+      f6:	89 44 24 04          	mov    %eax,0x4(%esp)
+      fa:	8b 45 08             	mov    0x8(%ebp),%eax
+      fd:	89 04 24             	mov    %eax,(%esp)
+     100:	e8 00 00 00 00       	call   105 <_CnvCod_Encoder+0xa2>
+     105:	84 c0                	test   %al,%al
+     107:	0f 84 b0 02 00 00    	je     3bd <_CnvCod_Encoder+0x35a>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+     10d:	8b 45 0c             	mov    0xc(%ebp),%eax
+     110:	8b 40 08             	mov    0x8(%eax),%eax
+     113:	89 44 24 04          	mov    %eax,0x4(%esp)
+     117:	8b 45 0c             	mov    0xc(%ebp),%eax
+     11a:	89 04 24             	mov    %eax,(%esp)
+     11d:	e8 00 00 00 00       	call   122 <_CnvCod_Encoder+0xbf>
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+     122:	84 c0                	test   %al,%al
+     124:	0f 84 93 02 00 00    	je     3bd <_CnvCod_Encoder+0x35a>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+     12a:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+     12e:	0f 84 89 02 00 00    	je     3bd <_CnvCod_Encoder+0x35a>
+      (NULL != pParams))
+  {
+    RetrieveConnectorPuncturationVectors(&encInfo,pParams);                         /** - retrieve convolutional encoder info */
+     134:	8b 45 10             	mov    0x10(%ebp),%eax
+     137:	89 44 24 04          	mov    %eax,0x4(%esp)
+     13b:	8d 45 bc             	lea    -0x44(%ebp),%eax
+     13e:	89 04 24             	mov    %eax,(%esp)
+     141:	e8 29 12 00 00       	call   136f <_RetrieveConnectorPuncturationVectors>
+    Memory_AllocateStream(&tmpStream,unpLenBy,memory_type_byte);
+     146:	c7 44 24 08 00 00 00 	movl   $0x0,0x8(%esp)
+     14d:	00 
+     14e:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+     151:	89 44 24 04          	mov    %eax,0x4(%esp)
+     155:	8d 45 b0             	lea    -0x50(%ebp),%eax
+     158:	89 04 24             	mov    %eax,(%esp)
+     15b:	e8 00 00 00 00       	call   160 <_CnvCod_Encoder+0xfd>
+
+    if (punLenBy == outStream->len)
+     160:	8b 45 0c             	mov    0xc(%ebp),%eax
+     163:	8b 40 04             	mov    0x4(%eax),%eax
+     166:	3b 45 d4             	cmp    -0x2c(%ebp),%eax
+     169:	0f 85 32 02 00 00    	jne    3a1 <_CnvCod_Encoder+0x33e>
+    {
+      for (j=0; j<inLenBi; j++)
+     16f:	c7 45 ec 00 00 00 00 	movl   $0x0,-0x14(%ebp)
+     176:	e9 e7 00 00 00       	jmp    262 <_CnvCod_Encoder+0x1ff>
+      {
+        byteIdx = BI2BY_LEN(j)  ;                                                   /** - update byte index for reading input buffer */
+     17b:	8b 45 ec             	mov    -0x14(%ebp),%eax
+     17e:	c1 e8 03             	shr    $0x3,%eax
+     181:	89 45 d0             	mov    %eax,-0x30(%ebp)
+        bitIdx = (uint8_t)(j&LSBYTE_MASK_U32);                                      /** - update bit index for reading input buffer */
+     184:	8b 45 ec             	mov    -0x14(%ebp),%eax
+     187:	83 e0 07             	and    $0x7,%eax
+     18a:	88 45 cf             	mov    %al,-0x31(%ebp)
+        encState >>= 1;
+     18d:	d0 6d eb             	shrb   -0x15(%ebp)
+        encState |= ((inStream->pBuf[byteIdx]>>(BITIDX_1LAST-bitIdx))&LSBIT_MASK_U8)
+     190:	8b 45 08             	mov    0x8(%ebp),%eax
+     193:	8b 10                	mov    (%eax),%edx
+     195:	8b 45 d0             	mov    -0x30(%ebp),%eax
+     198:	01 d0                	add    %edx,%eax
+     19a:	0f b6 00             	movzbl (%eax),%eax
+     19d:	0f b6 d0             	movzbl %al,%edx
+     1a0:	0f b6 45 cf          	movzbl -0x31(%ebp),%eax
+     1a4:	b9 07 00 00 00       	mov    $0x7,%ecx
+     1a9:	29 c1                	sub    %eax,%ecx
+     1ab:	89 c8                	mov    %ecx,%eax
+     1ad:	89 c1                	mov    %eax,%ecx
+     1af:	d3 fa                	sar    %cl,%edx
+     1b1:	89 d0                	mov    %edx,%eax
+     1b3:	83 e0 01             	and    $0x1,%eax
+     1b6:	89 c2                	mov    %eax,%edx
+          <<(pParams->kLen-1);                                                      /** - update encoder state with latest input bit */
+     1b8:	8b 45 10             	mov    0x10(%ebp),%eax
+     1bb:	8b 40 04             	mov    0x4(%eax),%eax
+     1be:	83 e8 01             	sub    $0x1,%eax
+     1c1:	89 c1                	mov    %eax,%ecx
+     1c3:	d3 e2                	shl    %cl,%edx
+     1c5:	89 d0                	mov    %edx,%eax
+        encState |= ((inStream->pBuf[byteIdx]>>(BITIDX_1LAST-bitIdx))&LSBIT_MASK_U8)
+     1c7:	89 c2                	mov    %eax,%edx
+     1c9:	0f b6 45 eb          	movzbl -0x15(%ebp),%eax
+     1cd:	09 d0                	or     %edx,%eax
+     1cf:	88 45 eb             	mov    %al,-0x15(%ebp)
+        byteIdx = BI2BY_LEN(CC_NBRANCHES*j);                                        /** - update byte index for output stream writing */
+     1d2:	8b 45 ec             	mov    -0x14(%ebp),%eax
+     1d5:	01 c0                	add    %eax,%eax
+     1d7:	c1 e8 03             	shr    $0x3,%eax
+     1da:	89 45 d0             	mov    %eax,-0x30(%ebp)
+        bitIdx = (CC_NBRANCHES*j)&LSBYTE_MASK_U32;                                  /** - update bit index for output stream writing */
+     1dd:	8b 45 ec             	mov    -0x14(%ebp),%eax
+     1e0:	01 c0                	add    %eax,%eax
+     1e2:	83 e0 06             	and    $0x6,%eax
+     1e5:	88 45 cf             	mov    %al,-0x31(%ebp)
+
+        for (k=0; k<CC_NBRANCHES; k++)
+     1e8:	c6 45 ea 00          	movb   $0x0,-0x16(%ebp)
+     1ec:	eb 6a                	jmp    258 <_CnvCod_Encoder+0x1f5>
+        {
+          tmpStream.pBuf[byteIdx] |= (ComputeEncBit(encState,encInfo.pConnVect[k],
+     1ee:	8b 45 10             	mov    0x10(%ebp),%eax
+     1f1:	8b 48 04             	mov    0x4(%eax),%ecx
+     1f4:	8b 55 bc             	mov    -0x44(%ebp),%edx
+     1f7:	0f b6 45 ea          	movzbl -0x16(%ebp),%eax
+     1fb:	01 d0                	add    %edx,%eax
+     1fd:	0f b6 00             	movzbl (%eax),%eax
+     200:	0f b6 d0             	movzbl %al,%edx
+     203:	0f b6 45 eb          	movzbl -0x15(%ebp),%eax
+     207:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+     20b:	89 54 24 04          	mov    %edx,0x4(%esp)
+     20f:	89 04 24             	mov    %eax,(%esp)
+     212:	e8 f2 12 00 00       	call   1509 <_ComputeEncBit>
+     217:	0f b6 d0             	movzbl %al,%edx
+            pParams->kLen)<<(BITIDX_1LAST-k-bitIdx));
+     21a:	0f b6 45 ea          	movzbl -0x16(%ebp),%eax
+     21e:	f7 d8                	neg    %eax
+     220:	89 c1                	mov    %eax,%ecx
+     222:	0f b6 45 cf          	movzbl -0x31(%ebp),%eax
+     226:	29 c1                	sub    %eax,%ecx
+     228:	89 c8                	mov    %ecx,%eax
+     22a:	83 c0 07             	add    $0x7,%eax
+     22d:	89 d3                	mov    %edx,%ebx
+     22f:	89 c1                	mov    %eax,%ecx
+     231:	d3 e3                	shl    %cl,%ebx
+          tmpStream.pBuf[byteIdx] |= (ComputeEncBit(encState,encInfo.pConnVect[k],
+     233:	8b 55 b0             	mov    -0x50(%ebp),%edx
+     236:	8b 45 d0             	mov    -0x30(%ebp),%eax
+     239:	01 d0                	add    %edx,%eax
+     23b:	8b 4d b0             	mov    -0x50(%ebp),%ecx
+     23e:	8b 55 d0             	mov    -0x30(%ebp),%edx
+     241:	01 ca                	add    %ecx,%edx
+     243:	0f b6 12             	movzbl (%edx),%edx
+     246:	89 d1                	mov    %edx,%ecx
+     248:	89 da                	mov    %ebx,%edx
+     24a:	09 ca                	or     %ecx,%edx
+     24c:	88 10                	mov    %dl,(%eax)
+        for (k=0; k<CC_NBRANCHES; k++)
+     24e:	0f b6 45 ea          	movzbl -0x16(%ebp),%eax
+     252:	83 c0 01             	add    $0x1,%eax
+     255:	88 45 ea             	mov    %al,-0x16(%ebp)
+     258:	80 7d ea 01          	cmpb   $0x1,-0x16(%ebp)
+     25c:	76 90                	jbe    1ee <_CnvCod_Encoder+0x18b>
+      for (j=0; j<inLenBi; j++)
+     25e:	83 45 ec 01          	addl   $0x1,-0x14(%ebp)
+     262:	8b 45 ec             	mov    -0x14(%ebp),%eax
+     265:	3b 45 dc             	cmp    -0x24(%ebp),%eax
+     268:	0f 82 0d ff ff ff    	jb     17b <_CnvCod_Encoder+0x118>
+        }
+      }
+
+      if (CC_RATE_12 != pParams->cRate)
+     26e:	8b 45 10             	mov    0x10(%ebp),%eax
+     271:	8b 00                	mov    (%eax),%eax
+     273:	83 f8 01             	cmp    $0x1,%eax
+     276:	0f 84 ff 00 00 00    	je     37b <_CnvCod_Encoder+0x318>
+      {                                                                             /** - apply puncturing if selected Rc is higher than 1/2 */
+        for (j=0; j<unpLenBi; j++)
+     27c:	c7 45 ec 00 00 00 00 	movl   $0x0,-0x14(%ebp)
+     283:	e9 d8 00 00 00       	jmp    360 <_CnvCod_Encoder+0x2fd>
+        {
+          byteIdx = BI2BY_LEN(j);
+     288:	8b 45 ec             	mov    -0x14(%ebp),%eax
+     28b:	c1 e8 03             	shr    $0x3,%eax
+     28e:	89 45 d0             	mov    %eax,-0x30(%ebp)
+          bitIdx = j&LSBYTE_MASK_U32;
+     291:	8b 45 ec             	mov    -0x14(%ebp),%eax
+     294:	83 e0 07             	and    $0x7,%eax
+     297:	88 45 cf             	mov    %al,-0x31(%ebp)
+          rdBit = (tmpStream.pBuf[byteIdx]>>(BITIDX_1LAST-bitIdx))&LSBIT_MASK_U8;   /** - j-th bit of unpunctured output stream */
+     29a:	8b 55 b0             	mov    -0x50(%ebp),%edx
+     29d:	8b 45 d0             	mov    -0x30(%ebp),%eax
+     2a0:	01 d0                	add    %edx,%eax
+     2a2:	0f b6 00             	movzbl (%eax),%eax
+     2a5:	0f b6 d0             	movzbl %al,%edx
+     2a8:	0f b6 45 cf          	movzbl -0x31(%ebp),%eax
+     2ac:	b9 07 00 00 00       	mov    $0x7,%ecx
+     2b1:	29 c1                	sub    %eax,%ecx
+     2b3:	89 c8                	mov    %ecx,%eax
+     2b5:	89 c1                	mov    %eax,%ecx
+     2b7:	d3 fa                	sar    %cl,%edx
+     2b9:	89 d0                	mov    %edx,%eax
+     2bb:	83 e0 01             	and    $0x1,%eax
+     2be:	88 45 ce             	mov    %al,-0x32(%ebp)
+          if (encInfo.pPuncVect[j%(encInfo.lenPuncVect*pParams->cRate)])            /** - check if puncturation has to applied now */
+     2c1:	8b 4d c4             	mov    -0x3c(%ebp),%ecx
+     2c4:	0f b6 45 c8          	movzbl -0x38(%ebp),%eax
+     2c8:	0f b6 d0             	movzbl %al,%edx
+     2cb:	8b 45 10             	mov    0x10(%ebp),%eax
+     2ce:	8b 00                	mov    (%eax),%eax
+     2d0:	89 d3                	mov    %edx,%ebx
+     2d2:	0f af d8             	imul   %eax,%ebx
+     2d5:	8b 45 ec             	mov    -0x14(%ebp),%eax
+     2d8:	ba 00 00 00 00       	mov    $0x0,%edx
+     2dd:	f7 f3                	div    %ebx
+     2df:	89 d0                	mov    %edx,%eax
+     2e1:	01 c8                	add    %ecx,%eax
+     2e3:	0f b6 00             	movzbl (%eax),%eax
+     2e6:	84 c0                	test   %al,%al
+     2e8:	74 72                	je     35c <_CnvCod_Encoder+0x2f9>
+          {
+            byteIdx = BI2BY_LEN(wrIdx);
+     2ea:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     2ed:	c1 e8 03             	shr    $0x3,%eax
+     2f0:	89 45 d0             	mov    %eax,-0x30(%ebp)
+            bitIdx = BITIDX_1LAST-(uint8_t)(wrIdx&LSBYTE_MASK_U32);
+     2f3:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     2f6:	f7 d0                	not    %eax
+     2f8:	83 e0 07             	and    $0x7,%eax
+     2fb:	88 45 cf             	mov    %al,-0x31(%ebp)
+            wrIdx++;
+     2fe:	83 45 f0 01          	addl   $0x1,-0x10(%ebp)
+            if (0 == rdBit)
+     302:	80 7d ce 00          	cmpb   $0x0,-0x32(%ebp)
+     306:	75 2c                	jne    334 <_CnvCod_Encoder+0x2d1>
+            {
+              tmpStream.pBuf[byteIdx] &= ~(LSBIT_MASK_U8<<bitIdx);
+     308:	8b 55 b0             	mov    -0x50(%ebp),%edx
+     30b:	8b 45 d0             	mov    -0x30(%ebp),%eax
+     30e:	01 c2                	add    %eax,%edx
+     310:	8b 4d b0             	mov    -0x50(%ebp),%ecx
+     313:	8b 45 d0             	mov    -0x30(%ebp),%eax
+     316:	01 c8                	add    %ecx,%eax
+     318:	0f b6 00             	movzbl (%eax),%eax
+     31b:	89 c3                	mov    %eax,%ebx
+     31d:	0f b6 45 cf          	movzbl -0x31(%ebp),%eax
+     321:	be 01 00 00 00       	mov    $0x1,%esi
+     326:	89 c1                	mov    %eax,%ecx
+     328:	d3 e6                	shl    %cl,%esi
+     32a:	89 f0                	mov    %esi,%eax
+     32c:	f7 d0                	not    %eax
+     32e:	21 d8                	and    %ebx,%eax
+     330:	88 02                	mov    %al,(%edx)
+     332:	eb 28                	jmp    35c <_CnvCod_Encoder+0x2f9>
+            }
+            else
+            {
+              tmpStream.pBuf[byteIdx] |= (LSBIT_MASK_U8<<bitIdx);
+     334:	8b 55 b0             	mov    -0x50(%ebp),%edx
+     337:	8b 45 d0             	mov    -0x30(%ebp),%eax
+     33a:	01 c2                	add    %eax,%edx
+     33c:	8b 4d b0             	mov    -0x50(%ebp),%ecx
+     33f:	8b 45 d0             	mov    -0x30(%ebp),%eax
+     342:	01 c8                	add    %ecx,%eax
+     344:	0f b6 00             	movzbl (%eax),%eax
+     347:	89 c6                	mov    %eax,%esi
+     349:	0f b6 45 cf          	movzbl -0x31(%ebp),%eax
+     34d:	bb 01 00 00 00       	mov    $0x1,%ebx
+     352:	89 c1                	mov    %eax,%ecx
+     354:	d3 e3                	shl    %cl,%ebx
+     356:	89 d8                	mov    %ebx,%eax
+     358:	09 f0                	or     %esi,%eax
+     35a:	88 02                	mov    %al,(%edx)
+        for (j=0; j<unpLenBi; j++)
+     35c:	83 45 ec 01          	addl   $0x1,-0x14(%ebp)
+     360:	8b 45 ec             	mov    -0x14(%ebp),%eax
+     363:	3b 45 e0             	cmp    -0x20(%ebp),%eax
+     366:	0f 82 1c ff ff ff    	jb     288 <_CnvCod_Encoder+0x225>
+            }
+          }
+        }
+
+        if (punLenBi != wrIdx)                                                      /** - check if computed and theoretical punctured length match */
+     36c:	8b 45 d8             	mov    -0x28(%ebp),%eax
+     36f:	3b 45 f0             	cmp    -0x10(%ebp),%eax
+     372:	74 07                	je     37b <_CnvCod_Encoder+0x318>
+        {
+          retErr = ERR_INV_BUFFER_SIZE;
+     374:	c7 45 f4 07 00 00 00 	movl   $0x7,-0xc(%ebp)
+        }
+      }
+
+      if (ERR_NONE == retErr)
+     37b:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
+     37f:	75 27                	jne    3a8 <_CnvCod_Encoder+0x345>
+      {
+        memcpy(outStream->pBuf,tmpStream.pBuf,outStream->len);                      /** - copy temporary buffer content to output one */
+     381:	8b 45 0c             	mov    0xc(%ebp),%eax
+     384:	8b 48 04             	mov    0x4(%eax),%ecx
+     387:	8b 55 b0             	mov    -0x50(%ebp),%edx
+     38a:	8b 45 0c             	mov    0xc(%ebp),%eax
+     38d:	8b 00                	mov    (%eax),%eax
+     38f:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+     393:	89 54 24 04          	mov    %edx,0x4(%esp)
+     397:	89 04 24             	mov    %eax,(%esp)
+     39a:	e8 00 00 00 00       	call   39f <_CnvCod_Encoder+0x33c>
+     39f:	eb 07                	jmp    3a8 <_CnvCod_Encoder+0x345>
+      }
+    }
+    else
+    {
+      retErr = ERR_INV_BUFFER_SIZE;
+     3a1:	c7 45 f4 07 00 00 00 	movl   $0x7,-0xc(%ebp)
+    }
+
+    Memory_FreeStream(&tmpStream,memory_type_byte);
+     3a8:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+     3af:	00 
+     3b0:	8d 45 b0             	lea    -0x50(%ebp),%eax
+     3b3:	89 04 24             	mov    %eax,(%esp)
+     3b6:	e8 00 00 00 00       	call   3bb <_CnvCod_Encoder+0x358>
+     3bb:	eb 07                	jmp    3c4 <_CnvCod_Encoder+0x361>
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+     3bd:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+  
+   return Error_HandleErr(retErr);
+     3c4:	8b 45 f4             	mov    -0xc(%ebp),%eax
+     3c7:	89 04 24             	mov    %eax,(%esp)
+     3ca:	e8 00 00 00 00       	call   3cf <_CnvCod_Encoder+0x36c>
+}
+     3cf:	83 c4 60             	add    $0x60,%esp
+     3d2:	5b                   	pop    %ebx
+     3d3:	5e                   	pop    %esi
+     3d4:	5d                   	pop    %ebp
+     3d5:	c3                   	ret    
+
+000003d6 <_CnvCod_HardDecoder>:
+ * @param[in] pParams pointer to convolutional coding parameters structure
+ * 
+ * @return error ID
+ */
+error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams )
+{
+     3d6:	55                   	push   %ebp
+     3d7:	89 e5                	mov    %esp,%ebp
+     3d9:	57                   	push   %edi
+     3da:	56                   	push   %esi
+     3db:	53                   	push   %ebx
+     3dc:	b8 7c 45 01 00       	mov    $0x1457c,%eax
+     3e1:	e8 00 00 00 00       	call   3e6 <_CnvCod_HardDecoder+0x10>
+     3e6:	29 c4                	sub    %eax,%esp
+     3e8:	89 e0                	mov    %esp,%eax
+     3ea:	89 c6                	mov    %eax,%esi
+  Debug_SetWatermark((void *)CnvCod_HardDecoder,WM_LEVEL_1);
+     3ec:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+     3f3:	00 
+     3f4:	c7 04 24 d6 03 00 00 	movl   $0x3d6,(%esp)
+     3fb:	e8 00 00 00 00       	call   400 <_CnvCod_HardDecoder+0x2a>
+
+  error_t retErr = ERR_NONE;
+     400:	c7 45 e4 00 00 00 00 	movl   $0x0,-0x1c(%ebp)
+  const ulen_t outLenBi = BY2BI_LEN(outStream->len);
+     407:	8b 45 0c             	mov    0xc(%ebp),%eax
+     40a:	8b 40 04             	mov    0x4(%eax),%eax
+     40d:	c1 e0 03             	shl    $0x3,%eax
+     410:	89 45 d0             	mov    %eax,-0x30(%ebp)
+  const ulen_t inLenBi = BY2BI_LEN(inStream->len);
+     413:	8b 45 08             	mov    0x8(%ebp),%eax
+     416:	8b 40 04             	mov    0x4(%eax),%eax
+     419:	c1 e0 03             	shl    $0x3,%eax
+     41c:	89 45 cc             	mov    %eax,-0x34(%ebp)
+  const ulen_t unpLenBy = CC_NBRANCHES*inStream->len*pParams->cRate/(pParams->cRate+1);
+     41f:	8b 45 08             	mov    0x8(%ebp),%eax
+     422:	8b 50 04             	mov    0x4(%eax),%edx
+     425:	8b 45 10             	mov    0x10(%ebp),%eax
+     428:	8b 00                	mov    (%eax),%eax
+     42a:	0f af c2             	imul   %edx,%eax
+     42d:	8d 14 00             	lea    (%eax,%eax,1),%edx
+     430:	8b 45 10             	mov    0x10(%ebp),%eax
+     433:	8b 00                	mov    (%eax),%eax
+     435:	8d 48 01             	lea    0x1(%eax),%ecx
+     438:	89 d0                	mov    %edx,%eax
+     43a:	ba 00 00 00 00       	mov    $0x0,%edx
+     43f:	f7 f1                	div    %ecx
+     441:	89 45 c8             	mov    %eax,-0x38(%ebp)
+  const ulen_t unpLenBi = BY2BI_LEN(unpLenBy);
+     444:	8b 45 c8             	mov    -0x38(%ebp),%eax
+     447:	c1 e0 03             	shl    $0x3,%eax
+     44a:	89 45 c4             	mov    %eax,-0x3c(%ebp)
+  cc_encoder_info_t encInfo;
+  cc_hard_dec_info_t curPaths = {.iter={0}, .dist={0}, .path={{0}}};
+     44d:	8d 85 98 5d ff ff    	lea    -0xa268(%ebp),%eax
+     453:	ba 00 a2 00 00       	mov    $0xa200,%edx
+     458:	89 54 24 08          	mov    %edx,0x8(%esp)
+     45c:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+     463:	00 
+     464:	89 04 24             	mov    %eax,(%esp)
+     467:	e8 00 00 00 00       	call   46c <_CnvCod_HardDecoder+0x96>
+  cc_hard_dec_info_t prevPaths;
+  cc_trellis_t trDiagr;
+  uint32_t byteIdx, inIdx, wrIdx, finIdx;
+  uint32_t candDist;
+  uint32_t i;
+  uint8_t tmpStream[unpLenBy];
+     46c:	8b 45 c8             	mov    -0x38(%ebp),%eax
+     46f:	83 e8 01             	sub    $0x1,%eax
+     472:	89 45 c0             	mov    %eax,-0x40(%ebp)
+     475:	b8 10 00 00 00       	mov    $0x10,%eax
+     47a:	8d 50 ff             	lea    -0x1(%eax),%edx
+     47d:	8b 45 c8             	mov    -0x38(%ebp),%eax
+     480:	01 d0                	add    %edx,%eax
+     482:	bf 10 00 00 00       	mov    $0x10,%edi
+     487:	ba 00 00 00 00       	mov    $0x0,%edx
+     48c:	f7 f7                	div    %edi
+     48e:	6b c0 10             	imul   $0x10,%eax,%eax
+     491:	e8 00 00 00 00       	call   496 <_CnvCod_HardDecoder+0xc0>
+     496:	29 c4                	sub    %eax,%esp
+     498:	8d 44 24 14          	lea    0x14(%esp),%eax
+     49c:	83 c0 00             	add    $0x0,%eax
+     49f:	89 45 bc             	mov    %eax,-0x44(%ebp)
+  uint8_t cycleBits;
+  uint8_t hamDist;
+  uint8_t erasMask;
+  uint8_t j;
+  
+  if (Memory_IsStreamValid(inStream,inStream->id) && 
+     4a2:	8b 45 08             	mov    0x8(%ebp),%eax
+     4a5:	8b 40 08             	mov    0x8(%eax),%eax
+     4a8:	89 44 24 04          	mov    %eax,0x4(%esp)
+     4ac:	8b 45 08             	mov    0x8(%ebp),%eax
+     4af:	89 04 24             	mov    %eax,(%esp)
+     4b2:	e8 00 00 00 00       	call   4b7 <_CnvCod_HardDecoder+0xe1>
+     4b7:	84 c0                	test   %al,%al
+     4b9:	0f 84 d6 06 00 00    	je     b95 <_CnvCod_HardDecoder+0x7bf>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+     4bf:	8b 45 0c             	mov    0xc(%ebp),%eax
+     4c2:	8b 40 08             	mov    0x8(%eax),%eax
+     4c5:	89 44 24 04          	mov    %eax,0x4(%esp)
+     4c9:	8b 45 0c             	mov    0xc(%ebp),%eax
+     4cc:	89 04 24             	mov    %eax,(%esp)
+     4cf:	e8 00 00 00 00       	call   4d4 <_CnvCod_HardDecoder+0xfe>
+  if (Memory_IsStreamValid(inStream,inStream->id) && 
+     4d4:	84 c0                	test   %al,%al
+     4d6:	0f 84 b9 06 00 00    	je     b95 <_CnvCod_HardDecoder+0x7bf>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+     4dc:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+     4e0:	0f 84 af 06 00 00    	je     b95 <_CnvCod_HardDecoder+0x7bf>
+      (NULL != pParams))
+  {
+    if (CC_VITDM_HARD == pParams->vitDM)
+     4e6:	8b 45 10             	mov    0x10(%ebp),%eax
+     4e9:	8b 40 0c             	mov    0xc(%eax),%eax
+     4ec:	85 c0                	test   %eax,%eax
+     4ee:	0f 85 98 06 00 00    	jne    b8c <_CnvCod_HardDecoder+0x7b6>
+    {
+      RetrieveConnectorPuncturationVectors(&encInfo,pParams);                                     /** - retrieve convolutional encoder info */
+     4f4:	8b 45 10             	mov    0x10(%ebp),%eax
+     4f7:	89 44 24 04          	mov    %eax,0x4(%esp)
+     4fb:	8d 45 98             	lea    -0x68(%ebp),%eax
+     4fe:	89 04 24             	mov    %eax,(%esp)
+     501:	e8 69 0e 00 00       	call   136f <_RetrieveConnectorPuncturationVectors>
+      ComputeTrellisDiagram(&trDiagr,&encInfo,pParams);                                           /** - compute convolutional decoder trellis diagram */
+     506:	8b 45 10             	mov    0x10(%ebp),%eax
+     509:	89 44 24 08          	mov    %eax,0x8(%esp)
+     50d:	8d 45 98             	lea    -0x68(%ebp),%eax
+     510:	89 44 24 04          	mov    %eax,0x4(%esp)
+     514:	8d 85 98 ba fe ff    	lea    -0x14568(%ebp),%eax
+     51a:	89 04 24             	mov    %eax,(%esp)
+     51d:	e8 63 10 00 00       	call   1585 <_ComputeTrellisDiagram>
+      memcpy(tmpStream,inStream->pBuf,inStream->len);
+     522:	8b 45 08             	mov    0x8(%ebp),%eax
+     525:	8b 48 04             	mov    0x4(%eax),%ecx
+     528:	8b 45 08             	mov    0x8(%ebp),%eax
+     52b:	8b 10                	mov    (%eax),%edx
+     52d:	8b 45 bc             	mov    -0x44(%ebp),%eax
+     530:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+     534:	89 54 24 04          	mov    %edx,0x4(%esp)
+     538:	89 04 24             	mov    %eax,(%esp)
+     53b:	e8 00 00 00 00       	call   540 <_CnvCod_HardDecoder+0x16a>
+      curPaths.iter[0] = 1;                                                                       /** - enable only all-zero state at the beginning */
+     540:	c7 85 98 5d ff ff 01 	movl   $0x1,-0xa268(%ebp)
+     547:	00 00 00 
+
+      if (CC_RATE_12 == pParams->cRate)                                                           /** - check if depuncturing is needed */
+     54a:	8b 45 10             	mov    0x10(%ebp),%eax
+     54d:	8b 00                	mov    (%eax),%eax
+     54f:	83 f8 01             	cmp    $0x1,%eax
+     552:	75 06                	jne    55a <_CnvCod_HardDecoder+0x184>
+      {
+        erasMask = CC_INMASK;                                                                     /** - use no-erasure mask for no-puncturing case */
+     554:	c6 45 d5 03          	movb   $0x3,-0x2b(%ebp)
+     558:	eb 27                	jmp    581 <_CnvCod_HardDecoder+0x1ab>
+      }
+      else
+      {
+        HardDepuncturer(tmpStream,inLenBi,unpLenBi,encInfo.pPuncVect,pParams);
+     55a:	8b 55 a0             	mov    -0x60(%ebp),%edx
+     55d:	8b 45 bc             	mov    -0x44(%ebp),%eax
+     560:	8b 4d 10             	mov    0x10(%ebp),%ecx
+     563:	89 4c 24 10          	mov    %ecx,0x10(%esp)
+     567:	89 54 24 0c          	mov    %edx,0xc(%esp)
+     56b:	8b 55 c4             	mov    -0x3c(%ebp),%edx
+     56e:	89 54 24 08          	mov    %edx,0x8(%esp)
+     572:	8b 55 cc             	mov    -0x34(%ebp),%edx
+     575:	89 54 24 04          	mov    %edx,0x4(%esp)
+     579:	89 04 24             	mov    %eax,(%esp)
+     57c:	e8 d4 11 00 00       	call   1755 <_HardDepuncturer>
+      }
+
+      for (i=CC_NBRANCHES; i<outLenBi+CC_NBRANCHES; i++)
+     581:	c7 45 d8 02 00 00 00 	movl   $0x2,-0x28(%ebp)
+     588:	e9 ee 05 00 00       	jmp    b7b <_CnvCod_HardDecoder+0x7a5>
+      {
+        inIdx = CC_NBRANCHES*(i-CC_NBRANCHES);
+     58d:	8b 45 d8             	mov    -0x28(%ebp),%eax
+     590:	05 fe ff ff 7f       	add    $0x7ffffffe,%eax
+     595:	01 c0                	add    %eax,%eax
+     597:	89 45 b8             	mov    %eax,-0x48(%ebp)
+        byteIdx = BI2BY_LEN(inIdx);
+     59a:	8b 45 b8             	mov    -0x48(%ebp),%eax
+     59d:	c1 e8 03             	shr    $0x3,%eax
+     5a0:	89 45 b4             	mov    %eax,-0x4c(%ebp)
+        bitIdx = (uint8_t)(inIdx&LSBYTE_MASK_U32);
+     5a3:	8b 45 b8             	mov    -0x48(%ebp),%eax
+     5a6:	83 e0 07             	and    $0x7,%eax
+     5a9:	88 45 b3             	mov    %al,-0x4d(%ebp)
+        cycleBits = (tmpStream[byteIdx]>>(BITIDX_2LAST-bitIdx))&CC_INMASK;                        /** - current pair of input bits */
+     5ac:	8b 55 bc             	mov    -0x44(%ebp),%edx
+     5af:	8b 45 b4             	mov    -0x4c(%ebp),%eax
+     5b2:	01 d0                	add    %edx,%eax
+     5b4:	0f b6 00             	movzbl (%eax),%eax
+     5b7:	0f b6 d0             	movzbl %al,%edx
+     5ba:	0f b6 45 b3          	movzbl -0x4d(%ebp),%eax
+     5be:	b9 06 00 00 00       	mov    $0x6,%ecx
+     5c3:	29 c1                	sub    %eax,%ecx
+     5c5:	89 c8                	mov    %ecx,%eax
+     5c7:	89 c1                	mov    %eax,%ecx
+     5c9:	d3 fa                	sar    %cl,%edx
+     5cb:	89 d0                	mov    %edx,%eax
+     5cd:	83 e0 03             	and    $0x3,%eax
+     5d0:	88 45 b2             	mov    %al,-0x4e(%ebp)
+        prevPaths = curPaths;
+     5d3:	8d 85 98 bb fe ff    	lea    -0x14468(%ebp),%eax
+     5d9:	8d 95 98 5d ff ff    	lea    -0xa268(%ebp),%edx
+     5df:	b9 00 a2 00 00       	mov    $0xa200,%ecx
+     5e4:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+     5e8:	89 54 24 04          	mov    %edx,0x4(%esp)
+     5ec:	89 04 24             	mov    %eax,(%esp)
+     5ef:	e8 00 00 00 00       	call   5f4 <_CnvCod_HardDecoder+0x21e>
+        if (CC_RATE_12 != pParams->cRate)                                                         /** - retrieve erasure mask in case depuncturing has been applied */
+     5f4:	8b 45 10             	mov    0x10(%ebp),%eax
+     5f7:	8b 00                	mov    (%eax),%eax
+     5f9:	83 f8 01             	cmp    $0x1,%eax
+     5fc:	74 54                	je     652 <_CnvCod_HardDecoder+0x27c>
+        {
+          erasMask = 0;
+     5fe:	c6 45 d5 00          	movb   $0x0,-0x2b(%ebp)
+          erasMask |= (encInfo.pPuncVect[inIdx%(CC_NBRANCHES*pParams->cRate)]<<1);
+     602:	8b 4d a0             	mov    -0x60(%ebp),%ecx
+     605:	8b 45 10             	mov    0x10(%ebp),%eax
+     608:	8b 00                	mov    (%eax),%eax
+     60a:	8d 1c 00             	lea    (%eax,%eax,1),%ebx
+     60d:	8b 45 b8             	mov    -0x48(%ebp),%eax
+     610:	ba 00 00 00 00       	mov    $0x0,%edx
+     615:	f7 f3                	div    %ebx
+     617:	89 d0                	mov    %edx,%eax
+     619:	01 c8                	add    %ecx,%eax
+     61b:	0f b6 00             	movzbl (%eax),%eax
+     61e:	0f b6 c0             	movzbl %al,%eax
+     621:	01 c0                	add    %eax,%eax
+     623:	89 c2                	mov    %eax,%edx
+     625:	0f b6 45 d5          	movzbl -0x2b(%ebp),%eax
+     629:	09 d0                	or     %edx,%eax
+     62b:	88 45 d5             	mov    %al,-0x2b(%ebp)
+          erasMask |= encInfo.pPuncVect[(inIdx+1)%(CC_NBRANCHES*pParams->cRate)];
+     62e:	8b 4d a0             	mov    -0x60(%ebp),%ecx
+     631:	8b 45 b8             	mov    -0x48(%ebp),%eax
+     634:	8d 50 01             	lea    0x1(%eax),%edx
+     637:	8b 45 10             	mov    0x10(%ebp),%eax
+     63a:	8b 00                	mov    (%eax),%eax
+     63c:	8d 1c 00             	lea    (%eax,%eax,1),%ebx
+     63f:	89 d0                	mov    %edx,%eax
+     641:	ba 00 00 00 00       	mov    $0x0,%edx
+     646:	f7 f3                	div    %ebx
+     648:	89 d0                	mov    %edx,%eax
+     64a:	01 c8                	add    %ecx,%eax
+     64c:	0f b6 00             	movzbl (%eax),%eax
+     64f:	08 45 d5             	or     %al,-0x2b(%ebp)
+        }
+        for (j=0; j<CC_NTRELSTATES; j++)
+     652:	c6 45 d4 00          	movb   $0x0,-0x2c(%ebp)
+     656:	e9 47 02 00 00       	jmp    8a2 <_CnvCod_HardDecoder+0x4cc>
+        {
+          if (prevPaths.iter[j] == i-1)                                                           /** check if j-th state was active in previous iteration */
+     65b:	0f b6 45 d4          	movzbl -0x2c(%ebp),%eax
+     65f:	8b 84 85 98 bb fe ff 	mov    -0x14468(%ebp,%eax,4),%eax
+     666:	8b 55 d8             	mov    -0x28(%ebp),%edx
+     669:	83 ea 01             	sub    $0x1,%edx
+     66c:	39 d0                	cmp    %edx,%eax
+     66e:	0f 85 24 02 00 00    	jne    898 <_CnvCod_HardDecoder+0x4c2>
+          {                                                          
+            for (hypIdx = 0; hypIdx<CC_NBRANCHES; hypIdx++)
+     674:	c6 45 d6 00          	movb   $0x0,-0x2a(%ebp)
+     678:	e9 11 02 00 00       	jmp    88e <_CnvCod_HardDecoder+0x4b8>
+            {
+              hamDist = CountByteOnes((cycleBits^(trDiagr.trSt[j].outBits[hypIdx]))&erasMask);    /** compute Hamming distance assuming hypIdx input bit */
+     67d:	0f b6 55 d4          	movzbl -0x2c(%ebp),%edx
+     681:	0f b6 45 d6          	movzbl -0x2a(%ebp),%eax
+     685:	c1 e2 02             	shl    $0x2,%edx
+     688:	8d 7d e8             	lea    -0x18(%ebp),%edi
+     68b:	01 fa                	add    %edi,%edx
+     68d:	01 d0                	add    %edx,%eax
+     68f:	2d 50 45 01 00       	sub    $0x14550,%eax
+     694:	0f b6 00             	movzbl (%eax),%eax
+     697:	32 45 b2             	xor    -0x4e(%ebp),%al
+     69a:	22 45 d5             	and    -0x2b(%ebp),%al
+     69d:	0f b6 c0             	movzbl %al,%eax
+     6a0:	89 04 24             	mov    %eax,(%esp)
+     6a3:	e8 03 12 00 00       	call   18ab <_CountByteOnes>
+     6a8:	88 45 b1             	mov    %al,-0x4f(%ebp)
+              nextSt = trDiagr.trSt[j].nextSt[hypIdx];                                            /** compute next state assuming hypIdx input bit */
+     6ab:	0f b6 55 d4          	movzbl -0x2c(%ebp),%edx
+     6af:	0f b6 45 d6          	movzbl -0x2a(%ebp),%eax
+     6b3:	c1 e2 02             	shl    $0x2,%edx
+     6b6:	8d 7d e8             	lea    -0x18(%ebp),%edi
+     6b9:	01 fa                	add    %edi,%edx
+     6bb:	01 d0                	add    %edx,%eax
+     6bd:	2d 4e 45 01 00       	sub    $0x1454e,%eax
+     6c2:	0f b6 00             	movzbl (%eax),%eax
+     6c5:	88 45 b0             	mov    %al,-0x50(%ebp)
+              if (curPaths.iter[nextSt] < i)                                                      /** if there's not yet a survivor path for nextSt state at i-th cycle */
+     6c8:	0f b6 45 b0          	movzbl -0x50(%ebp),%eax
+     6cc:	8b 84 85 98 5d ff ff 	mov    -0xa268(%ebp,%eax,4),%eax
+     6d3:	3b 45 d8             	cmp    -0x28(%ebp),%eax
+     6d6:	0f 83 cf 00 00 00    	jae    7ab <_CnvCod_HardDecoder+0x3d5>
+              {
+                curPaths.iter[nextSt] = i;                                                        /** update state iteration counter */
+     6dc:	0f b6 45 b0          	movzbl -0x50(%ebp),%eax
+     6e0:	8b 55 d8             	mov    -0x28(%ebp),%edx
+     6e3:	89 94 85 98 5d ff ff 	mov    %edx,-0xa268(%ebp,%eax,4)
+                curPaths.dist[nextSt] = prevPaths.dist[j]+(uint32_t)hamDist;                      /** update state distance */
+     6ea:	0f b6 45 b0          	movzbl -0x50(%ebp),%eax
+     6ee:	0f b6 55 d4          	movzbl -0x2c(%ebp),%edx
+     6f2:	83 c2 40             	add    $0x40,%edx
+     6f5:	8b 8c 95 98 bb fe ff 	mov    -0x14468(%ebp,%edx,4),%ecx
+     6fc:	0f b6 55 b1          	movzbl -0x4f(%ebp),%edx
+     700:	01 ca                	add    %ecx,%edx
+     702:	83 c0 40             	add    $0x40,%eax
+     705:	89 94 85 98 5d ff ff 	mov    %edx,-0xa268(%ebp,%eax,4)
+                if (i-1 < CC_MEM_DIM)
+     70c:	8b 45 d8             	mov    -0x28(%ebp),%eax
+     70f:	83 e8 01             	sub    $0x1,%eax
+     712:	3d 7f 02 00 00       	cmp    $0x27f,%eax
+     717:	77 0b                	ja     724 <_CnvCod_HardDecoder+0x34e>
+                {
+                  finIdx = i-CC_NBRANCHES;
+     719:	8b 45 d8             	mov    -0x28(%ebp),%eax
+     71c:	83 e8 02             	sub    $0x2,%eax
+     71f:	89 45 dc             	mov    %eax,-0x24(%ebp)
+     722:	eb 07                	jmp    72b <_CnvCod_HardDecoder+0x355>
+                }
+                else
+                {
+                  finIdx = CC_MEM_DIM-1;
+     724:	c7 45 dc 7f 02 00 00 	movl   $0x27f,-0x24(%ebp)
+                }
+                for (wrIdx = 0; wrIdx < finIdx; wrIdx++)                                          /** update state path among previous states */
+     72b:	c7 45 e0 00 00 00 00 	movl   $0x0,-0x20(%ebp)
+     732:	eb 45                	jmp    779 <_CnvCod_HardDecoder+0x3a3>
+                {
+                  curPaths.path[nextSt][wrIdx] = prevPaths.path[j][wrIdx];
+     734:	0f b6 55 b0          	movzbl -0x50(%ebp),%edx
+     738:	0f b6 4d d4          	movzbl -0x2c(%ebp),%ecx
+     73c:	89 c8                	mov    %ecx,%eax
+     73e:	c1 e0 02             	shl    $0x2,%eax
+     741:	01 c8                	add    %ecx,%eax
+     743:	c1 e0 07             	shl    $0x7,%eax
+     746:	8d 7d e8             	lea    -0x18(%ebp),%edi
+     749:	8d 0c 07             	lea    (%edi,%eax,1),%ecx
+     74c:	8b 45 e0             	mov    -0x20(%ebp),%eax
+     74f:	01 c8                	add    %ecx,%eax
+     751:	2d 50 42 01 00       	sub    $0x14250,%eax
+     756:	0f b6 08             	movzbl (%eax),%ecx
+     759:	89 d0                	mov    %edx,%eax
+     75b:	c1 e0 02             	shl    $0x2,%eax
+     75e:	01 d0                	add    %edx,%eax
+     760:	c1 e0 07             	shl    $0x7,%eax
+     763:	8d 5d e8             	lea    -0x18(%ebp),%ebx
+     766:	8d 14 03             	lea    (%ebx,%eax,1),%edx
+     769:	8b 45 e0             	mov    -0x20(%ebp),%eax
+     76c:	01 d0                	add    %edx,%eax
+     76e:	2d 50 a0 00 00       	sub    $0xa050,%eax
+     773:	88 08                	mov    %cl,(%eax)
+                for (wrIdx = 0; wrIdx < finIdx; wrIdx++)                                          /** update state path among previous states */
+     775:	83 45 e0 01          	addl   $0x1,-0x20(%ebp)
+     779:	8b 45 e0             	mov    -0x20(%ebp),%eax
+     77c:	3b 45 dc             	cmp    -0x24(%ebp),%eax
+     77f:	72 b3                	jb     734 <_CnvCod_HardDecoder+0x35e>
+                }
+                curPaths.path[nextSt][finIdx] = j;              
+     781:	0f b6 55 b0          	movzbl -0x50(%ebp),%edx
+     785:	89 d0                	mov    %edx,%eax
+     787:	c1 e0 02             	shl    $0x2,%eax
+     78a:	01 d0                	add    %edx,%eax
+     78c:	c1 e0 07             	shl    $0x7,%eax
+     78f:	8d 7d e8             	lea    -0x18(%ebp),%edi
+     792:	8d 14 07             	lea    (%edi,%eax,1),%edx
+     795:	8b 45 dc             	mov    -0x24(%ebp),%eax
+     798:	01 d0                	add    %edx,%eax
+     79a:	8d 90 b0 5f ff ff    	lea    -0xa050(%eax),%edx
+     7a0:	0f b6 45 d4          	movzbl -0x2c(%ebp),%eax
+     7a4:	88 02                	mov    %al,(%edx)
+     7a6:	e9 d9 00 00 00       	jmp    884 <_CnvCod_HardDecoder+0x4ae>
+              }
+              else                                                                                /** if a survivor path for nextSt state at i-th cycle already exists, check if new candidate is better */
+              {
+                candDist = prevPaths.dist[j]+(uint32_t)hamDist;
+     7ab:	0f b6 45 d4          	movzbl -0x2c(%ebp),%eax
+     7af:	83 c0 40             	add    $0x40,%eax
+     7b2:	8b 94 85 98 bb fe ff 	mov    -0x14468(%ebp,%eax,4),%edx
+     7b9:	0f b6 45 b1          	movzbl -0x4f(%ebp),%eax
+     7bd:	01 d0                	add    %edx,%eax
+     7bf:	89 45 ac             	mov    %eax,-0x54(%ebp)
+                if (candDist < curPaths.dist[nextSt])
+     7c2:	0f b6 45 b0          	movzbl -0x50(%ebp),%eax
+     7c6:	83 c0 40             	add    $0x40,%eax
+     7c9:	8b 84 85 98 5d ff ff 	mov    -0xa268(%ebp,%eax,4),%eax
+     7d0:	3b 45 ac             	cmp    -0x54(%ebp),%eax
+     7d3:	0f 86 ab 00 00 00    	jbe    884 <_CnvCod_HardDecoder+0x4ae>
+                {
+                  curPaths.dist[nextSt] = candDist;
+     7d9:	0f b6 45 b0          	movzbl -0x50(%ebp),%eax
+     7dd:	8d 50 40             	lea    0x40(%eax),%edx
+     7e0:	8b 45 ac             	mov    -0x54(%ebp),%eax
+     7e3:	89 84 95 98 5d ff ff 	mov    %eax,-0xa268(%ebp,%edx,4)
+                  if (i-1 < CC_MEM_DIM)
+     7ea:	8b 45 d8             	mov    -0x28(%ebp),%eax
+     7ed:	83 e8 01             	sub    $0x1,%eax
+     7f0:	3d 7f 02 00 00       	cmp    $0x27f,%eax
+     7f5:	77 0b                	ja     802 <_CnvCod_HardDecoder+0x42c>
+                  {
+                    finIdx = i-CC_NBRANCHES;
+     7f7:	8b 45 d8             	mov    -0x28(%ebp),%eax
+     7fa:	83 e8 02             	sub    $0x2,%eax
+     7fd:	89 45 dc             	mov    %eax,-0x24(%ebp)
+     800:	eb 07                	jmp    809 <_CnvCod_HardDecoder+0x433>
+                  }
+                  else
+                  {
+                    finIdx = CC_MEM_DIM-1;
+     802:	c7 45 dc 7f 02 00 00 	movl   $0x27f,-0x24(%ebp)
+                  }
+                  for (wrIdx = 0; wrIdx < finIdx; wrIdx++)
+     809:	c7 45 e0 00 00 00 00 	movl   $0x0,-0x20(%ebp)
+     810:	eb 45                	jmp    857 <_CnvCod_HardDecoder+0x481>
+                  {
+                    curPaths.path[nextSt][wrIdx] = prevPaths.path[j][wrIdx];
+     812:	0f b6 55 b0          	movzbl -0x50(%ebp),%edx
+     816:	0f b6 4d d4          	movzbl -0x2c(%ebp),%ecx
+     81a:	89 c8                	mov    %ecx,%eax
+     81c:	c1 e0 02             	shl    $0x2,%eax
+     81f:	01 c8                	add    %ecx,%eax
+     821:	c1 e0 07             	shl    $0x7,%eax
+     824:	8d 5d e8             	lea    -0x18(%ebp),%ebx
+     827:	8d 0c 03             	lea    (%ebx,%eax,1),%ecx
+     82a:	8b 45 e0             	mov    -0x20(%ebp),%eax
+     82d:	01 c8                	add    %ecx,%eax
+     82f:	2d 50 42 01 00       	sub    $0x14250,%eax
+     834:	0f b6 08             	movzbl (%eax),%ecx
+     837:	89 d0                	mov    %edx,%eax
+     839:	c1 e0 02             	shl    $0x2,%eax
+     83c:	01 d0                	add    %edx,%eax
+     83e:	c1 e0 07             	shl    $0x7,%eax
+     841:	8d 7d e8             	lea    -0x18(%ebp),%edi
+     844:	8d 14 07             	lea    (%edi,%eax,1),%edx
+     847:	8b 45 e0             	mov    -0x20(%ebp),%eax
+     84a:	01 d0                	add    %edx,%eax
+     84c:	2d 50 a0 00 00       	sub    $0xa050,%eax
+     851:	88 08                	mov    %cl,(%eax)
+                  for (wrIdx = 0; wrIdx < finIdx; wrIdx++)
+     853:	83 45 e0 01          	addl   $0x1,-0x20(%ebp)
+     857:	8b 45 e0             	mov    -0x20(%ebp),%eax
+     85a:	3b 45 dc             	cmp    -0x24(%ebp),%eax
+     85d:	72 b3                	jb     812 <_CnvCod_HardDecoder+0x43c>
+                  }
+                  curPaths.path[nextSt][finIdx] = j;
+     85f:	0f b6 55 b0          	movzbl -0x50(%ebp),%edx
+     863:	89 d0                	mov    %edx,%eax
+     865:	c1 e0 02             	shl    $0x2,%eax
+     868:	01 d0                	add    %edx,%eax
+     86a:	c1 e0 07             	shl    $0x7,%eax
+     86d:	8d 5d e8             	lea    -0x18(%ebp),%ebx
+     870:	8d 14 03             	lea    (%ebx,%eax,1),%edx
+     873:	8b 45 dc             	mov    -0x24(%ebp),%eax
+     876:	01 d0                	add    %edx,%eax
+     878:	8d 90 b0 5f ff ff    	lea    -0xa050(%eax),%edx
+     87e:	0f b6 45 d4          	movzbl -0x2c(%ebp),%eax
+     882:	88 02                	mov    %al,(%edx)
+            for (hypIdx = 0; hypIdx<CC_NBRANCHES; hypIdx++)
+     884:	0f b6 45 d6          	movzbl -0x2a(%ebp),%eax
+     888:	83 c0 01             	add    $0x1,%eax
+     88b:	88 45 d6             	mov    %al,-0x2a(%ebp)
+     88e:	80 7d d6 01          	cmpb   $0x1,-0x2a(%ebp)
+     892:	0f 86 e5 fd ff ff    	jbe    67d <_CnvCod_HardDecoder+0x2a7>
+        for (j=0; j<CC_NTRELSTATES; j++)
+     898:	0f b6 45 d4          	movzbl -0x2c(%ebp),%eax
+     89c:	83 c0 01             	add    $0x1,%eax
+     89f:	88 45 d4             	mov    %al,-0x2c(%ebp)
+     8a2:	80 7d d4 3f          	cmpb   $0x3f,-0x2c(%ebp)
+     8a6:	0f 86 af fd ff ff    	jbe    65b <_CnvCod_HardDecoder+0x285>
+              }
+            }
+          }
+        }
+
+        if (i-1 == outLenBi)                                                                      /** - if input bit stream is over, flush decoder memory and extract final info bits */
+     8ac:	8b 45 d8             	mov    -0x28(%ebp),%eax
+     8af:	83 e8 01             	sub    $0x1,%eax
+     8b2:	3b 45 d0             	cmp    -0x30(%ebp),%eax
+     8b5:	0f 85 56 01 00 00    	jne    a11 <_CnvCod_HardDecoder+0x63b>
+        {
+          minDistSt = FindMinSurvPathHard(&curPaths);                                             /** look for minimum distance survivor path */
+     8bb:	8d 85 98 5d ff ff    	lea    -0xa268(%ebp),%eax
+     8c1:	89 04 24             	mov    %eax,(%esp)
+     8c4:	e8 41 10 00 00       	call   190a <_FindMinSurvPathHard>
+     8c9:	88 45 ab             	mov    %al,-0x55(%ebp)
+          if (i-1 >= CC_MEM_DIM)                                                                  /** check if memory has been completely filled */
+     8cc:	8b 45 d8             	mov    -0x28(%ebp),%eax
+     8cf:	83 e8 01             	sub    $0x1,%eax
+     8d2:	3d 7f 02 00 00       	cmp    $0x27f,%eax
+     8d7:	76 09                	jbe    8e2 <_CnvCod_HardDecoder+0x50c>
+          {
+            finIdx = CC_MEM_DIM;
+     8d9:	c7 45 dc 80 02 00 00 	movl   $0x280,-0x24(%ebp)
+     8e0:	eb 09                	jmp    8eb <_CnvCod_HardDecoder+0x515>
+          }
+          else
+          {
+            finIdx = i-1;
+     8e2:	8b 45 d8             	mov    -0x28(%ebp),%eax
+     8e5:	83 e8 01             	sub    $0x1,%eax
+     8e8:	89 45 dc             	mov    %eax,-0x24(%ebp)
+          }
+          for (wrIdx=0; wrIdx<finIdx; wrIdx++)
+     8eb:	c7 45 e0 00 00 00 00 	movl   $0x0,-0x20(%ebp)
+     8f2:	e9 09 01 00 00       	jmp    a00 <_CnvCod_HardDecoder+0x62a>
+          {
+            depSt = curPaths.path[minDistSt][wrIdx];                                              /** set departure state */
+     8f7:	0f b6 55 ab          	movzbl -0x55(%ebp),%edx
+     8fb:	89 d0                	mov    %edx,%eax
+     8fd:	c1 e0 02             	shl    $0x2,%eax
+     900:	01 d0                	add    %edx,%eax
+     902:	c1 e0 07             	shl    $0x7,%eax
+     905:	8d 7d e8             	lea    -0x18(%ebp),%edi
+     908:	8d 14 07             	lea    (%edi,%eax,1),%edx
+     90b:	8b 45 e0             	mov    -0x20(%ebp),%eax
+     90e:	01 d0                	add    %edx,%eax
+     910:	2d 50 a0 00 00       	sub    $0xa050,%eax
+     915:	0f b6 00             	movzbl (%eax),%eax
+     918:	88 45 aa             	mov    %al,-0x56(%ebp)
+            if (wrIdx == finIdx-1)
+     91b:	8b 45 dc             	mov    -0x24(%ebp),%eax
+     91e:	83 e8 01             	sub    $0x1,%eax
+     921:	3b 45 e0             	cmp    -0x20(%ebp),%eax
+     924:	75 09                	jne    92f <_CnvCod_HardDecoder+0x559>
+            {
+              arrSt = minDistSt;                                                                  /** set arrival state */
+     926:	0f b6 45 ab          	movzbl -0x55(%ebp),%eax
+     92a:	88 45 d7             	mov    %al,-0x29(%ebp)
+     92d:	eb 26                	jmp    955 <_CnvCod_HardDecoder+0x57f>
+            }
+            else
+            {
+              arrSt = curPaths.path[minDistSt][wrIdx+1];
+     92f:	0f b6 55 ab          	movzbl -0x55(%ebp),%edx
+     933:	8b 45 e0             	mov    -0x20(%ebp),%eax
+     936:	8d 48 01             	lea    0x1(%eax),%ecx
+     939:	89 d0                	mov    %edx,%eax
+     93b:	c1 e0 02             	shl    $0x2,%eax
+     93e:	01 d0                	add    %edx,%eax
+     940:	c1 e0 07             	shl    $0x7,%eax
+     943:	8d 5d e8             	lea    -0x18(%ebp),%ebx
+     946:	01 d8                	add    %ebx,%eax
+     948:	01 c8                	add    %ecx,%eax
+     94a:	2d 50 a0 00 00       	sub    $0xa050,%eax
+     94f:	0f b6 00             	movzbl (%eax),%eax
+     952:	88 45 d7             	mov    %al,-0x29(%ebp)
+            }
+            byteIdx = BI2BY_LEN(outLenBi-finIdx+wrIdx);
+     955:	8b 45 d0             	mov    -0x30(%ebp),%eax
+     958:	2b 45 dc             	sub    -0x24(%ebp),%eax
+     95b:	89 c2                	mov    %eax,%edx
+     95d:	8b 45 e0             	mov    -0x20(%ebp),%eax
+     960:	01 d0                	add    %edx,%eax
+     962:	c1 e8 03             	shr    $0x3,%eax
+     965:	89 45 b4             	mov    %eax,-0x4c(%ebp)
+            bitIdx = (uint8_t)((outLenBi-finIdx+wrIdx)&LSBYTE_MASK_U32);
+     968:	8b 45 d0             	mov    -0x30(%ebp),%eax
+     96b:	89 c2                	mov    %eax,%edx
+     96d:	8b 45 dc             	mov    -0x24(%ebp),%eax
+     970:	29 c2                	sub    %eax,%edx
+     972:	8b 45 e0             	mov    -0x20(%ebp),%eax
+     975:	01 d0                	add    %edx,%eax
+     977:	83 e0 07             	and    $0x7,%eax
+     97a:	88 45 b3             	mov    %al,-0x4d(%ebp)
+            if (trDiagr.trSt[depSt].nextSt[0] == arrSt)
+     97d:	0f b6 45 aa          	movzbl -0x56(%ebp),%eax
+     981:	0f b6 84 85 9a ba fe 	movzbl -0x14566(%ebp,%eax,4),%eax
+     988:	ff 
+     989:	3a 45 d7             	cmp    -0x29(%ebp),%al
+     98c:	75 39                	jne    9c7 <_CnvCod_HardDecoder+0x5f1>
+            {
+              outStream->pBuf[byteIdx] &= ~(LSBIT_MASK_U8<<(BITIDX_1LAST-bitIdx));                /** set output bit to '0' */
+     98e:	8b 45 0c             	mov    0xc(%ebp),%eax
+     991:	8b 10                	mov    (%eax),%edx
+     993:	8b 45 b4             	mov    -0x4c(%ebp),%eax
+     996:	01 c2                	add    %eax,%edx
+     998:	8b 45 0c             	mov    0xc(%ebp),%eax
+     99b:	8b 08                	mov    (%eax),%ecx
+     99d:	8b 45 b4             	mov    -0x4c(%ebp),%eax
+     9a0:	01 c8                	add    %ecx,%eax
+     9a2:	0f b6 00             	movzbl (%eax),%eax
+     9a5:	89 c3                	mov    %eax,%ebx
+     9a7:	0f b6 45 b3          	movzbl -0x4d(%ebp),%eax
+     9ab:	b9 07 00 00 00       	mov    $0x7,%ecx
+     9b0:	29 c1                	sub    %eax,%ecx
+     9b2:	89 c8                	mov    %ecx,%eax
+     9b4:	bf 01 00 00 00       	mov    $0x1,%edi
+     9b9:	89 c1                	mov    %eax,%ecx
+     9bb:	d3 e7                	shl    %cl,%edi
+     9bd:	89 f8                	mov    %edi,%eax
+     9bf:	f7 d0                	not    %eax
+     9c1:	21 d8                	and    %ebx,%eax
+     9c3:	88 02                	mov    %al,(%edx)
+     9c5:	eb 35                	jmp    9fc <_CnvCod_HardDecoder+0x626>
+            }
+            else
+            {
+              outStream->pBuf[byteIdx] |= (LSBIT_MASK_U8<<(BITIDX_1LAST-bitIdx));                 /** set output bit to '1' */
+     9c7:	8b 45 0c             	mov    0xc(%ebp),%eax
+     9ca:	8b 10                	mov    (%eax),%edx
+     9cc:	8b 45 b4             	mov    -0x4c(%ebp),%eax
+     9cf:	01 c2                	add    %eax,%edx
+     9d1:	8b 45 0c             	mov    0xc(%ebp),%eax
+     9d4:	8b 08                	mov    (%eax),%ecx
+     9d6:	8b 45 b4             	mov    -0x4c(%ebp),%eax
+     9d9:	01 c8                	add    %ecx,%eax
+     9db:	0f b6 00             	movzbl (%eax),%eax
+     9de:	89 c7                	mov    %eax,%edi
+     9e0:	0f b6 45 b3          	movzbl -0x4d(%ebp),%eax
+     9e4:	b9 07 00 00 00       	mov    $0x7,%ecx
+     9e9:	29 c1                	sub    %eax,%ecx
+     9eb:	89 c8                	mov    %ecx,%eax
+     9ed:	bb 01 00 00 00       	mov    $0x1,%ebx
+     9f2:	89 c1                	mov    %eax,%ecx
+     9f4:	d3 e3                	shl    %cl,%ebx
+     9f6:	89 d8                	mov    %ebx,%eax
+     9f8:	09 f8                	or     %edi,%eax
+     9fa:	88 02                	mov    %al,(%edx)
+          for (wrIdx=0; wrIdx<finIdx; wrIdx++)
+     9fc:	83 45 e0 01          	addl   $0x1,-0x20(%ebp)
+     a00:	8b 45 e0             	mov    -0x20(%ebp),%eax
+     a03:	3b 45 dc             	cmp    -0x24(%ebp),%eax
+     a06:	0f 82 eb fe ff ff    	jb     8f7 <_CnvCod_HardDecoder+0x521>
+     a0c:	e9 66 01 00 00       	jmp    b77 <_CnvCod_HardDecoder+0x7a1>
+            }
+          }
+        }
+        else if (i-1 >= CC_MEM_DIM)                                                               /** - if input bit stream is not over but memory is full, extract oldest info bit */
+     a11:	8b 45 d8             	mov    -0x28(%ebp),%eax
+     a14:	83 e8 01             	sub    $0x1,%eax
+     a17:	3d 7f 02 00 00       	cmp    $0x27f,%eax
+     a1c:	0f 86 55 01 00 00    	jbe    b77 <_CnvCod_HardDecoder+0x7a1>
+        {
+          minDistSt = FindMinSurvPathHard(&curPaths);
+     a22:	8d 85 98 5d ff ff    	lea    -0xa268(%ebp),%eax
+     a28:	89 04 24             	mov    %eax,(%esp)
+     a2b:	e8 da 0e 00 00       	call   190a <_FindMinSurvPathHard>
+     a30:	88 45 ab             	mov    %al,-0x55(%ebp)
+          depSt = curPaths.path[minDistSt][0];
+     a33:	0f b6 55 ab          	movzbl -0x55(%ebp),%edx
+     a37:	89 d0                	mov    %edx,%eax
+     a39:	c1 e0 02             	shl    $0x2,%eax
+     a3c:	01 d0                	add    %edx,%eax
+     a3e:	c1 e0 07             	shl    $0x7,%eax
+     a41:	8d 7d e8             	lea    -0x18(%ebp),%edi
+     a44:	01 f8                	add    %edi,%eax
+     a46:	2d 50 a0 00 00       	sub    $0xa050,%eax
+     a4b:	0f b6 00             	movzbl (%eax),%eax
+     a4e:	88 45 aa             	mov    %al,-0x56(%ebp)
+          arrSt = curPaths.path[minDistSt][1];
+     a51:	0f b6 55 ab          	movzbl -0x55(%ebp),%edx
+     a55:	89 d0                	mov    %edx,%eax
+     a57:	c1 e0 02             	shl    $0x2,%eax
+     a5a:	01 d0                	add    %edx,%eax
+     a5c:	c1 e0 07             	shl    $0x7,%eax
+     a5f:	8d 5d e8             	lea    -0x18(%ebp),%ebx
+     a62:	01 d8                	add    %ebx,%eax
+     a64:	2d 4f a0 00 00       	sub    $0xa04f,%eax
+     a69:	0f b6 00             	movzbl (%eax),%eax
+     a6c:	88 45 d7             	mov    %al,-0x29(%ebp)
+          byteIdx = BI2BY_LEN(i-CC_MEM_DIM-1);
+     a6f:	8b 45 d8             	mov    -0x28(%ebp),%eax
+     a72:	2d 81 02 00 00       	sub    $0x281,%eax
+     a77:	c1 e8 03             	shr    $0x3,%eax
+     a7a:	89 45 b4             	mov    %eax,-0x4c(%ebp)
+          bitIdx = (uint8_t)((i-CC_MEM_DIM-1)&LSBYTE_MASK_U32);
+     a7d:	8b 45 d8             	mov    -0x28(%ebp),%eax
+     a80:	83 c0 7f             	add    $0x7f,%eax
+     a83:	83 e0 07             	and    $0x7,%eax
+     a86:	88 45 b3             	mov    %al,-0x4d(%ebp)
+          if (trDiagr.trSt[depSt].nextSt[0] == arrSt)
+     a89:	0f b6 45 aa          	movzbl -0x56(%ebp),%eax
+     a8d:	0f b6 84 85 9a ba fe 	movzbl -0x14566(%ebp,%eax,4),%eax
+     a94:	ff 
+     a95:	3a 45 d7             	cmp    -0x29(%ebp),%al
+     a98:	75 39                	jne    ad3 <_CnvCod_HardDecoder+0x6fd>
+          {
+            outStream->pBuf[byteIdx] &= ~(LSBIT_MASK_U8<<(BITIDX_1LAST-bitIdx));
+     a9a:	8b 45 0c             	mov    0xc(%ebp),%eax
+     a9d:	8b 10                	mov    (%eax),%edx
+     a9f:	8b 45 b4             	mov    -0x4c(%ebp),%eax
+     aa2:	01 c2                	add    %eax,%edx
+     aa4:	8b 45 0c             	mov    0xc(%ebp),%eax
+     aa7:	8b 08                	mov    (%eax),%ecx
+     aa9:	8b 45 b4             	mov    -0x4c(%ebp),%eax
+     aac:	01 c8                	add    %ecx,%eax
+     aae:	0f b6 00             	movzbl (%eax),%eax
+     ab1:	89 c3                	mov    %eax,%ebx
+     ab3:	0f b6 45 b3          	movzbl -0x4d(%ebp),%eax
+     ab7:	b9 07 00 00 00       	mov    $0x7,%ecx
+     abc:	29 c1                	sub    %eax,%ecx
+     abe:	89 c8                	mov    %ecx,%eax
+     ac0:	bf 01 00 00 00       	mov    $0x1,%edi
+     ac5:	89 c1                	mov    %eax,%ecx
+     ac7:	d3 e7                	shl    %cl,%edi
+     ac9:	89 f8                	mov    %edi,%eax
+     acb:	f7 d0                	not    %eax
+     acd:	21 d8                	and    %ebx,%eax
+     acf:	88 02                	mov    %al,(%edx)
+     ad1:	eb 35                	jmp    b08 <_CnvCod_HardDecoder+0x732>
+          }
+          else
+          {
+            outStream->pBuf[byteIdx] |= (LSBIT_MASK_U8<<(BITIDX_1LAST-bitIdx));
+     ad3:	8b 45 0c             	mov    0xc(%ebp),%eax
+     ad6:	8b 10                	mov    (%eax),%edx
+     ad8:	8b 45 b4             	mov    -0x4c(%ebp),%eax
+     adb:	01 c2                	add    %eax,%edx
+     add:	8b 45 0c             	mov    0xc(%ebp),%eax
+     ae0:	8b 08                	mov    (%eax),%ecx
+     ae2:	8b 45 b4             	mov    -0x4c(%ebp),%eax
+     ae5:	01 c8                	add    %ecx,%eax
+     ae7:	0f b6 00             	movzbl (%eax),%eax
+     aea:	89 c7                	mov    %eax,%edi
+     aec:	0f b6 45 b3          	movzbl -0x4d(%ebp),%eax
+     af0:	b9 07 00 00 00       	mov    $0x7,%ecx
+     af5:	29 c1                	sub    %eax,%ecx
+     af7:	89 c8                	mov    %ecx,%eax
+     af9:	bb 01 00 00 00       	mov    $0x1,%ebx
+     afe:	89 c1                	mov    %eax,%ecx
+     b00:	d3 e3                	shl    %cl,%ebx
+     b02:	89 d8                	mov    %ebx,%eax
+     b04:	09 f8                	or     %edi,%eax
+     b06:	88 02                	mov    %al,(%edx)
+          }
+          for (j=0; j<CC_NTRELSTATES; j++)
+     b08:	c6 45 d4 00          	movb   $0x0,-0x2c(%ebp)
+     b0c:	eb 63                	jmp    b71 <_CnvCod_HardDecoder+0x79b>
+          {
+            for (wrIdx = 0; wrIdx<(CC_MEM_DIM-1); wrIdx++)
+     b0e:	c7 45 e0 00 00 00 00 	movl   $0x0,-0x20(%ebp)
+     b15:	eb 47                	jmp    b5e <_CnvCod_HardDecoder+0x788>
+            {
+              curPaths.path[j][wrIdx] = curPaths.path[j][wrIdx+1];                                /** - keep all survivor paths */
+     b17:	0f b6 55 d4          	movzbl -0x2c(%ebp),%edx
+     b1b:	0f b6 4d d4          	movzbl -0x2c(%ebp),%ecx
+     b1f:	8b 45 e0             	mov    -0x20(%ebp),%eax
+     b22:	8d 58 01             	lea    0x1(%eax),%ebx
+     b25:	89 c8                	mov    %ecx,%eax
+     b27:	c1 e0 02             	shl    $0x2,%eax
+     b2a:	01 c8                	add    %ecx,%eax
+     b2c:	c1 e0 07             	shl    $0x7,%eax
+     b2f:	8d 7d e8             	lea    -0x18(%ebp),%edi
+     b32:	01 f8                	add    %edi,%eax
+     b34:	01 d8                	add    %ebx,%eax
+     b36:	2d 50 a0 00 00       	sub    $0xa050,%eax
+     b3b:	0f b6 08             	movzbl (%eax),%ecx
+     b3e:	89 d0                	mov    %edx,%eax
+     b40:	c1 e0 02             	shl    $0x2,%eax
+     b43:	01 d0                	add    %edx,%eax
+     b45:	c1 e0 07             	shl    $0x7,%eax
+     b48:	8d 5d e8             	lea    -0x18(%ebp),%ebx
+     b4b:	8d 14 03             	lea    (%ebx,%eax,1),%edx
+     b4e:	8b 45 e0             	mov    -0x20(%ebp),%eax
+     b51:	01 d0                	add    %edx,%eax
+     b53:	2d 50 a0 00 00       	sub    $0xa050,%eax
+     b58:	88 08                	mov    %cl,(%eax)
+            for (wrIdx = 0; wrIdx<(CC_MEM_DIM-1); wrIdx++)
+     b5a:	83 45 e0 01          	addl   $0x1,-0x20(%ebp)
+     b5e:	81 7d e0 7e 02 00 00 	cmpl   $0x27e,-0x20(%ebp)
+     b65:	76 b0                	jbe    b17 <_CnvCod_HardDecoder+0x741>
+          for (j=0; j<CC_NTRELSTATES; j++)
+     b67:	0f b6 45 d4          	movzbl -0x2c(%ebp),%eax
+     b6b:	83 c0 01             	add    $0x1,%eax
+     b6e:	88 45 d4             	mov    %al,-0x2c(%ebp)
+     b71:	80 7d d4 3f          	cmpb   $0x3f,-0x2c(%ebp)
+     b75:	76 97                	jbe    b0e <_CnvCod_HardDecoder+0x738>
+      for (i=CC_NBRANCHES; i<outLenBi+CC_NBRANCHES; i++)
+     b77:	83 45 d8 01          	addl   $0x1,-0x28(%ebp)
+     b7b:	8b 45 d0             	mov    -0x30(%ebp),%eax
+     b7e:	83 c0 02             	add    $0x2,%eax
+     b81:	3b 45 d8             	cmp    -0x28(%ebp),%eax
+     b84:	0f 87 03 fa ff ff    	ja     58d <_CnvCod_HardDecoder+0x1b7>
+    if (CC_VITDM_HARD == pParams->vitDM)
+     b8a:	eb 10                	jmp    b9c <_CnvCod_HardDecoder+0x7c6>
+        }
+      }
+    }
+    else
+    {
+      retErr = ERR_INV_CNVCOD_DECMET;
+     b8c:	c7 45 e4 06 00 00 00 	movl   $0x6,-0x1c(%ebp)
+    if (CC_VITDM_HARD == pParams->vitDM)
+     b93:	eb 07                	jmp    b9c <_CnvCod_HardDecoder+0x7c6>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+     b95:	c7 45 e4 01 00 00 00 	movl   $0x1,-0x1c(%ebp)
+  }
+  
+  return Error_HandleErr(retErr);
+     b9c:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+     b9f:	89 04 24             	mov    %eax,(%esp)
+     ba2:	e8 00 00 00 00       	call   ba7 <_CnvCod_HardDecoder+0x7d1>
+     ba7:	89 f4                	mov    %esi,%esp
+}
+     ba9:	8d 65 f4             	lea    -0xc(%ebp),%esp
+     bac:	5b                   	pop    %ebx
+     bad:	5e                   	pop    %esi
+     bae:	5f                   	pop    %edi
+     baf:	5d                   	pop    %ebp
+     bb0:	c3                   	ret    
+
+00000bb1 <_CnvCod_SoftDecoder>:
+ * @param[in] pParams pointer to convolutional coding parameters structure
+ * 
+ * @return error ID
+ */
+error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams )
+{
+     bb1:	55                   	push   %ebp
+     bb2:	89 e5                	mov    %esp,%ebp
+     bb4:	57                   	push   %edi
+     bb5:	56                   	push   %esi
+     bb6:	53                   	push   %ebx
+     bb7:	b8 9c 45 01 00       	mov    $0x1459c,%eax
+     bbc:	e8 00 00 00 00       	call   bc1 <_CnvCod_SoftDecoder+0x10>
+     bc1:	29 c4                	sub    %eax,%esp
+     bc3:	89 e0                	mov    %esp,%eax
+     bc5:	89 c6                	mov    %eax,%esi
+  Debug_SetWatermark((void *)CnvCod_SoftDecoder,WM_LEVEL_1);
+     bc7:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+     bce:	00 
+     bcf:	c7 04 24 b1 0b 00 00 	movl   $0xbb1,(%esp)
+     bd6:	e8 00 00 00 00       	call   bdb <_CnvCod_SoftDecoder+0x2a>
+
+  error_t retErr = ERR_NONE;
+     bdb:	c7 45 e4 00 00 00 00 	movl   $0x0,-0x1c(%ebp)
+  const ulen_t outLenBi = BY2BI_LEN(outStream->len);
+     be2:	8b 45 0c             	mov    0xc(%ebp),%eax
+     be5:	8b 40 04             	mov    0x4(%eax),%eax
+     be8:	c1 e0 03             	shl    $0x3,%eax
+     beb:	89 45 d0             	mov    %eax,-0x30(%ebp)
+  const ulen_t unpLenBi = CC_NBRANCHES*outLenBi;
+     bee:	8b 45 d0             	mov    -0x30(%ebp),%eax
+     bf1:	01 c0                	add    %eax,%eax
+     bf3:	89 45 cc             	mov    %eax,-0x34(%ebp)
+  const ulen_t punLenBi = inStream->len;
+     bf6:	8b 45 08             	mov    0x8(%ebp),%eax
+     bf9:	8b 40 04             	mov    0x4(%eax),%eax
+     bfc:	89 45 c8             	mov    %eax,-0x38(%ebp)
+  float tmpStream[unpLenBi];
+     bff:	8b 45 cc             	mov    -0x34(%ebp),%eax
+     c02:	83 e8 01             	sub    $0x1,%eax
+     c05:	89 45 c4             	mov    %eax,-0x3c(%ebp)
+     c08:	8b 45 cc             	mov    -0x34(%ebp),%eax
+     c0b:	c1 e0 02             	shl    $0x2,%eax
+     c0e:	8d 50 03             	lea    0x3(%eax),%edx
+     c11:	b8 10 00 00 00       	mov    $0x10,%eax
+     c16:	83 e8 01             	sub    $0x1,%eax
+     c19:	01 d0                	add    %edx,%eax
+     c1b:	bb 10 00 00 00       	mov    $0x10,%ebx
+     c20:	ba 00 00 00 00       	mov    $0x0,%edx
+     c25:	f7 f3                	div    %ebx
+     c27:	6b c0 10             	imul   $0x10,%eax,%eax
+     c2a:	e8 00 00 00 00       	call   c2f <_CnvCod_SoftDecoder+0x7e>
+     c2f:	29 c4                	sub    %eax,%esp
+     c31:	8d 44 24 14          	lea    0x14(%esp),%eax
+     c35:	83 c0 03             	add    $0x3,%eax
+     c38:	c1 e8 02             	shr    $0x2,%eax
+     c3b:	c1 e0 02             	shl    $0x2,%eax
+     c3e:	89 45 c0             	mov    %eax,-0x40(%ebp)
+  cc_soft_dec_info_t curPaths = {.iter={0}, .dist={0.0}, .path={{0}}};
+     c41:	8d 85 a4 5d ff ff    	lea    -0xa25c(%ebp),%eax
+     c47:	ba 00 a2 00 00       	mov    $0xa200,%edx
+     c4c:	89 54 24 08          	mov    %edx,0x8(%esp)
+     c50:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+     c57:	00 
+     c58:	89 04 24             	mov    %eax,(%esp)
+     c5b:	e8 00 00 00 00       	call   c60 <_CnvCod_SoftDecoder+0xaf>
+  uint8_t nextSt, minDistState;
+  uint8_t stateDep, stateArr;
+  uint8_t j, bitIdx, hypIdx;
+  uint8_t erasMask;
+
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+     c60:	8b 45 08             	mov    0x8(%ebp),%eax
+     c63:	8b 40 08             	mov    0x8(%eax),%eax
+     c66:	89 44 24 04          	mov    %eax,0x4(%esp)
+     c6a:	8b 45 08             	mov    0x8(%ebp),%eax
+     c6d:	89 04 24             	mov    %eax,(%esp)
+     c70:	e8 00 00 00 00       	call   c75 <_CnvCod_SoftDecoder+0xc4>
+     c75:	84 c0                	test   %al,%al
+     c77:	0f 84 d6 06 00 00    	je     1353 <_CnvCod_SoftDecoder+0x7a2>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+     c7d:	8b 45 0c             	mov    0xc(%ebp),%eax
+     c80:	8b 40 08             	mov    0x8(%eax),%eax
+     c83:	89 44 24 04          	mov    %eax,0x4(%esp)
+     c87:	8b 45 0c             	mov    0xc(%ebp),%eax
+     c8a:	89 04 24             	mov    %eax,(%esp)
+     c8d:	e8 00 00 00 00       	call   c92 <_CnvCod_SoftDecoder+0xe1>
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+     c92:	84 c0                	test   %al,%al
+     c94:	0f 84 b9 06 00 00    	je     1353 <_CnvCod_SoftDecoder+0x7a2>
+      Memory_IsStreamValid(outStream,outStream->id) &&
+     c9a:	83 7d 10 00          	cmpl   $0x0,0x10(%ebp)
+     c9e:	0f 84 af 06 00 00    	je     1353 <_CnvCod_SoftDecoder+0x7a2>
+      (NULL != pParams))
+  {
+    if (CC_VITDM_SOFT == pParams->vitDM)
+     ca4:	8b 45 10             	mov    0x10(%ebp),%eax
+     ca7:	8b 40 0c             	mov    0xc(%eax),%eax
+     caa:	83 f8 01             	cmp    $0x1,%eax
+     cad:	0f 85 97 06 00 00    	jne    134a <_CnvCod_SoftDecoder+0x799>
+    {
+      RetrieveConnectorPuncturationVectors(&encInfo,pParams);                                     /** - retrieve convolutional encoder info */
+     cb3:	8b 45 10             	mov    0x10(%ebp),%eax
+     cb6:	89 44 24 04          	mov    %eax,0x4(%esp)
+     cba:	8d 85 94 bb fe ff    	lea    -0x1446c(%ebp),%eax
+     cc0:	89 04 24             	mov    %eax,(%esp)
+     cc3:	e8 a7 06 00 00       	call   136f <_RetrieveConnectorPuncturationVectors>
+      ComputeTrellisDiagram(&trDiagr,&encInfo,pParams);                                           /** - compute convolutional decoder trellis diagram */
+     cc8:	8b 45 10             	mov    0x10(%ebp),%eax
+     ccb:	89 44 24 08          	mov    %eax,0x8(%esp)
+     ccf:	8d 85 94 bb fe ff    	lea    -0x1446c(%ebp),%eax
+     cd5:	89 44 24 04          	mov    %eax,0x4(%esp)
+     cd9:	8d 85 94 ba fe ff    	lea    -0x1456c(%ebp),%eax
+     cdf:	89 04 24             	mov    %eax,(%esp)
+     ce2:	e8 9e 08 00 00       	call   1585 <_ComputeTrellisDiagram>
+      memcpy(tmpStream,inStream->pBuf,sizeof(float)*inStream->len);
+     ce7:	8b 45 08             	mov    0x8(%ebp),%eax
+     cea:	8b 40 04             	mov    0x4(%eax),%eax
+     ced:	8d 0c 85 00 00 00 00 	lea    0x0(,%eax,4),%ecx
+     cf4:	8b 45 08             	mov    0x8(%ebp),%eax
+     cf7:	8b 10                	mov    (%eax),%edx
+     cf9:	8b 45 c0             	mov    -0x40(%ebp),%eax
+     cfc:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+     d00:	89 54 24 04          	mov    %edx,0x4(%esp)
+     d04:	89 04 24             	mov    %eax,(%esp)
+     d07:	e8 00 00 00 00       	call   d0c <_CnvCod_SoftDecoder+0x15b>
+      curPaths.iter[0] = 1;                                                                       /** - enable only the all-zero state at the beginning */
+     d0c:	c7 85 a4 5d ff ff 01 	movl   $0x1,-0xa25c(%ebp)
+     d13:	00 00 00 
+
+      if (CC_RATE_12 == pParams->cRate)
+     d16:	8b 45 10             	mov    0x10(%ebp),%eax
+     d19:	8b 00                	mov    (%eax),%eax
+     d1b:	83 f8 01             	cmp    $0x1,%eax
+     d1e:	75 06                	jne    d26 <_CnvCod_SoftDecoder+0x175>
+      {
+        erasMask = CC_INMASK;                                                                     /** - use no-erasure mask for no-puncturing case */
+     d20:	c6 45 d4 03          	movb   $0x3,-0x2c(%ebp)
+     d24:	eb 2a                	jmp    d50 <_CnvCod_SoftDecoder+0x19f>
+      }
+      else
+      {
+        SoftDepuncturer(tmpStream,punLenBi,unpLenBi,&encInfo,pParams);                            /** - apply depuuncturing if needed */
+     d26:	8b 45 c0             	mov    -0x40(%ebp),%eax
+     d29:	8b 55 10             	mov    0x10(%ebp),%edx
+     d2c:	89 54 24 10          	mov    %edx,0x10(%esp)
+     d30:	8d 95 94 bb fe ff    	lea    -0x1446c(%ebp),%edx
+     d36:	89 54 24 0c          	mov    %edx,0xc(%esp)
+     d3a:	8b 55 cc             	mov    -0x34(%ebp),%edx
+     d3d:	89 54 24 08          	mov    %edx,0x8(%esp)
+     d41:	8b 55 c8             	mov    -0x38(%ebp),%edx
+     d44:	89 54 24 04          	mov    %edx,0x4(%esp)
+     d48:	89 04 24             	mov    %eax,(%esp)
+     d4b:	e8 3d 0c 00 00       	call   198d <_SoftDepuncturer>
+      }
+
+      for (i=CC_NBRANCHES; i<outLenBi+CC_NBRANCHES; i++)
+     d50:	c7 45 d8 02 00 00 00 	movl   $0x2,-0x28(%ebp)
+     d57:	e9 dd 05 00 00       	jmp    1339 <_CnvCod_SoftDecoder+0x788>
+      {
+        curIdx = CC_NBRANCHES*(i-CC_NBRANCHES);
+     d5c:	8b 45 d8             	mov    -0x28(%ebp),%eax
+     d5f:	05 fe ff ff 7f       	add    $0x7ffffffe,%eax
+     d64:	01 c0                	add    %eax,%eax
+     d66:	89 45 bc             	mov    %eax,-0x44(%ebp)
+        prevPaths = curPaths;
+     d69:	8d 85 a4 bb fe ff    	lea    -0x1445c(%ebp),%eax
+     d6f:	8d 95 a4 5d ff ff    	lea    -0xa25c(%ebp),%edx
+     d75:	b9 00 a2 00 00       	mov    $0xa200,%ecx
+     d7a:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+     d7e:	89 54 24 04          	mov    %edx,0x4(%esp)
+     d82:	89 04 24             	mov    %eax,(%esp)
+     d85:	e8 00 00 00 00       	call   d8a <_CnvCod_SoftDecoder+0x1d9>
+
+        if (CC_RATE_12 != pParams->cRate)
+     d8a:	8b 45 10             	mov    0x10(%ebp),%eax
+     d8d:	8b 00                	mov    (%eax),%eax
+     d8f:	83 f8 01             	cmp    $0x1,%eax
+     d92:	74 5a                	je     dee <_CnvCod_SoftDecoder+0x23d>
+        {
+          erasMask = 0;
+     d94:	c6 45 d4 00          	movb   $0x0,-0x2c(%ebp)
+          erasMask |= (encInfo.pPuncVect[curIdx%(CC_NBRANCHES*pParams->cRate)]<<1);
+     d98:	8b 8d 9c bb fe ff    	mov    -0x14464(%ebp),%ecx
+     d9e:	8b 45 10             	mov    0x10(%ebp),%eax
+     da1:	8b 00                	mov    (%eax),%eax
+     da3:	8d 1c 00             	lea    (%eax,%eax,1),%ebx
+     da6:	8b 45 bc             	mov    -0x44(%ebp),%eax
+     da9:	ba 00 00 00 00       	mov    $0x0,%edx
+     dae:	f7 f3                	div    %ebx
+     db0:	89 d0                	mov    %edx,%eax
+     db2:	01 c8                	add    %ecx,%eax
+     db4:	0f b6 00             	movzbl (%eax),%eax
+     db7:	0f b6 c0             	movzbl %al,%eax
+     dba:	01 c0                	add    %eax,%eax
+     dbc:	89 c2                	mov    %eax,%edx
+     dbe:	0f b6 45 d4          	movzbl -0x2c(%ebp),%eax
+     dc2:	09 d0                	or     %edx,%eax
+     dc4:	88 45 d4             	mov    %al,-0x2c(%ebp)
+          erasMask |= encInfo.pPuncVect[(curIdx+1)%(CC_NBRANCHES*pParams->cRate)];                /** - estimate specific erasure mask if depuncturing has been applied */
+     dc7:	8b 8d 9c bb fe ff    	mov    -0x14464(%ebp),%ecx
+     dcd:	8b 45 bc             	mov    -0x44(%ebp),%eax
+     dd0:	8d 50 01             	lea    0x1(%eax),%edx
+     dd3:	8b 45 10             	mov    0x10(%ebp),%eax
+     dd6:	8b 00                	mov    (%eax),%eax
+     dd8:	8d 1c 00             	lea    (%eax,%eax,1),%ebx
+     ddb:	89 d0                	mov    %edx,%eax
+     ddd:	ba 00 00 00 00       	mov    $0x0,%edx
+     de2:	f7 f3                	div    %ebx
+     de4:	89 d0                	mov    %edx,%eax
+     de6:	01 c8                	add    %ecx,%eax
+     de8:	0f b6 00             	movzbl (%eax),%eax
+     deb:	08 45 d4             	or     %al,-0x2c(%ebp)
+        }
+
+        for (j=0; j<CC_NTRELSTATES; j++)
+     dee:	c6 45 d6 00          	movb   $0x0,-0x2a(%ebp)
+     df2:	e9 69 02 00 00       	jmp    1060 <_CnvCod_SoftDecoder+0x4af>
+        {
+          if (prevPaths.iter[j] == i-1)                                                           /** - check if j-th state was active in the previous iteration */
+     df7:	0f b6 45 d6          	movzbl -0x2a(%ebp),%eax
+     dfb:	8b 84 85 a4 bb fe ff 	mov    -0x1445c(%ebp,%eax,4),%eax
+     e02:	8b 55 d8             	mov    -0x28(%ebp),%edx
+     e05:	83 ea 01             	sub    $0x1,%edx
+     e08:	39 d0                	cmp    %edx,%eax
+     e0a:	0f 85 46 02 00 00    	jne    1056 <_CnvCod_SoftDecoder+0x4a5>
+          {
+            for (hypIdx = 0; hypIdx<CC_NBRANCHES; hypIdx++)
+     e10:	c6 45 d5 00          	movb   $0x0,-0x2b(%ebp)
+     e14:	e9 33 02 00 00       	jmp    104c <_CnvCod_SoftDecoder+0x49b>
+            {
+              eucliDist = EstimateEuclideanDist(&tmpStream[curIdx],
+     e19:	0f b6 55 d4          	movzbl -0x2c(%ebp),%edx
+                            trDiagr.trSt[j].outBits[hypIdx],erasMask);                            /** compute Euclidean distance assuming hypIdx-value input bit */
+     e1d:	0f b6 4d d6          	movzbl -0x2a(%ebp),%ecx
+     e21:	0f b6 45 d5          	movzbl -0x2b(%ebp),%eax
+     e25:	c1 e1 02             	shl    $0x2,%ecx
+     e28:	8d 7d e8             	lea    -0x18(%ebp),%edi
+     e2b:	01 f9                	add    %edi,%ecx
+     e2d:	01 c8                	add    %ecx,%eax
+     e2f:	2d 54 45 01 00       	sub    $0x14554,%eax
+     e34:	0f b6 00             	movzbl (%eax),%eax
+              eucliDist = EstimateEuclideanDist(&tmpStream[curIdx],
+     e37:	0f b6 c0             	movzbl %al,%eax
+     e3a:	8b 4d bc             	mov    -0x44(%ebp),%ecx
+     e3d:	8d 1c 8d 00 00 00 00 	lea    0x0(,%ecx,4),%ebx
+     e44:	8b 4d c0             	mov    -0x40(%ebp),%ecx
+     e47:	01 d9                	add    %ebx,%ecx
+     e49:	89 54 24 08          	mov    %edx,0x8(%esp)
+     e4d:	89 44 24 04          	mov    %eax,0x4(%esp)
+     e51:	89 0c 24             	mov    %ecx,(%esp)
+     e54:	e8 18 0c 00 00       	call   1a71 <_EstimateEuclideanDist>
+     e59:	d9 9d 84 ba fe ff    	fstps  -0x1457c(%ebp)
+     e5f:	8b 85 84 ba fe ff    	mov    -0x1457c(%ebp),%eax
+     e65:	89 45 b8             	mov    %eax,-0x48(%ebp)
+              nextSt = trDiagr.trSt[j].nextSt[hypIdx];                                            /** compute trellis next state assuming hypIdx-value input bit */
+     e68:	0f b6 55 d6          	movzbl -0x2a(%ebp),%edx
+     e6c:	0f b6 45 d5          	movzbl -0x2b(%ebp),%eax
+     e70:	c1 e2 02             	shl    $0x2,%edx
+     e73:	8d 7d e8             	lea    -0x18(%ebp),%edi
+     e76:	01 fa                	add    %edi,%edx
+     e78:	01 d0                	add    %edx,%eax
+     e7a:	2d 52 45 01 00       	sub    $0x14552,%eax
+     e7f:	0f b6 00             	movzbl (%eax),%eax
+     e82:	88 45 b7             	mov    %al,-0x49(%ebp)
+
+              if (curPaths.iter[nextSt] < i)                                                      /** iIf there's not yet a survivor path for nextSt state at i-th cycle */
+     e85:	0f b6 45 b7          	movzbl -0x49(%ebp),%eax
+     e89:	8b 84 85 a4 5d ff ff 	mov    -0xa25c(%ebp,%eax,4),%eax
+     e90:	3b 45 d8             	cmp    -0x28(%ebp),%eax
+     e93:	0f 83 cc 00 00 00    	jae    f65 <_CnvCod_SoftDecoder+0x3b4>
+              {
+                curPaths.iter[nextSt] = i;                                                        /** update the state iteration counter */
+     e99:	0f b6 45 b7          	movzbl -0x49(%ebp),%eax
+     e9d:	8b 55 d8             	mov    -0x28(%ebp),%edx
+     ea0:	89 94 85 a4 5d ff ff 	mov    %edx,-0xa25c(%ebp,%eax,4)
+                curPaths.dist[nextSt] = prevPaths.dist[j]+eucliDist;                              /** update the state distance */
+     ea7:	0f b6 45 b7          	movzbl -0x49(%ebp),%eax
+     eab:	0f b6 55 d6          	movzbl -0x2a(%ebp),%edx
+     eaf:	83 c2 40             	add    $0x40,%edx
+     eb2:	d9 84 95 a4 bb fe ff 	flds   -0x1445c(%ebp,%edx,4)
+     eb9:	d8 45 b8             	fadds  -0x48(%ebp)
+     ebc:	83 c0 40             	add    $0x40,%eax
+     ebf:	d9 9c 85 a4 5d ff ff 	fstps  -0xa25c(%ebp,%eax,4)
+                if (i-1 < CC_MEM_DIM)
+     ec6:	8b 45 d8             	mov    -0x28(%ebp),%eax
+     ec9:	83 e8 01             	sub    $0x1,%eax
+     ecc:	3d 7f 02 00 00       	cmp    $0x27f,%eax
+     ed1:	77 0b                	ja     ede <_CnvCod_SoftDecoder+0x32d>
+                {
+                  finIdx = i-CC_NBRANCHES;
+     ed3:	8b 45 d8             	mov    -0x28(%ebp),%eax
+     ed6:	83 e8 02             	sub    $0x2,%eax
+     ed9:	89 45 dc             	mov    %eax,-0x24(%ebp)
+     edc:	eb 07                	jmp    ee5 <_CnvCod_SoftDecoder+0x334>
+                }
+                else
+                {
+                  finIdx = CC_MEM_DIM-1;
+     ede:	c7 45 dc 7f 02 00 00 	movl   $0x27f,-0x24(%ebp)
+                }
+                for (wrIdx = 0; wrIdx < finIdx; wrIdx++)                                          /** update the state path among previous states */
+     ee5:	c7 45 e0 00 00 00 00 	movl   $0x0,-0x20(%ebp)
+     eec:	eb 45                	jmp    f33 <_CnvCod_SoftDecoder+0x382>
+                {
+                  curPaths.path[nextSt][wrIdx] = prevPaths.path[j][wrIdx];
+     eee:	0f b6 55 b7          	movzbl -0x49(%ebp),%edx
+     ef2:	0f b6 4d d6          	movzbl -0x2a(%ebp),%ecx
+     ef6:	89 c8                	mov    %ecx,%eax
+     ef8:	c1 e0 02             	shl    $0x2,%eax
+     efb:	01 c8                	add    %ecx,%eax
+     efd:	c1 e0 07             	shl    $0x7,%eax
+     f00:	8d 7d e8             	lea    -0x18(%ebp),%edi
+     f03:	8d 0c 07             	lea    (%edi,%eax,1),%ecx
+     f06:	8b 45 e0             	mov    -0x20(%ebp),%eax
+     f09:	01 c8                	add    %ecx,%eax
+     f0b:	2d 44 42 01 00       	sub    $0x14244,%eax
+     f10:	0f b6 08             	movzbl (%eax),%ecx
+     f13:	89 d0                	mov    %edx,%eax
+     f15:	c1 e0 02             	shl    $0x2,%eax
+     f18:	01 d0                	add    %edx,%eax
+     f1a:	c1 e0 07             	shl    $0x7,%eax
+     f1d:	8d 7d e8             	lea    -0x18(%ebp),%edi
+     f20:	8d 14 07             	lea    (%edi,%eax,1),%edx
+     f23:	8b 45 e0             	mov    -0x20(%ebp),%eax
+     f26:	01 d0                	add    %edx,%eax
+     f28:	2d 44 a0 00 00       	sub    $0xa044,%eax
+     f2d:	88 08                	mov    %cl,(%eax)
+                for (wrIdx = 0; wrIdx < finIdx; wrIdx++)                                          /** update the state path among previous states */
+     f2f:	83 45 e0 01          	addl   $0x1,-0x20(%ebp)
+     f33:	8b 45 e0             	mov    -0x20(%ebp),%eax
+     f36:	3b 45 dc             	cmp    -0x24(%ebp),%eax
+     f39:	72 b3                	jb     eee <_CnvCod_SoftDecoder+0x33d>
+                }
+                curPaths.path[nextSt][finIdx] = j;
+     f3b:	0f b6 55 b7          	movzbl -0x49(%ebp),%edx
+     f3f:	89 d0                	mov    %edx,%eax
+     f41:	c1 e0 02             	shl    $0x2,%eax
+     f44:	01 d0                	add    %edx,%eax
+     f46:	c1 e0 07             	shl    $0x7,%eax
+     f49:	8d 5d e8             	lea    -0x18(%ebp),%ebx
+     f4c:	8d 14 03             	lea    (%ebx,%eax,1),%edx
+     f4f:	8b 45 dc             	mov    -0x24(%ebp),%eax
+     f52:	01 d0                	add    %edx,%eax
+     f54:	8d 90 bc 5f ff ff    	lea    -0xa044(%eax),%edx
+     f5a:	0f b6 45 d6          	movzbl -0x2a(%ebp),%eax
+     f5e:	88 02                	mov    %al,(%edx)
+     f60:	e9 dd 00 00 00       	jmp    1042 <_CnvCod_SoftDecoder+0x491>
+              }
+              else                                                                                /** if a survivor path for nextSt state at i-th cycle already exists, check if the new candidate is better */
+              {
+                candDist = prevPaths.dist[j]+eucliDist;
+     f65:	0f b6 45 d6          	movzbl -0x2a(%ebp),%eax
+     f69:	83 c0 40             	add    $0x40,%eax
+     f6c:	d9 84 85 a4 bb fe ff 	flds   -0x1445c(%ebp,%eax,4)
+     f73:	d8 45 b8             	fadds  -0x48(%ebp)
+     f76:	d9 5d b0             	fstps  -0x50(%ebp)
+                if (candDist < curPaths.dist[nextSt])
+     f79:	0f b6 45 b7          	movzbl -0x49(%ebp),%eax
+     f7d:	83 c0 40             	add    $0x40,%eax
+     f80:	d9 84 85 a4 5d ff ff 	flds   -0xa25c(%ebp,%eax,4)
+     f87:	d9 45 b0             	flds   -0x50(%ebp)
+     f8a:	d9 c9                	fxch   %st(1)
+     f8c:	da e9                	fucompp 
+     f8e:	df e0                	fnstsw %ax
+     f90:	9e                   	sahf   
+     f91:	0f 86 ab 00 00 00    	jbe    1042 <_CnvCod_SoftDecoder+0x491>
+                {
+                  curPaths.dist[nextSt] = candDist;
+     f97:	0f b6 45 b7          	movzbl -0x49(%ebp),%eax
+     f9b:	83 c0 40             	add    $0x40,%eax
+     f9e:	d9 45 b0             	flds   -0x50(%ebp)
+     fa1:	d9 9c 85 a4 5d ff ff 	fstps  -0xa25c(%ebp,%eax,4)
+                  if (i-1 < CC_MEM_DIM)
+     fa8:	8b 45 d8             	mov    -0x28(%ebp),%eax
+     fab:	83 e8 01             	sub    $0x1,%eax
+     fae:	3d 7f 02 00 00       	cmp    $0x27f,%eax
+     fb3:	77 0b                	ja     fc0 <_CnvCod_SoftDecoder+0x40f>
+                  {
+                    finIdx = i-CC_NBRANCHES;
+     fb5:	8b 45 d8             	mov    -0x28(%ebp),%eax
+     fb8:	83 e8 02             	sub    $0x2,%eax
+     fbb:	89 45 dc             	mov    %eax,-0x24(%ebp)
+     fbe:	eb 07                	jmp    fc7 <_CnvCod_SoftDecoder+0x416>
+                  }
+                  else
+                  {
+                    finIdx = CC_MEM_DIM-1;
+     fc0:	c7 45 dc 7f 02 00 00 	movl   $0x27f,-0x24(%ebp)
+                  }
+                  for (wrIdx = 0; wrIdx < finIdx; wrIdx++)
+     fc7:	c7 45 e0 00 00 00 00 	movl   $0x0,-0x20(%ebp)
+     fce:	eb 45                	jmp    1015 <_CnvCod_SoftDecoder+0x464>
+                  {
+                    curPaths.path[nextSt][wrIdx] = prevPaths.path[j][wrIdx];
+     fd0:	0f b6 55 b7          	movzbl -0x49(%ebp),%edx
+     fd4:	0f b6 4d d6          	movzbl -0x2a(%ebp),%ecx
+     fd8:	89 c8                	mov    %ecx,%eax
+     fda:	c1 e0 02             	shl    $0x2,%eax
+     fdd:	01 c8                	add    %ecx,%eax
+     fdf:	c1 e0 07             	shl    $0x7,%eax
+     fe2:	8d 7d e8             	lea    -0x18(%ebp),%edi
+     fe5:	8d 0c 07             	lea    (%edi,%eax,1),%ecx
+     fe8:	8b 45 e0             	mov    -0x20(%ebp),%eax
+     feb:	01 c8                	add    %ecx,%eax
+     fed:	2d 44 42 01 00       	sub    $0x14244,%eax
+     ff2:	0f b6 08             	movzbl (%eax),%ecx
+     ff5:	89 d0                	mov    %edx,%eax
+     ff7:	c1 e0 02             	shl    $0x2,%eax
+     ffa:	01 d0                	add    %edx,%eax
+     ffc:	c1 e0 07             	shl    $0x7,%eax
+     fff:	8d 5d e8             	lea    -0x18(%ebp),%ebx
+    1002:	8d 14 03             	lea    (%ebx,%eax,1),%edx
+    1005:	8b 45 e0             	mov    -0x20(%ebp),%eax
+    1008:	01 d0                	add    %edx,%eax
+    100a:	2d 44 a0 00 00       	sub    $0xa044,%eax
+    100f:	88 08                	mov    %cl,(%eax)
+                  for (wrIdx = 0; wrIdx < finIdx; wrIdx++)
+    1011:	83 45 e0 01          	addl   $0x1,-0x20(%ebp)
+    1015:	8b 45 e0             	mov    -0x20(%ebp),%eax
+    1018:	3b 45 dc             	cmp    -0x24(%ebp),%eax
+    101b:	72 b3                	jb     fd0 <_CnvCod_SoftDecoder+0x41f>
+                  }
+                  curPaths.path[nextSt][finIdx] = j;
+    101d:	0f b6 55 b7          	movzbl -0x49(%ebp),%edx
+    1021:	89 d0                	mov    %edx,%eax
+    1023:	c1 e0 02             	shl    $0x2,%eax
+    1026:	01 d0                	add    %edx,%eax
+    1028:	c1 e0 07             	shl    $0x7,%eax
+    102b:	8d 7d e8             	lea    -0x18(%ebp),%edi
+    102e:	8d 14 07             	lea    (%edi,%eax,1),%edx
+    1031:	8b 45 dc             	mov    -0x24(%ebp),%eax
+    1034:	01 d0                	add    %edx,%eax
+    1036:	8d 90 bc 5f ff ff    	lea    -0xa044(%eax),%edx
+    103c:	0f b6 45 d6          	movzbl -0x2a(%ebp),%eax
+    1040:	88 02                	mov    %al,(%edx)
+            for (hypIdx = 0; hypIdx<CC_NBRANCHES; hypIdx++)
+    1042:	0f b6 45 d5          	movzbl -0x2b(%ebp),%eax
+    1046:	83 c0 01             	add    $0x1,%eax
+    1049:	88 45 d5             	mov    %al,-0x2b(%ebp)
+    104c:	80 7d d5 01          	cmpb   $0x1,-0x2b(%ebp)
+    1050:	0f 86 c3 fd ff ff    	jbe    e19 <_CnvCod_SoftDecoder+0x268>
+        for (j=0; j<CC_NTRELSTATES; j++)
+    1056:	0f b6 45 d6          	movzbl -0x2a(%ebp),%eax
+    105a:	83 c0 01             	add    $0x1,%eax
+    105d:	88 45 d6             	mov    %al,-0x2a(%ebp)
+    1060:	80 7d d6 3f          	cmpb   $0x3f,-0x2a(%ebp)
+    1064:	0f 86 8d fd ff ff    	jbe    df7 <_CnvCod_SoftDecoder+0x246>
+              }
+            }
+          }
+        }
+
+        if (outLenBi == i-1)                                                                      /** - if input bit stream is over, flush the decoder memory and extract the final info bits */
+    106a:	8b 45 d8             	mov    -0x28(%ebp),%eax
+    106d:	83 e8 01             	sub    $0x1,%eax
+    1070:	3b 45 d0             	cmp    -0x30(%ebp),%eax
+    1073:	0f 85 56 01 00 00    	jne    11cf <_CnvCod_SoftDecoder+0x61e>
+        {
+          minDistState = FindMinSurvPathSoft(&curPaths);                                          /** look for the minimum distance survivor path */
+    1079:	8d 85 a4 5d ff ff    	lea    -0xa25c(%ebp),%eax
+    107f:	89 04 24             	mov    %eax,(%esp)
+    1082:	e8 9a 0a 00 00       	call   1b21 <_FindMinSurvPathSoft>
+    1087:	88 45 af             	mov    %al,-0x51(%ebp)
+          if (i-1 >= CC_MEM_DIM)                                                                  /** check if memory has been completely filled */
+    108a:	8b 45 d8             	mov    -0x28(%ebp),%eax
+    108d:	83 e8 01             	sub    $0x1,%eax
+    1090:	3d 7f 02 00 00       	cmp    $0x27f,%eax
+    1095:	76 09                	jbe    10a0 <_CnvCod_SoftDecoder+0x4ef>
+          {
+            finIdx = CC_MEM_DIM;
+    1097:	c7 45 dc 80 02 00 00 	movl   $0x280,-0x24(%ebp)
+    109e:	eb 09                	jmp    10a9 <_CnvCod_SoftDecoder+0x4f8>
+          }
+          else
+          {
+            finIdx = i-1;
+    10a0:	8b 45 d8             	mov    -0x28(%ebp),%eax
+    10a3:	83 e8 01             	sub    $0x1,%eax
+    10a6:	89 45 dc             	mov    %eax,-0x24(%ebp)
+          }
+          for (wrIdx=0; wrIdx<finIdx; wrIdx++)
+    10a9:	c7 45 e0 00 00 00 00 	movl   $0x0,-0x20(%ebp)
+    10b0:	e9 09 01 00 00       	jmp    11be <_CnvCod_SoftDecoder+0x60d>
+          {
+            stateDep = curPaths.path[minDistState][wrIdx];                                        /** departure state */
+    10b5:	0f b6 55 af          	movzbl -0x51(%ebp),%edx
+    10b9:	89 d0                	mov    %edx,%eax
+    10bb:	c1 e0 02             	shl    $0x2,%eax
+    10be:	01 d0                	add    %edx,%eax
+    10c0:	c1 e0 07             	shl    $0x7,%eax
+    10c3:	8d 5d e8             	lea    -0x18(%ebp),%ebx
+    10c6:	8d 14 03             	lea    (%ebx,%eax,1),%edx
+    10c9:	8b 45 e0             	mov    -0x20(%ebp),%eax
+    10cc:	01 d0                	add    %edx,%eax
+    10ce:	2d 44 a0 00 00       	sub    $0xa044,%eax
+    10d3:	0f b6 00             	movzbl (%eax),%eax
+    10d6:	88 45 ae             	mov    %al,-0x52(%ebp)
+            if (wrIdx == finIdx-1)
+    10d9:	8b 45 dc             	mov    -0x24(%ebp),%eax
+    10dc:	83 e8 01             	sub    $0x1,%eax
+    10df:	3b 45 e0             	cmp    -0x20(%ebp),%eax
+    10e2:	75 09                	jne    10ed <_CnvCod_SoftDecoder+0x53c>
+            {
+              stateArr = minDistState;                                                            /** arrival state */
+    10e4:	0f b6 45 af          	movzbl -0x51(%ebp),%eax
+    10e8:	88 45 d7             	mov    %al,-0x29(%ebp)
+    10eb:	eb 26                	jmp    1113 <_CnvCod_SoftDecoder+0x562>
+            }
+            else
+            {
+              stateArr = curPaths.path[minDistState][wrIdx+1];
+    10ed:	0f b6 55 af          	movzbl -0x51(%ebp),%edx
+    10f1:	8b 45 e0             	mov    -0x20(%ebp),%eax
+    10f4:	8d 48 01             	lea    0x1(%eax),%ecx
+    10f7:	89 d0                	mov    %edx,%eax
+    10f9:	c1 e0 02             	shl    $0x2,%eax
+    10fc:	01 d0                	add    %edx,%eax
+    10fe:	c1 e0 07             	shl    $0x7,%eax
+    1101:	8d 7d e8             	lea    -0x18(%ebp),%edi
+    1104:	01 f8                	add    %edi,%eax
+    1106:	01 c8                	add    %ecx,%eax
+    1108:	2d 44 a0 00 00       	sub    $0xa044,%eax
+    110d:	0f b6 00             	movzbl (%eax),%eax
+    1110:	88 45 d7             	mov    %al,-0x29(%ebp)
+            }
+            byteIdx = BI2BY_LEN(outLenBi-finIdx+wrIdx);
+    1113:	8b 45 d0             	mov    -0x30(%ebp),%eax
+    1116:	2b 45 dc             	sub    -0x24(%ebp),%eax
+    1119:	89 c2                	mov    %eax,%edx
+    111b:	8b 45 e0             	mov    -0x20(%ebp),%eax
+    111e:	01 d0                	add    %edx,%eax
+    1120:	c1 e8 03             	shr    $0x3,%eax
+    1123:	89 45 a8             	mov    %eax,-0x58(%ebp)
+            bitIdx = (outLenBi-finIdx+wrIdx)&LSBYTE_MASK_U32;
+    1126:	8b 45 d0             	mov    -0x30(%ebp),%eax
+    1129:	89 c2                	mov    %eax,%edx
+    112b:	8b 45 dc             	mov    -0x24(%ebp),%eax
+    112e:	29 c2                	sub    %eax,%edx
+    1130:	8b 45 e0             	mov    -0x20(%ebp),%eax
+    1133:	01 d0                	add    %edx,%eax
+    1135:	83 e0 07             	and    $0x7,%eax
+    1138:	88 45 a7             	mov    %al,-0x59(%ebp)
+            if (trDiagr.trSt[stateDep].nextSt[0] == stateArr)
+    113b:	0f b6 45 ae          	movzbl -0x52(%ebp),%eax
+    113f:	0f b6 84 85 96 ba fe 	movzbl -0x1456a(%ebp,%eax,4),%eax
+    1146:	ff 
+    1147:	3a 45 d7             	cmp    -0x29(%ebp),%al
+    114a:	75 39                	jne    1185 <_CnvCod_SoftDecoder+0x5d4>
+            {
+              outStream->pBuf[byteIdx] &= ~(LSBIT_MASK_U8<<(BITIDX_1LAST-bitIdx));                /** set output bit to '0' */
+    114c:	8b 45 0c             	mov    0xc(%ebp),%eax
+    114f:	8b 10                	mov    (%eax),%edx
+    1151:	8b 45 a8             	mov    -0x58(%ebp),%eax
+    1154:	01 c2                	add    %eax,%edx
+    1156:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1159:	8b 08                	mov    (%eax),%ecx
+    115b:	8b 45 a8             	mov    -0x58(%ebp),%eax
+    115e:	01 c8                	add    %ecx,%eax
+    1160:	0f b6 00             	movzbl (%eax),%eax
+    1163:	89 c3                	mov    %eax,%ebx
+    1165:	0f b6 45 a7          	movzbl -0x59(%ebp),%eax
+    1169:	b9 07 00 00 00       	mov    $0x7,%ecx
+    116e:	29 c1                	sub    %eax,%ecx
+    1170:	89 c8                	mov    %ecx,%eax
+    1172:	bf 01 00 00 00       	mov    $0x1,%edi
+    1177:	89 c1                	mov    %eax,%ecx
+    1179:	d3 e7                	shl    %cl,%edi
+    117b:	89 f8                	mov    %edi,%eax
+    117d:	f7 d0                	not    %eax
+    117f:	21 d8                	and    %ebx,%eax
+    1181:	88 02                	mov    %al,(%edx)
+    1183:	eb 35                	jmp    11ba <_CnvCod_SoftDecoder+0x609>
+            }
+            else
+            {
+              outStream->pBuf[byteIdx] |= (LSBIT_MASK_U8<<(BITIDX_1LAST-bitIdx));                 /** set output bit to '1' */
+    1185:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1188:	8b 10                	mov    (%eax),%edx
+    118a:	8b 45 a8             	mov    -0x58(%ebp),%eax
+    118d:	01 c2                	add    %eax,%edx
+    118f:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1192:	8b 08                	mov    (%eax),%ecx
+    1194:	8b 45 a8             	mov    -0x58(%ebp),%eax
+    1197:	01 c8                	add    %ecx,%eax
+    1199:	0f b6 00             	movzbl (%eax),%eax
+    119c:	89 c7                	mov    %eax,%edi
+    119e:	0f b6 45 a7          	movzbl -0x59(%ebp),%eax
+    11a2:	b9 07 00 00 00       	mov    $0x7,%ecx
+    11a7:	29 c1                	sub    %eax,%ecx
+    11a9:	89 c8                	mov    %ecx,%eax
+    11ab:	bb 01 00 00 00       	mov    $0x1,%ebx
+    11b0:	89 c1                	mov    %eax,%ecx
+    11b2:	d3 e3                	shl    %cl,%ebx
+    11b4:	89 d8                	mov    %ebx,%eax
+    11b6:	09 f8                	or     %edi,%eax
+    11b8:	88 02                	mov    %al,(%edx)
+          for (wrIdx=0; wrIdx<finIdx; wrIdx++)
+    11ba:	83 45 e0 01          	addl   $0x1,-0x20(%ebp)
+    11be:	8b 45 e0             	mov    -0x20(%ebp),%eax
+    11c1:	3b 45 dc             	cmp    -0x24(%ebp),%eax
+    11c4:	0f 82 eb fe ff ff    	jb     10b5 <_CnvCod_SoftDecoder+0x504>
+    11ca:	e9 66 01 00 00       	jmp    1335 <_CnvCod_SoftDecoder+0x784>
+            }
+          }
+        }
+        else if (i-1 >= CC_MEM_DIM)                                                               /** - if input bit stream is not over but memory is full, extract the oldest info bit */
+    11cf:	8b 45 d8             	mov    -0x28(%ebp),%eax
+    11d2:	83 e8 01             	sub    $0x1,%eax
+    11d5:	3d 7f 02 00 00       	cmp    $0x27f,%eax
+    11da:	0f 86 55 01 00 00    	jbe    1335 <_CnvCod_SoftDecoder+0x784>
+        {
+          minDistState = FindMinSurvPathSoft(&curPaths);
+    11e0:	8d 85 a4 5d ff ff    	lea    -0xa25c(%ebp),%eax
+    11e6:	89 04 24             	mov    %eax,(%esp)
+    11e9:	e8 33 09 00 00       	call   1b21 <_FindMinSurvPathSoft>
+    11ee:	88 45 af             	mov    %al,-0x51(%ebp)
+          stateDep = curPaths.path[minDistState][0];
+    11f1:	0f b6 55 af          	movzbl -0x51(%ebp),%edx
+    11f5:	89 d0                	mov    %edx,%eax
+    11f7:	c1 e0 02             	shl    $0x2,%eax
+    11fa:	01 d0                	add    %edx,%eax
+    11fc:	c1 e0 07             	shl    $0x7,%eax
+    11ff:	8d 5d e8             	lea    -0x18(%ebp),%ebx
+    1202:	01 d8                	add    %ebx,%eax
+    1204:	2d 44 a0 00 00       	sub    $0xa044,%eax
+    1209:	0f b6 00             	movzbl (%eax),%eax
+    120c:	88 45 ae             	mov    %al,-0x52(%ebp)
+          stateArr = curPaths.path[minDistState][1];
+    120f:	0f b6 55 af          	movzbl -0x51(%ebp),%edx
+    1213:	89 d0                	mov    %edx,%eax
+    1215:	c1 e0 02             	shl    $0x2,%eax
+    1218:	01 d0                	add    %edx,%eax
+    121a:	c1 e0 07             	shl    $0x7,%eax
+    121d:	8d 7d e8             	lea    -0x18(%ebp),%edi
+    1220:	01 f8                	add    %edi,%eax
+    1222:	2d 43 a0 00 00       	sub    $0xa043,%eax
+    1227:	0f b6 00             	movzbl (%eax),%eax
+    122a:	88 45 d7             	mov    %al,-0x29(%ebp)
+          byteIdx = BI2BY_LEN(i-CC_MEM_DIM-1);
+    122d:	8b 45 d8             	mov    -0x28(%ebp),%eax
+    1230:	2d 81 02 00 00       	sub    $0x281,%eax
+    1235:	c1 e8 03             	shr    $0x3,%eax
+    1238:	89 45 a8             	mov    %eax,-0x58(%ebp)
+          bitIdx = (uint8_t)((i-CC_MEM_DIM-1)&LSBYTE_MASK_U32);
+    123b:	8b 45 d8             	mov    -0x28(%ebp),%eax
+    123e:	83 c0 7f             	add    $0x7f,%eax
+    1241:	83 e0 07             	and    $0x7,%eax
+    1244:	88 45 a7             	mov    %al,-0x59(%ebp)
+          if (trDiagr.trSt[stateDep].nextSt[0] == stateArr)
+    1247:	0f b6 45 ae          	movzbl -0x52(%ebp),%eax
+    124b:	0f b6 84 85 96 ba fe 	movzbl -0x1456a(%ebp,%eax,4),%eax
+    1252:	ff 
+    1253:	3a 45 d7             	cmp    -0x29(%ebp),%al
+    1256:	75 39                	jne    1291 <_CnvCod_SoftDecoder+0x6e0>
+          {
+            outStream->pBuf[byteIdx] &= ~(LSBIT_MASK_U8<<(BITIDX_1LAST-bitIdx));                  /** - set output bit to '0' */
+    1258:	8b 45 0c             	mov    0xc(%ebp),%eax
+    125b:	8b 10                	mov    (%eax),%edx
+    125d:	8b 45 a8             	mov    -0x58(%ebp),%eax
+    1260:	01 c2                	add    %eax,%edx
+    1262:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1265:	8b 08                	mov    (%eax),%ecx
+    1267:	8b 45 a8             	mov    -0x58(%ebp),%eax
+    126a:	01 c8                	add    %ecx,%eax
+    126c:	0f b6 00             	movzbl (%eax),%eax
+    126f:	89 c3                	mov    %eax,%ebx
+    1271:	0f b6 45 a7          	movzbl -0x59(%ebp),%eax
+    1275:	b9 07 00 00 00       	mov    $0x7,%ecx
+    127a:	29 c1                	sub    %eax,%ecx
+    127c:	89 c8                	mov    %ecx,%eax
+    127e:	bf 01 00 00 00       	mov    $0x1,%edi
+    1283:	89 c1                	mov    %eax,%ecx
+    1285:	d3 e7                	shl    %cl,%edi
+    1287:	89 f8                	mov    %edi,%eax
+    1289:	f7 d0                	not    %eax
+    128b:	21 d8                	and    %ebx,%eax
+    128d:	88 02                	mov    %al,(%edx)
+    128f:	eb 35                	jmp    12c6 <_CnvCod_SoftDecoder+0x715>
+          }
+          else
+          {
+            outStream->pBuf[byteIdx] |= (LSBIT_MASK_U8<<(BITIDX_1LAST-bitIdx));                   /** - set output bit to '1' */
+    1291:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1294:	8b 10                	mov    (%eax),%edx
+    1296:	8b 45 a8             	mov    -0x58(%ebp),%eax
+    1299:	01 c2                	add    %eax,%edx
+    129b:	8b 45 0c             	mov    0xc(%ebp),%eax
+    129e:	8b 08                	mov    (%eax),%ecx
+    12a0:	8b 45 a8             	mov    -0x58(%ebp),%eax
+    12a3:	01 c8                	add    %ecx,%eax
+    12a5:	0f b6 00             	movzbl (%eax),%eax
+    12a8:	89 c7                	mov    %eax,%edi
+    12aa:	0f b6 45 a7          	movzbl -0x59(%ebp),%eax
+    12ae:	b9 07 00 00 00       	mov    $0x7,%ecx
+    12b3:	29 c1                	sub    %eax,%ecx
+    12b5:	89 c8                	mov    %ecx,%eax
+    12b7:	bb 01 00 00 00       	mov    $0x1,%ebx
+    12bc:	89 c1                	mov    %eax,%ecx
+    12be:	d3 e3                	shl    %cl,%ebx
+    12c0:	89 d8                	mov    %ebx,%eax
+    12c2:	09 f8                	or     %edi,%eax
+    12c4:	88 02                	mov    %al,(%edx)
+          }
+          for (j=0; j<CC_NTRELSTATES; j++)
+    12c6:	c6 45 d6 00          	movb   $0x0,-0x2a(%ebp)
+    12ca:	eb 63                	jmp    132f <_CnvCod_SoftDecoder+0x77e>
+          {
+            for (wrIdx = 0; wrIdx<(CC_MEM_DIM-1); wrIdx++)
+    12cc:	c7 45 e0 00 00 00 00 	movl   $0x0,-0x20(%ebp)
+    12d3:	eb 47                	jmp    131c <_CnvCod_SoftDecoder+0x76b>
+            {
+              curPaths.path[j][wrIdx] = curPaths.path[j][wrIdx+1];                                /** - keep all survivor paths */
+    12d5:	0f b6 55 d6          	movzbl -0x2a(%ebp),%edx
+    12d9:	0f b6 4d d6          	movzbl -0x2a(%ebp),%ecx
+    12dd:	8b 45 e0             	mov    -0x20(%ebp),%eax
+    12e0:	8d 58 01             	lea    0x1(%eax),%ebx
+    12e3:	89 c8                	mov    %ecx,%eax
+    12e5:	c1 e0 02             	shl    $0x2,%eax
+    12e8:	01 c8                	add    %ecx,%eax
+    12ea:	c1 e0 07             	shl    $0x7,%eax
+    12ed:	8d 7d e8             	lea    -0x18(%ebp),%edi
+    12f0:	01 f8                	add    %edi,%eax
+    12f2:	01 d8                	add    %ebx,%eax
+    12f4:	2d 44 a0 00 00       	sub    $0xa044,%eax
+    12f9:	0f b6 08             	movzbl (%eax),%ecx
+    12fc:	89 d0                	mov    %edx,%eax
+    12fe:	c1 e0 02             	shl    $0x2,%eax
+    1301:	01 d0                	add    %edx,%eax
+    1303:	c1 e0 07             	shl    $0x7,%eax
+    1306:	8d 5d e8             	lea    -0x18(%ebp),%ebx
+    1309:	8d 14 03             	lea    (%ebx,%eax,1),%edx
+    130c:	8b 45 e0             	mov    -0x20(%ebp),%eax
+    130f:	01 d0                	add    %edx,%eax
+    1311:	2d 44 a0 00 00       	sub    $0xa044,%eax
+    1316:	88 08                	mov    %cl,(%eax)
+            for (wrIdx = 0; wrIdx<(CC_MEM_DIM-1); wrIdx++)
+    1318:	83 45 e0 01          	addl   $0x1,-0x20(%ebp)
+    131c:	81 7d e0 7e 02 00 00 	cmpl   $0x27e,-0x20(%ebp)
+    1323:	76 b0                	jbe    12d5 <_CnvCod_SoftDecoder+0x724>
+          for (j=0; j<CC_NTRELSTATES; j++)
+    1325:	0f b6 45 d6          	movzbl -0x2a(%ebp),%eax
+    1329:	83 c0 01             	add    $0x1,%eax
+    132c:	88 45 d6             	mov    %al,-0x2a(%ebp)
+    132f:	80 7d d6 3f          	cmpb   $0x3f,-0x2a(%ebp)
+    1333:	76 97                	jbe    12cc <_CnvCod_SoftDecoder+0x71b>
+      for (i=CC_NBRANCHES; i<outLenBi+CC_NBRANCHES; i++)
+    1335:	83 45 d8 01          	addl   $0x1,-0x28(%ebp)
+    1339:	8b 45 d0             	mov    -0x30(%ebp),%eax
+    133c:	83 c0 02             	add    $0x2,%eax
+    133f:	3b 45 d8             	cmp    -0x28(%ebp),%eax
+    1342:	0f 87 14 fa ff ff    	ja     d5c <_CnvCod_SoftDecoder+0x1ab>
+    if (CC_VITDM_SOFT == pParams->vitDM)
+    1348:	eb 10                	jmp    135a <_CnvCod_SoftDecoder+0x7a9>
+        }
+      }
+    }
+    else
+    {
+      retErr = ERR_INV_CNVCOD_DECMET;
+    134a:	c7 45 e4 06 00 00 00 	movl   $0x6,-0x1c(%ebp)
+    if (CC_VITDM_SOFT == pParams->vitDM)
+    1351:	eb 07                	jmp    135a <_CnvCod_SoftDecoder+0x7a9>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+    1353:	c7 45 e4 01 00 00 00 	movl   $0x1,-0x1c(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+    135a:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+    135d:	89 04 24             	mov    %eax,(%esp)
+    1360:	e8 00 00 00 00       	call   1365 <_CnvCod_SoftDecoder+0x7b4>
+    1365:	89 f4                	mov    %esi,%esp
+}
+    1367:	8d 65 f4             	lea    -0xc(%ebp),%esp
+    136a:	5b                   	pop    %ebx
+    136b:	5e                   	pop    %esi
+    136c:	5f                   	pop    %edi
+    136d:	5d                   	pop    %ebp
+    136e:	c3                   	ret    
+
+0000136f <_RetrieveConnectorPuncturationVectors>:
+ * @param[in] pParams pointer to convolutional coding parameters structure
+ * 
+ * @return error ID
+ */
+static error_t RetrieveConnectorPuncturationVectors( cc_encoder_info_t * ioInfo, const cc_par_t * pParams )
+{
+    136f:	55                   	push   %ebp
+    1370:	89 e5                	mov    %esp,%ebp
+    1372:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)RetrieveConnectorPuncturationVectors,WM_LEVEL_2);
+    1375:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+    137c:	00 
+    137d:	c7 04 24 6f 13 00 00 	movl   $0x136f,(%esp)
+    1384:	e8 00 00 00 00       	call   1389 <_RetrieveConnectorPuncturationVectors+0x1a>
+
+  error_t retErr = ERR_NONE;
+    1389:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+
+  if ((NULL != ioInfo) && (NULL != pParams))
+    1390:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+    1394:	0f 84 cc 00 00 00    	je     1466 <_RetrieveConnectorPuncturationVectors+0xf7>
+    139a:	83 7d 0c 00          	cmpl   $0x0,0xc(%ebp)
+    139e:	0f 84 c2 00 00 00    	je     1466 <_RetrieveConnectorPuncturationVectors+0xf7>
+  {
+    if (IsKlenValid(pParams->kLen))
+    13a4:	8b 45 0c             	mov    0xc(%ebp),%eax
+    13a7:	8b 40 04             	mov    0x4(%eax),%eax
+    13aa:	89 04 24             	mov    %eax,(%esp)
+    13ad:	e8 18 01 00 00       	call   14ca <_IsKlenValid>
+    13b2:	84 c0                	test   %al,%al
+    13b4:	74 1f                	je     13d5 <_RetrieveConnectorPuncturationVectors+0x66>
+    {
+      ioInfo->pConnVect = CC_CVMATRIX[pParams->kLen-CC_KLEN_MIN];                                 /** - link connector vector */
+    13b6:	8b 45 0c             	mov    0xc(%ebp),%eax
+    13b9:	8b 40 04             	mov    0x4(%eax),%eax
+    13bc:	83 e8 03             	sub    $0x3,%eax
+    13bf:	01 c0                	add    %eax,%eax
+    13c1:	8d 90 00 00 00 00    	lea    0x0(%eax),%edx
+    13c7:	8b 45 08             	mov    0x8(%ebp),%eax
+    13ca:	89 10                	mov    %edx,(%eax)
+      ioInfo->lenConnVect = CC_NBRANCHES;
+    13cc:	8b 45 08             	mov    0x8(%ebp),%eax
+    13cf:	c6 40 04 02          	movb   $0x2,0x4(%eax)
+    13d3:	eb 07                	jmp    13dc <_RetrieveConnectorPuncturationVectors+0x6d>
+    }
+    else
+    {
+      retErr = ERR_INV_CNVCOD_KLEN;
+    13d5:	c7 45 f4 05 00 00 00 	movl   $0x5,-0xc(%ebp)
+    }
+
+    if (IsRateValid(pParams->cRate))
+    13dc:	8b 45 0c             	mov    0xc(%ebp),%eax
+    13df:	8b 00                	mov    (%eax),%eax
+    13e1:	89 04 24             	mov    %eax,(%esp)
+    13e4:	e8 91 00 00 00       	call   147a <_IsRateValid>
+    13e9:	84 c0                	test   %al,%al
+    13eb:	74 6e                	je     145b <_RetrieveConnectorPuncturationVectors+0xec>
+    {
+      switch (pParams->cRate)
+    13ed:	8b 45 0c             	mov    0xc(%ebp),%eax
+    13f0:	8b 00                	mov    (%eax),%eax
+    13f2:	83 f8 03             	cmp    $0x3,%eax
+    13f5:	74 2b                	je     1422 <_RetrieveConnectorPuncturationVectors+0xb3>
+    13f7:	83 f8 03             	cmp    $0x3,%eax
+    13fa:	77 07                	ja     1403 <_RetrieveConnectorPuncturationVectors+0x94>
+    13fc:	83 f8 02             	cmp    $0x2,%eax
+    13ff:	74 0e                	je     140f <_RetrieveConnectorPuncturationVectors+0xa0>
+          ioInfo->lenPuncVect = sizeof(CC_PUNC_VECT_78);
+          break;
+
+        default:
+          // do nothing
+          break;
+    1401:	eb 61                	jmp    1464 <_RetrieveConnectorPuncturationVectors+0xf5>
+      switch (pParams->cRate)
+    1403:	83 f8 05             	cmp    $0x5,%eax
+    1406:	74 2d                	je     1435 <_RetrieveConnectorPuncturationVectors+0xc6>
+    1408:	83 f8 07             	cmp    $0x7,%eax
+    140b:	74 3b                	je     1448 <_RetrieveConnectorPuncturationVectors+0xd9>
+          break;
+    140d:	eb 55                	jmp    1464 <_RetrieveConnectorPuncturationVectors+0xf5>
+          ioInfo->pPuncVect = CC_PUNC_VECT_23;
+    140f:	8b 45 08             	mov    0x8(%ebp),%eax
+    1412:	c7 40 08 0c 00 00 00 	movl   $0xc,0x8(%eax)
+          ioInfo->lenPuncVect = sizeof(CC_PUNC_VECT_23);                                          /** - link puncturation vector */                         
+    1419:	8b 45 08             	mov    0x8(%ebp),%eax
+    141c:	c6 40 0c 04          	movb   $0x4,0xc(%eax)
+          break;
+    1420:	eb 42                	jmp    1464 <_RetrieveConnectorPuncturationVectors+0xf5>
+          ioInfo->pPuncVect = CC_PUNC_VECT_34;
+    1422:	8b 45 08             	mov    0x8(%ebp),%eax
+    1425:	c7 40 08 10 00 00 00 	movl   $0x10,0x8(%eax)
+          ioInfo->lenPuncVect = sizeof(CC_PUNC_VECT_34);
+    142c:	8b 45 08             	mov    0x8(%ebp),%eax
+    142f:	c6 40 0c 06          	movb   $0x6,0xc(%eax)
+          break;
+    1433:	eb 2f                	jmp    1464 <_RetrieveConnectorPuncturationVectors+0xf5>
+          ioInfo->pPuncVect = CC_PUNC_VECT_56;
+    1435:	8b 45 08             	mov    0x8(%ebp),%eax
+    1438:	c7 40 08 18 00 00 00 	movl   $0x18,0x8(%eax)
+          ioInfo->lenPuncVect = sizeof(CC_PUNC_VECT_56);
+    143f:	8b 45 08             	mov    0x8(%ebp),%eax
+    1442:	c6 40 0c 0a          	movb   $0xa,0xc(%eax)
+          break;
+    1446:	eb 1c                	jmp    1464 <_RetrieveConnectorPuncturationVectors+0xf5>
+          ioInfo->pPuncVect = CC_PUNC_VECT_78;
+    1448:	8b 45 08             	mov    0x8(%ebp),%eax
+    144b:	c7 40 08 24 00 00 00 	movl   $0x24,0x8(%eax)
+          ioInfo->lenPuncVect = sizeof(CC_PUNC_VECT_78);
+    1452:	8b 45 08             	mov    0x8(%ebp),%eax
+    1455:	c6 40 0c 0e          	movb   $0xe,0xc(%eax)
+          break;
+    1459:	eb 09                	jmp    1464 <_RetrieveConnectorPuncturationVectors+0xf5>
+      }
+    }
+    else
+    {
+      retErr = ERR_INV_CNVCOD_RATE;
+    145b:	c7 45 f4 04 00 00 00 	movl   $0x4,-0xc(%ebp)
+    if (IsRateValid(pParams->cRate))
+    1462:	eb 09                	jmp    146d <_RetrieveConnectorPuncturationVectors+0xfe>
+    1464:	eb 07                	jmp    146d <_RetrieveConnectorPuncturationVectors+0xfe>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+    1466:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+    146d:	8b 45 f4             	mov    -0xc(%ebp),%eax
+    1470:	89 04 24             	mov    %eax,(%esp)
+    1473:	e8 00 00 00 00       	call   1478 <_RetrieveConnectorPuncturationVectors+0x109>
+}
+    1478:	c9                   	leave  
+    1479:	c3                   	ret    
+
+0000147a <_IsRateValid>:
+ * @param[in] rateVal code rate value
+ * 
+ * @return validity outcome
+ */
+static bool IsRateValid( cc_rate_t rateVal )
+{
+    147a:	55                   	push   %ebp
+    147b:	89 e5                	mov    %esp,%ebp
+    147d:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)IsRateValid,WM_LEVEL_2);
+    1480:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+    1487:	00 
+    1488:	c7 04 24 7a 14 00 00 	movl   $0x147a,(%esp)
+    148f:	e8 00 00 00 00       	call   1494 <_IsRateValid+0x1a>
+
+  bool bRet = false;
+    1494:	c6 45 f7 00          	movb   $0x0,-0x9(%ebp)
+  uint8_t j;
+
+  for (j=0; j<CC_RATE_NUM; j++)
+    1498:	c6 45 f6 00          	movb   $0x0,-0xa(%ebp)
+    149c:	eb 20                	jmp    14be <_IsRateValid+0x44>
+  {
+    if (rateVal == CC_RATE_ARRAY[j])
+    149e:	0f b6 45 f6          	movzbl -0xa(%ebp),%eax
+    14a2:	8b 04 85 34 00 00 00 	mov    0x34(,%eax,4),%eax
+    14a9:	3b 45 08             	cmp    0x8(%ebp),%eax
+    14ac:	75 06                	jne    14b4 <_IsRateValid+0x3a>
+    {
+      bRet = true;
+    14ae:	c6 45 f7 01          	movb   $0x1,-0x9(%ebp)
+      break;
+    14b2:	eb 10                	jmp    14c4 <_IsRateValid+0x4a>
+  for (j=0; j<CC_RATE_NUM; j++)
+    14b4:	0f b6 45 f6          	movzbl -0xa(%ebp),%eax
+    14b8:	83 c0 01             	add    $0x1,%eax
+    14bb:	88 45 f6             	mov    %al,-0xa(%ebp)
+    14be:	80 7d f6 04          	cmpb   $0x4,-0xa(%ebp)
+    14c2:	76 da                	jbe    149e <_IsRateValid+0x24>
+    }
+  }
+
+  return bRet;
+    14c4:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+}
+    14c8:	c9                   	leave  
+    14c9:	c3                   	ret    
+
+000014ca <_IsKlenValid>:
+ * @param[in] kVal constraint length value
+ * 
+ * @return validity outcome
+ */
+static bool IsKlenValid( cc_klen_t kVal )
+{
+    14ca:	55                   	push   %ebp
+    14cb:	89 e5                	mov    %esp,%ebp
+    14cd:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)IsKlenValid,WM_LEVEL_2);
+    14d0:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+    14d7:	00 
+    14d8:	c7 04 24 ca 14 00 00 	movl   $0x14ca,(%esp)
+    14df:	e8 00 00 00 00       	call   14e4 <_IsKlenValid+0x1a>
+
+  bool bRet;
+
+  bRet = (kVal >= CC_KLEN_MIN) && (kVal <= CC_KLEN_MAX);
+    14e4:	83 7d 08 02          	cmpl   $0x2,0x8(%ebp)
+    14e8:	76 0d                	jbe    14f7 <_IsKlenValid+0x2d>
+    14ea:	83 7d 08 08          	cmpl   $0x8,0x8(%ebp)
+    14ee:	77 07                	ja     14f7 <_IsKlenValid+0x2d>
+    14f0:	b8 01 00 00 00       	mov    $0x1,%eax
+    14f5:	eb 05                	jmp    14fc <_IsKlenValid+0x32>
+    14f7:	b8 00 00 00 00       	mov    $0x0,%eax
+    14fc:	88 45 f7             	mov    %al,-0x9(%ebp)
+    14ff:	80 65 f7 01          	andb   $0x1,-0x9(%ebp)
+
+  return bRet;
+    1503:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+}
+    1507:	c9                   	leave  
+    1508:	c3                   	ret    
+
+00001509 <_ComputeEncBit>:
+ * @param[in] kLen encoder constraint length
+ * 
+ * @return next encoded bit
+ */
+static uint8_t ComputeEncBit( uint8_t cState, uint8_t cvVal, cc_klen_t kLen )
+{
+    1509:	55                   	push   %ebp
+    150a:	89 e5                	mov    %esp,%ebp
+    150c:	53                   	push   %ebx
+    150d:	83 ec 34             	sub    $0x34,%esp
+    1510:	8b 55 08             	mov    0x8(%ebp),%edx
+    1513:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1516:	88 55 e4             	mov    %dl,-0x1c(%ebp)
+    1519:	88 45 e0             	mov    %al,-0x20(%ebp)
+  Debug_SetWatermark((void *)ComputeEncBit,WM_LEVEL_3);
+    151c:	c7 44 24 04 02 00 00 	movl   $0x2,0x4(%esp)
+    1523:	00 
+    1524:	c7 04 24 09 15 00 00 	movl   $0x1509,(%esp)
+    152b:	e8 00 00 00 00       	call   1530 <_ComputeEncBit+0x27>
+
+  uint8_t outBit = 0;
+    1530:	c6 45 f7 00          	movb   $0x0,-0x9(%ebp)
+  uint8_t j;
+
+  for (j=0; j<kLen; j++)
+    1534:	c6 45 f6 00          	movb   $0x0,-0xa(%ebp)
+    1538:	eb 38                	jmp    1572 <_ComputeEncBit+0x69>
+  {
+    outBit ^= (((cState>>j)&LSBIT_MASK_U8)&((cvVal>>j)&LSBIT_MASK_U8));
+    153a:	0f b6 55 e4          	movzbl -0x1c(%ebp),%edx
+    153e:	0f b6 45 f6          	movzbl -0xa(%ebp),%eax
+    1542:	89 c1                	mov    %eax,%ecx
+    1544:	d3 fa                	sar    %cl,%edx
+    1546:	89 d0                	mov    %edx,%eax
+    1548:	89 c3                	mov    %eax,%ebx
+    154a:	0f b6 55 e0          	movzbl -0x20(%ebp),%edx
+    154e:	0f b6 45 f6          	movzbl -0xa(%ebp),%eax
+    1552:	89 c1                	mov    %eax,%ecx
+    1554:	d3 fa                	sar    %cl,%edx
+    1556:	89 d0                	mov    %edx,%eax
+    1558:	21 d8                	and    %ebx,%eax
+    155a:	83 e0 01             	and    $0x1,%eax
+    155d:	89 c2                	mov    %eax,%edx
+    155f:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+    1563:	31 d0                	xor    %edx,%eax
+    1565:	88 45 f7             	mov    %al,-0x9(%ebp)
+  for (j=0; j<kLen; j++)
+    1568:	0f b6 45 f6          	movzbl -0xa(%ebp),%eax
+    156c:	83 c0 01             	add    $0x1,%eax
+    156f:	88 45 f6             	mov    %al,-0xa(%ebp)
+    1572:	0f b6 45 f6          	movzbl -0xa(%ebp),%eax
+    1576:	3b 45 10             	cmp    0x10(%ebp),%eax
+    1579:	72 bf                	jb     153a <_ComputeEncBit+0x31>
+  }
+
+  return outBit;
+    157b:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+}
+    157f:	83 c4 34             	add    $0x34,%esp
+    1582:	5b                   	pop    %ebx
+    1583:	5d                   	pop    %ebp
+    1584:	c3                   	ret    
+
+00001585 <_ComputeTrellisDiagram>:
+ * @param[in] pParams pointer to parameters structure
+ * 
+ * @return error ID
+ */
+static error_t ComputeTrellisDiagram( cc_trellis_t * ioTrellisDiagr, const cc_encoder_info_t * encInfo, const cc_par_t * pParams )
+{
+    1585:	55                   	push   %ebp
+    1586:	89 e5                	mov    %esp,%ebp
+    1588:	83 ec 68             	sub    $0x68,%esp
+  Debug_SetWatermark((void *)ComputeTrellisDiagram,WM_LEVEL_2);
+    158b:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+    1592:	00 
+    1593:	c7 04 24 85 15 00 00 	movl   $0x1585,(%esp)
+    159a:	e8 00 00 00 00       	call   159f <_ComputeTrellisDiagram+0x1a>
+
+  error_t retErr = ERR_NONE;
+    159f:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  uint8_t StBin[CC_NTRELSTATES];
+  uint8_t i, j;
+  uint8_t outBit;
+  uint8_t state0, state1;
+  
+  if (NULL != ioTrellisDiagr)
+    15a6:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+    15aa:	0f 84 91 01 00 00    	je     1741 <_ComputeTrellisDiagram+0x1bc>
+  {
+    for (j=0; j<CC_NTRELSTATES; j++)
+    15b0:	c6 45 f2 00          	movb   $0x0,-0xe(%ebp)
+    15b4:	eb 16                	jmp    15cc <_ComputeTrellisDiagram+0x47>
+    {
+      StBin[j] = j;                                                                               /** - state IDs */
+    15b6:	0f b6 45 f2          	movzbl -0xe(%ebp),%eax
+    15ba:	0f b6 55 f2          	movzbl -0xe(%ebp),%edx
+    15be:	88 54 05 af          	mov    %dl,-0x51(%ebp,%eax,1)
+    for (j=0; j<CC_NTRELSTATES; j++)
+    15c2:	0f b6 45 f2          	movzbl -0xe(%ebp),%eax
+    15c6:	83 c0 01             	add    $0x1,%eax
+    15c9:	88 45 f2             	mov    %al,-0xe(%ebp)
+    15cc:	80 7d f2 3f          	cmpb   $0x3f,-0xe(%ebp)
+    15d0:	76 e4                	jbe    15b6 <_ComputeTrellisDiagram+0x31>
+    }
+    for (j=0; j<CC_NTRELSTATES; j++)
+    15d2:	c6 45 f2 00          	movb   $0x0,-0xe(%ebp)
+    15d6:	e9 5a 01 00 00       	jmp    1735 <_ComputeTrellisDiagram+0x1b0>
+    {
+      state0 = StBin[j];                                                                          /** - state update due to new 0-bit input */
+    15db:	0f b6 45 f2          	movzbl -0xe(%ebp),%eax
+    15df:	0f b6 44 05 af       	movzbl -0x51(%ebp,%eax,1),%eax
+    15e4:	88 45 f1             	mov    %al,-0xf(%ebp)
+      for (i=0; i<encInfo->lenConnVect; i++)
+    15e7:	c6 45 f3 00          	movb   $0x0,-0xd(%ebp)
+    15eb:	eb 6c                	jmp    1659 <_ComputeTrellisDiagram+0xd4>
+      {
+        outBit = ComputeEncBit(state0,encInfo->pConnVect[i],pParams->kLen);                       /** estimate encoded bit from i-th connection branch */
+    15ed:	8b 45 10             	mov    0x10(%ebp),%eax
+    15f0:	8b 48 04             	mov    0x4(%eax),%ecx
+    15f3:	8b 45 0c             	mov    0xc(%ebp),%eax
+    15f6:	8b 10                	mov    (%eax),%edx
+    15f8:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
+    15fc:	01 d0                	add    %edx,%eax
+    15fe:	0f b6 00             	movzbl (%eax),%eax
+    1601:	0f b6 d0             	movzbl %al,%edx
+    1604:	0f b6 45 f1          	movzbl -0xf(%ebp),%eax
+    1608:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+    160c:	89 54 24 04          	mov    %edx,0x4(%esp)
+    1610:	89 04 24             	mov    %eax,(%esp)
+    1613:	e8 f1 fe ff ff       	call   1509 <_ComputeEncBit>
+    1618:	88 45 f0             	mov    %al,-0x10(%ebp)
+        if ( 0 == i)
+    161b:	80 7d f3 00          	cmpb   $0x0,-0xd(%ebp)
+    161f:	75 13                	jne    1634 <_ComputeTrellisDiagram+0xaf>
+        {
+          ioTrellisDiagr->trSt[j].outBits[0] = outBit<<1;                                         /** store 1st encoded bit into trellis */
+    1621:	0f b6 55 f2          	movzbl -0xe(%ebp),%edx
+    1625:	0f b6 45 f0          	movzbl -0x10(%ebp),%eax
+    1629:	8d 0c 00             	lea    (%eax,%eax,1),%ecx
+    162c:	8b 45 08             	mov    0x8(%ebp),%eax
+    162f:	88 0c 90             	mov    %cl,(%eax,%edx,4)
+    1632:	eb 1b                	jmp    164f <_ComputeTrellisDiagram+0xca>
+        }
+        else
+        {
+          ioTrellisDiagr->trSt[j].outBits[0] += outBit;                                           /** store 2nd encoded bit into trellis */
+    1634:	0f b6 55 f2          	movzbl -0xe(%ebp),%edx
+    1638:	0f b6 4d f2          	movzbl -0xe(%ebp),%ecx
+    163c:	8b 45 08             	mov    0x8(%ebp),%eax
+    163f:	0f b6 0c 88          	movzbl (%eax,%ecx,4),%ecx
+    1643:	0f b6 45 f0          	movzbl -0x10(%ebp),%eax
+    1647:	01 c1                	add    %eax,%ecx
+    1649:	8b 45 08             	mov    0x8(%ebp),%eax
+    164c:	88 0c 90             	mov    %cl,(%eax,%edx,4)
+      for (i=0; i<encInfo->lenConnVect; i++)
+    164f:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
+    1653:	83 c0 01             	add    $0x1,%eax
+    1656:	88 45 f3             	mov    %al,-0xd(%ebp)
+    1659:	8b 45 0c             	mov    0xc(%ebp),%eax
+    165c:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+    1660:	3a 45 f3             	cmp    -0xd(%ebp),%al
+    1663:	77 88                	ja     15ed <_ComputeTrellisDiagram+0x68>
+        }
+      }
+      ioTrellisDiagr->trSt[j].nextSt[0] = state0>>1;                                              /** - store next state into trellis (due to 0-bit input from j-th state) */
+    1665:	0f b6 55 f2          	movzbl -0xe(%ebp),%edx
+    1669:	0f b6 45 f1          	movzbl -0xf(%ebp),%eax
+    166d:	d0 e8                	shr    %al
+    166f:	89 c1                	mov    %eax,%ecx
+    1671:	8b 45 08             	mov    0x8(%ebp),%eax
+    1674:	88 4c 90 02          	mov    %cl,0x2(%eax,%edx,4)
+      state1 = state0|(LSBIT_MASK_U8<<(pParams->kLen-1));                                         /** - state update due to new 1-bit input */
+    1678:	8b 45 10             	mov    0x10(%ebp),%eax
+    167b:	8b 40 04             	mov    0x4(%eax),%eax
+    167e:	83 e8 01             	sub    $0x1,%eax
+    1681:	ba 01 00 00 00       	mov    $0x1,%edx
+    1686:	89 c1                	mov    %eax,%ecx
+    1688:	d3 e2                	shl    %cl,%edx
+    168a:	89 d0                	mov    %edx,%eax
+    168c:	89 c2                	mov    %eax,%edx
+    168e:	0f b6 45 f1          	movzbl -0xf(%ebp),%eax
+    1692:	09 d0                	or     %edx,%eax
+    1694:	88 45 ef             	mov    %al,-0x11(%ebp)
+      for (i=0; i<encInfo->lenConnVect; i++)
+    1697:	c6 45 f3 00          	movb   $0x0,-0xd(%ebp)
+    169b:	eb 6f                	jmp    170c <_ComputeTrellisDiagram+0x187>
+      {
+        outBit = ComputeEncBit(state1,encInfo->pConnVect[i],pParams->kLen);
+    169d:	8b 45 10             	mov    0x10(%ebp),%eax
+    16a0:	8b 48 04             	mov    0x4(%eax),%ecx
+    16a3:	8b 45 0c             	mov    0xc(%ebp),%eax
+    16a6:	8b 10                	mov    (%eax),%edx
+    16a8:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
+    16ac:	01 d0                	add    %edx,%eax
+    16ae:	0f b6 00             	movzbl (%eax),%eax
+    16b1:	0f b6 d0             	movzbl %al,%edx
+    16b4:	0f b6 45 ef          	movzbl -0x11(%ebp),%eax
+    16b8:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+    16bc:	89 54 24 04          	mov    %edx,0x4(%esp)
+    16c0:	89 04 24             	mov    %eax,(%esp)
+    16c3:	e8 41 fe ff ff       	call   1509 <_ComputeEncBit>
+    16c8:	88 45 f0             	mov    %al,-0x10(%ebp)
+        if (0 == i)
+    16cb:	80 7d f3 00          	cmpb   $0x0,-0xd(%ebp)
+    16cf:	75 14                	jne    16e5 <_ComputeTrellisDiagram+0x160>
+        {
+          ioTrellisDiagr->trSt[j].outBits[1] = outBit<<1;
+    16d1:	0f b6 55 f2          	movzbl -0xe(%ebp),%edx
+    16d5:	0f b6 45 f0          	movzbl -0x10(%ebp),%eax
+    16d9:	8d 0c 00             	lea    (%eax,%eax,1),%ecx
+    16dc:	8b 45 08             	mov    0x8(%ebp),%eax
+    16df:	88 4c 90 01          	mov    %cl,0x1(%eax,%edx,4)
+    16e3:	eb 1d                	jmp    1702 <_ComputeTrellisDiagram+0x17d>
+        }
+        else
+        {
+          ioTrellisDiagr->trSt[j].outBits[1] += outBit;
+    16e5:	0f b6 55 f2          	movzbl -0xe(%ebp),%edx
+    16e9:	0f b6 4d f2          	movzbl -0xe(%ebp),%ecx
+    16ed:	8b 45 08             	mov    0x8(%ebp),%eax
+    16f0:	0f b6 4c 88 01       	movzbl 0x1(%eax,%ecx,4),%ecx
+    16f5:	0f b6 45 f0          	movzbl -0x10(%ebp),%eax
+    16f9:	01 c1                	add    %eax,%ecx
+    16fb:	8b 45 08             	mov    0x8(%ebp),%eax
+    16fe:	88 4c 90 01          	mov    %cl,0x1(%eax,%edx,4)
+      for (i=0; i<encInfo->lenConnVect; i++)
+    1702:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
+    1706:	83 c0 01             	add    $0x1,%eax
+    1709:	88 45 f3             	mov    %al,-0xd(%ebp)
+    170c:	8b 45 0c             	mov    0xc(%ebp),%eax
+    170f:	0f b6 40 04          	movzbl 0x4(%eax),%eax
+    1713:	3a 45 f3             	cmp    -0xd(%ebp),%al
+    1716:	77 85                	ja     169d <_ComputeTrellisDiagram+0x118>
+        }
+      }
+      ioTrellisDiagr->trSt[j].nextSt[1] = state1>>1;                                              /** - store next state into trellis (due to 1-bit input from j-th state) */
+    1718:	0f b6 55 f2          	movzbl -0xe(%ebp),%edx
+    171c:	0f b6 45 ef          	movzbl -0x11(%ebp),%eax
+    1720:	d0 e8                	shr    %al
+    1722:	89 c1                	mov    %eax,%ecx
+    1724:	8b 45 08             	mov    0x8(%ebp),%eax
+    1727:	88 4c 90 03          	mov    %cl,0x3(%eax,%edx,4)
+    for (j=0; j<CC_NTRELSTATES; j++)
+    172b:	0f b6 45 f2          	movzbl -0xe(%ebp),%eax
+    172f:	83 c0 01             	add    $0x1,%eax
+    1732:	88 45 f2             	mov    %al,-0xe(%ebp)
+    1735:	80 7d f2 3f          	cmpb   $0x3f,-0xe(%ebp)
+    1739:	0f 86 9c fe ff ff    	jbe    15db <_ComputeTrellisDiagram+0x56>
+    173f:	eb 07                	jmp    1748 <_ComputeTrellisDiagram+0x1c3>
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+    1741:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+    1748:	8b 45 f4             	mov    -0xc(%ebp),%eax
+    174b:	89 04 24             	mov    %eax,(%esp)
+    174e:	e8 00 00 00 00       	call   1753 <_ComputeTrellisDiagram+0x1ce>
+}
+    1753:	c9                   	leave  
+    1754:	c3                   	ret    
+
+00001755 <_HardDepuncturer>:
+ * @param[in] pParams coding parameters
+ * 
+ * @return error ID
+ */
+static error_t HardDepuncturer( byte_t * ioBuffer, ulen_t inLenBi, ulen_t outLenBi, const uint8_t * punctVect, const cc_par_t * pParams )
+{
+    1755:	55                   	push   %ebp
+    1756:	89 e5                	mov    %esp,%ebp
+    1758:	56                   	push   %esi
+    1759:	53                   	push   %ebx
+    175a:	83 ec 30             	sub    $0x30,%esp
+  Debug_SetWatermark((void *)HardDepuncturer,WM_LEVEL_2);
+    175d:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+    1764:	00 
+    1765:	c7 04 24 55 17 00 00 	movl   $0x1755,(%esp)
+    176c:	e8 00 00 00 00       	call   1771 <_HardDepuncturer+0x1c>
+
+  error_t retErr = ERR_NONE;
+    1771:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  uint32_t rdIdx = inLenBi-1;                                                                     /** - final bit index of input stream length */
+    1778:	8b 45 0c             	mov    0xc(%ebp),%eax
+    177b:	83 e8 01             	sub    $0x1,%eax
+    177e:	89 45 f0             	mov    %eax,-0x10(%ebp)
+  uint32_t byteIdx;
+  uint32_t j;
+  uint8_t rdIdxPunc = CC_NBRANCHES*pParams->cRate-1;
+    1781:	8b 45 18             	mov    0x18(%ebp),%eax
+    1784:	8b 00                	mov    (%eax),%eax
+    1786:	01 c0                	add    %eax,%eax
+    1788:	83 e8 01             	sub    $0x1,%eax
+    178b:	88 45 eb             	mov    %al,-0x15(%ebp)
+  uint8_t bitIdx;
+  uint8_t rdBit;
+
+  if (NULL != ioBuffer)
+    178e:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+    1792:	0f 84 fa 00 00 00    	je     1892 <_HardDepuncturer+0x13d>
+  {
+    for (j=outLenBi; j>0; j--)
+    1798:	8b 45 10             	mov    0x10(%ebp),%eax
+    179b:	89 45 ec             	mov    %eax,-0x14(%ebp)
+    179e:	e9 e3 00 00 00       	jmp    1886 <_HardDepuncturer+0x131>
+    {
+      if (1 == punctVect[rdIdxPunc])
+    17a3:	0f b6 55 eb          	movzbl -0x15(%ebp),%edx
+    17a7:	8b 45 14             	mov    0x14(%ebp),%eax
+    17aa:	01 d0                	add    %edx,%eax
+    17ac:	0f b6 00             	movzbl (%eax),%eax
+    17af:	3c 01                	cmp    $0x1,%al
+    17b1:	75 3b                	jne    17ee <_HardDepuncturer+0x99>
+      {
+        byteIdx = BI2BY_LEN(rdIdx);
+    17b3:	8b 45 f0             	mov    -0x10(%ebp),%eax
+    17b6:	c1 e8 03             	shr    $0x3,%eax
+    17b9:	89 45 e4             	mov    %eax,-0x1c(%ebp)
+        bitIdx = (uint8_t)(BITIDX_1LAST-(rdIdx&LSBYTE_MASK_U32));
+    17bc:	8b 45 f0             	mov    -0x10(%ebp),%eax
+    17bf:	f7 d0                	not    %eax
+    17c1:	83 e0 07             	and    $0x7,%eax
+    17c4:	88 45 e3             	mov    %al,-0x1d(%ebp)
+        rdBit = ioBuffer[byteIdx]&(LSBIT_MASK_U8<<bitIdx);
+    17c7:	8b 55 08             	mov    0x8(%ebp),%edx
+    17ca:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+    17cd:	01 d0                	add    %edx,%eax
+    17cf:	0f b6 00             	movzbl (%eax),%eax
+    17d2:	89 c2                	mov    %eax,%edx
+    17d4:	0f b6 45 e3          	movzbl -0x1d(%ebp),%eax
+    17d8:	bb 01 00 00 00       	mov    $0x1,%ebx
+    17dd:	89 c1                	mov    %eax,%ecx
+    17df:	d3 e3                	shl    %cl,%ebx
+    17e1:	89 d8                	mov    %ebx,%eax
+    17e3:	21 d0                	and    %edx,%eax
+    17e5:	88 45 ea             	mov    %al,-0x16(%ebp)
+        rdIdx--;
+    17e8:	83 6d f0 01          	subl   $0x1,-0x10(%ebp)
+    17ec:	eb 04                	jmp    17f2 <_HardDepuncturer+0x9d>
+      }
+      else
+      {
+        rdBit = 0;                                                                                /** - each erasure bit restored has '0' value */
+    17ee:	c6 45 ea 00          	movb   $0x0,-0x16(%ebp)
+      }
+      if (rdIdxPunc > 0)
+    17f2:	80 7d eb 00          	cmpb   $0x0,-0x15(%ebp)
+    17f6:	74 0c                	je     1804 <_HardDepuncturer+0xaf>
+      {
+        rdIdxPunc--;
+    17f8:	0f b6 45 eb          	movzbl -0x15(%ebp),%eax
+    17fc:	83 e8 01             	sub    $0x1,%eax
+    17ff:	88 45 eb             	mov    %al,-0x15(%ebp)
+    1802:	eb 0d                	jmp    1811 <_HardDepuncturer+0xbc>
+      }
+      else
+      {
+        rdIdxPunc = CC_NBRANCHES*pParams->cRate-1;
+    1804:	8b 45 18             	mov    0x18(%ebp),%eax
+    1807:	8b 00                	mov    (%eax),%eax
+    1809:	01 c0                	add    %eax,%eax
+    180b:	83 e8 01             	sub    $0x1,%eax
+    180e:	88 45 eb             	mov    %al,-0x15(%ebp)
+      }
+      byteIdx = BI2BY_LEN(j-1);
+    1811:	8b 45 ec             	mov    -0x14(%ebp),%eax
+    1814:	83 e8 01             	sub    $0x1,%eax
+    1817:	c1 e8 03             	shr    $0x3,%eax
+    181a:	89 45 e4             	mov    %eax,-0x1c(%ebp)
+      bitIdx = (uint8_t)(BITIDX_1LAST-((j-1)&LSBYTE_MASK_U32));
+    181d:	8b 45 ec             	mov    -0x14(%ebp),%eax
+    1820:	f7 d8                	neg    %eax
+    1822:	83 e0 07             	and    $0x7,%eax
+    1825:	88 45 e3             	mov    %al,-0x1d(%ebp)
+      if (0 == rdBit)
+    1828:	80 7d ea 00          	cmpb   $0x0,-0x16(%ebp)
+    182c:	75 2c                	jne    185a <_HardDepuncturer+0x105>
+      {
+        ioBuffer[byteIdx] &= ~(LSBIT_MASK_U8<<bitIdx);                                            /** - set output bit to '0' */
+    182e:	8b 55 08             	mov    0x8(%ebp),%edx
+    1831:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+    1834:	01 c2                	add    %eax,%edx
+    1836:	8b 4d 08             	mov    0x8(%ebp),%ecx
+    1839:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+    183c:	01 c8                	add    %ecx,%eax
+    183e:	0f b6 00             	movzbl (%eax),%eax
+    1841:	89 c3                	mov    %eax,%ebx
+    1843:	0f b6 45 e3          	movzbl -0x1d(%ebp),%eax
+    1847:	be 01 00 00 00       	mov    $0x1,%esi
+    184c:	89 c1                	mov    %eax,%ecx
+    184e:	d3 e6                	shl    %cl,%esi
+    1850:	89 f0                	mov    %esi,%eax
+    1852:	f7 d0                	not    %eax
+    1854:	21 d8                	and    %ebx,%eax
+    1856:	88 02                	mov    %al,(%edx)
+    1858:	eb 28                	jmp    1882 <_HardDepuncturer+0x12d>
+      }
+      else
+      {
+        ioBuffer[byteIdx] |= (LSBIT_MASK_U8<<bitIdx);                                             /** - set output bit to '1' */
+    185a:	8b 55 08             	mov    0x8(%ebp),%edx
+    185d:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+    1860:	01 c2                	add    %eax,%edx
+    1862:	8b 4d 08             	mov    0x8(%ebp),%ecx
+    1865:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+    1868:	01 c8                	add    %ecx,%eax
+    186a:	0f b6 00             	movzbl (%eax),%eax
+    186d:	89 c6                	mov    %eax,%esi
+    186f:	0f b6 45 e3          	movzbl -0x1d(%ebp),%eax
+    1873:	bb 01 00 00 00       	mov    $0x1,%ebx
+    1878:	89 c1                	mov    %eax,%ecx
+    187a:	d3 e3                	shl    %cl,%ebx
+    187c:	89 d8                	mov    %ebx,%eax
+    187e:	09 f0                	or     %esi,%eax
+    1880:	88 02                	mov    %al,(%edx)
+    for (j=outLenBi; j>0; j--)
+    1882:	83 6d ec 01          	subl   $0x1,-0x14(%ebp)
+    1886:	83 7d ec 00          	cmpl   $0x0,-0x14(%ebp)
+    188a:	0f 85 13 ff ff ff    	jne    17a3 <_HardDepuncturer+0x4e>
+    1890:	eb 07                	jmp    1899 <_HardDepuncturer+0x144>
+      }
+    }
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+    1892:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+    1899:	8b 45 f4             	mov    -0xc(%ebp),%eax
+    189c:	89 04 24             	mov    %eax,(%esp)
+    189f:	e8 00 00 00 00       	call   18a4 <_HardDepuncturer+0x14f>
+}
+    18a4:	83 c4 30             	add    $0x30,%esp
+    18a7:	5b                   	pop    %ebx
+    18a8:	5e                   	pop    %esi
+    18a9:	5d                   	pop    %ebp
+    18aa:	c3                   	ret    
+
+000018ab <_CountByteOnes>:
+ * @param[in] inByte input byte
+ * 
+ * @return number of '1's
+ */
+static uint8_t CountByteOnes( byte_t inByte )
+{
+    18ab:	55                   	push   %ebp
+    18ac:	89 e5                	mov    %esp,%ebp
+    18ae:	83 ec 38             	sub    $0x38,%esp
+    18b1:	8b 45 08             	mov    0x8(%ebp),%eax
+    18b4:	88 45 e4             	mov    %al,-0x1c(%ebp)
+  Debug_SetWatermark((void *)CountByteOnes,WM_LEVEL_3);
+    18b7:	c7 44 24 04 02 00 00 	movl   $0x2,0x4(%esp)
+    18be:	00 
+    18bf:	c7 04 24 ab 18 00 00 	movl   $0x18ab,(%esp)
+    18c6:	e8 00 00 00 00       	call   18cb <_CountByteOnes+0x20>
+
+  uint8_t j;
+  uint8_t cnt = 0;
+    18cb:	c6 45 f6 00          	movb   $0x0,-0xa(%ebp)
+
+  for (j=0; j<NUM_BITS_PER_BYTE; j++)
+    18cf:	c6 45 f7 00          	movb   $0x0,-0x9(%ebp)
+    18d3:	eb 29                	jmp    18fe <_CountByteOnes+0x53>
+  {
+    if ((inByte>>j)&LSBIT_MASK_U8)
+    18d5:	0f b6 55 e4          	movzbl -0x1c(%ebp),%edx
+    18d9:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+    18dd:	89 c1                	mov    %eax,%ecx
+    18df:	d3 fa                	sar    %cl,%edx
+    18e1:	89 d0                	mov    %edx,%eax
+    18e3:	83 e0 01             	and    $0x1,%eax
+    18e6:	85 c0                	test   %eax,%eax
+    18e8:	74 0a                	je     18f4 <_CountByteOnes+0x49>
+    {
+      cnt++;
+    18ea:	0f b6 45 f6          	movzbl -0xa(%ebp),%eax
+    18ee:	83 c0 01             	add    $0x1,%eax
+    18f1:	88 45 f6             	mov    %al,-0xa(%ebp)
+  for (j=0; j<NUM_BITS_PER_BYTE; j++)
+    18f4:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+    18f8:	83 c0 01             	add    $0x1,%eax
+    18fb:	88 45 f7             	mov    %al,-0x9(%ebp)
+    18fe:	80 7d f7 07          	cmpb   $0x7,-0x9(%ebp)
+    1902:	76 d1                	jbe    18d5 <_CountByteOnes+0x2a>
+    }
+  }
+  
+  return cnt;
+    1904:	0f b6 45 f6          	movzbl -0xa(%ebp),%eax
+}
+    1908:	c9                   	leave  
+    1909:	c3                   	ret    
+
+0000190a <_FindMinSurvPathHard>:
+ * @param[in] inPaths current Viterbi paths
+ * 
+ * @return index of minimum distance trellis state
+ */
+static uint8_t FindMinSurvPathHard( const cc_hard_dec_info_t * inPaths )
+{
+    190a:	55                   	push   %ebp
+    190b:	89 e5                	mov    %esp,%ebp
+    190d:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)FindMinSurvPathHard,WM_LEVEL_3);
+    1910:	c7 44 24 04 02 00 00 	movl   $0x2,0x4(%esp)
+    1917:	00 
+    1918:	c7 04 24 0a 19 00 00 	movl   $0x190a,(%esp)
+    191f:	e8 00 00 00 00       	call   1924 <_FindMinSurvPathHard+0x1a>
+
+  uint32_t minDist;
+  uint8_t minStateIdx;
+  uint8_t j;
+  
+  if (NULL != inPaths)
+    1924:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+    1928:	74 5d                	je     1987 <_FindMinSurvPathHard+0x7d>
+  {
+    minDist = inPaths->dist[0];
+    192a:	8b 45 08             	mov    0x8(%ebp),%eax
+    192d:	8b 80 00 01 00 00    	mov    0x100(%eax),%eax
+    1933:	89 45 f4             	mov    %eax,-0xc(%ebp)
+    minStateIdx = 0;
+    1936:	c6 45 f3 00          	movb   $0x0,-0xd(%ebp)
+    for (j=1; j<CC_NTRELSTATES; j++)
+    193a:	c6 45 f2 01          	movb   $0x1,-0xe(%ebp)
+    193e:	eb 41                	jmp    1981 <_FindMinSurvPathHard+0x77>
+    {
+      if ((inPaths->iter[j]>0) && (inPaths->dist[j] < minDist))
+    1940:	0f b6 55 f2          	movzbl -0xe(%ebp),%edx
+    1944:	8b 45 08             	mov    0x8(%ebp),%eax
+    1947:	8b 04 90             	mov    (%eax,%edx,4),%eax
+    194a:	85 c0                	test   %eax,%eax
+    194c:	74 29                	je     1977 <_FindMinSurvPathHard+0x6d>
+    194e:	0f b6 55 f2          	movzbl -0xe(%ebp),%edx
+    1952:	8b 45 08             	mov    0x8(%ebp),%eax
+    1955:	83 c2 40             	add    $0x40,%edx
+    1958:	8b 04 90             	mov    (%eax,%edx,4),%eax
+    195b:	3b 45 f4             	cmp    -0xc(%ebp),%eax
+    195e:	73 17                	jae    1977 <_FindMinSurvPathHard+0x6d>
+      {
+        minDist = inPaths->dist[j];
+    1960:	0f b6 55 f2          	movzbl -0xe(%ebp),%edx
+    1964:	8b 45 08             	mov    0x8(%ebp),%eax
+    1967:	83 c2 40             	add    $0x40,%edx
+    196a:	8b 04 90             	mov    (%eax,%edx,4),%eax
+    196d:	89 45 f4             	mov    %eax,-0xc(%ebp)
+        minStateIdx = j;
+    1970:	0f b6 45 f2          	movzbl -0xe(%ebp),%eax
+    1974:	88 45 f3             	mov    %al,-0xd(%ebp)
+    for (j=1; j<CC_NTRELSTATES; j++)
+    1977:	0f b6 45 f2          	movzbl -0xe(%ebp),%eax
+    197b:	83 c0 01             	add    $0x1,%eax
+    197e:	88 45 f2             	mov    %al,-0xe(%ebp)
+    1981:	80 7d f2 3f          	cmpb   $0x3f,-0xe(%ebp)
+    1985:	76 b9                	jbe    1940 <_FindMinSurvPathHard+0x36>
+      }
+    }
+  }
+
+  return minStateIdx;
+    1987:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
+}
+    198b:	c9                   	leave  
+    198c:	c3                   	ret    
+
+0000198d <_SoftDepuncturer>:
+ * @param[in] pParams coding parameters
+ * 
+ * @return error ID
+ */
+static error_t SoftDepuncturer( float * ioBuffer, ulen_t inLenBi, ulen_t outLenBi, const cc_encoder_info_t * encInfo, const cc_par_t * pParams )
+{
+    198d:	55                   	push   %ebp
+    198e:	89 e5                	mov    %esp,%ebp
+    1990:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)SoftDepuncturer,WM_LEVEL_2);
+    1993:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+    199a:	00 
+    199b:	c7 04 24 8d 19 00 00 	movl   $0x198d,(%esp)
+    19a2:	e8 00 00 00 00       	call   19a7 <_SoftDepuncturer+0x1a>
+
+  error_t retErr = ERR_NONE;
+    19a7:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+  ulen_t i = inLenBi-1;                                                                           /** - reading index over LLR array */
+    19ae:	8b 45 0c             	mov    0xc(%ebp),%eax
+    19b1:	83 e8 01             	sub    $0x1,%eax
+    19b4:	89 45 f0             	mov    %eax,-0x10(%ebp)
+  ulen_t j;
+  uint8_t k = encInfo->lenPuncVect-1;                                                             /** - reading index within punturing vector */
+    19b7:	8b 45 14             	mov    0x14(%ebp),%eax
+    19ba:	0f b6 40 0c          	movzbl 0xc(%eax),%eax
+    19be:	83 e8 01             	sub    $0x1,%eax
+    19c1:	88 45 eb             	mov    %al,-0x15(%ebp)
+  
+  if (NULL != ioBuffer)
+    19c4:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+    19c8:	0f 84 8f 00 00 00    	je     1a5d <_SoftDepuncturer+0xd0>
+  {
+    for (j=outLenBi; j>0; j--)
+    19ce:	8b 45 10             	mov    0x10(%ebp),%eax
+    19d1:	89 45 ec             	mov    %eax,-0x14(%ebp)
+    19d4:	eb 7b                	jmp    1a51 <_SoftDepuncturer+0xc4>
+    {
+      if (1 == encInfo->pPuncVect[k])
+    19d6:	8b 45 14             	mov    0x14(%ebp),%eax
+    19d9:	8b 50 08             	mov    0x8(%eax),%edx
+    19dc:	0f b6 45 eb          	movzbl -0x15(%ebp),%eax
+    19e0:	01 d0                	add    %edx,%eax
+    19e2:	0f b6 00             	movzbl (%eax),%eax
+    19e5:	3c 01                	cmp    $0x1,%al
+    19e7:	75 2d                	jne    1a16 <_SoftDepuncturer+0x89>
+      {
+        ioBuffer[j-1] = ioBuffer[i];
+    19e9:	8b 45 ec             	mov    -0x14(%ebp),%eax
+    19ec:	05 ff ff ff 3f       	add    $0x3fffffff,%eax
+    19f1:	8d 14 85 00 00 00 00 	lea    0x0(,%eax,4),%edx
+    19f8:	8b 45 08             	mov    0x8(%ebp),%eax
+    19fb:	01 d0                	add    %edx,%eax
+    19fd:	8b 55 f0             	mov    -0x10(%ebp),%edx
+    1a00:	8d 0c 95 00 00 00 00 	lea    0x0(,%edx,4),%ecx
+    1a07:	8b 55 08             	mov    0x8(%ebp),%edx
+    1a0a:	01 ca                	add    %ecx,%edx
+    1a0c:	d9 02                	flds   (%edx)
+    1a0e:	d9 18                	fstps  (%eax)
+        i--;
+    1a10:	83 6d f0 01          	subl   $0x1,-0x10(%ebp)
+    1a14:	eb 18                	jmp    1a2e <_SoftDepuncturer+0xa1>
+      }
+      else
+      {
+        ioBuffer[j-1] = 0;                                                                        /** - each erasure LLR restored has 0-value */
+    1a16:	8b 45 ec             	mov    -0x14(%ebp),%eax
+    1a19:	05 ff ff ff 3f       	add    $0x3fffffff,%eax
+    1a1e:	8d 14 85 00 00 00 00 	lea    0x0(,%eax,4),%edx
+    1a25:	8b 45 08             	mov    0x8(%ebp),%eax
+    1a28:	01 d0                	add    %edx,%eax
+    1a2a:	d9 ee                	fldz   
+    1a2c:	d9 18                	fstps  (%eax)
+      }
+      if (k > 0)
+    1a2e:	80 7d eb 00          	cmpb   $0x0,-0x15(%ebp)
+    1a32:	74 0c                	je     1a40 <_SoftDepuncturer+0xb3>
+      {
+        k--;
+    1a34:	0f b6 45 eb          	movzbl -0x15(%ebp),%eax
+    1a38:	83 e8 01             	sub    $0x1,%eax
+    1a3b:	88 45 eb             	mov    %al,-0x15(%ebp)
+    1a3e:	eb 0d                	jmp    1a4d <_SoftDepuncturer+0xc0>
+      }
+      else
+      {
+        k = CC_NBRANCHES*pParams->cRate-1;
+    1a40:	8b 45 18             	mov    0x18(%ebp),%eax
+    1a43:	8b 00                	mov    (%eax),%eax
+    1a45:	01 c0                	add    %eax,%eax
+    1a47:	83 e8 01             	sub    $0x1,%eax
+    1a4a:	88 45 eb             	mov    %al,-0x15(%ebp)
+    for (j=outLenBi; j>0; j--)
+    1a4d:	83 6d ec 01          	subl   $0x1,-0x14(%ebp)
+    1a51:	83 7d ec 00          	cmpl   $0x0,-0x14(%ebp)
+    1a55:	0f 85 7b ff ff ff    	jne    19d6 <_SoftDepuncturer+0x49>
+    1a5b:	eb 07                	jmp    1a64 <_SoftDepuncturer+0xd7>
+    }
+
+  }
+  else
+  {
+    retErr = ERR_INV_NULL_POINTER;
+    1a5d:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+  }
+
+  return Error_HandleErr(retErr);
+    1a64:	8b 45 f4             	mov    -0xc(%ebp),%eax
+    1a67:	89 04 24             	mov    %eax,(%esp)
+    1a6a:	e8 00 00 00 00       	call   1a6f <_SoftDepuncturer+0xe2>
+}
+    1a6f:	c9                   	leave  
+    1a70:	c3                   	ret    
+
+00001a71 <_EstimateEuclideanDist>:
+ * @param[in] erasMask depuncturing erasure mask
+ * 
+ * @return estimated Euclidean distance
+ */
+static float EstimateEuclideanDist( const float * inBuf, uint8_t trlByte, uint8_t erasMask )
+{
+    1a71:	55                   	push   %ebp
+    1a72:	89 e5                	mov    %esp,%ebp
+    1a74:	83 ec 38             	sub    $0x38,%esp
+    1a77:	8b 55 0c             	mov    0xc(%ebp),%edx
+    1a7a:	8b 45 10             	mov    0x10(%ebp),%eax
+    1a7d:	88 55 e4             	mov    %dl,-0x1c(%ebp)
+    1a80:	88 45 e0             	mov    %al,-0x20(%ebp)
+  Debug_SetWatermark((void *)EstimateEuclideanDist,WM_LEVEL_3);
+    1a83:	c7 44 24 04 02 00 00 	movl   $0x2,0x4(%esp)
+    1a8a:	00 
+    1a8b:	c7 04 24 71 1a 00 00 	movl   $0x1a71,(%esp)
+    1a92:	e8 00 00 00 00       	call   1a97 <_EstimateEuclideanDist+0x26>
+
+  uint8_t j;
+  float Dist = 0;
+    1a97:	d9 ee                	fldz   
+    1a99:	d9 5d f0             	fstps  -0x10(%ebp)
+
+  if (NULL != inBuf)
+    1a9c:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+    1aa0:	74 7a                	je     1b1c <_EstimateEuclideanDist+0xab>
+  {
+    for (j=0; j<CC_NBRANCHES; j++)
+    1aa2:	c6 45 f7 00          	movb   $0x0,-0x9(%ebp)
+    1aa6:	eb 6e                	jmp    1b16 <_EstimateEuclideanDist+0xa5>
+    {
+      if ((erasMask>>(1-j))&LSBIT_MASK_U8)
+    1aa8:	0f b6 55 e0          	movzbl -0x20(%ebp),%edx
+    1aac:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+    1ab0:	b9 01 00 00 00       	mov    $0x1,%ecx
+    1ab5:	29 c1                	sub    %eax,%ecx
+    1ab7:	89 c8                	mov    %ecx,%eax
+    1ab9:	89 c1                	mov    %eax,%ecx
+    1abb:	d3 fa                	sar    %cl,%edx
+    1abd:	89 d0                	mov    %edx,%eax
+    1abf:	83 e0 01             	and    $0x1,%eax
+    1ac2:	85 c0                	test   %eax,%eax
+    1ac4:	74 46                	je     1b0c <_EstimateEuclideanDist+0x9b>
+      {
+        Dist += fabs(CC_NBRANCHES*((float)((trlByte>>(1-j))&LSBIT_MASK_U8))-1-inBuf[j]);
+    1ac6:	0f b6 55 e4          	movzbl -0x1c(%ebp),%edx
+    1aca:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+    1ace:	b9 01 00 00 00       	mov    $0x1,%ecx
+    1ad3:	29 c1                	sub    %eax,%ecx
+    1ad5:	89 c8                	mov    %ecx,%eax
+    1ad7:	89 c1                	mov    %eax,%ecx
+    1ad9:	d3 fa                	sar    %cl,%edx
+    1adb:	89 d0                	mov    %edx,%eax
+    1add:	83 e0 01             	and    $0x1,%eax
+    1ae0:	89 45 dc             	mov    %eax,-0x24(%ebp)
+    1ae3:	db 45 dc             	fildl  -0x24(%ebp)
+    1ae6:	d9 c0                	fld    %st(0)
+    1ae8:	de c1                	faddp  %st,%st(1)
+    1aea:	d9 e8                	fld1   
+    1aec:	de e9                	fsubrp %st,%st(1)
+    1aee:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+    1af2:	8d 14 85 00 00 00 00 	lea    0x0(,%eax,4),%edx
+    1af9:	8b 45 08             	mov    0x8(%ebp),%eax
+    1afc:	01 d0                	add    %edx,%eax
+    1afe:	d9 00                	flds   (%eax)
+    1b00:	de e9                	fsubrp %st,%st(1)
+    1b02:	d9 e1                	fabs   
+    1b04:	d9 45 f0             	flds   -0x10(%ebp)
+    1b07:	de c1                	faddp  %st,%st(1)
+    1b09:	d9 5d f0             	fstps  -0x10(%ebp)
+    for (j=0; j<CC_NBRANCHES; j++)
+    1b0c:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+    1b10:	83 c0 01             	add    $0x1,%eax
+    1b13:	88 45 f7             	mov    %al,-0x9(%ebp)
+    1b16:	80 7d f7 01          	cmpb   $0x1,-0x9(%ebp)
+    1b1a:	76 8c                	jbe    1aa8 <_EstimateEuclideanDist+0x37>
+      }
+    }
+  }
+  
+  return Dist;
+    1b1c:	d9 45 f0             	flds   -0x10(%ebp)
+}
+    1b1f:	c9                   	leave  
+    1b20:	c3                   	ret    
+
+00001b21 <_FindMinSurvPathSoft>:
+ * @param[in] InPaths current Viterbi paths
+ * 
+ * @return index of minimum distance trellis state
+ */
+static uint8_t FindMinSurvPathSoft( const cc_soft_dec_info_t * inPaths)
+{
+    1b21:	55                   	push   %ebp
+    1b22:	89 e5                	mov    %esp,%ebp
+    1b24:	83 ec 28             	sub    $0x28,%esp
+  Debug_SetWatermark((void *)FindMinSurvPathSoft,WM_LEVEL_3);
+    1b27:	c7 44 24 04 02 00 00 	movl   $0x2,0x4(%esp)
+    1b2e:	00 
+    1b2f:	c7 04 24 21 1b 00 00 	movl   $0x1b21,(%esp)
+    1b36:	e8 00 00 00 00       	call   1b3b <_FindMinSurvPathSoft+0x1a>
+
+  float minDist;
+  uint8_t minStIdx;
+  uint8_t j;
+
+  if (NULL != inPaths)
+    1b3b:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+    1b3f:	74 62                	je     1ba3 <_FindMinSurvPathSoft+0x82>
+  {
+    minDist = inPaths->dist[0];
+    1b41:	8b 45 08             	mov    0x8(%ebp),%eax
+    1b44:	d9 80 00 01 00 00    	flds   0x100(%eax)
+    1b4a:	d9 5d f4             	fstps  -0xc(%ebp)
+    minStIdx = 0;
+    1b4d:	c6 45 f3 00          	movb   $0x0,-0xd(%ebp)
+    for (j=1; j<CC_NTRELSTATES; j++)
+    1b51:	c6 45 f2 01          	movb   $0x1,-0xe(%ebp)
+    1b55:	eb 46                	jmp    1b9d <_FindMinSurvPathSoft+0x7c>
+    {
+      if ((inPaths->iter[j]>0) && (inPaths->dist[j]<minDist))
+    1b57:	0f b6 55 f2          	movzbl -0xe(%ebp),%edx
+    1b5b:	8b 45 08             	mov    0x8(%ebp),%eax
+    1b5e:	8b 04 90             	mov    (%eax,%edx,4),%eax
+    1b61:	85 c0                	test   %eax,%eax
+    1b63:	74 2e                	je     1b93 <_FindMinSurvPathSoft+0x72>
+    1b65:	0f b6 55 f2          	movzbl -0xe(%ebp),%edx
+    1b69:	8b 45 08             	mov    0x8(%ebp),%eax
+    1b6c:	83 c2 40             	add    $0x40,%edx
+    1b6f:	d9 04 90             	flds   (%eax,%edx,4)
+    1b72:	d9 45 f4             	flds   -0xc(%ebp)
+    1b75:	da e9                	fucompp 
+    1b77:	df e0                	fnstsw %ax
+    1b79:	9e                   	sahf   
+    1b7a:	76 17                	jbe    1b93 <_FindMinSurvPathSoft+0x72>
+      {
+        minDist = inPaths->dist[j];
+    1b7c:	0f b6 55 f2          	movzbl -0xe(%ebp),%edx
+    1b80:	8b 45 08             	mov    0x8(%ebp),%eax
+    1b83:	83 c2 40             	add    $0x40,%edx
+    1b86:	d9 04 90             	flds   (%eax,%edx,4)
+    1b89:	d9 5d f4             	fstps  -0xc(%ebp)
+        minStIdx = j;
+    1b8c:	0f b6 45 f2          	movzbl -0xe(%ebp),%eax
+    1b90:	88 45 f3             	mov    %al,-0xd(%ebp)
+    for (j=1; j<CC_NTRELSTATES; j++)
+    1b93:	0f b6 45 f2          	movzbl -0xe(%ebp),%eax
+    1b97:	83 c0 01             	add    $0x1,%eax
+    1b9a:	88 45 f2             	mov    %al,-0xe(%ebp)
+    1b9d:	80 7d f2 3f          	cmpb   $0x3f,-0xe(%ebp)
+    1ba1:	76 b4                	jbe    1b57 <_FindMinSurvPathSoft+0x36>
+      }
+    }
+  }
+
+  return minStIdx;
+    1ba3:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
+}
+    1ba7:	c9                   	leave  
+    1ba8:	c3                   	ret    
+    1ba9:	90                   	nop
+    1baa:	90                   	nop
+    1bab:	90                   	nop

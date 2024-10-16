@@ -2,6 +2,8 @@
  * @file scrambling.c
  * @author Filippo Valmori
  * @date 26/08/2024
+ * @copyright Electrolux S.p.A.
+ * @see Digital communications - Fundamentals and applications (Bernard Sklar, 2014)
  * @ingroup TLC_CHAIN
  * @brief Scrambling library
  * 
@@ -13,6 +15,7 @@
 /*** INCLUDES ***/
 /****************/
 
+#include "debug.h"
 #include "scrambling.h"
 
 
@@ -42,6 +45,8 @@ static uint8_t ComputeRegBit( uint32_t curSt, const scr_par_t * pParams );
  */
 error_t Scramb_ListParameters( scr_par_t * ioParams )
 {
+  Debug_SetWatermark((void *)Scramb_ListParameters,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
 
   if (NULL != ioParams)
@@ -85,9 +90,13 @@ error_t Scramb_ListParameters( scr_par_t * ioParams )
  */
 error_t Scramb_Scrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams )
 {
+  Debug_SetWatermark((void *)Scramb_Scrambler,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
 
-  if (NULL != pParams)
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id) &&
+      (NULL != pParams))
   {
     switch (pParams->type)
     {
@@ -120,9 +129,13 @@ error_t Scramb_Scrambler( const byte_stream_t * inStream, byte_stream_t * outStr
  */
 error_t Scramb_Descrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams )
 {
+  Debug_SetWatermark((void *)Scramb_Descrambler,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
 
-  if (NULL != pParams)
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id) &&
+      (NULL != pParams))
   {
     switch (pParams->type)
     {
@@ -159,6 +172,8 @@ error_t Scramb_Descrambler( const byte_stream_t * inStream, byte_stream_t * outS
  */
 static error_t Scramb_AdditiveScrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams )
 {
+  Debug_SetWatermark((void *)Scramb_AdditiveScrambler,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   const ulen_t bitLen = BY2BI_LEN(inStream->len);
   ulen_t byteIdx;
@@ -167,7 +182,9 @@ static error_t Scramb_AdditiveScrambler( const byte_stream_t * inStream, byte_st
   uint8_t scrBit;
   uint8_t bitIdx;
   
-  if ((NULL != inStream) && (NULL != outStream) && (NULL != pParams))
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id) &&
+      (NULL != pParams))
   {
     if (inStream->len == outStream->len)
     {
@@ -250,6 +267,8 @@ static error_t Scramb_AdditiveDescrambler( const byte_stream_t * inStream, byte_
  */
 static error_t Scramb_MultiplicativeScrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams )
 {
+  Debug_SetWatermark((void *)Scramb_MultiplicativeScrambler,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   const ulen_t bitLen = BY2BI_LEN(inStream->len);
   ulen_t byteIdx;
@@ -258,7 +277,9 @@ static error_t Scramb_MultiplicativeScrambler( const byte_stream_t * inStream, b
   uint8_t inBit, outBit;
   uint8_t bitIdx;
   
-  if ((NULL != inStream) && (NULL != outStream) && (NULL != pParams))
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id) &&
+      (NULL != pParams))
   {
     if (inStream->len == outStream->len)
     {
@@ -309,6 +330,8 @@ static error_t Scramb_MultiplicativeScrambler( const byte_stream_t * inStream, b
  */
 static error_t Scramb_MultiplicativeDescrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams )
 {
+  Debug_SetWatermark((void *)Scramb_MultiplicativeDescrambler,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   const ulen_t bitLen = BY2BI_LEN(inStream->len);
   ulen_t byteIdx;
@@ -317,7 +340,9 @@ static error_t Scramb_MultiplicativeDescrambler( const byte_stream_t * inStream,
   uint8_t inBit, outBit;
   uint8_t bitIdx;
   
-  if ((NULL != inStream) && (NULL != outStream) && (NULL != pParams))
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id) &&
+      (NULL != pParams))
   {
     if (inStream->len == outStream->len)
     {
@@ -373,6 +398,8 @@ static error_t Scramb_MultiplicativeDescrambler( const byte_stream_t * inStream,
  */
 static uint8_t ComputeRegBit( uint32_t curSt, const scr_par_t * pParams )
 {
+  Debug_SetWatermark((void *)ComputeRegBit,WM_LEVEL_3);
+
   uint8_t j;
   uint8_t outBit = 0;
 

@@ -3,13 +3,15 @@
 # 1 "<built-in>"
 # 1 "<command-line>"
 # 1 "src\\modulation.c"
-# 16 "src\\modulation.c"
-# 1 "src\\modulation.h" 1
-# 18 "src\\modulation.h"
+# 18 "src\\modulation.c"
+# 1 "src\\debug.h" 1
+# 19 "src\\debug.h"
+# 1 "src\\channel.h" 1
+# 20 "src\\channel.h"
 # 1 "src\\error.h" 1
-# 18 "src\\error.h"
+# 19 "src\\error.h"
 # 1 "src\\system.h" 1
-# 20 "src\\system.h"
+# 21 "src\\system.h"
 # 1 "c:\\mingw\\include\\stdio.h" 1 3
 # 38 "c:\\mingw\\include\\stdio.h" 3
        
@@ -445,9 +447,9 @@ int vswscanf (const wchar_t *__restrict__, const wchar_t * __restrict__, __built
 
 
 
-# 21 "src\\system.h" 2
-# 1 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdbool.h" 1 3 4
 # 22 "src\\system.h" 2
+# 1 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdbool.h" 1 3 4
+# 23 "src\\system.h" 2
 # 1 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 1 3 4
 # 9 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 3 4
 # 1 "c:\\mingw\\include\\stdint.h" 1 3 4
@@ -510,7 +512,7 @@ typedef __uintptr_t uintptr_t;
 typedef long long intmax_t;
 typedef unsigned long long uintmax_t;
 # 10 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 2 3 4
-# 23 "src\\system.h" 2
+# 24 "src\\system.h" 2
 # 1 "c:\\mingw\\include\\string.h" 1 3
 # 34 "c:\\mingw\\include\\string.h" 3
        
@@ -684,7 +686,7 @@ extern inline __attribute__((__gnu_inline__)) __attribute__((__always_inline__))
 
 
 
-# 24 "src\\system.h" 2
+# 25 "src\\system.h" 2
 # 1 "c:\\mingw\\include\\stdlib.h" 1 3
 # 34 "c:\\mingw\\include\\stdlib.h" 3
        
@@ -992,7 +994,7 @@ __attribute__((__cdecl__)) __attribute__((__nothrow__)) int unsetenv( const char
 
 
 
-# 25 "src\\system.h" 2
+# 26 "src\\system.h" 2
 # 1 "c:\\mingw\\include\\time.h" 1 3
 # 33 "c:\\mingw\\include\\time.h" 3
        
@@ -1162,7 +1164,7 @@ int nanosleep( const struct timespec *, struct timespec * );
 size_t wcsftime (wchar_t *, size_t, const wchar_t *, const struct tm *);
 
 
-# 26 "src\\system.h" 2
+# 27 "src\\system.h" 2
 # 1 "c:\\mingw\\include\\math.h" 1 3
 # 35 "c:\\mingw\\include\\math.h" 3
        
@@ -1548,16 +1550,16 @@ extern float __attribute__((__cdecl__)) fmaf (float, float, float);
 extern long double __attribute__((__cdecl__)) fmal (long double, long double, long double);
 # 931 "c:\\mingw\\include\\math.h" 3
 
-# 27 "src\\system.h" 2
-# 58 "src\\system.h"
+# 28 "src\\system.h" 2
+# 59 "src\\system.h"
 
-# 58 "src\\system.h"
+# 59 "src\\system.h"
 typedef struct _complex_t
 {
   float re;
   float im;
 } complex_t;
-# 19 "src\\error.h" 2
+# 20 "src\\error.h" 2
 
 
 
@@ -1600,9 +1602,9 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 76 "src\\error.h"
+# 77 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
-# 19 "src\\modulation.h" 2
+# 21 "src\\channel.h" 2
 # 1 "src\\memory.h" 1
 # 28 "src\\memory.h"
 typedef enum
@@ -1649,8 +1651,162 @@ error_t Memory_FreeStream( void * ioStream, memory_type_t type );
 _Bool 
 # 67 "src\\memory.h"
     Memory_IsStreamValid( const void * inStream, memory_type_t type );
-# 20 "src\\modulation.h" 2
-# 28 "src\\modulation.h"
+# 22 "src\\channel.h" 2
+# 30 "src\\channel.h"
+typedef enum
+{
+  CHAN_BSC = 0,
+  CHAN_AWGN,
+
+  CHAN_NUM
+} chan_type_t;
+
+
+typedef struct _chan_par_t
+{
+  uint32_t seed;
+  chan_type_t type;
+  uint8_t bps;
+  union
+  {
+    float Peb;
+    float EbN0;
+  };
+} chan_par_t;
+# 76 "src\\channel.h"
+error_t Channel_ListParameters( chan_par_t * ioParams );
+error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, const chan_par_t * pParams );
+error_t Channel_AWGN( const complex_stream_t * inStream, complex_stream_t * outStream, const chan_par_t * pParams );
+# 20 "src\\debug.h" 2
+# 1 "src\\convolutional.h" 1
+# 62 "src\\convolutional.h"
+typedef enum
+{
+  CC_RATE_12 = 1, CC_RATE_23 = 2, CC_RATE_34 = 3, CC_RATE_56 = 5, CC_RATE_78 = 7
+} cc_rate_t;
+
+
+typedef enum
+{
+  CC_RATE_IDX_12, CC_RATE_IDX_23, CC_RATE_IDX_34, CC_RATE_IDX_56, CC_RATE_IDX_78,
+  CC_RATE_NUM
+} cc_rate_idx_t;
+# 81 "src\\convolutional.h"
+typedef enum
+{
+  CC_KLEN_3 = 3,
+  CC_KLEN_4 = 4,
+  CC_KLEN_5 = 5,
+  CC_KLEN_6 = 6,
+  CC_KLEN_7 = 7,
+  CC_KLEN_8 = 8,
+  CC_KLEN_MIN = CC_KLEN_3,
+  CC_KLEN_MAX = CC_KLEN_8
+} cc_klen_t;
+
+
+
+typedef enum
+{
+  CC_VITDM_HARD = 0,
+  CC_VITDM_SOFT,
+
+  CC_VITDM_NUM
+} cc_dec_method_t;
+
+
+typedef struct _cc_par_t
+{
+  cc_rate_t cRate;
+  cc_klen_t kLen;
+  uint16_t memFact;
+  cc_dec_method_t vitDM;
+} cc_par_t;
+
+
+typedef struct _cc_encoder_info_t
+{
+  const uint8_t * pConnVect;
+  uint8_t lenConnVect;
+  const uint8_t * pPuncVect;
+  uint8_t lenPuncVect;
+} cc_encoder_info_t;
+
+
+typedef struct _cc_trcore_t
+{
+  uint8_t outBits[2u];
+  uint8_t nextSt[2u];
+} cc_trcore_t;
+
+
+typedef struct _cc_trellis_t
+{
+  cc_trcore_t trSt[(1<<(CC_KLEN_7-1))];
+} cc_trellis_t;
+
+
+typedef struct _cc_hard_dec_info_t
+{
+  uint32_t iter[(1<<(CC_KLEN_7-1))];
+  uint32_t dist[(1<<(CC_KLEN_7-1))];
+  uint8_t path[(1<<(CC_KLEN_7-1))][((1<<(CC_KLEN_7-1))*10u)];
+} cc_hard_dec_info_t;
+
+
+
+typedef struct _cc_soft_dec_info_t
+{
+  uint32_t iter[(1<<(CC_KLEN_7-1))];
+  float dist[(1<<(CC_KLEN_7-1))];
+  uint8_t path[(1<<(CC_KLEN_7-1))][((1<<(CC_KLEN_7-1))*10u)];
+} cc_soft_dec_info_t;
+
+
+
+
+
+
+
+error_t CnvCod_ListParameters( cc_par_t * ioParams );
+error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
+error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
+error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
+# 21 "src\\debug.h" 2
+
+# 1 "src\\interleaving.h" 1
+# 30 "src\\interleaving.h"
+typedef enum
+{
+  INTRLV_BLOCK = 0,
+  INTRLV_CONV,
+
+  INTRLV_NUM
+} itlv_type_t;
+
+
+typedef struct _itlv_par_t
+{
+  itlv_type_t type;
+  union
+  {
+    uint8_t rows;
+    uint8_t dlys;
+  };
+  union
+  {
+    uint8_t cols;
+    uint8_t cells;
+  };
+} itlv_par_t;
+# 86 "src\\interleaving.h"
+error_t Intrlv_ListParameters( itlv_par_t * ioParams );
+error_t Intrlv_Interleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
+error_t Intrlv_Deinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
+# 23 "src\\debug.h" 2
+
+# 1 "src\\modulation.h" 1
+# 30 "src\\modulation.h"
 typedef enum
 {
   MOD_PSK = 0,
@@ -1658,7 +1814,7 @@ typedef enum
 
   MOD_NUM
 } mod_type_t;
-# 73 "src\\modulation.h"
+# 75 "src\\modulation.h"
 typedef struct _mod_par_t
 {
   mod_type_t type;
@@ -1684,7 +1840,25 @@ error_t Modulation_ListParameters( mod_par_t * ioParams );
 error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * outStream, const mod_par_t * pParams );
 error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_t * outStream, const mod_par_t * pParams );
 error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream_t * outStream, const mod_par_t * pParams );
-# 17 "src\\modulation.c" 2
+# 25 "src\\debug.h" 2
+# 1 "src\\reed_solomon.h" 1
+# 30 "src\\reed_solomon.h"
+typedef enum
+{
+  RS_GF_DEGREE_4 = 4,
+  RS_GF_DEGREE_8 = 8
+} rs_gf_degree_t;
+# 52 "src\\reed_solomon.h"
+typedef struct _rs_par_t
+{
+  rs_gf_degree_t m;
+  uint8_t kSh;
+  uint8_t nSh;
+  uint8_t t;
+  uint16_t kUn;
+  uint16_t nUn;
+  uint16_t dimGF;
+} rs_par_t;
 
 
 
@@ -1692,24 +1866,144 @@ error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream
 
 
 
+error_t RsCod_ListParameters( rs_par_t * ioParams );
+error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams );
+error_t RcCod_Decoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams );
+# 26 "src\\debug.h" 2
+# 1 "src\\scrambling.h" 1
+# 30 "src\\scrambling.h"
+typedef enum
+{
+  SCRAMB_ADT = 0,
+  SCRAMB_MLT,
+
+  SCRAMB_NUM
+} scramb_type_t;
+
+
+typedef struct _scr_par_t
+{
+  scramb_type_t type;
+  uint8_t nCells;
+  uint32_t conVect;
+  uint32_t initSt;
+} scr_par_t;
+# 77 "src\\scrambling.h"
+error_t Scramb_ListParameters( scr_par_t * ioParams );
+error_t Scramb_Scrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
+error_t Scramb_Descrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
+# 27 "src\\debug.h" 2
+# 52 "src\\debug.h"
+typedef struct _debug_par_t
+{
+  scr_par_t scrPar;
+  rs_par_t rsPar;
+  itlv_par_t itlvPar;
+  cc_par_t ccPar;
+  mod_par_t modPar;
+  chan_par_t chanPar;
+} debug_par_t;
+
+
+typedef enum
+{
+  PID_TX_ORG = 0,
+  PID_RX_ORG,
+  PID_TX_CRC,
+  PID_RX_CRC,
+  PID_TX_SCR,
+  PID_RX_SCR,
+  PID_TX_RSCOD,
+  PID_RX_RSCOD,
+  PID_TX_INTLV,
+  PID_RX_INTLV,
+  PID_TX_CNVCOD,
+  PID_RX_CNVCOD,
+  PID_TX_MAP,
+  PID_RX_MAP,
+  PID_RX_LLR,
+
+  PID_NUM
+} print_label_t;
+
+
+typedef enum _wm_level_t
+{
+  WM_LEVEL_1 = 0,
+  WM_LEVEL_2,
+  WM_LEVEL_3,
+
+  WM_LEVEL_NUM
+} wm_level_t;
+
+
+typedef enum _ansi_text_color
+{
+  COLOR_BLACK = 30,
+  COLOR_RED = 31,
+  COLOR_GREEN = 32,
+  COLOR_YELLOW = 33,
+  COLOR_BLUE = 34,
+  COLOR_PURPLE = 35,
+  COLOR_CYAN = 36,
+  COLOR_WHITE = 37,
+  COLOR_GREY = 90,
+  COLOR_BRIGHT_RED = 91,
+  COLOR_BRIGHT_GREEN = 92,
+  COLOR_BRIGHT_YELLOW = 93,
+  COLOR_BRIGHT_BLUE = 94,
+  COLOR_BRIGHT_PURPLE = 95,
+  COLOR_BRIGHT_CYAN = 96,
+  COLOR_BRIGHT_WHITE = 97,
+} ansi_text_color;
+
+
+typedef enum _ansi_text_style
+{
+  STYLE_RESET = 0,
+  STYLE_BOLD = 1,
+  STYLE_ITALIC = 3,
+  STYLE_SINGLE_UNDERLINE = 4,
+  STYLE_SLOW_BLINK = 5,
+  STYLE_FAST_BLINK = 6,
+  STYLE_DOUBLE_UNDERLINE = 21,
+} ansi_text_style;
+# 142 "src\\debug.h"
+error_t Debug_PrintParameters( uint32_t orgLen, const debug_par_t * pParams );
+error_t Debug_ListParameters( debug_par_t * ioParams, const scr_par_t * scrParam, const rs_par_t * rsParam, const itlv_par_t * itlvParam, const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam );
+error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed );
+error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
+error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
+error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
+error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams );
+error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label );
+error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label );
+error_t Debug_SetWatermark( const void * funcAddr, const wm_level_t level );
+void Debug_PrintWatermarks( void );
+void Debug_SetTerminalAppearance( ansi_text_color color, ansi_text_style style );
+void Debug_ResetTerminalAppearance( void );
+# 19 "src\\modulation.c" 2
+# 27 "src\\modulation.c"
 static 
-# 24 "src\\modulation.c" 3 4
+# 27 "src\\modulation.c" 3 4
       _Bool 
-# 24 "src\\modulation.c"
+# 27 "src\\modulation.c"
            IsQamBpsValid( uint8_t bps );
 static error_t GetMappingTable( mod_maptable_t * ioTable, const mod_par_t * pParams );
 static error_t GetPskTable( mod_maptable_t * ioTable, const mod_par_t * pParams );
 static error_t GetQamTable( mod_maptable_t * ioTable, const mod_par_t * pParams );
 static error_t GetGraySequence( uint8_t * ioBuffer, const mod_par_t * pParams );
-# 43 "src\\modulation.c"
+# 46 "src\\modulation.c"
 error_t Modulation_ListParameters( mod_par_t * ioParams )
 {
+  Debug_SetWatermark((void *)Modulation_ListParameters,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
 
   if (
-# 47 "src\\modulation.c" 3 4
+# 52 "src\\modulation.c" 3 4
      ((void *)0) 
-# 47 "src\\modulation.c"
+# 52 "src\\modulation.c"
           != ioParams)
   {
     ioParams->type = MOD_PSK;
@@ -1724,9 +2018,11 @@ error_t Modulation_ListParameters( mod_par_t * ioParams )
 
   return Error_HandleErr(retErr);
 }
-# 72 "src\\modulation.c"
+# 77 "src\\modulation.c"
 error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * outStream, const mod_par_t * pParams )
 {
+  Debug_SetWatermark((void *)Modulation_Mapper,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   mod_maptable_t mapTable;
   const uint32_t inLenBi = ((inStream->len)<<3u);
@@ -1737,19 +2033,13 @@ error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * ou
   uint8_t bitIdx;
   uint8_t i;
 
-  if ((
-# 84 "src\\modulation.c" 3 4
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id) &&
+      (
+# 93 "src\\modulation.c" 3 4
       ((void *)0) 
-# 84 "src\\modulation.c"
-           != inStream) && (
-# 84 "src\\modulation.c" 3 4
-                            ((void *)0) 
-# 84 "src\\modulation.c"
-                                 != outStream) && (
-# 84 "src\\modulation.c" 3 4
-                                                   ((void *)0) 
-# 84 "src\\modulation.c"
-                                                        != pParams))
+# 93 "src\\modulation.c"
+           != pParams))
   {
     GetMappingTable(&mapTable,pParams);
 
@@ -1783,9 +2073,11 @@ error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * ou
 
   return Error_HandleErr(retErr);
 }
-# 129 "src\\modulation.c"
+# 138 "src\\modulation.c"
 error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_t * outStream, const mod_par_t * pParams )
 {
+  Debug_SetWatermark((void *)Modulation_HardDemapper,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   mod_maptable_t mapTable;
   float minDist, curDist;
@@ -1796,19 +2088,13 @@ error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_
   uint8_t bitIdx;
   uint8_t i;
 
-  if ((
-# 141 "src\\modulation.c" 3 4
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id) &&
+      (
+# 154 "src\\modulation.c" 3 4
       ((void *)0) 
-# 141 "src\\modulation.c"
-           != inStream) && (
-# 141 "src\\modulation.c" 3 4
-                            ((void *)0) 
-# 141 "src\\modulation.c"
-                                 != outStream) && (
-# 141 "src\\modulation.c" 3 4
-                                                   ((void *)0) 
-# 141 "src\\modulation.c"
-                                                        != pParams))
+# 154 "src\\modulation.c"
+           != pParams))
   {
     GetMappingTable(&mapTable,pParams);
     memset(outStream->pBuf,0,outStream->len);
@@ -1845,9 +2131,11 @@ error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_
 
   return Error_HandleErr(retErr);
 }
-# 189 "src\\modulation.c"
+# 202 "src\\modulation.c"
 error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream_t * outStream, const mod_par_t * pParams )
 {
+  Debug_SetWatermark((void *)Modulation_SoftDemapper,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   mod_maptable_t mapTable;
   const uint32_t punLenBi = ((outStream->len)<<3u);
@@ -1856,19 +2144,13 @@ error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream
   float distance;
   uint8_t i, j;
 
-  if ((
-# 199 "src\\modulation.c" 3 4
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id) &&
+      (
+# 216 "src\\modulation.c" 3 4
       ((void *)0) 
-# 199 "src\\modulation.c"
-           != inStream) && (
-# 199 "src\\modulation.c" 3 4
-                            ((void *)0) 
-# 199 "src\\modulation.c"
-                                 != outStream) && (
-# 199 "src\\modulation.c" 3 4
-                                                   ((void *)0) 
-# 199 "src\\modulation.c"
-                                                        != pParams))
+# 216 "src\\modulation.c"
+           != pParams))
   {
     GetMappingTable(&mapTable,pParams);
 
@@ -1912,19 +2194,21 @@ error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream
 
   return Error_HandleErr(retErr);
 }
-# 258 "src\\modulation.c"
+# 275 "src\\modulation.c"
 static error_t GetMappingTable( mod_maptable_t * ioTable, const mod_par_t * pParams )
 {
+  Debug_SetWatermark((void *)GetMappingTable,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
 
   if ((
-# 262 "src\\modulation.c" 3 4
+# 281 "src\\modulation.c" 3 4
       ((void *)0) 
-# 262 "src\\modulation.c"
+# 281 "src\\modulation.c"
            != ioTable) && (
-# 262 "src\\modulation.c" 3 4
+# 281 "src\\modulation.c" 3 4
                            ((void *)0) 
-# 262 "src\\modulation.c"
+# 281 "src\\modulation.c"
                                 != pParams))
   {
     if ((pParams->bps >= 1u) && (pParams->bps <= 6u))
@@ -1956,21 +2240,23 @@ static error_t GetMappingTable( mod_maptable_t * ioTable, const mod_par_t * pPar
 
   return Error_HandleErr(retErr);
 }
-# 303 "src\\modulation.c"
+# 322 "src\\modulation.c"
 static error_t GetPskTable( mod_maptable_t * ioTable, const mod_par_t * pParams )
 {
+  Debug_SetWatermark((void *)GetPskTable,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   uint8_t graySeq[pParams->order];
   uint8_t j;
 
   if ((
-# 309 "src\\modulation.c" 3 4
+# 330 "src\\modulation.c" 3 4
       ((void *)0) 
-# 309 "src\\modulation.c"
+# 330 "src\\modulation.c"
            != ioTable) && (
-# 309 "src\\modulation.c" 3 4
+# 330 "src\\modulation.c" 3 4
                            ((void *)0) 
-# 309 "src\\modulation.c"
+# 330 "src\\modulation.c"
                                 != pParams))
   {
     GetGraySequence(graySeq,pParams);
@@ -1989,9 +2275,11 @@ static error_t GetPskTable( mod_maptable_t * ioTable, const mod_par_t * pParams 
 
   return Error_HandleErr(retErr);
 }
-# 337 "src\\modulation.c"
+# 358 "src\\modulation.c"
 static error_t GetQamTable( mod_maptable_t * ioTable, const mod_par_t * pParams )
 {
+  Debug_SetWatermark((void *)GetQamTable,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   uint8_t graySeq[pParams->order];
   uint8_t j;
@@ -2000,13 +2288,13 @@ static error_t GetQamTable( mod_maptable_t * ioTable, const mod_par_t * pParams 
   div_t divFct;
 
   if ((
-# 346 "src\\modulation.c" 3 4
+# 369 "src\\modulation.c" 3 4
       ((void *)0) 
-# 346 "src\\modulation.c"
+# 369 "src\\modulation.c"
            != ioTable) && (
-# 346 "src\\modulation.c" 3 4
+# 369 "src\\modulation.c" 3 4
                            ((void *)0) 
-# 346 "src\\modulation.c"
+# 369 "src\\modulation.c"
                                 != pParams))
   {
     if (IsQamBpsValid(pParams->bps))
@@ -2033,9 +2321,11 @@ static error_t GetQamTable( mod_maptable_t * ioTable, const mod_par_t * pParams 
 
   return Error_HandleErr(retErr);
 }
-# 382 "src\\modulation.c"
+# 405 "src\\modulation.c"
 static error_t GetGraySequence( uint8_t * ioBuffer, const mod_par_t * pParams )
 {
+  Debug_SetWatermark((void *)GetGraySequence,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   uint8_t i, cnt;
   uint8_t wrIdx;
@@ -2043,13 +2333,13 @@ static error_t GetGraySequence( uint8_t * ioBuffer, const mod_par_t * pParams )
   uint8_t nBlk;
 
   if ((
-# 390 "src\\modulation.c" 3 4
+# 415 "src\\modulation.c" 3 4
       ((void *)0) 
-# 390 "src\\modulation.c"
+# 415 "src\\modulation.c"
            != ioBuffer) && (
-# 390 "src\\modulation.c" 3 4
+# 415 "src\\modulation.c" 3 4
                             ((void *)0) 
-# 390 "src\\modulation.c"
+# 415 "src\\modulation.c"
                                  != pParams))
   {
     memset(ioBuffer,0,pParams->order);
@@ -2083,17 +2373,19 @@ static error_t GetGraySequence( uint8_t * ioBuffer, const mod_par_t * pParams )
 
   return Error_HandleErr(retErr);
 }
-# 432 "src\\modulation.c"
+# 457 "src\\modulation.c"
 static 
-# 432 "src\\modulation.c" 3 4
+# 457 "src\\modulation.c" 3 4
       _Bool 
-# 432 "src\\modulation.c"
+# 457 "src\\modulation.c"
            IsQamBpsValid( uint8_t bps )
 {
+  Debug_SetWatermark((void *)IsQamBpsValid,WM_LEVEL_2);
+
   
-# 434 "src\\modulation.c" 3 4
+# 461 "src\\modulation.c" 3 4
  _Bool 
-# 434 "src\\modulation.c"
+# 461 "src\\modulation.c"
       bRet;
 
   bRet = (0 == (bps%2));

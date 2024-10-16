@@ -3,13 +3,13 @@
 # 1 "<built-in>"
 # 1 "<command-line>"
 # 1 "src\\convolutional.c"
-# 15 "src\\convolutional.c"
+# 18 "src\\convolutional.c"
 # 1 "src\\convolutional.h" 1
-# 18 "src\\convolutional.h"
+# 20 "src\\convolutional.h"
 # 1 "src\\error.h" 1
-# 18 "src\\error.h"
+# 19 "src\\error.h"
 # 1 "src\\system.h" 1
-# 20 "src\\system.h"
+# 21 "src\\system.h"
 # 1 "c:\\mingw\\include\\stdio.h" 1 3
 # 38 "c:\\mingw\\include\\stdio.h" 3
        
@@ -445,9 +445,9 @@ int vswscanf (const wchar_t *__restrict__, const wchar_t * __restrict__, __built
 
 
 
-# 21 "src\\system.h" 2
-# 1 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdbool.h" 1 3 4
 # 22 "src\\system.h" 2
+# 1 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdbool.h" 1 3 4
+# 23 "src\\system.h" 2
 # 1 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 1 3 4
 # 9 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 3 4
 # 1 "c:\\mingw\\include\\stdint.h" 1 3 4
@@ -510,7 +510,7 @@ typedef __uintptr_t uintptr_t;
 typedef long long intmax_t;
 typedef unsigned long long uintmax_t;
 # 10 "c:\\mingw\\lib\\gcc\\mingw32\\6.3.0\\include\\stdint.h" 2 3 4
-# 23 "src\\system.h" 2
+# 24 "src\\system.h" 2
 # 1 "c:\\mingw\\include\\string.h" 1 3
 # 34 "c:\\mingw\\include\\string.h" 3
        
@@ -684,7 +684,7 @@ extern inline __attribute__((__gnu_inline__)) __attribute__((__always_inline__))
 
 
 
-# 24 "src\\system.h" 2
+# 25 "src\\system.h" 2
 # 1 "c:\\mingw\\include\\stdlib.h" 1 3
 # 34 "c:\\mingw\\include\\stdlib.h" 3
        
@@ -992,7 +992,7 @@ __attribute__((__cdecl__)) __attribute__((__nothrow__)) int unsetenv( const char
 
 
 
-# 25 "src\\system.h" 2
+# 26 "src\\system.h" 2
 # 1 "c:\\mingw\\include\\time.h" 1 3
 # 33 "c:\\mingw\\include\\time.h" 3
        
@@ -1162,7 +1162,7 @@ int nanosleep( const struct timespec *, struct timespec * );
 size_t wcsftime (wchar_t *, size_t, const wchar_t *, const struct tm *);
 
 
-# 26 "src\\system.h" 2
+# 27 "src\\system.h" 2
 # 1 "c:\\mingw\\include\\math.h" 1 3
 # 35 "c:\\mingw\\include\\math.h" 3
        
@@ -1548,16 +1548,16 @@ extern float __attribute__((__cdecl__)) fmaf (float, float, float);
 extern long double __attribute__((__cdecl__)) fmal (long double, long double, long double);
 # 931 "c:\\mingw\\include\\math.h" 3
 
-# 27 "src\\system.h" 2
-# 58 "src\\system.h"
+# 28 "src\\system.h" 2
+# 59 "src\\system.h"
 
-# 58 "src\\system.h"
+# 59 "src\\system.h"
 typedef struct _complex_t
 {
   float re;
   float im;
 } complex_t;
-# 19 "src\\error.h" 2
+# 20 "src\\error.h" 2
 
 
 
@@ -1600,9 +1600,9 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 76 "src\\error.h"
+# 77 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
-# 19 "src\\convolutional.h" 2
+# 21 "src\\convolutional.h" 2
 # 1 "src\\memory.h" 1
 # 28 "src\\memory.h"
 typedef enum
@@ -1649,8 +1649,8 @@ error_t Memory_FreeStream( void * ioStream, memory_type_t type );
 _Bool 
 # 67 "src\\memory.h"
     Memory_IsStreamValid( const void * inStream, memory_type_t type );
-# 20 "src\\convolutional.h" 2
-# 60 "src\\convolutional.h"
+# 22 "src\\convolutional.h" 2
+# 62 "src\\convolutional.h"
 typedef enum
 {
   CC_RATE_12 = 1, CC_RATE_23 = 2, CC_RATE_34 = 3, CC_RATE_56 = 5, CC_RATE_78 = 7
@@ -1662,7 +1662,7 @@ typedef enum
   CC_RATE_IDX_12, CC_RATE_IDX_23, CC_RATE_IDX_34, CC_RATE_IDX_56, CC_RATE_IDX_78,
   CC_RATE_NUM
 } cc_rate_idx_t;
-# 79 "src\\convolutional.h"
+# 81 "src\\convolutional.h"
 typedef enum
 {
   CC_KLEN_3 = 3,
@@ -1743,7 +1743,247 @@ error_t CnvCod_ListParameters( cc_par_t * ioParams );
 error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
 error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
 error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
-# 16 "src\\convolutional.c" 2
+# 19 "src\\convolutional.c" 2
+# 1 "src\\debug.h" 1
+# 19 "src\\debug.h"
+# 1 "src\\channel.h" 1
+# 30 "src\\channel.h"
+typedef enum
+{
+  CHAN_BSC = 0,
+  CHAN_AWGN,
+
+  CHAN_NUM
+} chan_type_t;
+
+
+typedef struct _chan_par_t
+{
+  uint32_t seed;
+  chan_type_t type;
+  uint8_t bps;
+  union
+  {
+    float Peb;
+    float EbN0;
+  };
+} chan_par_t;
+# 76 "src\\channel.h"
+error_t Channel_ListParameters( chan_par_t * ioParams );
+error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, const chan_par_t * pParams );
+error_t Channel_AWGN( const complex_stream_t * inStream, complex_stream_t * outStream, const chan_par_t * pParams );
+# 20 "src\\debug.h" 2
+
+
+# 1 "src\\interleaving.h" 1
+# 30 "src\\interleaving.h"
+typedef enum
+{
+  INTRLV_BLOCK = 0,
+  INTRLV_CONV,
+
+  INTRLV_NUM
+} itlv_type_t;
+
+
+typedef struct _itlv_par_t
+{
+  itlv_type_t type;
+  union
+  {
+    uint8_t rows;
+    uint8_t dlys;
+  };
+  union
+  {
+    uint8_t cols;
+    uint8_t cells;
+  };
+} itlv_par_t;
+# 86 "src\\interleaving.h"
+error_t Intrlv_ListParameters( itlv_par_t * ioParams );
+error_t Intrlv_Interleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
+error_t Intrlv_Deinterleaver( const byte_stream_t * inStream, byte_stream_t * outStream, const itlv_par_t * pParams );
+# 23 "src\\debug.h" 2
+
+# 1 "src\\modulation.h" 1
+# 30 "src\\modulation.h"
+typedef enum
+{
+  MOD_PSK = 0,
+  MOD_QAM,
+
+  MOD_NUM
+} mod_type_t;
+# 75 "src\\modulation.h"
+typedef struct _mod_par_t
+{
+  mod_type_t type;
+  uint8_t order;
+  uint8_t bps;
+  float phOfst;
+} mod_par_t;
+
+
+typedef struct _mod_maptable_t
+{
+  uint8_t bits[(0x01<<2u)];
+  complex_t symbs[(0x01<<2u)];
+} mod_maptable_t;
+
+
+
+
+
+
+
+error_t Modulation_ListParameters( mod_par_t * ioParams );
+error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * outStream, const mod_par_t * pParams );
+error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_t * outStream, const mod_par_t * pParams );
+error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream_t * outStream, const mod_par_t * pParams );
+# 25 "src\\debug.h" 2
+# 1 "src\\reed_solomon.h" 1
+# 30 "src\\reed_solomon.h"
+typedef enum
+{
+  RS_GF_DEGREE_4 = 4,
+  RS_GF_DEGREE_8 = 8
+} rs_gf_degree_t;
+# 52 "src\\reed_solomon.h"
+typedef struct _rs_par_t
+{
+  rs_gf_degree_t m;
+  uint8_t kSh;
+  uint8_t nSh;
+  uint8_t t;
+  uint16_t kUn;
+  uint16_t nUn;
+  uint16_t dimGF;
+} rs_par_t;
+
+
+
+
+
+
+
+error_t RsCod_ListParameters( rs_par_t * ioParams );
+error_t RcCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams );
+error_t RcCod_Decoder( const byte_stream_t * inStream, byte_stream_t * outStream, const rs_par_t * pParams );
+# 26 "src\\debug.h" 2
+# 1 "src\\scrambling.h" 1
+# 30 "src\\scrambling.h"
+typedef enum
+{
+  SCRAMB_ADT = 0,
+  SCRAMB_MLT,
+
+  SCRAMB_NUM
+} scramb_type_t;
+
+
+typedef struct _scr_par_t
+{
+  scramb_type_t type;
+  uint8_t nCells;
+  uint32_t conVect;
+  uint32_t initSt;
+} scr_par_t;
+# 77 "src\\scrambling.h"
+error_t Scramb_ListParameters( scr_par_t * ioParams );
+error_t Scramb_Scrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
+error_t Scramb_Descrambler( const byte_stream_t * inStream, byte_stream_t * outStream, const scr_par_t * pParams );
+# 27 "src\\debug.h" 2
+# 52 "src\\debug.h"
+typedef struct _debug_par_t
+{
+  scr_par_t scrPar;
+  rs_par_t rsPar;
+  itlv_par_t itlvPar;
+  cc_par_t ccPar;
+  mod_par_t modPar;
+  chan_par_t chanPar;
+} debug_par_t;
+
+
+typedef enum
+{
+  PID_TX_ORG = 0,
+  PID_RX_ORG,
+  PID_TX_CRC,
+  PID_RX_CRC,
+  PID_TX_SCR,
+  PID_RX_SCR,
+  PID_TX_RSCOD,
+  PID_RX_RSCOD,
+  PID_TX_INTLV,
+  PID_RX_INTLV,
+  PID_TX_CNVCOD,
+  PID_RX_CNVCOD,
+  PID_TX_MAP,
+  PID_RX_MAP,
+  PID_RX_LLR,
+
+  PID_NUM
+} print_label_t;
+
+
+typedef enum _wm_level_t
+{
+  WM_LEVEL_1 = 0,
+  WM_LEVEL_2,
+  WM_LEVEL_3,
+
+  WM_LEVEL_NUM
+} wm_level_t;
+
+
+typedef enum _ansi_text_color
+{
+  COLOR_BLACK = 30,
+  COLOR_RED = 31,
+  COLOR_GREEN = 32,
+  COLOR_YELLOW = 33,
+  COLOR_BLUE = 34,
+  COLOR_PURPLE = 35,
+  COLOR_CYAN = 36,
+  COLOR_WHITE = 37,
+  COLOR_GREY = 90,
+  COLOR_BRIGHT_RED = 91,
+  COLOR_BRIGHT_GREEN = 92,
+  COLOR_BRIGHT_YELLOW = 93,
+  COLOR_BRIGHT_BLUE = 94,
+  COLOR_BRIGHT_PURPLE = 95,
+  COLOR_BRIGHT_CYAN = 96,
+  COLOR_BRIGHT_WHITE = 97,
+} ansi_text_color;
+
+
+typedef enum _ansi_text_style
+{
+  STYLE_RESET = 0,
+  STYLE_BOLD = 1,
+  STYLE_ITALIC = 3,
+  STYLE_SINGLE_UNDERLINE = 4,
+  STYLE_SLOW_BLINK = 5,
+  STYLE_FAST_BLINK = 6,
+  STYLE_DOUBLE_UNDERLINE = 21,
+} ansi_text_style;
+# 142 "src\\debug.h"
+error_t Debug_PrintParameters( uint32_t orgLen, const debug_par_t * pParams );
+error_t Debug_ListParameters( debug_par_t * ioParams, const scr_par_t * scrParam, const rs_par_t * rsParam, const itlv_par_t * itlvParam, const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam );
+error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed );
+error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
+error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
+error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
+error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams );
+error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label );
+error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label );
+error_t Debug_SetWatermark( const void * funcAddr, const wm_level_t level );
+void Debug_PrintWatermarks( void );
+void Debug_SetTerminalAppearance( ansi_text_color color, ansi_text_style style );
+void Debug_ResetTerminalAppearance( void );
+# 20 "src\\convolutional.c" 2
 
 
 
@@ -1771,14 +2011,14 @@ const cc_rate_t CC_RATE_ARRAY[CC_RATE_NUM] =
 
 
 static 
-# 42 "src\\convolutional.c" 3 4
+# 46 "src\\convolutional.c" 3 4
       _Bool 
-# 42 "src\\convolutional.c"
+# 46 "src\\convolutional.c"
            IsRateValid( cc_rate_t rateVal );
 static 
-# 43 "src\\convolutional.c" 3 4
+# 47 "src\\convolutional.c" 3 4
       _Bool 
-# 43 "src\\convolutional.c"
+# 47 "src\\convolutional.c"
            IsKlenValid( cc_klen_t kVal );
 static error_t RetrieveConnectorPuncturationVectors( cc_encoder_info_t * ioInfo, const cc_par_t * pParams );
 static uint8_t ComputeEncBit( uint8_t cState, uint8_t cvVal, cc_klen_t kLen );
@@ -1789,15 +2029,17 @@ static uint8_t FindMinSurvPathHard( const cc_hard_dec_info_t * inPaths );
 static error_t SoftDepuncturer( float * ioBuffer, uint32_t inLenBi, uint32_t outLenBi, const cc_encoder_info_t * encInfo, const cc_par_t * pParams );
 static float EstimateEuclideanDist( const float * inBuf, uint8_t trlByte, uint8_t erasMask );
 static uint8_t FindMinSurvPathSoft( const cc_soft_dec_info_t * inPaths);
-# 67 "src\\convolutional.c"
+# 71 "src\\convolutional.c"
 error_t CnvCod_ListParameters( cc_par_t * ioParams )
 {
+  Debug_SetWatermark((void *)CnvCod_ListParameters,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
 
   if (
-# 71 "src\\convolutional.c" 3 4
+# 77 "src\\convolutional.c" 3 4
      ((void *)0) 
-# 71 "src\\convolutional.c"
+# 77 "src\\convolutional.c"
           != ioParams)
   {
     ioParams->cRate = CC_RATE_12;
@@ -1812,9 +2054,11 @@ error_t CnvCod_ListParameters( cc_par_t * ioParams )
 
   return Error_HandleErr(retErr);
 }
-# 96 "src\\convolutional.c"
+# 102 "src\\convolutional.c"
 error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams )
 {
+  Debug_SetWatermark((void *)CnvCod_Encoder,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   const uint32_t unpLenBy = 2u*inStream->len;
   const uint32_t unpLenBi = ((unpLenBy)<<3u);
@@ -1831,28 +2075,13 @@ error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStrea
   uint8_t rdBit;
   uint8_t k;
 
-  if ((
-# 114 "src\\convolutional.c" 3 4
-      ((void *)0) 
-# 114 "src\\convolutional.c"
-           != inStream) && (
-# 114 "src\\convolutional.c" 3 4
-                            ((void *)0) 
-# 114 "src\\convolutional.c"
-                                 != inStream->pBuf) && (
-# 114 "src\\convolutional.c" 3 4
-                                                        ((void *)0) 
-# 114 "src\\convolutional.c"
-                                                             != outStream) &&
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id) &&
       (
-# 115 "src\\convolutional.c" 3 4
+# 124 "src\\convolutional.c" 3 4
       ((void *)0) 
-# 115 "src\\convolutional.c"
-           != outStream->pBuf) && (
-# 115 "src\\convolutional.c" 3 4
-                                   ((void *)0) 
-# 115 "src\\convolutional.c"
-                                        != pParams))
+# 124 "src\\convolutional.c"
+           != pParams))
   {
     RetrieveConnectorPuncturationVectors(&encInfo,pParams);
     Memory_AllocateStream(&tmpStream,unpLenBy,memory_type_byte);
@@ -1924,9 +2153,11 @@ error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStrea
 
    return Error_HandleErr(retErr);
 }
-# 198 "src\\convolutional.c"
+# 207 "src\\convolutional.c"
 error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams )
 {
+  Debug_SetWatermark((void *)CnvCod_HardDecoder,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   const uint32_t outLenBi = ((outStream->len)<<3u);
   const uint32_t inLenBi = ((inStream->len)<<3u);
@@ -1947,28 +2178,13 @@ error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outS
   uint8_t erasMask;
   uint8_t j;
 
-  if ((
-# 220 "src\\convolutional.c" 3 4
-      ((void *)0) 
-# 220 "src\\convolutional.c"
-           != inStream) && (
-# 220 "src\\convolutional.c" 3 4
-                            ((void *)0) 
-# 220 "src\\convolutional.c"
-                                 != inStream->pBuf) && (
-# 220 "src\\convolutional.c" 3 4
-                                                        ((void *)0) 
-# 220 "src\\convolutional.c"
-                                                             != outStream) &&
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id) &&
       (
-# 221 "src\\convolutional.c" 3 4
+# 233 "src\\convolutional.c" 3 4
       ((void *)0) 
-# 221 "src\\convolutional.c"
-           != outStream->pBuf) && (
-# 221 "src\\convolutional.c" 3 4
-                                   ((void *)0) 
-# 221 "src\\convolutional.c"
-                                        != pParams))
+# 233 "src\\convolutional.c"
+           != pParams))
   {
     if (CC_VITDM_HARD == pParams->vitDM)
     {
@@ -2121,9 +2337,11 @@ error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outS
 
   return Error_HandleErr(retErr);
 }
-# 385 "src\\convolutional.c"
+# 397 "src\\convolutional.c"
 error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams )
 {
+  Debug_SetWatermark((void *)CnvCod_SoftDecoder,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   const uint32_t outLenBi = ((outStream->len)<<3u);
   const uint32_t unpLenBi = 2u*outLenBi;
@@ -2142,28 +2360,13 @@ error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * out
   uint8_t j, bitIdx, hypIdx;
   uint8_t erasMask;
 
-  if ((
-# 405 "src\\convolutional.c" 3 4
-      ((void *)0) 
-# 405 "src\\convolutional.c"
-           != inStream) && (
-# 405 "src\\convolutional.c" 3 4
-                            ((void *)0) 
-# 405 "src\\convolutional.c"
-                                 != inStream->pBuf) && (
-# 405 "src\\convolutional.c" 3 4
-                                                        ((void *)0) 
-# 405 "src\\convolutional.c"
-                                                             != outStream) &&
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id) &&
       (
-# 406 "src\\convolutional.c" 3 4
+# 421 "src\\convolutional.c" 3 4
       ((void *)0) 
-# 406 "src\\convolutional.c"
-           != outStream->pBuf) && (
-# 406 "src\\convolutional.c" 3 4
-                                   ((void *)0) 
-# 406 "src\\convolutional.c"
-                                        != pParams))
+# 421 "src\\convolutional.c"
+           != pParams))
   {
     if (CC_VITDM_SOFT == pParams->vitDM)
     {
@@ -2317,19 +2520,21 @@ error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * out
 
   return Error_HandleErr(retErr);
 }
-# 575 "src\\convolutional.c"
+# 590 "src\\convolutional.c"
 static error_t RetrieveConnectorPuncturationVectors( cc_encoder_info_t * ioInfo, const cc_par_t * pParams )
 {
+  Debug_SetWatermark((void *)RetrieveConnectorPuncturationVectors,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
 
   if ((
-# 579 "src\\convolutional.c" 3 4
+# 596 "src\\convolutional.c" 3 4
       ((void *)0) 
-# 579 "src\\convolutional.c"
+# 596 "src\\convolutional.c"
            != ioInfo) && (
-# 579 "src\\convolutional.c" 3 4
+# 596 "src\\convolutional.c" 3 4
                           ((void *)0) 
-# 579 "src\\convolutional.c"
+# 596 "src\\convolutional.c"
                                != pParams))
   {
     if (IsKlenValid(pParams->kLen))
@@ -2383,21 +2588,23 @@ static error_t RetrieveConnectorPuncturationVectors( cc_encoder_info_t * ioInfo,
 
   return Error_HandleErr(retErr);
 }
-# 641 "src\\convolutional.c"
+# 658 "src\\convolutional.c"
 static 
-# 641 "src\\convolutional.c" 3 4
+# 658 "src\\convolutional.c" 3 4
       _Bool 
-# 641 "src\\convolutional.c"
+# 658 "src\\convolutional.c"
            IsRateValid( cc_rate_t rateVal )
 {
+  Debug_SetWatermark((void *)IsRateValid,WM_LEVEL_2);
+
   
-# 643 "src\\convolutional.c" 3 4
+# 662 "src\\convolutional.c" 3 4
  _Bool 
-# 643 "src\\convolutional.c"
+# 662 "src\\convolutional.c"
       bRet = 
-# 643 "src\\convolutional.c" 3 4
+# 662 "src\\convolutional.c" 3 4
              0
-# 643 "src\\convolutional.c"
+# 662 "src\\convolutional.c"
                   ;
   uint8_t j;
 
@@ -2406,9 +2613,9 @@ static
     if (rateVal == CC_RATE_ARRAY[j])
     {
       bRet = 
-# 650 "src\\convolutional.c" 3 4
+# 669 "src\\convolutional.c" 3 4
             1
-# 650 "src\\convolutional.c"
+# 669 "src\\convolutional.c"
                 ;
       break;
     }
@@ -2416,26 +2623,30 @@ static
 
   return bRet;
 }
-# 666 "src\\convolutional.c"
+# 685 "src\\convolutional.c"
 static 
-# 666 "src\\convolutional.c" 3 4
+# 685 "src\\convolutional.c" 3 4
       _Bool 
-# 666 "src\\convolutional.c"
+# 685 "src\\convolutional.c"
            IsKlenValid( cc_klen_t kVal )
 {
+  Debug_SetWatermark((void *)IsKlenValid,WM_LEVEL_2);
+
   
-# 668 "src\\convolutional.c" 3 4
+# 689 "src\\convolutional.c" 3 4
  _Bool 
-# 668 "src\\convolutional.c"
+# 689 "src\\convolutional.c"
       bRet;
 
   bRet = (kVal >= CC_KLEN_MIN) && (kVal <= CC_KLEN_MAX);
 
   return bRet;
 }
-# 685 "src\\convolutional.c"
+# 706 "src\\convolutional.c"
 static uint8_t ComputeEncBit( uint8_t cState, uint8_t cvVal, cc_klen_t kLen )
 {
+  Debug_SetWatermark((void *)ComputeEncBit,WM_LEVEL_3);
+
   uint8_t outBit = 0;
   uint8_t j;
 
@@ -2446,9 +2657,11 @@ static uint8_t ComputeEncBit( uint8_t cState, uint8_t cvVal, cc_klen_t kLen )
 
   return outBit;
 }
-# 708 "src\\convolutional.c"
+# 731 "src\\convolutional.c"
 static error_t ComputeTrellisDiagram( cc_trellis_t * ioTrellisDiagr, const cc_encoder_info_t * encInfo, const cc_par_t * pParams )
 {
+  Debug_SetWatermark((void *)ComputeTrellisDiagram,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   uint8_t StBin[(1<<(CC_KLEN_7-1))];
   uint8_t i, j;
@@ -2456,9 +2669,9 @@ static error_t ComputeTrellisDiagram( cc_trellis_t * ioTrellisDiagr, const cc_en
   uint8_t state0, state1;
 
   if (
-# 716 "src\\convolutional.c" 3 4
+# 741 "src\\convolutional.c" 3 4
      ((void *)0) 
-# 716 "src\\convolutional.c"
+# 741 "src\\convolutional.c"
           != ioTrellisDiagr)
   {
     for (j=0; j<(1<<(CC_KLEN_7-1)); j++)
@@ -2504,9 +2717,11 @@ static error_t ComputeTrellisDiagram( cc_trellis_t * ioTrellisDiagr, const cc_en
 
   return Error_HandleErr(retErr);
 }
-# 774 "src\\convolutional.c"
+# 799 "src\\convolutional.c"
 static error_t HardDepuncturer( uint8_t * ioBuffer, uint32_t inLenBi, uint32_t outLenBi, const uint8_t * punctVect, const cc_par_t * pParams )
 {
+  Debug_SetWatermark((void *)HardDepuncturer,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   uint32_t rdIdx = inLenBi-1;
   uint32_t byteIdx;
@@ -2516,9 +2731,9 @@ static error_t HardDepuncturer( uint8_t * ioBuffer, uint32_t inLenBi, uint32_t o
   uint8_t rdBit;
 
   if (
-# 784 "src\\convolutional.c" 3 4
+# 811 "src\\convolutional.c" 3 4
      ((void *)0) 
-# 784 "src\\convolutional.c"
+# 811 "src\\convolutional.c"
           != ioBuffer)
   {
     for (j=outLenBi; j>0; j--)
@@ -2561,9 +2776,11 @@ static error_t HardDepuncturer( uint8_t * ioBuffer, uint32_t inLenBi, uint32_t o
 
   return Error_HandleErr(retErr);
 }
-# 835 "src\\convolutional.c"
+# 862 "src\\convolutional.c"
 static uint8_t CountByteOnes( uint8_t inByte )
 {
+  Debug_SetWatermark((void *)CountByteOnes,WM_LEVEL_3);
+
   uint8_t j;
   uint8_t cnt = 0;
 
@@ -2577,17 +2794,19 @@ static uint8_t CountByteOnes( uint8_t inByte )
 
   return cnt;
 }
-# 859 "src\\convolutional.c"
+# 888 "src\\convolutional.c"
 static uint8_t FindMinSurvPathHard( const cc_hard_dec_info_t * inPaths )
 {
+  Debug_SetWatermark((void *)FindMinSurvPathHard,WM_LEVEL_3);
+
   uint32_t minDist;
   uint8_t minStateIdx;
   uint8_t j;
 
   if (
-# 865 "src\\convolutional.c" 3 4
+# 896 "src\\convolutional.c" 3 4
      ((void *)0) 
-# 865 "src\\convolutional.c"
+# 896 "src\\convolutional.c"
           != inPaths)
   {
     minDist = inPaths->dist[0];
@@ -2604,18 +2823,20 @@ static uint8_t FindMinSurvPathHard( const cc_hard_dec_info_t * inPaths )
 
   return minStateIdx;
 }
-# 894 "src\\convolutional.c"
+# 925 "src\\convolutional.c"
 static error_t SoftDepuncturer( float * ioBuffer, uint32_t inLenBi, uint32_t outLenBi, const cc_encoder_info_t * encInfo, const cc_par_t * pParams )
 {
+  Debug_SetWatermark((void *)SoftDepuncturer,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   uint32_t i = inLenBi-1;
   uint32_t j;
   uint8_t k = encInfo->lenPuncVect-1;
 
   if (
-# 901 "src\\convolutional.c" 3 4
+# 934 "src\\convolutional.c" 3 4
      ((void *)0) 
-# 901 "src\\convolutional.c"
+# 934 "src\\convolutional.c"
           != ioBuffer)
   {
     for (j=outLenBi; j>0; j--)
@@ -2647,16 +2868,18 @@ static error_t SoftDepuncturer( float * ioBuffer, uint32_t inLenBi, uint32_t out
 
   return Error_HandleErr(retErr);
 }
-# 943 "src\\convolutional.c"
+# 976 "src\\convolutional.c"
 static float EstimateEuclideanDist( const float * inBuf, uint8_t trlByte, uint8_t erasMask )
 {
+  Debug_SetWatermark((void *)EstimateEuclideanDist,WM_LEVEL_3);
+
   uint8_t j;
   float Dist = 0;
 
   if (
-# 948 "src\\convolutional.c" 3 4
+# 983 "src\\convolutional.c" 3 4
      ((void *)0) 
-# 948 "src\\convolutional.c"
+# 983 "src\\convolutional.c"
           != inBuf)
   {
     for (j=0; j<2u; j++)
@@ -2670,17 +2893,19 @@ static float EstimateEuclideanDist( const float * inBuf, uint8_t trlByte, uint8_
 
   return Dist;
 }
-# 970 "src\\convolutional.c"
+# 1005 "src\\convolutional.c"
 static uint8_t FindMinSurvPathSoft( const cc_soft_dec_info_t * inPaths)
 {
+  Debug_SetWatermark((void *)FindMinSurvPathSoft,WM_LEVEL_3);
+
   float minDist;
   uint8_t minStIdx;
   uint8_t j;
 
   if (
-# 976 "src\\convolutional.c" 3 4
+# 1013 "src\\convolutional.c" 3 4
      ((void *)0) 
-# 976 "src\\convolutional.c"
+# 1013 "src\\convolutional.c"
           != inPaths)
   {
     minDist = inPaths->dist[0];

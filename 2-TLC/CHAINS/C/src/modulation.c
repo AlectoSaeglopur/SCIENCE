@@ -2,6 +2,8 @@
  * @file modulation.c
  * @author Filippo Valmori
  * @date 26/08/2024
+ * @copyright Electrolux S.p.A.
+ * @see Digital communications - Fundamentals and applications (Bernard Sklar, 2014)
  * @ingroup TLC_CHAIN
  * @brief Modulation library
  * 
@@ -13,6 +15,7 @@
 /*** INCLUDES ***/
 /****************/
 
+#include "debug.h"
 #include "modulation.h"
 
 
@@ -42,6 +45,8 @@ static error_t GetGraySequence( byte_t * ioBuffer, const mod_par_t * pParams );
  */
 error_t Modulation_ListParameters( mod_par_t * ioParams )
 {
+  Debug_SetWatermark((void *)Modulation_ListParameters,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
 
   if (NULL != ioParams)
@@ -71,6 +76,8 @@ error_t Modulation_ListParameters( mod_par_t * ioParams )
  */
 error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * outStream, const mod_par_t * pParams )
 {
+  Debug_SetWatermark((void *)Modulation_Mapper,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   mod_maptable_t mapTable;
   const ulen_t inLenBi = BY2BI_LEN(inStream->len);
@@ -81,7 +88,9 @@ error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * ou
   uint8_t bitIdx;
   uint8_t i;
 
-  if ((NULL != inStream) && (NULL != outStream) && (NULL != pParams))
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id) &&
+      (NULL != pParams))
   {
     GetMappingTable(&mapTable,pParams);
 
@@ -128,6 +137,8 @@ error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * ou
  */
 error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_t * outStream, const mod_par_t * pParams )
 {
+  Debug_SetWatermark((void *)Modulation_HardDemapper,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   mod_maptable_t mapTable;
   float minDist, curDist;
@@ -138,7 +149,9 @@ error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_
   uint8_t bitIdx;
   uint8_t i;
   
-  if ((NULL != inStream) && (NULL != outStream) && (NULL != pParams))
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id) &&
+      (NULL != pParams))
   {
     GetMappingTable(&mapTable,pParams);                                     /** - retrieve mapping table */
     memset(outStream->pBuf,0,outStream->len);                               /** - clear output buffer */
@@ -188,6 +201,8 @@ error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_
  */
 error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream_t * outStream, const mod_par_t * pParams )
 {
+  Debug_SetWatermark((void *)Modulation_SoftDemapper,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   mod_maptable_t mapTable;
   const ulen_t punLenBi = BY2BI_LEN(outStream->len);
@@ -196,7 +211,9 @@ error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream
   float distance;
   uint8_t i, j;
 
-  if ((NULL != inStream) && (NULL != outStream) && (NULL != pParams))
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id) &&
+      (NULL != pParams))
   {
     GetMappingTable(&mapTable,pParams);
 
@@ -257,6 +274,8 @@ error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream
  */
 static error_t GetMappingTable( mod_maptable_t * ioTable, const mod_par_t * pParams )
 {
+  Debug_SetWatermark((void *)GetMappingTable,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
 
   if ((NULL != ioTable) && (NULL != pParams))
@@ -302,6 +321,8 @@ static error_t GetMappingTable( mod_maptable_t * ioTable, const mod_par_t * pPar
  */
 static error_t GetPskTable( mod_maptable_t * ioTable, const mod_par_t * pParams )
 {
+  Debug_SetWatermark((void *)GetPskTable,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   uint8_t graySeq[pParams->order];
   uint8_t j;
@@ -336,6 +357,8 @@ static error_t GetPskTable( mod_maptable_t * ioTable, const mod_par_t * pParams 
  */
 static error_t GetQamTable( mod_maptable_t * ioTable, const mod_par_t * pParams )
 {
+  Debug_SetWatermark((void *)GetQamTable,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   uint8_t graySeq[pParams->order];
   uint8_t j;
@@ -381,6 +404,8 @@ static error_t GetQamTable( mod_maptable_t * ioTable, const mod_par_t * pParams 
  */
 static error_t GetGraySequence( byte_t * ioBuffer, const mod_par_t * pParams )
 {
+  Debug_SetWatermark((void *)GetGraySequence,WM_LEVEL_2);
+
   error_t retErr = ERR_NONE;
   uint8_t i, cnt;
   uint8_t wrIdx;
@@ -431,6 +456,8 @@ static error_t GetGraySequence( byte_t * ioBuffer, const mod_par_t * pParams )
  */
 static bool IsQamBpsValid( uint8_t bps )
 {
+  Debug_SetWatermark((void *)IsQamBpsValid,WM_LEVEL_2);
+
   bool bRet;
 
   bRet = (0 == (bps%2));

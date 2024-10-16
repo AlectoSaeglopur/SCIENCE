@@ -1,0 +1,160 @@
+\hypertarget{crc_8c}{}\doxysection{src/crc.c File Reference}
+\label{crc_8c}\index{src/crc.c@{src/crc.c}}
+
+
+CRC ibrary.  
+
+
+{\ttfamily \#include \char`\"{}crc.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}debug.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{system_8h_ae331483360eed4023660124eb02142de}{slen\+\_\+t}} \mbox{\hyperlink{crc_8c_a783e51dc59c6af0b19080bc7619116f2}{Find\+Max\+Degree}} (const uint8\+\_\+t $\ast$poly, \mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}} len\+Bi)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for finding the maximum degree of a polynomial (assuming MSB endianess). } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{crc_8c_ae9c2527beb76e21bf308003d0aebec41}{Crc\+\_\+\+List\+Parameters}} (\mbox{\hyperlink{struct__crc__par__t}{crc\+\_\+par\+\_\+t}} $\ast$io\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for retrieving and listing scrambling parameters into dedicated structure. } \end{DoxyCompactList}\item 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{crc_8c_a241be4cb5484b5e5d27c6a54f8064b52}{Crc\+\_\+\+Calculate\+Checksum}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__crc__par__t}{crc\+\_\+par\+\_\+t}} $\ast$p\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for calculating CRC. } \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{crc_8c_a6c76f963ce032d8946a7515f314d30a6}\label{crc_8c_a6c76f963ce032d8946a7515f314d30a6}} 
+static const uint8\+\_\+t \mbox{\hyperlink{crc_8c_a6c76f963ce032d8946a7515f314d30a6}{CRC\+\_\+\+GENPOLY\+\_\+8}} \mbox{[}$\,$\mbox{]} = \{0,2,4,6,7\}
+\begin{DoxyCompactList}\small\item\em Generator polynomial for 8-\/bit CRC (ITU standard) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{crc_8c_a8b9e01a47fffb0ca2fdb05321177b8de}\label{crc_8c_a8b9e01a47fffb0ca2fdb05321177b8de}} 
+static const uint8\+\_\+t \mbox{\hyperlink{crc_8c_a8b9e01a47fffb0ca2fdb05321177b8de}{CRC\+\_\+\+GENPOLY\+\_\+16}} \mbox{[}$\,$\mbox{]} = \{0,5,12\}
+\begin{DoxyCompactList}\small\item\em Generator polynomial for 16-\/bit CRC (DVB-\/\+S2 standard) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{crc_8c_a156d4fb178d6c565b3bccdda68d64a41}\label{crc_8c_a156d4fb178d6c565b3bccdda68d64a41}} 
+static const uint8\+\_\+t \mbox{\hyperlink{crc_8c_a156d4fb178d6c565b3bccdda68d64a41}{CRC\+\_\+\+GENPOLY\+\_\+24}} \mbox{[}$\,$\mbox{]} = \{0,1,5,6,23\}
+\begin{DoxyCompactList}\small\item\em Generator polynomial for 24-\/bit CRC (UMTS standard) \end{DoxyCompactList}\item 
+static const uint8\+\_\+t \mbox{\hyperlink{crc_8c_a0c728eac03e124969d13b3e75b3e72cc}{CRC\+\_\+\+GENPOLY\+\_\+32}} \mbox{[}$\,$\mbox{]}
+\begin{DoxyCompactList}\small\item\em Generator polynomial for 32-\/bit CRC (MPEG-\/2 standard) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{crc_8c_a5bab8084de9f739f4b4a98868929d9a4}\label{crc_8c_a5bab8084de9f739f4b4a98868929d9a4}} 
+static const uint8\+\_\+t \mbox{\hyperlink{crc_8c_a5bab8084de9f739f4b4a98868929d9a4}{CRC\+\_\+\+GENPOLY\+\_\+64}} \mbox{[}$\,$\mbox{]} = \{0,1,3,4\}
+\begin{DoxyCompactList}\small\item\em Generator polynomial for 64-\/bit CRC (ISO standard) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+CRC ibrary. 
+
+\begin{DoxyAuthor}{Author}
+Filippo Valmori 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+26/08/2024 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Electrolux S.\+p.\+A. 
+\end{DoxyCopyright}
+\begin{DoxySeeAlso}{See also}
+Digital communications -\/ Fundamentals and applications (Bernard Sklar, 2014)
+\end{DoxySeeAlso}
+Library containing cyclic redundancy check (CRC) functions. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{crc_8c_a241be4cb5484b5e5d27c6a54f8064b52}\label{crc_8c_a241be4cb5484b5e5d27c6a54f8064b52}} 
+\index{crc.c@{crc.c}!Crc\_CalculateChecksum@{Crc\_CalculateChecksum}}
+\index{Crc\_CalculateChecksum@{Crc\_CalculateChecksum}!crc.c@{crc.c}}
+\doxysubsubsection{\texorpdfstring{Crc\_CalculateChecksum()}{Crc\_CalculateChecksum()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Crc\+\_\+\+Calculate\+Checksum (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__crc__par__t}{crc\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for calculating CRC. } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em in\+Stream} & input stream \\
+\hline
+\mbox{\texttt{ out}}  & {\em out\+Stream} & output stream \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Params} & pointer to crc parameters structure\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+upshifted bit-\/length
+
+upshifted byte-\/length
+
+temporary polynomial used for iterative division operations
+
+upshift the message polynomial into tmp\+Poly(x)
+
+search for the maximum degree of tmp\+Poly(x) at 1st iteration
+
+estimate quotient degree at 1st iteration
+
+verify that input stream is not an all-\/zero array
+
+exit if at current iteration tmp\+Poly(x) has a maximum degree less than Crc\+Deg
+
+reset the maximum degree of tmp\+Poly(x) at current iteration
+
+compute division remainder at current iteration
+
+search for the maximum degree of tmp\+Poly(x) at current iteration
+
+estimate the quotient degree at current iteration
+
+copy computed crc bytes into output stream\mbox{\Hypertarget{crc_8c_ae9c2527beb76e21bf308003d0aebec41}\label{crc_8c_ae9c2527beb76e21bf308003d0aebec41}} 
+\index{crc.c@{crc.c}!Crc\_ListParameters@{Crc\_ListParameters}}
+\index{Crc\_ListParameters@{Crc\_ListParameters}!crc.c@{crc.c}}
+\doxysubsubsection{\texorpdfstring{Crc\_ListParameters()}{Crc\_ListParameters()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Crc\+\_\+\+List\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__crc__par__t}{crc\+\_\+par\+\_\+t}} $\ast$}]{io\+Params }\end{DoxyParamCaption})}
+
+
+
+{\itshape  Function for retrieving and listing scrambling parameters into dedicated structure. } 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em io\+Params} & pointer to i/o parameters structure to be filled\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error ID 
+\end{DoxyReturn}
+\mbox{\Hypertarget{crc_8c_a783e51dc59c6af0b19080bc7619116f2}\label{crc_8c_a783e51dc59c6af0b19080bc7619116f2}} 
+\index{crc.c@{crc.c}!FindMaxDegree@{FindMaxDegree}}
+\index{FindMaxDegree@{FindMaxDegree}!crc.c@{crc.c}}
+\doxysubsubsection{\texorpdfstring{FindMaxDegree()}{FindMaxDegree()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{system_8h_ae331483360eed4023660124eb02142de}{slen\+\_\+t}} Find\+Max\+Degree (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t $\ast$}]{poly,  }\item[{\mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}}}]{len\+Bi }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+{\itshape  Function for finding the maximum degree of a polynomial (assuming MSB endianess). } 
+
+Function for finding the maximum degree of the input polynomial (in MSB endianess). A -\/1 return means that the input is an all-\/zero array.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em poly} & input polynomial \\
+\hline
+\mbox{\texttt{ in}}  & {\em len\+Bi} & polynomial length\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+index of maximum degree 
+\end{DoxyReturn}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{crc_8c_a0c728eac03e124969d13b3e75b3e72cc}\label{crc_8c_a0c728eac03e124969d13b3e75b3e72cc}} 
+\index{crc.c@{crc.c}!CRC\_GENPOLY\_32@{CRC\_GENPOLY\_32}}
+\index{CRC\_GENPOLY\_32@{CRC\_GENPOLY\_32}!crc.c@{crc.c}}
+\doxysubsubsection{\texorpdfstring{CRC\_GENPOLY\_32}{CRC\_GENPOLY\_32}}
+{\footnotesize\ttfamily const uint8\+\_\+t CRC\+\_\+\+GENPOLY\+\_\+32\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{0,1,2,4,5,7,8,10,}
+\DoxyCodeLine{                                  11,12,16,22,23,26\}}
+
+\end{DoxyCode}
+
+
+Generator polynomial for 32-\/bit CRC (MPEG-\/2 standard) 
+

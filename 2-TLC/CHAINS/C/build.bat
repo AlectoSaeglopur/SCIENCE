@@ -2,7 +2,7 @@
 :: initialization
 @echo off
 setlocal
-echo ^>^> Starting batch execution...
+echo ^<^< Starting batch execution...
 echo ------------------------------------------------
 
 :: check arguments
@@ -15,5 +15,14 @@ if not "%2"=="" (
     exit /b
 )
 
-:: run make
-call make %1 | tee build\%1\%1.log
+:: run make and save both stdout and stderr into .log file
+echo ^<^< Launching make...
+call make %1 2>&1 | tee build\%1\%1.log
+
+:: run doxygen to automatically update documentation
+echo ^<^< Launching doxygen...
+call doxygen docs\doxygen\config\doxyfile
+
+:: finalization
+echo ------------------------------------------------
+echo ^<^< Completed batch execution!

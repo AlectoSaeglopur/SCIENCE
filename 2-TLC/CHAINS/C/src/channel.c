@@ -2,6 +2,8 @@
  * @file channel.c
  * @author Filippo Valmori
  * @date 26/08/2024
+ * @copyright Electrolux S.p.A.
+ * @see Digital communications - Fundamentals and applications (Bernard Sklar, 2014)
  * @ingroup TLC_CHAIN
  * @brief Channel library
  * 
@@ -14,6 +16,8 @@
 /****************/
 
 #include "channel.h"
+#include "debug.h"
+#include "modulation.h"
 
 
 
@@ -38,6 +42,8 @@ static float GetComplexSgnPower( const complex_stream_t * inStream );
  */
 error_t Channel_ListParameters( chan_par_t * ioParams )
 {
+  Debug_SetWatermark((void *)Channel_ListParameters,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
 
   if (NULL != ioParams)
@@ -75,12 +81,16 @@ error_t Channel_ListParameters( chan_par_t * ioParams )
  */
 error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, const chan_par_t * pParams )
 {
+  Debug_SetWatermark((void *)Channel_BSC,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   ulen_t j;
   ulen_t byteIdx;
   uint8_t bitIdx;
 
-  if ((NULL != inStream) && (NULL != inStream->pBuf) && (NULL != outStream) && (NULL != outStream->pBuf))
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id) &&
+      (NULL != pParams))
   {
     if (inStream->len == outStream->len)
     {
@@ -142,6 +152,8 @@ error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, c
  */
 error_t Channel_AWGN( const complex_stream_t * inStream, complex_stream_t * outStream, const chan_par_t * pParams )
 {
+  Debug_SetWatermark((void *)Channel_AWGN,WM_LEVEL_1);
+
   error_t retErr = ERR_NONE;
   const float mu = 0;                                                 /** - noise mean value */
   const float sgnPwr = GetComplexSgnPower(inStream);                  /** - signal average power [lin] */
@@ -151,7 +163,9 @@ error_t Channel_AWGN( const complex_stream_t * inStream, complex_stream_t * outS
   float nReN, nIm;                                                    /** - random variables normally distributed as Mu|Sigma2 */
   ulen_t j;
 
-  if ((NULL != inStream) && (NULL != inStream->pBuf) && (NULL != outStream) && (NULL != outStream->pBuf))
+  if (Memory_IsStreamValid(inStream,inStream->id) &&
+      Memory_IsStreamValid(outStream,outStream->id) &&
+      (NULL != pParams))
   {
     if (inStream->len == outStream->len)
     {
@@ -212,6 +226,8 @@ error_t Channel_AWGN( const complex_stream_t * inStream, complex_stream_t * outS
  */
 static float GetComplexSgnPower( const complex_stream_t * inStream )
 {
+  Debug_SetWatermark((void *)GetComplexSgnPower,WM_LEVEL_2);
+
   float energy = 0;
   ulen_t j;
 
