@@ -5,8 +5,16 @@
     {
       "label": "vkn_prelaunch_target",
       "type": "shell",  
-      "command": ".vscode/prelaunch.bat",
-      "args": ["TARGET"],
+      "command": ".vscode/vkn_debug.bat",
+      "args": ["START"],
+      "problemMatcher": [],
+    },
+
+    {
+      "label": "vkn_postdebug_target",
+      "type": "shell",  
+      "command": ".vscode/vkn_debug.bat",
+      "args": ["END"],
       "problemMatcher": [],
     }
   ]

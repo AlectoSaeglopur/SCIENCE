@@ -13,7 +13,8 @@
       "environment": [],
       "externalConsole": false,
       "MIMode": "gdb",
-      "preLaunchTask": "vkn_prelaunch_target"
+      "preLaunchTask": "vkn_prelaunch_target",  // optional
+      "postDebugTask": "vkn_postdebug_target"   // optional
       }
   ]
 }
