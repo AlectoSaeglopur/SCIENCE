@@ -1,0 +1,156 @@
+\doxysection{convolutional.\+h}
+\hypertarget{convolutional_8h_source}{}\label{convolutional_8h_source}\index{src/convolutional.h@{src/convolutional.h}}
+\mbox{\hyperlink{convolutional_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifndef\ CONVOLUTIONAL\_H}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ CONVOLUTIONAL\_H}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00017\ \textcolor{comment}{/***\ INCLUDES\ ***/}}
+\DoxyCodeLine{00018\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{error_8h}{error.h}}"{}}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}memory.h"{}}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{system_8h}{system.h}}"{}}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{comment}{/******************/}}
+\DoxyCodeLine{00027\ \textcolor{comment}{/***\ PARAMETERS\ ***/}}
+\DoxyCodeLine{00028\ \textcolor{comment}{/******************/}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ CC\_RATE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CC\_RATE\_12\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ CC\_KLEN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CC\_KLEN\_7\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ CC\_MEMFACT\ \ \ \ \ \ \ \ \ \ \ \ \ \ 10u\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ CC\_VITDM\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CC\_VITDM\_HARD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{comment}{/*****************/}}
+\DoxyCodeLine{00038\ \textcolor{comment}{/***\ CONSTANTS\ ***/}}
+\DoxyCodeLine{00039\ \textcolor{comment}{/*****************/}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ CC\_NBRANCHES\ \ \ \ \ \ \ \ \ \ \ \ 2u}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ CC\_INMASK\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((LSBIT\_MASK\_U8<<CC\_NBRANCHES)-\/1)}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ CC\_PUNCTLEN\ \ \ \ \ \ \ \ \ \ \ \ \ (CC\_NBRANCHES*CC\_RATE)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ CC\_NTRELSTATES\ \ \ \ \ \ \ \ \ \ (1<<(CC\_KLEN-\/1))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ CC\_MEM\_DIM\ \ \ \ \ \ \ \ \ \ \ \ \ \ (CC\_NTRELSTATES*CC\_MEMFACT)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00049\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00050\ \textcolor{comment}{/***\ TYPEDEFS\ ***/}}
+\DoxyCodeLine{00051\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{comment}{//\ code\ rates\ (specify\ numerator\ and\ denominator\ of\ each\ code\ rate\ entry)}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ LIST\_OF\_CC\_RATES(ENTRY)\ \(\backslash\)}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\ \ ENTRY(\ 1,\ 2\ ),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\ \ ENTRY(\ 2,\ 3\ ),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\ \ ENTRY(\ 3,\ 4\ ),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\ \ ENTRY(\ 5,\ 6\ ),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\ \ ENTRY(\ 7,\ 8\ )}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ DEF\_CC\_RATES\_VAL(num,den)\ CC\_RATE\_\#\#num\#\#den\ =\ num}}
+\DoxyCodeLine{00062\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00063\ \{}
+\DoxyCodeLine{00064\ \ \ LIST\_OF\_CC\_RATES(DEF\_CC\_RATES\_VAL)}
+\DoxyCodeLine{00065\ \}\ cc\_rate\_t;}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ DEF\_CC\_RATES\_IDX(num,den)\ CC\_RATE\_IDX\_\#\#num\#\#den}}
+\DoxyCodeLine{00068\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00069\ \{}
+\DoxyCodeLine{00070\ \ \ LIST\_OF\_CC\_RATES(DEF\_CC\_RATES\_IDX),}
+\DoxyCodeLine{00071\ \ \ CC\_RATE\_NUM}
+\DoxyCodeLine{00072\ \}\ cc\_rate\_idx\_t;}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ DEF\_CC\_RATES\_ARRAY(num,den)\ CC\_RATE\_\#\#num\#\#den}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ CC\_VDM\_STR(x)\ \ \ ((x\ ==\ CC\_VITDM\_HARD)\ ?\ "{}Hard"{}\ :\ \(\backslash\)}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (x\ ==\ CC\_VITDM\_SOFT)\ ?\ "{}Soft"{}\ :\ \(\backslash\)}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}N/A"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{comment}{//\ constraint\ lengths}}
+\DoxyCodeLine{00081\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00082\ \{}
+\DoxyCodeLine{00083\ \ \ CC\_KLEN\_3\ \ \ =\ 3,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00084\ \ \ \mbox{\hyperlink{convolutional_8h_a38de18fffd75ccef7581a78855684da3a63ac078729a09b4dffc625b8273583f2}{CC\_KLEN\_4}}\ \ \ =\ 4,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00085\ \ \ \mbox{\hyperlink{convolutional_8h_a38de18fffd75ccef7581a78855684da3a4fe9d55857ec11055110816d94d1910a}{CC\_KLEN\_5}}\ \ \ =\ 5,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00086\ \ \ \mbox{\hyperlink{convolutional_8h_a38de18fffd75ccef7581a78855684da3a88c528f14c58cba974883b8c2fd74f7c}{CC\_KLEN\_6}}\ \ \ =\ 6,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00087\ \ \ \mbox{\hyperlink{convolutional_8h_a38de18fffd75ccef7581a78855684da3a46e5d6eb20ba557a5532e016f4a0385a}{CC\_KLEN\_7}}\ \ \ =\ 7,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00088\ \ \ \mbox{\hyperlink{convolutional_8h_a38de18fffd75ccef7581a78855684da3a2d456ba6ce2c98a1e898ca28c9d8ffd0}{CC\_KLEN\_8}}\ \ \ =\ 8,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00089\ \ \ \mbox{\hyperlink{convolutional_8h_a38de18fffd75ccef7581a78855684da3aff6362ff63fb3eb56194e5110c32dbf0}{CC\_KLEN\_MIN}}\ =\ CC\_KLEN\_3,}
+\DoxyCodeLine{00090\ \ \ CC\_KLEN\_MAX\ =\ \mbox{\hyperlink{convolutional_8h_a38de18fffd75ccef7581a78855684da3a2d456ba6ce2c98a1e898ca28c9d8ffd0}{CC\_KLEN\_8}}}
+\DoxyCodeLine{00091\ \}\ \mbox{\hyperlink{convolutional_8h_a38de18fffd75ccef7581a78855684da3}{cc\_klen\_t}};}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{comment}{//\ decoding\ methods}}
+\DoxyCodeLine{00095\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00096\ \{}
+\DoxyCodeLine{00097\ \ \ CC\_VITDM\_HARD\ =\ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00098\ \ \ \mbox{\hyperlink{convolutional_8h_ab6bf5dd3ca66fd4dcdb8839ae87fc113a15c1eee7b6992c527d483b7a026fb17c}{CC\_VITDM\_SOFT}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00099\ \ \ \textcolor{comment}{//\ keep\ NUM\ as\ final\ entry}}
+\DoxyCodeLine{00100\ \ \ \mbox{\hyperlink{convolutional_8h_ab6bf5dd3ca66fd4dcdb8839ae87fc113ad2f5c1d0ad8633e1aad5d222fc058eaa}{CC\_VITDM\_NUM}}}
+\DoxyCodeLine{00101\ \}\ \mbox{\hyperlink{convolutional_8h_ab6bf5dd3ca66fd4dcdb8839ae87fc113}{cc\_dec\_method\_t}};}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__cc__par__t}{\_cc\_par\_t}}}
+\DoxyCodeLine{00105\ \{}
+\DoxyCodeLine{00106\ \ \ cc\_rate\_t\ cRate;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00107\ \ \ \mbox{\hyperlink{convolutional_8h_a38de18fffd75ccef7581a78855684da3}{cc\_klen\_t}}\ \mbox{\hyperlink{struct__cc__par__t_a924a2177d10271f6b883f7c51f55a87b}{kLen}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00108\ \ \ uint16\_t\ \mbox{\hyperlink{struct__cc__par__t_abfd757054a6ded54f06b750de0c3b882}{memFact}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00109\ \ \ \mbox{\hyperlink{convolutional_8h_ab6bf5dd3ca66fd4dcdb8839ae87fc113}{cc\_dec\_method\_t}}\ \mbox{\hyperlink{struct__cc__par__t_a943ee5c9ebe93c1a18dd954094e0067f}{vitDM}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00110\ \}\ \mbox{\hyperlink{struct__cc__par__t}{cc\_par\_t}};}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__cc__encoder__info__t}{\_cc\_encoder\_info\_t}}}
+\DoxyCodeLine{00114\ \{}
+\DoxyCodeLine{00115\ \ \ \textcolor{keyword}{const}\ uint8\_t\ *\ pConnVect;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00116\ \ \ uint8\_t\ \mbox{\hyperlink{struct__cc__encoder__info__t_a9f7db4c6cface65b066c4211fe28c22e}{lenConnVect}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00117\ \ \ \textcolor{keyword}{const}\ uint8\_t\ *\ \mbox{\hyperlink{struct__cc__encoder__info__t_a4b4221fd253787f4493e114c352e8e5f}{pPuncVect}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00118\ \ \ uint8\_t\ \mbox{\hyperlink{struct__cc__encoder__info__t_a6c4a829550c5748162148fba727e9069}{lenPuncVect}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00119\ \}\ \mbox{\hyperlink{struct__cc__encoder__info__t}{cc\_encoder\_info\_t}};}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__cc__trcore__t}{\_cc\_trcore\_t}}}
+\DoxyCodeLine{00123\ \{}
+\DoxyCodeLine{00124\ \ \ uint8\_t\ outBits[CC\_NBRANCHES];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00125\ \ \ uint8\_t\ \mbox{\hyperlink{struct__cc__trcore__t_a6b28f8552610f27b047981c9bd3ed41d}{nextSt}}[CC\_NBRANCHES];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00126\ \}\ \mbox{\hyperlink{struct__cc__trcore__t}{cc\_trcore\_t}};}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__cc__trellis__t}{\_cc\_trellis\_t}}}
+\DoxyCodeLine{00130\ \{}
+\DoxyCodeLine{00131\ \ \ \mbox{\hyperlink{struct__cc__trcore__t}{cc\_trcore\_t}}\ trSt[CC\_NTRELSTATES];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00132\ \}\ \mbox{\hyperlink{struct__cc__trellis__t}{cc\_trellis\_t}};}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__cc__hard__dec__info__t}{\_cc\_hard\_dec\_info\_t}}}
+\DoxyCodeLine{00136\ \{}
+\DoxyCodeLine{00137\ \ \ \mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\_t}}\ iter[CC\_NTRELSTATES];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00138\ \ \ uint32\_t\ \mbox{\hyperlink{struct__cc__hard__dec__info__t_aa70d161c3fd98317d9bd09065c36c460}{dist}}[CC\_NTRELSTATES];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00139\ \ \ uint8\_t\ \mbox{\hyperlink{struct__cc__hard__dec__info__t_ae87f5a1e9c81c570bf0635777aa33c54}{path}}[CC\_NTRELSTATES][CC\_MEM\_DIM];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00140\ \}\ \mbox{\hyperlink{struct__cc__hard__dec__info__t}{cc\_hard\_dec\_info\_t}};}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__cc__soft__dec__info__t}{\_cc\_soft\_dec\_info\_t}}}
+\DoxyCodeLine{00145\ \{}
+\DoxyCodeLine{00146\ \ \ \mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\_t}}\ iter[CC\_NTRELSTATES];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00147\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct__cc__soft__dec__info__t_aea474498accabd827f9b9be32dc1aa1f}{dist}}[CC\_NTRELSTATES];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00148\ \ \ uint8\_t\ \mbox{\hyperlink{struct__cc__soft__dec__info__t_ae87f5a1e9c81c570bf0635777aa33c54}{path}}[CC\_NTRELSTATES][CC\_MEM\_DIM];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00149\ \}\ \mbox{\hyperlink{struct__cc__soft__dec__info__t}{cc\_soft\_dec\_info\_t}};}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \textcolor{comment}{/*************************/}}
+\DoxyCodeLine{00154\ \textcolor{comment}{/***\ PUBLIC\ PROTOTYPES\ ***/}}
+\DoxyCodeLine{00155\ \textcolor{comment}{/*************************/}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\_t}}\ \mbox{\hyperlink{convolutional_8h_a51e49f4978711c5a90c574dfcf9ef61a}{CnvCod\_ListParameters}}(\ \mbox{\hyperlink{struct__cc__par__t}{cc\_par\_t}}\ *\ ioParams\ );}
+\DoxyCodeLine{00158\ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\_t}}\ \mbox{\hyperlink{convolutional_8h_aa5322d2883c5876e1130ab5e4fd4efee}{CnvCod\_Encoder}}(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__byte__stream__t}{byte\_stream\_t}}\ *\ inStream,\ \mbox{\hyperlink{struct__byte__stream__t}{byte\_stream\_t}}\ *\ outStream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__cc__par__t}{cc\_par\_t}}\ *\ pParams\ );}
+\DoxyCodeLine{00159\ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\_t}}\ \mbox{\hyperlink{convolutional_8h_ab7f865b5b9d837622a73797e80321b2c}{CnvCod\_HardDecoder}}(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__byte__stream__t}{byte\_stream\_t}}\ *\ inStream,\ \mbox{\hyperlink{struct__byte__stream__t}{byte\_stream\_t}}\ *\ outStream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__cc__par__t}{cc\_par\_t}}\ *\ pParams\ );}
+\DoxyCodeLine{00160\ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\_t}}\ \mbox{\hyperlink{convolutional_8h_a5914d9324b050c73244da59a0134dc5e}{CnvCod\_SoftDecoder}}(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__float__stream__t}{float\_stream\_t}}\ *\ inStream,\ \mbox{\hyperlink{struct__byte__stream__t}{byte\_stream\_t}}\ *\ outStream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__cc__par__t}{cc\_par\_t}}\ *\ pParams\ );}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -20,8 +20,8 @@ echo ^<^< Launching make...
 call make %1 2>&1 | tee build\%1\%1.log
 
 :: run doxygen to automatically update documentation
-echo ^<^< Launching doxygen...
-call doxygen docs\doxygen\config\doxyfile
+::echo ^<^< Launching doxygen...
+::call doxygen docs\doxygen\config\doxyfile
 
 :: finalization
 echo ------------------------------------------------

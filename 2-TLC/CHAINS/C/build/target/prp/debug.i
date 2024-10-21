@@ -1602,7 +1602,7 @@ typedef enum
 
   ALARM_NUM
 } alarm_t;
-# 77 "src\\error.h"
+# 81 "src\\error.h"
 error_t Error_HandleErr( error_t inErr );
 # 21 "src\\channel.h" 2
 # 1 "src\\memory.h" 1
@@ -1829,13 +1829,7 @@ typedef struct _mod_maptable_t
   uint8_t bits[(0x01<<2u)];
   complex_t symbs[(0x01<<2u)];
 } mod_maptable_t;
-
-
-
-
-
-
-
+# 97 "src\\modulation.h"
 error_t Modulation_ListParameters( mod_par_t * ioParams );
 error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * outStream, const mod_par_t * pParams );
 error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_t * outStream, const mod_par_t * pParams );
@@ -1968,7 +1962,7 @@ typedef enum _ansi_text_style
   STYLE_FAST_BLINK = 6,
   STYLE_DOUBLE_UNDERLINE = 21,
 } ansi_text_style;
-# 142 "src\\debug.h"
+# 147 "src\\debug.h"
 error_t Debug_PrintParameters( uint32_t orgLen, const debug_par_t * pParams );
 error_t Debug_ListParameters( debug_par_t * ioParams, const scr_par_t * scrParam, const rs_par_t * rsParam, const itlv_par_t * itlvParam, const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam );
 error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed );
@@ -2615,7 +2609,7 @@ error_t Debug_SetWatermark( const void * funcAddr, const wm_level_t level )
 
   if (level <WM_LEVEL_NUM)
   {
-    gWatermarks[level] = ((uint32_t)funcAddr)&((uint32_t)0x0000FFFF);
+    gWatermarks[level] = ((uint32_t)funcAddr)&((uint32_t)0xFFFF);
 
     for (j=level+1; j<WM_LEVEL_NUM; j++)
     {

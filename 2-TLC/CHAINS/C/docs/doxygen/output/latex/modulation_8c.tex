@@ -1,32 +1,32 @@
-\hypertarget{modulation_8c}{}\doxysection{src/modulation.c File Reference}
-\label{modulation_8c}\index{src/modulation.c@{src/modulation.c}}
+\doxysection{src/modulation.c File Reference}
+\hypertarget{modulation_8c}{}\label{modulation_8c}\index{src/modulation.c@{src/modulation.c}}
 
 
 Modulation library.  
 
 
-{\ttfamily \#include \char`\"{}debug.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}modulation.\+h\char`\"{}}\newline
-\doxysubsection*{Functions}
+{\ttfamily \#include "{}debug.\+h"{}}\newline
+{\ttfamily \#include "{}modulation.\+h"{}}\newline
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 static bool \mbox{\hyperlink{modulation_8c_a590ae7e17f67220dc40ce16736097f73}{Is\+Qam\+Bps\+Valid}} (uint8\+\_\+t bps)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for checking if QAM BPS parameter is valid. } \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{modulation_8c_a2d0922b8f4f846fbf260d76d151ff222}{Get\+Mapping\+Table}} (\mbox{\hyperlink{struct__mod__maptable__t}{mod\+\_\+maptable\+\_\+t}} $\ast$io\+Table, const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} $\ast$p\+Params)
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{modulation_8c_a2d0922b8f4f846fbf260d76d151ff222}{Get\+Mapping\+Table}} (\mbox{\hyperlink{struct__mod__maptable__t}{mod\+\_\+maptable\+\_\+t}} \texorpdfstring{$\ast$}{*}io\+Table, const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for retrieving specific mapping table according to modulation. } \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{modulation_8c_a4386a3c6240442213cb709604bffbcec}{Get\+Psk\+Table}} (\mbox{\hyperlink{struct__mod__maptable__t}{mod\+\_\+maptable\+\_\+t}} $\ast$io\+Table, const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} $\ast$p\+Params)
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{modulation_8c_a4386a3c6240442213cb709604bffbcec}{Get\+Psk\+Table}} (\mbox{\hyperlink{struct__mod__maptable__t}{mod\+\_\+maptable\+\_\+t}} \texorpdfstring{$\ast$}{*}io\+Table, const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for computing Gray-\/coded PSK mapping table. } \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{modulation_8c_a097b05dde6cccfd3f7e0f4ea9305f03b}{Get\+Qam\+Table}} (\mbox{\hyperlink{struct__mod__maptable__t}{mod\+\_\+maptable\+\_\+t}} $\ast$io\+Table, const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} $\ast$p\+Params)
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{modulation_8c_a097b05dde6cccfd3f7e0f4ea9305f03b}{Get\+Qam\+Table}} (\mbox{\hyperlink{struct__mod__maptable__t}{mod\+\_\+maptable\+\_\+t}} \texorpdfstring{$\ast$}{*}io\+Table, const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for computing Gray-\/coded QAM mapping table. } \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{modulation_8c_a7d10e1cf5504baab35f3021a2d3786e6}{Get\+Gray\+Sequence}} (\mbox{\hyperlink{system_8h_aed38f5b9e6bad674ac6ab6b0c40aa013}{byte\+\_\+t}} $\ast$io\+Buffer, const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} $\ast$p\+Params)
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{modulation_8c_a7d10e1cf5504baab35f3021a2d3786e6}{Get\+Gray\+Sequence}} (\mbox{\hyperlink{system_8h_aed38f5b9e6bad674ac6ab6b0c40aa013}{byte\+\_\+t}} \texorpdfstring{$\ast$}{*}io\+Buffer, const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for retrieving Gray coded sequence. } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{modulation_8c_af8e3b1914869abb912809084691bd8a9}{Modulation\+\_\+\+List\+Parameters}} (\mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} $\ast$io\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{modulation_8c_af8e3b1914869abb912809084691bd8a9}{Modulation\+\_\+\+List\+Parameters}} (\mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}io\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for retrieving and listing modulation parameters into dedicated structure. } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{modulation_8c_a791b9c1aca31ba03a4fc355a1607a104}{Modulation\+\_\+\+Mapper}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} $\ast$p\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{modulation_8c_a791b9c1aca31ba03a4fc355a1607a104}{Modulation\+\_\+\+Mapper}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for byte to complex symbol stream mapping. } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{modulation_8c_a360593c2f38e6872b8465d7f33f64e7e}{Modulation\+\_\+\+Hard\+Demapper}} (const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} $\ast$p\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{modulation_8c_a360593c2f38e6872b8465d7f33f64e7e}{Modulation\+\_\+\+Hard\+Demapper}} (const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for hard-\/demapping an input symbol stream into corresponding byte stream. } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{modulation_8c_a6cd0b07199612c4631a4b8ff29bd9180}{Modulation\+\_\+\+Soft\+Demapper}} (const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__float__stream__t}{float\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} $\ast$p\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{modulation_8c_a6cd0b07199612c4631a4b8ff29bd9180}{Modulation\+\_\+\+Soft\+Demapper}} (const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__float__stream__t}{float\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for soft-\/demapping an input symbol stream into corresponding LLR stream. } \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -45,14 +45,16 @@ Electrolux S.\+p.\+A.
 \begin{DoxySeeAlso}{See also}
 Digital communications -\/ Fundamentals and applications (Bernard Sklar, 2014)
 \end{DoxySeeAlso}
+
+
 Library containing modulation functions. 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{modulation_8c_a7d10e1cf5504baab35f3021a2d3786e6}\label{modulation_8c_a7d10e1cf5504baab35f3021a2d3786e6}} 
-\index{modulation.c@{modulation.c}!GetGraySequence@{GetGraySequence}}
+\Hypertarget{modulation_8c_a7d10e1cf5504baab35f3021a2d3786e6}\index{modulation.c@{modulation.c}!GetGraySequence@{GetGraySequence}}
 \index{GetGraySequence@{GetGraySequence}!modulation.c@{modulation.c}}
 \doxysubsubsection{\texorpdfstring{GetGraySequence()}{GetGraySequence()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Get\+Gray\+Sequence (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{system_8h_aed38f5b9e6bad674ac6ab6b0c40aa013}{byte\+\_\+t}} $\ast$}]{io\+Buffer,  }\item[{const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \label{modulation_8c_a7d10e1cf5504baab35f3021a2d3786e6} 
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Get\+Gray\+Sequence (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{system_8h_aed38f5b9e6bad674ac6ab6b0c40aa013}{byte\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{io\+Buffer}{, }\item[{const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -71,15 +73,31 @@ error ID
 
 \begin{DoxyItemize}
 \item clear buffer content
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item number of bits per block at i-\/th iteration
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item bit shift value at i-\/th iteration
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item counter within each single block
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item starting value of the writing index
-\end{DoxyItemize}\mbox{\Hypertarget{modulation_8c_a2d0922b8f4f846fbf260d76d151ff222}\label{modulation_8c_a2d0922b8f4f846fbf260d76d151ff222}} 
-\index{modulation.c@{modulation.c}!GetMappingTable@{GetMappingTable}}
+\end{DoxyItemize}\Hypertarget{modulation_8c_a2d0922b8f4f846fbf260d76d151ff222}\index{modulation.c@{modulation.c}!GetMappingTable@{GetMappingTable}}
 \index{GetMappingTable@{GetMappingTable}!modulation.c@{modulation.c}}
 \doxysubsubsection{\texorpdfstring{GetMappingTable()}{GetMappingTable()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Get\+Mapping\+Table (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__mod__maptable__t}{mod\+\_\+maptable\+\_\+t}} $\ast$}]{io\+Table,  }\item[{const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \label{modulation_8c_a2d0922b8f4f846fbf260d76d151ff222} 
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Get\+Mapping\+Table (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__mod__maptable__t}{mod\+\_\+maptable\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{io\+Table}{, }\item[{const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -95,11 +113,11 @@ error ID
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\mbox{\Hypertarget{modulation_8c_a4386a3c6240442213cb709604bffbcec}\label{modulation_8c_a4386a3c6240442213cb709604bffbcec}} 
-\index{modulation.c@{modulation.c}!GetPskTable@{GetPskTable}}
+\Hypertarget{modulation_8c_a4386a3c6240442213cb709604bffbcec}\index{modulation.c@{modulation.c}!GetPskTable@{GetPskTable}}
 \index{GetPskTable@{GetPskTable}!modulation.c@{modulation.c}}
 \doxysubsubsection{\texorpdfstring{GetPskTable()}{GetPskTable()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Get\+Psk\+Table (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__mod__maptable__t}{mod\+\_\+maptable\+\_\+t}} $\ast$}]{io\+Table,  }\item[{const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \label{modulation_8c_a4386a3c6240442213cb709604bffbcec} 
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Get\+Psk\+Table (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__mod__maptable__t}{mod\+\_\+maptable\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{io\+Table}{, }\item[{const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -115,11 +133,11 @@ error ID
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\mbox{\Hypertarget{modulation_8c_a097b05dde6cccfd3f7e0f4ea9305f03b}\label{modulation_8c_a097b05dde6cccfd3f7e0f4ea9305f03b}} 
-\index{modulation.c@{modulation.c}!GetQamTable@{GetQamTable}}
+\Hypertarget{modulation_8c_a097b05dde6cccfd3f7e0f4ea9305f03b}\index{modulation.c@{modulation.c}!GetQamTable@{GetQamTable}}
 \index{GetQamTable@{GetQamTable}!modulation.c@{modulation.c}}
 \doxysubsubsection{\texorpdfstring{GetQamTable()}{GetQamTable()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Get\+Qam\+Table (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__mod__maptable__t}{mod\+\_\+maptable\+\_\+t}} $\ast$}]{io\+Table,  }\item[{const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \label{modulation_8c_a097b05dde6cccfd3f7e0f4ea9305f03b} 
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Get\+Qam\+Table (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__mod__maptable__t}{mod\+\_\+maptable\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{io\+Table}{, }\item[{const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -135,11 +153,11 @@ error ID
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\mbox{\Hypertarget{modulation_8c_a590ae7e17f67220dc40ce16736097f73}\label{modulation_8c_a590ae7e17f67220dc40ce16736097f73}} 
-\index{modulation.c@{modulation.c}!IsQamBpsValid@{IsQamBpsValid}}
+\Hypertarget{modulation_8c_a590ae7e17f67220dc40ce16736097f73}\index{modulation.c@{modulation.c}!IsQamBpsValid@{IsQamBpsValid}}
 \index{IsQamBpsValid@{IsQamBpsValid}!modulation.c@{modulation.c}}
 \doxysubsubsection{\texorpdfstring{IsQamBpsValid()}{IsQamBpsValid()}}
-{\footnotesize\ttfamily static bool Is\+Qam\+Bps\+Valid (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{bps }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \label{modulation_8c_a590ae7e17f67220dc40ce16736097f73} 
+static bool Is\+Qam\+Bps\+Valid (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{bps}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -153,11 +171,11 @@ error ID
 \begin{DoxyReturn}{Returns}
 validity outcome 
 \end{DoxyReturn}
-\mbox{\Hypertarget{modulation_8c_a360593c2f38e6872b8465d7f33f64e7e}\label{modulation_8c_a360593c2f38e6872b8465d7f33f64e7e}} 
-\index{modulation.c@{modulation.c}!Modulation\_HardDemapper@{Modulation\_HardDemapper}}
+\Hypertarget{modulation_8c_a360593c2f38e6872b8465d7f33f64e7e}\index{modulation.c@{modulation.c}!Modulation\_HardDemapper@{Modulation\_HardDemapper}}
 \index{Modulation\_HardDemapper@{Modulation\_HardDemapper}!modulation.c@{modulation.c}}
 \doxysubsubsection{\texorpdfstring{Modulation\_HardDemapper()}{Modulation\_HardDemapper()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Modulation\+\_\+\+Hard\+Demapper (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{modulation_8c_a360593c2f38e6872b8465d7f33f64e7e} 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Modulation\+\_\+\+Hard\+Demapper (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})}
 
 
 
@@ -178,13 +196,21 @@ error ID
 
 \begin{DoxyItemize}
 \item bit counter for output stream writing
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item retrieve mapping table
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item clear output buffer
-\end{DoxyItemize}\mbox{\Hypertarget{modulation_8c_af8e3b1914869abb912809084691bd8a9}\label{modulation_8c_af8e3b1914869abb912809084691bd8a9}} 
-\index{modulation.c@{modulation.c}!Modulation\_ListParameters@{Modulation\_ListParameters}}
+\end{DoxyItemize}\Hypertarget{modulation_8c_af8e3b1914869abb912809084691bd8a9}\index{modulation.c@{modulation.c}!Modulation\_ListParameters@{Modulation\_ListParameters}}
 \index{Modulation\_ListParameters@{Modulation\_ListParameters}!modulation.c@{modulation.c}}
 \doxysubsubsection{\texorpdfstring{Modulation\_ListParameters()}{Modulation\_ListParameters()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Modulation\+\_\+\+List\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} $\ast$}]{io\+Params }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{modulation_8c_af8e3b1914869abb912809084691bd8a9} 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Modulation\+\_\+\+List\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{io\+Params}{}\end{DoxyParamCaption})}
 
 
 
@@ -198,11 +224,11 @@ error ID
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\mbox{\Hypertarget{modulation_8c_a791b9c1aca31ba03a4fc355a1607a104}\label{modulation_8c_a791b9c1aca31ba03a4fc355a1607a104}} 
-\index{modulation.c@{modulation.c}!Modulation\_Mapper@{Modulation\_Mapper}}
+\Hypertarget{modulation_8c_a791b9c1aca31ba03a4fc355a1607a104}\index{modulation.c@{modulation.c}!Modulation\_Mapper@{Modulation\_Mapper}}
 \index{Modulation\_Mapper@{Modulation\_Mapper}!modulation.c@{modulation.c}}
 \doxysubsubsection{\texorpdfstring{Modulation\_Mapper()}{Modulation\_Mapper()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Modulation\+\_\+\+Mapper (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{modulation_8c_a791b9c1aca31ba03a4fc355a1607a104} 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Modulation\+\_\+\+Mapper (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})}
 
 
 
@@ -220,11 +246,11 @@ error ID
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\mbox{\Hypertarget{modulation_8c_a6cd0b07199612c4631a4b8ff29bd9180}\label{modulation_8c_a6cd0b07199612c4631a4b8ff29bd9180}} 
-\index{modulation.c@{modulation.c}!Modulation\_SoftDemapper@{Modulation\_SoftDemapper}}
+\Hypertarget{modulation_8c_a6cd0b07199612c4631a4b8ff29bd9180}\index{modulation.c@{modulation.c}!Modulation\_SoftDemapper@{Modulation\_SoftDemapper}}
 \index{Modulation\_SoftDemapper@{Modulation\_SoftDemapper}!modulation.c@{modulation.c}}
 \doxysubsubsection{\texorpdfstring{Modulation\_SoftDemapper()}{Modulation\_SoftDemapper()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Modulation\+\_\+\+Soft\+Demapper (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__float__stream__t}{float\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{modulation_8c_a6cd0b07199612c4631a4b8ff29bd9180} 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Modulation\+\_\+\+Soft\+Demapper (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__float__stream__t}{float\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__mod__par__t}{mod\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})}
 
 
 

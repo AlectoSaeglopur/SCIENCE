@@ -1,77 +1,72 @@
-\hypertarget{main_8c}{}\doxysection{src/main.c File Reference}
-\label{main_8c}\index{src/main.c@{src/main.c}}
+\doxysection{src/main.c File Reference}
+\hypertarget{main_8c}{}\label{main_8c}\index{src/main.c@{src/main.c}}
 
 
 Main file.  
 
 
-{\ttfamily \#include \char`\"{}channel.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}convolutional.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}crc.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}debug.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}error.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}interleaving.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}memory.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}modulation.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}reed\+\_\+solomon.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}scrambling.\+h\char`\"{}}\newline
-\doxysubsection*{Macros}
+{\ttfamily \#include "{}channel.\+h"{}}\newline
+{\ttfamily \#include "{}convolutional.\+h"{}}\newline
+{\ttfamily \#include "{}crc.\+h"{}}\newline
+{\ttfamily \#include "{}debug.\+h"{}}\newline
+{\ttfamily \#include "{}error.\+h"{}}\newline
+{\ttfamily \#include "{}interleaving.\+h"{}}\newline
+{\ttfamily \#include "{}memory.\+h"{}}\newline
+{\ttfamily \#include "{}modulation.\+h"{}}\newline
+{\ttfamily \#include "{}reed\+\_\+solomon.\+h"{}}\newline
+{\ttfamily \#include "{}scrambling.\+h"{}}\newline
+\doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{main_8c_a94fa98108eb08c63d1e406c433ae9556}\label{main_8c_a94fa98108eb08c63d1e406c433ae9556}} 
-\#define \mbox{\hyperlink{main_8c_a94fa98108eb08c63d1e406c433ae9556}{LEN\+\_\+\+ORG\+\_\+\+BY}}~376u
+\Hypertarget{main_8c_a94fa98108eb08c63d1e406c433ae9556}\label{main_8c_a94fa98108eb08c63d1e406c433ae9556} 
+\#define {\bfseries LEN\+\_\+\+ORG\+\_\+\+BY}~376u
 \begin{DoxyCompactList}\small\item\em origin stream length \mbox{[}B\mbox{]} \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{main_8c_af57013116389602883180bc03eca81cf}\label{main_8c_af57013116389602883180bc03eca81cf}} 
-\#define \mbox{\hyperlink{main_8c_af57013116389602883180bc03eca81cf}{LEN\+\_\+\+CRC\+\_\+\+BY}}~BI2\+BY\+\_\+\+LEN(\mbox{\hyperlink{crc_8h_af4276510cedd81f5df4887aa841fbf6e}{CRC\+\_\+\+DEGREE}})
+\Hypertarget{main_8c_af57013116389602883180bc03eca81cf}\label{main_8c_af57013116389602883180bc03eca81cf} 
+\#define {\bfseries LEN\+\_\+\+CRC\+\_\+\+BY}~BI2\+BY\+\_\+\+LEN(\mbox{\hyperlink{crc_8h_af4276510cedd81f5df4887aa841fbf6e}{CRC\+\_\+\+DEGREE}})
 \begin{DoxyCompactList}\small\item\em crc stream length \mbox{[}B\mbox{]} \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{main_8c_a9219e94f04092067ff791c264d419f86}\label{main_8c_a9219e94f04092067ff791c264d419f86}} 
-\#define \mbox{\hyperlink{main_8c_a9219e94f04092067ff791c264d419f86}{LEN\+\_\+\+SRC\+\_\+\+BY}}~\mbox{\hyperlink{main_8c_a94fa98108eb08c63d1e406c433ae9556}{LEN\+\_\+\+ORG\+\_\+\+BY}}
+\Hypertarget{main_8c_a9219e94f04092067ff791c264d419f86}\label{main_8c_a9219e94f04092067ff791c264d419f86} 
+\#define {\bfseries LEN\+\_\+\+SRC\+\_\+\+BY}~\mbox{\hyperlink{main_8c_a94fa98108eb08c63d1e406c433ae9556}{LEN\+\_\+\+ORG\+\_\+\+BY}}
 \begin{DoxyCompactList}\small\item\em scrambled stream length \mbox{[}B\mbox{]} \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{main_8c_a88b2631f1aeb8a6f7f12cf0953f36c82}\label{main_8c_a88b2631f1aeb8a6f7f12cf0953f36c82}} 
-\#define \mbox{\hyperlink{main_8c_a88b2631f1aeb8a6f7f12cf0953f36c82}{LEN\+\_\+\+RS\+\_\+\+BY}}~(\mbox{\hyperlink{main_8c_a9219e94f04092067ff791c264d419f86}{LEN\+\_\+\+SRC\+\_\+\+BY}}$\ast$\mbox{\hyperlink{reed__solomon_8h_a49419cff0869dbe4725bc86b04d93d91}{CODEWORD\+\_\+\+SIZE}}/\mbox{\hyperlink{reed__solomon_8h_aeca90e1c1c62b70670514ffc18c9dfd4}{MESSAGE\+\_\+\+SIZE}})
+\Hypertarget{main_8c_a88b2631f1aeb8a6f7f12cf0953f36c82}\label{main_8c_a88b2631f1aeb8a6f7f12cf0953f36c82} 
+\#define {\bfseries LEN\+\_\+\+RS\+\_\+\+BY}~(\mbox{\hyperlink{main_8c_a9219e94f04092067ff791c264d419f86}{LEN\+\_\+\+SRC\+\_\+\+BY}}\texorpdfstring{$\ast$}{*}\mbox{\hyperlink{reed__solomon_8h_a49419cff0869dbe4725bc86b04d93d91}{CODEWORD\+\_\+\+SIZE}}/\mbox{\hyperlink{reed__solomon_8h_aeca90e1c1c62b70670514ffc18c9dfd4}{MESSAGE\+\_\+\+SIZE}})
 \begin{DoxyCompactList}\small\item\em reed-\/solomon coded stream length \mbox{[}B\mbox{]} \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{main_8c_ab35691b2f5475c27b6f8a139afb0b1b9}\label{main_8c_ab35691b2f5475c27b6f8a139afb0b1b9}} 
-\#define \mbox{\hyperlink{main_8c_ab35691b2f5475c27b6f8a139afb0b1b9}{LEN\+\_\+\+CC\+\_\+\+UNP\+\_\+\+BY}}~(CC\+\_\+\+NBRANCHES$\ast$\mbox{\hyperlink{main_8c_a88b2631f1aeb8a6f7f12cf0953f36c82}{LEN\+\_\+\+RS\+\_\+\+BY}})
+\Hypertarget{main_8c_ab35691b2f5475c27b6f8a139afb0b1b9}\label{main_8c_ab35691b2f5475c27b6f8a139afb0b1b9} 
+\#define {\bfseries LEN\+\_\+\+CC\+\_\+\+UNP\+\_\+\+BY}~(CC\+\_\+\+NBRANCHES\texorpdfstring{$\ast$}{*}\mbox{\hyperlink{main_8c_a88b2631f1aeb8a6f7f12cf0953f36c82}{LEN\+\_\+\+RS\+\_\+\+BY}})
 \begin{DoxyCompactList}\small\item\em unpunctured convolutional coded stream length \mbox{[}B\mbox{]} \end{DoxyCompactList}\item 
 \#define \mbox{\hyperlink{main_8c_a576efc3669c44ce4318eb74010b4cd18}{LEN\+\_\+\+CC\+\_\+\+PUN\+\_\+\+BY}}
 \begin{DoxyCompactList}\small\item\em punctured convolutional coded stream length \mbox{[}B\mbox{]} \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{main_8c_acfd9b1afe720a86264c9d0d9e340b4bd}\label{main_8c_acfd9b1afe720a86264c9d0d9e340b4bd}} 
-\#define \mbox{\hyperlink{main_8c_acfd9b1afe720a86264c9d0d9e340b4bd}{LEN\+\_\+\+CC\+\_\+\+PUN\+\_\+\+BI}}~BY2\+BI\+\_\+\+LEN(\mbox{\hyperlink{main_8c_a576efc3669c44ce4318eb74010b4cd18}{LEN\+\_\+\+CC\+\_\+\+PUN\+\_\+\+BY}})
+\Hypertarget{main_8c_acfd9b1afe720a86264c9d0d9e340b4bd}\label{main_8c_acfd9b1afe720a86264c9d0d9e340b4bd} 
+\#define {\bfseries LEN\+\_\+\+CC\+\_\+\+PUN\+\_\+\+BI}~BY2\+BI\+\_\+\+LEN(\mbox{\hyperlink{main_8c_a576efc3669c44ce4318eb74010b4cd18}{LEN\+\_\+\+CC\+\_\+\+PUN\+\_\+\+BY}})
 \begin{DoxyCompactList}\small\item\em punctured convolutional coded stream length \mbox{[}b\mbox{]} \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{main_8c_aae9605298b6641311864f717f7a6c442}\label{main_8c_aae9605298b6641311864f717f7a6c442}} 
-\#define \mbox{\hyperlink{main_8c_aae9605298b6641311864f717f7a6c442}{LEN\+\_\+\+MOD\+\_\+\+SY}}~(\mbox{\hyperlink{main_8c_acfd9b1afe720a86264c9d0d9e340b4bd}{LEN\+\_\+\+CC\+\_\+\+PUN\+\_\+\+BI}}/\mbox{\hyperlink{modulation_8h_a240d7aefa57fef48032c296ff9e86585}{MOD\+\_\+\+BPS}})
+\Hypertarget{main_8c_aae9605298b6641311864f717f7a6c442}\label{main_8c_aae9605298b6641311864f717f7a6c442} 
+\#define {\bfseries LEN\+\_\+\+MOD\+\_\+\+SY}~(\mbox{\hyperlink{main_8c_acfd9b1afe720a86264c9d0d9e340b4bd}{LEN\+\_\+\+CC\+\_\+\+PUN\+\_\+\+BI}}/\mbox{\hyperlink{modulation_8h_a240d7aefa57fef48032c296ff9e86585}{MOD\+\_\+\+BPS}})
 \begin{DoxyCompactList}\small\item\em modulated symbol stream length \mbox{[}Sy\mbox{]} \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{main_8c_ad4ecf71284943a38db565ebca48964f9}\label{main_8c_ad4ecf71284943a38db565ebca48964f9}} 
+\Hypertarget{main_8c_ad4ecf71284943a38db565ebca48964f9}\label{main_8c_ad4ecf71284943a38db565ebca48964f9} 
 \#define {\bfseries LEN\+\_\+\+LLR\+\_\+\+FL}~\mbox{\hyperlink{main_8c_acfd9b1afe720a86264c9d0d9e340b4bd}{LEN\+\_\+\+CC\+\_\+\+PUN\+\_\+\+BI}}
 \item 
-\#define {\bfseries LIST\+\_\+\+OF\+\_\+\+STREAMS}(ENTRY)
+\#define \mbox{\hyperlink{main_8c_a37751275ae259dc8c307957e1bd8cf89}{LIST\+\_\+\+OF\+\_\+\+STREAMS}}(ENTRY)
 \item 
-\mbox{\Hypertarget{main_8c_a9e25cb708997871f3cb020ec4ff8ae09}\label{main_8c_a9e25cb708997871f3cb020ec4ff8ae09}} 
-\#define {\bfseries DEF\+\_\+\+STREAM\+\_\+\+DECLARE}(name,  type, ...)~type\#\#\+\_\+stream\+\_\+t name\#\#Stream = \{.p\+Buf = NULL, .len = 0, .id = memory\+\_\+type\+\_\+\#\#type\};
+\#define \mbox{\hyperlink{main_8c_a9e25cb708997871f3cb020ec4ff8ae09}{DEF\+\_\+\+STREAM\+\_\+\+DECLARE}}(name,  type, ...)
 \item 
-\mbox{\Hypertarget{main_8c_adc29e7865d5acd96cadaf7816c6c160d}\label{main_8c_adc29e7865d5acd96cadaf7816c6c160d}} 
-\#define {\bfseries DEF\+\_\+\+STREAM\+\_\+\+ALLOCATE}(name,  type,  length)~\mbox{\hyperlink{memory_8c_afaa8bd3fe266ee277755b48644ccfa84}{Memory\+\_\+\+Allocate\+Stream}}(\&name\#\#Stream,length,name\#\#Stream.\+id);
+\#define \mbox{\hyperlink{main_8c_adc29e7865d5acd96cadaf7816c6c160d}{DEF\+\_\+\+STREAM\+\_\+\+ALLOCATE}}(name,  type,  length)
 \item 
-\mbox{\Hypertarget{main_8c_a8425878187e4cf154836bf0e23935c47}\label{main_8c_a8425878187e4cf154836bf0e23935c47}} 
-\#define {\bfseries DEF\+\_\+\+STREAM\+\_\+\+FREE}(name,  type, ...)~\mbox{\hyperlink{memory_8c_a259ab0ef90ac6552ae65331905a8e51b}{Memory\+\_\+\+Free\+Stream}}(\&name\#\#Stream,memory\+\_\+type\+\_\+\#\#type);
+\#define \mbox{\hyperlink{main_8c_a8425878187e4cf154836bf0e23935c47}{DEF\+\_\+\+STREAM\+\_\+\+FREE}}(name,  type, ...)
 \item 
-\#define {\bfseries LIST\+\_\+\+OF\+\_\+\+PARAMETERS}(ENTRY)
+\#define \mbox{\hyperlink{main_8c_a04f4026c5725ac25d8951d38bd1dbe24}{LIST\+\_\+\+OF\+\_\+\+PARAMETERS}}(ENTRY)
 \item 
-\mbox{\Hypertarget{main_8c_a75f26c2317e9c66d0811f414c94b3362}\label{main_8c_a75f26c2317e9c66d0811f414c94b3362}} 
-\#define {\bfseries DEF\+\_\+\+PARAMETER\+\_\+\+DECLARE}(name, ...)~static name\#\#\+\_\+par\+\_\+t name\#\#Param;
+\#define \mbox{\hyperlink{main_8c_a75f26c2317e9c66d0811f414c94b3362}{DEF\+\_\+\+PARAMETER\+\_\+\+DECLARE}}(name, ...)
 \item 
-\mbox{\Hypertarget{main_8c_aba00665a7db362bb6ae07c73cba6b822}\label{main_8c_aba00665a7db362bb6ae07c73cba6b822}} 
-\#define {\bfseries DEF\+\_\+\+PARAMETER\+\_\+\+INITIALIZE}(name,  module)~module\#\#\+\_\+\+List\+Parameters(\&name\#\#Param);
+\#define \mbox{\hyperlink{main_8c_aba00665a7db362bb6ae07c73cba6b822}{DEF\+\_\+\+PARAMETER\+\_\+\+INITIALIZE}}(name,  module)
 \end{DoxyCompactItemize}
-\doxysubsection*{Functions}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{main_8c_a133a1863e0da8c2709c183dc04ccac8e}\label{main_8c_a133a1863e0da8c2709c183dc04ccac8e}} 
+\Hypertarget{main_8c_a133a1863e0da8c2709c183dc04ccac8e}\label{main_8c_a133a1863e0da8c2709c183dc04ccac8e} 
 {\bfseries LIST\+\_\+\+OF\+\_\+\+PARAMETERS} (DEF\+\_\+\+PARAMETER\+\_\+\+DECLARE)
 \item 
 int \mbox{\hyperlink{main_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}} (void)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for running main loop. } \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Variables}
+\doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
 static \mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} \mbox{\hyperlink{main_8c_ab093c0b870ddde5df2dd37b7855743a0}{dgb\+Param}}
@@ -95,6 +90,8 @@ Electrolux S.\+p.\+A.
 \begin{DoxySeeAlso}{See also}
 Digital communications -\/ Fundamentals and applications (Bernard Sklar, 2014)
 \end{DoxySeeAlso}
+
+
 File for running DVB-\/S simulation containing\+:
 \begin{DoxyEnumerate}
 \item random info bytes generation
@@ -107,72 +104,127 @@ File for running DVB-\/S simulation containing\+:
 \end{DoxyEnumerate}
 
 \doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{main_8c_a576efc3669c44ce4318eb74010b4cd18}\label{main_8c_a576efc3669c44ce4318eb74010b4cd18}} 
-\index{main.c@{main.c}!LEN\_CC\_PUN\_BY@{LEN\_CC\_PUN\_BY}}
-\index{LEN\_CC\_PUN\_BY@{LEN\_CC\_PUN\_BY}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{LEN\_CC\_PUN\_BY}{LEN\_CC\_PUN\_BY}}
-{\footnotesize\ttfamily \#define LEN\+\_\+\+CC\+\_\+\+PUN\+\_\+\+BY}
+\Hypertarget{main_8c_a75f26c2317e9c66d0811f414c94b3362}\index{main.c@{main.c}!DEF\_PARAMETER\_DECLARE@{DEF\_PARAMETER\_DECLARE}}
+\index{DEF\_PARAMETER\_DECLARE@{DEF\_PARAMETER\_DECLARE}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{DEF\_PARAMETER\_DECLARE}{DEF\_PARAMETER\_DECLARE}}
+{\footnotesize\ttfamily \label{main_8c_a75f26c2317e9c66d0811f414c94b3362} 
+\#define DEF\+\_\+\+PARAMETER\+\_\+\+DECLARE(\begin{DoxyParamCaption}\item[{}]{name}{, }\item[{}]{}...{}\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{                              (\mbox{\hyperlink{main_8c_ab35691b2f5475c27b6f8a139afb0b1b9}{LEN\_CC\_UNP\_BY}}/CC\_NBRANCHES* \(\backslash\)}
-\DoxyCodeLine{                              (\mbox{\hyperlink{convolutional_8h_a056db18145a23480fd1ab524acd92005}{CC\_RATE}}+1)/\mbox{\hyperlink{convolutional_8h_a056db18145a23480fd1ab524acd92005}{CC\_RATE}})}
+\DoxyCodeLine{\textcolor{keyword}{static}\ name\#\#\_par\_t\ name\#\#Param;}
+
+\end{DoxyCode}
+\Hypertarget{main_8c_aba00665a7db362bb6ae07c73cba6b822}\index{main.c@{main.c}!DEF\_PARAMETER\_INITIALIZE@{DEF\_PARAMETER\_INITIALIZE}}
+\index{DEF\_PARAMETER\_INITIALIZE@{DEF\_PARAMETER\_INITIALIZE}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{DEF\_PARAMETER\_INITIALIZE}{DEF\_PARAMETER\_INITIALIZE}}
+{\footnotesize\ttfamily \label{main_8c_aba00665a7db362bb6ae07c73cba6b822} 
+\#define DEF\+\_\+\+PARAMETER\+\_\+\+INITIALIZE(\begin{DoxyParamCaption}\item[{}]{name}{, }\item[{}]{module}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{module}\#\#\_ListParameters(\&name\#\#Param);}
+
+\end{DoxyCode}
+\Hypertarget{main_8c_adc29e7865d5acd96cadaf7816c6c160d}\index{main.c@{main.c}!DEF\_STREAM\_ALLOCATE@{DEF\_STREAM\_ALLOCATE}}
+\index{DEF\_STREAM\_ALLOCATE@{DEF\_STREAM\_ALLOCATE}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{DEF\_STREAM\_ALLOCATE}{DEF\_STREAM\_ALLOCATE}}
+{\footnotesize\ttfamily \label{main_8c_adc29e7865d5acd96cadaf7816c6c160d} 
+\#define DEF\+\_\+\+STREAM\+\_\+\+ALLOCATE(\begin{DoxyParamCaption}\item[{}]{name}{, }\item[{}]{type}{, }\item[{}]{length}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{memory_8c_afaa8bd3fe266ee277755b48644ccfa84}{Memory\_AllocateStream}}(\&name\#\#Stream,length,name\#\#Stream.id);}
+
+\end{DoxyCode}
+\Hypertarget{main_8c_a9e25cb708997871f3cb020ec4ff8ae09}\index{main.c@{main.c}!DEF\_STREAM\_DECLARE@{DEF\_STREAM\_DECLARE}}
+\index{DEF\_STREAM\_DECLARE@{DEF\_STREAM\_DECLARE}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{DEF\_STREAM\_DECLARE}{DEF\_STREAM\_DECLARE}}
+{\footnotesize\ttfamily \label{main_8c_a9e25cb708997871f3cb020ec4ff8ae09} 
+\#define DEF\+\_\+\+STREAM\+\_\+\+DECLARE(\begin{DoxyParamCaption}\item[{}]{name}{, }\item[{}]{type}{, }\item[{}]{}...{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{type\#\#\_stream\_t\ name\#\#Stream\ =\ \{.pBuf\ =\ NULL,\ .len\ =\ 0,\ .id\ =\ memory\_type\_\#\#type\};}
+
+\end{DoxyCode}
+\Hypertarget{main_8c_a8425878187e4cf154836bf0e23935c47}\index{main.c@{main.c}!DEF\_STREAM\_FREE@{DEF\_STREAM\_FREE}}
+\index{DEF\_STREAM\_FREE@{DEF\_STREAM\_FREE}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{DEF\_STREAM\_FREE}{DEF\_STREAM\_FREE}}
+{\footnotesize\ttfamily \label{main_8c_a8425878187e4cf154836bf0e23935c47} 
+\#define DEF\+\_\+\+STREAM\+\_\+\+FREE(\begin{DoxyParamCaption}\item[{}]{name}{, }\item[{}]{type}{, }\item[{}]{}...{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{memory_8c_a259ab0ef90ac6552ae65331905a8e51b}{Memory\_FreeStream}}(\&name\#\#Stream,memory\_type\_\#\#type);}
+
+\end{DoxyCode}
+\Hypertarget{main_8c_a576efc3669c44ce4318eb74010b4cd18}\index{main.c@{main.c}!LEN\_CC\_PUN\_BY@{LEN\_CC\_PUN\_BY}}
+\index{LEN\_CC\_PUN\_BY@{LEN\_CC\_PUN\_BY}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{LEN\_CC\_PUN\_BY}{LEN\_CC\_PUN\_BY}}
+{\footnotesize\ttfamily \label{main_8c_a576efc3669c44ce4318eb74010b4cd18} 
+\#define LEN\+\_\+\+CC\+\_\+\+PUN\+\_\+\+BY}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{main_8c_ab35691b2f5475c27b6f8a139afb0b1b9}{LEN\_CC\_UNP\_BY}}/CC\_NBRANCHES*\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{convolutional_8h_a056db18145a23480fd1ab524acd92005}{CC\_RATE}}+1)/\mbox{\hyperlink{convolutional_8h_a056db18145a23480fd1ab524acd92005}{CC\_RATE}})}
 
 \end{DoxyCode}
 
 
 punctured convolutional coded stream length \mbox{[}B\mbox{]} 
 
-\mbox{\Hypertarget{main_8c_a04f4026c5725ac25d8951d38bd1dbe24}\label{main_8c_a04f4026c5725ac25d8951d38bd1dbe24}} 
-\index{main.c@{main.c}!LIST\_OF\_PARAMETERS@{LIST\_OF\_PARAMETERS}}
+\Hypertarget{main_8c_a04f4026c5725ac25d8951d38bd1dbe24}\index{main.c@{main.c}!LIST\_OF\_PARAMETERS@{LIST\_OF\_PARAMETERS}}
 \index{LIST\_OF\_PARAMETERS@{LIST\_OF\_PARAMETERS}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{LIST\_OF\_PARAMETERS}{LIST\_OF\_PARAMETERS}}
-{\footnotesize\ttfamily \#define LIST\+\_\+\+OF\+\_\+\+PARAMETERS(\begin{DoxyParamCaption}\item[{}]{ENTRY }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{main_8c_a04f4026c5725ac25d8951d38bd1dbe24} 
+\#define LIST\+\_\+\+OF\+\_\+\+PARAMETERS(\begin{DoxyParamCaption}\item[{}]{ENTRY}{}\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{  ENTRY( crc,   Crc               ) \(\backslash\)}
-\DoxyCodeLine{  ENTRY( scr,   Scramb            ) \(\backslash\)}
-\DoxyCodeLine{  ENTRY( rs,    RsCod             ) \(\backslash\)}
-\DoxyCodeLine{  ENTRY( itlv,  Intrlv            ) \(\backslash\)}
-\DoxyCodeLine{  ENTRY( cc,    CnvCod            ) \(\backslash\)}
-\DoxyCodeLine{  ENTRY( mod,   Modulation        ) \(\backslash\)}
-\DoxyCodeLine{  ENTRY( chan,  Channel           )}
+\DoxyCodeLine{\ \ ENTRY(\ crc,\ \ \ Crc\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )\ \(\backslash\)}
+\DoxyCodeLine{\ \ ENTRY(\ scr,\ \ \ Scramb\ \ \ \ \ \ \ \ \ \ \ \ )\ \(\backslash\)}
+\DoxyCodeLine{\ \ ENTRY(\ rs,\ \ \ \ RsCod\ \ \ \ \ \ \ \ \ \ \ \ \ )\ \(\backslash\)}
+\DoxyCodeLine{\ \ ENTRY(\ itlv,\ \ Intrlv\ \ \ \ \ \ \ \ \ \ \ \ )\ \(\backslash\)}
+\DoxyCodeLine{\ \ ENTRY(\ cc,\ \ \ \ CnvCod\ \ \ \ \ \ \ \ \ \ \ \ )\ \(\backslash\)}
+\DoxyCodeLine{\ \ ENTRY(\ mod,\ \ \ Modulation\ \ \ \ \ \ \ \ )\ \(\backslash\)}
+\DoxyCodeLine{\ \ ENTRY(\ chan,\ \ Channel\ \ \ \ \ \ \ \ \ \ \ )}
 
 \end{DoxyCode}
-\mbox{\Hypertarget{main_8c_a37751275ae259dc8c307957e1bd8cf89}\label{main_8c_a37751275ae259dc8c307957e1bd8cf89}} 
-\index{main.c@{main.c}!LIST\_OF\_STREAMS@{LIST\_OF\_STREAMS}}
+\Hypertarget{main_8c_a37751275ae259dc8c307957e1bd8cf89}\index{main.c@{main.c}!LIST\_OF\_STREAMS@{LIST\_OF\_STREAMS}}
 \index{LIST\_OF\_STREAMS@{LIST\_OF\_STREAMS}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{LIST\_OF\_STREAMS}{LIST\_OF\_STREAMS}}
-{\footnotesize\ttfamily \#define LIST\+\_\+\+OF\+\_\+\+STREAMS(\begin{DoxyParamCaption}\item[{}]{ENTRY }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{main_8c_a37751275ae259dc8c307957e1bd8cf89} 
+\#define LIST\+\_\+\+OF\+\_\+\+STREAMS(\begin{DoxyParamCaption}\item[{}]{ENTRY}{}\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{  ENTRY( txOrg,     \textcolor{keywordtype}{byte},     \mbox{\hyperlink{main_8c_a94fa98108eb08c63d1e406c433ae9556}{LEN\_ORG\_BY}}     ) \(\backslash\)}
-\DoxyCodeLine{  ENTRY( rxOrg,     \textcolor{keywordtype}{byte},     \mbox{\hyperlink{main_8c_a94fa98108eb08c63d1e406c433ae9556}{LEN\_ORG\_BY}}     ) \(\backslash\)}
-\DoxyCodeLine{  ENTRY( txCrc,     \textcolor{keywordtype}{byte},     \mbox{\hyperlink{main_8c_af57013116389602883180bc03eca81cf}{LEN\_CRC\_BY}}     ) \(\backslash\)}
-\DoxyCodeLine{  ENTRY( rxCrc,     \textcolor{keywordtype}{byte},     \mbox{\hyperlink{main_8c_af57013116389602883180bc03eca81cf}{LEN\_CRC\_BY}}     ) \(\backslash\)}
-\DoxyCodeLine{  ENTRY( txScr,     \textcolor{keywordtype}{byte},     \mbox{\hyperlink{main_8c_a9219e94f04092067ff791c264d419f86}{LEN\_SRC\_BY}}     ) \(\backslash\)}
-\DoxyCodeLine{  ENTRY( rxScr,     \textcolor{keywordtype}{byte},     \mbox{\hyperlink{main_8c_a9219e94f04092067ff791c264d419f86}{LEN\_SRC\_BY}}     ) \(\backslash\)}
-\DoxyCodeLine{  ENTRY( txRs,      \textcolor{keywordtype}{byte},     \mbox{\hyperlink{main_8c_a88b2631f1aeb8a6f7f12cf0953f36c82}{LEN\_RS\_BY}}      ) \(\backslash\)}
-\DoxyCodeLine{  ENTRY( rxRs,      \textcolor{keywordtype}{byte},     \mbox{\hyperlink{main_8c_a88b2631f1aeb8a6f7f12cf0953f36c82}{LEN\_RS\_BY}}      ) \(\backslash\)}
-\DoxyCodeLine{  ENTRY( txItlv,    \textcolor{keywordtype}{byte},     \mbox{\hyperlink{main_8c_a88b2631f1aeb8a6f7f12cf0953f36c82}{LEN\_RS\_BY}}      ) \(\backslash\)}
-\DoxyCodeLine{  ENTRY( rxItlv,    \textcolor{keywordtype}{byte},     \mbox{\hyperlink{main_8c_a88b2631f1aeb8a6f7f12cf0953f36c82}{LEN\_RS\_BY}}      ) \(\backslash\)}
-\DoxyCodeLine{  ENTRY( txCc,      \textcolor{keywordtype}{byte},     \mbox{\hyperlink{main_8c_a576efc3669c44ce4318eb74010b4cd18}{LEN\_CC\_PUN\_BY}}  ) \(\backslash\)}
-\DoxyCodeLine{  ENTRY( rxCc,      \textcolor{keywordtype}{byte},     \mbox{\hyperlink{main_8c_a576efc3669c44ce4318eb74010b4cd18}{LEN\_CC\_PUN\_BY}}  ) \(\backslash\)}
-\DoxyCodeLine{  ENTRY( txMod,     complex,  \mbox{\hyperlink{main_8c_aae9605298b6641311864f717f7a6c442}{LEN\_MOD\_SY}}     ) \(\backslash\)}
-\DoxyCodeLine{  ENTRY( rxMod,     complex,  \mbox{\hyperlink{main_8c_aae9605298b6641311864f717f7a6c442}{LEN\_MOD\_SY}}     ) \(\backslash\)}
-\DoxyCodeLine{  ENTRY( rxLLR,     \textcolor{keywordtype}{float},    LEN\_LLR\_FL     )}
+\DoxyCodeLine{\ \ ENTRY(\ txOrg,\ \ \ \ \ \textcolor{keywordtype}{byte},\ \ \ \ \ \mbox{\hyperlink{main_8c_a94fa98108eb08c63d1e406c433ae9556}{LEN\_ORG\_BY}}\ \ \ \ \ )\ \(\backslash\)}
+\DoxyCodeLine{\ \ ENTRY(\ rxOrg,\ \ \ \ \ \textcolor{keywordtype}{byte},\ \ \ \ \ \mbox{\hyperlink{main_8c_a94fa98108eb08c63d1e406c433ae9556}{LEN\_ORG\_BY}}\ \ \ \ \ )\ \(\backslash\)}
+\DoxyCodeLine{\ \ ENTRY(\ txCrc,\ \ \ \ \ \textcolor{keywordtype}{byte},\ \ \ \ \ \mbox{\hyperlink{main_8c_af57013116389602883180bc03eca81cf}{LEN\_CRC\_BY}}\ \ \ \ \ )\ \(\backslash\)}
+\DoxyCodeLine{\ \ ENTRY(\ rxCrc,\ \ \ \ \ \textcolor{keywordtype}{byte},\ \ \ \ \ \mbox{\hyperlink{main_8c_af57013116389602883180bc03eca81cf}{LEN\_CRC\_BY}}\ \ \ \ \ )\ \(\backslash\)}
+\DoxyCodeLine{\ \ ENTRY(\ txScr,\ \ \ \ \ \textcolor{keywordtype}{byte},\ \ \ \ \ \mbox{\hyperlink{main_8c_a9219e94f04092067ff791c264d419f86}{LEN\_SRC\_BY}}\ \ \ \ \ )\ \(\backslash\)}
+\DoxyCodeLine{\ \ ENTRY(\ rxScr,\ \ \ \ \ \textcolor{keywordtype}{byte},\ \ \ \ \ \mbox{\hyperlink{main_8c_a9219e94f04092067ff791c264d419f86}{LEN\_SRC\_BY}}\ \ \ \ \ )\ \(\backslash\)}
+\DoxyCodeLine{\ \ ENTRY(\ txRs,\ \ \ \ \ \ \textcolor{keywordtype}{byte},\ \ \ \ \ \mbox{\hyperlink{main_8c_a88b2631f1aeb8a6f7f12cf0953f36c82}{LEN\_RS\_BY}}\ \ \ \ \ \ )\ \(\backslash\)}
+\DoxyCodeLine{\ \ ENTRY(\ rxRs,\ \ \ \ \ \ \textcolor{keywordtype}{byte},\ \ \ \ \ \mbox{\hyperlink{main_8c_a88b2631f1aeb8a6f7f12cf0953f36c82}{LEN\_RS\_BY}}\ \ \ \ \ \ )\ \(\backslash\)}
+\DoxyCodeLine{\ \ ENTRY(\ txItlv,\ \ \ \ \textcolor{keywordtype}{byte},\ \ \ \ \ \mbox{\hyperlink{main_8c_a88b2631f1aeb8a6f7f12cf0953f36c82}{LEN\_RS\_BY}}\ \ \ \ \ \ )\ \(\backslash\)}
+\DoxyCodeLine{\ \ ENTRY(\ rxItlv,\ \ \ \ \textcolor{keywordtype}{byte},\ \ \ \ \ \mbox{\hyperlink{main_8c_a88b2631f1aeb8a6f7f12cf0953f36c82}{LEN\_RS\_BY}}\ \ \ \ \ \ )\ \(\backslash\)}
+\DoxyCodeLine{\ \ ENTRY(\ txCc,\ \ \ \ \ \ \textcolor{keywordtype}{byte},\ \ \ \ \ \mbox{\hyperlink{main_8c_a576efc3669c44ce4318eb74010b4cd18}{LEN\_CC\_PUN\_BY}}\ \ )\ \(\backslash\)}
+\DoxyCodeLine{\ \ ENTRY(\ rxCc,\ \ \ \ \ \ \textcolor{keywordtype}{byte},\ \ \ \ \ \mbox{\hyperlink{main_8c_a576efc3669c44ce4318eb74010b4cd18}{LEN\_CC\_PUN\_BY}}\ \ )\ \(\backslash\)}
+\DoxyCodeLine{\ \ ENTRY(\ txMod,\ \ \ \ \ complex,\ \ \mbox{\hyperlink{main_8c_aae9605298b6641311864f717f7a6c442}{LEN\_MOD\_SY}}\ \ \ \ \ )\ \(\backslash\)}
+\DoxyCodeLine{\ \ ENTRY(\ rxMod,\ \ \ \ \ complex,\ \ \mbox{\hyperlink{main_8c_aae9605298b6641311864f717f7a6c442}{LEN\_MOD\_SY}}\ \ \ \ \ )\ \(\backslash\)}
+\DoxyCodeLine{\ \ ENTRY(\ rxLLR,\ \ \ \ \ \textcolor{keywordtype}{float},\ \ \ \ LEN\_LLR\_FL\ \ \ \ \ )}
 
 \end{DoxyCode}
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{main_8c_a840291bc02cba5474a4cb46a9b9566fe}\label{main_8c_a840291bc02cba5474a4cb46a9b9566fe}} 
-\index{main.c@{main.c}!main@{main}}
+\Hypertarget{main_8c_a840291bc02cba5474a4cb46a9b9566fe}\index{main.c@{main.c}!main@{main}}
 \index{main@{main}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{main()}{main()}}
-{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{main_8c_a840291bc02cba5474a4cb46a9b9566fe} 
+int main (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
 
 
 
@@ -184,52 +236,168 @@ error ID
 
 \begin{DoxyItemize}
 \item get initial execution time
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item declare all streams
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item allocate memory for all streams
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item initialize all parameter structures
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item list debug parameters
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item verify validity of origin stream length
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item fill tx origin buffer with random bytes
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item calculate tx crc
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item scrambler
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item reed-\/solomon encoder
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item interleaver
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item convolutional encoder
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item apply bsc channel corruption
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item convolutional hard-\/decoder
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item modulation mapper
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item apply awgn channel corruption
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item modulation hard-\/demapper
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item convolutional hard-\/decoder
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item modulation soft-\/demapper
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item convolutional soft-\/decoder
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item deinterleaver
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item reed-\/solomon decoder
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item descrambler
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item calculate rx crc
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item check number of corrupted bits at convolutional coding level
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item check number of corrupted bits at convolutional coding level
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item check number of corrupted bits at origin level
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item check crc correctness
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item free memory for all streams
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item get final execution time and estimate overall execution time
 \end{DoxyItemize}
 
 \doxysubsection{Variable Documentation}
-\mbox{\Hypertarget{main_8c_ab093c0b870ddde5df2dd37b7855743a0}\label{main_8c_ab093c0b870ddde5df2dd37b7855743a0}} 
-\index{main.c@{main.c}!dgbParam@{dgbParam}}
+\Hypertarget{main_8c_ab093c0b870ddde5df2dd37b7855743a0}\index{main.c@{main.c}!dgbParam@{dgbParam}}
 \index{dgbParam@{dgbParam}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{dgbParam}{dgbParam}}
-{\footnotesize\ttfamily \mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} dgb\+Param\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \label{main_8c_ab093c0b870ddde5df2dd37b7855743a0} 
+\mbox{\hyperlink{struct__debug__par__t}{debug\+\_\+par\+\_\+t}} dgb\+Param\hspace{0.3cm}{\ttfamily [static]}}
 
 
 \begin{DoxyItemize}
 \item declare all parameter structures 
-\end{DoxyItemize}\mbox{\Hypertarget{main_8c_abb0e0fa240bd61376c8f39831094ab22}\label{main_8c_abb0e0fa240bd61376c8f39831094ab22}} 
-\index{main.c@{main.c}!elapsedTime@{elapsedTime}}
+\end{DoxyItemize}\Hypertarget{main_8c_abb0e0fa240bd61376c8f39831094ab22}\index{main.c@{main.c}!elapsedTime@{elapsedTime}}
 \index{elapsedTime@{elapsedTime}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{elapsedTime}{elapsedTime}}
-{\footnotesize\ttfamily clock\+\_\+t elapsed\+Time\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \label{main_8c_abb0e0fa240bd61376c8f39831094ab22} 
+clock\+\_\+t elapsed\+Time\hspace{0.3cm}{\ttfamily [static]}}
 
 
 \begin{DoxyItemize}

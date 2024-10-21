@@ -66,7 +66,11 @@ typedef enum
 /*** PARAMETERS ***/
 /******************/
 
-#define ALARM_TYPE          ALARM_STOP
+#ifdef UTEST
+  #define ALARM_TYPE          ALARM_NONE
+#else
+  #define ALARM_TYPE          ALARM_STOP
+#endif
 
 
 

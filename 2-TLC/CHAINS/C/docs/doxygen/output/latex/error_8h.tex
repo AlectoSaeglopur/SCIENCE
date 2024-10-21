@@ -1,18 +1,18 @@
-\hypertarget{error_8h}{}\doxysection{src/error.h File Reference}
-\label{error_8h}\index{src/error.h@{src/error.h}}
+\doxysection{src/error.h File Reference}
+\hypertarget{error_8h}{}\label{error_8h}\index{src/error.h@{src/error.h}}
 
 
 Error handling library header.  
 
 
-{\ttfamily \#include \char`\"{}system.\+h\char`\"{}}\newline
-\doxysubsection*{Macros}
+{\ttfamily \#include "{}system.\+h"{}}\newline
+\doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{error_8h_a50b0cf89f6b9387262fa0d311b2dace4}\label{error_8h_a50b0cf89f6b9387262fa0d311b2dace4}} 
+\Hypertarget{error_8h_a50b0cf89f6b9387262fa0d311b2dace4}\label{error_8h_a50b0cf89f6b9387262fa0d311b2dace4} 
 \#define {\bfseries ALARM\+\_\+\+TYPE}~\mbox{\hyperlink{error_8h_a5379ebd41ad13550e69bcbb321924296a5c31c9dd6844d7c8408f04bd35320ce8}{ALARM\+\_\+\+STOP}}
 \end{DoxyCompactItemize}
-\doxysubsection*{Enumerations}
+\doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
 enum \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \{ \newline
@@ -50,7 +50,7 @@ enum \mbox{\hyperlink{error_8h_a5379ebd41ad13550e69bcbb321924296}{alarm\+\_\+t}}
 , \mbox{\hyperlink{error_8h_a5379ebd41ad13550e69bcbb321924296aa0a28f7e96934d6c7db49efdb59aa696}{ALARM\+\_\+\+NUM}}
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Functions}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{error_8h_a75ff6944f6d43955f10838a9bd3edaae}{Error\+\_\+\+Handle\+Err}} (\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} in\+Err)
@@ -72,28 +72,28 @@ Electrolux S.\+p.\+A.
 
 
 \doxysubsection{Enumeration Type Documentation}
-\mbox{\Hypertarget{error_8h_a5379ebd41ad13550e69bcbb321924296}\label{error_8h_a5379ebd41ad13550e69bcbb321924296}} 
-\index{error.h@{error.h}!alarm\_t@{alarm\_t}}
+\Hypertarget{error_8h_a5379ebd41ad13550e69bcbb321924296}\index{error.h@{error.h}!alarm\_t@{alarm\_t}}
 \index{alarm\_t@{alarm\_t}!error.h@{error.h}}
 \doxysubsubsection{\texorpdfstring{alarm\_t}{alarm\_t}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{error_8h_a5379ebd41ad13550e69bcbb321924296}{alarm\+\_\+t}}}
+{\footnotesize\ttfamily \label{error_8h_a5379ebd41ad13550e69bcbb321924296} 
+enum \mbox{\hyperlink{error_8h_a5379ebd41ad13550e69bcbb321924296}{alarm\+\_\+t}}}
 
-\begin{DoxyEnumFields}{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ALARM\_PRINT@{ALARM\_PRINT}!error.h@{error.h}}\index{error.h@{error.h}!ALARM\_PRINT@{ALARM\_PRINT}}}\mbox{\Hypertarget{error_8h_a5379ebd41ad13550e69bcbb321924296a0b142b115635fb5a7079b11271ab563e}\label{error_8h_a5379ebd41ad13550e69bcbb321924296a0b142b115635fb5a7079b11271ab563e}} 
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ALARM\_PRINT@{ALARM\_PRINT}!error.h@{error.h}}\index{error.h@{error.h}!ALARM\_PRINT@{ALARM\_PRINT}}}\Hypertarget{error_8h_a5379ebd41ad13550e69bcbb321924296a0b142b115635fb5a7079b11271ab563e}\label{error_8h_a5379ebd41ad13550e69bcbb321924296} 
 ALARM\+\_\+\+PRINT&
 \begin{DoxyItemize}
 \item no alarm ID 
 \end{DoxyItemize}\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ALARM\_STOP@{ALARM\_STOP}!error.h@{error.h}}\index{error.h@{error.h}!ALARM\_STOP@{ALARM\_STOP}}}\mbox{\Hypertarget{error_8h_a5379ebd41ad13550e69bcbb321924296a5c31c9dd6844d7c8408f04bd35320ce8}\label{error_8h_a5379ebd41ad13550e69bcbb321924296a5c31c9dd6844d7c8408f04bd35320ce8}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ALARM\_STOP@{ALARM\_STOP}!error.h@{error.h}}\index{error.h@{error.h}!ALARM\_STOP@{ALARM\_STOP}}}\Hypertarget{error_8h_a5379ebd41ad13550e69bcbb321924296a5c31c9dd6844d7c8408f04bd35320ce8}\label{error_8h_a5379ebd41ad13550e69bcbb321924296} 
 ALARM\+\_\+\+STOP&
 \begin{DoxyItemize}
 \item print on terminal alarm ID 
 \end{DoxyItemize}\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ALARM\_NUM@{ALARM\_NUM}!error.h@{error.h}}\index{error.h@{error.h}!ALARM\_NUM@{ALARM\_NUM}}}\mbox{\Hypertarget{error_8h_a5379ebd41ad13550e69bcbb321924296aa0a28f7e96934d6c7db49efdb59aa696}\label{error_8h_a5379ebd41ad13550e69bcbb321924296aa0a28f7e96934d6c7db49efdb59aa696}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ALARM\_NUM@{ALARM\_NUM}!error.h@{error.h}}\index{error.h@{error.h}!ALARM\_NUM@{ALARM\_NUM}}}\Hypertarget{error_8h_a5379ebd41ad13550e69bcbb321924296aa0a28f7e96934d6c7db49efdb59aa696}\label{error_8h_a5379ebd41ad13550e69bcbb321924296} 
 ALARM\+\_\+\+NUM&
 \begin{DoxyItemize}
 \item stop execution alarm ID 
@@ -101,147 +101,147 @@ ALARM\+\_\+\+NUM&
 \hline
 
 \end{DoxyEnumFields}
-\mbox{\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689c}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689c}} 
-\index{error.h@{error.h}!error\_t@{error\_t}}
+\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689c}\index{error.h@{error.h}!error\_t@{error\_t}}
 \index{error\_t@{error\_t}!error.h@{error.h}}
 \doxysubsubsection{\texorpdfstring{error\_t}{error\_t}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}}}
+{\footnotesize\ttfamily \label{error_8h_ac7659d73a8cdedc08e9f566bb406689c} 
+enum \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}}}
 
-\begin{DoxyEnumFields}{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_NULL\_POINTER@{ERR\_INV\_NULL\_POINTER}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_NULL\_POINTER@{ERR\_INV\_NULL\_POINTER}}}\mbox{\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689cacaa7ad55a02bab08dfaada6a25baa4c9}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689cacaa7ad55a02bab08dfaada6a25baa4c9}} 
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_NULL\_POINTER@{ERR\_INV\_NULL\_POINTER}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_NULL\_POINTER@{ERR\_INV\_NULL\_POINTER}}}\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689cacaa7ad55a02bab08dfaada6a25baa4c9}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689c} 
 ERR\+\_\+\+INV\+\_\+\+NULL\+\_\+\+POINTER&
 \begin{DoxyItemize}
 \item successful error ID 
 \end{DoxyItemize}\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_ORIG\_LEN@{ERR\_INV\_ORIG\_LEN}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_ORIG\_LEN@{ERR\_INV\_ORIG\_LEN}}}\mbox{\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689cafa2eb3a8a65a9cf66981ee27b050f38a}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689cafa2eb3a8a65a9cf66981ee27b050f38a}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_ORIG\_LEN@{ERR\_INV\_ORIG\_LEN}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_ORIG\_LEN@{ERR\_INV\_ORIG\_LEN}}}\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689cafa2eb3a8a65a9cf66981ee27b050f38a}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689c} 
 ERR\+\_\+\+INV\+\_\+\+ORIG\+\_\+\+LEN&
 \begin{DoxyItemize}
 \item invalid null pointer error ID 
 \end{DoxyItemize}\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_PRINTID@{ERR\_INV\_PRINTID}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_PRINTID@{ERR\_INV\_PRINTID}}}\mbox{\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca31fb808bdd6ce8e98e6c0bc18d06180a}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689ca31fb808bdd6ce8e98e6c0bc18d06180a}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_PRINTID@{ERR\_INV\_PRINTID}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_PRINTID@{ERR\_INV\_PRINTID}}}\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca31fb808bdd6ce8e98e6c0bc18d06180a}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689c} 
 ERR\+\_\+\+INV\+\_\+\+PRINTID&
 \begin{DoxyItemize}
 \item invalid origin byte-\/stream length error ID 
 \end{DoxyItemize}\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_CNVCOD\_RATE@{ERR\_INV\_CNVCOD\_RATE}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_CNVCOD\_RATE@{ERR\_INV\_CNVCOD\_RATE}}}\mbox{\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca42481482be671a6bf988ce9d68e63563}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689ca42481482be671a6bf988ce9d68e63563}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_CNVCOD\_RATE@{ERR\_INV\_CNVCOD\_RATE}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_CNVCOD\_RATE@{ERR\_INV\_CNVCOD\_RATE}}}\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca42481482be671a6bf988ce9d68e63563}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689c} 
 ERR\+\_\+\+INV\+\_\+\+CNVCOD\+\_\+\+RATE&
 \begin{DoxyItemize}
 \item invalid print label provided error ID 
 \end{DoxyItemize}\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_CNVCOD\_KLEN@{ERR\_INV\_CNVCOD\_KLEN}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_CNVCOD\_KLEN@{ERR\_INV\_CNVCOD\_KLEN}}}\mbox{\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca12d1f00d1be413c4841595e4fe0686fe}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689ca12d1f00d1be413c4841595e4fe0686fe}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_CNVCOD\_KLEN@{ERR\_INV\_CNVCOD\_KLEN}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_CNVCOD\_KLEN@{ERR\_INV\_CNVCOD\_KLEN}}}\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca12d1f00d1be413c4841595e4fe0686fe}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689c} 
 ERR\+\_\+\+INV\+\_\+\+CNVCOD\+\_\+\+KLEN&
 \begin{DoxyItemize}
 \item invalid convolutional coding rate error ID 
 \end{DoxyItemize}\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_CNVCOD\_DECMET@{ERR\_INV\_CNVCOD\_DECMET}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_CNVCOD\_DECMET@{ERR\_INV\_CNVCOD\_DECMET}}}\mbox{\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca4d4da674deb7c87b8b93ae593505b42d}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689ca4d4da674deb7c87b8b93ae593505b42d}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_CNVCOD\_DECMET@{ERR\_INV\_CNVCOD\_DECMET}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_CNVCOD\_DECMET@{ERR\_INV\_CNVCOD\_DECMET}}}\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca4d4da674deb7c87b8b93ae593505b42d}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689c} 
 ERR\+\_\+\+INV\+\_\+\+CNVCOD\+\_\+\+DECMET&
 \begin{DoxyItemize}
 \item invalid convolutional coding constaint length error ID 
 \end{DoxyItemize}\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_BUFFER\_SIZE@{ERR\_INV\_BUFFER\_SIZE}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_BUFFER\_SIZE@{ERR\_INV\_BUFFER\_SIZE}}}\mbox{\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca0f73b677f7a5c9d6cd447368efc00b7d}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689ca0f73b677f7a5c9d6cd447368efc00b7d}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_BUFFER\_SIZE@{ERR\_INV\_BUFFER\_SIZE}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_BUFFER\_SIZE@{ERR\_INV\_BUFFER\_SIZE}}}\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca0f73b677f7a5c9d6cd447368efc00b7d}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689c} 
 ERR\+\_\+\+INV\+\_\+\+BUFFER\+\_\+\+SIZE&
 \begin{DoxyItemize}
 \item invalid convolutional coding decoding method error ID 
 \end{DoxyItemize}\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_DYNAMIC\_ALLOC@{ERR\_INV\_DYNAMIC\_ALLOC}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_DYNAMIC\_ALLOC@{ERR\_INV\_DYNAMIC\_ALLOC}}}\mbox{\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca0b41871025a0234cf2efb9320653d077}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689ca0b41871025a0234cf2efb9320653d077}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_DYNAMIC\_ALLOC@{ERR\_INV\_DYNAMIC\_ALLOC}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_DYNAMIC\_ALLOC@{ERR\_INV\_DYNAMIC\_ALLOC}}}\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca0b41871025a0234cf2efb9320653d077}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689c} 
 ERR\+\_\+\+INV\+\_\+\+DYNAMIC\+\_\+\+ALLOC&
 \begin{DoxyItemize}
 \item invalid buffer size error ID 
 \end{DoxyItemize}\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_STREAM\_TYPE@{ERR\_INV\_STREAM\_TYPE}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_STREAM\_TYPE@{ERR\_INV\_STREAM\_TYPE}}}\mbox{\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca7a89a7a3ac1e5c7a19d1e8f33efed333}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689ca7a89a7a3ac1e5c7a19d1e8f33efed333}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_STREAM\_TYPE@{ERR\_INV\_STREAM\_TYPE}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_STREAM\_TYPE@{ERR\_INV\_STREAM\_TYPE}}}\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca7a89a7a3ac1e5c7a19d1e8f33efed333}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689c} 
 ERR\+\_\+\+INV\+\_\+\+STREAM\+\_\+\+TYPE&
 \begin{DoxyItemize}
 \item invalid dynamic memory allocation error ID 
 \end{DoxyItemize}\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_MODULATION\_TYPE@{ERR\_INV\_MODULATION\_TYPE}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_MODULATION\_TYPE@{ERR\_INV\_MODULATION\_TYPE}}}\mbox{\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689cae24258f90125f8a1ecf685d346d0a15f}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689cae24258f90125f8a1ecf685d346d0a15f}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_MODULATION\_TYPE@{ERR\_INV\_MODULATION\_TYPE}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_MODULATION\_TYPE@{ERR\_INV\_MODULATION\_TYPE}}}\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689cae24258f90125f8a1ecf685d346d0a15f}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689c} 
 ERR\+\_\+\+INV\+\_\+\+MODULATION\+\_\+\+TYPE&
 \begin{DoxyItemize}
 \item invalid stream type error ID 
 \end{DoxyItemize}\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_MODULATION\_BPS@{ERR\_INV\_MODULATION\_BPS}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_MODULATION\_BPS@{ERR\_INV\_MODULATION\_BPS}}}\mbox{\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca8997f1de9192075e4fefd71dbfadaa70}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689ca8997f1de9192075e4fefd71dbfadaa70}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_MODULATION\_BPS@{ERR\_INV\_MODULATION\_BPS}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_MODULATION\_BPS@{ERR\_INV\_MODULATION\_BPS}}}\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca8997f1de9192075e4fefd71dbfadaa70}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689c} 
 ERR\+\_\+\+INV\+\_\+\+MODULATION\+\_\+\+BPS&
 \begin{DoxyItemize}
 \item invalid modulation type error ID 
 \end{DoxyItemize}\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_CHANNEL\_TYPE@{ERR\_INV\_CHANNEL\_TYPE}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_CHANNEL\_TYPE@{ERR\_INV\_CHANNEL\_TYPE}}}\mbox{\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca4ff444db0af466bb0fd2cc604db42510}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689ca4ff444db0af466bb0fd2cc604db42510}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_CHANNEL\_TYPE@{ERR\_INV\_CHANNEL\_TYPE}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_CHANNEL\_TYPE@{ERR\_INV\_CHANNEL\_TYPE}}}\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca4ff444db0af466bb0fd2cc604db42510}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689c} 
 ERR\+\_\+\+INV\+\_\+\+CHANNEL\+\_\+\+TYPE&
 \begin{DoxyItemize}
 \item invalid modulation BPS error ID 
 \end{DoxyItemize}\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_SCRAMBLING\_TYPE@{ERR\_INV\_SCRAMBLING\_TYPE}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_SCRAMBLING\_TYPE@{ERR\_INV\_SCRAMBLING\_TYPE}}}\mbox{\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca957ae261b2b33793a1e7aac47fa4220d}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689ca957ae261b2b33793a1e7aac47fa4220d}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_SCRAMBLING\_TYPE@{ERR\_INV\_SCRAMBLING\_TYPE}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_SCRAMBLING\_TYPE@{ERR\_INV\_SCRAMBLING\_TYPE}}}\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca957ae261b2b33793a1e7aac47fa4220d}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689c} 
 ERR\+\_\+\+INV\+\_\+\+SCRAMBLING\+\_\+\+TYPE&
 \begin{DoxyItemize}
 \item invalid channel type error ID 
 \end{DoxyItemize}\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_CRC\_DEGREE@{ERR\_INV\_CRC\_DEGREE}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_CRC\_DEGREE@{ERR\_INV\_CRC\_DEGREE}}}\mbox{\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689cad37a57c043d7d551ac01c9390ea752ea}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689cad37a57c043d7d551ac01c9390ea752ea}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_CRC\_DEGREE@{ERR\_INV\_CRC\_DEGREE}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_CRC\_DEGREE@{ERR\_INV\_CRC\_DEGREE}}}\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689cad37a57c043d7d551ac01c9390ea752ea}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689c} 
 ERR\+\_\+\+INV\+\_\+\+CRC\+\_\+\+DEGREE&
 \begin{DoxyItemize}
 \item invalid scrambling type error ID 
 \end{DoxyItemize}\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_RS\_GF\_DEGREE@{ERR\_INV\_RS\_GF\_DEGREE}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_RS\_GF\_DEGREE@{ERR\_INV\_RS\_GF\_DEGREE}}}\mbox{\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689cac98c8012b6f89ffe98a10456e5f876ff}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689cac98c8012b6f89ffe98a10456e5f876ff}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_RS\_GF\_DEGREE@{ERR\_INV\_RS\_GF\_DEGREE}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_RS\_GF\_DEGREE@{ERR\_INV\_RS\_GF\_DEGREE}}}\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689cac98c8012b6f89ffe98a10456e5f876ff}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689c} 
 ERR\+\_\+\+INV\+\_\+\+RS\+\_\+\+GF\+\_\+\+DEGREE&
 \begin{DoxyItemize}
 \item invalid crc degree error ID 
 \end{DoxyItemize}\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_RS\_MSG\_CW\_LEN@{ERR\_INV\_RS\_MSG\_CW\_LEN}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_RS\_MSG\_CW\_LEN@{ERR\_INV\_RS\_MSG\_CW\_LEN}}}\mbox{\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca48f6ab175f151ff5059078f1903b06d1}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689ca48f6ab175f151ff5059078f1903b06d1}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_RS\_MSG\_CW\_LEN@{ERR\_INV\_RS\_MSG\_CW\_LEN}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_RS\_MSG\_CW\_LEN@{ERR\_INV\_RS\_MSG\_CW\_LEN}}}\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca48f6ab175f151ff5059078f1903b06d1}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689c} 
 ERR\+\_\+\+INV\+\_\+\+RS\+\_\+\+MSG\+\_\+\+CW\+\_\+\+LEN&
 \begin{DoxyItemize}
 \item invalid reed-\/solomon galois field degree error ID 
 \end{DoxyItemize}\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_WATERMARK\_LEV@{ERR\_INV\_WATERMARK\_LEV}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_WATERMARK\_LEV@{ERR\_INV\_WATERMARK\_LEV}}}\mbox{\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca4c8bbc35b27fd7ebf61461bca53243f6}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689ca4c8bbc35b27fd7ebf61461bca53243f6}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_WATERMARK\_LEV@{ERR\_INV\_WATERMARK\_LEV}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_WATERMARK\_LEV@{ERR\_INV\_WATERMARK\_LEV}}}\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca4c8bbc35b27fd7ebf61461bca53243f6}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689c} 
 ERR\+\_\+\+INV\+\_\+\+WATERMARK\+\_\+\+LEV&
 \begin{DoxyItemize}
 \item invalid reed-\/solomon message or codeword length error ID 
 \end{DoxyItemize}\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_INTERLEAVING\_TYPE@{ERR\_INV\_INTERLEAVING\_TYPE}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_INTERLEAVING\_TYPE@{ERR\_INV\_INTERLEAVING\_TYPE}}}\mbox{\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca6acc47a87e5872af3c8fb2153dba9dca}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689ca6acc47a87e5872af3c8fb2153dba9dca}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_INTERLEAVING\_TYPE@{ERR\_INV\_INTERLEAVING\_TYPE}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_INTERLEAVING\_TYPE@{ERR\_INV\_INTERLEAVING\_TYPE}}}\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca6acc47a87e5872af3c8fb2153dba9dca}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689c} 
 ERR\+\_\+\+INV\+\_\+\+INTERLEAVING\+\_\+\+TYPE&
 \begin{DoxyItemize}
 \item invalid watermark level error ID 
 \end{DoxyItemize}\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_STREAM@{ERR\_INV\_STREAM}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_STREAM@{ERR\_INV\_STREAM}}}\mbox{\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca374ecffbcf9269dde7297b288c7a0939}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689ca374ecffbcf9269dde7297b288c7a0939}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_INV\_STREAM@{ERR\_INV\_STREAM}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_INV\_STREAM@{ERR\_INV\_STREAM}}}\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca374ecffbcf9269dde7297b288c7a0939}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689c} 
 ERR\+\_\+\+INV\+\_\+\+STREAM&
 \begin{DoxyItemize}
 \item invalid interleaving type error ID 
 \end{DoxyItemize}\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_NUM@{ERR\_NUM}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_NUM@{ERR\_NUM}}}\mbox{\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca9f777b12b2a6527f28675ca501f176a1}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689ca9f777b12b2a6527f28675ca501f176a1}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERR\_NUM@{ERR\_NUM}!error.h@{error.h}}\index{error.h@{error.h}!ERR\_NUM@{ERR\_NUM}}}\Hypertarget{error_8h_ac7659d73a8cdedc08e9f566bb406689ca9f777b12b2a6527f28675ca501f176a1}\label{error_8h_ac7659d73a8cdedc08e9f566bb406689c} 
 ERR\+\_\+\+NUM&
 \begin{DoxyItemize}
 \item invalid stream error ID 
@@ -252,11 +252,11 @@ ERR\+\_\+\+NUM&
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{error_8h_a75ff6944f6d43955f10838a9bd3edaae}\label{error_8h_a75ff6944f6d43955f10838a9bd3edaae}} 
-\index{error.h@{error.h}!Error\_HandleErr@{Error\_HandleErr}}
+\Hypertarget{error_8h_a75ff6944f6d43955f10838a9bd3edaae}\index{error.h@{error.h}!Error\_HandleErr@{Error\_HandleErr}}
 \index{Error\_HandleErr@{Error\_HandleErr}!error.h@{error.h}}
 \doxysubsubsection{\texorpdfstring{Error\_HandleErr()}{Error\_HandleErr()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Error\+\_\+\+Handle\+Err (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}}}]{in\+Err }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{error_8h_a75ff6944f6d43955f10838a9bd3edaae} 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Error\+\_\+\+Handle\+Err (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}}}]{in\+Err}{}\end{DoxyParamCaption})}
 
 
 

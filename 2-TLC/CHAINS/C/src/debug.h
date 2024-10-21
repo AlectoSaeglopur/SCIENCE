@@ -130,8 +130,13 @@ typedef enum _ansi_text_style
 /*** CONSTANTS ***/
 /*****************/
 
-#define watermark_t           uint32_t                      // value depending on processor architecture
-#define WATERMARK_MASK        ((watermark_t)0x0000FFFF)
+#if _WIN64
+  #define watermark_t           uint64_t                    // type depending on processor architecture
+#elif _WIN32
+  #define watermark_t           uint32_t
+#endif
+
+#define WATERMARK_MASK        ((watermark_t)0xFFFF)
 
 
 

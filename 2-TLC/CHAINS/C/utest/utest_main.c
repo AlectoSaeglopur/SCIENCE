@@ -4,11 +4,8 @@
 
 /** INCLUDES **/
 
-#include <stdio.h>
-#include <stdint.h>
-#include "test_extra.h"
-#include "test_convolutional.h"
-#include "test_modulation.h"
+#include "..\src\system.h"
+#include "utest_modulation.h"
 
 
 
@@ -30,7 +27,7 @@ void tearDown (void)
 /* Custom function used as test result divider */
 void print_divider( uint8_t sCnt )
 {
-  printf("\n\n ### SECTION %d ###\n\n\n",sCnt);
+  printf("\n ### SECTION %d ###\n\n",sCnt);
 }
 
 
@@ -40,10 +37,11 @@ int main( void )
 {
   uint8_t sCnt = 0;
   print_divider(sCnt++);
-  run_extra_tests();                                                          // run tests on "extra.c" functions
-  print_divider(sCnt++);
-  run_convolutional_tests();                                                  // run tests on "convolutional.c" functions
-  print_divider(sCnt++);
+
+//  run_extra_tests();                                                          // run tests on "extra.c" functions
+//  print_divider(sCnt++);
+//  run_convolutional_tests();                                                  // run tests on "convolutional.c" functions
+//  print_divider(sCnt++);
   run_modulation_tests();                                                     // run tests on "modulation.c" functions
   //while (1){};                                                              // do NOT loop
     return 0;

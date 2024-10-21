@@ -1,0 +1,42 @@
+Cleaning "utest" build directory...
+if not exist build mkdir build
+if exist build\utest rmdir build\utest /s /q
+build\utest\utest.log - The process cannot access the file because it is being used by another process.
+if not exist build\utest mkdir build\utest
+if not exist build\utest\bin mkdir build\utest\bin
+if not exist build\utest\obj mkdir build\utest\obj
+------------------------------------------------
+>> "utest"-build folder cleaned successfully!
+------------------------------------------------
+Starting "utest"-build compilation...
+gcc -c utest\utest_main.c -Wall -g -O0 -D UTEST -o build\utest\obj\utest_main.o
+gcc -c utest\utest_modulation.c -Wall -g -O0 -D UTEST -o build\utest\obj\utest_modulation.o
+gcc -c src\channel.c -Wall -g -O0 -D UTEST -o build\utest\obj\channel.o
+gcc -c src\convolutional.c -Wall -g -O0 -D UTEST -o build\utest\obj\convolutional.o
+gcc -c src\crc.c -Wall -g -O0 -D UTEST -o build\utest\obj\crc.o
+gcc -c src\debug.c -Wall -g -O0 -D UTEST -o build\utest\obj\debug.o
+gcc -c src\error.c -Wall -g -O0 -D UTEST -o build\utest\obj\error.o
+gcc -c src\interleaving.c -Wall -g -O0 -D UTEST -o build\utest\obj\interleaving.o
+gcc -c src\memory.c -Wall -g -O0 -D UTEST -o build\utest\obj\memory.o
+gcc -c src\modulation.c -Wall -g -O0 -D UTEST -o build\utest\obj\modulation.o
+gcc -c src\reed_solomon.c -Wall -g -O0 -D UTEST -o build\utest\obj\reed_solomon.o
+gcc -c src\scrambling.c -Wall -g -O0 -D UTEST -o build\utest\obj\scrambling.o
+gcc -c utest\unity\unity.c -Wall -g -O0 -D UTEST -o build\utest\obj\unity.o
+Starting "utest"-build linking...
+gcc build\utest\obj\utest_main.o build\utest\obj\utest_modulation.o build\utest\obj\channel.o build\utest\obj\convolutional.o build\utest\obj\crc.o build\utest\obj\debug.o build\utest\obj\error.o build\utest\obj\interleaving.o build\utest\obj\memory.o build\utest\obj\modulation.o build\utest\obj\reed_solomon.o build\utest\obj\scrambling.o build\utest\obj\unity.o -Wall -g -O0 -D UTEST -lm -o build\utest\bin\utest.exe
+------------------------------------------------
+>> "utest"-build compiled and linked successfully!
+------------------------------------------------
+Launching "utest"-build output...
+build\utest\bin\utest.exe
+
+ ### SECTION 0 ###
+
+# 1 - utest\utest_modulation.c:26:utest_Modulation_ListParameters:PASS
+
+-----------------------
+1 Tests 0 Failures 0 Ignored 
+OK
+------------------------------------------------
+>> "utest"-build executed successfully!
+------------------------------------------------

@@ -25,7 +25,7 @@
 var NAVTREE =
 [
   [ "TLC CHAIN", "index.html", [
-    [ "Modules", "modules.html", "modules" ],
+    [ "Topics", "topics.html", "topics" ],
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],
       [ "Data Structure Index", "classes.html", null ],
@@ -51,9 +51,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"annotated.html",
-"globals_func.html",
-"struct__rs__par__t.html#a2b1bd9f87f5775304bb512f453c86225"
+"annotated.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

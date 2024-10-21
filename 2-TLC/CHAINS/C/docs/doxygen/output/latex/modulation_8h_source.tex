@@ -1,0 +1,97 @@
+\doxysection{modulation.\+h}
+\hypertarget{modulation_8h_source}{}\label{modulation_8h_source}\index{src/modulation.h@{src/modulation.h}}
+\mbox{\hyperlink{modulation_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifndef\ MODULATION\_H}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ MODULATION\_H}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00017\ \textcolor{comment}{/***\ INCLUDES\ ***/}}
+\DoxyCodeLine{00018\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{error_8h}{error.h}}"{}}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}memory.h"{}}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{system_8h}{system.h}}"{}}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{comment}{/*************/}}
+\DoxyCodeLine{00027\ \textcolor{comment}{/***\ ENUMS\ ***/}}
+\DoxyCodeLine{00028\ \textcolor{comment}{/*************/}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00031\ \{}
+\DoxyCodeLine{00032\ \ \ MOD\_PSK\ =\ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \mbox{\hyperlink{modulation_8h_a6fb155cc4c43ed42ddbe1fb2487fdfd7aed33574362bb80c0b2dd89069bb78189}{MOD\_QAM}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \textcolor{comment}{//\ keep\ NUM\ as\ final\ entry}}
+\DoxyCodeLine{00035\ \ \ \mbox{\hyperlink{modulation_8h_a6fb155cc4c43ed42ddbe1fb2487fdfd7a221c5a2ce82a31c502d12253957ae36c}{MOD\_NUM}}}
+\DoxyCodeLine{00036\ \}\ \mbox{\hyperlink{modulation_8h_a6fb155cc4c43ed42ddbe1fb2487fdfd7}{mod\_type\_t}};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{comment}{/******************/}}
+\DoxyCodeLine{00041\ \textcolor{comment}{/***\ PARAMETERS\ ***/}}
+\DoxyCodeLine{00042\ \textcolor{comment}{/******************/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ MOD\_TYPE\ \ \ \ \ \ \ \ \ \ MOD\_PSK\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ MOD\_BPS\ \ \ \ \ \ \ \ \ \ \ 2u\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{comment}{/*****************/}}
+\DoxyCodeLine{00050\ \textcolor{comment}{/***\ CONSTANTS\ ***/}}
+\DoxyCodeLine{00051\ \textcolor{comment}{/*****************/}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ MOD\_SD\_N0\ \ \ \ \ \ \ \ \ ((float)\ 4.0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ MOD\_BPS\_MIN\ \ \ \ \ \ \ 1u\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ MOD\_BPS\_MAX\ \ \ \ \ \ \ 6u\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ MOD\_ORDER\ \ \ \ \ \ \ \ \ (0x01<<MOD\_BPS)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ MOD\_BINARY\ \ \ \ \ \ \ \ 2u\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ MOD\_TYPE\_STR(x)\ \ \ ((x\ ==\ MOD\_PSK)\ ?\ "{}PSK"{}\ :\ \(\backslash\)}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (x\ ==\ MOD\_QAM)\ ?\ "{}QAM"{}\ :\ \(\backslash\)}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}N/A"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#if\ (MOD\_BPS\ <\ MOD\_BPS\_MIN)}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#error\ MOD\_BPS\ shall\ be\ positve!}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00072\ \textcolor{comment}{/***\ TYPEDEFS\ ***/}}
+\DoxyCodeLine{00073\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__mod__par__t}{\_mod\_par\_t}}}
+\DoxyCodeLine{00076\ \{}
+\DoxyCodeLine{00077\ \ \ \mbox{\hyperlink{modulation_8h_a6fb155cc4c43ed42ddbe1fb2487fdfd7}{mod\_type\_t}}\ type;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00078\ \ \ uint8\_t\ \mbox{\hyperlink{struct__mod__par__t_aa44597f38af03f4bb6ef069ba7efb24c}{order}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00079\ \ \ uint8\_t\ \mbox{\hyperlink{struct__mod__par__t_a1eeec50969596a3dee67341cac858bce}{bps}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct__mod__par__t_a68e304f9c957a11acbf769ae9cbc707f}{phOfst}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00081\ \}\ \mbox{\hyperlink{struct__mod__par__t}{mod\_par\_t}};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__mod__maptable__t}{\_mod\_maptable\_t}}}
+\DoxyCodeLine{00085\ \{}
+\DoxyCodeLine{00086\ \ \ \mbox{\hyperlink{system_8h_aed38f5b9e6bad674ac6ab6b0c40aa013}{byte\_t}}\ bits[\mbox{\hyperlink{modulation_8h_addfd38c777936d25754194d49fc174a8}{MOD\_ORDER}}];}
+\DoxyCodeLine{00087\ \ \ \mbox{\hyperlink{struct__complex__t}{complex\_t}}\ symbs[\mbox{\hyperlink{modulation_8h_addfd38c777936d25754194d49fc174a8}{MOD\_ORDER}}];}
+\DoxyCodeLine{00088\ \}\ \mbox{\hyperlink{struct__mod__maptable__t}{mod\_maptable\_t}};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{comment}{/*************************/}}
+\DoxyCodeLine{00093\ \textcolor{comment}{/***\ PUBLIC\ PROTOTYPES\ ***/}}
+\DoxyCodeLine{00094\ \textcolor{comment}{/*************************/}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\_t}}\ \mbox{\hyperlink{modulation_8h_af8e3b1914869abb912809084691bd8a9}{Modulation\_ListParameters}}(\ \mbox{\hyperlink{struct__mod__par__t}{mod\_par\_t}}\ *\ ioParams\ );}
+\DoxyCodeLine{00097\ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\_t}}\ \mbox{\hyperlink{modulation_8h_a791b9c1aca31ba03a4fc355a1607a104}{Modulation\_Mapper}}(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__byte__stream__t}{byte\_stream\_t}}\ *\ inStream,\ \mbox{\hyperlink{struct__complex__stream__t}{complex\_stream\_t}}\ *\ outStream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__mod__par__t}{mod\_par\_t}}\ *\ pParams\ );}
+\DoxyCodeLine{00098\ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\_t}}\ \mbox{\hyperlink{modulation_8h_a360593c2f38e6872b8465d7f33f64e7e}{Modulation\_HardDemapper}}(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__complex__stream__t}{complex\_stream\_t}}\ *\ inStream,\ \mbox{\hyperlink{struct__byte__stream__t}{byte\_stream\_t}}\ *\ outStream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__mod__par__t}{mod\_par\_t}}\ *\ pParams\ );}
+\DoxyCodeLine{00099\ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\_t}}\ \mbox{\hyperlink{modulation_8h_a6cd0b07199612c4631a4b8ff29bd9180}{Modulation\_SoftDemapper}}(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__complex__stream__t}{complex\_stream\_t}}\ *\ inStream,\ \mbox{\hyperlink{struct__float__stream__t}{float\_stream\_t}}\ *\ outStream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__mod__par__t}{mod\_par\_t}}\ *\ pParams\ );}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

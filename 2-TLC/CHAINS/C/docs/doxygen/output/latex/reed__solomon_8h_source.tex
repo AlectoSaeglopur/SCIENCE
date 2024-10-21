@@ -1,0 +1,70 @@
+\doxysection{reed\+\_\+solomon.\+h}
+\hypertarget{reed__solomon_8h_source}{}\label{reed__solomon_8h_source}\index{src/reed\_solomon.h@{src/reed\_solomon.h}}
+\mbox{\hyperlink{reed__solomon_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifndef\ REEDSOLOMON\_H}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ REEDSOLOMON\_H}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00017\ \textcolor{comment}{/***\ INCLUDES\ ***/}}
+\DoxyCodeLine{00018\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{error_8h}{error.h}}"{}}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}memory.h"{}}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{system_8h}{system.h}}"{}}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{comment}{/*************/}}
+\DoxyCodeLine{00027\ \textcolor{comment}{/***\ ENUMS\ ***/}}
+\DoxyCodeLine{00028\ \textcolor{comment}{/*************/}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00031\ \{}
+\DoxyCodeLine{00032\ \ \ RS\_GF\_DEGREE\_4\ =\ 4,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \mbox{\hyperlink{reed__solomon_8h_a4e768562ae0f0da6d9705ffad235a3a6a9a8334c9c8b675860f4b006c7a06b547}{RS\_GF\_DEGREE\_8}}\ =\ 8\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00034\ \}\ \mbox{\hyperlink{reed__solomon_8h_a4e768562ae0f0da6d9705ffad235a3a6}{rs\_gf\_degree\_t}};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{comment}{/******************/}}
+\DoxyCodeLine{00039\ \textcolor{comment}{/***\ PARAMETERS\ ***/}}
+\DoxyCodeLine{00040\ \textcolor{comment}{/******************/}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ GF\_DEGREE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RS\_GF\_DEGREE\_8\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ MESSAGE\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ \ \ 188u\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ CODEWORD\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ \ 204u\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00049\ \textcolor{comment}{/***\ TYPEDEFS\ ***/}}
+\DoxyCodeLine{00050\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__rs__par__t}{\_rs\_par\_t}}}
+\DoxyCodeLine{00053\ \{}
+\DoxyCodeLine{00054\ \ \ \mbox{\hyperlink{reed__solomon_8h_a4e768562ae0f0da6d9705ffad235a3a6}{rs\_gf\_degree\_t}}\ m;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00055\ \ \ uint8\_t\ \mbox{\hyperlink{struct__rs__par__t_adb05b3d2eae120bfa09d2a4a72c59c0a}{kSh}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00056\ \ \ uint8\_t\ \mbox{\hyperlink{struct__rs__par__t_adcc3369d6073be7c320c286deb4b7251}{nSh}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00057\ \ \ uint8\_t\ \mbox{\hyperlink{struct__rs__par__t_a2d03918f4f9edabaf3c9f43abcc2d85b}{t}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00058\ \ \ uint16\_t\ \mbox{\hyperlink{struct__rs__par__t_af74f839e7921b35f99f04197cd016a8f}{kUn}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00059\ \ \ uint16\_t\ \mbox{\hyperlink{struct__rs__par__t_ab53837258d2b421a9388c53f5a2eb26d}{nUn}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00060\ \ \ uint16\_t\ \mbox{\hyperlink{struct__rs__par__t_a2b1bd9f87f5775304bb512f453c86225}{dimGF}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00061\ \}\ \mbox{\hyperlink{struct__rs__par__t}{rs\_par\_t}};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{comment}{/*************************/}}
+\DoxyCodeLine{00066\ \textcolor{comment}{/***\ PUBLIC\ PROTOTYPES\ ***/}}
+\DoxyCodeLine{00067\ \textcolor{comment}{/*************************/}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\_t}}\ \mbox{\hyperlink{reed__solomon_8h_a578373b27d35cdf390538bf58e3d7a54}{RsCod\_ListParameters}}(\ \mbox{\hyperlink{struct__rs__par__t}{rs\_par\_t}}\ *\ ioParams\ );}
+\DoxyCodeLine{00070\ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\_t}}\ \mbox{\hyperlink{reed__solomon_8h_a8d0400ebf3aceca73c08b1b1a8e67808}{RcCod\_Encoder}}(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__byte__stream__t}{byte\_stream\_t}}\ *\ inStream,\ \mbox{\hyperlink{struct__byte__stream__t}{byte\_stream\_t}}\ *\ outStream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__rs__par__t}{rs\_par\_t}}\ *\ pParams\ );}
+\DoxyCodeLine{00071\ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\_t}}\ \mbox{\hyperlink{reed__solomon_8h_a213eec64045f18379405efd4b2e19d3d}{RcCod\_Decoder}}(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__byte__stream__t}{byte\_stream\_t}}\ *\ inStream,\ \mbox{\hyperlink{struct__byte__stream__t}{byte\_stream\_t}}\ *\ outStream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__rs__par__t}{rs\_par\_t}}\ *\ pParams\ );}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -6,7 +6,6 @@ var channel_8h =
     [ "CHAN_SEED", "channel_8h.html#aef22dad27cbfbf8d98d6fb044525ffb0", null ],
     [ "CHAN_TYPE", "channel_8h.html#a02ad48dad989be9466d6180ad89e387d", null ],
     [ "SEED2TIME", "channel_8h.html#a832309ce02c70c603d56ec709c529f1b", null ],
-    [ "chan_par_t", "channel_8h.html#a61c3351984a5d1156d5a22682a6a73c2", null ],
     [ "chan_type_t", "channel_8h.html#afe350c7813c36d532a69cfc851076544", [
       [ "CHAN_BSC", "channel_8h.html#afe350c7813c36d532a69cfc851076544a7d96892bb148fb58f6248f5e5d7f5490", null ],
       [ "CHAN_AWGN", "channel_8h.html#afe350c7813c36d532a69cfc851076544a9499b84ff8af27271cd56f2753c3b5c1", null ],

@@ -20,6 +20,5 @@ var group___t_l_c___c_h_a_i_n =
     [ "reed_solomon.c", "reed__solomon_8c.html", null ],
     [ "reed_solomon.h", "reed__solomon_8h.html", null ],
     [ "scrambling.c", "scrambling_8c.html", null ],
-    [ "scrambling.h", "scrambling_8h.html", null ],
-    [ "system.h", "system_8h.html", null ]
+    [ "scrambling.h", "scrambling_8h.html", null ]
 ];

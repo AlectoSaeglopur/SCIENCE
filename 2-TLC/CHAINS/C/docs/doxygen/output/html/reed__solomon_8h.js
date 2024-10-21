@@ -4,7 +4,6 @@ var reed__solomon_8h =
     [ "CODEWORD_SIZE", "reed__solomon_8h.html#a49419cff0869dbe4725bc86b04d93d91", null ],
     [ "GF_DEGREE", "reed__solomon_8h.html#a07f2d43f7b78f970672b81b20a552645", null ],
     [ "MESSAGE_SIZE", "reed__solomon_8h.html#aeca90e1c1c62b70670514ffc18c9dfd4", null ],
-    [ "rs_par_t", "reed__solomon_8h.html#a78796b89173c7d02d081dc073122bb37", null ],
     [ "rs_gf_degree_t", "reed__solomon_8h.html#a4e768562ae0f0da6d9705ffad235a3a6", [
       [ "RS_GF_DEGREE_4", "reed__solomon_8h.html#a4e768562ae0f0da6d9705ffad235a3a6a5cc9e5e77769f4cdc70e14ec1b3343e2", null ],
       [ "RS_GF_DEGREE_8", "reed__solomon_8h.html#a4e768562ae0f0da6d9705ffad235a3a6a9a8334c9c8b675860f4b006c7a06b547", null ]

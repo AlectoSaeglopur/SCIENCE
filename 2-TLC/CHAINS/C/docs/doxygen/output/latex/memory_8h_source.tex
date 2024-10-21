@@ -1,0 +1,67 @@
+\doxysection{memory.\+h}
+\hypertarget{memory_8h_source}{}\label{memory_8h_source}\index{src/memory.h@{src/memory.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifndef\ MEMORY\_H}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ MEMORY\_H}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00016\ \textcolor{comment}{/***\ INCLUDES\ ***/}}
+\DoxyCodeLine{00017\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{error_8h}{error.h}}"{}}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{system_8h}{system.h}}"{}}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00025\ \textcolor{comment}{/***\ TYPEDEFS\ ***/}}
+\DoxyCodeLine{00026\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \ \ memory\_type\_byte\ =\ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ memory\_type\_float,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00032\ \ \ memory\_type\_complex\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00033\ \}\ memory\_type\_t;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__byte__stream__t}{\_byte\_stream\_t}}}
+\DoxyCodeLine{00037\ \{}
+\DoxyCodeLine{00038\ \ \ \mbox{\hyperlink{system_8h_aed38f5b9e6bad674ac6ab6b0c40aa013}{byte\_t}}\ *\ pBuf;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00039\ \ \ \mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\_t}}\ \mbox{\hyperlink{struct__byte__stream__t_ac4fa45596f6036abae4a915399644b76}{len}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00040\ \ \ memory\_type\_t\ \mbox{\hyperlink{struct__byte__stream__t_a4f594557c7bb22a63850dd55ce9a0bf6}{id}};}
+\DoxyCodeLine{00041\ \}\ \mbox{\hyperlink{struct__byte__stream__t}{byte\_stream\_t}};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__float__stream__t}{\_float\_stream\_t}}}
+\DoxyCodeLine{00045\ \{}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{float}\ *\ pBuf;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00047\ \ \ \mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\_t}}\ \mbox{\hyperlink{struct__float__stream__t_ac4fa45596f6036abae4a915399644b76}{len}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00048\ \ \ memory\_type\_t\ \mbox{\hyperlink{struct__float__stream__t_a4f594557c7bb22a63850dd55ce9a0bf6}{id}};}
+\DoxyCodeLine{00049\ \}\ \mbox{\hyperlink{struct__float__stream__t}{float\_stream\_t}};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__complex__stream__t}{\_complex\_stream\_t}}}
+\DoxyCodeLine{00053\ \{}
+\DoxyCodeLine{00054\ \ \ \mbox{\hyperlink{struct__complex__t}{complex\_t}}\ *\ pBuf;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00055\ \ \ \mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\_t}}\ \mbox{\hyperlink{struct__complex__stream__t_ac4fa45596f6036abae4a915399644b76}{len}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00056\ \ \ memory\_type\_t\ \mbox{\hyperlink{struct__complex__stream__t_a4f594557c7bb22a63850dd55ce9a0bf6}{id}};}
+\DoxyCodeLine{00057\ \}\ \mbox{\hyperlink{struct__complex__stream__t}{complex\_stream\_t}};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{comment}{/*************************/}}
+\DoxyCodeLine{00062\ \textcolor{comment}{/***\ PUBLIC\ PROTOTYPES\ ***/}}
+\DoxyCodeLine{00063\ \textcolor{comment}{/*************************/}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\_t}}\ \mbox{\hyperlink{memory_8c_afaa8bd3fe266ee277755b48644ccfa84}{Memory\_AllocateStream}}(\ \textcolor{keywordtype}{void}\ *\ ioStream,\ \mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\_t}}\ len,\ memory\_type\_t\ type\ );}
+\DoxyCodeLine{00066\ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\_t}}\ \mbox{\hyperlink{memory_8c_a259ab0ef90ac6552ae65331905a8e51b}{Memory\_FreeStream}}(\ \textcolor{keywordtype}{void}\ *\ ioStream,\ memory\_type\_t\ type\ );}
+\DoxyCodeLine{00067\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{memory_8c_a4a6d1c14bb95210c97dfa5312bba19fc}{Memory\_IsStreamValid}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\ inStream,\ memory\_type\_t\ type\ );}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,87 @@
+\doxysection{interleaving.\+h}
+\hypertarget{interleaving_8h_source}{}\label{interleaving_8h_source}\index{src/interleaving.h@{src/interleaving.h}}
+\mbox{\hyperlink{interleaving_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifndef\ INTERLEAVING\_H}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ INTERLEAVING\_H}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00017\ \textcolor{comment}{/***\ INCLUDES\ ***/}}
+\DoxyCodeLine{00018\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{error_8h}{error.h}}"{}}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}memory.h"{}}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{system_8h}{system.h}}"{}}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00027\ \textcolor{comment}{/***\ TYPEDEFS\ ***/}}
+\DoxyCodeLine{00028\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00031\ \{}
+\DoxyCodeLine{00032\ \ \ INTRLV\_BLOCK\ =\ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \mbox{\hyperlink{interleaving_8h_abb8ec5b528ff194736a2426902e43a3aa8ad93626c3fd16f98d0a8da7f53c67ed}{INTRLV\_CONV}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \textcolor{comment}{//\ keep\ NUM\ as\ final\ entry}}
+\DoxyCodeLine{00035\ \ \ \mbox{\hyperlink{interleaving_8h_abb8ec5b528ff194736a2426902e43a3aad07134828a46a12bcf2d1eed0f99a69d}{INTRLV\_NUM}}}
+\DoxyCodeLine{00036\ \}\ \mbox{\hyperlink{interleaving_8h_abb8ec5b528ff194736a2426902e43a3a}{itlv\_type\_t}};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__itlv__par__t}{\_itlv\_par\_t}}}
+\DoxyCodeLine{00040\ \{}
+\DoxyCodeLine{00041\ \ \ \mbox{\hyperlink{interleaving_8h_abb8ec5b528ff194736a2426902e43a3a}{itlv\_type\_t}}\ type;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00042\ \ \ \textcolor{keyword}{union}}
+\DoxyCodeLine{00043\ \ \ \{}
+\DoxyCodeLine{00044\ \ \ \ \ uint8\_t\ rows;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00045\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{struct__itlv__par__t_a8179444a8520e4507704d96d58d0df8e}{dlys}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00046\ \ \ \};}
+\DoxyCodeLine{00047\ \ \ \textcolor{keyword}{union\ }}
+\DoxyCodeLine{00048\ \ \ \{}
+\DoxyCodeLine{00049\ \ \ \ \ uint8\_t\ cols;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00050\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{struct__itlv__par__t_aab205f3c886634a40811f44385e0ff25}{cells}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00051\ \ \ \};}
+\DoxyCodeLine{00052\ \}\ \mbox{\hyperlink{struct__itlv__par__t}{itlv\_par\_t}};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{comment}{/******************/}}
+\DoxyCodeLine{00057\ \textcolor{comment}{/***\ PARAMETERS\ ***/}}
+\DoxyCodeLine{00058\ \textcolor{comment}{/******************/}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ INTRLV\_TYPE\ \ \ \ \ \ \ \ \ INTRLV\_CONV}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ BLK\_NROWS\ \ \ \ \ \ \ \ \ \ \ 4u\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ BLK\_NCOLS\ \ \ \ \ \ \ \ \ \ \ 51u\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ CONV\_NDLYS\ \ \ \ \ \ \ \ \ \ 12u\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ CONV\_NCELLS\ \ \ \ \ \ \ \ \ 17u\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{comment}{/*****************/}}
+\DoxyCodeLine{00071\ \textcolor{comment}{/***\ CONSTANTS\ ***/}}
+\DoxyCodeLine{00072\ \textcolor{comment}{/*****************/}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ INTRLV\_NAN\ \ \ \ \ \ \ \ \ \ UINT16\_MAX}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ INTRLV\_TYPE\_STR(x)\ \ ((x\ ==\ INTRLV\_BLOCK)\ ?\ "{}Block"{}\ :\ \(\backslash\)}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (x\ ==\ INTRLV\_CONV)\ ?\ "{}Convolutional"{}\ :\ \(\backslash\)}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}N/A"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{comment}{/******************/}}
+\DoxyCodeLine{00083\ \textcolor{comment}{/***\ PROTOTYPES\ ***/}}
+\DoxyCodeLine{00084\ \textcolor{comment}{/******************/}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\_t}}\ \mbox{\hyperlink{interleaving_8h_a95e8f57adda25de04de095b433b38311}{Intrlv\_ListParameters}}(\ \mbox{\hyperlink{struct__itlv__par__t}{itlv\_par\_t}}\ *\ ioParams\ );}
+\DoxyCodeLine{00087\ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\_t}}\ \mbox{\hyperlink{interleaving_8h_a79c267d82e24fc16ac4fe5ce0222c538}{Intrlv\_Interleaver}}(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__byte__stream__t}{byte\_stream\_t}}\ *\ inStream,\ \mbox{\hyperlink{struct__byte__stream__t}{byte\_stream\_t}}\ *\ outStream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__itlv__par__t}{itlv\_par\_t}}\ *\ pParams\ );}
+\DoxyCodeLine{00088\ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\_t}}\ \mbox{\hyperlink{interleaving_8h_ab85f9d4283fefaa59a9bcb74c1096388}{Intrlv\_Deinterleaver}}(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__byte__stream__t}{byte\_stream\_t}}\ *\ inStream,\ \mbox{\hyperlink{struct__byte__stream__t}{byte\_stream\_t}}\ *\ outStream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__itlv__par__t}{itlv\_par\_t}}\ *\ pParams\ );}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

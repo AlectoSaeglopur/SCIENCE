@@ -1,6 +1,5 @@
 var error_8h =
 [
-    [ "ALARM_TYPE", "error_8h.html#a50b0cf89f6b9387262fa0d311b2dace4", null ],
     [ "alarm_t", "error_8h.html#a5379ebd41ad13550e69bcbb321924296", [
       [ "ALARM_NONE", "error_8h.html#a5379ebd41ad13550e69bcbb321924296a104758bfbbefbd5daff088496b4dfd60", null ],
       [ "ALARM_PRINT", "error_8h.html#a5379ebd41ad13550e69bcbb321924296a0b142b115635fb5a7079b11271ab563e", null ],

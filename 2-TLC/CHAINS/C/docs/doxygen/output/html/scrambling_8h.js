@@ -8,8 +8,6 @@ var scrambling_8h =
     [ "NCELLS_ADT", "scrambling_8h.html#ae80001aa3fba539dfd93bf2031ff3457", null ],
     [ "NCELLS_MLT", "scrambling_8h.html#ae699f98e8d1ad84fc653d89ea6f6a3a9", null ],
     [ "SCR_TYPE_STR", "scrambling_8h.html#a8cb84273a7512ba52e3da5c597b7bf28", null ],
-    [ "SCRAMB_TYPE", "scrambling_8h.html#aab6c6bb165df90249e7e4432331a0528", null ],
-    [ "scr_par_t", "scrambling_8h.html#a7af26d838f8f562c292d952c564cb730", null ],
     [ "scramb_type_t", "scrambling_8h.html#a3683d4c71362335346d28d0c01570064", [
       [ "SCRAMB_ADT", "scrambling_8h.html#a3683d4c71362335346d28d0c01570064a15519b99105f4a97093bb744f146a482", null ],
       [ "SCRAMB_MLT", "scrambling_8h.html#a3683d4c71362335346d28d0c01570064ac51e8c7c21b02c071ee07d4170dea1e6", null ],

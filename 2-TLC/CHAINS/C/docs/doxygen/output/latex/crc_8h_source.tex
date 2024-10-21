@@ -1,0 +1,60 @@
+\doxysection{crc.\+h}
+\hypertarget{crc_8h_source}{}\label{crc_8h_source}\index{src/crc.h@{src/crc.h}}
+\mbox{\hyperlink{crc_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifndef\ CRC\_H}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ CRC\_H}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00017\ \textcolor{comment}{/***\ INCLUDES\ ***/}}
+\DoxyCodeLine{00018\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{error_8h}{error.h}}"{}}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}memory.h"{}}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{system_8h}{system.h}}"{}}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00027\ \textcolor{comment}{/***\ TYPEDEFS\ ***/}}
+\DoxyCodeLine{00028\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00031\ \{}
+\DoxyCodeLine{00032\ \ \ CRC\_DEGREE\_8\ \ =\ 8,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \mbox{\hyperlink{crc_8h_a6101862234971a20f6ea322793d0e81fa948aabaa84cc1f8672b8cf7e4ed577df}{CRC\_DEGREE\_16}}\ =\ 16,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \mbox{\hyperlink{crc_8h_a6101862234971a20f6ea322793d0e81fad82c48395597caa4c6d6801c5303f723}{CRC\_DEGREE\_24}}\ =\ 24,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00035\ \ \ \mbox{\hyperlink{crc_8h_a6101862234971a20f6ea322793d0e81fa9445290f6e06f33f45b5cb8f35123a41}{CRC\_DEGREE\_32}}\ =\ 32,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00036\ \ \ \mbox{\hyperlink{crc_8h_a6101862234971a20f6ea322793d0e81fa4ffb0292a6735033741c5c522fd0af07}{CRC\_DEGREE\_64}}\ =\ 64\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00037\ \}\ \mbox{\hyperlink{crc_8h_a6101862234971a20f6ea322793d0e81f}{crc\_degree\_t}};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__crc__par__t}{\_crc\_par\_t}}}
+\DoxyCodeLine{00040\ \{}
+\DoxyCodeLine{00041\ \ \ \mbox{\hyperlink{crc_8h_a6101862234971a20f6ea322793d0e81f}{crc\_degree\_t}}\ degree;}
+\DoxyCodeLine{00042\ \ \ \textcolor{keyword}{const}\ uint8\_t\ *\ pGenPoly;}
+\DoxyCodeLine{00043\ \ \ uint8\_t\ lenGenPoly;}
+\DoxyCodeLine{00044\ \}\ \mbox{\hyperlink{struct__crc__par__t}{crc\_par\_t}};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{comment}{/******************/}}
+\DoxyCodeLine{00049\ \textcolor{comment}{/***\ PARAMETERS\ ***/}}
+\DoxyCodeLine{00050\ \textcolor{comment}{/******************/}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ CRC\_DEGREE\ \ \ \ \ \ \ \ \ \ \ \ CRC\_DEGREE\_16\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{comment}{/*************************/}}
+\DoxyCodeLine{00057\ \textcolor{comment}{/***\ PUBLIC\ PROTOTYPES\ ***/}}
+\DoxyCodeLine{00058\ \textcolor{comment}{/*************************/}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\_t}}\ \mbox{\hyperlink{crc_8h_ae9c2527beb76e21bf308003d0aebec41}{Crc\_ListParameters}}(\ \mbox{\hyperlink{struct__crc__par__t}{crc\_par\_t}}\ *\ ioParams\ );}
+\DoxyCodeLine{00061\ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\_t}}\ \mbox{\hyperlink{crc_8h_a241be4cb5484b5e5d27c6a54f8064b52}{Crc\_CalculateChecksum}}(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__byte__stream__t}{byte\_stream\_t}}\ *\ inStream,\ \mbox{\hyperlink{struct__byte__stream__t}{byte\_stream\_t}}\ *\ outStream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__crc__par__t}{crc\_par\_t}}\ *\ pParams\ );}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

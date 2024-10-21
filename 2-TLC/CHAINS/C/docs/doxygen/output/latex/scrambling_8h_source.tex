@@ -1,0 +1,78 @@
+\doxysection{scrambling.\+h}
+\hypertarget{scrambling_8h_source}{}\label{scrambling_8h_source}\index{src/scrambling.h@{src/scrambling.h}}
+\mbox{\hyperlink{scrambling_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifndef\ SCRAMBLING\_H}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ SCRAMBLING\_H}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00017\ \textcolor{comment}{/***\ INCLUDES\ ***/}}
+\DoxyCodeLine{00018\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{error_8h}{error.h}}"{}}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}memory.h"{}}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{system_8h}{system.h}}"{}}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00027\ \textcolor{comment}{/***\ TYPEDEFS\ ***/}}
+\DoxyCodeLine{00028\ \textcolor{comment}{/****************/}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00031\ \{}
+\DoxyCodeLine{00032\ \ \ SCRAMB\_ADT\ =\ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \mbox{\hyperlink{scrambling_8h_a3683d4c71362335346d28d0c01570064ac51e8c7c21b02c071ee07d4170dea1e6}{SCRAMB\_MLT}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \textcolor{comment}{//\ keep\ NUM\ as\ final\ entry}}
+\DoxyCodeLine{00035\ \ \ \mbox{\hyperlink{scrambling_8h_a3683d4c71362335346d28d0c01570064a920f51984f636fe62a169258e65e194c}{SCRAMB\_NUM}}}
+\DoxyCodeLine{00036\ \}\ \mbox{\hyperlink{scrambling_8h_a3683d4c71362335346d28d0c01570064}{scramb\_type\_t}};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__scr__par__t}{\_scr\_par\_t}}}
+\DoxyCodeLine{00040\ \{}
+\DoxyCodeLine{00041\ \ \ \mbox{\hyperlink{scrambling_8h_a3683d4c71362335346d28d0c01570064}{scramb\_type\_t}}\ type;}
+\DoxyCodeLine{00042\ \ \ uint8\_t\ nCells;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00043\ \ \ uint32\_t\ \mbox{\hyperlink{struct__scr__par__t_a8d48153076dc2c4cae2ede7a2f48651b}{conVect}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00044\ \ \ uint32\_t\ \mbox{\hyperlink{struct__scr__par__t_a6d01c3566070bc9aff665aef7b531986}{initSt}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00045\ \}\ \mbox{\hyperlink{struct__scr__par__t}{scr\_par\_t}};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{comment}{/******************/}}
+\DoxyCodeLine{00050\ \textcolor{comment}{/***\ PARAMETERS\ ***/}}
+\DoxyCodeLine{00051\ \textcolor{comment}{/******************/}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ SCRAMB\_TYPE\ \ \ \ \ \ \ \ \ SCRAMB\_ADT}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ NCELLS\_ADT\ \ \ \ \ \ \ \ \ \ 15u\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ CONVECT\_ADT\ \ \ \ \ \ \ \ \ 0x00060000\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ INITST\_ADT\ \ \ \ \ \ \ \ \ \ 0x95000000\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ NCELLS\_MLT\ \ \ \ \ \ \ \ \ \ 17u\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ CONVECT\_MLT\ \ \ \ \ \ \ \ \ 0x00108000\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ INITST\_MLT\ \ \ \ \ \ \ \ \ \ 0x2C350000\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{comment}{/*****************/}}
+\DoxyCodeLine{00066\ \textcolor{comment}{/***\ CONSTANTS\ ***/}}
+\DoxyCodeLine{00067\ \textcolor{comment}{/*****************/}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ SCR\_TYPE\_STR(x)\ \ \ ((x\ ==\ SCRAMB\_ADT)\ ?\ "{}Additive"{}\ :\ \(\backslash\)}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (x\ ==\ SCRAMB\_MLT)\ ?\ "{}Multiplicative"{}\ :\ \(\backslash\)}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}N/A"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{comment}{/******************/}}
+\DoxyCodeLine{00074\ \textcolor{comment}{/***\ PROTOTYPES\ ***/}}
+\DoxyCodeLine{00075\ \textcolor{comment}{/******************/}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\_t}}\ \mbox{\hyperlink{scrambling_8h_a5594d2ee5a447686489f6efd90be38a5}{Scramb\_ListParameters}}(\ \mbox{\hyperlink{struct__scr__par__t}{scr\_par\_t}}\ *\ ioParams\ );}
+\DoxyCodeLine{00078\ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\_t}}\ \mbox{\hyperlink{scrambling_8h_a93bfa682d9021608a196025d16523334}{Scramb\_Scrambler}}(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__byte__stream__t}{byte\_stream\_t}}\ *\ inStream,\ \mbox{\hyperlink{struct__byte__stream__t}{byte\_stream\_t}}\ *\ outStream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__scr__par__t}{scr\_par\_t}}\ *\ pParams\ );}
+\DoxyCodeLine{00079\ \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\_t}}\ \mbox{\hyperlink{scrambling_8h_a132e3baebcf4824ebed7eaf304239691}{Scramb\_Descrambler}}(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__byte__stream__t}{byte\_stream\_t}}\ *\ inStream,\ \mbox{\hyperlink{struct__byte__stream__t}{byte\_stream\_t}}\ *\ outStream,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct__scr__par__t}{scr\_par\_t}}\ *\ pParams\ );}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

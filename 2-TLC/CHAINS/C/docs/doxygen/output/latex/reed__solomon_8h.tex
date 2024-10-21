@@ -1,51 +1,51 @@
-\hypertarget{reed__solomon_8h}{}\doxysection{src/reed\+\_\+solomon.h File Reference}
-\label{reed__solomon_8h}\index{src/reed\_solomon.h@{src/reed\_solomon.h}}
+\doxysection{src/reed\+\_\+solomon.h File Reference}
+\hypertarget{reed__solomon_8h}{}\label{reed__solomon_8h}\index{src/reed\_solomon.h@{src/reed\_solomon.h}}
 
 
 Reed-\/\+Solomon library header.  
 
 
-{\ttfamily \#include \char`\"{}error.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}memory.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}system.\+h\char`\"{}}\newline
-\doxysubsection*{Data Structures}
+{\ttfamily \#include "{}error.\+h"{}}\newline
+{\ttfamily \#include "{}memory.\+h"{}}\newline
+{\ttfamily \#include "{}system.\+h"{}}\newline
+\doxysubsubsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{struct__rs__par__t}{\+\_\+rs\+\_\+par\+\_\+t}}
 \end{DoxyCompactItemize}
-\doxysubsection*{Macros}
+\doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{reed__solomon_8h_a07f2d43f7b78f970672b81b20a552645}\label{reed__solomon_8h_a07f2d43f7b78f970672b81b20a552645}} 
-\#define \mbox{\hyperlink{reed__solomon_8h_a07f2d43f7b78f970672b81b20a552645}{GF\+\_\+\+DEGREE}}~\mbox{\hyperlink{reed__solomon_8h_a4e768562ae0f0da6d9705ffad235a3a6a9a8334c9c8b675860f4b006c7a06b547}{RS\+\_\+\+GF\+\_\+\+DEGREE\+\_\+8}}
+\Hypertarget{reed__solomon_8h_a07f2d43f7b78f970672b81b20a552645}\label{reed__solomon_8h_a07f2d43f7b78f970672b81b20a552645} 
+\#define {\bfseries GF\+\_\+\+DEGREE}~\mbox{\hyperlink{reed__solomon_8h_a4e768562ae0f0da6d9705ffad235a3a6a9a8334c9c8b675860f4b006c7a06b547}{RS\+\_\+\+GF\+\_\+\+DEGREE\+\_\+8}}
 \begin{DoxyCompactList}\small\item\em extended Galois field degree \mbox{[}b/\+Sy\mbox{]} \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{reed__solomon_8h_aeca90e1c1c62b70670514ffc18c9dfd4}\label{reed__solomon_8h_aeca90e1c1c62b70670514ffc18c9dfd4}} 
-\#define \mbox{\hyperlink{reed__solomon_8h_aeca90e1c1c62b70670514ffc18c9dfd4}{MESSAGE\+\_\+\+SIZE}}~188u
+\Hypertarget{reed__solomon_8h_aeca90e1c1c62b70670514ffc18c9dfd4}\label{reed__solomon_8h_aeca90e1c1c62b70670514ffc18c9dfd4} 
+\#define {\bfseries MESSAGE\+\_\+\+SIZE}~188u
 \begin{DoxyCompactList}\small\item\em message length \mbox{[}Sy\mbox{]} \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{reed__solomon_8h_a49419cff0869dbe4725bc86b04d93d91}\label{reed__solomon_8h_a49419cff0869dbe4725bc86b04d93d91}} 
-\#define \mbox{\hyperlink{reed__solomon_8h_a49419cff0869dbe4725bc86b04d93d91}{CODEWORD\+\_\+\+SIZE}}~204u
+\Hypertarget{reed__solomon_8h_a49419cff0869dbe4725bc86b04d93d91}\label{reed__solomon_8h_a49419cff0869dbe4725bc86b04d93d91} 
+\#define {\bfseries CODEWORD\+\_\+\+SIZE}~204u
 \begin{DoxyCompactList}\small\item\em codeword length \mbox{[}Sy\mbox{]} \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Typedefs}
+\doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{reed__solomon_8h_a78796b89173c7d02d081dc073122bb37}\label{reed__solomon_8h_a78796b89173c7d02d081dc073122bb37}} 
+\Hypertarget{reed__solomon_8h_a78796b89173c7d02d081dc073122bb37}\label{reed__solomon_8h_a78796b89173c7d02d081dc073122bb37} 
 typedef struct \mbox{\hyperlink{struct__rs__par__t}{\+\_\+rs\+\_\+par\+\_\+t}} {\bfseries rs\+\_\+par\+\_\+t}
 \end{DoxyCompactItemize}
-\doxysubsection*{Enumerations}
+\doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
 enum \mbox{\hyperlink{reed__solomon_8h_a4e768562ae0f0da6d9705ffad235a3a6}{rs\+\_\+gf\+\_\+degree\+\_\+t}} \{ {\bfseries RS\+\_\+\+GF\+\_\+\+DEGREE\+\_\+4} = 4
 , \mbox{\hyperlink{reed__solomon_8h_a4e768562ae0f0da6d9705ffad235a3a6a9a8334c9c8b675860f4b006c7a06b547}{RS\+\_\+\+GF\+\_\+\+DEGREE\+\_\+8}} = 8
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Functions}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8h_a578373b27d35cdf390538bf58e3d7a54}{Rs\+Cod\+\_\+\+List\+Parameters}} (\mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$io\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8h_a578373b27d35cdf390538bf58e3d7a54}{Rs\+Cod\+\_\+\+List\+Parameters}} (\mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}io\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for retrieving and listing Reed-\/\+Solomon coding parameters into dedicated structure. } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8h_a8d0400ebf3aceca73c08b1b1a8e67808}{Rc\+Cod\+\_\+\+Encoder}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$p\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8h_a8d0400ebf3aceca73c08b1b1a8e67808}{Rc\+Cod\+\_\+\+Encoder}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for Reed-\/\+Solomon encoding in systematic form. } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8h_a213eec64045f18379405efd4b2e19d3d}{Rc\+Cod\+\_\+\+Decoder}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$p\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8h_a213eec64045f18379405efd4b2e19d3d}{Rc\+Cod\+\_\+\+Decoder}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for Reed-\/\+Solomon decoding in systematic form. } \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -67,14 +67,14 @@ Digital communications -\/ Fundamentals and applications (Bernard Sklar, 2014)
 
 
 \doxysubsection{Enumeration Type Documentation}
-\mbox{\Hypertarget{reed__solomon_8h_a4e768562ae0f0da6d9705ffad235a3a6}\label{reed__solomon_8h_a4e768562ae0f0da6d9705ffad235a3a6}} 
-\index{reed\_solomon.h@{reed\_solomon.h}!rs\_gf\_degree\_t@{rs\_gf\_degree\_t}}
+\Hypertarget{reed__solomon_8h_a4e768562ae0f0da6d9705ffad235a3a6}\index{reed\_solomon.h@{reed\_solomon.h}!rs\_gf\_degree\_t@{rs\_gf\_degree\_t}}
 \index{rs\_gf\_degree\_t@{rs\_gf\_degree\_t}!reed\_solomon.h@{reed\_solomon.h}}
 \doxysubsubsection{\texorpdfstring{rs\_gf\_degree\_t}{rs\_gf\_degree\_t}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{reed__solomon_8h_a4e768562ae0f0da6d9705ffad235a3a6}{rs\+\_\+gf\+\_\+degree\+\_\+t}}}
+{\footnotesize\ttfamily \label{reed__solomon_8h_a4e768562ae0f0da6d9705ffad235a3a6} 
+enum \mbox{\hyperlink{reed__solomon_8h_a4e768562ae0f0da6d9705ffad235a3a6}{rs\+\_\+gf\+\_\+degree\+\_\+t}}}
 
-\begin{DoxyEnumFields}{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RS\_GF\_DEGREE\_8@{RS\_GF\_DEGREE\_8}!reed\_solomon.h@{reed\_solomon.h}}\index{reed\_solomon.h@{reed\_solomon.h}!RS\_GF\_DEGREE\_8@{RS\_GF\_DEGREE\_8}}}\mbox{\Hypertarget{reed__solomon_8h_a4e768562ae0f0da6d9705ffad235a3a6a9a8334c9c8b675860f4b006c7a06b547}\label{reed__solomon_8h_a4e768562ae0f0da6d9705ffad235a3a6a9a8334c9c8b675860f4b006c7a06b547}} 
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RS\_GF\_DEGREE\_8@{RS\_GF\_DEGREE\_8}!reed\_solomon.h@{reed\_solomon.h}}\index{reed\_solomon.h@{reed\_solomon.h}!RS\_GF\_DEGREE\_8@{RS\_GF\_DEGREE\_8}}}\Hypertarget{reed__solomon_8h_a4e768562ae0f0da6d9705ffad235a3a6a9a8334c9c8b675860f4b006c7a06b547}\label{reed__solomon_8h_a4e768562ae0f0da6d9705ffad235a3a6} 
 RS\+\_\+\+GF\+\_\+\+DEGREE\+\_\+8&
 \begin{DoxyItemize}
 \item 4-\/bit Galois filed ID 
@@ -85,11 +85,11 @@ RS\+\_\+\+GF\+\_\+\+DEGREE\+\_\+8&
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{reed__solomon_8h_a213eec64045f18379405efd4b2e19d3d}\label{reed__solomon_8h_a213eec64045f18379405efd4b2e19d3d}} 
-\index{reed\_solomon.h@{reed\_solomon.h}!RcCod\_Decoder@{RcCod\_Decoder}}
+\Hypertarget{reed__solomon_8h_a213eec64045f18379405efd4b2e19d3d}\index{reed\_solomon.h@{reed\_solomon.h}!RcCod\_Decoder@{RcCod\_Decoder}}
 \index{RcCod\_Decoder@{RcCod\_Decoder}!reed\_solomon.h@{reed\_solomon.h}}
 \doxysubsubsection{\texorpdfstring{RcCod\_Decoder()}{RcCod\_Decoder()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Rc\+Cod\+\_\+\+Decoder (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{reed__solomon_8h_a213eec64045f18379405efd4b2e19d3d} 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Rc\+Cod\+\_\+\+Decoder (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})}
 
 
 
@@ -112,20 +112,56 @@ error ID
 
 \begin{DoxyItemize}
 \item mapping table between symbols and basis
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item bits-\/to-\/symbol conversion
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item estimate syndrome polynomial
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item check if any error has been detected on current symbol
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item estimate Sigma(x) polynomial
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item estimate error locator polynomial
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item estimate Omega(x) polynomial
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item estimate error magnitude polynomial
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item correct the corrupted symbol stream
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item symbol-\/to-\/bits conversion
-\end{DoxyItemize}\mbox{\Hypertarget{reed__solomon_8h_a8d0400ebf3aceca73c08b1b1a8e67808}\label{reed__solomon_8h_a8d0400ebf3aceca73c08b1b1a8e67808}} 
-\index{reed\_solomon.h@{reed\_solomon.h}!RcCod\_Encoder@{RcCod\_Encoder}}
+\end{DoxyItemize}\Hypertarget{reed__solomon_8h_a8d0400ebf3aceca73c08b1b1a8e67808}\index{reed\_solomon.h@{reed\_solomon.h}!RcCod\_Encoder@{RcCod\_Encoder}}
 \index{RcCod\_Encoder@{RcCod\_Encoder}!reed\_solomon.h@{reed\_solomon.h}}
 \doxysubsubsection{\texorpdfstring{RcCod\_Encoder()}{RcCod\_Encoder()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Rc\+Cod\+\_\+\+Encoder (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{reed__solomon_8h_a8d0400ebf3aceca73c08b1b1a8e67808} 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Rc\+Cod\+\_\+\+Encoder (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})}
 
 
 
@@ -148,17 +184,41 @@ error ID
 
 \begin{DoxyItemize}
 \item mapping table between symbols and basis
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item bits-\/to-\/symbol conversion
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item upshift message polynomial by 2t positions
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item initialize maximum degree of temporary polynomial
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item quotient coefficient at current iteration
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item write redundancy bits into output stream after symbol-\/to-\/bits conversion
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
 \item copy current message bits into output stream
-\end{DoxyItemize}\mbox{\Hypertarget{reed__solomon_8h_a578373b27d35cdf390538bf58e3d7a54}\label{reed__solomon_8h_a578373b27d35cdf390538bf58e3d7a54}} 
-\index{reed\_solomon.h@{reed\_solomon.h}!RsCod\_ListParameters@{RsCod\_ListParameters}}
+\end{DoxyItemize}\Hypertarget{reed__solomon_8h_a578373b27d35cdf390538bf58e3d7a54}\index{reed\_solomon.h@{reed\_solomon.h}!RsCod\_ListParameters@{RsCod\_ListParameters}}
 \index{RsCod\_ListParameters@{RsCod\_ListParameters}!reed\_solomon.h@{reed\_solomon.h}}
 \doxysubsubsection{\texorpdfstring{RsCod\_ListParameters()}{RsCod\_ListParameters()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Rs\+Cod\+\_\+\+List\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$}]{io\+Params }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{reed__solomon_8h_a578373b27d35cdf390538bf58e3d7a54} 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Rs\+Cod\+\_\+\+List\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{io\+Params}{}\end{DoxyParamCaption})}
 
 
 

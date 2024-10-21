@@ -1,94 +1,118 @@
 
-###################
-##### GENERAL #####
-###################
+##############
+### COMMON ###
+##############
 
-# retrieve build type invoked via shell as Make command argument
-TMP_NAM = $(MAKECMDGOALS)
-
-
-
-##################
-##### COMMON #####
-##################
+# Relative path to source folder
+SRC_FOLDER = src
 
 # Relative path to main build folder
-BLD_FPT = build
+BLD_PATH = build
 
-# Relative path to target/utest build folder
-BLD_FLD = $(addprefix $(BLD_FPT)\,$(TMP_NAM))
-
-# Compiler flags
-# -Werror >> to consider each warning as an error
-# -D >> to set a macro for all project files (e.g "-D DEBUG_TERMINAL")
-# -g >> to enable GDB debugging
-CMP_FLG = -Wall -g -O0
+# Relative path to specific build folder
+BLD_FOLDER = $(addprefix $(BLD_PATH)\,$(ARG_NAME))
 
 # Compiler version
-CMP_VRS = gcc
+CMP_VERS = gcc
 
 # Common source files used by both build types
-
-COM_FIL	= channel.c      	 	\
-          convolutional.c   \
-          crc.c             \
-          debug.c           \
-          error.c           \
-          interleaving.c    \
-          memory.c          \
-          modulation.c      \
-          reed_solomon.c    \
-          scrambling.c
-
+COM_FILES	= channel.c      	 	\
+          	convolutional.c   \
+          	crc.c             \
+          	debug.c           \
+          	error.c           \
+          	interleaving.c    \
+          	memory.c          \
+          	modulation.c      \
+          	reed_solomon.c    \
+          	scrambling.c
 
 
-##################
-##### TARGET #####
-##################
 
-# target build name
-TRG_NAM = target
+##############
+### TARGET ###
+##############
 
-# relative path to source folder
-TRG_SFD = src
+# Target-build name
+TRG_NAME = target
 
-# target build linker flags
-LNK_FLG = -lm -Xlinker -Map=$(BLD_FLD)\lis\$(TRG_NAM).map
+# Target files list (.c only)
+TRG_FIL = main.c          \
+          $(COM_FILES)
 
-# target build conversion tool
+# Compiler flags
+TRG_CMP_FLG = -Wall -g -O0
+
+# Linker flags
+TRG_LNK_FLG = -lm -Xlinker -Map=$(BLD_FOLDER)\lis\$(TRG_NAME).map
+
+# Conversion tool
 CNV_TOL = objcopy
 
-# target build conversion formats/extensions
-CNV_EXT = srec
+# Conversion formats/extensions
+CNV_EXT = srec 	          \
+					ihex	          \
+					elf32-little
 
-# target build info tool
+# Info tool
 INF_TOL = objdump
 
-# source files list for target-build (.c only)
-SRC_FIL = main.c            	\
-          $(COM_FIL)
 
 
+#############
+### UTEST ###
+#############
 
-################
-##### TEST #####
-################
+# Unit-test build name
+UTS_NAME = utest
 
-# test build name
-TST_NAM = utest
 
-# relative path to test folder
-TST_SFD = test
-
-# test build linker flags
-TST_LKF = -lm
 
 # source files list for utest-build (.c only)
-TST_FIL = test_extra.c           	\
-          test_convolutional.c    \
-          test_modulation.c       \
-          umain.c                 \
-          $(COM_FIL)
+#TST_FIL = \
+#					utest_extra.c         	\
+#          utest_convolutional.c   \
+#          utest_modulation.c      \
+#          utest_main.c            \
+#          $(COM_FILES)
 
-# unity files list
-UNT_FIL =  unity.c
+UTS_FILES = utest_main.c          \
+            utest_modulation.c    \
+            $(COM_FILES)
+
+# Unity files list
+UNY_FILES = unity.c
+
+# Compiler flags
+UTS_CMP_FLG = -Wall -g -O0 -D UTEST
+
+# Linker flags
+UTS_LNK_FLG = -lm
+
+
+
+#############
+### NOTES ###
+#############
+
+# 1. Legend:
+#   § BLD = build
+#   § CMP = compiler
+#   § COM = common
+#   § FLG = flag
+#   § LNK = linker
+#   § SRC = source
+#   § TRG = target
+#   § UTS = unit-test
+
+# 2. Compiler flags:
+#   § -Werror >> to consider each warning as an error
+#   § -D >> to set a macro for all project files (e.g "-D DEBUG_TERMINAL")
+#   § -g >> to enable GDB debugging
+#   § --verbose >> to display extra info while compiling
+
+# 3. Linker flags:
+#   § -nostartfiles >> to skip lnking startup code
+#   § -nostdlib >> not to  use the standard system libraries
+#   § -T xyz.ld >> to use custom linker script
+#   § --verbose >> to display extra info while linking

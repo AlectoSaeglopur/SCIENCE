@@ -1,31 +1,31 @@
-\hypertarget{crc_8h}{}\doxysection{src/crc.h File Reference}
-\label{crc_8h}\index{src/crc.h@{src/crc.h}}
+\doxysection{src/crc.h File Reference}
+\hypertarget{crc_8h}{}\label{crc_8h}\index{src/crc.h@{src/crc.h}}
 
 
 CRC library header.  
 
 
-{\ttfamily \#include \char`\"{}error.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}memory.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}system.\+h\char`\"{}}\newline
-\doxysubsection*{Data Structures}
+{\ttfamily \#include "{}error.\+h"{}}\newline
+{\ttfamily \#include "{}memory.\+h"{}}\newline
+{\ttfamily \#include "{}system.\+h"{}}\newline
+\doxysubsubsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{struct__crc__par__t}{\+\_\+crc\+\_\+par\+\_\+t}}
 \end{DoxyCompactItemize}
-\doxysubsection*{Macros}
+\doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{crc_8h_af4276510cedd81f5df4887aa841fbf6e}\label{crc_8h_af4276510cedd81f5df4887aa841fbf6e}} 
-\#define \mbox{\hyperlink{crc_8h_af4276510cedd81f5df4887aa841fbf6e}{CRC\+\_\+\+DEGREE}}~\mbox{\hyperlink{crc_8h_a6101862234971a20f6ea322793d0e81fa948aabaa84cc1f8672b8cf7e4ed577df}{CRC\+\_\+\+DEGREE\+\_\+16}}
+\Hypertarget{crc_8h_af4276510cedd81f5df4887aa841fbf6e}\label{crc_8h_af4276510cedd81f5df4887aa841fbf6e} 
+\#define {\bfseries CRC\+\_\+\+DEGREE}~\mbox{\hyperlink{crc_8h_a6101862234971a20f6ea322793d0e81fa948aabaa84cc1f8672b8cf7e4ed577df}{CRC\+\_\+\+DEGREE\+\_\+16}}
 \begin{DoxyCompactList}\small\item\em CRC degree \mbox{[}b\mbox{]}. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Typedefs}
+\doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{crc_8h_ad178c3903f441b07c204cbac6461c10c}\label{crc_8h_ad178c3903f441b07c204cbac6461c10c}} 
+\Hypertarget{crc_8h_ad178c3903f441b07c204cbac6461c10c}\label{crc_8h_ad178c3903f441b07c204cbac6461c10c} 
 typedef struct \mbox{\hyperlink{struct__crc__par__t}{\+\_\+crc\+\_\+par\+\_\+t}} {\bfseries crc\+\_\+par\+\_\+t}
 \end{DoxyCompactItemize}
-\doxysubsection*{Enumerations}
+\doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
 enum \mbox{\hyperlink{crc_8h_a6101862234971a20f6ea322793d0e81f}{crc\+\_\+degree\+\_\+t}} \{ \newline
@@ -37,12 +37,12 @@ enum \mbox{\hyperlink{crc_8h_a6101862234971a20f6ea322793d0e81f}{crc\+\_\+degree\
 \mbox{\hyperlink{crc_8h_a6101862234971a20f6ea322793d0e81fa4ffb0292a6735033741c5c522fd0af07}{CRC\+\_\+\+DEGREE\+\_\+64}} = 64
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Functions}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{crc_8h_ae9c2527beb76e21bf308003d0aebec41}{Crc\+\_\+\+List\+Parameters}} (\mbox{\hyperlink{struct__crc__par__t}{crc\+\_\+par\+\_\+t}} $\ast$io\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{crc_8h_ae9c2527beb76e21bf308003d0aebec41}{Crc\+\_\+\+List\+Parameters}} (\mbox{\hyperlink{struct__crc__par__t}{crc\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}io\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for retrieving and listing scrambling parameters into dedicated structure. } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{crc_8h_a241be4cb5484b5e5d27c6a54f8064b52}{Crc\+\_\+\+Calculate\+Checksum}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__crc__par__t}{crc\+\_\+par\+\_\+t}} $\ast$p\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{crc_8h_a241be4cb5484b5e5d27c6a54f8064b52}{Crc\+\_\+\+Calculate\+Checksum}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__crc__par__t}{crc\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for calculating CRC. } \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -64,35 +64,35 @@ Digital communications -\/ Fundamentals and applications (Bernard Sklar, 2014)
 
 
 \doxysubsection{Enumeration Type Documentation}
-\mbox{\Hypertarget{crc_8h_a6101862234971a20f6ea322793d0e81f}\label{crc_8h_a6101862234971a20f6ea322793d0e81f}} 
-\index{crc.h@{crc.h}!crc\_degree\_t@{crc\_degree\_t}}
+\Hypertarget{crc_8h_a6101862234971a20f6ea322793d0e81f}\index{crc.h@{crc.h}!crc\_degree\_t@{crc\_degree\_t}}
 \index{crc\_degree\_t@{crc\_degree\_t}!crc.h@{crc.h}}
 \doxysubsubsection{\texorpdfstring{crc\_degree\_t}{crc\_degree\_t}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{crc_8h_a6101862234971a20f6ea322793d0e81f}{crc\+\_\+degree\+\_\+t}}}
+{\footnotesize\ttfamily \label{crc_8h_a6101862234971a20f6ea322793d0e81f} 
+enum \mbox{\hyperlink{crc_8h_a6101862234971a20f6ea322793d0e81f}{crc\+\_\+degree\+\_\+t}}}
 
-\begin{DoxyEnumFields}{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{CRC\_DEGREE\_16@{CRC\_DEGREE\_16}!crc.h@{crc.h}}\index{crc.h@{crc.h}!CRC\_DEGREE\_16@{CRC\_DEGREE\_16}}}\mbox{\Hypertarget{crc_8h_a6101862234971a20f6ea322793d0e81fa948aabaa84cc1f8672b8cf7e4ed577df}\label{crc_8h_a6101862234971a20f6ea322793d0e81fa948aabaa84cc1f8672b8cf7e4ed577df}} 
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CRC\_DEGREE\_16@{CRC\_DEGREE\_16}!crc.h@{crc.h}}\index{crc.h@{crc.h}!CRC\_DEGREE\_16@{CRC\_DEGREE\_16}}}\Hypertarget{crc_8h_a6101862234971a20f6ea322793d0e81fa948aabaa84cc1f8672b8cf7e4ed577df}\label{crc_8h_a6101862234971a20f6ea322793d0e81f} 
 CRC\+\_\+\+DEGREE\+\_\+16&
 \begin{DoxyItemize}
 \item 8-\/bit degree ID 
 \end{DoxyItemize}\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{CRC\_DEGREE\_24@{CRC\_DEGREE\_24}!crc.h@{crc.h}}\index{crc.h@{crc.h}!CRC\_DEGREE\_24@{CRC\_DEGREE\_24}}}\mbox{\Hypertarget{crc_8h_a6101862234971a20f6ea322793d0e81fad82c48395597caa4c6d6801c5303f723}\label{crc_8h_a6101862234971a20f6ea322793d0e81fad82c48395597caa4c6d6801c5303f723}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CRC\_DEGREE\_24@{CRC\_DEGREE\_24}!crc.h@{crc.h}}\index{crc.h@{crc.h}!CRC\_DEGREE\_24@{CRC\_DEGREE\_24}}}\Hypertarget{crc_8h_a6101862234971a20f6ea322793d0e81fad82c48395597caa4c6d6801c5303f723}\label{crc_8h_a6101862234971a20f6ea322793d0e81f} 
 CRC\+\_\+\+DEGREE\+\_\+24&
 \begin{DoxyItemize}
 \item 16-\/bit degree ID 
 \end{DoxyItemize}\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{CRC\_DEGREE\_32@{CRC\_DEGREE\_32}!crc.h@{crc.h}}\index{crc.h@{crc.h}!CRC\_DEGREE\_32@{CRC\_DEGREE\_32}}}\mbox{\Hypertarget{crc_8h_a6101862234971a20f6ea322793d0e81fa9445290f6e06f33f45b5cb8f35123a41}\label{crc_8h_a6101862234971a20f6ea322793d0e81fa9445290f6e06f33f45b5cb8f35123a41}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CRC\_DEGREE\_32@{CRC\_DEGREE\_32}!crc.h@{crc.h}}\index{crc.h@{crc.h}!CRC\_DEGREE\_32@{CRC\_DEGREE\_32}}}\Hypertarget{crc_8h_a6101862234971a20f6ea322793d0e81fa9445290f6e06f33f45b5cb8f35123a41}\label{crc_8h_a6101862234971a20f6ea322793d0e81f} 
 CRC\+\_\+\+DEGREE\+\_\+32&
 \begin{DoxyItemize}
 \item 24-\/bit degree ID 
 \end{DoxyItemize}\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{CRC\_DEGREE\_64@{CRC\_DEGREE\_64}!crc.h@{crc.h}}\index{crc.h@{crc.h}!CRC\_DEGREE\_64@{CRC\_DEGREE\_64}}}\mbox{\Hypertarget{crc_8h_a6101862234971a20f6ea322793d0e81fa4ffb0292a6735033741c5c522fd0af07}\label{crc_8h_a6101862234971a20f6ea322793d0e81fa4ffb0292a6735033741c5c522fd0af07}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CRC\_DEGREE\_64@{CRC\_DEGREE\_64}!crc.h@{crc.h}}\index{crc.h@{crc.h}!CRC\_DEGREE\_64@{CRC\_DEGREE\_64}}}\Hypertarget{crc_8h_a6101862234971a20f6ea322793d0e81fa4ffb0292a6735033741c5c522fd0af07}\label{crc_8h_a6101862234971a20f6ea322793d0e81f} 
 CRC\+\_\+\+DEGREE\+\_\+64&
 \begin{DoxyItemize}
 \item 32-\/bit degree ID 
@@ -103,11 +103,11 @@ CRC\+\_\+\+DEGREE\+\_\+64&
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{crc_8h_a241be4cb5484b5e5d27c6a54f8064b52}\label{crc_8h_a241be4cb5484b5e5d27c6a54f8064b52}} 
-\index{crc.h@{crc.h}!Crc\_CalculateChecksum@{Crc\_CalculateChecksum}}
+\Hypertarget{crc_8h_a241be4cb5484b5e5d27c6a54f8064b52}\index{crc.h@{crc.h}!Crc\_CalculateChecksum@{Crc\_CalculateChecksum}}
 \index{Crc\_CalculateChecksum@{Crc\_CalculateChecksum}!crc.h@{crc.h}}
 \doxysubsubsection{\texorpdfstring{Crc\_CalculateChecksum()}{Crc\_CalculateChecksum()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Crc\+\_\+\+Calculate\+Checksum (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__crc__par__t}{crc\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{crc_8h_a241be4cb5484b5e5d27c6a54f8064b52} 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Crc\+\_\+\+Calculate\+Checksum (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__crc__par__t}{crc\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})}
 
 
 
@@ -149,11 +149,11 @@ search for the maximum degree of tmp\+Poly(x) at current iteration
 
 estimate the quotient degree at current iteration
 
-copy computed crc bytes into output stream\mbox{\Hypertarget{crc_8h_ae9c2527beb76e21bf308003d0aebec41}\label{crc_8h_ae9c2527beb76e21bf308003d0aebec41}} 
-\index{crc.h@{crc.h}!Crc\_ListParameters@{Crc\_ListParameters}}
+copy computed crc bytes into output stream\Hypertarget{crc_8h_ae9c2527beb76e21bf308003d0aebec41}\index{crc.h@{crc.h}!Crc\_ListParameters@{Crc\_ListParameters}}
 \index{Crc\_ListParameters@{Crc\_ListParameters}!crc.h@{crc.h}}
 \doxysubsubsection{\texorpdfstring{Crc\_ListParameters()}{Crc\_ListParameters()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Crc\+\_\+\+List\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__crc__par__t}{crc\+\_\+par\+\_\+t}} $\ast$}]{io\+Params }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{crc_8h_ae9c2527beb76e21bf308003d0aebec41} 
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Crc\+\_\+\+List\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__crc__par__t}{crc\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{io\+Params}{}\end{DoxyParamCaption})}
 
 
 

@@ -1,4 +1,5 @@
 >> Cleaning "target" build directory...
+target
 if not exist build mkdir build
 if exist build\target rmdir build\target /s /q
 build\target\target.log - The process cannot access the file because it is being used by another process.
@@ -52,8 +53,8 @@ gcc build\target\obj\main.o build\target\obj\channel.o build\target\obj\convolut
 ------------------------------------------------
 >> "target"-build compiled and linked successfully!
 ------------------------------------------------
-Converting output to additional formats (.srec)...
-for %%j in (srec) do objcopy build\target\bin\target.exe -O %%j build\target\bin\target.%%j
+Converting output to additional formats (.srec .ihex .elf32-little)...
+for %%j in (srec ihex elf32-little) do objcopy build\target\bin\target.exe -O %%j build\target\bin\target.%%j
 ------------------------------------------------
 >> "target"-build converted successfully!
 ------------------------------------------------
@@ -77,15 +78,15 @@ build\target\bin\target.exe
     * Modulation : 4-PSK
     * Channel : AWGN | EbN0 = 1.6
 
- * Errors at convolutional encoding level: 292 out of 6528 bits (MD = 1)
+ * Errors at convolutional encoding level: 276 out of 6528 bits (MD = 1)
 
- * Errors at reed-solomon encoding level: 0 out of 3264 bits (MD = 0)
+ * Errors at reed-solomon encoding level: 5 out of 3264 bits (MD = 1)
 
  * Errors at source level: 0 out of 3008 bits (MD = 0)
 
  * CRC check: PASSED
 
- >> Execution completed successfully in 0.612 seconds!
+ >> Execution completed successfully in 0.602 seconds!
 
 ------------------------------------------------
 >> "target"-build executed successfully!
