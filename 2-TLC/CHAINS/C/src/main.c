@@ -1,4 +1,3 @@
-
 /**
  * @file main.c
  * @author Filippo Valmori
@@ -6,6 +5,7 @@
  * @copyright Electrolux S.p.A.
  * @see Digital communications - Fundamentals and applications (Bernard Sklar, 2014)
  * @ingroup TLC_CHAIN
+ * @addtogroup TLC_CHAIN
  * @brief Main file
  * 
  * File for running DVB-S simulation containing:
@@ -16,8 +16,6 @@
  * -# convolutional coding
  * -# phase modulation (mapper + srrc filtering)
  * -# channel corruption
- * 
- * @addtogroup TLC_CHAIN
  * 
  * Main library containing all DVB-S telecommunication chain functions.
  */
@@ -166,7 +164,7 @@ int main( void )
   Crc_CalculateChecksum(&rxOrgStream,&rxCrcStream,&crcParam);               /** - calculate rx crc */
 
   // 3. RESULTS
-#ifdef DEBUG_TERMINAL
+#ifdef VERBOSE
   Debug_PrintByteStream(&txOrgStream,PID_TX_ORG,&dgbParam);                 /** - print tx origin stream content */
   Debug_PrintByteStream(&txCrcStream,PID_TX_CRC,&dgbParam);                 /** - print tx crc stream content */
   Debug_PrintByteStream(&txScrStream,PID_TX_SCR,&dgbParam);                 /** - print tx scrambled stream content */

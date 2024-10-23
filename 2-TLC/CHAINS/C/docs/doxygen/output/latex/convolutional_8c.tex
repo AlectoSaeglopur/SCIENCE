@@ -1,49 +1,49 @@
-\doxysection{src/convolutional.c File Reference}
-\hypertarget{convolutional_8c}{}\label{convolutional_8c}\index{src/convolutional.c@{src/convolutional.c}}
+\hypertarget{convolutional_8c}{}\doxysection{src/convolutional.c File Reference}
+\label{convolutional_8c}\index{src/convolutional.c@{src/convolutional.c}}
 
 
 Convolutional coding library.  
 
 
-{\ttfamily \#include "{}convolutional.\+h"{}}\newline
-{\ttfamily \#include "{}debug.\+h"{}}\newline
-\doxysubsubsection*{Functions}
+{\ttfamily \#include \char`\"{}convolutional.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}debug.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 static bool \mbox{\hyperlink{convolutional_8c_a9374d8ee9c9c5240b4ec6cc779531d45}{Is\+Rate\+Valid}} (cc\+\_\+rate\+\_\+t rate\+Val)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for checking the correctness of code rate parameter. } \end{DoxyCompactList}\item 
 static bool \mbox{\hyperlink{convolutional_8c_a244e92f812f183a7d5deecd809b7fbf6}{Is\+Klen\+Valid}} (\mbox{\hyperlink{convolutional_8h_a38de18fffd75ccef7581a78855684da3}{cc\+\_\+klen\+\_\+t}} k\+Val)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for checking the correctness of the constraint length parameter. } \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{convolutional_8c_a7c17cb69374a806e90867e6ddcaec177}{Retrieve\+Connector\+Puncturation\+Vectors}} (\mbox{\hyperlink{struct__cc__encoder__info__t}{cc\+\_\+encoder\+\_\+info\+\_\+t}} \texorpdfstring{$\ast$}{*}io\+Info, const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{convolutional_8c_a7c17cb69374a806e90867e6ddcaec177}{Retrieve\+Connector\+Puncturation\+Vectors}} (\mbox{\hyperlink{struct__cc__encoder__info__t}{cc\+\_\+encoder\+\_\+info\+\_\+t}} $\ast$io\+Info, const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for retrieving connection and puncturation vectors as a function of the selected parameters. } \end{DoxyCompactList}\item 
 static uint8\+\_\+t \mbox{\hyperlink{convolutional_8c_a73d90e148003d365ca8469f3b09d09d1}{Compute\+Enc\+Bit}} (uint8\+\_\+t c\+State, uint8\+\_\+t cv\+Val, \mbox{\hyperlink{convolutional_8h_a38de18fffd75ccef7581a78855684da3}{cc\+\_\+klen\+\_\+t}} k\+Len)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for computing the next encoded bit. } \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{convolutional_8c_ac851af31b2c0d29b799086a51e068236}{Compute\+Trellis\+Diagram}} (\mbox{\hyperlink{struct__cc__trellis__t}{cc\+\_\+trellis\+\_\+t}} \texorpdfstring{$\ast$}{*}io\+Trellis\+Diagr, const \mbox{\hyperlink{struct__cc__encoder__info__t}{cc\+\_\+encoder\+\_\+info\+\_\+t}} \texorpdfstring{$\ast$}{*}enc\+Info, const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{convolutional_8c_ac851af31b2c0d29b799086a51e068236}{Compute\+Trellis\+Diagram}} (\mbox{\hyperlink{struct__cc__trellis__t}{cc\+\_\+trellis\+\_\+t}} $\ast$io\+Trellis\+Diagr, const \mbox{\hyperlink{struct__cc__encoder__info__t}{cc\+\_\+encoder\+\_\+info\+\_\+t}} $\ast$enc\+Info, const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for retrieving depunctured trellis diagram information. } \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{convolutional_8c_af311f97e88fcb545febb11ef7c14aa98}{Hard\+Depuncturer}} (\mbox{\hyperlink{system_8h_aed38f5b9e6bad674ac6ab6b0c40aa013}{byte\+\_\+t}} \texorpdfstring{$\ast$}{*}io\+Buffer, \mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}} in\+Len\+Bi, \mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}} out\+Len\+Bi, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}punct\+Vect, const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{convolutional_8c_af311f97e88fcb545febb11ef7c14aa98}{Hard\+Depuncturer}} (\mbox{\hyperlink{system_8h_aed38f5b9e6bad674ac6ab6b0c40aa013}{byte\+\_\+t}} $\ast$io\+Buffer, \mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}} in\+Len\+Bi, \mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}} out\+Len\+Bi, const uint8\+\_\+t $\ast$punct\+Vect, const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function to hard-\/depuncture a byte stream to base code rate. } \end{DoxyCompactList}\item 
 static uint8\+\_\+t \mbox{\hyperlink{convolutional_8c_a38b2ab2cf4a5fc02574c1535b59f4984}{Count\+Byte\+Ones}} (\mbox{\hyperlink{system_8h_aed38f5b9e6bad674ac6ab6b0c40aa013}{byte\+\_\+t}} in\+Byte)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for counting the number of 1-\/bits within the input byte. } \end{DoxyCompactList}\item 
-static uint8\+\_\+t \mbox{\hyperlink{convolutional_8c_aea3905f1455b2cc1b74702248c142369}{Find\+Min\+Surv\+Path\+Hard}} (const \mbox{\hyperlink{struct__cc__hard__dec__info__t}{cc\+\_\+hard\+\_\+dec\+\_\+info\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Paths)
+static uint8\+\_\+t \mbox{\hyperlink{convolutional_8c_aea3905f1455b2cc1b74702248c142369}{Find\+Min\+Surv\+Path\+Hard}} (const \mbox{\hyperlink{struct__cc__hard__dec__info__t}{cc\+\_\+hard\+\_\+dec\+\_\+info\+\_\+t}} $\ast$in\+Paths)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function to find the hard survivor path with minimum distance. } \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{convolutional_8c_a48f928d75964bfabc0bc80c9c0db3d03}{Soft\+Depuncturer}} (float \texorpdfstring{$\ast$}{*}io\+Buffer, \mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}} in\+Len\+Bi, \mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}} out\+Len\+Bi, const \mbox{\hyperlink{struct__cc__encoder__info__t}{cc\+\_\+encoder\+\_\+info\+\_\+t}} \texorpdfstring{$\ast$}{*}enc\+Info, const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{convolutional_8c_a48f928d75964bfabc0bc80c9c0db3d03}{Soft\+Depuncturer}} (float $\ast$io\+Buffer, \mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}} in\+Len\+Bi, \mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}} out\+Len\+Bi, const \mbox{\hyperlink{struct__cc__encoder__info__t}{cc\+\_\+encoder\+\_\+info\+\_\+t}} $\ast$enc\+Info, const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function to soft-\/depuncture an LLR stream to base code rate. } \end{DoxyCompactList}\item 
-static float \mbox{\hyperlink{convolutional_8c_a3b5a4a4688dc11fe44bcc625cd77c822}{Estimate\+Euclidean\+Dist}} (const float \texorpdfstring{$\ast$}{*}in\+Buf, uint8\+\_\+t trl\+Byte, uint8\+\_\+t eras\+Mask)
+static float \mbox{\hyperlink{convolutional_8c_a3b5a4a4688dc11fe44bcc625cd77c822}{Estimate\+Euclidean\+Dist}} (const float $\ast$in\+Buf, uint8\+\_\+t trl\+Byte, uint8\+\_\+t eras\+Mask)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for calculating Euclidean distance between LLR values and specific trellis state. } \end{DoxyCompactList}\item 
-static uint8\+\_\+t \mbox{\hyperlink{convolutional_8c_ad9ba32043a7755b01f59f41fee1f413f}{Find\+Min\+Surv\+Path\+Soft}} (const \mbox{\hyperlink{struct__cc__soft__dec__info__t}{cc\+\_\+soft\+\_\+dec\+\_\+info\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Paths)
+static uint8\+\_\+t \mbox{\hyperlink{convolutional_8c_ad9ba32043a7755b01f59f41fee1f413f}{Find\+Min\+Surv\+Path\+Soft}} (const \mbox{\hyperlink{struct__cc__soft__dec__info__t}{cc\+\_\+soft\+\_\+dec\+\_\+info\+\_\+t}} $\ast$in\+Paths)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function to find the soft survivor path with minimum distance. } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{convolutional_8c_a51e49f4978711c5a90c574dfcf9ef61a}{Cnv\+Cod\+\_\+\+List\+Parameters}} (\mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}io\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{convolutional_8c_a51e49f4978711c5a90c574dfcf9ef61a}{Cnv\+Cod\+\_\+\+List\+Parameters}} (\mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} $\ast$io\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for retrieving and listing convolution coding parameters into dedicated structure. } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{convolutional_8c_aa5322d2883c5876e1130ab5e4fd4efee}{Cnv\+Cod\+\_\+\+Encoder}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{convolutional_8c_aa5322d2883c5876e1130ab5e4fd4efee}{Cnv\+Cod\+\_\+\+Encoder}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for convolutional encoding (including puncturing). } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{convolutional_8c_ab7f865b5b9d837622a73797e80321b2c}{Cnv\+Cod\+\_\+\+Hard\+Decoder}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{convolutional_8c_ab7f865b5b9d837622a73797e80321b2c}{Cnv\+Cod\+\_\+\+Hard\+Decoder}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for convolutional hard-\/decoding by implementing Viterbi algorithm (including depuncturing). } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{convolutional_8c_a5914d9324b050c73244da59a0134dc5e}{Cnv\+Cod\+\_\+\+Soft\+Decoder}} (const \mbox{\hyperlink{struct__float__stream__t}{float\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{convolutional_8c_a5914d9324b050c73244da59a0134dc5e}{Cnv\+Cod\+\_\+\+Soft\+Decoder}} (const \mbox{\hyperlink{struct__float__stream__t}{float\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for convolutional soft-\/decoding by implementing Viterbi algorithm (including depuncturing). } \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsubsection*{Variables}
+\doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-static const uint8\+\_\+t \mbox{\hyperlink{convolutional_8c_ae3f750e918383331d197349b221e3364}{CC\+\_\+\+CVMATRIX}} \mbox{[}$\,$\mbox{]}\mbox{[}CC\+\_\+\+NBRANCHES\mbox{]}
+static const uint8\+\_\+t {\bfseries CC\+\_\+\+CVMATRIX} \mbox{[}$\,$\mbox{]}\mbox{[}CC\+\_\+\+NBRANCHES\mbox{]}
 \item 
 static const uint8\+\_\+t \mbox{\hyperlink{convolutional_8c_af065e6878cf8c6dddb93bf253dfe74c9}{CC\+\_\+\+PUNC\+\_\+\+VECT\+\_\+23}} \mbox{[}$\,$\mbox{]} = \{1,1,0,1\}
 \item 
@@ -72,16 +72,14 @@ Electrolux S.\+p.\+A.
 \begin{DoxySeeAlso}{See also}
 Digital communications -\/ Fundamentals and applications (Bernard Sklar, 2014)
 \end{DoxySeeAlso}
-
-
 Library containing convolutional coding functions. 
 
 \doxysubsection{Function Documentation}
-\Hypertarget{convolutional_8c_aa5322d2883c5876e1130ab5e4fd4efee}\index{convolutional.c@{convolutional.c}!CnvCod\_Encoder@{CnvCod\_Encoder}}
+\mbox{\Hypertarget{convolutional_8c_aa5322d2883c5876e1130ab5e4fd4efee}\label{convolutional_8c_aa5322d2883c5876e1130ab5e4fd4efee}} 
+\index{convolutional.c@{convolutional.c}!CnvCod\_Encoder@{CnvCod\_Encoder}}
 \index{CnvCod\_Encoder@{CnvCod\_Encoder}!convolutional.c@{convolutional.c}}
 \doxysubsubsection{\texorpdfstring{CnvCod\_Encoder()}{CnvCod\_Encoder()}}
-{\footnotesize\ttfamily \label{convolutional_8c_aa5322d2883c5876e1130ab5e4fd4efee} 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Cnv\+Cod\+\_\+\+Encoder (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Cnv\+Cod\+\_\+\+Encoder (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
 
 
 
@@ -102,86 +100,26 @@ error ID
 
 \begin{DoxyItemize}
 \item unpunctured coded length \mbox{[}B\mbox{]}
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item unpunctured coded length \mbox{[}b\mbox{]}
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item input buffer length \mbox{[}b\mbox{]}
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item expected punctured coded length \mbox{[}b\mbox{]}
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item expected punctured coded length \mbox{[}b\mbox{]}
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item retrieve convolutional encoder info
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item update byte index for reading input buffer
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item update bit index for reading input buffer
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item update encoder state with latest input bit
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item update byte index for output stream writing
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item update bit index for output stream writing
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item apply puncturing if selected Rc is higher than 1/2
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item j-\/th bit of unpunctured output stream
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item check if puncturation has to applied now
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item check if computed and theoretical punctured length match
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item copy temporary buffer content to output one
-\end{DoxyItemize}\Hypertarget{convolutional_8c_ab7f865b5b9d837622a73797e80321b2c}\index{convolutional.c@{convolutional.c}!CnvCod\_HardDecoder@{CnvCod\_HardDecoder}}
+\end{DoxyItemize}\mbox{\Hypertarget{convolutional_8c_ab7f865b5b9d837622a73797e80321b2c}\label{convolutional_8c_ab7f865b5b9d837622a73797e80321b2c}} 
+\index{convolutional.c@{convolutional.c}!CnvCod\_HardDecoder@{CnvCod\_HardDecoder}}
 \index{CnvCod\_HardDecoder@{CnvCod\_HardDecoder}!convolutional.c@{convolutional.c}}
 \doxysubsubsection{\texorpdfstring{CnvCod\_HardDecoder()}{CnvCod\_HardDecoder()}}
-{\footnotesize\ttfamily \label{convolutional_8c_ab7f865b5b9d837622a73797e80321b2c} 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Cnv\+Cod\+\_\+\+Hard\+Decoder (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Cnv\+Cod\+\_\+\+Hard\+Decoder (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
 
 
 
@@ -202,35 +140,11 @@ error ID
 
 \begin{DoxyItemize}
 \item retrieve convolutional encoder info
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item compute convolutional decoder trellis diagram
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item enable only all-\/zero state at the beginning
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item check if depuncturing is needed
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item use no-\/erasure mask for no-\/puncturing case
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item current pair of input bits
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item retrieve erasure mask in case depuncturing has been applied
 \end{DoxyItemize}
 
@@ -270,16 +184,12 @@ set output bit to \textquotesingle{}1\textquotesingle{}
 
 \begin{DoxyItemize}
 \item if input bit stream is not over but memory is full, extract oldest info bit
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item keep all survivor paths
-\end{DoxyItemize}\Hypertarget{convolutional_8c_a51e49f4978711c5a90c574dfcf9ef61a}\index{convolutional.c@{convolutional.c}!CnvCod\_ListParameters@{CnvCod\_ListParameters}}
+\end{DoxyItemize}\mbox{\Hypertarget{convolutional_8c_a51e49f4978711c5a90c574dfcf9ef61a}\label{convolutional_8c_a51e49f4978711c5a90c574dfcf9ef61a}} 
+\index{convolutional.c@{convolutional.c}!CnvCod\_ListParameters@{CnvCod\_ListParameters}}
 \index{CnvCod\_ListParameters@{CnvCod\_ListParameters}!convolutional.c@{convolutional.c}}
 \doxysubsubsection{\texorpdfstring{CnvCod\_ListParameters()}{CnvCod\_ListParameters()}}
-{\footnotesize\ttfamily \label{convolutional_8c_a51e49f4978711c5a90c574dfcf9ef61a} 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Cnv\+Cod\+\_\+\+List\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{io\+Params}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Cnv\+Cod\+\_\+\+List\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} $\ast$}]{io\+Params }\end{DoxyParamCaption})}
 
 
 
@@ -293,11 +203,11 @@ set output bit to \textquotesingle{}1\textquotesingle{}
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\Hypertarget{convolutional_8c_a5914d9324b050c73244da59a0134dc5e}\index{convolutional.c@{convolutional.c}!CnvCod\_SoftDecoder@{CnvCod\_SoftDecoder}}
+\mbox{\Hypertarget{convolutional_8c_a5914d9324b050c73244da59a0134dc5e}\label{convolutional_8c_a5914d9324b050c73244da59a0134dc5e}} 
+\index{convolutional.c@{convolutional.c}!CnvCod\_SoftDecoder@{CnvCod\_SoftDecoder}}
 \index{CnvCod\_SoftDecoder@{CnvCod\_SoftDecoder}!convolutional.c@{convolutional.c}}
 \doxysubsubsection{\texorpdfstring{CnvCod\_SoftDecoder()}{CnvCod\_SoftDecoder()}}
-{\footnotesize\ttfamily \label{convolutional_8c_a5914d9324b050c73244da59a0134dc5e} 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Cnv\+Cod\+\_\+\+Soft\+Decoder (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__float__stream__t}{float\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Cnv\+Cod\+\_\+\+Soft\+Decoder (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__float__stream__t}{float\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
 
 
 
@@ -318,35 +228,11 @@ error ID
 
 \begin{DoxyItemize}
 \item retrieve convolutional encoder info
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item compute convolutional decoder trellis diagram
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item enable only the all-\/zero state at the beginning
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item use no-\/erasure mask for no-\/puncturing case
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item apply depuuncturing if needed
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item estimate specific erasure mask if depuncturing has been applied
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item check if j-\/th state was active in the previous iteration
 \end{DoxyItemize}
 
@@ -384,26 +270,14 @@ set output bit to \textquotesingle{}1\textquotesingle{}
 
 \begin{DoxyItemize}
 \item if input bit stream is not over but memory is full, extract the oldest info bit
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item set output bit to \textquotesingle{}0\textquotesingle{}
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item set output bit to \textquotesingle{}1\textquotesingle{}
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item keep all survivor paths
-\end{DoxyItemize}\Hypertarget{convolutional_8c_a73d90e148003d365ca8469f3b09d09d1}\index{convolutional.c@{convolutional.c}!ComputeEncBit@{ComputeEncBit}}
+\end{DoxyItemize}\mbox{\Hypertarget{convolutional_8c_a73d90e148003d365ca8469f3b09d09d1}\label{convolutional_8c_a73d90e148003d365ca8469f3b09d09d1}} 
+\index{convolutional.c@{convolutional.c}!ComputeEncBit@{ComputeEncBit}}
 \index{ComputeEncBit@{ComputeEncBit}!convolutional.c@{convolutional.c}}
 \doxysubsubsection{\texorpdfstring{ComputeEncBit()}{ComputeEncBit()}}
-{\footnotesize\ttfamily \label{convolutional_8c_a73d90e148003d365ca8469f3b09d09d1} 
-static uint8\+\_\+t Compute\+Enc\+Bit (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{c\+State}{, }\item[{uint8\+\_\+t}]{cv\+Val}{, }\item[{\mbox{\hyperlink{convolutional_8h_a38de18fffd75ccef7581a78855684da3}{cc\+\_\+klen\+\_\+t}}}]{k\+Len}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static uint8\+\_\+t Compute\+Enc\+Bit (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{c\+State,  }\item[{uint8\+\_\+t}]{cv\+Val,  }\item[{\mbox{\hyperlink{convolutional_8h_a38de18fffd75ccef7581a78855684da3}{cc\+\_\+klen\+\_\+t}}}]{k\+Len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -421,11 +295,11 @@ static uint8\+\_\+t Compute\+Enc\+Bit (\begin{DoxyParamCaption}\item[{uint8\+\_\
 \begin{DoxyReturn}{Returns}
 next encoded bit 
 \end{DoxyReturn}
-\Hypertarget{convolutional_8c_ac851af31b2c0d29b799086a51e068236}\index{convolutional.c@{convolutional.c}!ComputeTrellisDiagram@{ComputeTrellisDiagram}}
+\mbox{\Hypertarget{convolutional_8c_ac851af31b2c0d29b799086a51e068236}\label{convolutional_8c_ac851af31b2c0d29b799086a51e068236}} 
+\index{convolutional.c@{convolutional.c}!ComputeTrellisDiagram@{ComputeTrellisDiagram}}
 \index{ComputeTrellisDiagram@{ComputeTrellisDiagram}!convolutional.c@{convolutional.c}}
 \doxysubsubsection{\texorpdfstring{ComputeTrellisDiagram()}{ComputeTrellisDiagram()}}
-{\footnotesize\ttfamily \label{convolutional_8c_ac851af31b2c0d29b799086a51e068236} 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Compute\+Trellis\+Diagram (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__cc__trellis__t}{cc\+\_\+trellis\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{io\+Trellis\+Diagr}{, }\item[{const \mbox{\hyperlink{struct__cc__encoder__info__t}{cc\+\_\+encoder\+\_\+info\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{enc\+Info}{, }\item[{const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Compute\+Trellis\+Diagram (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__cc__trellis__t}{cc\+\_\+trellis\+\_\+t}} $\ast$}]{io\+Trellis\+Diagr,  }\item[{const \mbox{\hyperlink{struct__cc__encoder__info__t}{cc\+\_\+encoder\+\_\+info\+\_\+t}} $\ast$}]{enc\+Info,  }\item[{const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -446,10 +320,6 @@ error ID
 
 \begin{DoxyItemize}
 \item state IDs
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item state update due to new 0-\/bit input
 \end{DoxyItemize}
 
@@ -462,21 +332,13 @@ store 2nd encoded bit into trellis
 
 \begin{DoxyItemize}
 \item store next state into trellis (due to 0-\/bit input from j-\/th state)
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item state update due to new 1-\/bit input
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item store next state into trellis (due to 1-\/bit input from j-\/th state)
-\end{DoxyItemize}\Hypertarget{convolutional_8c_a38b2ab2cf4a5fc02574c1535b59f4984}\index{convolutional.c@{convolutional.c}!CountByteOnes@{CountByteOnes}}
+\end{DoxyItemize}\mbox{\Hypertarget{convolutional_8c_a38b2ab2cf4a5fc02574c1535b59f4984}\label{convolutional_8c_a38b2ab2cf4a5fc02574c1535b59f4984}} 
+\index{convolutional.c@{convolutional.c}!CountByteOnes@{CountByteOnes}}
 \index{CountByteOnes@{CountByteOnes}!convolutional.c@{convolutional.c}}
 \doxysubsubsection{\texorpdfstring{CountByteOnes()}{CountByteOnes()}}
-{\footnotesize\ttfamily \label{convolutional_8c_a38b2ab2cf4a5fc02574c1535b59f4984} 
-static uint8\+\_\+t Count\+Byte\+Ones (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{system_8h_aed38f5b9e6bad674ac6ab6b0c40aa013}{byte\+\_\+t}}}]{in\+Byte}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static uint8\+\_\+t Count\+Byte\+Ones (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{system_8h_aed38f5b9e6bad674ac6ab6b0c40aa013}{byte\+\_\+t}}}]{in\+Byte }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -490,11 +352,11 @@ static uint8\+\_\+t Count\+Byte\+Ones (\begin{DoxyParamCaption}\item[{\mbox{\hyp
 \begin{DoxyReturn}{Returns}
 number of \textquotesingle{}1\textquotesingle{}s 
 \end{DoxyReturn}
-\Hypertarget{convolutional_8c_a3b5a4a4688dc11fe44bcc625cd77c822}\index{convolutional.c@{convolutional.c}!EstimateEuclideanDist@{EstimateEuclideanDist}}
+\mbox{\Hypertarget{convolutional_8c_a3b5a4a4688dc11fe44bcc625cd77c822}\label{convolutional_8c_a3b5a4a4688dc11fe44bcc625cd77c822}} 
+\index{convolutional.c@{convolutional.c}!EstimateEuclideanDist@{EstimateEuclideanDist}}
 \index{EstimateEuclideanDist@{EstimateEuclideanDist}!convolutional.c@{convolutional.c}}
 \doxysubsubsection{\texorpdfstring{EstimateEuclideanDist()}{EstimateEuclideanDist()}}
-{\footnotesize\ttfamily \label{convolutional_8c_a3b5a4a4688dc11fe44bcc625cd77c822} 
-static float Estimate\+Euclidean\+Dist (\begin{DoxyParamCaption}\item[{const float \texorpdfstring{$\ast$}{*}}]{in\+Buf}{, }\item[{uint8\+\_\+t}]{trl\+Byte}{, }\item[{uint8\+\_\+t}]{eras\+Mask}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static float Estimate\+Euclidean\+Dist (\begin{DoxyParamCaption}\item[{const float $\ast$}]{in\+Buf,  }\item[{uint8\+\_\+t}]{trl\+Byte,  }\item[{uint8\+\_\+t}]{eras\+Mask }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -512,11 +374,11 @@ static float Estimate\+Euclidean\+Dist (\begin{DoxyParamCaption}\item[{const flo
 \begin{DoxyReturn}{Returns}
 estimated Euclidean distance 
 \end{DoxyReturn}
-\Hypertarget{convolutional_8c_aea3905f1455b2cc1b74702248c142369}\index{convolutional.c@{convolutional.c}!FindMinSurvPathHard@{FindMinSurvPathHard}}
+\mbox{\Hypertarget{convolutional_8c_aea3905f1455b2cc1b74702248c142369}\label{convolutional_8c_aea3905f1455b2cc1b74702248c142369}} 
+\index{convolutional.c@{convolutional.c}!FindMinSurvPathHard@{FindMinSurvPathHard}}
 \index{FindMinSurvPathHard@{FindMinSurvPathHard}!convolutional.c@{convolutional.c}}
 \doxysubsubsection{\texorpdfstring{FindMinSurvPathHard()}{FindMinSurvPathHard()}}
-{\footnotesize\ttfamily \label{convolutional_8c_aea3905f1455b2cc1b74702248c142369} 
-static uint8\+\_\+t Find\+Min\+Surv\+Path\+Hard (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__cc__hard__dec__info__t}{cc\+\_\+hard\+\_\+dec\+\_\+info\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Paths}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static uint8\+\_\+t Find\+Min\+Surv\+Path\+Hard (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__cc__hard__dec__info__t}{cc\+\_\+hard\+\_\+dec\+\_\+info\+\_\+t}} $\ast$}]{in\+Paths }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -530,11 +392,11 @@ static uint8\+\_\+t Find\+Min\+Surv\+Path\+Hard (\begin{DoxyParamCaption}\item[{
 \begin{DoxyReturn}{Returns}
 index of minimum distance trellis state 
 \end{DoxyReturn}
-\Hypertarget{convolutional_8c_ad9ba32043a7755b01f59f41fee1f413f}\index{convolutional.c@{convolutional.c}!FindMinSurvPathSoft@{FindMinSurvPathSoft}}
+\mbox{\Hypertarget{convolutional_8c_ad9ba32043a7755b01f59f41fee1f413f}\label{convolutional_8c_ad9ba32043a7755b01f59f41fee1f413f}} 
+\index{convolutional.c@{convolutional.c}!FindMinSurvPathSoft@{FindMinSurvPathSoft}}
 \index{FindMinSurvPathSoft@{FindMinSurvPathSoft}!convolutional.c@{convolutional.c}}
 \doxysubsubsection{\texorpdfstring{FindMinSurvPathSoft()}{FindMinSurvPathSoft()}}
-{\footnotesize\ttfamily \label{convolutional_8c_ad9ba32043a7755b01f59f41fee1f413f} 
-static uint8\+\_\+t Find\+Min\+Surv\+Path\+Soft (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__cc__soft__dec__info__t}{cc\+\_\+soft\+\_\+dec\+\_\+info\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Paths}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static uint8\+\_\+t Find\+Min\+Surv\+Path\+Soft (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__cc__soft__dec__info__t}{cc\+\_\+soft\+\_\+dec\+\_\+info\+\_\+t}} $\ast$}]{in\+Paths }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -548,11 +410,11 @@ static uint8\+\_\+t Find\+Min\+Surv\+Path\+Soft (\begin{DoxyParamCaption}\item[{
 \begin{DoxyReturn}{Returns}
 index of minimum distance trellis state 
 \end{DoxyReturn}
-\Hypertarget{convolutional_8c_af311f97e88fcb545febb11ef7c14aa98}\index{convolutional.c@{convolutional.c}!HardDepuncturer@{HardDepuncturer}}
+\mbox{\Hypertarget{convolutional_8c_af311f97e88fcb545febb11ef7c14aa98}\label{convolutional_8c_af311f97e88fcb545febb11ef7c14aa98}} 
+\index{convolutional.c@{convolutional.c}!HardDepuncturer@{HardDepuncturer}}
 \index{HardDepuncturer@{HardDepuncturer}!convolutional.c@{convolutional.c}}
 \doxysubsubsection{\texorpdfstring{HardDepuncturer()}{HardDepuncturer()}}
-{\footnotesize\ttfamily \label{convolutional_8c_af311f97e88fcb545febb11ef7c14aa98} 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Hard\+Depuncturer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{system_8h_aed38f5b9e6bad674ac6ab6b0c40aa013}{byte\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{io\+Buffer}{, }\item[{\mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}}}]{in\+Len\+Bi}{, }\item[{\mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}}}]{out\+Len\+Bi}{, }\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{punct\+Vect}{, }\item[{const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Hard\+Depuncturer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{system_8h_aed38f5b9e6bad674ac6ab6b0c40aa013}{byte\+\_\+t}} $\ast$}]{io\+Buffer,  }\item[{\mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}}}]{in\+Len\+Bi,  }\item[{\mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}}}]{out\+Len\+Bi,  }\item[{const uint8\+\_\+t $\ast$}]{punct\+Vect,  }\item[{const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -577,26 +439,14 @@ error ID
 
 \begin{DoxyItemize}
 \item final bit index of input stream length
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item each erasure bit restored has \textquotesingle{}0\textquotesingle{} value
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item set output bit to \textquotesingle{}0\textquotesingle{}
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item set output bit to \textquotesingle{}1\textquotesingle{}
-\end{DoxyItemize}\Hypertarget{convolutional_8c_a244e92f812f183a7d5deecd809b7fbf6}\index{convolutional.c@{convolutional.c}!IsKlenValid@{IsKlenValid}}
+\end{DoxyItemize}\mbox{\Hypertarget{convolutional_8c_a244e92f812f183a7d5deecd809b7fbf6}\label{convolutional_8c_a244e92f812f183a7d5deecd809b7fbf6}} 
+\index{convolutional.c@{convolutional.c}!IsKlenValid@{IsKlenValid}}
 \index{IsKlenValid@{IsKlenValid}!convolutional.c@{convolutional.c}}
 \doxysubsubsection{\texorpdfstring{IsKlenValid()}{IsKlenValid()}}
-{\footnotesize\ttfamily \label{convolutional_8c_a244e92f812f183a7d5deecd809b7fbf6} 
-static bool Is\+Klen\+Valid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{convolutional_8h_a38de18fffd75ccef7581a78855684da3}{cc\+\_\+klen\+\_\+t}}}]{k\+Val}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static bool Is\+Klen\+Valid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{convolutional_8h_a38de18fffd75ccef7581a78855684da3}{cc\+\_\+klen\+\_\+t}}}]{k\+Val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -610,11 +460,11 @@ static bool Is\+Klen\+Valid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{con
 \begin{DoxyReturn}{Returns}
 validity outcome 
 \end{DoxyReturn}
-\Hypertarget{convolutional_8c_a9374d8ee9c9c5240b4ec6cc779531d45}\index{convolutional.c@{convolutional.c}!IsRateValid@{IsRateValid}}
+\mbox{\Hypertarget{convolutional_8c_a9374d8ee9c9c5240b4ec6cc779531d45}\label{convolutional_8c_a9374d8ee9c9c5240b4ec6cc779531d45}} 
+\index{convolutional.c@{convolutional.c}!IsRateValid@{IsRateValid}}
 \index{IsRateValid@{IsRateValid}!convolutional.c@{convolutional.c}}
 \doxysubsubsection{\texorpdfstring{IsRateValid()}{IsRateValid()}}
-{\footnotesize\ttfamily \label{convolutional_8c_a9374d8ee9c9c5240b4ec6cc779531d45} 
-static bool Is\+Rate\+Valid (\begin{DoxyParamCaption}\item[{cc\+\_\+rate\+\_\+t}]{rate\+Val}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static bool Is\+Rate\+Valid (\begin{DoxyParamCaption}\item[{cc\+\_\+rate\+\_\+t}]{rate\+Val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -628,11 +478,11 @@ static bool Is\+Rate\+Valid (\begin{DoxyParamCaption}\item[{cc\+\_\+rate\+\_\+t}
 \begin{DoxyReturn}{Returns}
 validity outcome 
 \end{DoxyReturn}
-\Hypertarget{convolutional_8c_a7c17cb69374a806e90867e6ddcaec177}\index{convolutional.c@{convolutional.c}!RetrieveConnectorPuncturationVectors@{RetrieveConnectorPuncturationVectors}}
+\mbox{\Hypertarget{convolutional_8c_a7c17cb69374a806e90867e6ddcaec177}\label{convolutional_8c_a7c17cb69374a806e90867e6ddcaec177}} 
+\index{convolutional.c@{convolutional.c}!RetrieveConnectorPuncturationVectors@{RetrieveConnectorPuncturationVectors}}
 \index{RetrieveConnectorPuncturationVectors@{RetrieveConnectorPuncturationVectors}!convolutional.c@{convolutional.c}}
 \doxysubsubsection{\texorpdfstring{RetrieveConnectorPuncturationVectors()}{RetrieveConnectorPuncturationVectors()}}
-{\footnotesize\ttfamily \label{convolutional_8c_a7c17cb69374a806e90867e6ddcaec177} 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Retrieve\+Connector\+Puncturation\+Vectors (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__cc__encoder__info__t}{cc\+\_\+encoder\+\_\+info\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{io\+Info}{, }\item[{const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Retrieve\+Connector\+Puncturation\+Vectors (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__cc__encoder__info__t}{cc\+\_\+encoder\+\_\+info\+\_\+t}} $\ast$}]{io\+Info,  }\item[{const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -651,16 +501,12 @@ error ID
 
 \begin{DoxyItemize}
 \item link connector vector
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item link puncturation vector
-\end{DoxyItemize}\Hypertarget{convolutional_8c_a48f928d75964bfabc0bc80c9c0db3d03}\index{convolutional.c@{convolutional.c}!SoftDepuncturer@{SoftDepuncturer}}
+\end{DoxyItemize}\mbox{\Hypertarget{convolutional_8c_a48f928d75964bfabc0bc80c9c0db3d03}\label{convolutional_8c_a48f928d75964bfabc0bc80c9c0db3d03}} 
+\index{convolutional.c@{convolutional.c}!SoftDepuncturer@{SoftDepuncturer}}
 \index{SoftDepuncturer@{SoftDepuncturer}!convolutional.c@{convolutional.c}}
 \doxysubsubsection{\texorpdfstring{SoftDepuncturer()}{SoftDepuncturer()}}
-{\footnotesize\ttfamily \label{convolutional_8c_a48f928d75964bfabc0bc80c9c0db3d03} 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Soft\+Depuncturer (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}}]{io\+Buffer}{, }\item[{\mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}}}]{in\+Len\+Bi}{, }\item[{\mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}}}]{out\+Len\+Bi}{, }\item[{const \mbox{\hyperlink{struct__cc__encoder__info__t}{cc\+\_\+encoder\+\_\+info\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{enc\+Info}{, }\item[{const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Soft\+Depuncturer (\begin{DoxyParamCaption}\item[{float $\ast$}]{io\+Buffer,  }\item[{\mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}}}]{in\+Len\+Bi,  }\item[{\mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}}}]{out\+Len\+Bi,  }\item[{const \mbox{\hyperlink{struct__cc__encoder__info__t}{cc\+\_\+encoder\+\_\+info\+\_\+t}} $\ast$}]{enc\+Info,  }\item[{const \mbox{\hyperlink{struct__cc__par__t}{cc\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -685,60 +531,52 @@ error ID
 
 \begin{DoxyItemize}
 \item reading index over LLR array
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item reading index within punturing vector
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item each erasure LLR restored has 0-\/value
 \end{DoxyItemize}
 
 \doxysubsection{Variable Documentation}
-\Hypertarget{convolutional_8c_ae3f750e918383331d197349b221e3364}\index{convolutional.c@{convolutional.c}!CC\_CVMATRIX@{CC\_CVMATRIX}}
+\mbox{\Hypertarget{convolutional_8c_ae3f750e918383331d197349b221e3364}\label{convolutional_8c_ae3f750e918383331d197349b221e3364}} 
+\index{convolutional.c@{convolutional.c}!CC\_CVMATRIX@{CC\_CVMATRIX}}
 \index{CC\_CVMATRIX@{CC\_CVMATRIX}!convolutional.c@{convolutional.c}}
 \doxysubsubsection{\texorpdfstring{CC\_CVMATRIX}{CC\_CVMATRIX}}
-{\footnotesize\ttfamily \label{convolutional_8c_ae3f750e918383331d197349b221e3364} 
-const uint8\+\_\+t CC\+\_\+\+CVMATRIX\mbox{[}$\,$\mbox{]}\mbox{[}CC\+\_\+\+NBRANCHES\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily const uint8\+\_\+t CC\+\_\+\+CVMATRIX\mbox{[}$\,$\mbox{]}\mbox{[}CC\+\_\+\+NBRANCHES\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
 
 {\bfseries Initial value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{=\ \{\{7,5\},\{15,11\},\{23,25\},\ }
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{47,53\},\{79,109\},\{159,229\}\}}
+\DoxyCodeLine{= \{\{7,5\},\{15,11\},\{23,25\}, }
+\DoxyCodeLine{                                                    \{47,53\},\{79,109\},\{159,229\}\}}
 
 \end{DoxyCode}
-\Hypertarget{convolutional_8c_af065e6878cf8c6dddb93bf253dfe74c9}\index{convolutional.c@{convolutional.c}!CC\_PUNC\_VECT\_23@{CC\_PUNC\_VECT\_23}}
+\mbox{\Hypertarget{convolutional_8c_af065e6878cf8c6dddb93bf253dfe74c9}\label{convolutional_8c_af065e6878cf8c6dddb93bf253dfe74c9}} 
+\index{convolutional.c@{convolutional.c}!CC\_PUNC\_VECT\_23@{CC\_PUNC\_VECT\_23}}
 \index{CC\_PUNC\_VECT\_23@{CC\_PUNC\_VECT\_23}!convolutional.c@{convolutional.c}}
 \doxysubsubsection{\texorpdfstring{CC\_PUNC\_VECT\_23}{CC\_PUNC\_VECT\_23}}
-{\footnotesize\ttfamily \label{convolutional_8c_af065e6878cf8c6dddb93bf253dfe74c9} 
-const uint8\+\_\+t CC\+\_\+\+PUNC\+\_\+\+VECT\+\_\+23\mbox{[}$\,$\mbox{]} = \{1,1,0,1\}\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily const uint8\+\_\+t CC\+\_\+\+PUNC\+\_\+\+VECT\+\_\+23\mbox{[}$\,$\mbox{]} = \{1,1,0,1\}\hspace{0.3cm}{\ttfamily [static]}}
 
-Connector vectors for each K \Hypertarget{convolutional_8c_a870e53a193fc9d7e521e158a9027e041}\index{convolutional.c@{convolutional.c}!CC\_PUNC\_VECT\_34@{CC\_PUNC\_VECT\_34}}
+Connector vectors for each K \mbox{\Hypertarget{convolutional_8c_a870e53a193fc9d7e521e158a9027e041}\label{convolutional_8c_a870e53a193fc9d7e521e158a9027e041}} 
+\index{convolutional.c@{convolutional.c}!CC\_PUNC\_VECT\_34@{CC\_PUNC\_VECT\_34}}
 \index{CC\_PUNC\_VECT\_34@{CC\_PUNC\_VECT\_34}!convolutional.c@{convolutional.c}}
 \doxysubsubsection{\texorpdfstring{CC\_PUNC\_VECT\_34}{CC\_PUNC\_VECT\_34}}
-{\footnotesize\ttfamily \label{convolutional_8c_a870e53a193fc9d7e521e158a9027e041} 
-const uint8\+\_\+t CC\+\_\+\+PUNC\+\_\+\+VECT\+\_\+34\mbox{[}$\,$\mbox{]} = \{1,1,0,1,1,0\}\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily const uint8\+\_\+t CC\+\_\+\+PUNC\+\_\+\+VECT\+\_\+34\mbox{[}$\,$\mbox{]} = \{1,1,0,1,1,0\}\hspace{0.3cm}{\ttfamily [static]}}
 
-Puncturing vector for Rc = 2/3 \Hypertarget{convolutional_8c_a2f5679e8d6a1fb0861c47d293abe83ff}\index{convolutional.c@{convolutional.c}!CC\_PUNC\_VECT\_56@{CC\_PUNC\_VECT\_56}}
+Puncturing vector for Rc = 2/3 \mbox{\Hypertarget{convolutional_8c_a2f5679e8d6a1fb0861c47d293abe83ff}\label{convolutional_8c_a2f5679e8d6a1fb0861c47d293abe83ff}} 
+\index{convolutional.c@{convolutional.c}!CC\_PUNC\_VECT\_56@{CC\_PUNC\_VECT\_56}}
 \index{CC\_PUNC\_VECT\_56@{CC\_PUNC\_VECT\_56}!convolutional.c@{convolutional.c}}
 \doxysubsubsection{\texorpdfstring{CC\_PUNC\_VECT\_56}{CC\_PUNC\_VECT\_56}}
-{\footnotesize\ttfamily \label{convolutional_8c_a2f5679e8d6a1fb0861c47d293abe83ff} 
-const uint8\+\_\+t CC\+\_\+\+PUNC\+\_\+\+VECT\+\_\+56\mbox{[}$\,$\mbox{]} = \{1,1,0,1,1,0,0,1,1,0\}\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily const uint8\+\_\+t CC\+\_\+\+PUNC\+\_\+\+VECT\+\_\+56\mbox{[}$\,$\mbox{]} = \{1,1,0,1,1,0,0,1,1,0\}\hspace{0.3cm}{\ttfamily [static]}}
 
-Puncturing vector for Rc = 3/4 \Hypertarget{convolutional_8c_aaae929f515cd4d584d0305a8182685df}\index{convolutional.c@{convolutional.c}!CC\_PUNC\_VECT\_78@{CC\_PUNC\_VECT\_78}}
+Puncturing vector for Rc = 3/4 \mbox{\Hypertarget{convolutional_8c_aaae929f515cd4d584d0305a8182685df}\label{convolutional_8c_aaae929f515cd4d584d0305a8182685df}} 
+\index{convolutional.c@{convolutional.c}!CC\_PUNC\_VECT\_78@{CC\_PUNC\_VECT\_78}}
 \index{CC\_PUNC\_VECT\_78@{CC\_PUNC\_VECT\_78}!convolutional.c@{convolutional.c}}
 \doxysubsubsection{\texorpdfstring{CC\_PUNC\_VECT\_78}{CC\_PUNC\_VECT\_78}}
-{\footnotesize\ttfamily \label{convolutional_8c_aaae929f515cd4d584d0305a8182685df} 
-const uint8\+\_\+t CC\+\_\+\+PUNC\+\_\+\+VECT\+\_\+78\mbox{[}$\,$\mbox{]} = \{1,1,0,1,0,1,0,1,1,0,0,1,1,0\}\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily const uint8\+\_\+t CC\+\_\+\+PUNC\+\_\+\+VECT\+\_\+78\mbox{[}$\,$\mbox{]} = \{1,1,0,1,0,1,0,1,1,0,0,1,1,0\}\hspace{0.3cm}{\ttfamily [static]}}
 
-Puncturing vector for Rc = 5/6 \Hypertarget{convolutional_8c_aaade14f11060d24e5a95625fb5e38d5c}\index{convolutional.c@{convolutional.c}!CC\_RATE\_ARRAY@{CC\_RATE\_ARRAY}}
+Puncturing vector for Rc = 5/6 \mbox{\Hypertarget{convolutional_8c_aaade14f11060d24e5a95625fb5e38d5c}\label{convolutional_8c_aaade14f11060d24e5a95625fb5e38d5c}} 
+\index{convolutional.c@{convolutional.c}!CC\_RATE\_ARRAY@{CC\_RATE\_ARRAY}}
 \index{CC\_RATE\_ARRAY@{CC\_RATE\_ARRAY}!convolutional.c@{convolutional.c}}
 \doxysubsubsection{\texorpdfstring{CC\_RATE\_ARRAY}{CC\_RATE\_ARRAY}}
-{\footnotesize\ttfamily \label{convolutional_8c_aaade14f11060d24e5a95625fb5e38d5c} 
-const cc\+\_\+rate\+\_\+t CC\+\_\+\+RATE\+\_\+\+ARRAY\mbox{[}CC\+\_\+\+RATE\+\_\+\+NUM\mbox{]}}
+{\footnotesize\ttfamily const cc\+\_\+rate\+\_\+t CC\+\_\+\+RATE\+\_\+\+ARRAY\mbox{[}CC\+\_\+\+RATE\+\_\+\+NUM\mbox{]}}
 
 {\bfseries Initial value\+:}
 \begin{DoxyCode}{0}

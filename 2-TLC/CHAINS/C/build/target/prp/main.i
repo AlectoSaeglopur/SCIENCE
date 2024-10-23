@@ -3,7 +3,7 @@
 # 1 "<built-in>"
 # 1 "<command-line>"
 # 1 "src\\main.c"
-# 30 "src\\main.c"
+# 28 "src\\main.c"
 # 1 "src\\channel.h" 1
 # 20 "src\\channel.h"
 # 1 "src\\error.h" 1
@@ -1675,7 +1675,7 @@ typedef struct _chan_par_t
 error_t Channel_ListParameters( chan_par_t * ioParams );
 error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, const chan_par_t * pParams );
 error_t Channel_AWGN( const complex_stream_t * inStream, complex_stream_t * outStream, const chan_par_t * pParams );
-# 31 "src\\main.c" 2
+# 29 "src\\main.c" 2
 # 1 "src\\convolutional.h" 1
 # 62 "src\\convolutional.h"
 typedef enum
@@ -1770,7 +1770,7 @@ error_t CnvCod_ListParameters( cc_par_t * ioParams );
 error_t CnvCod_Encoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
 error_t CnvCod_HardDecoder( const byte_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
 error_t CnvCod_SoftDecoder( const float_stream_t * inStream, byte_stream_t * outStream, const cc_par_t * pParams );
-# 32 "src\\main.c" 2
+# 30 "src\\main.c" 2
 # 1 "src\\crc.h" 1
 # 30 "src\\crc.h"
 typedef enum
@@ -1791,7 +1791,7 @@ typedef struct _crc_par_t
 # 60 "src\\crc.h"
 error_t Crc_ListParameters( crc_par_t * ioParams );
 error_t Crc_CalculateChecksum( const byte_stream_t * inStream, byte_stream_t * outStream, const crc_par_t * pParams );
-# 33 "src\\main.c" 2
+# 31 "src\\main.c" 2
 # 1 "src\\debug.h" 1
 # 22 "src\\debug.h"
 # 1 "src\\interleaving.h" 1
@@ -1849,7 +1849,13 @@ typedef struct _mod_maptable_t
   uint8_t bits[(0x01<<2u)];
   complex_t symbs[(0x01<<2u)];
 } mod_maptable_t;
-# 97 "src\\modulation.h"
+
+
+
+
+
+
+
 error_t Modulation_ListParameters( mod_par_t * ioParams );
 error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * outStream, const mod_par_t * pParams );
 error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_t * outStream, const mod_par_t * pParams );
@@ -1996,12 +2002,12 @@ error_t Debug_SetWatermark( const void * funcAddr, const wm_level_t level );
 void Debug_PrintWatermarks( void );
 void Debug_SetTerminalAppearance( ansi_text_color color, ansi_text_style style );
 void Debug_ResetTerminalAppearance( void );
-# 34 "src\\main.c" 2
-# 107 "src\\main.c"
+# 32 "src\\main.c" 2
+# 105 "src\\main.c"
 static crc_par_t crcParam; static scr_par_t scrParam; static rs_par_t rsParam; static itlv_par_t itlvParam; static cc_par_t ccParam; static mod_par_t modParam; static chan_par_t chanParam;;
 static debug_par_t dgbParam;
 static clock_t elapsedTime;
-# 122 "src\\main.c"
+# 120 "src\\main.c"
 int main( void )
 {
 
@@ -2010,65 +2016,65 @@ int main( void )
   elapsedTime = clock();
 
   byte_stream_t txOrgStream = {.pBuf = 
-# 129 "src\\main.c" 3 4
+# 127 "src\\main.c" 3 4
  ((void *)0)
-# 129 "src\\main.c"
+# 127 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t rxOrgStream = {.pBuf = 
-# 129 "src\\main.c" 3 4
+# 127 "src\\main.c" 3 4
  ((void *)0)
-# 129 "src\\main.c"
+# 127 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t txCrcStream = {.pBuf = 
-# 129 "src\\main.c" 3 4
+# 127 "src\\main.c" 3 4
  ((void *)0)
-# 129 "src\\main.c"
+# 127 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t rxCrcStream = {.pBuf = 
-# 129 "src\\main.c" 3 4
+# 127 "src\\main.c" 3 4
  ((void *)0)
-# 129 "src\\main.c"
+# 127 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t txScrStream = {.pBuf = 
-# 129 "src\\main.c" 3 4
+# 127 "src\\main.c" 3 4
  ((void *)0)
-# 129 "src\\main.c"
+# 127 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t rxScrStream = {.pBuf = 
-# 129 "src\\main.c" 3 4
+# 127 "src\\main.c" 3 4
  ((void *)0)
-# 129 "src\\main.c"
+# 127 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t txRsStream = {.pBuf = 
-# 129 "src\\main.c" 3 4
+# 127 "src\\main.c" 3 4
  ((void *)0)
-# 129 "src\\main.c"
+# 127 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t rxRsStream = {.pBuf = 
-# 129 "src\\main.c" 3 4
+# 127 "src\\main.c" 3 4
  ((void *)0)
-# 129 "src\\main.c"
+# 127 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t txItlvStream = {.pBuf = 
-# 129 "src\\main.c" 3 4
+# 127 "src\\main.c" 3 4
  ((void *)0)
-# 129 "src\\main.c"
+# 127 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t rxItlvStream = {.pBuf = 
-# 129 "src\\main.c" 3 4
+# 127 "src\\main.c" 3 4
  ((void *)0)
-# 129 "src\\main.c"
+# 127 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t txCcStream = {.pBuf = 
-# 129 "src\\main.c" 3 4
+# 127 "src\\main.c" 3 4
  ((void *)0)
-# 129 "src\\main.c"
+# 127 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; byte_stream_t rxCcStream = {.pBuf = 
-# 129 "src\\main.c" 3 4
+# 127 "src\\main.c" 3 4
  ((void *)0)
-# 129 "src\\main.c"
+# 127 "src\\main.c"
  , .len = 0, .id = memory_type_byte}; complex_stream_t txModStream = {.pBuf = 
-# 129 "src\\main.c" 3 4
+# 127 "src\\main.c" 3 4
  ((void *)0)
-# 129 "src\\main.c"
+# 127 "src\\main.c"
  , .len = 0, .id = memory_type_complex}; complex_stream_t rxModStream = {.pBuf = 
-# 129 "src\\main.c" 3 4
+# 127 "src\\main.c" 3 4
  ((void *)0)
-# 129 "src\\main.c"
+# 127 "src\\main.c"
  , .len = 0, .id = memory_type_complex}; float_stream_t rxLLRStream = {.pBuf = 
-# 129 "src\\main.c" 3 4
+# 127 "src\\main.c" 3 4
  ((void *)0)
-# 129 "src\\main.c"
+# 127 "src\\main.c"
  , .len = 0, .id = memory_type_float};;
   Memory_AllocateStream(&txOrgStream,376u,txOrgStream.id); Memory_AllocateStream(&rxOrgStream,376u,rxOrgStream.id); Memory_AllocateStream(&txCrcStream,((CRC_DEGREE_16)>>3u),txCrcStream.id); Memory_AllocateStream(&rxCrcStream,((CRC_DEGREE_16)>>3u),rxCrcStream.id); Memory_AllocateStream(&txScrStream,376u,txScrStream.id); Memory_AllocateStream(&rxScrStream,376u,rxScrStream.id); Memory_AllocateStream(&txRsStream,(376u*204u/188u),txRsStream.id); Memory_AllocateStream(&rxRsStream,(376u*204u/188u),rxRsStream.id); Memory_AllocateStream(&txItlvStream,(376u*204u/188u),txItlvStream.id); Memory_AllocateStream(&rxItlvStream,(376u*204u/188u),rxItlvStream.id); Memory_AllocateStream(&txCcStream,((2u*(376u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12),txCcStream.id); Memory_AllocateStream(&rxCcStream,((2u*(376u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12),rxCcStream.id); Memory_AllocateStream(&txModStream,(((((2u*(376u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12))<<3u)/2u),txModStream.id); Memory_AllocateStream(&rxModStream,(((((2u*(376u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12))<<3u)/2u),rxModStream.id); Memory_AllocateStream(&rxLLRStream,((((2u*(376u*204u/188u))/2u* (CC_RATE_12+1)/CC_RATE_12))<<3u),rxLLRStream.id);;
   Crc_ListParameters(&crcParam); Scramb_ListParameters(&scrParam); RsCod_ListParameters(&rsParam); Intrlv_ListParameters(&itlvParam); CnvCod_ListParameters(&ccParam); Modulation_ListParameters(&modParam); Channel_ListParameters(&chanParam);;
@@ -2078,9 +2084,9 @@ int main( void )
 
 
   Debug_GenerateRandomBytes(&txOrgStream,
-# 137 "src\\main.c" 3 4
+# 135 "src\\main.c" 3 4
                                         ((void *)0)
-# 137 "src\\main.c"
+# 135 "src\\main.c"
                                             );
   Crc_CalculateChecksum(&txOrgStream,&txCrcStream,&crcParam);
   Scramb_Scrambler(&txOrgStream,&txScrStream,&scrParam);
@@ -2111,7 +2117,7 @@ int main( void )
   RcCod_Decoder(&rxRsStream,&rxScrStream,&rsParam);
   Scramb_Descrambler(&rxScrStream,&rxOrgStream,&scrParam);
   Crc_CalculateChecksum(&rxOrgStream,&rxCrcStream,&crcParam);
-# 186 "src\\main.c"
+# 184 "src\\main.c"
   Debug_CheckWrongBits(&txCcStream,&rxCcStream,PID_RX_CNVCOD,&dgbParam);
   Debug_CheckWrongBits(&txRsStream,&rxRsStream,PID_RX_RSCOD,&dgbParam);
   Debug_CheckWrongBits(&txOrgStream,&rxOrgStream,PID_RX_ORG,&dgbParam);
@@ -2128,9 +2134,9 @@ int main( void )
   elapsedTime = clock()-elapsedTime;
   printf("\n >> Execution completed successfully in %1.3f seconds!\n\n",
     ((float)elapsedTime)/
-# 201 "src\\main.c" 3
+# 199 "src\\main.c" 3
                         ((clock_t)(1000))
-# 201 "src\\main.c"
+# 199 "src\\main.c"
                                       );
   Debug_ResetTerminalAppearance();
 

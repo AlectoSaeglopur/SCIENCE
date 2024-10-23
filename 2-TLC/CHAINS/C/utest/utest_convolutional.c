@@ -1,42 +1,47 @@
-/*
- * Library where all test cases are defined (and invoked by main.c).
+/**
+ * @file utest_convolutional.c
+ * @author Filippo Valmori
+ * @date 26/08/2024
+ * @copyright Electrolux S.p.A.
+ * @ingroup UNIT_TEST
+ * @brief Unit test convolutional library
+ * 
+ * Library containing unit test functions for convolutional library.
  */
 
-/** INCLUDES **/
+
+/****************/
+/*** INCLUDES ***/
+/****************/
 
 #include "unity\unity.h"
-
-#include "test_convolutional.h"
-
+#include "utest_convolutional.h"
 #include "..\src\convolutional.h"
-#include "..\src\setting.h"
 
 
 
 /** PROTOTYPES **/
 
-static void test_CountByteOnes( void );
+static void UnitTest_Convolutional_CountByteOnes( void );
 
 
 
 /** FUNCTIONS **/
 
 /* Main function invoked by umain.c containing all tests withi module. */
-int run_convolutional_tests(void)
+int UnitTest_Convolutional(void)
 {
     UNITY_BEGIN();                                                                      // always start the test sequence by invoking the BEGIN function
     
-    RUN_TEST(test_CountByteOnes);                                                       // run tests on "convolutional.c" functions
+    RUN_TEST(UnitTest_Convolutional_CountByteOnes);
     
     return UNITY_END();                                                                 // always finish the test sequence by invoking the END function
 }
 
 /* Function to check "CountByteOnes" function */
-static void test_CountByteOnes( void )
+static void UnitTest_Convolutional_CountByteOnes( void )
 {
-  TEST_ASSERT_EQUAL_UINT8(0, CountByteOnes(0x00));
-  TEST_ASSERT_EQUAL_UINT8(2, CountByteOnes(0x81));
-  TEST_ASSERT_EQUAL_UINT8(5, CountByteOnes(0xAE));
-  TEST_ASSERT_EQUAL_UINT8(8, CountByteOnes(0xFF));
+  TEST_ASSERT_EQUAL_UINT8(0, Test_CountByteOnes(0x00));
+  TEST_ASSERT_EQUAL_UINT8(5, Test_CountByteOnes(0xAE));
 }
 

@@ -1829,7 +1829,13 @@ typedef struct _mod_maptable_t
   uint8_t bits[(0x01<<2u)];
   complex_t symbs[(0x01<<2u)];
 } mod_maptable_t;
-# 97 "src\\modulation.h"
+
+
+
+
+
+
+
 error_t Modulation_ListParameters( mod_par_t * ioParams );
 error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * outStream, const mod_par_t * pParams );
 error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_t * outStream, const mod_par_t * pParams );
@@ -2006,7 +2012,7 @@ error_t Channel_ListParameters( chan_par_t * ioParams )
     }
     else
     {
-      ioParams->EbN0 = 1.6f;
+      ioParams->EbN0 = 0.9f;
     }
   }
   else

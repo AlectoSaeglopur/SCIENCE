@@ -1,8 +1,18 @@
-/*
- * Library where all test cases are defined (and invoked by main.c).
+/**
+ * @file utest_modulation.c
+ * @author Filippo Valmori
+ * @date 26/08/2024
+ * @copyright Electrolux S.p.A.
+ * @ingroup UNIT_TEST
+ * @brief Unit test modulation library
+ * 
+ * Library containing unit test functions for modulation library.
  */
 
-/** INCLUDES **/
+
+/****************/
+/*** INCLUDES ***/
+/****************/
 
 #include "unity\unity.h"
 #include "utest_modulation.h"
@@ -10,35 +20,45 @@
 
 
 
-/** PROTOTYPES **/
+/***************/
+/*** DEFINES ***/
+/***************/
 
-static void utest_Modulation_ListParameters( void );
+#define BPS2ORDER(x)      (0x01<<(x))
 
 
 
-/** FUNCTIONS **/
+/**************************/
+/*** PRIVATE PROTOTYPES ***/
+/**************************/
+
+static void UnitTest_Modulation_ListParameters( void );
+static void UnitTest_GetGraySequence( void );
+
+
+
+/************************/
+/*** PUBLIC FUNCTIONS ***/
+/************************/
 
 /* Main function invoked by umain.c containing all tests withi module. */
-int run_modulation_tests(void)
+int RunTestModulation(void)
 {
     UNITY_BEGIN();                                                                      // always start the test sequence by invoking the BEGIN function
     
-    RUN_TEST(utest_Modulation_ListParameters);
+    RUN_TEST(UnitTest_Modulation_ListParameters);
+    RUN_TEST(UnitTest_GetGraySequence);
     
     return UNITY_END();                                                                 // always finish the test sequence by invoking the END function
 }
 
-/* Function to check "CountByteOnes" function */
-//static void test_GetGray( void )
-//{
-//  const uint8_t expArray[M] = {0,1,3,2};
-//  uint8_t actArray[M] = {0};
-//  GetGray(actArray);
-//  TEST_ASSERT_EQUAL_UINT8_ARRAY(expArray,actArray,M);
-//}
 
 
-static void utest_Modulation_ListParameters( void )
+/*************************/
+/*** PRIVATE FUNCTIONS ***/
+/*************************/
+
+static void UnitTest_Modulation_ListParameters( void )
 {
   error_t retErr = ERR_NONE;
   mod_par_t * pParams = NULL;
@@ -47,10 +67,14 @@ static void utest_Modulation_ListParameters( void )
 }
 
 
-//static void utest_GetGraySequence( void )
-//{
-//  mod_par_t params = {.order = 4, .bps = 2};
-//  byte_t ioBuffer[4] = {0};
-//
-//  GetGraySequence(ioBuffer,&params);
-//}
+static void UnitTest_GetGraySequence( void )
+{
+  const uint8_t Bps = 2;
+  const size_t Order = BPS2ORDER(Bps);
+  const mod_par_t params = {.order = Order, .bps = Bps};
+  const uint8_t expArray[] = {0,1,3,2};
+  byte_t * actArray = calloc(Order,sizeof(byte_t));
+  Test_GetGraySequence(actArray,&params);
+  TEST_ASSERT_EQUAL_UINT8_ARRAY(expArray,actArray,Order);
+  free(actArray);
+}

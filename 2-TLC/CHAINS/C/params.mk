@@ -76,8 +76,9 @@ UTS_NAME = utest
 #          utest_main.c            \
 #          $(COM_FILES)
 
-UTS_FILES = utest_main.c          \
-            utest_modulation.c    \
+UTS_FILES = utest_convolutional.c		\
+						utest_main.c          	\
+            utest_modulation.c    	\
             $(COM_FILES)
 
 # Unity files list
@@ -107,7 +108,7 @@ UTS_LNK_FLG = -lm
 
 # 2. Compiler flags:
 #   § -Werror >> to consider each warning as an error
-#   § -D >> to set a macro for all project files (e.g "-D DEBUG_TERMINAL")
+#   § -D >> to set a macro for all project files (e.g "-D VERBOSE")
 #   § -g >> to enable GDB debugging
 #   § --verbose >> to display extra info while compiling
 

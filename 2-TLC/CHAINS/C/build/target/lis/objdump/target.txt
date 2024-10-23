@@ -14538,9 +14538,7 @@ Disassembly of section .rdata:
 
 0040e0c0 <.rdata>:
   40e0c0:	29 5c 0f 3d          	sub    %ebx,0x3d(%edi,%ecx,1)
-  40e0c4:	cd cc                	int    $0xcc
-  40e0c6:	cc                   	int3   
-  40e0c7:	3f                   	aas    
+  40e0c4:	66 66 66 3f          	data16 data16 data16 aas 
   40e0c8:	00 fe                	add    %bh,%dh
   40e0ca:	ff 46 00             	incl   0x0(%esi)
 	...
@@ -21964,19 +21962,18 @@ Disassembly of section .debug_info:
   416e0c:	72 61                	jb     416e6f <.debug_info+0xe6f>
   416e0e:	6d                   	insl   (%dx),%es:(%edi)
   416e0f:	00 01                	add    %al,(%ecx)
-  416e11:	6b f8 07             	imul   $0x7,%eax,%edi
-  416e14:	00 00                	add    %al,(%eax)
-  416e16:	05 03 20 10 41       	add    $0x41102003,%eax
-  416e1b:	00 13                	add    %dl,(%ebx)
-  416e1d:	73 63                	jae    416e82 <.debug_info+0xe82>
+  416e11:	69 f8 07 00 00 05    	imul   $0x5000007,%eax,%edi
+  416e17:	03 20                	add    (%eax),%esp
+  416e19:	10 41 00             	adc    %al,0x0(%ecx)
+  416e1c:	13 73 63             	adc    0x63(%ebx),%esi
   416e1f:	72 50                	jb     416e71 <.debug_info+0xe71>
   416e21:	61                   	popa   
   416e22:	72 61                	jb     416e85 <.debug_info+0xe85>
   416e24:	6d                   	insl   (%dx),%es:(%edi)
   416e25:	00 01                	add    %al,(%ecx)
-  416e27:	6b c0 0a             	imul   $0xa,%eax,%eax
-  416e2a:	00 00                	add    %al,(%eax)
-  416e2c:	05 03 2c 10 41       	add    $0x41102c03,%eax
+  416e27:	69 c0 0a 00 00 05    	imul   $0x500000a,%eax,%eax
+  416e2d:	03 2c 10             	add    (%eax,%edx,1),%ebp
+  416e30:	41                   	inc    %ecx
   416e31:	00 13                	add    %dl,(%ebx)
   416e33:	72 73                	jb     416ea8 <.debug_info+0xea8>
   416e35:	50                   	push   %eax
@@ -21984,26 +21981,24 @@ Disassembly of section .debug_info:
   416e37:	72 61                	jb     416e9a <.debug_info+0xe9a>
   416e39:	6d                   	insl   (%dx),%es:(%edi)
   416e3a:	00 01                	add    %al,(%ecx)
-  416e3c:	6b 18 0a             	imul   $0xa,(%eax),%ebx
-  416e3f:	00 00                	add    %al,(%eax)
-  416e41:	05 03 3c 10 41       	add    $0x41103c03,%eax
+  416e3c:	69 18 0a 00 00 05    	imul   $0x500000a,(%eax),%ebx
+  416e42:	03 3c 10             	add    (%eax,%edx,1),%edi
+  416e45:	41                   	inc    %ecx
   416e46:	00 13                	add    %dl,(%ebx)
   416e48:	69 74 6c 76 50 61 72 	imul   $0x61726150,0x76(%esp,%ebp,2),%esi
   416e4f:	61 
   416e50:	6d                   	insl   (%dx),%es:(%edi)
   416e51:	00 01                	add    %al,(%ecx)
-  416e53:	6b c4 08             	imul   $0x8,%esp,%eax
-  416e56:	00 00                	add    %al,(%eax)
-  416e58:	05 03 4c 10 41       	add    $0x41104c03,%eax
+  416e53:	69 c4 08 00 00 05    	imul   $0x5000008,%esp,%eax
+  416e59:	03 4c 10 41          	add    0x41(%eax,%edx,1),%ecx
   416e5d:	00 13                	add    %dl,(%ebx)
   416e5f:	63 63 50             	arpl   %sp,0x50(%ebx)
   416e62:	61                   	popa   
   416e63:	72 61                	jb     416ec6 <.debug_info+0xec6>
   416e65:	6d                   	insl   (%dx),%es:(%edi)
   416e66:	00 01                	add    %al,(%ecx)
-  416e68:	6b 2b 07             	imul   $0x7,(%ebx),%ebp
-  416e6b:	00 00                	add    %al,(%eax)
-  416e6d:	05 03 54 10 41       	add    $0x41105403,%eax
+  416e68:	69 2b 07 00 00 05    	imul   $0x5000007,(%ebx),%ebp
+  416e6e:	03 54 10 41          	add    0x41(%eax,%edx,1),%edx
   416e72:	00 13                	add    %dl,(%ebx)
   416e74:	6d                   	insl   (%dx),%es:(%edi)
   416e75:	6f                   	outsl  %ds:(%esi),(%dx)
@@ -22012,26 +22007,24 @@ Disassembly of section .debug_info:
   416e79:	72 61                	jb     416edc <.debug_info+0xedc>
   416e7b:	6d                   	insl   (%dx),%es:(%edi)
   416e7c:	00 01                	add    %al,(%ecx)
-  416e7e:	6b 5d 09 00          	imul   $0x0,0x9(%ebp),%ebx
-  416e82:	00 05 03 64 10 41    	add    %al,0x41106403
-  416e88:	00 13                	add    %dl,(%ebx)
-  416e8a:	63 68 61             	arpl   %bp,0x61(%eax)
+  416e7e:	69 5d 09 00 00 05 03 	imul   $0x3050000,0x9(%ebp),%ebx
+  416e85:	64 10 41 00          	adc    %al,%fs:0x0(%ecx)
+  416e89:	13 63 68             	adc    0x68(%ebx),%esp
+  416e8c:	61                   	popa   
   416e8d:	6e                   	outsb  %ds:(%esi),(%dx)
   416e8e:	50                   	push   %eax
   416e8f:	61                   	popa   
   416e90:	72 61                	jb     416ef3 <.debug_info+0xef3>
   416e92:	6d                   	insl   (%dx),%es:(%edi)
   416e93:	00 01                	add    %al,(%ecx)
-  416e95:	6b 99 05 00 00 05 03 	imul   $0x3,0x5000005(%ecx),%ebx
-  416e9c:	70 10                	jo     416eae <.debug_info+0xeae>
-  416e9e:	41                   	inc    %ecx
+  416e95:	69 99 05 00 00 05 03 	imul   $0x41107003,0x5000005(%ecx),%ebx
+  416e9c:	70 10 41 
   416e9f:	00 13                	add    %dl,(%ebx)
   416ea1:	64 67 62 50 61       	bound  %edx,%fs:0x61(%bx,%si)
   416ea6:	72 61                	jb     416f09 <.debug_info+0xf09>
   416ea8:	6d                   	insl   (%dx),%es:(%edi)
   416ea9:	00 01                	add    %al,(%ecx)
-  416eab:	6c                   	insb   (%dx),%es:(%edi)
-  416eac:	41                   	inc    %ecx
+  416eab:	6a 41                	push   $0x41
   416ead:	0b 00                	or     (%eax),%eax
   416eaf:	00 05 03 80 10 41    	add    %al,0x41108003
   416eb5:	00 13                	add    %dl,(%ebx)
@@ -22039,11 +22032,11 @@ Disassembly of section .debug_info:
   416eb9:	61                   	popa   
   416eba:	70 73                	jo     416f2f <.debug_info+0xf2f>
   416ebc:	65 64 54             	gs fs push %esp
-  416ebf:	69 6d 65 00 01 6d 9d 	imul   $0x9d6d0100,0x65(%ebp),%ebp
+  416ebf:	69 6d 65 00 01 6b 9d 	imul   $0x9d6b0100,0x65(%ebp),%ebp
   416ec6:	02 00                	add    (%eax),%al
   416ec8:	00 05 03 d4 10 41    	add    %al,0x4110d403
   416ece:	00 14 6d 61 69 6e 00 	add    %dl,0x6e6961(,%ebp,2)
-  416ed5:	01 7a b1             	add    %edi,-0x4f(%edx)
+  416ed5:	01 78 b1             	add    %edi,-0x4f(%eax)
   416ed8:	00 00                	add    %al,(%eax)
   416eda:	00 60 14             	add    %ah,0x14(%eax)
   416edd:	40                   	inc    %eax
@@ -22058,7 +22051,9 @@ Disassembly of section .debug_info:
   416eee:	65 61                	gs popa 
   416ef0:	6d                   	insl   (%dx),%es:(%edi)
   416ef1:	00 01                	add    %al,(%ecx)
-  416ef3:	81 2b 04 00 00 03    	subl   $0x3000004,(%ebx)
+  416ef3:	7f 2b                	jg     416f20 <.debug_info+0xf20>
+  416ef5:	04 00                	add    $0x0,%al
+  416ef7:	00 03                	add    %al,(%ebx)
   416ef9:	74 e4                	je     416edf <.debug_info+0xedf>
   416efb:	01 13                	add    %edx,(%ebx)
   416efd:	72 78                	jb     416f77 <.debug_info+0xf77>
@@ -22069,7 +22064,9 @@ Disassembly of section .debug_info:
   416f05:	65 61                	gs popa 
   416f07:	6d                   	insl   (%dx),%es:(%edi)
   416f08:	00 01                	add    %al,(%ecx)
-  416f0a:	81 2b 04 00 00 03    	subl   $0x3000004,(%ebx)
+  416f0a:	7f 2b                	jg     416f37 <.debug_info+0xf37>
+  416f0c:	04 00                	add    $0x0,%al
+  416f0e:	00 03                	add    %al,(%ebx)
   416f10:	74 d8                	je     416eea <.debug_info+0xeea>
   416f12:	01 13                	add    %edx,(%ebx)
   416f14:	74 78                	je     416f8e <.debug_info+0xf8e>
@@ -22080,7 +22077,9 @@ Disassembly of section .debug_info:
   416f1c:	65 61                	gs popa 
   416f1e:	6d                   	insl   (%dx),%es:(%edi)
   416f1f:	00 01                	add    %al,(%ecx)
-  416f21:	81 2b 04 00 00 03    	subl   $0x3000004,(%ebx)
+  416f21:	7f 2b                	jg     416f4e <.debug_info+0xf4e>
+  416f23:	04 00                	add    $0x0,%al
+  416f25:	00 03                	add    %al,(%ebx)
   416f27:	74 cc                	je     416ef5 <.debug_info+0xef5>
   416f29:	01 13                	add    %edx,(%ebx)
   416f2b:	72 78                	jb     416fa5 <.debug_info+0xfa5>
@@ -22091,7 +22090,9 @@ Disassembly of section .debug_info:
   416f33:	65 61                	gs popa 
   416f35:	6d                   	insl   (%dx),%es:(%edi)
   416f36:	00 01                	add    %al,(%ecx)
-  416f38:	81 2b 04 00 00 03    	subl   $0x3000004,(%ebx)
+  416f38:	7f 2b                	jg     416f65 <.debug_info+0xf65>
+  416f3a:	04 00                	add    $0x0,%al
+  416f3c:	00 03                	add    %al,(%ebx)
   416f3e:	74 c0                	je     416f00 <.debug_info+0xf00>
   416f40:	01 13                	add    %edx,(%ebx)
   416f42:	74 78                	je     416fbc <.debug_info+0xfbc>
@@ -22101,7 +22102,9 @@ Disassembly of section .debug_info:
   416f4a:	65 61                	gs popa 
   416f4c:	6d                   	insl   (%dx),%es:(%edi)
   416f4d:	00 01                	add    %al,(%ecx)
-  416f4f:	81 2b 04 00 00 03    	subl   $0x3000004,(%ebx)
+  416f4f:	7f 2b                	jg     416f7c <.debug_info+0xf7c>
+  416f51:	04 00                	add    $0x0,%al
+  416f53:	00 03                	add    %al,(%ebx)
   416f55:	74 b4                	je     416f0b <.debug_info+0xf0b>
   416f57:	01 13                	add    %edx,(%ebx)
   416f59:	72 78                	jb     416fd3 <.debug_info+0xfd3>
@@ -22111,7 +22114,9 @@ Disassembly of section .debug_info:
   416f61:	65 61                	gs popa 
   416f63:	6d                   	insl   (%dx),%es:(%edi)
   416f64:	00 01                	add    %al,(%ecx)
-  416f66:	81 2b 04 00 00 03    	subl   $0x3000004,(%ebx)
+  416f66:	7f 2b                	jg     416f93 <.debug_info+0xf93>
+  416f68:	04 00                	add    $0x0,%al
+  416f6a:	00 03                	add    %al,(%ebx)
   416f6c:	74 a8                	je     416f16 <.debug_info+0xf16>
   416f6e:	01 13                	add    %edx,(%ebx)
   416f70:	74 78                	je     416fea <.debug_info+0xfea>
@@ -22121,7 +22126,9 @@ Disassembly of section .debug_info:
   416f77:	65 61                	gs popa 
   416f79:	6d                   	insl   (%dx),%es:(%edi)
   416f7a:	00 01                	add    %al,(%ecx)
-  416f7c:	81 2b 04 00 00 03    	subl   $0x3000004,(%ebx)
+  416f7c:	7f 2b                	jg     416fa9 <.debug_info+0xfa9>
+  416f7e:	04 00                	add    $0x0,%al
+  416f80:	00 03                	add    %al,(%ebx)
   416f82:	74 9c                	je     416f20 <.debug_info+0xf20>
   416f84:	01 13                	add    %edx,(%ebx)
   416f86:	72 78                	jb     417000 <.debug_info+0x1000>
@@ -22131,7 +22138,9 @@ Disassembly of section .debug_info:
   416f8d:	65 61                	gs popa 
   416f8f:	6d                   	insl   (%dx),%es:(%edi)
   416f90:	00 01                	add    %al,(%ecx)
-  416f92:	81 2b 04 00 00 03    	subl   $0x3000004,(%ebx)
+  416f92:	7f 2b                	jg     416fbf <.debug_info+0xfbf>
+  416f94:	04 00                	add    $0x0,%al
+  416f96:	00 03                	add    %al,(%ebx)
   416f98:	74 90                	je     416f2a <.debug_info+0xf2a>
   416f9a:	01 13                	add    %edx,(%ebx)
   416f9c:	74 78                	je     417016 <.debug_info+0x1016>
@@ -22142,7 +22151,9 @@ Disassembly of section .debug_info:
   416fa5:	65 61                	gs popa 
   416fa7:	6d                   	insl   (%dx),%es:(%edi)
   416fa8:	00 01                	add    %al,(%ecx)
-  416faa:	81 2b 04 00 00 03    	subl   $0x3000004,(%ebx)
+  416faa:	7f 2b                	jg     416fd7 <.debug_info+0xfd7>
+  416fac:	04 00                	add    $0x0,%al
+  416fae:	00 03                	add    %al,(%ebx)
   416fb0:	74 84                	je     416f36 <.debug_info+0xf36>
   416fb2:	01 13                	add    %edx,(%ebx)
   416fb4:	72 78                	jb     41702e <.debug_info+0x102e>
@@ -22153,7 +22164,9 @@ Disassembly of section .debug_info:
   416fbd:	65 61                	gs popa 
   416fbf:	6d                   	insl   (%dx),%es:(%edi)
   416fc0:	00 01                	add    %al,(%ecx)
-  416fc2:	81 2b 04 00 00 03    	subl   $0x3000004,(%ebx)
+  416fc2:	7f 2b                	jg     416fef <.debug_info+0xfef>
+  416fc4:	04 00                	add    $0x0,%al
+  416fc6:	00 03                	add    %al,(%ebx)
   416fc8:	74 f8                	je     416fc2 <.debug_info+0xfc2>
   416fca:	00 13                	add    %dl,(%ebx)
   416fcc:	74 78                	je     417046 <.debug_info+0x9>
@@ -22163,7 +22176,9 @@ Disassembly of section .debug_info:
   416fd4:	61                   	popa   
   416fd5:	6d                   	insl   (%dx),%es:(%edi)
   416fd6:	00 01                	add    %al,(%ecx)
-  416fd8:	81 2b 04 00 00 03    	subl   $0x3000004,(%ebx)
+  416fd8:	7f 2b                	jg     417005 <.debug_info+0x1005>
+  416fda:	04 00                	add    $0x0,%al
+  416fdc:	00 03                	add    %al,(%ebx)
   416fde:	74 ec                	je     416fcc <.debug_info+0xfcc>
   416fe0:	00 13                	add    %dl,(%ebx)
   416fe2:	72 78                	jb     41705c <.debug_info+0x1f>
@@ -22173,7 +22188,9 @@ Disassembly of section .debug_info:
   416fea:	61                   	popa   
   416feb:	6d                   	insl   (%dx),%es:(%edi)
   416fec:	00 01                	add    %al,(%ecx)
-  416fee:	81 2b 04 00 00 03    	subl   $0x3000004,(%ebx)
+  416fee:	7f 2b                	jg     41701b <.debug_info+0x101b>
+  416ff0:	04 00                	add    $0x0,%al
+  416ff2:	00 03                	add    %al,(%ebx)
   416ff4:	74 e0                	je     416fd6 <.debug_info+0xfd6>
   416ff6:	00 13                	add    %dl,(%ebx)
   416ff8:	74 78                	je     417072 <.debug_info+0x35>
@@ -22184,7 +22201,9 @@ Disassembly of section .debug_info:
   417000:	65 61                	gs popa 
   417002:	6d                   	insl   (%dx),%es:(%edi)
   417003:	00 01                	add    %al,(%ecx)
-  417005:	81 de 04 00 00 03    	sbb    $0x3000004,%esi
+  417005:	7f de                	jg     416fe5 <.debug_info+0xfe5>
+  417007:	04 00                	add    $0x0,%al
+  417009:	00 03                	add    %al,(%ebx)
   41700b:	74 d4                	je     416fe1 <.debug_info+0xfe1>
   41700d:	00 13                	add    %dl,(%ebx)
   41700f:	72 78                	jb     417089 <.debug_info+0x4c>
@@ -22195,7 +22214,9 @@ Disassembly of section .debug_info:
   417017:	65 61                	gs popa 
   417019:	6d                   	insl   (%dx),%es:(%edi)
   41701a:	00 01                	add    %al,(%ecx)
-  41701c:	81 de 04 00 00 03    	sbb    $0x3000004,%esi
+  41701c:	7f de                	jg     416ffc <.debug_info+0xffc>
+  41701e:	04 00                	add    $0x0,%al
+  417020:	00 03                	add    %al,(%ebx)
   417022:	74 c8                	je     416fec <.debug_info+0xfec>
   417024:	00 13                	add    %dl,(%ebx)
   417026:	72 78                	jb     4170a0 <.debug_info+0x63>
@@ -22207,8 +22228,11 @@ Disassembly of section .debug_info:
   41702e:	65 61                	gs popa 
   417030:	6d                   	insl   (%dx),%es:(%edi)
   417031:	00 01                	add    %al,(%ecx)
-  417033:	81 83 04 00 00 02 74 	addl   $0x3c74,0x2000004(%ebx)
-  41703a:	3c 00 00 
+  417033:	7f 83                	jg     416fb8 <.debug_info+0xfb8>
+  417035:	04 00                	add    $0x0,%al
+  417037:	00 02                	add    %al,(%edx)
+  417039:	74 3c                	je     417077 <.debug_info+0x3a>
+	...
 
 0041703d <.debug_info>:
   41703d:	a8 09                	test   $0x9,%al
@@ -48033,7 +48057,7 @@ Disassembly of section .debug_line:
   4240f8:	00 00                	add    %al,(%eax)
   4240fa:	05 02 60 14 40       	add    $0x40146002,%eax
   4240ff:	00 03                	add    %al,(%ebx)
-  424101:	fa                   	cli    
+  424101:	f8                   	clc    
   424102:	00 01                	add    %al,(%ecx)
   424104:	ba 5a 08 3d bb       	mov    $0xbb3d085a,%edx
   424109:	a0 02 bc 03 13       	mov    0x1303bc02,%al

@@ -1,24 +1,24 @@
-\doxysection{src/reed\+\_\+solomon.c File Reference}
-\hypertarget{reed__solomon_8c}{}\label{reed__solomon_8c}\index{src/reed\_solomon.c@{src/reed\_solomon.c}}
+\hypertarget{reed__solomon_8c}{}\doxysection{src/reed\+\_\+solomon.c File Reference}
+\label{reed__solomon_8c}\index{src/reed\_solomon.c@{src/reed\_solomon.c}}
 
 
 Reed-\/\+Solomon coding library.  
 
 
-{\ttfamily \#include "{}debug.\+h"{}}\newline
-{\ttfamily \#include "{}reed\+\_\+solomon.\+h"{}}\newline
-\doxysubsubsection*{Data Structures}
+{\ttfamily \#include \char`\"{}debug.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}reed\+\_\+solomon.\+h\char`\"{}}\newline
+\doxysubsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{struct__rs__encoder__info__t}{\+\_\+rs\+\_\+encoder\+\_\+info\+\_\+t}}
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Typedefs}
+\doxysubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{reed__solomon_8c_ab9743e9f8c2df86d83dad0347a11c70c}\label{reed__solomon_8c_ab9743e9f8c2df86d83dad0347a11c70c} 
+\mbox{\Hypertarget{reed__solomon_8c_ab9743e9f8c2df86d83dad0347a11c70c}\label{reed__solomon_8c_ab9743e9f8c2df86d83dad0347a11c70c}} 
 typedef struct \mbox{\hyperlink{struct__rs__encoder__info__t}{\+\_\+rs\+\_\+encoder\+\_\+info\+\_\+t}} {\bfseries rs\+\_\+encoder\+\_\+info\+\_\+t}
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Enumerations}
+\doxysubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
 enum \mbox{\hyperlink{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222}{rs\+\_\+table\+\_\+idx\+\_\+t}} \{ {\bfseries RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+BIT} = 0
@@ -26,58 +26,58 @@ enum \mbox{\hyperlink{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222}{rs\+\_
 , \mbox{\hyperlink{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222abb3443a499e474497a43fe2a63daa524}{RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM}}
  \}
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Functions}
+\doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8c_a64263a3c700543aaa46fe4614f97ce24}{Retrieve\+Primitive\+Polynomial}} (\mbox{\hyperlink{struct__rs__encoder__info__t}{rs\+\_\+encoder\+\_\+info\+\_\+t}} \texorpdfstring{$\ast$}{*}io\+Info, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8c_a64263a3c700543aaa46fe4614f97ce24}{Retrieve\+Primitive\+Polynomial}} (\mbox{\hyperlink{struct__rs__encoder__info__t}{rs\+\_\+encoder\+\_\+info\+\_\+t}} $\ast$io\+Info, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for retrieving primitive polynomial (maximum degree is implied). } \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8c_a9b327047e1d3dcda3cc76d0f1b3d4363}{Retrieve\+Generator\+Polynomial}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}io\+Buf, uint8\+\_\+t len, const uint8\+\_\+t map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\mbox{\hyperlink{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222abb3443a499e474497a43fe2a63daa524}{RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM}}\mbox{]}, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
-\begin{DoxyCompactList}\small\item\em {\itshape  Function for iteratively computing code generator polynomial as Gen\+Poly(x) = (x+a)\texorpdfstring{$\ast$}{*}(x+a\texorpdfstring{$^\wedge$}{\string^}2)\texorpdfstring{$\ast$}{*}...\texorpdfstring{$\ast$}{*}(x+a\texorpdfstring{$^\wedge$}{\string^}2t). } \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8c_a436ac508205548788cb34839f76d7dcf}{Retrieve\+Mapping\+Table\+GF}} (uint8\+\_\+t io\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\mbox{\hyperlink{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222abb3443a499e474497a43fe2a63daa524}{RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM}}\mbox{]}, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
-\begin{DoxyCompactList}\small\item\em {\itshape  Function for retrieving mapping table between GF symbols and bit basis by calculating the remainder of x\texorpdfstring{$^\wedge$}{\string^}j divided by Prim\+Poly(x). } \end{DoxyCompactList}\item 
-static uint16\+\_\+t \mbox{\hyperlink{reed__solomon_8c_abc3051a12930537b424308da37a54835}{Find\+Max\+Deg}} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}poly, uint16\+\_\+t len)
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8c_a9b327047e1d3dcda3cc76d0f1b3d4363}{Retrieve\+Generator\+Polynomial}} (uint8\+\_\+t $\ast$io\+Buf, uint8\+\_\+t len, const uint8\+\_\+t map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\mbox{\hyperlink{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222abb3443a499e474497a43fe2a63daa524}{RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM}}\mbox{]}, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$p\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for iteratively computing code generator polynomial as Gen\+Poly(x) = (x+a)$\ast$(x+a$^\wedge$2)$\ast$...$\ast$(x+a$^\wedge$2t). } \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8c_a436ac508205548788cb34839f76d7dcf}{Retrieve\+Mapping\+Table\+GF}} (uint8\+\_\+t io\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\mbox{\hyperlink{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222abb3443a499e474497a43fe2a63daa524}{RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM}}\mbox{]}, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$p\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for retrieving mapping table between GF symbols and bit basis by calculating the remainder of x$^\wedge$j divided by Prim\+Poly(x). } \end{DoxyCompactList}\item 
+static uint16\+\_\+t \mbox{\hyperlink{reed__solomon_8c_abc3051a12930537b424308da37a54835}{Find\+Max\+Deg}} (const uint8\+\_\+t $\ast$poly, uint16\+\_\+t len)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for finding polynomial maximum degree. } \end{DoxyCompactList}\item 
-static uint8\+\_\+t \mbox{\hyperlink{reed__solomon_8c_a7bfba3c7f3b790dcd7ae34b2d2ae9852}{Get\+Basis}} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}poly, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+static uint8\+\_\+t \mbox{\hyperlink{reed__solomon_8c_a7bfba3c7f3b790dcd7ae34b2d2ae9852}{Get\+Basis}} (const uint8\+\_\+t $\ast$poly, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for retrieving bit basis from remainder polynomial during mapping. } \end{DoxyCompactList}\item 
 static uint8\+\_\+t \mbox{\hyperlink{reed__solomon_8c_a5246db512fc9d4caec1eccf30694c22b}{Convert\+Bi2\+Sy}} (uint8\+\_\+t in\+Basis, const uint8\+\_\+t map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\mbox{\hyperlink{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222abb3443a499e474497a43fe2a63daa524}{RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM}}\mbox{]})
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for retrieving GF symbol corresponding to input bit basis. } \end{DoxyCompactList}\item 
 static uint8\+\_\+t \mbox{\hyperlink{reed__solomon_8c_a87bdf516d918281140166f890d3a1dbe}{Convert\+Sy2\+Bi}} (uint8\+\_\+t in\+Symb, const uint8\+\_\+t map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\mbox{\hyperlink{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222abb3443a499e474497a43fe2a63daa524}{RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM}}\mbox{]})
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for retrieving bit basis corresponding to input GF symbol. } \end{DoxyCompactList}\item 
 static uint8\+\_\+t \mbox{\hyperlink{reed__solomon_8c_a7d473a575ff8578cd8d38f5596d3cb5c}{Add\+GF}} (uint8\+\_\+t symbA, uint8\+\_\+t symbB, const uint8\+\_\+t map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\mbox{\hyperlink{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222abb3443a499e474497a43fe2a63daa524}{RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM}}\mbox{]})
-\begin{DoxyCompactList}\small\item\em {\itshape  Function for performing addition operations in GF(2\texorpdfstring{$^\wedge$}{\string^}m). } \end{DoxyCompactList}\item 
-static uint8\+\_\+t \mbox{\hyperlink{reed__solomon_8c_afff74c5af0ffb890da77f664db754b9f}{Multiply\+GF}} (uint8\+\_\+t symbA, uint8\+\_\+t symbB, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
-\begin{DoxyCompactList}\small\item\em {\itshape  Function for performing multiplication operations in GF(2\texorpdfstring{$^\wedge$}{\string^}m). } \end{DoxyCompactList}\item 
-static uint8\+\_\+t \mbox{\hyperlink{reed__solomon_8c_a3945fbb0b94bb2fbe2d8dcbfc7fc9717}{Power\+GF}} (uint8\+\_\+t symb\+Base, int16\+\_\+t exp, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
-\begin{DoxyCompactList}\small\item\em {\itshape  Function for performing power raising operations in GF(2\texorpdfstring{$^\wedge$}{\string^}m). } \end{DoxyCompactList}\item 
-static bool \mbox{\hyperlink{reed__solomon_8c_a2253bcbc8a77278d0fd5f701c509ce99}{Get\+Syndrome}} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}cw\+Symbs, uint8\+\_\+t \texorpdfstring{$\ast$}{*}syndrome, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params, const uint8\+\_\+t map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\mbox{\hyperlink{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222abb3443a499e474497a43fe2a63daa524}{RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM}}\mbox{]})
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for performing addition operations in GF(2$^\wedge$m). } \end{DoxyCompactList}\item 
+static uint8\+\_\+t \mbox{\hyperlink{reed__solomon_8c_afff74c5af0ffb890da77f664db754b9f}{Multiply\+GF}} (uint8\+\_\+t symbA, uint8\+\_\+t symbB, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$p\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for performing multiplication operations in GF(2$^\wedge$m). } \end{DoxyCompactList}\item 
+static uint8\+\_\+t \mbox{\hyperlink{reed__solomon_8c_a3945fbb0b94bb2fbe2d8dcbfc7fc9717}{Power\+GF}} (uint8\+\_\+t symb\+Base, int16\+\_\+t exp, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$p\+Params)
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for performing power raising operations in GF(2$^\wedge$m). } \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{reed__solomon_8c_a2253bcbc8a77278d0fd5f701c509ce99}{Get\+Syndrome}} (const uint8\+\_\+t $\ast$cw\+Symbs, uint8\+\_\+t $\ast$syndrome, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$p\+Params, const uint8\+\_\+t map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\mbox{\hyperlink{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222abb3443a499e474497a43fe2a63daa524}{RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM}}\mbox{]})
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for estimating the syndrome symbols vector of the input codeword (the 0-\/degree coefficient is omitted, since always 0). } \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8c_af4e6603c0d946d0e99fd77bdd9ab3720}{Berlekamp\+Massey\+Algorithm}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}sigma, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}syndrome, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params, const uint8\+\_\+t map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\mbox{\hyperlink{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222abb3443a499e474497a43fe2a63daa524}{RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM}}\mbox{]})
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8c_af4e6603c0d946d0e99fd77bdd9ab3720}{Berlekamp\+Massey\+Algorithm}} (uint8\+\_\+t $\ast$sigma, const uint8\+\_\+t $\ast$syndrome, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$p\+Params, const uint8\+\_\+t map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\mbox{\hyperlink{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222abb3443a499e474497a43fe2a63daa524}{RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM}}\mbox{]})
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for iteratively estimating Sigma(x) polynomial via Berlekamp-\/\+Massey algorithm. } \end{DoxyCompactList}\item 
-static int16\+\_\+t \mbox{\hyperlink{reed__solomon_8c_afb0981db94c3b8333e7c8c27fe4b8247}{Get\+Discrepancy}} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}syndrome, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}sigma, int16\+\_\+t err\+Num, uint8\+\_\+t iter, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params, const uint8\+\_\+t map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\mbox{\hyperlink{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222abb3443a499e474497a43fe2a63daa524}{RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM}}\mbox{]})
+static int16\+\_\+t \mbox{\hyperlink{reed__solomon_8c_afb0981db94c3b8333e7c8c27fe4b8247}{Get\+Discrepancy}} (const uint8\+\_\+t $\ast$syndrome, const uint8\+\_\+t $\ast$sigma, int16\+\_\+t err\+Num, uint8\+\_\+t iter, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$p\+Params, const uint8\+\_\+t map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\mbox{\hyperlink{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222abb3443a499e474497a43fe2a63daa524}{RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM}}\mbox{]})
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for calculating discrepancy between syndrome and error locator polynomials. } \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8c_ac94c9873af6d0508b7d7a08e5781e715}{Chien\+Algorithm}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}err\+Loc, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}sigma, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params, const uint8\+\_\+t map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\mbox{\hyperlink{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222abb3443a499e474497a43fe2a63daa524}{RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM}}\mbox{]})
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8c_ac94c9873af6d0508b7d7a08e5781e715}{Chien\+Algorithm}} (uint8\+\_\+t $\ast$err\+Loc, const uint8\+\_\+t $\ast$sigma, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$p\+Params, const uint8\+\_\+t map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\mbox{\hyperlink{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222abb3443a499e474497a43fe2a63daa524}{RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM}}\mbox{]})
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for estimating the error positions of corrupted symbols by finding Sigma(x) roots via Chien algorithm. } \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8c_a111db6398e587a2afcdfd15ad2bcb2ae}{Key\+Algorithm}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}omega, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}syndrome, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}sigma, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params, const uint8\+\_\+t map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\mbox{\hyperlink{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222abb3443a499e474497a43fe2a63daa524}{RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM}}\mbox{]})
-\begin{DoxyCompactList}\small\item\em {\itshape  Function for estimating error evaluator polynomial Omega(x) via Key equation Omega(x) = mod((1+Syndr(x))\texorpdfstring{$\ast$}{*}\+Sigma(x),x\texorpdfstring{$^\wedge$}{\string^}(2t+1)). } \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8c_a8a047b5f3ab65e4a2cf82dc02e6f3f32}{Forney\+Algorithm}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}err\+Mag, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}omega, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}err\+Loc, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params, const uint8\+\_\+t map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\mbox{\hyperlink{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222abb3443a499e474497a43fe2a63daa524}{RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM}}\mbox{]})
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8c_a111db6398e587a2afcdfd15ad2bcb2ae}{Key\+Algorithm}} (uint8\+\_\+t $\ast$omega, const uint8\+\_\+t $\ast$syndrome, const uint8\+\_\+t $\ast$sigma, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$p\+Params, const uint8\+\_\+t map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\mbox{\hyperlink{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222abb3443a499e474497a43fe2a63daa524}{RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM}}\mbox{]})
+\begin{DoxyCompactList}\small\item\em {\itshape  Function for estimating error evaluator polynomial Omega(x) via Key equation Omega(x) = mod((1+Syndr(x))$\ast$\+Sigma(x),x$^\wedge$(2t+1)). } \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8c_a8a047b5f3ab65e4a2cf82dc02e6f3f32}{Forney\+Algorithm}} (uint8\+\_\+t $\ast$err\+Mag, const uint8\+\_\+t $\ast$omega, const uint8\+\_\+t $\ast$err\+Loc, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$p\+Params, const uint8\+\_\+t map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\mbox{\hyperlink{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222abb3443a499e474497a43fe2a63daa524}{RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM}}\mbox{]})
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for estimating error magnitude of the corrupted symbols via Forney algorithm. } \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8c_a8ad8b51b3c078ea460f1934fdcbb943c}{Error\+Corrector}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}io\+Symbs, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}err\+Loc, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}err\+Mag, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params, const uint8\+\_\+t map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\mbox{\hyperlink{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222abb3443a499e474497a43fe2a63daa524}{RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM}}\mbox{]})
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8c_a8ad8b51b3c078ea460f1934fdcbb943c}{Error\+Corrector}} (uint8\+\_\+t $\ast$io\+Symbs, const uint8\+\_\+t $\ast$err\+Loc, const uint8\+\_\+t $\ast$err\+Mag, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$p\+Params, const uint8\+\_\+t map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\mbox{\hyperlink{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222abb3443a499e474497a43fe2a63daa524}{RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM}}\mbox{]})
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for correcting corrupted symbols through the estimated error locations and magnitudes. } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8c_a578373b27d35cdf390538bf58e3d7a54}{Rs\+Cod\+\_\+\+List\+Parameters}} (\mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}io\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8c_a578373b27d35cdf390538bf58e3d7a54}{Rs\+Cod\+\_\+\+List\+Parameters}} (\mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$io\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for retrieving and listing Reed-\/\+Solomon coding parameters into dedicated structure. } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8c_a8d0400ebf3aceca73c08b1b1a8e67808}{Rc\+Cod\+\_\+\+Encoder}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8c_a8d0400ebf3aceca73c08b1b1a8e67808}{Rc\+Cod\+\_\+\+Encoder}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for Reed-\/\+Solomon encoding in systematic form. } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8c_a213eec64045f18379405efd4b2e19d3d}{Rc\+Cod\+\_\+\+Decoder}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{reed__solomon_8c_a213eec64045f18379405efd4b2e19d3d}{Rc\+Cod\+\_\+\+Decoder}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for Reed-\/\+Solomon decoding in systematic form. } \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsubsection*{Variables}
+\doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{reed__solomon_8c_ae3bc331a65bc5396fe189f7c44b19bf2}\label{reed__solomon_8c_ae3bc331a65bc5396fe189f7c44b19bf2} 
-static const uint8\+\_\+t {\bfseries Prim\+Poly\+GF4} \mbox{[}$\,$\mbox{]} = \{0,1\}
-\begin{DoxyCompactList}\small\item\em primitive polynomial for GF(2\texorpdfstring{$^\wedge$}{\string^}4) (maximum degree is implicit) \end{DoxyCompactList}\item 
-\Hypertarget{reed__solomon_8c_ae64fe3382a64be4c76186095a715be86}\label{reed__solomon_8c_ae64fe3382a64be4c76186095a715be86} 
-static const uint8\+\_\+t {\bfseries Prim\+Poly\+GF8} \mbox{[}$\,$\mbox{]} = \{0,2,3,4\}
-\begin{DoxyCompactList}\small\item\em primitive polynomial for GF(2\texorpdfstring{$^\wedge$}{\string^}8) (maximum degree is implicit) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\mbox{\Hypertarget{reed__solomon_8c_ae3bc331a65bc5396fe189f7c44b19bf2}\label{reed__solomon_8c_ae3bc331a65bc5396fe189f7c44b19bf2}} 
+static const uint8\+\_\+t \mbox{\hyperlink{reed__solomon_8c_ae3bc331a65bc5396fe189f7c44b19bf2}{Prim\+Poly\+GF4}} \mbox{[}$\,$\mbox{]} = \{0,1\}
+\begin{DoxyCompactList}\small\item\em primitive polynomial for GF(2$^\wedge$4) (maximum degree is implicit) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{reed__solomon_8c_ae64fe3382a64be4c76186095a715be86}\label{reed__solomon_8c_ae64fe3382a64be4c76186095a715be86}} 
+static const uint8\+\_\+t \mbox{\hyperlink{reed__solomon_8c_ae64fe3382a64be4c76186095a715be86}{Prim\+Poly\+GF8}} \mbox{[}$\,$\mbox{]} = \{0,2,3,4\}
+\begin{DoxyCompactList}\small\item\em primitive polynomial for GF(2$^\wedge$8) (maximum degree is implicit) \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -95,26 +95,24 @@ Electrolux S.\+p.\+A.
 \begin{DoxySeeAlso}{See also}
 Digital communications -\/ Fundamentals and applications (Bernard Sklar, 2014)
 \end{DoxySeeAlso}
-
-
 Library containing Reed-\/\+Solomon coding functions. 
 
 \doxysubsection{Enumeration Type Documentation}
-\Hypertarget{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222}\index{reed\_solomon.c@{reed\_solomon.c}!rs\_table\_idx\_t@{rs\_table\_idx\_t}}
+\mbox{\Hypertarget{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222}\label{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222}} 
+\index{reed\_solomon.c@{reed\_solomon.c}!rs\_table\_idx\_t@{rs\_table\_idx\_t}}
 \index{rs\_table\_idx\_t@{rs\_table\_idx\_t}!reed\_solomon.c@{reed\_solomon.c}}
 \doxysubsubsection{\texorpdfstring{rs\_table\_idx\_t}{rs\_table\_idx\_t}}
-{\footnotesize\ttfamily \label{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222} 
-enum \mbox{\hyperlink{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222}{rs\+\_\+table\+\_\+idx\+\_\+t}}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222}{rs\+\_\+table\+\_\+idx\+\_\+t}}}
 
-\begin{DoxyEnumFields}[2]{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RS\_TABLE\_IDX\_SYM@{RS\_TABLE\_IDX\_SYM}!reed\_solomon.c@{reed\_solomon.c}}\index{reed\_solomon.c@{reed\_solomon.c}!RS\_TABLE\_IDX\_SYM@{RS\_TABLE\_IDX\_SYM}}}\Hypertarget{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222a099d3b6bc81596c5fbe0b0f73fec9239}\label{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222} 
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RS\_TABLE\_IDX\_SYM@{RS\_TABLE\_IDX\_SYM}!reed\_solomon.c@{reed\_solomon.c}}\index{reed\_solomon.c@{reed\_solomon.c}!RS\_TABLE\_IDX\_SYM@{RS\_TABLE\_IDX\_SYM}}}\mbox{\Hypertarget{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222a099d3b6bc81596c5fbe0b0f73fec9239}\label{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222a099d3b6bc81596c5fbe0b0f73fec9239}} 
 RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+SYM&
 \begin{DoxyItemize}
 \item mapping table bit basis index 
 \end{DoxyItemize}\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RS\_TABLE\_IDX\_NUM@{RS\_TABLE\_IDX\_NUM}!reed\_solomon.c@{reed\_solomon.c}}\index{reed\_solomon.c@{reed\_solomon.c}!RS\_TABLE\_IDX\_NUM@{RS\_TABLE\_IDX\_NUM}}}\Hypertarget{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222abb3443a499e474497a43fe2a63daa524}\label{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RS\_TABLE\_IDX\_NUM@{RS\_TABLE\_IDX\_NUM}!reed\_solomon.c@{reed\_solomon.c}}\index{reed\_solomon.c@{reed\_solomon.c}!RS\_TABLE\_IDX\_NUM@{RS\_TABLE\_IDX\_NUM}}}\mbox{\Hypertarget{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222abb3443a499e474497a43fe2a63daa524}\label{reed__solomon_8c_aaef0cc8a068838e1390996f7f7b42222abb3443a499e474497a43fe2a63daa524}} 
 RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM&
 \begin{DoxyItemize}
 \item mapping table symbol index 
@@ -125,15 +123,15 @@ RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM&
 
 
 \doxysubsection{Function Documentation}
-\Hypertarget{reed__solomon_8c_a7d473a575ff8578cd8d38f5596d3cb5c}\index{reed\_solomon.c@{reed\_solomon.c}!AddGF@{AddGF}}
+\mbox{\Hypertarget{reed__solomon_8c_a7d473a575ff8578cd8d38f5596d3cb5c}\label{reed__solomon_8c_a7d473a575ff8578cd8d38f5596d3cb5c}} 
+\index{reed\_solomon.c@{reed\_solomon.c}!AddGF@{AddGF}}
 \index{AddGF@{AddGF}!reed\_solomon.c@{reed\_solomon.c}}
 \doxysubsubsection{\texorpdfstring{AddGF()}{AddGF()}}
-{\footnotesize\ttfamily \label{reed__solomon_8c_a7d473a575ff8578cd8d38f5596d3cb5c} 
-static uint8\+\_\+t Add\+GF (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{symbA}{, }\item[{uint8\+\_\+t}]{symbB}{, }\item[{const uint8\+\_\+t}]{map\+Table}{\mbox{[}$\,$\mbox{]}\mbox{[}\+RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM\mbox{]}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static uint8\+\_\+t Add\+GF (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{symbA,  }\item[{uint8\+\_\+t}]{symbB,  }\item[{const uint8\+\_\+t}]{map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\+RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-{\itshape  Function for performing addition operations in GF(2\texorpdfstring{$^\wedge$}{\string^}m). } 
+{\itshape  Function for performing addition operations in GF(2$^\wedge$m). } 
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -147,11 +145,11 @@ static uint8\+\_\+t Add\+GF (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{symbA
 \begin{DoxyReturn}{Returns}
 bit basis resulting from addition 
 \end{DoxyReturn}
-\Hypertarget{reed__solomon_8c_af4e6603c0d946d0e99fd77bdd9ab3720}\index{reed\_solomon.c@{reed\_solomon.c}!BerlekampMasseyAlgorithm@{BerlekampMasseyAlgorithm}}
+\mbox{\Hypertarget{reed__solomon_8c_af4e6603c0d946d0e99fd77bdd9ab3720}\label{reed__solomon_8c_af4e6603c0d946d0e99fd77bdd9ab3720}} 
+\index{reed\_solomon.c@{reed\_solomon.c}!BerlekampMasseyAlgorithm@{BerlekampMasseyAlgorithm}}
 \index{BerlekampMasseyAlgorithm@{BerlekampMasseyAlgorithm}!reed\_solomon.c@{reed\_solomon.c}}
 \doxysubsubsection{\texorpdfstring{BerlekampMasseyAlgorithm()}{BerlekampMasseyAlgorithm()}}
-{\footnotesize\ttfamily \label{reed__solomon_8c_af4e6603c0d946d0e99fd77bdd9ab3720} 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Berlekamp\+Massey\+Algorithm (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{sigma}{, }\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{syndrome}{, }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{, }\item[{const uint8\+\_\+t}]{map\+Table}{\mbox{[}$\,$\mbox{]}\mbox{[}\+RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM\mbox{]}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Berlekamp\+Massey\+Algorithm (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{sigma,  }\item[{const uint8\+\_\+t $\ast$}]{syndrome,  }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$}]{p\+Params,  }\item[{const uint8\+\_\+t}]{map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\+RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -174,31 +172,15 @@ error ID
 
 \begin{DoxyItemize}
 \item number of assumed errors at current iteration (Ec)
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item number of assumed errors at next iteration (En)
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item error iteration counter
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item temporary sigma polynomial (at next iteration)
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item Tau(x) polynomial
-\end{DoxyItemize}\Hypertarget{reed__solomon_8c_ac94c9873af6d0508b7d7a08e5781e715}\index{reed\_solomon.c@{reed\_solomon.c}!ChienAlgorithm@{ChienAlgorithm}}
+\end{DoxyItemize}\mbox{\Hypertarget{reed__solomon_8c_ac94c9873af6d0508b7d7a08e5781e715}\label{reed__solomon_8c_ac94c9873af6d0508b7d7a08e5781e715}} 
+\index{reed\_solomon.c@{reed\_solomon.c}!ChienAlgorithm@{ChienAlgorithm}}
 \index{ChienAlgorithm@{ChienAlgorithm}!reed\_solomon.c@{reed\_solomon.c}}
 \doxysubsubsection{\texorpdfstring{ChienAlgorithm()}{ChienAlgorithm()}}
-{\footnotesize\ttfamily \label{reed__solomon_8c_ac94c9873af6d0508b7d7a08e5781e715} 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Chien\+Algorithm (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{err\+Loc}{, }\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{sigma}{, }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{, }\item[{const uint8\+\_\+t}]{map\+Table}{\mbox{[}$\,$\mbox{]}\mbox{[}\+RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM\mbox{]}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Chien\+Algorithm (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{err\+Loc,  }\item[{const uint8\+\_\+t $\ast$}]{sigma,  }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$}]{p\+Params,  }\item[{const uint8\+\_\+t}]{map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\+RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -218,11 +200,11 @@ static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\Hypertarget{reed__solomon_8c_a5246db512fc9d4caec1eccf30694c22b}\index{reed\_solomon.c@{reed\_solomon.c}!ConvertBi2Sy@{ConvertBi2Sy}}
+\mbox{\Hypertarget{reed__solomon_8c_a5246db512fc9d4caec1eccf30694c22b}\label{reed__solomon_8c_a5246db512fc9d4caec1eccf30694c22b}} 
+\index{reed\_solomon.c@{reed\_solomon.c}!ConvertBi2Sy@{ConvertBi2Sy}}
 \index{ConvertBi2Sy@{ConvertBi2Sy}!reed\_solomon.c@{reed\_solomon.c}}
 \doxysubsubsection{\texorpdfstring{ConvertBi2Sy()}{ConvertBi2Sy()}}
-{\footnotesize\ttfamily \label{reed__solomon_8c_a5246db512fc9d4caec1eccf30694c22b} 
-static uint8\+\_\+t Convert\+Bi2\+Sy (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{in\+Basis}{, }\item[{const uint8\+\_\+t}]{map\+Table}{\mbox{[}$\,$\mbox{]}\mbox{[}\+RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM\mbox{]}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static uint8\+\_\+t Convert\+Bi2\+Sy (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{in\+Basis,  }\item[{const uint8\+\_\+t}]{map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\+RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -238,11 +220,11 @@ static uint8\+\_\+t Convert\+Bi2\+Sy (\begin{DoxyParamCaption}\item[{uint8\+\_\+
 \begin{DoxyReturn}{Returns}
 corresponding GF symbol 
 \end{DoxyReturn}
-\Hypertarget{reed__solomon_8c_a87bdf516d918281140166f890d3a1dbe}\index{reed\_solomon.c@{reed\_solomon.c}!ConvertSy2Bi@{ConvertSy2Bi}}
+\mbox{\Hypertarget{reed__solomon_8c_a87bdf516d918281140166f890d3a1dbe}\label{reed__solomon_8c_a87bdf516d918281140166f890d3a1dbe}} 
+\index{reed\_solomon.c@{reed\_solomon.c}!ConvertSy2Bi@{ConvertSy2Bi}}
 \index{ConvertSy2Bi@{ConvertSy2Bi}!reed\_solomon.c@{reed\_solomon.c}}
 \doxysubsubsection{\texorpdfstring{ConvertSy2Bi()}{ConvertSy2Bi()}}
-{\footnotesize\ttfamily \label{reed__solomon_8c_a87bdf516d918281140166f890d3a1dbe} 
-static uint8\+\_\+t Convert\+Sy2\+Bi (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{in\+Symb}{, }\item[{const uint8\+\_\+t}]{map\+Table}{\mbox{[}$\,$\mbox{]}\mbox{[}\+RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM\mbox{]}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static uint8\+\_\+t Convert\+Sy2\+Bi (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{in\+Symb,  }\item[{const uint8\+\_\+t}]{map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\+RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -258,11 +240,11 @@ static uint8\+\_\+t Convert\+Sy2\+Bi (\begin{DoxyParamCaption}\item[{uint8\+\_\+
 \begin{DoxyReturn}{Returns}
 corresponding bit basis 
 \end{DoxyReturn}
-\Hypertarget{reed__solomon_8c_a8ad8b51b3c078ea460f1934fdcbb943c}\index{reed\_solomon.c@{reed\_solomon.c}!ErrorCorrector@{ErrorCorrector}}
+\mbox{\Hypertarget{reed__solomon_8c_a8ad8b51b3c078ea460f1934fdcbb943c}\label{reed__solomon_8c_a8ad8b51b3c078ea460f1934fdcbb943c}} 
+\index{reed\_solomon.c@{reed\_solomon.c}!ErrorCorrector@{ErrorCorrector}}
 \index{ErrorCorrector@{ErrorCorrector}!reed\_solomon.c@{reed\_solomon.c}}
 \doxysubsubsection{\texorpdfstring{ErrorCorrector()}{ErrorCorrector()}}
-{\footnotesize\ttfamily \label{reed__solomon_8c_a8ad8b51b3c078ea460f1934fdcbb943c} 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Error\+Corrector (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{io\+Symbs}{, }\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{err\+Loc}{, }\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{err\+Mag}{, }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{, }\item[{const uint8\+\_\+t}]{map\+Table}{\mbox{[}$\,$\mbox{]}\mbox{[}\+RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM\mbox{]}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Error\+Corrector (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{io\+Symbs,  }\item[{const uint8\+\_\+t $\ast$}]{err\+Loc,  }\item[{const uint8\+\_\+t $\ast$}]{err\+Mag,  }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$}]{p\+Params,  }\item[{const uint8\+\_\+t}]{map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\+RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -284,11 +266,11 @@ static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\Hypertarget{reed__solomon_8c_abc3051a12930537b424308da37a54835}\index{reed\_solomon.c@{reed\_solomon.c}!FindMaxDeg@{FindMaxDeg}}
+\mbox{\Hypertarget{reed__solomon_8c_abc3051a12930537b424308da37a54835}\label{reed__solomon_8c_abc3051a12930537b424308da37a54835}} 
+\index{reed\_solomon.c@{reed\_solomon.c}!FindMaxDeg@{FindMaxDeg}}
 \index{FindMaxDeg@{FindMaxDeg}!reed\_solomon.c@{reed\_solomon.c}}
 \doxysubsubsection{\texorpdfstring{FindMaxDeg()}{FindMaxDeg()}}
-{\footnotesize\ttfamily \label{reed__solomon_8c_abc3051a12930537b424308da37a54835} 
-static uint16\+\_\+t Find\+Max\+Deg (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{poly}{, }\item[{uint16\+\_\+t}]{len}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static uint16\+\_\+t Find\+Max\+Deg (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t $\ast$}]{poly,  }\item[{uint16\+\_\+t}]{len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -304,11 +286,11 @@ static uint16\+\_\+t Find\+Max\+Deg (\begin{DoxyParamCaption}\item[{const uint8\
 \begin{DoxyReturn}{Returns}
 maximum degree index 
 \end{DoxyReturn}
-\Hypertarget{reed__solomon_8c_a8a047b5f3ab65e4a2cf82dc02e6f3f32}\index{reed\_solomon.c@{reed\_solomon.c}!ForneyAlgorithm@{ForneyAlgorithm}}
+\mbox{\Hypertarget{reed__solomon_8c_a8a047b5f3ab65e4a2cf82dc02e6f3f32}\label{reed__solomon_8c_a8a047b5f3ab65e4a2cf82dc02e6f3f32}} 
+\index{reed\_solomon.c@{reed\_solomon.c}!ForneyAlgorithm@{ForneyAlgorithm}}
 \index{ForneyAlgorithm@{ForneyAlgorithm}!reed\_solomon.c@{reed\_solomon.c}}
 \doxysubsubsection{\texorpdfstring{ForneyAlgorithm()}{ForneyAlgorithm()}}
-{\footnotesize\ttfamily \label{reed__solomon_8c_a8a047b5f3ab65e4a2cf82dc02e6f3f32} 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Forney\+Algorithm (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{err\+Mag}{, }\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{omega}{, }\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{err\+Loc}{, }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{, }\item[{const uint8\+\_\+t}]{map\+Table}{\mbox{[}$\,$\mbox{]}\mbox{[}\+RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM\mbox{]}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Forney\+Algorithm (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{err\+Mag,  }\item[{const uint8\+\_\+t $\ast$}]{omega,  }\item[{const uint8\+\_\+t $\ast$}]{err\+Loc,  }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$}]{p\+Params,  }\item[{const uint8\+\_\+t}]{map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\+RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -330,11 +312,11 @@ static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\Hypertarget{reed__solomon_8c_a7bfba3c7f3b790dcd7ae34b2d2ae9852}\index{reed\_solomon.c@{reed\_solomon.c}!GetBasis@{GetBasis}}
+\mbox{\Hypertarget{reed__solomon_8c_a7bfba3c7f3b790dcd7ae34b2d2ae9852}\label{reed__solomon_8c_a7bfba3c7f3b790dcd7ae34b2d2ae9852}} 
+\index{reed\_solomon.c@{reed\_solomon.c}!GetBasis@{GetBasis}}
 \index{GetBasis@{GetBasis}!reed\_solomon.c@{reed\_solomon.c}}
 \doxysubsubsection{\texorpdfstring{GetBasis()}{GetBasis()}}
-{\footnotesize\ttfamily \label{reed__solomon_8c_a7bfba3c7f3b790dcd7ae34b2d2ae9852} 
-static uint8\+\_\+t Get\+Basis (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{poly}{, }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static uint8\+\_\+t Get\+Basis (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t $\ast$}]{poly,  }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -350,11 +332,11 @@ static uint8\+\_\+t Get\+Basis (\begin{DoxyParamCaption}\item[{const uint8\+\_\+
 \begin{DoxyReturn}{Returns}
 maximum degree index 
 \end{DoxyReturn}
-\Hypertarget{reed__solomon_8c_afb0981db94c3b8333e7c8c27fe4b8247}\index{reed\_solomon.c@{reed\_solomon.c}!GetDiscrepancy@{GetDiscrepancy}}
+\mbox{\Hypertarget{reed__solomon_8c_afb0981db94c3b8333e7c8c27fe4b8247}\label{reed__solomon_8c_afb0981db94c3b8333e7c8c27fe4b8247}} 
+\index{reed\_solomon.c@{reed\_solomon.c}!GetDiscrepancy@{GetDiscrepancy}}
 \index{GetDiscrepancy@{GetDiscrepancy}!reed\_solomon.c@{reed\_solomon.c}}
 \doxysubsubsection{\texorpdfstring{GetDiscrepancy()}{GetDiscrepancy()}}
-{\footnotesize\ttfamily \label{reed__solomon_8c_afb0981db94c3b8333e7c8c27fe4b8247} 
-static int16\+\_\+t Get\+Discrepancy (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{syndrome}{, }\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{sigma}{, }\item[{int16\+\_\+t}]{err\+Num}{, }\item[{uint8\+\_\+t}]{iter}{, }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{, }\item[{const uint8\+\_\+t}]{map\+Table}{\mbox{[}$\,$\mbox{]}\mbox{[}\+RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM\mbox{]}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static int16\+\_\+t Get\+Discrepancy (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t $\ast$}]{syndrome,  }\item[{const uint8\+\_\+t $\ast$}]{sigma,  }\item[{int16\+\_\+t}]{err\+Num,  }\item[{uint8\+\_\+t}]{iter,  }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$}]{p\+Params,  }\item[{const uint8\+\_\+t}]{map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\+RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -378,11 +360,11 @@ static int16\+\_\+t Get\+Discrepancy (\begin{DoxyParamCaption}\item[{const uint8
 \begin{DoxyReturn}{Returns}
 discrepancy value 
 \end{DoxyReturn}
-\Hypertarget{reed__solomon_8c_a2253bcbc8a77278d0fd5f701c509ce99}\index{reed\_solomon.c@{reed\_solomon.c}!GetSyndrome@{GetSyndrome}}
+\mbox{\Hypertarget{reed__solomon_8c_a2253bcbc8a77278d0fd5f701c509ce99}\label{reed__solomon_8c_a2253bcbc8a77278d0fd5f701c509ce99}} 
+\index{reed\_solomon.c@{reed\_solomon.c}!GetSyndrome@{GetSyndrome}}
 \index{GetSyndrome@{GetSyndrome}!reed\_solomon.c@{reed\_solomon.c}}
 \doxysubsubsection{\texorpdfstring{GetSyndrome()}{GetSyndrome()}}
-{\footnotesize\ttfamily \label{reed__solomon_8c_a2253bcbc8a77278d0fd5f701c509ce99} 
-static bool Get\+Syndrome (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{cw\+Symbs}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{syndrome}{, }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{, }\item[{const uint8\+\_\+t}]{map\+Table}{\mbox{[}$\,$\mbox{]}\mbox{[}\+RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM\mbox{]}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static bool Get\+Syndrome (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t $\ast$}]{cw\+Symbs,  }\item[{uint8\+\_\+t $\ast$}]{syndrome,  }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$}]{p\+Params,  }\item[{const uint8\+\_\+t}]{map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\+RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -404,21 +386,17 @@ flag notifying if a corrupted symbol has been detected
 \end{DoxyReturn}
 
 \begin{DoxyItemize}
-\item compute syndrome polynomial Syndr(x) as Cw(x) for x = a, a\texorpdfstring{$^\wedge$}{\string^}2, ..., a\texorpdfstring{$^\wedge$}{\string^}2t
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
+\item compute syndrome polynomial Syndr(x) as Cw(x) for x = a, a$^\wedge$2, ..., a$^\wedge$2t
 \item assert error flag if one coefficient is not equal to 0
-\end{DoxyItemize}\Hypertarget{reed__solomon_8c_a111db6398e587a2afcdfd15ad2bcb2ae}\index{reed\_solomon.c@{reed\_solomon.c}!KeyAlgorithm@{KeyAlgorithm}}
+\end{DoxyItemize}\mbox{\Hypertarget{reed__solomon_8c_a111db6398e587a2afcdfd15ad2bcb2ae}\label{reed__solomon_8c_a111db6398e587a2afcdfd15ad2bcb2ae}} 
+\index{reed\_solomon.c@{reed\_solomon.c}!KeyAlgorithm@{KeyAlgorithm}}
 \index{KeyAlgorithm@{KeyAlgorithm}!reed\_solomon.c@{reed\_solomon.c}}
 \doxysubsubsection{\texorpdfstring{KeyAlgorithm()}{KeyAlgorithm()}}
-{\footnotesize\ttfamily \label{reed__solomon_8c_a111db6398e587a2afcdfd15ad2bcb2ae} 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Key\+Algorithm (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{omega}{, }\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{syndrome}{, }\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{sigma}{, }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{, }\item[{const uint8\+\_\+t}]{map\+Table}{\mbox{[}$\,$\mbox{]}\mbox{[}\+RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM\mbox{]}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Key\+Algorithm (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{omega,  }\item[{const uint8\+\_\+t $\ast$}]{syndrome,  }\item[{const uint8\+\_\+t $\ast$}]{sigma,  }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$}]{p\+Params,  }\item[{const uint8\+\_\+t}]{map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\+RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-{\itshape  Function for estimating error evaluator polynomial Omega(x) via Key equation Omega(x) = mod((1+Syndr(x))\texorpdfstring{$\ast$}{*}\+Sigma(x),x\texorpdfstring{$^\wedge$}{\string^}(2t+1)). } 
+{\itshape  Function for estimating error evaluator polynomial Omega(x) via Key equation Omega(x) = mod((1+Syndr(x))$\ast$\+Sigma(x),x$^\wedge$(2t+1)). } 
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -436,15 +414,15 @@ static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\Hypertarget{reed__solomon_8c_afff74c5af0ffb890da77f664db754b9f}\index{reed\_solomon.c@{reed\_solomon.c}!MultiplyGF@{MultiplyGF}}
+\mbox{\Hypertarget{reed__solomon_8c_afff74c5af0ffb890da77f664db754b9f}\label{reed__solomon_8c_afff74c5af0ffb890da77f664db754b9f}} 
+\index{reed\_solomon.c@{reed\_solomon.c}!MultiplyGF@{MultiplyGF}}
 \index{MultiplyGF@{MultiplyGF}!reed\_solomon.c@{reed\_solomon.c}}
 \doxysubsubsection{\texorpdfstring{MultiplyGF()}{MultiplyGF()}}
-{\footnotesize\ttfamily \label{reed__solomon_8c_afff74c5af0ffb890da77f664db754b9f} 
-static uint8\+\_\+t Multiply\+GF (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{symbA}{, }\item[{uint8\+\_\+t}]{symbB}{, }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static uint8\+\_\+t Multiply\+GF (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{symbA,  }\item[{uint8\+\_\+t}]{symbB,  }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-{\itshape  Function for performing multiplication operations in GF(2\texorpdfstring{$^\wedge$}{\string^}m). } 
+{\itshape  Function for performing multiplication operations in GF(2$^\wedge$m). } 
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -458,22 +436,22 @@ static uint8\+\_\+t Multiply\+GF (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{
 \begin{DoxyReturn}{Returns}
 bit basis resulting from multiplication 
 \end{DoxyReturn}
-\Hypertarget{reed__solomon_8c_a3945fbb0b94bb2fbe2d8dcbfc7fc9717}\index{reed\_solomon.c@{reed\_solomon.c}!PowerGF@{PowerGF}}
+\mbox{\Hypertarget{reed__solomon_8c_a3945fbb0b94bb2fbe2d8dcbfc7fc9717}\label{reed__solomon_8c_a3945fbb0b94bb2fbe2d8dcbfc7fc9717}} 
+\index{reed\_solomon.c@{reed\_solomon.c}!PowerGF@{PowerGF}}
 \index{PowerGF@{PowerGF}!reed\_solomon.c@{reed\_solomon.c}}
 \doxysubsubsection{\texorpdfstring{PowerGF()}{PowerGF()}}
-{\footnotesize\ttfamily \label{reed__solomon_8c_a3945fbb0b94bb2fbe2d8dcbfc7fc9717} 
-static uint8\+\_\+t Power\+GF (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{symb\+Base}{, }\item[{int16\+\_\+t}]{exp}{, }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static uint8\+\_\+t Power\+GF (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{symb\+Base,  }\item[{int16\+\_\+t}]{exp,  }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-{\itshape  Function for performing power raising operations in GF(2\texorpdfstring{$^\wedge$}{\string^}m). } 
+{\itshape  Function for performing power raising operations in GF(2$^\wedge$m). } 
 
 
 \begin{DoxyItemize}
-\item NB\#1\+: to get "{}alpha\texorpdfstring{$^\wedge$}{\string^}(w)"{} use "{}\+Power\+GF(2,w)"{};
-\item NB\#2\+: to get "{}alpha\texorpdfstring{$^\wedge$}{\string^}(-\/w)"{} use "{}\+Power\+GF(2,-\/w)"{};
-\item NB\#3\+: to get "{}\+Symb\texorpdfstring{$^\wedge$}{\string^}-\/1"{} use "{}\+Power\+GF(2,-\/\+Symb+1)"{};
-\item NB\#4\+: keep in mind the identity "{}\+Multiply\+GF(\+Symb,\+Pow\+GF(2,-\/\+Symb+1))=1"{}.
+\item NB\#1\+: to get \char`\"{}alpha$^\wedge$(w)\char`\"{} use \char`\"{}\+Power\+GF(2,w)\char`\"{};
+\item NB\#2\+: to get \char`\"{}alpha$^\wedge$(-\/w)\char`\"{} use \char`\"{}\+Power\+GF(2,-\/w)\char`\"{};
+\item NB\#3\+: to get \char`\"{}\+Symb$^\wedge$-\/1\char`\"{} use \char`\"{}\+Power\+GF(2,-\/\+Symb+1)\char`\"{};
+\item NB\#4\+: keep in mind the identity \char`\"{}\+Multiply\+GF(\+Symb,\+Pow\+GF(2,-\/\+Symb+1))=1\char`\"{}.
 \end{DoxyItemize}
 
 
@@ -488,11 +466,11 @@ static uint8\+\_\+t Power\+GF (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{sym
 \begin{DoxyReturn}{Returns}
 GF stmbol resulting from power raising 
 \end{DoxyReturn}
-\Hypertarget{reed__solomon_8c_a213eec64045f18379405efd4b2e19d3d}\index{reed\_solomon.c@{reed\_solomon.c}!RcCod\_Decoder@{RcCod\_Decoder}}
+\mbox{\Hypertarget{reed__solomon_8c_a213eec64045f18379405efd4b2e19d3d}\label{reed__solomon_8c_a213eec64045f18379405efd4b2e19d3d}} 
+\index{reed\_solomon.c@{reed\_solomon.c}!RcCod\_Decoder@{RcCod\_Decoder}}
 \index{RcCod\_Decoder@{RcCod\_Decoder}!reed\_solomon.c@{reed\_solomon.c}}
 \doxysubsubsection{\texorpdfstring{RcCod\_Decoder()}{RcCod\_Decoder()}}
-{\footnotesize\ttfamily \label{reed__solomon_8c_a213eec64045f18379405efd4b2e19d3d} 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Rc\+Cod\+\_\+\+Decoder (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Rc\+Cod\+\_\+\+Decoder (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
 
 
 
@@ -515,56 +493,20 @@ error ID
 
 \begin{DoxyItemize}
 \item mapping table between symbols and basis
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item bits-\/to-\/symbol conversion
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item estimate syndrome polynomial
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item check if any error has been detected on current symbol
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item estimate Sigma(x) polynomial
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item estimate error locator polynomial
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item estimate Omega(x) polynomial
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item estimate error magnitude polynomial
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item correct the corrupted symbol stream
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item symbol-\/to-\/bits conversion
-\end{DoxyItemize}\Hypertarget{reed__solomon_8c_a8d0400ebf3aceca73c08b1b1a8e67808}\index{reed\_solomon.c@{reed\_solomon.c}!RcCod\_Encoder@{RcCod\_Encoder}}
+\end{DoxyItemize}\mbox{\Hypertarget{reed__solomon_8c_a8d0400ebf3aceca73c08b1b1a8e67808}\label{reed__solomon_8c_a8d0400ebf3aceca73c08b1b1a8e67808}} 
+\index{reed\_solomon.c@{reed\_solomon.c}!RcCod\_Encoder@{RcCod\_Encoder}}
 \index{RcCod\_Encoder@{RcCod\_Encoder}!reed\_solomon.c@{reed\_solomon.c}}
 \doxysubsubsection{\texorpdfstring{RcCod\_Encoder()}{RcCod\_Encoder()}}
-{\footnotesize\ttfamily \label{reed__solomon_8c_a8d0400ebf3aceca73c08b1b1a8e67808} 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Rc\+Cod\+\_\+\+Encoder (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Rc\+Cod\+\_\+\+Encoder (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
 
 
 
@@ -587,45 +529,21 @@ error ID
 
 \begin{DoxyItemize}
 \item mapping table between symbols and basis
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item bits-\/to-\/symbol conversion
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item upshift message polynomial by 2t positions
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item initialize maximum degree of temporary polynomial
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item quotient coefficient at current iteration
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item write redundancy bits into output stream after symbol-\/to-\/bits conversion
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item copy current message bits into output stream
-\end{DoxyItemize}\Hypertarget{reed__solomon_8c_a9b327047e1d3dcda3cc76d0f1b3d4363}\index{reed\_solomon.c@{reed\_solomon.c}!RetrieveGeneratorPolynomial@{RetrieveGeneratorPolynomial}}
+\end{DoxyItemize}\mbox{\Hypertarget{reed__solomon_8c_a9b327047e1d3dcda3cc76d0f1b3d4363}\label{reed__solomon_8c_a9b327047e1d3dcda3cc76d0f1b3d4363}} 
+\index{reed\_solomon.c@{reed\_solomon.c}!RetrieveGeneratorPolynomial@{RetrieveGeneratorPolynomial}}
 \index{RetrieveGeneratorPolynomial@{RetrieveGeneratorPolynomial}!reed\_solomon.c@{reed\_solomon.c}}
 \doxysubsubsection{\texorpdfstring{RetrieveGeneratorPolynomial()}{RetrieveGeneratorPolynomial()}}
-{\footnotesize\ttfamily \label{reed__solomon_8c_a9b327047e1d3dcda3cc76d0f1b3d4363} 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Retrieve\+Generator\+Polynomial (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{io\+Buf}{, }\item[{uint8\+\_\+t}]{len}{, }\item[{const uint8\+\_\+t}]{map\+Table}{\mbox{[}$\,$\mbox{]}\mbox{[}\+RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM\mbox{]}, }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Retrieve\+Generator\+Polynomial (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{io\+Buf,  }\item[{uint8\+\_\+t}]{len,  }\item[{const uint8\+\_\+t}]{map\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\+RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM\mbox{]},  }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-{\itshape  Function for iteratively computing code generator polynomial as Gen\+Poly(x) = (x+a)\texorpdfstring{$\ast$}{*}(x+a\texorpdfstring{$^\wedge$}{\string^}2)\texorpdfstring{$\ast$}{*}...\texorpdfstring{$\ast$}{*}(x+a\texorpdfstring{$^\wedge$}{\string^}2t). } 
+{\itshape  Function for iteratively computing code generator polynomial as Gen\+Poly(x) = (x+a)$\ast$(x+a$^\wedge$2)$\ast$...$\ast$(x+a$^\wedge$2t). } 
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -640,15 +558,15 @@ error ID
 
 \begin{DoxyItemize}
 \item initialize generator polynomial as (x+a)
-\end{DoxyItemize}\Hypertarget{reed__solomon_8c_a436ac508205548788cb34839f76d7dcf}\index{reed\_solomon.c@{reed\_solomon.c}!RetrieveMappingTableGF@{RetrieveMappingTableGF}}
+\end{DoxyItemize}\mbox{\Hypertarget{reed__solomon_8c_a436ac508205548788cb34839f76d7dcf}\label{reed__solomon_8c_a436ac508205548788cb34839f76d7dcf}} 
+\index{reed\_solomon.c@{reed\_solomon.c}!RetrieveMappingTableGF@{RetrieveMappingTableGF}}
 \index{RetrieveMappingTableGF@{RetrieveMappingTableGF}!reed\_solomon.c@{reed\_solomon.c}}
 \doxysubsubsection{\texorpdfstring{RetrieveMappingTableGF()}{RetrieveMappingTableGF()}}
-{\footnotesize\ttfamily \label{reed__solomon_8c_a436ac508205548788cb34839f76d7dcf} 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Retrieve\+Mapping\+Table\+GF (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{io\+Table}{\mbox{[}$\,$\mbox{]}\mbox{[}\+RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM\mbox{]}, }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Retrieve\+Mapping\+Table\+GF (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{io\+Table\mbox{[}$\,$\mbox{]}\mbox{[}\+RS\+\_\+\+TABLE\+\_\+\+IDX\+\_\+\+NUM\mbox{]},  }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-{\itshape  Function for retrieving mapping table between GF symbols and bit basis by calculating the remainder of x\texorpdfstring{$^\wedge$}{\string^}j divided by Prim\+Poly(x). } 
+{\itshape  Function for retrieving mapping table between GF symbols and bit basis by calculating the remainder of x$^\wedge$j divided by Prim\+Poly(x). } 
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -668,11 +586,11 @@ find new maximum degree of polynomial
 
 update quotient degree of polynomial after division
 
-retrieve bit basis from remainder\Hypertarget{reed__solomon_8c_a64263a3c700543aaa46fe4614f97ce24}\index{reed\_solomon.c@{reed\_solomon.c}!RetrievePrimitivePolynomial@{RetrievePrimitivePolynomial}}
+retrieve bit basis from remainder\mbox{\Hypertarget{reed__solomon_8c_a64263a3c700543aaa46fe4614f97ce24}\label{reed__solomon_8c_a64263a3c700543aaa46fe4614f97ce24}} 
+\index{reed\_solomon.c@{reed\_solomon.c}!RetrievePrimitivePolynomial@{RetrievePrimitivePolynomial}}
 \index{RetrievePrimitivePolynomial@{RetrievePrimitivePolynomial}!reed\_solomon.c@{reed\_solomon.c}}
 \doxysubsubsection{\texorpdfstring{RetrievePrimitivePolynomial()}{RetrievePrimitivePolynomial()}}
-{\footnotesize\ttfamily \label{reed__solomon_8c_a64263a3c700543aaa46fe4614f97ce24} 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Retrieve\+Primitive\+Polynomial (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__rs__encoder__info__t}{rs\+\_\+encoder\+\_\+info\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{io\+Info}{, }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Retrieve\+Primitive\+Polynomial (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__rs__encoder__info__t}{rs\+\_\+encoder\+\_\+info\+\_\+t}} $\ast$}]{io\+Info,  }\item[{const \mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -688,11 +606,11 @@ static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\Hypertarget{reed__solomon_8c_a578373b27d35cdf390538bf58e3d7a54}\index{reed\_solomon.c@{reed\_solomon.c}!RsCod\_ListParameters@{RsCod\_ListParameters}}
+\mbox{\Hypertarget{reed__solomon_8c_a578373b27d35cdf390538bf58e3d7a54}\label{reed__solomon_8c_a578373b27d35cdf390538bf58e3d7a54}} 
+\index{reed\_solomon.c@{reed\_solomon.c}!RsCod\_ListParameters@{RsCod\_ListParameters}}
 \index{RsCod\_ListParameters@{RsCod\_ListParameters}!reed\_solomon.c@{reed\_solomon.c}}
 \doxysubsubsection{\texorpdfstring{RsCod\_ListParameters()}{RsCod\_ListParameters()}}
-{\footnotesize\ttfamily \label{reed__solomon_8c_a578373b27d35cdf390538bf58e3d7a54} 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Rs\+Cod\+\_\+\+List\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{io\+Params}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Rs\+Cod\+\_\+\+List\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__rs__par__t}{rs\+\_\+par\+\_\+t}} $\ast$}]{io\+Params }\end{DoxyParamCaption})}
 
 
 

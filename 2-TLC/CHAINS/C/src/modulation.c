@@ -464,3 +464,18 @@ static bool IsQamBpsValid( uint8_t bps )
 
   return bRet;
 }
+
+
+
+/**********************/
+/*** TEST FUNCTIONS ***/
+/**********************/
+
+#ifdef UTEST
+
+error_t Test_GetGraySequence( byte_t * ioBuffer, const mod_par_t * pParams )
+{
+  return GetGraySequence(ioBuffer,pParams );
+}
+
+#endif

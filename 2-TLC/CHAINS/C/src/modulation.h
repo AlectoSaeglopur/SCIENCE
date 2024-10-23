@@ -98,4 +98,9 @@ error_t Modulation_Mapper( const byte_stream_t * inStream, complex_stream_t * ou
 error_t Modulation_HardDemapper( const complex_stream_t * inStream, byte_stream_t * outStream, const mod_par_t * pParams );
 error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream_t * outStream, const mod_par_t * pParams );
 
+#ifdef UTEST
+error_t Test_GetGraySequence( byte_t * ioBuffer, const mod_par_t * pParams );
+#endif
+
+
 #endif

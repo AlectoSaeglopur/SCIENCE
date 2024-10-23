@@ -1026,3 +1026,18 @@ static uint8_t FindMinSurvPathSoft( const cc_soft_dec_info_t * inPaths)
 
   return minStIdx;
 }
+
+
+
+/**********************/
+/*** TEST FUNCTIONS ***/
+/**********************/
+
+#ifdef UTEST
+
+uint8_t Test_CountByteOnes( byte_t inByte )
+{
+  return CountByteOnes(inByte);
+}
+
+#endif

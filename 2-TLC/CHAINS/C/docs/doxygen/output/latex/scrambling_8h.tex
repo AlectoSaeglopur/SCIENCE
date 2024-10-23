@@ -1,51 +1,51 @@
-\doxysection{src/scrambling.h File Reference}
-\hypertarget{scrambling_8h}{}\label{scrambling_8h}\index{src/scrambling.h@{src/scrambling.h}}
+\hypertarget{scrambling_8h}{}\doxysection{src/scrambling.h File Reference}
+\label{scrambling_8h}\index{src/scrambling.h@{src/scrambling.h}}
 
 
 Scrambling library header.  
 
 
-{\ttfamily \#include "{}error.\+h"{}}\newline
-{\ttfamily \#include "{}memory.\+h"{}}\newline
-{\ttfamily \#include "{}system.\+h"{}}\newline
-\doxysubsubsection*{Data Structures}
+{\ttfamily \#include \char`\"{}error.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}memory.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}system.\+h\char`\"{}}\newline
+\doxysubsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{struct__scr__par__t}{\+\_\+scr\+\_\+par\+\_\+t}}
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Macros}
+\doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{scrambling_8h_aab6c6bb165df90249e7e4432331a0528}\label{scrambling_8h_aab6c6bb165df90249e7e4432331a0528} 
+\mbox{\Hypertarget{scrambling_8h_aab6c6bb165df90249e7e4432331a0528}\label{scrambling_8h_aab6c6bb165df90249e7e4432331a0528}} 
 \#define {\bfseries SCRAMB\+\_\+\+TYPE}~SCRAMB\+\_\+\+ADT
 \item 
-\Hypertarget{scrambling_8h_ae80001aa3fba539dfd93bf2031ff3457}\label{scrambling_8h_ae80001aa3fba539dfd93bf2031ff3457} 
-\#define {\bfseries NCELLS\+\_\+\+ADT}~15u
+\mbox{\Hypertarget{scrambling_8h_ae80001aa3fba539dfd93bf2031ff3457}\label{scrambling_8h_ae80001aa3fba539dfd93bf2031ff3457}} 
+\#define \mbox{\hyperlink{scrambling_8h_ae80001aa3fba539dfd93bf2031ff3457}{NCELLS\+\_\+\+ADT}}~15u
 \begin{DoxyCompactList}\small\item\em cells number of additive LFSR \end{DoxyCompactList}\item 
-\Hypertarget{scrambling_8h_aab4abec86be47cd5232ff0fa74a67771}\label{scrambling_8h_aab4abec86be47cd5232ff0fa74a67771} 
-\#define {\bfseries CONVECT\+\_\+\+ADT}~0x00060000
-\begin{DoxyCompactList}\small\item\em connection vector of additive LFSR \mbox{[}e.\+g. DVB-\/S\+: 0x00060000 = (1+)z\texorpdfstring{$^\wedge$}{\string^}-\/14+z\texorpdfstring{$^\wedge$}{\string^}-\/15\mbox{]} \end{DoxyCompactList}\item 
-\Hypertarget{scrambling_8h_a5d7038ff6e7410805c2a5d3df44cfc87}\label{scrambling_8h_a5d7038ff6e7410805c2a5d3df44cfc87} 
-\#define {\bfseries INITST\+\_\+\+ADT}~0x95000000
+\mbox{\Hypertarget{scrambling_8h_aab4abec86be47cd5232ff0fa74a67771}\label{scrambling_8h_aab4abec86be47cd5232ff0fa74a67771}} 
+\#define \mbox{\hyperlink{scrambling_8h_aab4abec86be47cd5232ff0fa74a67771}{CONVECT\+\_\+\+ADT}}~0x00060000
+\begin{DoxyCompactList}\small\item\em connection vector of additive LFSR \mbox{[}e.\+g. DVB-\/S\+: 0x00060000 = (1+)z$^\wedge$-\/14+z$^\wedge$-\/15\mbox{]} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{scrambling_8h_a5d7038ff6e7410805c2a5d3df44cfc87}\label{scrambling_8h_a5d7038ff6e7410805c2a5d3df44cfc87}} 
+\#define \mbox{\hyperlink{scrambling_8h_a5d7038ff6e7410805c2a5d3df44cfc87}{INITST\+\_\+\+ADT}}~0x95000000
 \begin{DoxyCompactList}\small\item\em initial state of additive LFSR \end{DoxyCompactList}\item 
-\Hypertarget{scrambling_8h_ae699f98e8d1ad84fc653d89ea6f6a3a9}\label{scrambling_8h_ae699f98e8d1ad84fc653d89ea6f6a3a9} 
-\#define {\bfseries NCELLS\+\_\+\+MLT}~17u
+\mbox{\Hypertarget{scrambling_8h_ae699f98e8d1ad84fc653d89ea6f6a3a9}\label{scrambling_8h_ae699f98e8d1ad84fc653d89ea6f6a3a9}} 
+\#define \mbox{\hyperlink{scrambling_8h_ae699f98e8d1ad84fc653d89ea6f6a3a9}{NCELLS\+\_\+\+MLT}}~17u
 \begin{DoxyCompactList}\small\item\em cells number of multiplicative LFSR \end{DoxyCompactList}\item 
-\Hypertarget{scrambling_8h_a17b218304fbf8ece64c670a059d4e05f}\label{scrambling_8h_a17b218304fbf8ece64c670a059d4e05f} 
-\#define {\bfseries CONVECT\+\_\+\+MLT}~0x00108000
-\begin{DoxyCompactList}\small\item\em connection vector of multiplicative LFSR \mbox{[}e.\+g. 0x00108000 = (1+)z\texorpdfstring{$^\wedge$}{\string^}-\/12+z\texorpdfstring{$^\wedge$}{\string^}-\/17\mbox{]} \end{DoxyCompactList}\item 
-\Hypertarget{scrambling_8h_a8397dcc03be68f9200b32816663c02cd}\label{scrambling_8h_a8397dcc03be68f9200b32816663c02cd} 
-\#define {\bfseries INITST\+\_\+\+MLT}~0x2\+C350000
+\mbox{\Hypertarget{scrambling_8h_a17b218304fbf8ece64c670a059d4e05f}\label{scrambling_8h_a17b218304fbf8ece64c670a059d4e05f}} 
+\#define \mbox{\hyperlink{scrambling_8h_a17b218304fbf8ece64c670a059d4e05f}{CONVECT\+\_\+\+MLT}}~0x00108000
+\begin{DoxyCompactList}\small\item\em connection vector of multiplicative LFSR \mbox{[}e.\+g. 0x00108000 = (1+)z$^\wedge$-\/12+z$^\wedge$-\/17\mbox{]} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{scrambling_8h_a8397dcc03be68f9200b32816663c02cd}\label{scrambling_8h_a8397dcc03be68f9200b32816663c02cd}} 
+\#define \mbox{\hyperlink{scrambling_8h_a8397dcc03be68f9200b32816663c02cd}{INITST\+\_\+\+MLT}}~0x2\+C350000
 \begin{DoxyCompactList}\small\item\em initial state of multiplicative LFSR \end{DoxyCompactList}\item 
 \#define \mbox{\hyperlink{scrambling_8h_a8cb84273a7512ba52e3da5c597b7bf28}{SCR\+\_\+\+TYPE\+\_\+\+STR}}(x)
 \begin{DoxyCompactList}\small\item\em macro to convert scrambling type value into string \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsubsection*{Typedefs}
+\doxysubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{scrambling_8h_a7af26d838f8f562c292d952c564cb730}\label{scrambling_8h_a7af26d838f8f562c292d952c564cb730} 
+\mbox{\Hypertarget{scrambling_8h_a7af26d838f8f562c292d952c564cb730}\label{scrambling_8h_a7af26d838f8f562c292d952c564cb730}} 
 typedef struct \mbox{\hyperlink{struct__scr__par__t}{\+\_\+scr\+\_\+par\+\_\+t}} {\bfseries scr\+\_\+par\+\_\+t}
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Enumerations}
+\doxysubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
 enum \mbox{\hyperlink{scrambling_8h_a3683d4c71362335346d28d0c01570064}{scramb\+\_\+type\+\_\+t}} \{ {\bfseries SCRAMB\+\_\+\+ADT} = 0
@@ -53,14 +53,14 @@ enum \mbox{\hyperlink{scrambling_8h_a3683d4c71362335346d28d0c01570064}{scramb\+\
 , \mbox{\hyperlink{scrambling_8h_a3683d4c71362335346d28d0c01570064a920f51984f636fe62a169258e65e194c}{SCRAMB\+\_\+\+NUM}}
  \}
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Functions}
+\doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{scrambling_8h_a5594d2ee5a447686489f6efd90be38a5}{Scramb\+\_\+\+List\+Parameters}} (\mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}io\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{scrambling_8h_a5594d2ee5a447686489f6efd90be38a5}{Scramb\+\_\+\+List\+Parameters}} (\mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} $\ast$io\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for retrieving and listing scrambling parameters into dedicated structure. } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{scrambling_8h_a93bfa682d9021608a196025d16523334}{Scramb\+\_\+\+Scrambler}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{scrambling_8h_a93bfa682d9021608a196025d16523334}{Scramb\+\_\+\+Scrambler}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for scrambling. } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{scrambling_8h_a132e3baebcf4824ebed7eaf304239691}{Scramb\+\_\+\+Descrambler}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{scrambling_8h_a132e3baebcf4824ebed7eaf304239691}{Scramb\+\_\+\+Descrambler}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for descrambling. } \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -82,17 +82,17 @@ Digital communications -\/ Fundamentals and applications (Bernard Sklar, 2014)
 
 
 \doxysubsection{Macro Definition Documentation}
-\Hypertarget{scrambling_8h_a8cb84273a7512ba52e3da5c597b7bf28}\index{scrambling.h@{scrambling.h}!SCR\_TYPE\_STR@{SCR\_TYPE\_STR}}
+\mbox{\Hypertarget{scrambling_8h_a8cb84273a7512ba52e3da5c597b7bf28}\label{scrambling_8h_a8cb84273a7512ba52e3da5c597b7bf28}} 
+\index{scrambling.h@{scrambling.h}!SCR\_TYPE\_STR@{SCR\_TYPE\_STR}}
 \index{SCR\_TYPE\_STR@{SCR\_TYPE\_STR}!scrambling.h@{scrambling.h}}
 \doxysubsubsection{\texorpdfstring{SCR\_TYPE\_STR}{SCR\_TYPE\_STR}}
-{\footnotesize\ttfamily \label{scrambling_8h_a8cb84273a7512ba52e3da5c597b7bf28} 
-\#define SCR\+\_\+\+TYPE\+\_\+\+STR(\begin{DoxyParamCaption}\item[{}]{x}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \#define SCR\+\_\+\+TYPE\+\_\+\+STR(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((x\ ==\ SCRAMB\_ADT)\ ?\ \textcolor{stringliteral}{"{}Additive"{}}\ :\ \(\backslash\)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (x\ ==\ \mbox{\hyperlink{scrambling_8h_a3683d4c71362335346d28d0c01570064ac51e8c7c21b02c071ee07d4170dea1e6}{SCRAMB\_MLT}})\ ?\ \textcolor{stringliteral}{"{}Multiplicative"{}}\ :\ \(\backslash\)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}N/A"{}})}
+\DoxyCodeLine{                           ((x == SCRAMB\_ADT) ? \textcolor{stringliteral}{"{}Additive"{}} : \(\backslash\)}
+\DoxyCodeLine{                           (x == \mbox{\hyperlink{scrambling_8h_a3683d4c71362335346d28d0c01570064ac51e8c7c21b02c071ee07d4170dea1e6}{SCRAMB\_MLT}}) ? \textcolor{stringliteral}{"{}Multiplicative"{}} : \(\backslash\)}
+\DoxyCodeLine{                           \textcolor{stringliteral}{"{}N/A"{}})}
 
 \end{DoxyCode}
 
@@ -102,21 +102,21 @@ macro to convert scrambling type value into string
 
 
 \doxysubsection{Enumeration Type Documentation}
-\Hypertarget{scrambling_8h_a3683d4c71362335346d28d0c01570064}\index{scrambling.h@{scrambling.h}!scramb\_type\_t@{scramb\_type\_t}}
+\mbox{\Hypertarget{scrambling_8h_a3683d4c71362335346d28d0c01570064}\label{scrambling_8h_a3683d4c71362335346d28d0c01570064}} 
+\index{scrambling.h@{scrambling.h}!scramb\_type\_t@{scramb\_type\_t}}
 \index{scramb\_type\_t@{scramb\_type\_t}!scrambling.h@{scrambling.h}}
 \doxysubsubsection{\texorpdfstring{scramb\_type\_t}{scramb\_type\_t}}
-{\footnotesize\ttfamily \label{scrambling_8h_a3683d4c71362335346d28d0c01570064} 
-enum \mbox{\hyperlink{scrambling_8h_a3683d4c71362335346d28d0c01570064}{scramb\+\_\+type\+\_\+t}}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{scrambling_8h_a3683d4c71362335346d28d0c01570064}{scramb\+\_\+type\+\_\+t}}}
 
-\begin{DoxyEnumFields}[2]{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{SCRAMB\_MLT@{SCRAMB\_MLT}!scrambling.h@{scrambling.h}}\index{scrambling.h@{scrambling.h}!SCRAMB\_MLT@{SCRAMB\_MLT}}}\Hypertarget{scrambling_8h_a3683d4c71362335346d28d0c01570064ac51e8c7c21b02c071ee07d4170dea1e6}\label{scrambling_8h_a3683d4c71362335346d28d0c01570064} 
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SCRAMB\_MLT@{SCRAMB\_MLT}!scrambling.h@{scrambling.h}}\index{scrambling.h@{scrambling.h}!SCRAMB\_MLT@{SCRAMB\_MLT}}}\mbox{\Hypertarget{scrambling_8h_a3683d4c71362335346d28d0c01570064ac51e8c7c21b02c071ee07d4170dea1e6}\label{scrambling_8h_a3683d4c71362335346d28d0c01570064ac51e8c7c21b02c071ee07d4170dea1e6}} 
 SCRAMB\+\_\+\+MLT&
 \begin{DoxyItemize}
 \item additive scrambling ID 
 \end{DoxyItemize}\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{SCRAMB\_NUM@{SCRAMB\_NUM}!scrambling.h@{scrambling.h}}\index{scrambling.h@{scrambling.h}!SCRAMB\_NUM@{SCRAMB\_NUM}}}\Hypertarget{scrambling_8h_a3683d4c71362335346d28d0c01570064a920f51984f636fe62a169258e65e194c}\label{scrambling_8h_a3683d4c71362335346d28d0c01570064} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SCRAMB\_NUM@{SCRAMB\_NUM}!scrambling.h@{scrambling.h}}\index{scrambling.h@{scrambling.h}!SCRAMB\_NUM@{SCRAMB\_NUM}}}\mbox{\Hypertarget{scrambling_8h_a3683d4c71362335346d28d0c01570064a920f51984f636fe62a169258e65e194c}\label{scrambling_8h_a3683d4c71362335346d28d0c01570064a920f51984f636fe62a169258e65e194c}} 
 SCRAMB\+\_\+\+NUM&
 \begin{DoxyItemize}
 \item multiplicative scrambling ID 
@@ -127,11 +127,11 @@ SCRAMB\+\_\+\+NUM&
 
 
 \doxysubsection{Function Documentation}
-\Hypertarget{scrambling_8h_a132e3baebcf4824ebed7eaf304239691}\index{scrambling.h@{scrambling.h}!Scramb\_Descrambler@{Scramb\_Descrambler}}
+\mbox{\Hypertarget{scrambling_8h_a132e3baebcf4824ebed7eaf304239691}\label{scrambling_8h_a132e3baebcf4824ebed7eaf304239691}} 
+\index{scrambling.h@{scrambling.h}!Scramb\_Descrambler@{Scramb\_Descrambler}}
 \index{Scramb\_Descrambler@{Scramb\_Descrambler}!scrambling.h@{scrambling.h}}
 \doxysubsubsection{\texorpdfstring{Scramb\_Descrambler()}{Scramb\_Descrambler()}}
-{\footnotesize\ttfamily \label{scrambling_8h_a132e3baebcf4824ebed7eaf304239691} 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Scramb\+\_\+\+Descrambler (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Scramb\+\_\+\+Descrambler (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
 
 
 
@@ -149,11 +149,11 @@ SCRAMB\+\_\+\+NUM&
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\Hypertarget{scrambling_8h_a5594d2ee5a447686489f6efd90be38a5}\index{scrambling.h@{scrambling.h}!Scramb\_ListParameters@{Scramb\_ListParameters}}
+\mbox{\Hypertarget{scrambling_8h_a5594d2ee5a447686489f6efd90be38a5}\label{scrambling_8h_a5594d2ee5a447686489f6efd90be38a5}} 
+\index{scrambling.h@{scrambling.h}!Scramb\_ListParameters@{Scramb\_ListParameters}}
 \index{Scramb\_ListParameters@{Scramb\_ListParameters}!scrambling.h@{scrambling.h}}
 \doxysubsubsection{\texorpdfstring{Scramb\_ListParameters()}{Scramb\_ListParameters()}}
-{\footnotesize\ttfamily \label{scrambling_8h_a5594d2ee5a447686489f6efd90be38a5} 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Scramb\+\_\+\+List\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{io\+Params}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Scramb\+\_\+\+List\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} $\ast$}]{io\+Params }\end{DoxyParamCaption})}
 
 
 
@@ -167,11 +167,11 @@ error ID
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\Hypertarget{scrambling_8h_a93bfa682d9021608a196025d16523334}\index{scrambling.h@{scrambling.h}!Scramb\_Scrambler@{Scramb\_Scrambler}}
+\mbox{\Hypertarget{scrambling_8h_a93bfa682d9021608a196025d16523334}\label{scrambling_8h_a93bfa682d9021608a196025d16523334}} 
+\index{scrambling.h@{scrambling.h}!Scramb\_Scrambler@{Scramb\_Scrambler}}
 \index{Scramb\_Scrambler@{Scramb\_Scrambler}!scrambling.h@{scrambling.h}}
 \doxysubsubsection{\texorpdfstring{Scramb\_Scrambler()}{Scramb\_Scrambler()}}
-{\footnotesize\ttfamily \label{scrambling_8h_a93bfa682d9021608a196025d16523334} 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Scramb\+\_\+\+Scrambler (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Scramb\+\_\+\+Scrambler (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
 
 
 

@@ -15,6 +15,7 @@ var convolutional_8c =
     [ "IsRateValid", "convolutional_8c.html#a9374d8ee9c9c5240b4ec6cc779531d45", null ],
     [ "RetrieveConnectorPuncturationVectors", "convolutional_8c.html#a7c17cb69374a806e90867e6ddcaec177", null ],
     [ "SoftDepuncturer", "convolutional_8c.html#a48f928d75964bfabc0bc80c9c0db3d03", null ],
+    [ "CC_CVMATRIX", "convolutional_8c.html#ae3f750e918383331d197349b221e3364", null ],
     [ "CC_PUNC_VECT_23", "convolutional_8c.html#af065e6878cf8c6dddb93bf253dfe74c9", null ],
     [ "CC_PUNC_VECT_34", "convolutional_8c.html#a870e53a193fc9d7e521e158a9027e041", null ],
     [ "CC_PUNC_VECT_56", "convolutional_8c.html#a2f5679e8d6a1fb0861c47d293abe83ff", null ],

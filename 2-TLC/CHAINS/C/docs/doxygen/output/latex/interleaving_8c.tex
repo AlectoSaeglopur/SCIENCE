@@ -1,28 +1,28 @@
-\doxysection{src/interleaving.c File Reference}
-\hypertarget{interleaving_8c}{}\label{interleaving_8c}\index{src/interleaving.c@{src/interleaving.c}}
+\hypertarget{interleaving_8c}{}\doxysection{src/interleaving.c File Reference}
+\label{interleaving_8c}\index{src/interleaving.c@{src/interleaving.c}}
 
 
 Interleaving library.  
 
 
-{\ttfamily \#include "{}debug.\+h"{}}\newline
-{\ttfamily \#include "{}interleaving.\+h"{}}\newline
-\doxysubsubsection*{Functions}
+{\ttfamily \#include \char`\"{}debug.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interleaving.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{interleaving_8c_a283962784f1863e851d82a1b3d159f4f}{Block\+Interleaver}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{interleaving_8c_a283962784f1863e851d82a1b3d159f4f}{Block\+Interleaver}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for block interleaving byte-\/streams. }\end{DoxyCompactList}\item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{interleaving_8c_a92832cbaba52d95400dcdea08e8672ed}{Block\+Deinterleaver}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{interleaving_8c_a92832cbaba52d95400dcdea08e8672ed}{Block\+Deinterleaver}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for block deinterleaving byte-\/streams. } \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{interleaving_8c_ad686424cf71f2a39673d08e86cfe1e6e}{Convolutional\+Interleaver}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{interleaving_8c_ad686424cf71f2a39673d08e86cfe1e6e}{Convolutional\+Interleaver}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for convolutional interleaving byte-\/streams. } \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{interleaving_8c_aa7259c2e46e5f37b0d69deb7289bbe02}{Convolutional\+Deinterleaver}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{interleaving_8c_aa7259c2e46e5f37b0d69deb7289bbe02}{Convolutional\+Deinterleaver}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for convolutional deinterleaving byte-\/streams. } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{interleaving_8c_a95e8f57adda25de04de095b433b38311}{Intrlv\+\_\+\+List\+Parameters}} (\mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}io\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{interleaving_8c_a95e8f57adda25de04de095b433b38311}{Intrlv\+\_\+\+List\+Parameters}} (\mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} $\ast$io\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for retrieving and listing interleaving parameters into dedicated structure. } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{interleaving_8c_a79c267d82e24fc16ac4fe5ce0222c538}{Intrlv\+\_\+\+Interleaver}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{interleaving_8c_a79c267d82e24fc16ac4fe5ce0222c538}{Intrlv\+\_\+\+Interleaver}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for interleaving byte-\/streams. } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{interleaving_8c_ab85f9d4283fefaa59a9bcb74c1096388}{Intrlv\+\_\+\+Deinterleaver}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{interleaving_8c_ab85f9d4283fefaa59a9bcb74c1096388}{Intrlv\+\_\+\+Deinterleaver}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for deinterleaving byte-\/streams. } \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -41,22 +41,20 @@ Electrolux S.\+p.\+A.
 \begin{DoxySeeAlso}{See also}
 Digital communications -\/ Fundamentals and applications (Bernard Sklar, 2014)
 \end{DoxySeeAlso}
-
-
 Library containing interleaving functions. 
 
 \doxysubsection{Function Documentation}
-\Hypertarget{interleaving_8c_a92832cbaba52d95400dcdea08e8672ed}\index{interleaving.c@{interleaving.c}!BlockDeinterleaver@{BlockDeinterleaver}}
+\mbox{\Hypertarget{interleaving_8c_a92832cbaba52d95400dcdea08e8672ed}\label{interleaving_8c_a92832cbaba52d95400dcdea08e8672ed}} 
+\index{interleaving.c@{interleaving.c}!BlockDeinterleaver@{BlockDeinterleaver}}
 \index{BlockDeinterleaver@{BlockDeinterleaver}!interleaving.c@{interleaving.c}}
 \doxysubsubsection{\texorpdfstring{BlockDeinterleaver()}{BlockDeinterleaver()}}
-{\footnotesize\ttfamily \label{interleaving_8c_a92832cbaba52d95400dcdea08e8672ed} 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Block\+Deinterleaver (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Block\+Deinterleaver (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
 {\itshape  Function for block deinterleaving byte-\/streams. } 
 
-The the matrix is filled row-\/wise and then emptied column-\/wise. In case streams length is larger than R\texorpdfstring{$\ast$}{*}C, the algorithm is executed in multiple cycles by filling and emptying the matrix completely at each time.
+The the matrix is filled row-\/wise and then emptied column-\/wise. In case streams length is larger than R$\ast$C, the algorithm is executed in multiple cycles by filling and emptying the matrix completely at each time.
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -73,25 +71,17 @@ error ID
 
 \begin{DoxyItemize}
 \item number of cycles needed to process input stream
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item number of missing elements to completely fill the matrix during final cycle
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item number of elements to be skipped for each row
 \end{DoxyItemize}
 
 number of input elements to be processed during last cycle
 
-update counter in case of missing elements during final cycle\Hypertarget{interleaving_8c_a283962784f1863e851d82a1b3d159f4f}\index{interleaving.c@{interleaving.c}!BlockInterleaver@{BlockInterleaver}}
+update counter in case of missing elements during final cycle\mbox{\Hypertarget{interleaving_8c_a283962784f1863e851d82a1b3d159f4f}\label{interleaving_8c_a283962784f1863e851d82a1b3d159f4f}} 
+\index{interleaving.c@{interleaving.c}!BlockInterleaver@{BlockInterleaver}}
 \index{BlockInterleaver@{BlockInterleaver}!interleaving.c@{interleaving.c}}
 \doxysubsubsection{\texorpdfstring{BlockInterleaver()}{BlockInterleaver()}}
-{\footnotesize\ttfamily \label{interleaving_8c_a283962784f1863e851d82a1b3d159f4f} 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Block\+Interleaver (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Block\+Interleaver (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -102,9 +92,7 @@ static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t
    executed in multiple cycles by filling and emptying the matrix 
    completely at each time. </i>
 \end{DoxyVerb}
-
-
-
+ 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em in\+Stream} & input stream \\
 \hline
@@ -119,16 +107,12 @@ error ID
 
 \begin{DoxyItemize}
 \item number of cycles needed to process input stream
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item number of input elements to be processed during last cycle
-\end{DoxyItemize}\Hypertarget{interleaving_8c_aa7259c2e46e5f37b0d69deb7289bbe02}\index{interleaving.c@{interleaving.c}!ConvolutionalDeinterleaver@{ConvolutionalDeinterleaver}}
+\end{DoxyItemize}\mbox{\Hypertarget{interleaving_8c_aa7259c2e46e5f37b0d69deb7289bbe02}\label{interleaving_8c_aa7259c2e46e5f37b0d69deb7289bbe02}} 
+\index{interleaving.c@{interleaving.c}!ConvolutionalDeinterleaver@{ConvolutionalDeinterleaver}}
 \index{ConvolutionalDeinterleaver@{ConvolutionalDeinterleaver}!interleaving.c@{interleaving.c}}
 \doxysubsubsection{\texorpdfstring{ConvolutionalDeinterleaver()}{ConvolutionalDeinterleaver()}}
-{\footnotesize\ttfamily \label{interleaving_8c_aa7259c2e46e5f37b0d69deb7289bbe02} 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Convolutional\+Deinterleaver (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Convolutional\+Deinterleaver (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -149,56 +133,20 @@ error ID
 
 \begin{DoxyItemize}
 \item shift-\/register matrix
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item index over input array
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item index over output array
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item row index
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item column index
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item initialize shift-\/register matrix
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item output from no-\/delay line
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item output from shift registers
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item update shift-\/registers (by right-\/shifting)
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item case for 1st algorithm phase (initial transient)
-\end{DoxyItemize}\Hypertarget{interleaving_8c_ad686424cf71f2a39673d08e86cfe1e6e}\index{interleaving.c@{interleaving.c}!ConvolutionalInterleaver@{ConvolutionalInterleaver}}
+\end{DoxyItemize}\mbox{\Hypertarget{interleaving_8c_ad686424cf71f2a39673d08e86cfe1e6e}\label{interleaving_8c_ad686424cf71f2a39673d08e86cfe1e6e}} 
+\index{interleaving.c@{interleaving.c}!ConvolutionalInterleaver@{ConvolutionalInterleaver}}
 \index{ConvolutionalInterleaver@{ConvolutionalInterleaver}!interleaving.c@{interleaving.c}}
 \doxysubsubsection{\texorpdfstring{ConvolutionalInterleaver()}{ConvolutionalInterleaver()}}
-{\footnotesize\ttfamily \label{interleaving_8c_ad686424cf71f2a39673d08e86cfe1e6e} 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Convolutional\+Interleaver (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Convolutional\+Interleaver (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -219,53 +167,21 @@ error ID
 
 \begin{DoxyItemize}
 \item shift-\/register matrix
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item index over input stream buffer
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item index over output stream buffer
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
-\item row index ("{}-\/1"{} represents the line with no delay)
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
+\item row index (\char`\"{}-\/1\char`\"{} represents the line with no delay)
 \item initialize shift-\/register matrix
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item loop until all input elements are consumed
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item output from no-\/delay line
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item output from shift-\/registers
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item update shift-\/registers (by right-\/shifting)
 \end{DoxyItemize}
 
-loop until all elements still stored in the shift-\/register has been completely consumed\Hypertarget{interleaving_8c_ab85f9d4283fefaa59a9bcb74c1096388}\index{interleaving.c@{interleaving.c}!Intrlv\_Deinterleaver@{Intrlv\_Deinterleaver}}
+loop until all elements still stored in the shift-\/register has been completely consumed\mbox{\Hypertarget{interleaving_8c_ab85f9d4283fefaa59a9bcb74c1096388}\label{interleaving_8c_ab85f9d4283fefaa59a9bcb74c1096388}} 
+\index{interleaving.c@{interleaving.c}!Intrlv\_Deinterleaver@{Intrlv\_Deinterleaver}}
 \index{Intrlv\_Deinterleaver@{Intrlv\_Deinterleaver}!interleaving.c@{interleaving.c}}
 \doxysubsubsection{\texorpdfstring{Intrlv\_Deinterleaver()}{Intrlv\_Deinterleaver()}}
-{\footnotesize\ttfamily \label{interleaving_8c_ab85f9d4283fefaa59a9bcb74c1096388} 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Intrlv\+\_\+\+Deinterleaver (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Intrlv\+\_\+\+Deinterleaver (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
 
 
 
@@ -283,11 +199,11 @@ loop until all elements still stored in the shift-\/register has been completely
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\Hypertarget{interleaving_8c_a79c267d82e24fc16ac4fe5ce0222c538}\index{interleaving.c@{interleaving.c}!Intrlv\_Interleaver@{Intrlv\_Interleaver}}
+\mbox{\Hypertarget{interleaving_8c_a79c267d82e24fc16ac4fe5ce0222c538}\label{interleaving_8c_a79c267d82e24fc16ac4fe5ce0222c538}} 
+\index{interleaving.c@{interleaving.c}!Intrlv\_Interleaver@{Intrlv\_Interleaver}}
 \index{Intrlv\_Interleaver@{Intrlv\_Interleaver}!interleaving.c@{interleaving.c}}
 \doxysubsubsection{\texorpdfstring{Intrlv\_Interleaver()}{Intrlv\_Interleaver()}}
-{\footnotesize\ttfamily \label{interleaving_8c_a79c267d82e24fc16ac4fe5ce0222c538} 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Intrlv\+\_\+\+Interleaver (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Intrlv\+\_\+\+Interleaver (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
 
 
 
@@ -305,11 +221,11 @@ error ID
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\Hypertarget{interleaving_8c_a95e8f57adda25de04de095b433b38311}\index{interleaving.c@{interleaving.c}!Intrlv\_ListParameters@{Intrlv\_ListParameters}}
+\mbox{\Hypertarget{interleaving_8c_a95e8f57adda25de04de095b433b38311}\label{interleaving_8c_a95e8f57adda25de04de095b433b38311}} 
+\index{interleaving.c@{interleaving.c}!Intrlv\_ListParameters@{Intrlv\_ListParameters}}
 \index{Intrlv\_ListParameters@{Intrlv\_ListParameters}!interleaving.c@{interleaving.c}}
 \doxysubsubsection{\texorpdfstring{Intrlv\_ListParameters()}{Intrlv\_ListParameters()}}
-{\footnotesize\ttfamily \label{interleaving_8c_a95e8f57adda25de04de095b433b38311} 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Intrlv\+\_\+\+List\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{io\+Params}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Intrlv\+\_\+\+List\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__itlv__par__t}{itlv\+\_\+par\+\_\+t}} $\ast$}]{io\+Params }\end{DoxyParamCaption})}
 
 
 

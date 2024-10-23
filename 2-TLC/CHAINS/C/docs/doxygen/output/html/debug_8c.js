@@ -14,5 +14,6 @@ var debug_8c =
     [ "Debug_WriteByteStreamToCsv", "debug_8c.html#a9b0cc1a0eb9986c1ab5351d60ff9432b", null ],
     [ "Debug_WriteComplexStreamToCsv", "debug_8c.html#a03cfc2cb4e85fde595e52e3bcd3caab9", null ],
     [ "IsOrgLenValid", "debug_8c.html#a78f96cae9c17d9e19b36e545fdbaa591", null ],
-    [ "bShAppChgEnabled", "debug_8c.html#a2fe1af9b763a8f9cd183298d60bf8b45", null ]
+    [ "bShAppChgEnabled", "debug_8c.html#a2fe1af9b763a8f9cd183298d60bf8b45", null ],
+    [ "gWatermarks", "debug_8c.html#a5af8dc960ce18ce636d373b6659a8db3", null ]
 ];

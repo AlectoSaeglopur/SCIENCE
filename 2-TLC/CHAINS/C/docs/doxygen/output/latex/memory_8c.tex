@@ -1,38 +1,38 @@
-\doxysection{src/memory.c File Reference}
-\hypertarget{memory_8c}{}\label{memory_8c}\index{src/memory.c@{src/memory.c}}
+\hypertarget{memory_8c}{}\doxysection{src/memory.c File Reference}
+\label{memory_8c}\index{src/memory.c@{src/memory.c}}
 
 
 Memory ibrary.  
 
 
-{\ttfamily \#include "{}debug.\+h"{}}\newline
-{\ttfamily \#include "{}memory.\+h"{}}\newline
-\doxysubsubsection*{Functions}
+{\ttfamily \#include \char`\"{}debug.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}memory.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{memory_8c_a0ed567b9cc16cfc664b9dcdb45d70984}{Allocate\+Byte\+Stream}} (\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}io\+Stream, \mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}} len)
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{memory_8c_a0ed567b9cc16cfc664b9dcdb45d70984}{Allocate\+Byte\+Stream}} (\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$io\+Stream, \mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}} len)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for dynamically allocating memory for a byte stream. } \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{memory_8c_a07bf74cd669bd9b7da6fd41ec4e1a3ba}{Allocate\+Float\+Stream}} (\mbox{\hyperlink{struct__float__stream__t}{float\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}io\+Stream, \mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}} len)
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{memory_8c_a07bf74cd669bd9b7da6fd41ec4e1a3ba}{Allocate\+Float\+Stream}} (\mbox{\hyperlink{struct__float__stream__t}{float\+\_\+stream\+\_\+t}} $\ast$io\+Stream, \mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}} len)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for dynamically allocating memory for a float stream. } \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{memory_8c_a9077f81a1691d10ad1f5bc8d7a7b32b8}{Allocate\+Complex\+Stream}} (\mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}io\+Stream, \mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}} len)
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{memory_8c_a9077f81a1691d10ad1f5bc8d7a7b32b8}{Allocate\+Complex\+Stream}} (\mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} $\ast$io\+Stream, \mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}} len)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for dynamically allocating memory for a complex stream. } \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{memory_8c_ad4f1a47d5bd3a2d7ff88396cad066fe7}{Free\+Byte\+Stream}} (\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}io\+Stream)
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{memory_8c_ad4f1a47d5bd3a2d7ff88396cad066fe7}{Free\+Byte\+Stream}} (\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$io\+Stream)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for dynamically deallocating memory for a byte stream. } \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{memory_8c_a8d1b55d6d31b15245ffa8f5e91d94b51}{Free\+Float\+Stream}} (\mbox{\hyperlink{struct__float__stream__t}{float\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}io\+Stream)
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{memory_8c_a8d1b55d6d31b15245ffa8f5e91d94b51}{Free\+Float\+Stream}} (\mbox{\hyperlink{struct__float__stream__t}{float\+\_\+stream\+\_\+t}} $\ast$io\+Stream)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for dynamically deallocating memory for a float stream. } \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{memory_8c_aabf0302badcf266bcb31ac664ef41cf2}{Free\+Complex\+Stream}} (\mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}io\+Stream)
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{memory_8c_aabf0302badcf266bcb31ac664ef41cf2}{Free\+Complex\+Stream}} (\mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} $\ast$io\+Stream)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for dynamically deallocating memory for a complex stream. } \end{DoxyCompactList}\item 
-static bool \mbox{\hyperlink{memory_8c_aeb080d418aa094d4d7c4fbdb705271d4}{Is\+Byte\+Stream\+Valid}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream)
+static bool \mbox{\hyperlink{memory_8c_aeb080d418aa094d4d7c4fbdb705271d4}{Is\+Byte\+Stream\+Valid}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for verifying if a byte-\/stream is initialized and valid. } \end{DoxyCompactList}\item 
-static bool \mbox{\hyperlink{memory_8c_a62e44348ec67c3b59fe83b99b4616029}{Is\+Float\+Stream\+Valid}} (const \mbox{\hyperlink{struct__float__stream__t}{float\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream)
+static bool \mbox{\hyperlink{memory_8c_a62e44348ec67c3b59fe83b99b4616029}{Is\+Float\+Stream\+Valid}} (const \mbox{\hyperlink{struct__float__stream__t}{float\+\_\+stream\+\_\+t}} $\ast$in\+Stream)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for verifying if a float-\/stream is initialized and valid. } \end{DoxyCompactList}\item 
-static bool \mbox{\hyperlink{memory_8c_a6e814cb4b50e6c93f0af26f7998141a3}{Is\+Complex\+Stream\+Valid}} (const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream)
+static bool \mbox{\hyperlink{memory_8c_a6e814cb4b50e6c93f0af26f7998141a3}{Is\+Complex\+Stream\+Valid}} (const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} $\ast$in\+Stream)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for verifying if a complex-\/stream is initialized and valid. } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{memory_8c_afaa8bd3fe266ee277755b48644ccfa84}{Memory\+\_\+\+Allocate\+Stream}} (void \texorpdfstring{$\ast$}{*}io\+Stream, \mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}} len, memory\+\_\+type\+\_\+t type)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{memory_8c_afaa8bd3fe266ee277755b48644ccfa84}{Memory\+\_\+\+Allocate\+Stream}} (void $\ast$io\+Stream, \mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}} len, memory\+\_\+type\+\_\+t type)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for dynamically allocating memory for any type of stream. } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{memory_8c_a259ab0ef90ac6552ae65331905a8e51b}{Memory\+\_\+\+Free\+Stream}} (void \texorpdfstring{$\ast$}{*}io\+Stream, memory\+\_\+type\+\_\+t type)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{memory_8c_a259ab0ef90ac6552ae65331905a8e51b}{Memory\+\_\+\+Free\+Stream}} (void $\ast$io\+Stream, memory\+\_\+type\+\_\+t type)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for dynamically deallocating memory for any type of stream. } \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{memory_8c_a4a6d1c14bb95210c97dfa5312bba19fc}{Memory\+\_\+\+Is\+Stream\+Valid}} (const void \texorpdfstring{$\ast$}{*}in\+Stream, memory\+\_\+type\+\_\+t type)
+bool \mbox{\hyperlink{memory_8c_a4a6d1c14bb95210c97dfa5312bba19fc}{Memory\+\_\+\+Is\+Stream\+Valid}} (const void $\ast$in\+Stream, memory\+\_\+type\+\_\+t type)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for verifying if any type of stream is initialized and valid. } \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -48,16 +48,14 @@ Filippo Valmori
 \begin{DoxyCopyright}{Copyright}
 Electrolux S.\+p.\+A.
 \end{DoxyCopyright}
-
-
 Library containing dynamic memory allocation functions. 
 
 \doxysubsection{Function Documentation}
-\Hypertarget{memory_8c_a0ed567b9cc16cfc664b9dcdb45d70984}\index{memory.c@{memory.c}!AllocateByteStream@{AllocateByteStream}}
+\mbox{\Hypertarget{memory_8c_a0ed567b9cc16cfc664b9dcdb45d70984}\label{memory_8c_a0ed567b9cc16cfc664b9dcdb45d70984}} 
+\index{memory.c@{memory.c}!AllocateByteStream@{AllocateByteStream}}
 \index{AllocateByteStream@{AllocateByteStream}!memory.c@{memory.c}}
 \doxysubsubsection{\texorpdfstring{AllocateByteStream()}{AllocateByteStream()}}
-{\footnotesize\ttfamily \label{memory_8c_a0ed567b9cc16cfc664b9dcdb45d70984} 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Allocate\+Byte\+Stream (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{io\+Stream}{, }\item[{\mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}}}]{len}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Allocate\+Byte\+Stream (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{io\+Stream,  }\item[{\mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}}}]{len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -73,11 +71,11 @@ static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\Hypertarget{memory_8c_a9077f81a1691d10ad1f5bc8d7a7b32b8}\index{memory.c@{memory.c}!AllocateComplexStream@{AllocateComplexStream}}
+\mbox{\Hypertarget{memory_8c_a9077f81a1691d10ad1f5bc8d7a7b32b8}\label{memory_8c_a9077f81a1691d10ad1f5bc8d7a7b32b8}} 
+\index{memory.c@{memory.c}!AllocateComplexStream@{AllocateComplexStream}}
 \index{AllocateComplexStream@{AllocateComplexStream}!memory.c@{memory.c}}
 \doxysubsubsection{\texorpdfstring{AllocateComplexStream()}{AllocateComplexStream()}}
-{\footnotesize\ttfamily \label{memory_8c_a9077f81a1691d10ad1f5bc8d7a7b32b8} 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Allocate\+Complex\+Stream (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{io\+Stream}{, }\item[{\mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}}}]{len}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Allocate\+Complex\+Stream (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} $\ast$}]{io\+Stream,  }\item[{\mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}}}]{len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -93,11 +91,11 @@ static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\Hypertarget{memory_8c_a07bf74cd669bd9b7da6fd41ec4e1a3ba}\index{memory.c@{memory.c}!AllocateFloatStream@{AllocateFloatStream}}
+\mbox{\Hypertarget{memory_8c_a07bf74cd669bd9b7da6fd41ec4e1a3ba}\label{memory_8c_a07bf74cd669bd9b7da6fd41ec4e1a3ba}} 
+\index{memory.c@{memory.c}!AllocateFloatStream@{AllocateFloatStream}}
 \index{AllocateFloatStream@{AllocateFloatStream}!memory.c@{memory.c}}
 \doxysubsubsection{\texorpdfstring{AllocateFloatStream()}{AllocateFloatStream()}}
-{\footnotesize\ttfamily \label{memory_8c_a07bf74cd669bd9b7da6fd41ec4e1a3ba} 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Allocate\+Float\+Stream (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__float__stream__t}{float\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{io\+Stream}{, }\item[{\mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}}}]{len}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Allocate\+Float\+Stream (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__float__stream__t}{float\+\_\+stream\+\_\+t}} $\ast$}]{io\+Stream,  }\item[{\mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}}}]{len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -113,11 +111,11 @@ static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\Hypertarget{memory_8c_ad4f1a47d5bd3a2d7ff88396cad066fe7}\index{memory.c@{memory.c}!FreeByteStream@{FreeByteStream}}
+\mbox{\Hypertarget{memory_8c_ad4f1a47d5bd3a2d7ff88396cad066fe7}\label{memory_8c_ad4f1a47d5bd3a2d7ff88396cad066fe7}} 
+\index{memory.c@{memory.c}!FreeByteStream@{FreeByteStream}}
 \index{FreeByteStream@{FreeByteStream}!memory.c@{memory.c}}
 \doxysubsubsection{\texorpdfstring{FreeByteStream()}{FreeByteStream()}}
-{\footnotesize\ttfamily \label{memory_8c_ad4f1a47d5bd3a2d7ff88396cad066fe7} 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Free\+Byte\+Stream (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{io\+Stream}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Free\+Byte\+Stream (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{io\+Stream }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -131,11 +129,11 @@ static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\Hypertarget{memory_8c_aabf0302badcf266bcb31ac664ef41cf2}\index{memory.c@{memory.c}!FreeComplexStream@{FreeComplexStream}}
+\mbox{\Hypertarget{memory_8c_aabf0302badcf266bcb31ac664ef41cf2}\label{memory_8c_aabf0302badcf266bcb31ac664ef41cf2}} 
+\index{memory.c@{memory.c}!FreeComplexStream@{FreeComplexStream}}
 \index{FreeComplexStream@{FreeComplexStream}!memory.c@{memory.c}}
 \doxysubsubsection{\texorpdfstring{FreeComplexStream()}{FreeComplexStream()}}
-{\footnotesize\ttfamily \label{memory_8c_aabf0302badcf266bcb31ac664ef41cf2} 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Free\+Complex\+Stream (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{io\+Stream}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Free\+Complex\+Stream (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} $\ast$}]{io\+Stream }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -149,11 +147,11 @@ static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\Hypertarget{memory_8c_a8d1b55d6d31b15245ffa8f5e91d94b51}\index{memory.c@{memory.c}!FreeFloatStream@{FreeFloatStream}}
+\mbox{\Hypertarget{memory_8c_a8d1b55d6d31b15245ffa8f5e91d94b51}\label{memory_8c_a8d1b55d6d31b15245ffa8f5e91d94b51}} 
+\index{memory.c@{memory.c}!FreeFloatStream@{FreeFloatStream}}
 \index{FreeFloatStream@{FreeFloatStream}!memory.c@{memory.c}}
 \doxysubsubsection{\texorpdfstring{FreeFloatStream()}{FreeFloatStream()}}
-{\footnotesize\ttfamily \label{memory_8c_a8d1b55d6d31b15245ffa8f5e91d94b51} 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Free\+Float\+Stream (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__float__stream__t}{float\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{io\+Stream}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Free\+Float\+Stream (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__float__stream__t}{float\+\_\+stream\+\_\+t}} $\ast$}]{io\+Stream }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -167,11 +165,11 @@ static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\Hypertarget{memory_8c_aeb080d418aa094d4d7c4fbdb705271d4}\index{memory.c@{memory.c}!IsByteStreamValid@{IsByteStreamValid}}
+\mbox{\Hypertarget{memory_8c_aeb080d418aa094d4d7c4fbdb705271d4}\label{memory_8c_aeb080d418aa094d4d7c4fbdb705271d4}} 
+\index{memory.c@{memory.c}!IsByteStreamValid@{IsByteStreamValid}}
 \index{IsByteStreamValid@{IsByteStreamValid}!memory.c@{memory.c}}
 \doxysubsubsection{\texorpdfstring{IsByteStreamValid()}{IsByteStreamValid()}}
-{\footnotesize\ttfamily \label{memory_8c_aeb080d418aa094d4d7c4fbdb705271d4} 
-static bool Is\+Byte\+Stream\+Valid (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static bool Is\+Byte\+Stream\+Valid (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -187,11 +185,11 @@ static bool Is\+Byte\+Stream\+Valid (\begin{DoxyParamCaption}\item[{const \mbox{
 \begin{DoxyReturn}{Returns}
 validity outcome 
 \end{DoxyReturn}
-\Hypertarget{memory_8c_a6e814cb4b50e6c93f0af26f7998141a3}\index{memory.c@{memory.c}!IsComplexStreamValid@{IsComplexStreamValid}}
+\mbox{\Hypertarget{memory_8c_a6e814cb4b50e6c93f0af26f7998141a3}\label{memory_8c_a6e814cb4b50e6c93f0af26f7998141a3}} 
+\index{memory.c@{memory.c}!IsComplexStreamValid@{IsComplexStreamValid}}
 \index{IsComplexStreamValid@{IsComplexStreamValid}!memory.c@{memory.c}}
 \doxysubsubsection{\texorpdfstring{IsComplexStreamValid()}{IsComplexStreamValid()}}
-{\footnotesize\ttfamily \label{memory_8c_a6e814cb4b50e6c93f0af26f7998141a3} 
-static bool Is\+Complex\+Stream\+Valid (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static bool Is\+Complex\+Stream\+Valid (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -207,11 +205,11 @@ static bool Is\+Complex\+Stream\+Valid (\begin{DoxyParamCaption}\item[{const \mb
 \begin{DoxyReturn}{Returns}
 validity outcome 
 \end{DoxyReturn}
-\Hypertarget{memory_8c_a62e44348ec67c3b59fe83b99b4616029}\index{memory.c@{memory.c}!IsFloatStreamValid@{IsFloatStreamValid}}
+\mbox{\Hypertarget{memory_8c_a62e44348ec67c3b59fe83b99b4616029}\label{memory_8c_a62e44348ec67c3b59fe83b99b4616029}} 
+\index{memory.c@{memory.c}!IsFloatStreamValid@{IsFloatStreamValid}}
 \index{IsFloatStreamValid@{IsFloatStreamValid}!memory.c@{memory.c}}
 \doxysubsubsection{\texorpdfstring{IsFloatStreamValid()}{IsFloatStreamValid()}}
-{\footnotesize\ttfamily \label{memory_8c_a62e44348ec67c3b59fe83b99b4616029} 
-static bool Is\+Float\+Stream\+Valid (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__float__stream__t}{float\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static bool Is\+Float\+Stream\+Valid (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__float__stream__t}{float\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -227,11 +225,11 @@ static bool Is\+Float\+Stream\+Valid (\begin{DoxyParamCaption}\item[{const \mbox
 \begin{DoxyReturn}{Returns}
 validity outcome 
 \end{DoxyReturn}
-\Hypertarget{memory_8c_afaa8bd3fe266ee277755b48644ccfa84}\index{memory.c@{memory.c}!Memory\_AllocateStream@{Memory\_AllocateStream}}
+\mbox{\Hypertarget{memory_8c_afaa8bd3fe266ee277755b48644ccfa84}\label{memory_8c_afaa8bd3fe266ee277755b48644ccfa84}} 
+\index{memory.c@{memory.c}!Memory\_AllocateStream@{Memory\_AllocateStream}}
 \index{Memory\_AllocateStream@{Memory\_AllocateStream}!memory.c@{memory.c}}
 \doxysubsubsection{\texorpdfstring{Memory\_AllocateStream()}{Memory\_AllocateStream()}}
-{\footnotesize\ttfamily \label{memory_8c_afaa8bd3fe266ee277755b48644ccfa84} 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Memory\+\_\+\+Allocate\+Stream (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{io\+Stream}{, }\item[{\mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}}}]{len}{, }\item[{memory\+\_\+type\+\_\+t}]{type}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Memory\+\_\+\+Allocate\+Stream (\begin{DoxyParamCaption}\item[{void $\ast$}]{io\+Stream,  }\item[{\mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}}}]{len,  }\item[{memory\+\_\+type\+\_\+t}]{type }\end{DoxyParamCaption})}
 
 
 
@@ -249,11 +247,11 @@ validity outcome
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\Hypertarget{memory_8c_a259ab0ef90ac6552ae65331905a8e51b}\index{memory.c@{memory.c}!Memory\_FreeStream@{Memory\_FreeStream}}
+\mbox{\Hypertarget{memory_8c_a259ab0ef90ac6552ae65331905a8e51b}\label{memory_8c_a259ab0ef90ac6552ae65331905a8e51b}} 
+\index{memory.c@{memory.c}!Memory\_FreeStream@{Memory\_FreeStream}}
 \index{Memory\_FreeStream@{Memory\_FreeStream}!memory.c@{memory.c}}
 \doxysubsubsection{\texorpdfstring{Memory\_FreeStream()}{Memory\_FreeStream()}}
-{\footnotesize\ttfamily \label{memory_8c_a259ab0ef90ac6552ae65331905a8e51b} 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Memory\+\_\+\+Free\+Stream (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{io\+Stream}{, }\item[{memory\+\_\+type\+\_\+t}]{type}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Memory\+\_\+\+Free\+Stream (\begin{DoxyParamCaption}\item[{void $\ast$}]{io\+Stream,  }\item[{memory\+\_\+type\+\_\+t}]{type }\end{DoxyParamCaption})}
 
 
 
@@ -269,11 +267,11 @@ error ID
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\Hypertarget{memory_8c_a4a6d1c14bb95210c97dfa5312bba19fc}\index{memory.c@{memory.c}!Memory\_IsStreamValid@{Memory\_IsStreamValid}}
+\mbox{\Hypertarget{memory_8c_a4a6d1c14bb95210c97dfa5312bba19fc}\label{memory_8c_a4a6d1c14bb95210c97dfa5312bba19fc}} 
+\index{memory.c@{memory.c}!Memory\_IsStreamValid@{Memory\_IsStreamValid}}
 \index{Memory\_IsStreamValid@{Memory\_IsStreamValid}!memory.c@{memory.c}}
 \doxysubsubsection{\texorpdfstring{Memory\_IsStreamValid()}{Memory\_IsStreamValid()}}
-{\footnotesize\ttfamily \label{memory_8c_a4a6d1c14bb95210c97dfa5312bba19fc} 
-bool Memory\+\_\+\+Is\+Stream\+Valid (\begin{DoxyParamCaption}\item[{const void \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{memory\+\_\+type\+\_\+t}]{type}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool Memory\+\_\+\+Is\+Stream\+Valid (\begin{DoxyParamCaption}\item[{const void $\ast$}]{in\+Stream,  }\item[{memory\+\_\+type\+\_\+t}]{type }\end{DoxyParamCaption})}
 
 
 

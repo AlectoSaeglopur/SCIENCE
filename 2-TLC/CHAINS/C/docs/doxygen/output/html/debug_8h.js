@@ -1,6 +1,6 @@
 var debug_8h =
 [
-    [ "_debug_par_t", "struct__debug__par__t.html", null ],
+    [ "_debug_par_t", "struct__debug__par__t.html", "struct__debug__par__t" ],
     [ "COLOR_DEFAULT", "debug_8h.html#a56e1aea61ee305e3648158362333b3a8", null ],
     [ "COLOR_ERROR", "debug_8h.html#ac7bab6591a09366d23b86d710ecc54af", null ],
     [ "COLOR_SUCCESS", "debug_8h.html#a49ad0d2196700c1fa0a3a2a60dad41d3", null ],
@@ -10,8 +10,38 @@ var debug_8h =
     [ "STYLE_DEFAULT", "debug_8h.html#a869a707d572970db6f9d0bdaea8ee7ae", null ],
     [ "STYLE_ERROR", "debug_8h.html#a011bb291a0f03af56da9c5fff3fcacf9", null ],
     [ "STYLE_SUCCESS", "debug_8h.html#a3fc0772f0f72e17fbaa0362a9ac4f516", null ],
+    [ "WATERMARK_MASK", "debug_8h.html#a84dbc180672a704aa0571c19cdbc6d07", null ],
     [ "ansi_text_color", "debug_8h.html#af985040572d5ac5b732b8243ad3fb495", null ],
     [ "ansi_text_style", "debug_8h.html#a65ebce3ee05a977a17b97d961de90391", null ],
+    [ "debug_par_t", "debug_8h.html#aa5081459a17a66a521de316c98f3b84c", null ],
+    [ "wm_level_t", "debug_8h.html#a41350a8c18b2fd003518870edb2140f1", null ],
+    [ "_ansi_text_color", "debug_8h.html#ab10a025d50abd22b3a60a08613f39cfe", [
+      [ "COLOR_BLACK", "debug_8h.html#ab10a025d50abd22b3a60a08613f39cfea2a9daf215a30f1c539ead18c66380fc1", null ],
+      [ "COLOR_RED", "debug_8h.html#ab10a025d50abd22b3a60a08613f39cfea592503b9434c1e751a92f3fc536d7950", null ],
+      [ "COLOR_GREEN", "debug_8h.html#ab10a025d50abd22b3a60a08613f39cfeacfa9d8bbffc418447ed826f286abca02", null ],
+      [ "COLOR_YELLOW", "debug_8h.html#ab10a025d50abd22b3a60a08613f39cfeab03862907066c68204ee9df1ee04aa29", null ],
+      [ "COLOR_BLUE", "debug_8h.html#ab10a025d50abd22b3a60a08613f39cfea1340428efccb140dcbdb71aa6176f696", null ],
+      [ "COLOR_PURPLE", "debug_8h.html#ab10a025d50abd22b3a60a08613f39cfea278276a8155620ed5e155c80d35316cc", null ],
+      [ "COLOR_CYAN", "debug_8h.html#ab10a025d50abd22b3a60a08613f39cfea7896ff2cc707b5873da0b97d38bf852e", null ],
+      [ "COLOR_WHITE", "debug_8h.html#ab10a025d50abd22b3a60a08613f39cfead47b4c240a0109970bb2a7fe3a07d3ec", null ],
+      [ "COLOR_GREY", "debug_8h.html#ab10a025d50abd22b3a60a08613f39cfea1ff1a63c02088b361d95e5f6413e98ad", null ],
+      [ "COLOR_BRIGHT_RED", "debug_8h.html#ab10a025d50abd22b3a60a08613f39cfead952be5af47b7eaeaaec91b32fda7a1e", null ],
+      [ "COLOR_BRIGHT_GREEN", "debug_8h.html#ab10a025d50abd22b3a60a08613f39cfea0d73fb7669f98000b32de535f8ae4594", null ],
+      [ "COLOR_BRIGHT_YELLOW", "debug_8h.html#ab10a025d50abd22b3a60a08613f39cfea3e7f0f2d9368d367ac2dcb05fb0c6e5b", null ],
+      [ "COLOR_BRIGHT_BLUE", "debug_8h.html#ab10a025d50abd22b3a60a08613f39cfeaf34ba88adf66e92191362400d76b6ee7", null ],
+      [ "COLOR_BRIGHT_PURPLE", "debug_8h.html#ab10a025d50abd22b3a60a08613f39cfeabe405a1fbc4a5db3e1776695790d725b", null ],
+      [ "COLOR_BRIGHT_CYAN", "debug_8h.html#ab10a025d50abd22b3a60a08613f39cfea33c46c20722736d483f9241c2f81a015", null ],
+      [ "COLOR_BRIGHT_WHITE", "debug_8h.html#ab10a025d50abd22b3a60a08613f39cfea437761f82c203a044309498f040f3622", null ]
+    ] ],
+    [ "_ansi_text_style", "debug_8h.html#acaa50bba214b93d88a1870b84dc29d4b", [
+      [ "STYLE_RESET", "debug_8h.html#acaa50bba214b93d88a1870b84dc29d4ba4ab354d3f8b6c4f1f9a0e86eca39e9d3", null ],
+      [ "STYLE_BOLD", "debug_8h.html#acaa50bba214b93d88a1870b84dc29d4ba5539c760cd1117ee241322a23281b75a", null ],
+      [ "STYLE_ITALIC", "debug_8h.html#acaa50bba214b93d88a1870b84dc29d4bac8f240a0748ba7a8b468e2aedfd3c093", null ],
+      [ "STYLE_SINGLE_UNDERLINE", "debug_8h.html#acaa50bba214b93d88a1870b84dc29d4ba265127bae10a129ed0c2c7c3043cb0a0", null ],
+      [ "STYLE_SLOW_BLINK", "debug_8h.html#acaa50bba214b93d88a1870b84dc29d4ba82025f7d32f7fb1d223694efd827a7c3", null ],
+      [ "STYLE_FAST_BLINK", "debug_8h.html#acaa50bba214b93d88a1870b84dc29d4ba846f2a9243374f34f3d7be9f75096dc1", null ],
+      [ "STYLE_DOUBLE_UNDERLINE", "debug_8h.html#acaa50bba214b93d88a1870b84dc29d4bac288c66b624779f0fc84f12267a9cf5d", null ]
+    ] ],
     [ "_wm_level_t", "debug_8h.html#ad6ceddf080df079de9843ab336deca7d", [
       [ "WM_LEVEL_1", "debug_8h.html#ad6ceddf080df079de9843ab336deca7da53ab7995cab58c5c30a5645e3b1c6f7b", null ],
       [ "WM_LEVEL_2", "debug_8h.html#ad6ceddf080df079de9843ab336deca7dafe6f9fda7f4806c0704512aec16c5f57", null ],

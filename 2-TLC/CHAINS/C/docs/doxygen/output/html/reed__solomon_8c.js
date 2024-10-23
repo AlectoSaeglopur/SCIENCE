@@ -1,6 +1,7 @@
 var reed__solomon_8c =
 [
     [ "_rs_encoder_info_t", "struct__rs__encoder__info__t.html", "struct__rs__encoder__info__t" ],
+    [ "rs_encoder_info_t", "reed__solomon_8c.html#ab9743e9f8c2df86d83dad0347a11c70c", null ],
     [ "rs_table_idx_t", "reed__solomon_8c.html#aaef0cc8a068838e1390996f7f7b42222", [
       [ "RS_TABLE_IDX_BIT", "reed__solomon_8c.html#aaef0cc8a068838e1390996f7f7b42222ad0f23e509d5ec5cf22a040b88a264fea", null ],
       [ "RS_TABLE_IDX_SYM", "reed__solomon_8c.html#aaef0cc8a068838e1390996f7f7b42222a099d3b6bc81596c5fbe0b0f73fec9239", null ],

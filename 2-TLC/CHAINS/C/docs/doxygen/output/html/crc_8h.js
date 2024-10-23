@@ -1,7 +1,8 @@
 var crc_8h =
 [
-    [ "_crc_par_t", "struct__crc__par__t.html", null ],
+    [ "_crc_par_t", "struct__crc__par__t.html", "struct__crc__par__t" ],
     [ "CRC_DEGREE", "crc_8h.html#af4276510cedd81f5df4887aa841fbf6e", null ],
+    [ "crc_par_t", "crc_8h.html#ad178c3903f441b07c204cbac6461c10c", null ],
     [ "crc_degree_t", "crc_8h.html#a6101862234971a20f6ea322793d0e81f", [
       [ "CRC_DEGREE_8", "crc_8h.html#a6101862234971a20f6ea322793d0e81fabbeb4073f7e0f28e341ebda4798b6785", null ],
       [ "CRC_DEGREE_16", "crc_8h.html#a6101862234971a20f6ea322793d0e81fa948aabaa84cc1f8672b8cf7e4ed577df", null ],

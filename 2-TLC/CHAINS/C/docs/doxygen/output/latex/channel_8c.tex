@@ -1,23 +1,23 @@
-\doxysection{src/channel.c File Reference}
-\hypertarget{channel_8c}{}\label{channel_8c}\index{src/channel.c@{src/channel.c}}
+\hypertarget{channel_8c}{}\doxysection{src/channel.c File Reference}
+\label{channel_8c}\index{src/channel.c@{src/channel.c}}
 
 
 Channel library.  
 
 
-{\ttfamily \#include "{}channel.\+h"{}}\newline
-{\ttfamily \#include "{}debug.\+h"{}}\newline
-{\ttfamily \#include "{}modulation.\+h"{}}\newline
-\doxysubsubsection*{Functions}
+{\ttfamily \#include \char`\"{}channel.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}debug.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}modulation.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-static float \mbox{\hyperlink{channel_8c_af55bec4125c79407eab0e283468a018b}{Get\+Complex\+Sgn\+Power}} (const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream)
+static float \mbox{\hyperlink{channel_8c_af55bec4125c79407eab0e283468a018b}{Get\+Complex\+Sgn\+Power}} (const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} $\ast$in\+Stream)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for estimating the average power of a complex stream. } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{channel_8c_afd34dc089fd01a3617342289200cef93}{Channel\+\_\+\+List\+Parameters}} (\mbox{\hyperlink{struct__chan__par__t}{chan\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}io\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{channel_8c_afd34dc089fd01a3617342289200cef93}{Channel\+\_\+\+List\+Parameters}} (\mbox{\hyperlink{struct__chan__par__t}{chan\+\_\+par\+\_\+t}} $\ast$io\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for retrieving and listing channel parameters into dedicated structure. } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{channel_8c_a447fb3627e3adb47767913e12783c552}{Channel\+\_\+\+BSC}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__chan__par__t}{chan\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{channel_8c_a447fb3627e3adb47767913e12783c552}{Channel\+\_\+\+BSC}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__chan__par__t}{chan\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for applying Binary Symmetric Channel (BSC) corruption. } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{channel_8c_a7fbdb35e62e6f7572b56acee57350263}{Channel\+\_\+\+AWGN}} (const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__chan__par__t}{chan\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{channel_8c_a7fbdb35e62e6f7572b56acee57350263}{Channel\+\_\+\+AWGN}} (const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__chan__par__t}{chan\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for applying Additive White Gaussian Noise (AWGN) corruption based on Box-\/\+Muller method. } \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -36,16 +36,14 @@ Electrolux S.\+p.\+A.
 \begin{DoxySeeAlso}{See also}
 Digital communications -\/ Fundamentals and applications (Bernard Sklar, 2014)
 \end{DoxySeeAlso}
-
-
 Library containing channel functions. 
 
 \doxysubsection{Function Documentation}
-\Hypertarget{channel_8c_a7fbdb35e62e6f7572b56acee57350263}\index{channel.c@{channel.c}!Channel\_AWGN@{Channel\_AWGN}}
+\mbox{\Hypertarget{channel_8c_a7fbdb35e62e6f7572b56acee57350263}\label{channel_8c_a7fbdb35e62e6f7572b56acee57350263}} 
+\index{channel.c@{channel.c}!Channel\_AWGN@{Channel\_AWGN}}
 \index{Channel\_AWGN@{Channel\_AWGN}!channel.c@{channel.c}}
 \doxysubsubsection{\texorpdfstring{Channel\_AWGN()}{Channel\_AWGN()}}
-{\footnotesize\ttfamily \label{channel_8c_a7fbdb35e62e6f7572b56acee57350263} 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Channel\+\_\+\+AWGN (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__chan__par__t}{chan\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Channel\+\_\+\+AWGN (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__chan__par__t}{chan\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
 
 
 
@@ -66,46 +64,18 @@ error ID
 
 \begin{DoxyItemize}
 \item noise mean value
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item signal average power \mbox{[}lin\mbox{]}
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item signal-\/to-\/noise-\/ratio \mbox{[}dB\mbox{]}
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item target noise variance (N0)
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item random variables uniformly distributed between 0 and 1
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
-\item random variables normally distributed as Mu\texorpdfstring{$\vert$}{|}\+Sigma2
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
+\item random variables normally distributed as Mu$\vert$\+Sigma2
 \item link random seed to current time
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item link random seed to provided argument
-\end{DoxyItemize}\Hypertarget{channel_8c_a447fb3627e3adb47767913e12783c552}\index{channel.c@{channel.c}!Channel\_BSC@{Channel\_BSC}}
+\end{DoxyItemize}\mbox{\Hypertarget{channel_8c_a447fb3627e3adb47767913e12783c552}\label{channel_8c_a447fb3627e3adb47767913e12783c552}} 
+\index{channel.c@{channel.c}!Channel\_BSC@{Channel\_BSC}}
 \index{Channel\_BSC@{Channel\_BSC}!channel.c@{channel.c}}
 \doxysubsubsection{\texorpdfstring{Channel\_BSC()}{Channel\_BSC()}}
-{\footnotesize\ttfamily \label{channel_8c_a447fb3627e3adb47767913e12783c552} 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Channel\+\_\+\+BSC (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__chan__par__t}{chan\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Channel\+\_\+\+BSC (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__chan__par__t}{chan\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
 
 
 
@@ -126,16 +96,12 @@ error ID
 
 \begin{DoxyItemize}
 \item link random seed to current time
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item link random seed to provided argument
-\end{DoxyItemize}\Hypertarget{channel_8c_afd34dc089fd01a3617342289200cef93}\index{channel.c@{channel.c}!Channel\_ListParameters@{Channel\_ListParameters}}
+\end{DoxyItemize}\mbox{\Hypertarget{channel_8c_afd34dc089fd01a3617342289200cef93}\label{channel_8c_afd34dc089fd01a3617342289200cef93}} 
+\index{channel.c@{channel.c}!Channel\_ListParameters@{Channel\_ListParameters}}
 \index{Channel\_ListParameters@{Channel\_ListParameters}!channel.c@{channel.c}}
 \doxysubsubsection{\texorpdfstring{Channel\_ListParameters()}{Channel\_ListParameters()}}
-{\footnotesize\ttfamily \label{channel_8c_afd34dc089fd01a3617342289200cef93} 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Channel\+\_\+\+List\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__chan__par__t}{chan\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{io\+Params}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Channel\+\_\+\+List\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__chan__par__t}{chan\+\_\+par\+\_\+t}} $\ast$}]{io\+Params }\end{DoxyParamCaption})}
 
 
 
@@ -149,11 +115,11 @@ error ID
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\Hypertarget{channel_8c_af55bec4125c79407eab0e283468a018b}\index{channel.c@{channel.c}!GetComplexSgnPower@{GetComplexSgnPower}}
+\mbox{\Hypertarget{channel_8c_af55bec4125c79407eab0e283468a018b}\label{channel_8c_af55bec4125c79407eab0e283468a018b}} 
+\index{channel.c@{channel.c}!GetComplexSgnPower@{GetComplexSgnPower}}
 \index{GetComplexSgnPower@{GetComplexSgnPower}!channel.c@{channel.c}}
 \doxysubsubsection{\texorpdfstring{GetComplexSgnPower()}{GetComplexSgnPower()}}
-{\footnotesize\ttfamily \label{channel_8c_af55bec4125c79407eab0e283468a018b} 
-static float Get\+Complex\+Sgn\+Power (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static float Get\+Complex\+Sgn\+Power (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__complex__stream__t}{complex\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 

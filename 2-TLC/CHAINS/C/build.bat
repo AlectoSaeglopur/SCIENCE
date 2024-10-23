@@ -4,6 +4,7 @@
 setlocal
 echo ^<^< Starting batch execution...
 echo ------------------------------------------------
+echo ------------------------------------------------
 
 :: check arguments
 if "%1"=="" (

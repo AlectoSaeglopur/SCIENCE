@@ -631,7 +631,7 @@ LC0:
 	.long	1024416809
 	.align 4
 LC1:
-	.long	1070386381
+	.long	1063675494
 	.align 4
 LC3:
 	.long	1191181824

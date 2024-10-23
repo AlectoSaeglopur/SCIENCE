@@ -64,7 +64,7 @@ typedef struct _chan_par_t
 
 #define CHAN_TYPE         CHAN_AWGN                     //!< channel type
 #define BSC_PEB           3.5E-2                        //!< BSC channel bit-error probability
-#define AWGN_EBN0         1.6f                          //!< AWGN channel energy-per-bit-to-noise-power-spectral-density ratio [dB] (NB: SNR=Eb/N0*log2(M)/sps)
+#define AWGN_EBN0         0.9f                          //!< AWGN channel energy-per-bit-to-noise-power-spectral-density ratio [dB] (NB: SNR=Eb/N0*log2(M)/sps)
 #define CHAN_SEED         SEED2TIME                     //!< random seed (linked dinamically to current time via SEED2TIME wildcard)
 
 

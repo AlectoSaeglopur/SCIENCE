@@ -1,22 +1,41 @@
-/*
- * Main script to invoke unit tests.
+/**
+ * @file utest_main.c
+ * @author Filippo Valmori
+ * @date 26/08/2024
+ * @copyright Electrolux S.p.A.
+ * @ingroup UNIT_TEST
+ * @brief Unit test main file
+ * @addtogroup UNIT_TEST
+ * 
+ * Main library containing all DVB-S telecommunication chain functions.
  */
 
-/** INCLUDES **/
+
+/****************/
+/*** INCLUDES ***/
+/****************/
 
 #include "..\src\system.h"
+#include "utest_convolutional.h"
 #include "utest_modulation.h"
 
 
 
-/** FUNCTIONS **/
+/**************************/
+/*** PRIVATE PROTOTYPES ***/
+/**************************/
+
+static void print_divider( char * name );
+
+
+
+/***********************/
+/*** UNITY FUNCTIONS ***/
+/***********************/
 
 /* "Setup" function: print a counter before each test result entry. */
 void setUp( void )
 {
-  static uint16_t Cnt = 0;
-  Cnt++;
-  printf("#%2d - ",Cnt);
 }
 
 /* "Teardown" function: do nothing. */
@@ -24,32 +43,38 @@ void tearDown (void)
 {
 }
 
+
+
+/*************************/
+/*** PRIVATE FUNCTIONS ***/
+/*************************/
+
 /* Custom function used as test result divider */
-void print_divider( uint8_t sCnt )
+static void print_divider( char * name )
 {
-  printf("\n ### SECTION %d ###\n\n",sCnt);
+  static uint8_t cnt = 0;
+
+  if (cnt > 0)
+  {
+    printf("----------\n");
+    printf("----------\n");
+  }
+  printf("\n>> LIBRARY # %d: %s\n",cnt++,name);
 }
 
 
-/** MAIN **/
+
+/************/
+/*** MAIN ***/
+/************/
 
 int main( void )
 {
-  uint8_t sCnt = 0;
-  print_divider(sCnt++);
+  print_divider("CONVOLUTIONAL");
+  UnitTest_Convolutional();
+  print_divider("MODULATION");
+  RunTestModulation();
 
-//  run_extra_tests();                                                          // run tests on "extra.c" functions
-//  print_divider(sCnt++);
-//  run_convolutional_tests();                                                  // run tests on "convolutional.c" functions
-//  print_divider(sCnt++);
-  run_modulation_tests();                                                     // run tests on "modulation.c" functions
-  //while (1){};                                                              // do NOT loop
-    return 0;
+  //while (1){};                                                  // do NOT loop
+  return 0;
 }
-
-
-
-// cls && gcc umain.c test_list\test_extra.c prj_ut\extra.c test_list\test_convolutional.c test_list\test_modulation.c prj_ut\convolutional.c prj_ut\modulation.c unity_engine\unity.c -o asd && asd
-
-
-//cls && make all && build\bin\utest.exe

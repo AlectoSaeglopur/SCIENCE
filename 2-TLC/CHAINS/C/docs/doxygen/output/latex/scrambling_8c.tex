@@ -1,30 +1,30 @@
-\doxysection{src/scrambling.c File Reference}
-\hypertarget{scrambling_8c}{}\label{scrambling_8c}\index{src/scrambling.c@{src/scrambling.c}}
+\hypertarget{scrambling_8c}{}\doxysection{src/scrambling.c File Reference}
+\label{scrambling_8c}\index{src/scrambling.c@{src/scrambling.c}}
 
 
 Scrambling library.  
 
 
-{\ttfamily \#include "{}debug.\+h"{}}\newline
-{\ttfamily \#include "{}scrambling.\+h"{}}\newline
-\doxysubsubsection*{Functions}
+{\ttfamily \#include \char`\"{}debug.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}scrambling.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{scrambling_8c_aa6ac892ebde51a7a893a37f316008b63}{Scramb\+\_\+\+Additive\+Scrambler}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{scrambling_8c_aa6ac892ebde51a7a893a37f316008b63}{Scramb\+\_\+\+Additive\+Scrambler}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for additive (aka synchronous) scrambling. } \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{scrambling_8c_ad576436fd6aa543ca7676b82a1f2b285}{Scramb\+\_\+\+Additive\+Descrambler}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{scrambling_8c_ad576436fd6aa543ca7676b82a1f2b285}{Scramb\+\_\+\+Additive\+Descrambler}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for additive (aka synchronous) descrambling. } \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{scrambling_8c_aefd2803d0b609862da105e94c821f898}{Scramb\+\_\+\+Multiplicative\+Scrambler}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{scrambling_8c_aefd2803d0b609862da105e94c821f898}{Scramb\+\_\+\+Multiplicative\+Scrambler}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for multiplicative (aka self-\/synchronizing) scrambling. } \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{scrambling_8c_a1dff131c2b9b5b34601651b43592684e}{Scramb\+\_\+\+Multiplicative\+Descrambler}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{scrambling_8c_a1dff131c2b9b5b34601651b43592684e}{Scramb\+\_\+\+Multiplicative\+Descrambler}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for multiplicative (aka self-\/synchronizing) descrambling. } \end{DoxyCompactList}\item 
-static uint8\+\_\+t \mbox{\hyperlink{scrambling_8c_ae90aa14e4fcd7d0ec3f41afacd99744f}{Compute\+Reg\+Bit}} (uint32\+\_\+t cur\+St, const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+static uint8\+\_\+t \mbox{\hyperlink{scrambling_8c_ae90aa14e4fcd7d0ec3f41afacd99744f}{Compute\+Reg\+Bit}} (uint32\+\_\+t cur\+St, const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for computing the shift-\/register output bit at j-\/th cycle. } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{scrambling_8c_a5594d2ee5a447686489f6efd90be38a5}{Scramb\+\_\+\+List\+Parameters}} (\mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}io\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{scrambling_8c_a5594d2ee5a447686489f6efd90be38a5}{Scramb\+\_\+\+List\+Parameters}} (\mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} $\ast$io\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for retrieving and listing scrambling parameters into dedicated structure. } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{scrambling_8c_a93bfa682d9021608a196025d16523334}{Scramb\+\_\+\+Scrambler}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{scrambling_8c_a93bfa682d9021608a196025d16523334}{Scramb\+\_\+\+Scrambler}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for scrambling. } \end{DoxyCompactList}\item 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{scrambling_8c_a132e3baebcf4824ebed7eaf304239691}{Scramb\+\_\+\+Descrambler}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}out\+Stream, const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}p\+Params)
+\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} \mbox{\hyperlink{scrambling_8c_a132e3baebcf4824ebed7eaf304239691}{Scramb\+\_\+\+Descrambler}} (const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$in\+Stream, \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$out\+Stream, const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} $\ast$p\+Params)
 \begin{DoxyCompactList}\small\item\em {\itshape  Function for descrambling. } \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -43,16 +43,14 @@ Electrolux S.\+p.\+A.
 \begin{DoxySeeAlso}{See also}
 Digital communications -\/ Fundamentals and applications (Bernard Sklar, 2014)
 \end{DoxySeeAlso}
-
-
 Library containing scrambling functions. 
 
 \doxysubsection{Function Documentation}
-\Hypertarget{scrambling_8c_ae90aa14e4fcd7d0ec3f41afacd99744f}\index{scrambling.c@{scrambling.c}!ComputeRegBit@{ComputeRegBit}}
+\mbox{\Hypertarget{scrambling_8c_ae90aa14e4fcd7d0ec3f41afacd99744f}\label{scrambling_8c_ae90aa14e4fcd7d0ec3f41afacd99744f}} 
+\index{scrambling.c@{scrambling.c}!ComputeRegBit@{ComputeRegBit}}
 \index{ComputeRegBit@{ComputeRegBit}!scrambling.c@{scrambling.c}}
 \doxysubsubsection{\texorpdfstring{ComputeRegBit()}{ComputeRegBit()}}
-{\footnotesize\ttfamily \label{scrambling_8c_ae90aa14e4fcd7d0ec3f41afacd99744f} 
-static uint8\+\_\+t Compute\+Reg\+Bit (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{cur\+St}{, }\item[{const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static uint8\+\_\+t Compute\+Reg\+Bit (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{cur\+St,  }\item[{const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -66,11 +64,11 @@ static uint8\+\_\+t Compute\+Reg\+Bit (\begin{DoxyParamCaption}\item[{uint32\+\_
 \begin{DoxyReturn}{Returns}
 LFSR output bit 
 \end{DoxyReturn}
-\Hypertarget{scrambling_8c_ad576436fd6aa543ca7676b82a1f2b285}\index{scrambling.c@{scrambling.c}!Scramb\_AdditiveDescrambler@{Scramb\_AdditiveDescrambler}}
+\mbox{\Hypertarget{scrambling_8c_ad576436fd6aa543ca7676b82a1f2b285}\label{scrambling_8c_ad576436fd6aa543ca7676b82a1f2b285}} 
+\index{scrambling.c@{scrambling.c}!Scramb\_AdditiveDescrambler@{Scramb\_AdditiveDescrambler}}
 \index{Scramb\_AdditiveDescrambler@{Scramb\_AdditiveDescrambler}!scrambling.c@{scrambling.c}}
 \doxysubsubsection{\texorpdfstring{Scramb\_AdditiveDescrambler()}{Scramb\_AdditiveDescrambler()}}
-{\footnotesize\ttfamily \label{scrambling_8c_ad576436fd6aa543ca7676b82a1f2b285} 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Scramb\+\_\+\+Additive\+Descrambler (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Scramb\+\_\+\+Additive\+Descrambler (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -88,11 +86,11 @@ static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\Hypertarget{scrambling_8c_aa6ac892ebde51a7a893a37f316008b63}\index{scrambling.c@{scrambling.c}!Scramb\_AdditiveScrambler@{Scramb\_AdditiveScrambler}}
+\mbox{\Hypertarget{scrambling_8c_aa6ac892ebde51a7a893a37f316008b63}\label{scrambling_8c_aa6ac892ebde51a7a893a37f316008b63}} 
+\index{scrambling.c@{scrambling.c}!Scramb\_AdditiveScrambler@{Scramb\_AdditiveScrambler}}
 \index{Scramb\_AdditiveScrambler@{Scramb\_AdditiveScrambler}!scrambling.c@{scrambling.c}}
 \doxysubsubsection{\texorpdfstring{Scramb\_AdditiveScrambler()}{Scramb\_AdditiveScrambler()}}
-{\footnotesize\ttfamily \label{scrambling_8c_aa6ac892ebde51a7a893a37f316008b63} 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Scramb\+\_\+\+Additive\+Scrambler (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Scramb\+\_\+\+Additive\+Scrambler (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -113,31 +111,15 @@ error ID
 
 \begin{DoxyItemize}
 \item bit outgoing from shift register connections
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item update scrambler shift register
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item update content of shift register\textquotesingle{}s first cell
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item compute output bit at j-\/th cycle
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item write the the output bit into output stream
-\end{DoxyItemize}\Hypertarget{scrambling_8c_a132e3baebcf4824ebed7eaf304239691}\index{scrambling.c@{scrambling.c}!Scramb\_Descrambler@{Scramb\_Descrambler}}
+\end{DoxyItemize}\mbox{\Hypertarget{scrambling_8c_a132e3baebcf4824ebed7eaf304239691}\label{scrambling_8c_a132e3baebcf4824ebed7eaf304239691}} 
+\index{scrambling.c@{scrambling.c}!Scramb\_Descrambler@{Scramb\_Descrambler}}
 \index{Scramb\_Descrambler@{Scramb\_Descrambler}!scrambling.c@{scrambling.c}}
 \doxysubsubsection{\texorpdfstring{Scramb\_Descrambler()}{Scramb\_Descrambler()}}
-{\footnotesize\ttfamily \label{scrambling_8c_a132e3baebcf4824ebed7eaf304239691} 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Scramb\+\_\+\+Descrambler (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Scramb\+\_\+\+Descrambler (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
 
 
 
@@ -155,11 +137,11 @@ error ID
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\Hypertarget{scrambling_8c_a5594d2ee5a447686489f6efd90be38a5}\index{scrambling.c@{scrambling.c}!Scramb\_ListParameters@{Scramb\_ListParameters}}
+\mbox{\Hypertarget{scrambling_8c_a5594d2ee5a447686489f6efd90be38a5}\label{scrambling_8c_a5594d2ee5a447686489f6efd90be38a5}} 
+\index{scrambling.c@{scrambling.c}!Scramb\_ListParameters@{Scramb\_ListParameters}}
 \index{Scramb\_ListParameters@{Scramb\_ListParameters}!scrambling.c@{scrambling.c}}
 \doxysubsubsection{\texorpdfstring{Scramb\_ListParameters()}{Scramb\_ListParameters()}}
-{\footnotesize\ttfamily \label{scrambling_8c_a5594d2ee5a447686489f6efd90be38a5} 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Scramb\+\_\+\+List\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{io\+Params}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Scramb\+\_\+\+List\+Parameters (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} $\ast$}]{io\+Params }\end{DoxyParamCaption})}
 
 
 
@@ -173,11 +155,11 @@ error ID
 \begin{DoxyReturn}{Returns}
 error ID 
 \end{DoxyReturn}
-\Hypertarget{scrambling_8c_a1dff131c2b9b5b34601651b43592684e}\index{scrambling.c@{scrambling.c}!Scramb\_MultiplicativeDescrambler@{Scramb\_MultiplicativeDescrambler}}
+\mbox{\Hypertarget{scrambling_8c_a1dff131c2b9b5b34601651b43592684e}\label{scrambling_8c_a1dff131c2b9b5b34601651b43592684e}} 
+\index{scrambling.c@{scrambling.c}!Scramb\_MultiplicativeDescrambler@{Scramb\_MultiplicativeDescrambler}}
 \index{Scramb\_MultiplicativeDescrambler@{Scramb\_MultiplicativeDescrambler}!scrambling.c@{scrambling.c}}
 \doxysubsubsection{\texorpdfstring{Scramb\_MultiplicativeDescrambler()}{Scramb\_MultiplicativeDescrambler()}}
-{\footnotesize\ttfamily \label{scrambling_8c_a1dff131c2b9b5b34601651b43592684e} 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Scramb\+\_\+\+Multiplicative\+Descrambler (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Scramb\+\_\+\+Multiplicative\+Descrambler (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -197,11 +179,11 @@ error ID
 \end{DoxyReturn}
 update content of the LFSR\textquotesingle{}s first cell to \textquotesingle{}1\textquotesingle{}
 
-Update content of the LFSR\textquotesingle{}s first cell to \textquotesingle{}0\textquotesingle{}\Hypertarget{scrambling_8c_aefd2803d0b609862da105e94c821f898}\index{scrambling.c@{scrambling.c}!Scramb\_MultiplicativeScrambler@{Scramb\_MultiplicativeScrambler}}
+Update content of the LFSR\textquotesingle{}s first cell to \textquotesingle{}0\textquotesingle{}\mbox{\Hypertarget{scrambling_8c_aefd2803d0b609862da105e94c821f898}\label{scrambling_8c_aefd2803d0b609862da105e94c821f898}} 
+\index{scrambling.c@{scrambling.c}!Scramb\_MultiplicativeScrambler@{Scramb\_MultiplicativeScrambler}}
 \index{Scramb\_MultiplicativeScrambler@{Scramb\_MultiplicativeScrambler}!scrambling.c@{scrambling.c}}
 \doxysubsubsection{\texorpdfstring{Scramb\_MultiplicativeScrambler()}{Scramb\_MultiplicativeScrambler()}}
-{\footnotesize\ttfamily \label{scrambling_8c_aefd2803d0b609862da105e94c821f898} 
-static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Scramb\+\_\+\+Multiplicative\+Scrambler (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Scramb\+\_\+\+Multiplicative\+Scrambler (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -222,36 +204,16 @@ error ID
 
 \begin{DoxyItemize}
 \item input bit at j-\/th cycle
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item output bit at j-\/th cycle
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item right-\/shift the LFSR
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item update content of LFSR first\textquotesingle{}s cell to \textquotesingle{}1\textquotesingle{}
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item write the output bit into the I/O stream
-\end{DoxyItemize}
-
-
-\begin{DoxyItemize}
 \item update content of LFSR\textquotesingle{}s first cell to \textquotesingle{}0\textquotesingle{}
-\end{DoxyItemize}\Hypertarget{scrambling_8c_a93bfa682d9021608a196025d16523334}\index{scrambling.c@{scrambling.c}!Scramb\_Scrambler@{Scramb\_Scrambler}}
+\end{DoxyItemize}\mbox{\Hypertarget{scrambling_8c_a93bfa682d9021608a196025d16523334}\label{scrambling_8c_a93bfa682d9021608a196025d16523334}} 
+\index{scrambling.c@{scrambling.c}!Scramb\_Scrambler@{Scramb\_Scrambler}}
 \index{Scramb\_Scrambler@{Scramb\_Scrambler}!scrambling.c@{scrambling.c}}
 \doxysubsubsection{\texorpdfstring{Scramb\_Scrambler()}{Scramb\_Scrambler()}}
-{\footnotesize\ttfamily \label{scrambling_8c_a93bfa682d9021608a196025d16523334} 
-\mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Scramb\+\_\+\+Scrambler (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{in\+Stream}{, }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{out\+Stream}{, }\item[{const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p\+Params}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{error_8h_ac7659d73a8cdedc08e9f566bb406689c}{error\+\_\+t}} Scramb\+\_\+\+Scrambler (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{in\+Stream,  }\item[{\mbox{\hyperlink{struct__byte__stream__t}{byte\+\_\+stream\+\_\+t}} $\ast$}]{out\+Stream,  }\item[{const \mbox{\hyperlink{struct__scr__par__t}{scr\+\_\+par\+\_\+t}} $\ast$}]{p\+Params }\end{DoxyParamCaption})}
 
 
 

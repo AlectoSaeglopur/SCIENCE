@@ -1,5 +1,5 @@
-\doxysection{src/system.h File Reference}
-\hypertarget{system_8h}{}\label{system_8h}\index{src/system.h@{src/system.h}}
+\hypertarget{system_8h}{}\doxysection{src/system.h File Reference}
+\label{system_8h}\index{src/system.h@{src/system.h}}
 
 
 Dynamic memory allocation library header.  
@@ -12,61 +12,65 @@ Dynamic memory allocation library header.
 {\ttfamily \#include $<$stdlib.\+h$>$}\newline
 {\ttfamily \#include $<$time.\+h$>$}\newline
 {\ttfamily \#include $<$math.\+h$>$}\newline
-\doxysubsubsection*{Data Structures}
+\doxysubsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{struct__complex__t}{\+\_\+complex\+\_\+t}}
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Macros}
+\doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
 \#define \mbox{\hyperlink{system_8h_a360ec061cb4ecdb30592495dc5bb54f9}{BY2\+BI\+\_\+\+SHIFT}}~3u
 \begin{DoxyCompactList}\small\item\em number of bit shifts to convert byte into bit value \end{DoxyCompactList}\item 
-\#define \mbox{\hyperlink{system_8h_a481541ca6fb6463a83ce3943f35e745b}{BY2\+BI\+\_\+\+LEN}}(x)
+\mbox{\Hypertarget{system_8h_a481541ca6fb6463a83ce3943f35e745b}\label{system_8h_a481541ca6fb6463a83ce3943f35e745b}} 
+\#define {\bfseries BY2\+BI\+\_\+\+LEN}(x)~((x)$<$$<$\mbox{\hyperlink{system_8h_a360ec061cb4ecdb30592495dc5bb54f9}{BY2\+BI\+\_\+\+SHIFT}})
 \item 
-\#define \mbox{\hyperlink{system_8h_a67838532c558f6bd4cc45ddf792ada3c}{BI2\+BY\+\_\+\+LEN}}(x)
+\mbox{\Hypertarget{system_8h_a67838532c558f6bd4cc45ddf792ada3c}\label{system_8h_a67838532c558f6bd4cc45ddf792ada3c}} 
+\#define {\bfseries BI2\+BY\+\_\+\+LEN}(x)~((x)$>$$>$\mbox{\hyperlink{system_8h_a360ec061cb4ecdb30592495dc5bb54f9}{BY2\+BI\+\_\+\+SHIFT}})
 \item 
-\Hypertarget{system_8h_a9e9279cd81f5df39d435a2b4c09532af}\label{system_8h_a9e9279cd81f5df39d435a2b4c09532af} 
+\mbox{\Hypertarget{system_8h_a9e9279cd81f5df39d435a2b4c09532af}\label{system_8h_a9e9279cd81f5df39d435a2b4c09532af}} 
 \#define {\bfseries MSBIT\+\_\+\+MASK\+\_\+\+U8}~((uint8\+\_\+t) 0x80)
 \item 
-\Hypertarget{system_8h_a11eef7aafa2c384649f5a638a7bb2a68}\label{system_8h_a11eef7aafa2c384649f5a638a7bb2a68} 
+\mbox{\Hypertarget{system_8h_a11eef7aafa2c384649f5a638a7bb2a68}\label{system_8h_a11eef7aafa2c384649f5a638a7bb2a68}} 
 \#define {\bfseries LSBIT\+\_\+\+MASK\+\_\+\+U8}~((uint8\+\_\+t) 0x01)
 \item 
-\Hypertarget{system_8h_aa98ff864c213792f763435ccccd1a676}\label{system_8h_aa98ff864c213792f763435ccccd1a676} 
+\mbox{\Hypertarget{system_8h_aa98ff864c213792f763435ccccd1a676}\label{system_8h_aa98ff864c213792f763435ccccd1a676}} 
 \#define {\bfseries MSBIT\+\_\+\+MASK\+\_\+\+U32}~((uint32\+\_\+t) 0x80000000)
 \item 
-\Hypertarget{system_8h_adf7e0be0b981c5763fad1ead01511401}\label{system_8h_adf7e0be0b981c5763fad1ead01511401} 
+\mbox{\Hypertarget{system_8h_adf7e0be0b981c5763fad1ead01511401}\label{system_8h_adf7e0be0b981c5763fad1ead01511401}} 
 \#define {\bfseries LSBYTE\+\_\+\+MASK\+\_\+\+U32}~((uint32\+\_\+t) 0x00000007)
 \item 
-\Hypertarget{system_8h_a973c67e509371c674b7c3045e2fedd27}\label{system_8h_a973c67e509371c674b7c3045e2fedd27} 
+\mbox{\Hypertarget{system_8h_a973c67e509371c674b7c3045e2fedd27}\label{system_8h_a973c67e509371c674b7c3045e2fedd27}} 
 \#define {\bfseries NUM\+\_\+\+BITS\+\_\+\+PER\+\_\+\+BYTE}~8u
 \item 
-\Hypertarget{system_8h_a1bc515746e6e1796b131937b1ca9f825}\label{system_8h_a1bc515746e6e1796b131937b1ca9f825} 
+\mbox{\Hypertarget{system_8h_a1bc515746e6e1796b131937b1ca9f825}\label{system_8h_a1bc515746e6e1796b131937b1ca9f825}} 
 \#define {\bfseries BITIDX\+\_\+1\+LAST}~(NUM\+\_\+\+BITS\+\_\+\+PER\+\_\+\+BYTE-\/1)
 \item 
-\Hypertarget{system_8h_ab6624d6ac2281f2cc75f325ce2a384db}\label{system_8h_ab6624d6ac2281f2cc75f325ce2a384db} 
+\mbox{\Hypertarget{system_8h_ab6624d6ac2281f2cc75f325ce2a384db}\label{system_8h_ab6624d6ac2281f2cc75f325ce2a384db}} 
 \#define {\bfseries BITIDX\+\_\+2\+LAST}~(BITIDX\+\_\+1\+LAST-\/1)
 \item 
-\Hypertarget{system_8h_ac58cbaeae310f551049f77b7c098599e}\label{system_8h_ac58cbaeae310f551049f77b7c098599e} 
+\mbox{\Hypertarget{system_8h_ac58cbaeae310f551049f77b7c098599e}\label{system_8h_ac58cbaeae310f551049f77b7c098599e}} 
 \#define {\bfseries MATH\+\_\+\+PI}~3.\+14159f
 \item 
-\#define \mbox{\hyperlink{system_8h_a9a9820ecc9f9e96d80611abcf7abc120}{IS\+\_\+\+EVEN}}(x)
+\mbox{\Hypertarget{system_8h_a9a9820ecc9f9e96d80611abcf7abc120}\label{system_8h_a9a9820ecc9f9e96d80611abcf7abc120}} 
+\#define {\bfseries IS\+\_\+\+EVEN}(x)~(0 == ((x)\%2))
 \item 
-\#define \mbox{\hyperlink{system_8h_ab12a6f059e4b64ed726bf81deb985379}{IS\+\_\+\+ODD}}(x)
+\mbox{\Hypertarget{system_8h_ab12a6f059e4b64ed726bf81deb985379}\label{system_8h_ab12a6f059e4b64ed726bf81deb985379}} 
+\#define {\bfseries IS\+\_\+\+ODD}(x)~(1 == ((x)\%2))
 \item 
-\Hypertarget{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}\label{system_8h_ad1f288fcfa08df1ace0d71e7113beef6} 
-\#define {\bfseries ulen\+\_\+t}~uint32\+\_\+t
+\mbox{\Hypertarget{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}\label{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}} 
+\#define \mbox{\hyperlink{system_8h_ad1f288fcfa08df1ace0d71e7113beef6}{ulen\+\_\+t}}~uint32\+\_\+t
 \begin{DoxyCompactList}\small\item\em bit/byte buffer length type (unsigned) \end{DoxyCompactList}\item 
-\Hypertarget{system_8h_ae331483360eed4023660124eb02142de}\label{system_8h_ae331483360eed4023660124eb02142de} 
-\#define {\bfseries slen\+\_\+t}~int32\+\_\+t
+\mbox{\Hypertarget{system_8h_ae331483360eed4023660124eb02142de}\label{system_8h_ae331483360eed4023660124eb02142de}} 
+\#define \mbox{\hyperlink{system_8h_ae331483360eed4023660124eb02142de}{slen\+\_\+t}}~int32\+\_\+t
 \begin{DoxyCompactList}\small\item\em bit/byte buffer length type (signed) \end{DoxyCompactList}\item 
-\Hypertarget{system_8h_aed38f5b9e6bad674ac6ab6b0c40aa013}\label{system_8h_aed38f5b9e6bad674ac6ab6b0c40aa013} 
-\#define {\bfseries byte\+\_\+t}~uint8\+\_\+t
+\mbox{\Hypertarget{system_8h_aed38f5b9e6bad674ac6ab6b0c40aa013}\label{system_8h_aed38f5b9e6bad674ac6ab6b0c40aa013}} 
+\#define \mbox{\hyperlink{system_8h_aed38f5b9e6bad674ac6ab6b0c40aa013}{byte\+\_\+t}}~uint8\+\_\+t
 \begin{DoxyCompactList}\small\item\em byte type \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsubsection*{Typedefs}
+\doxysubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{system_8h_ac4e68e50e4c9205ac116b394e22f2d99}\label{system_8h_ac4e68e50e4c9205ac116b394e22f2d99} 
+\mbox{\Hypertarget{system_8h_ac4e68e50e4c9205ac116b394e22f2d99}\label{system_8h_ac4e68e50e4c9205ac116b394e22f2d99}} 
 typedef struct \mbox{\hyperlink{struct__complex__t}{\+\_\+complex\+\_\+t}} {\bfseries complex\+\_\+t}
 \end{DoxyCompactItemize}
 
@@ -94,38 +98,14 @@ Filippo Valmori
 \begin{DoxyCopyright}{Copyright}
 Electrolux S.\+p.\+A.
 \end{DoxyCopyright}
-
-
 Header file containing project common libraries and definitions. 
 
 \doxysubsection{Macro Definition Documentation}
-\Hypertarget{system_8h_a67838532c558f6bd4cc45ddf792ada3c}\index{system.h@{system.h}!BI2BY\_LEN@{BI2BY\_LEN}}
-\index{BI2BY\_LEN@{BI2BY\_LEN}!system.h@{system.h}}
-\doxysubsubsection{\texorpdfstring{BI2BY\_LEN}{BI2BY\_LEN}}
-{\footnotesize\ttfamily \label{system_8h_a67838532c558f6bd4cc45ddf792ada3c} 
-\#define BI2\+BY\+\_\+\+LEN(\begin{DoxyParamCaption}\item[{}]{x}{}\end{DoxyParamCaption})}
-
-{\bfseries Value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{((x)>>\mbox{\hyperlink{system_8h_a360ec061cb4ecdb30592495dc5bb54f9}{BY2BI\_SHIFT}})}
-
-\end{DoxyCode}
-\Hypertarget{system_8h_a481541ca6fb6463a83ce3943f35e745b}\index{system.h@{system.h}!BY2BI\_LEN@{BY2BI\_LEN}}
-\index{BY2BI\_LEN@{BY2BI\_LEN}!system.h@{system.h}}
-\doxysubsubsection{\texorpdfstring{BY2BI\_LEN}{BY2BI\_LEN}}
-{\footnotesize\ttfamily \label{system_8h_a481541ca6fb6463a83ce3943f35e745b} 
-\#define BY2\+BI\+\_\+\+LEN(\begin{DoxyParamCaption}\item[{}]{x}{}\end{DoxyParamCaption})}
-
-{\bfseries Value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{((x)<<\mbox{\hyperlink{system_8h_a360ec061cb4ecdb30592495dc5bb54f9}{BY2BI\_SHIFT}})}
-
-\end{DoxyCode}
-\Hypertarget{system_8h_a360ec061cb4ecdb30592495dc5bb54f9}\index{system.h@{system.h}!BY2BI\_SHIFT@{BY2BI\_SHIFT}}
+\mbox{\Hypertarget{system_8h_a360ec061cb4ecdb30592495dc5bb54f9}\label{system_8h_a360ec061cb4ecdb30592495dc5bb54f9}} 
+\index{system.h@{system.h}!BY2BI\_SHIFT@{BY2BI\_SHIFT}}
 \index{BY2BI\_SHIFT@{BY2BI\_SHIFT}!system.h@{system.h}}
 \doxysubsubsection{\texorpdfstring{BY2BI\_SHIFT}{BY2BI\_SHIFT}}
-{\footnotesize\ttfamily \label{system_8h_a360ec061cb4ecdb30592495dc5bb54f9} 
-\#define BY2\+BI\+\_\+\+SHIFT~3u}
+{\footnotesize\ttfamily \#define BY2\+BI\+\_\+\+SHIFT~3u}
 
 
 
@@ -136,29 +116,8 @@ number of bit shifts to convert byte into bit value
 \item import standard i/o library
 \item import boolean type library
 \item import integer types library
-\item import string library (e.\+g. to use "{}memcpy"{} and "{}memset"{} functions)
+\item import string library (e.\+g. to use \char`\"{}memcpy\char`\"{} and \char`\"{}memset\char`\"{} functions)
 \item import random generation library
 \item import time library (e.\+g. to link random seed to actual time)
-\item import mathematical library (e.\+g. to use "{}sin/cos"{} and "{}log/exp"{} functions) 
-\end{DoxyItemize}\Hypertarget{system_8h_a9a9820ecc9f9e96d80611abcf7abc120}\index{system.h@{system.h}!IS\_EVEN@{IS\_EVEN}}
-\index{IS\_EVEN@{IS\_EVEN}!system.h@{system.h}}
-\doxysubsubsection{\texorpdfstring{IS\_EVEN}{IS\_EVEN}}
-{\footnotesize\ttfamily \label{system_8h_a9a9820ecc9f9e96d80611abcf7abc120} 
-\#define IS\+\_\+\+EVEN(\begin{DoxyParamCaption}\item[{}]{x}{}\end{DoxyParamCaption})}
-
-{\bfseries Value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{(0\ ==\ ((x)\%2))}
-
-\end{DoxyCode}
-\Hypertarget{system_8h_ab12a6f059e4b64ed726bf81deb985379}\index{system.h@{system.h}!IS\_ODD@{IS\_ODD}}
-\index{IS\_ODD@{IS\_ODD}!system.h@{system.h}}
-\doxysubsubsection{\texorpdfstring{IS\_ODD}{IS\_ODD}}
-{\footnotesize\ttfamily \label{system_8h_ab12a6f059e4b64ed726bf81deb985379} 
-\#define IS\+\_\+\+ODD(\begin{DoxyParamCaption}\item[{}]{x}{}\end{DoxyParamCaption})}
-
-{\bfseries Value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{(1\ ==\ ((x)\%2))}
-
-\end{DoxyCode}
+\item import mathematical library (e.\+g. to use \char`\"{}sin/cos\char`\"{} and \char`\"{}log/exp\char`\"{} functions) 
+\end{DoxyItemize}
