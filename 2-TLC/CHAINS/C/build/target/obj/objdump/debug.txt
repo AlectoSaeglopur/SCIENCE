@@ -18,7 +18,7 @@ error_t Debug_ListParameters( debug_par_t * ioParams, const scr_par_t * scrParam
        6:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
        d:	00 
        e:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
-      15:	e8 c2 0f 00 00       	call   fdc <_Debug_SetWatermark>
+      15:	e8 d0 0f 00 00       	call   fea <_Debug_SetWatermark>
 
   error_t retErr = ERR_NONE;
       1a:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
@@ -129,7 +129,7 @@ error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pS
      115:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
      11c:	00 
      11d:	c7 04 24 0e 01 00 00 	movl   $0x10e,(%esp)
-     124:	e8 b3 0e 00 00       	call   fdc <_Debug_SetWatermark>
+     124:	e8 c1 0e 00 00       	call   fea <_Debug_SetWatermark>
 
   uint32_t j;
   error_t retErr = ERR_NONE;
@@ -215,7 +215,7 @@ error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t lab
      1bc:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
      1c3:	00 
      1c4:	c7 04 24 b6 01 00 00 	movl   $0x1b6,(%esp)
-     1cb:	e8 0c 0e 00 00       	call   fdc <_Debug_SetWatermark>
+     1cb:	e8 1a 0e 00 00       	call   fea <_Debug_SetWatermark>
 
   error_t retErr = ERR_NONE;
      1d0:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
@@ -472,7 +472,7 @@ error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t l
      420:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
      427:	00 
      428:	c7 04 24 1a 04 00 00 	movl   $0x41a,(%esp)
-     42f:	e8 a8 0b 00 00       	call   fdc <_Debug_SetWatermark>
+     42f:	e8 b6 0b 00 00       	call   fea <_Debug_SetWatermark>
 
   error_t retErr = ERR_NONE;
      434:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
@@ -662,7 +662,7 @@ error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label
      5bb:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
      5c2:	00 
      5c3:	c7 04 24 b5 05 00 00 	movl   $0x5b5,(%esp)
-     5ca:	e8 0d 0a 00 00       	call   fdc <_Debug_SetWatermark>
+     5ca:	e8 1b 0a 00 00       	call   fea <_Debug_SetWatermark>
 
   error_t retErr = ERR_NONE;
      5cf:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
@@ -850,7 +850,7 @@ error_t Debug_PrintParameters( ulen_t orgLen, const debug_par_t * pParams )
      761:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
      768:	00 
      769:	c7 04 24 5b 07 00 00 	movl   $0x75b,(%esp)
-     770:	e8 67 08 00 00       	call   fdc <_Debug_SetWatermark>
+     770:	e8 75 08 00 00       	call   fea <_Debug_SetWatermark>
 
   error_t retErr = ERR_NONE;
      775:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
@@ -864,7 +864,7 @@ error_t Debug_PrintParameters( ulen_t orgLen, const debug_par_t * pParams )
      789:	89 44 24 04          	mov    %eax,0x4(%esp)
      78d:	8b 45 08             	mov    0x8(%ebp),%eax
      790:	89 04 24             	mov    %eax,(%esp)
-     793:	e8 3e 09 00 00       	call   10d6 <_IsOrgLenValid>
+     793:	e8 4c 09 00 00       	call   10e4 <_IsOrgLenValid>
      798:	84 c0                	test   %al,%al
      79a:	0f 84 ad 02 00 00    	je     a4d <_Debug_PrintParameters+0x2f2>
     {
@@ -1111,7 +1111,7 @@ error_t Debug_PrintParameters( ulen_t orgLen, const debug_par_t * pParams )
  * 
  * @return error ID
  */
-error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams )
+error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams, ulen_t * pBitErr )
 {
      a6a:	55                   	push   %ebp
      a6b:	89 e5                	mov    %esp,%ebp
@@ -1121,7 +1121,7 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
      a71:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
      a78:	00 
      a79:	c7 04 24 6a 0a 00 00 	movl   $0xa6a,(%esp)
-     a80:	e8 57 05 00 00       	call   fdc <_Debug_SetWatermark>
+     a80:	e8 65 05 00 00       	call   fea <_Debug_SetWatermark>
 
   error_t retErr = ERR_NONE;
      a85:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
@@ -1149,7 +1149,7 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
      ab9:	89 04 24             	mov    %eax,(%esp)
      abc:	e8 00 00 00 00       	call   ac1 <_Debug_CheckWrongBits+0x57>
      ac1:	84 c0                	test   %al,%al
-     ac3:	0f 84 27 02 00 00    	je     cf0 <_Debug_CheckWrongBits+0x286>
+     ac3:	0f 84 35 02 00 00    	je     cfe <_Debug_CheckWrongBits+0x294>
       Memory_IsStreamValid(inStreamB,inStreamB->id) &&
      ac9:	8b 45 0c             	mov    0xc(%ebp),%eax
      acc:	8b 40 08             	mov    0x8(%eax),%eax
@@ -1159,10 +1159,10 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
      ad9:	e8 00 00 00 00       	call   ade <_Debug_CheckWrongBits+0x74>
   if (Memory_IsStreamValid(inStreamA,inStreamA->id) &&
      ade:	84 c0                	test   %al,%al
-     ae0:	0f 84 0a 02 00 00    	je     cf0 <_Debug_CheckWrongBits+0x286>
+     ae0:	0f 84 18 02 00 00    	je     cfe <_Debug_CheckWrongBits+0x294>
       Memory_IsStreamValid(inStreamB,inStreamB->id) &&
      ae6:	83 7d 14 00          	cmpl   $0x0,0x14(%ebp)
-     aea:	0f 84 00 02 00 00    	je     cf0 <_Debug_CheckWrongBits+0x286>
+     aea:	0f 84 0e 02 00 00    	je     cfe <_Debug_CheckWrongBits+0x294>
       (NULL != pParams))
   {
     if (!((CHAN_AWGN == pParams->chanPar.type) && (CC_VITDM_SOFT == pParams->ccPar.vitDM) && (PID_RX_CNVCOD == label)))
@@ -1175,7 +1175,7 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
      b01:	83 f8 01             	cmp    $0x1,%eax
      b04:	75 0a                	jne    b10 <_Debug_CheckWrongBits+0xa6>
      b06:	83 7d 10 0b          	cmpl   $0xb,0x10(%ebp)
-     b0a:	0f 84 e9 01 00 00    	je     cf9 <_Debug_CheckWrongBits+0x28f>
+     b0a:	0f 84 f7 01 00 00    	je     d07 <_Debug_CheckWrongBits+0x29d>
     {
       if (inStreamA->len == inStreamB->len)
      b10:	8b 45 08             	mov    0x8(%ebp),%eax
@@ -1183,7 +1183,7 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
      b16:	8b 45 0c             	mov    0xc(%ebp),%eax
      b19:	8b 40 04             	mov    0x4(%eax),%eax
      b1c:	39 c2                	cmp    %eax,%edx
-     b1e:	0f 85 c1 01 00 00    	jne    ce5 <_Debug_CheckWrongBits+0x27b>
+     b1e:	0f 85 cf 01 00 00    	jne    cf3 <_Debug_CheckWrongBits+0x289>
       {
         for (j=0; j<bitLen; j++)
      b24:	c7 45 e4 00 00 00 00 	movl   $0x0,-0x1c(%ebp)
@@ -1255,6 +1255,7 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
      bbe:	0f 82 6c ff ff ff    	jb     b30 <_Debug_CheckWrongBits+0xc6>
           }
         }
+
         if (bitErrCnt < 2)
      bc4:	83 7d f0 01          	cmpl   $0x1,-0x10(%ebp)
      bc8:	77 07                	ja     bd1 <_Debug_CheckWrongBits+0x167>
@@ -1263,694 +1264,706 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
      bca:	c7 45 ec 00 00 00 00 	movl   $0x0,-0x14(%ebp)
         }
 
+        if (NULL != pBitErr)
+     bd1:	83 7d 18 00          	cmpl   $0x0,0x18(%ebp)
+     bd5:	74 08                	je     bdf <_Debug_CheckWrongBits+0x175>
+        {
+          *pBitErr = bitErrCnt;
+     bd7:	8b 45 18             	mov    0x18(%ebp),%eax
+     bda:	8b 55 f0             	mov    -0x10(%ebp),%edx
+     bdd:	89 10                	mov    %edx,(%eax)
+        }
+
         switch (label)
-     bd1:	8b 45 10             	mov    0x10(%ebp),%eax
-     bd4:	83 f8 03             	cmp    $0x3,%eax
-     bd7:	0f 84 8f 00 00 00    	je     c6c <_Debug_CheckWrongBits+0x202>
-     bdd:	83 f8 03             	cmp    $0x3,%eax
-     be0:	77 0a                	ja     bec <_Debug_CheckWrongBits+0x182>
-     be2:	83 f8 01             	cmp    $0x1,%eax
-     be5:	74 5f                	je     c46 <_Debug_CheckWrongBits+0x1dc>
-     be7:	e9 ef 00 00 00       	jmp    cdb <_Debug_CheckWrongBits+0x271>
-     bec:	83 f8 07             	cmp    $0x7,%eax
-     bef:	74 2f                	je     c20 <_Debug_CheckWrongBits+0x1b6>
-     bf1:	83 f8 0b             	cmp    $0xb,%eax
-     bf4:	0f 85 e1 00 00 00    	jne    cdb <_Debug_CheckWrongBits+0x271>
+     bdf:	8b 45 10             	mov    0x10(%ebp),%eax
+     be2:	83 f8 03             	cmp    $0x3,%eax
+     be5:	0f 84 8f 00 00 00    	je     c7a <_Debug_CheckWrongBits+0x210>
+     beb:	83 f8 03             	cmp    $0x3,%eax
+     bee:	77 0a                	ja     bfa <_Debug_CheckWrongBits+0x190>
+     bf0:	83 f8 01             	cmp    $0x1,%eax
+     bf3:	74 5f                	je     c54 <_Debug_CheckWrongBits+0x1ea>
+     bf5:	e9 ef 00 00 00       	jmp    ce9 <_Debug_CheckWrongBits+0x27f>
+     bfa:	83 f8 07             	cmp    $0x7,%eax
+     bfd:	74 2f                	je     c2e <_Debug_CheckWrongBits+0x1c4>
+     bff:	83 f8 0b             	cmp    $0xb,%eax
+     c02:	0f 85 e1 00 00 00    	jne    ce9 <_Debug_CheckWrongBits+0x27f>
         {
           case PID_RX_CNVCOD:
             printf(" * Errors at convolutional encoding level: %u out of %u bits (MD = %u)\n\n",bitErrCnt,bitLen,minErrDist);
-     bfa:	8b 45 ec             	mov    -0x14(%ebp),%eax
-     bfd:	89 44 24 0c          	mov    %eax,0xc(%esp)
-     c01:	8b 45 e0             	mov    -0x20(%ebp),%eax
-     c04:	89 44 24 08          	mov    %eax,0x8(%esp)
-     c08:	8b 45 f0             	mov    -0x10(%ebp),%eax
-     c0b:	89 44 24 04          	mov    %eax,0x4(%esp)
-     c0f:	c7 04 24 a4 03 00 00 	movl   $0x3a4,(%esp)
-     c16:	e8 00 00 00 00       	call   c1b <_Debug_CheckWrongBits+0x1b1>
+     c08:	8b 45 ec             	mov    -0x14(%ebp),%eax
+     c0b:	89 44 24 0c          	mov    %eax,0xc(%esp)
+     c0f:	8b 45 e0             	mov    -0x20(%ebp),%eax
+     c12:	89 44 24 08          	mov    %eax,0x8(%esp)
+     c16:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     c19:	89 44 24 04          	mov    %eax,0x4(%esp)
+     c1d:	c7 04 24 a4 03 00 00 	movl   $0x3a4,(%esp)
+     c24:	e8 00 00 00 00       	call   c29 <_Debug_CheckWrongBits+0x1bf>
             break;
-     c1b:	e9 ce 00 00 00       	jmp    cee <_Debug_CheckWrongBits+0x284>
+     c29:	e9 ce 00 00 00       	jmp    cfc <_Debug_CheckWrongBits+0x292>
 
           case PID_RX_RSCOD:
             printf(" * Errors at reed-solomon encoding level: %u out of %u bits (MD = %u)\n\n",bitErrCnt,bitLen,minErrDist);
-     c20:	8b 45 ec             	mov    -0x14(%ebp),%eax
-     c23:	89 44 24 0c          	mov    %eax,0xc(%esp)
-     c27:	8b 45 e0             	mov    -0x20(%ebp),%eax
-     c2a:	89 44 24 08          	mov    %eax,0x8(%esp)
-     c2e:	8b 45 f0             	mov    -0x10(%ebp),%eax
-     c31:	89 44 24 04          	mov    %eax,0x4(%esp)
-     c35:	c7 04 24 f0 03 00 00 	movl   $0x3f0,(%esp)
-     c3c:	e8 00 00 00 00       	call   c41 <_Debug_CheckWrongBits+0x1d7>
+     c2e:	8b 45 ec             	mov    -0x14(%ebp),%eax
+     c31:	89 44 24 0c          	mov    %eax,0xc(%esp)
+     c35:	8b 45 e0             	mov    -0x20(%ebp),%eax
+     c38:	89 44 24 08          	mov    %eax,0x8(%esp)
+     c3c:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     c3f:	89 44 24 04          	mov    %eax,0x4(%esp)
+     c43:	c7 04 24 f0 03 00 00 	movl   $0x3f0,(%esp)
+     c4a:	e8 00 00 00 00       	call   c4f <_Debug_CheckWrongBits+0x1e5>
             break;
-     c41:	e9 a8 00 00 00       	jmp    cee <_Debug_CheckWrongBits+0x284>
+     c4f:	e9 a8 00 00 00       	jmp    cfc <_Debug_CheckWrongBits+0x292>
 
           case PID_RX_ORG:
             printf(" * Errors at source level: %u out of %u bits (MD = %u)\n\n",bitErrCnt,bitLen,minErrDist);
-     c46:	8b 45 ec             	mov    -0x14(%ebp),%eax
-     c49:	89 44 24 0c          	mov    %eax,0xc(%esp)
-     c4d:	8b 45 e0             	mov    -0x20(%ebp),%eax
-     c50:	89 44 24 08          	mov    %eax,0x8(%esp)
-     c54:	8b 45 f0             	mov    -0x10(%ebp),%eax
-     c57:	89 44 24 04          	mov    %eax,0x4(%esp)
-     c5b:	c7 04 24 38 04 00 00 	movl   $0x438,(%esp)
-     c62:	e8 00 00 00 00       	call   c67 <_Debug_CheckWrongBits+0x1fd>
+     c54:	8b 45 ec             	mov    -0x14(%ebp),%eax
+     c57:	89 44 24 0c          	mov    %eax,0xc(%esp)
+     c5b:	8b 45 e0             	mov    -0x20(%ebp),%eax
+     c5e:	89 44 24 08          	mov    %eax,0x8(%esp)
+     c62:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     c65:	89 44 24 04          	mov    %eax,0x4(%esp)
+     c69:	c7 04 24 38 04 00 00 	movl   $0x438,(%esp)
+     c70:	e8 00 00 00 00       	call   c75 <_Debug_CheckWrongBits+0x20b>
             break;
-     c67:	e9 82 00 00 00       	jmp    cee <_Debug_CheckWrongBits+0x284>
+     c75:	e9 82 00 00 00       	jmp    cfc <_Debug_CheckWrongBits+0x292>
 
           case PID_RX_CRC:
             printf(" * CRC check: ");
-     c6c:	c7 04 24 71 04 00 00 	movl   $0x471,(%esp)
-     c73:	e8 00 00 00 00       	call   c78 <_Debug_CheckWrongBits+0x20e>
+     c7a:	c7 04 24 71 04 00 00 	movl   $0x471,(%esp)
+     c81:	e8 00 00 00 00       	call   c86 <_Debug_CheckWrongBits+0x21c>
             if (0 == bitErrCnt)
-     c78:	83 7d f0 00          	cmpl   $0x0,-0x10(%ebp)
-     c7c:	75 22                	jne    ca0 <_Debug_CheckWrongBits+0x236>
+     c86:	83 7d f0 00          	cmpl   $0x0,-0x10(%ebp)
+     c8a:	75 22                	jne    cae <_Debug_CheckWrongBits+0x244>
             {
               Debug_SetTerminalAppearance(COLOR_SUCCESS,STYLE_SUCCESS);
-     c7e:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
-     c85:	00 
-     c86:	c7 04 24 5c 00 00 00 	movl   $0x5c,(%esp)
-     c8d:	e8 f2 03 00 00       	call   1084 <_Debug_SetTerminalAppearance>
+     c8c:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+     c93:	00 
+     c94:	c7 04 24 5c 00 00 00 	movl   $0x5c,(%esp)
+     c9b:	e8 f2 03 00 00       	call   1092 <_Debug_SetTerminalAppearance>
               printf("PASSED\n");
-     c92:	c7 04 24 80 04 00 00 	movl   $0x480,(%esp)
-     c99:	e8 00 00 00 00       	call   c9e <_Debug_CheckWrongBits+0x234>
-     c9e:	eb 20                	jmp    cc0 <_Debug_CheckWrongBits+0x256>
+     ca0:	c7 04 24 80 04 00 00 	movl   $0x480,(%esp)
+     ca7:	e8 00 00 00 00       	call   cac <_Debug_CheckWrongBits+0x242>
+     cac:	eb 20                	jmp    cce <_Debug_CheckWrongBits+0x264>
             }
             else
             {
               Debug_SetTerminalAppearance(COLOR_ERROR,STYLE_ERROR);
-     ca0:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
-     ca7:	00 
-     ca8:	c7 04 24 5b 00 00 00 	movl   $0x5b,(%esp)
-     caf:	e8 d0 03 00 00       	call   1084 <_Debug_SetTerminalAppearance>
+     cae:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+     cb5:	00 
+     cb6:	c7 04 24 5b 00 00 00 	movl   $0x5b,(%esp)
+     cbd:	e8 d0 03 00 00       	call   1092 <_Debug_SetTerminalAppearance>
               printf("FAILED\n");
-     cb4:	c7 04 24 87 04 00 00 	movl   $0x487,(%esp)
-     cbb:	e8 00 00 00 00       	call   cc0 <_Debug_CheckWrongBits+0x256>
+     cc2:	c7 04 24 87 04 00 00 	movl   $0x487,(%esp)
+     cc9:	e8 00 00 00 00       	call   cce <_Debug_CheckWrongBits+0x264>
             }
             Debug_ResetTerminalAppearance();
-     cc0:	e8 eb 03 00 00       	call   10b0 <_Debug_ResetTerminalAppearance>
+     cce:	e8 eb 03 00 00       	call   10be <_Debug_ResetTerminalAppearance>
             Debug_SetTerminalAppearance(COLOR_DEFAULT,STYLE_DEFAULT);
-     cc5:	c7 44 24 04 03 00 00 	movl   $0x3,0x4(%esp)
-     ccc:	00 
-     ccd:	c7 04 24 61 00 00 00 	movl   $0x61,(%esp)
-     cd4:	e8 ab 03 00 00       	call   1084 <_Debug_SetTerminalAppearance>
+     cd3:	c7 44 24 04 03 00 00 	movl   $0x3,0x4(%esp)
+     cda:	00 
+     cdb:	c7 04 24 61 00 00 00 	movl   $0x61,(%esp)
+     ce2:	e8 ab 03 00 00       	call   1092 <_Debug_SetTerminalAppearance>
             break;
-     cd9:	eb 13                	jmp    cee <_Debug_CheckWrongBits+0x284>
+     ce7:	eb 13                	jmp    cfc <_Debug_CheckWrongBits+0x292>
 
           default:
             retErr = ERR_INV_PRINTID;
-     cdb:	c7 45 f4 03 00 00 00 	movl   $0x3,-0xc(%ebp)
+     ce9:	c7 45 f4 03 00 00 00 	movl   $0x3,-0xc(%ebp)
             break;
-     ce2:	90                   	nop
-     ce3:	eb 09                	jmp    cee <_Debug_CheckWrongBits+0x284>
+     cf0:	90                   	nop
+     cf1:	eb 09                	jmp    cfc <_Debug_CheckWrongBits+0x292>
         }
       }
       else
       {
         retErr = ERR_INV_BUFFER_SIZE;
-     ce5:	c7 45 f4 07 00 00 00 	movl   $0x7,-0xc(%ebp)
+     cf3:	c7 45 f4 07 00 00 00 	movl   $0x7,-0xc(%ebp)
     if (!((CHAN_AWGN == pParams->chanPar.type) && (CC_VITDM_SOFT == pParams->ccPar.vitDM) && (PID_RX_CNVCOD == label)))
-     cec:	eb 0b                	jmp    cf9 <_Debug_CheckWrongBits+0x28f>
-     cee:	eb 09                	jmp    cf9 <_Debug_CheckWrongBits+0x28f>
+     cfa:	eb 0b                	jmp    d07 <_Debug_CheckWrongBits+0x29d>
+     cfc:	eb 09                	jmp    d07 <_Debug_CheckWrongBits+0x29d>
       }
     }
   }
   else
   {
     retErr = ERR_INV_NULL_POINTER;
-     cf0:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
-     cf7:	eb 01                	jmp    cfa <_Debug_CheckWrongBits+0x290>
+     cfe:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+     d05:	eb 01                	jmp    d08 <_Debug_CheckWrongBits+0x29e>
     if (!((CHAN_AWGN == pParams->chanPar.type) && (CC_VITDM_SOFT == pParams->ccPar.vitDM) && (PID_RX_CNVCOD == label)))
-     cf9:	90                   	nop
+     d07:	90                   	nop
   }
 
   return Error_HandleErr(retErr);
-     cfa:	8b 45 f4             	mov    -0xc(%ebp),%eax
-     cfd:	89 04 24             	mov    %eax,(%esp)
-     d00:	e8 00 00 00 00       	call   d05 <_Debug_CheckWrongBits+0x29b>
+     d08:	8b 45 f4             	mov    -0xc(%ebp),%eax
+     d0b:	89 04 24             	mov    %eax,(%esp)
+     d0e:	e8 00 00 00 00       	call   d13 <_Debug_CheckWrongBits+0x2a9>
 }
-     d05:	83 c4 34             	add    $0x34,%esp
-     d08:	5b                   	pop    %ebx
-     d09:	5d                   	pop    %ebp
-     d0a:	c3                   	ret    
+     d13:	83 c4 34             	add    $0x34,%esp
+     d16:	5b                   	pop    %ebx
+     d17:	5d                   	pop    %ebp
+     d18:	c3                   	ret    
 
-00000d0b <_Debug_WriteByteStreamToCsv>:
+00000d19 <_Debug_WriteByteStreamToCsv>:
  * @param[in] label label ID
  * 
  * @return error ID
  */
 error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label )
 {
-     d0b:	55                   	push   %ebp
-     d0c:	89 e5                	mov    %esp,%ebp
-     d0e:	83 ec 28             	sub    $0x28,%esp
+     d19:	55                   	push   %ebp
+     d1a:	89 e5                	mov    %esp,%ebp
+     d1c:	83 ec 28             	sub    $0x28,%esp
   Debug_SetWatermark((void *)Debug_WriteByteStreamToCsv,WM_LEVEL_1);
-     d11:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
-     d18:	00 
-     d19:	c7 04 24 0b 0d 00 00 	movl   $0xd0b,(%esp)
-     d20:	e8 b7 02 00 00       	call   fdc <_Debug_SetWatermark>
+     d1f:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+     d26:	00 
+     d27:	c7 04 24 19 0d 00 00 	movl   $0xd19,(%esp)
+     d2e:	e8 b7 02 00 00       	call   fea <_Debug_SetWatermark>
 
   error_t retErr = ERR_NONE;
-     d25:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+     d33:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
   FILE * fid = NULL;
-     d2c:	c7 45 f0 00 00 00 00 	movl   $0x0,-0x10(%ebp)
+     d3a:	c7 45 f0 00 00 00 00 	movl   $0x0,-0x10(%ebp)
   ulen_t j;
   
   if (Memory_IsStreamValid(inStream,inStream->id))
-     d33:	8b 45 08             	mov    0x8(%ebp),%eax
-     d36:	8b 40 08             	mov    0x8(%eax),%eax
-     d39:	89 44 24 04          	mov    %eax,0x4(%esp)
-     d3d:	8b 45 08             	mov    0x8(%ebp),%eax
-     d40:	89 04 24             	mov    %eax,(%esp)
-     d43:	e8 00 00 00 00       	call   d48 <_Debug_WriteByteStreamToCsv+0x3d>
-     d48:	84 c0                	test   %al,%al
-     d4a:	0f 84 23 01 00 00    	je     e73 <_Debug_WriteByteStreamToCsv+0x168>
+     d41:	8b 45 08             	mov    0x8(%ebp),%eax
+     d44:	8b 40 08             	mov    0x8(%eax),%eax
+     d47:	89 44 24 04          	mov    %eax,0x4(%esp)
+     d4b:	8b 45 08             	mov    0x8(%ebp),%eax
+     d4e:	89 04 24             	mov    %eax,(%esp)
+     d51:	e8 00 00 00 00       	call   d56 <_Debug_WriteByteStreamToCsv+0x3d>
+     d56:	84 c0                	test   %al,%al
+     d58:	0f 84 23 01 00 00    	je     e81 <_Debug_WriteByteStreamToCsv+0x168>
   {
     switch (label)
-     d50:	8b 45 0c             	mov    0xc(%ebp),%eax
-     d53:	83 f8 01             	cmp    $0x1,%eax
-     d56:	74 2a                	je     d82 <_Debug_WriteByteStreamToCsv+0x77>
-     d58:	83 f8 01             	cmp    $0x1,%eax
-     d5b:	72 0c                	jb     d69 <_Debug_WriteByteStreamToCsv+0x5e>
-     d5d:	83 f8 04             	cmp    $0x4,%eax
-     d60:	74 39                	je     d9b <_Debug_WriteByteStreamToCsv+0x90>
-     d62:	83 f8 05             	cmp    $0x5,%eax
-     d65:	74 4d                	je     db4 <_Debug_WriteByteStreamToCsv+0xa9>
-     d67:	eb 64                	jmp    dcd <_Debug_WriteByteStreamToCsv+0xc2>
+     d5e:	8b 45 0c             	mov    0xc(%ebp),%eax
+     d61:	83 f8 01             	cmp    $0x1,%eax
+     d64:	74 2a                	je     d90 <_Debug_WriteByteStreamToCsv+0x77>
+     d66:	83 f8 01             	cmp    $0x1,%eax
+     d69:	72 0c                	jb     d77 <_Debug_WriteByteStreamToCsv+0x5e>
+     d6b:	83 f8 04             	cmp    $0x4,%eax
+     d6e:	74 39                	je     da9 <_Debug_WriteByteStreamToCsv+0x90>
+     d70:	83 f8 05             	cmp    $0x5,%eax
+     d73:	74 4d                	je     dc2 <_Debug_WriteByteStreamToCsv+0xa9>
+     d75:	eb 64                	jmp    ddb <_Debug_WriteByteStreamToCsv+0xc2>
     {
       case PID_TX_ORG:
         fid = fopen("txOrgBytes.csv","w");
-     d69:	c7 44 24 04 8e 04 00 	movl   $0x48e,0x4(%esp)
-     d70:	00 
-     d71:	c7 04 24 90 04 00 00 	movl   $0x490,(%esp)
-     d78:	e8 00 00 00 00       	call   d7d <_Debug_WriteByteStreamToCsv+0x72>
-     d7d:	89 45 f0             	mov    %eax,-0x10(%ebp)
+     d77:	c7 44 24 04 8e 04 00 	movl   $0x48e,0x4(%esp)
+     d7e:	00 
+     d7f:	c7 04 24 90 04 00 00 	movl   $0x490,(%esp)
+     d86:	e8 00 00 00 00       	call   d8b <_Debug_WriteByteStreamToCsv+0x72>
+     d8b:	89 45 f0             	mov    %eax,-0x10(%ebp)
         break;
-     d80:	eb 53                	jmp    dd5 <_Debug_WriteByteStreamToCsv+0xca>
+     d8e:	eb 53                	jmp    de3 <_Debug_WriteByteStreamToCsv+0xca>
 
       case PID_RX_ORG:
         fid = fopen("rxOrgBytes.csv","w");
-     d82:	c7 44 24 04 8e 04 00 	movl   $0x48e,0x4(%esp)
-     d89:	00 
-     d8a:	c7 04 24 9f 04 00 00 	movl   $0x49f,(%esp)
-     d91:	e8 00 00 00 00       	call   d96 <_Debug_WriteByteStreamToCsv+0x8b>
-     d96:	89 45 f0             	mov    %eax,-0x10(%ebp)
+     d90:	c7 44 24 04 8e 04 00 	movl   $0x48e,0x4(%esp)
+     d97:	00 
+     d98:	c7 04 24 9f 04 00 00 	movl   $0x49f,(%esp)
+     d9f:	e8 00 00 00 00       	call   da4 <_Debug_WriteByteStreamToCsv+0x8b>
+     da4:	89 45 f0             	mov    %eax,-0x10(%ebp)
         break;
-     d99:	eb 3a                	jmp    dd5 <_Debug_WriteByteStreamToCsv+0xca>
+     da7:	eb 3a                	jmp    de3 <_Debug_WriteByteStreamToCsv+0xca>
 
       case PID_TX_SCR:
         fid = fopen("txScrBytes.csv","w");
-     d9b:	c7 44 24 04 8e 04 00 	movl   $0x48e,0x4(%esp)
-     da2:	00 
-     da3:	c7 04 24 ae 04 00 00 	movl   $0x4ae,(%esp)
-     daa:	e8 00 00 00 00       	call   daf <_Debug_WriteByteStreamToCsv+0xa4>
-     daf:	89 45 f0             	mov    %eax,-0x10(%ebp)
+     da9:	c7 44 24 04 8e 04 00 	movl   $0x48e,0x4(%esp)
+     db0:	00 
+     db1:	c7 04 24 ae 04 00 00 	movl   $0x4ae,(%esp)
+     db8:	e8 00 00 00 00       	call   dbd <_Debug_WriteByteStreamToCsv+0xa4>
+     dbd:	89 45 f0             	mov    %eax,-0x10(%ebp)
         break;
-     db2:	eb 21                	jmp    dd5 <_Debug_WriteByteStreamToCsv+0xca>
+     dc0:	eb 21                	jmp    de3 <_Debug_WriteByteStreamToCsv+0xca>
       
       case PID_RX_SCR:
         fid = fopen("rxScrBytes.csv","w");
-     db4:	c7 44 24 04 8e 04 00 	movl   $0x48e,0x4(%esp)
-     dbb:	00 
-     dbc:	c7 04 24 bd 04 00 00 	movl   $0x4bd,(%esp)
-     dc3:	e8 00 00 00 00       	call   dc8 <_Debug_WriteByteStreamToCsv+0xbd>
-     dc8:	89 45 f0             	mov    %eax,-0x10(%ebp)
+     dc2:	c7 44 24 04 8e 04 00 	movl   $0x48e,0x4(%esp)
+     dc9:	00 
+     dca:	c7 04 24 bd 04 00 00 	movl   $0x4bd,(%esp)
+     dd1:	e8 00 00 00 00       	call   dd6 <_Debug_WriteByteStreamToCsv+0xbd>
+     dd6:	89 45 f0             	mov    %eax,-0x10(%ebp)
         break;
-     dcb:	eb 08                	jmp    dd5 <_Debug_WriteByteStreamToCsv+0xca>
+     dd9:	eb 08                	jmp    de3 <_Debug_WriteByteStreamToCsv+0xca>
 
       default:
         retErr = ERR_INV_PRINTID;
-     dcd:	c7 45 f4 03 00 00 00 	movl   $0x3,-0xc(%ebp)
+     ddb:	c7 45 f4 03 00 00 00 	movl   $0x3,-0xc(%ebp)
         break;
-     dd4:	90                   	nop
+     de2:	90                   	nop
     }
 
     if ((ERR_NONE == retErr) && (NULL != fid))
-     dd5:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
-     dd9:	0f 85 9b 00 00 00    	jne    e7a <_Debug_WriteByteStreamToCsv+0x16f>
-     ddf:	83 7d f0 00          	cmpl   $0x0,-0x10(%ebp)
-     de3:	0f 84 91 00 00 00    	je     e7a <_Debug_WriteByteStreamToCsv+0x16f>
+     de3:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
+     de7:	0f 85 9b 00 00 00    	jne    e88 <_Debug_WriteByteStreamToCsv+0x16f>
+     ded:	83 7d f0 00          	cmpl   $0x0,-0x10(%ebp)
+     df1:	0f 84 91 00 00 00    	je     e88 <_Debug_WriteByteStreamToCsv+0x16f>
     {
       fprintf(fid,"%u,",inStream->len);                                               /** write stream length as 1st element */
-     de9:	8b 45 08             	mov    0x8(%ebp),%eax
-     dec:	8b 40 04             	mov    0x4(%eax),%eax
-     def:	89 44 24 08          	mov    %eax,0x8(%esp)
-     df3:	c7 44 24 04 cc 04 00 	movl   $0x4cc,0x4(%esp)
-     dfa:	00 
-     dfb:	8b 45 f0             	mov    -0x10(%ebp),%eax
-     dfe:	89 04 24             	mov    %eax,(%esp)
-     e01:	e8 00 00 00 00       	call   e06 <_Debug_WriteByteStreamToCsv+0xfb>
+     df7:	8b 45 08             	mov    0x8(%ebp),%eax
+     dfa:	8b 40 04             	mov    0x4(%eax),%eax
+     dfd:	89 44 24 08          	mov    %eax,0x8(%esp)
+     e01:	c7 44 24 04 cc 04 00 	movl   $0x4cc,0x4(%esp)
+     e08:	00 
+     e09:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     e0c:	89 04 24             	mov    %eax,(%esp)
+     e0f:	e8 00 00 00 00       	call   e14 <_Debug_WriteByteStreamToCsv+0xfb>
       for (j=0; j<inStream->len; j++)
-     e06:	c7 45 ec 00 00 00 00 	movl   $0x0,-0x14(%ebp)
-     e0d:	eb 4c                	jmp    e5b <_Debug_WriteByteStreamToCsv+0x150>
+     e14:	c7 45 ec 00 00 00 00 	movl   $0x0,-0x14(%ebp)
+     e1b:	eb 4c                	jmp    e69 <_Debug_WriteByteStreamToCsv+0x150>
       {
         fprintf(fid,"%u",inStream->pBuf[j]);
-     e0f:	8b 45 08             	mov    0x8(%ebp),%eax
-     e12:	8b 10                	mov    (%eax),%edx
-     e14:	8b 45 ec             	mov    -0x14(%ebp),%eax
-     e17:	01 d0                	add    %edx,%eax
-     e19:	0f b6 00             	movzbl (%eax),%eax
-     e1c:	0f b6 c0             	movzbl %al,%eax
-     e1f:	89 44 24 08          	mov    %eax,0x8(%esp)
-     e23:	c7 44 24 04 d0 04 00 	movl   $0x4d0,0x4(%esp)
-     e2a:	00 
-     e2b:	8b 45 f0             	mov    -0x10(%ebp),%eax
-     e2e:	89 04 24             	mov    %eax,(%esp)
-     e31:	e8 00 00 00 00       	call   e36 <_Debug_WriteByteStreamToCsv+0x12b>
+     e1d:	8b 45 08             	mov    0x8(%ebp),%eax
+     e20:	8b 10                	mov    (%eax),%edx
+     e22:	8b 45 ec             	mov    -0x14(%ebp),%eax
+     e25:	01 d0                	add    %edx,%eax
+     e27:	0f b6 00             	movzbl (%eax),%eax
+     e2a:	0f b6 c0             	movzbl %al,%eax
+     e2d:	89 44 24 08          	mov    %eax,0x8(%esp)
+     e31:	c7 44 24 04 d0 04 00 	movl   $0x4d0,0x4(%esp)
+     e38:	00 
+     e39:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     e3c:	89 04 24             	mov    %eax,(%esp)
+     e3f:	e8 00 00 00 00       	call   e44 <_Debug_WriteByteStreamToCsv+0x12b>
         if (j < inStream->len-1)
-     e36:	8b 45 08             	mov    0x8(%ebp),%eax
-     e39:	8b 40 04             	mov    0x4(%eax),%eax
-     e3c:	83 e8 01             	sub    $0x1,%eax
-     e3f:	3b 45 ec             	cmp    -0x14(%ebp),%eax
-     e42:	76 13                	jbe    e57 <_Debug_WriteByteStreamToCsv+0x14c>
+     e44:	8b 45 08             	mov    0x8(%ebp),%eax
+     e47:	8b 40 04             	mov    0x4(%eax),%eax
+     e4a:	83 e8 01             	sub    $0x1,%eax
+     e4d:	3b 45 ec             	cmp    -0x14(%ebp),%eax
+     e50:	76 13                	jbe    e65 <_Debug_WriteByteStreamToCsv+0x14c>
         {
           fprintf(fid,",");
-     e44:	8b 45 f0             	mov    -0x10(%ebp),%eax
-     e47:	89 44 24 04          	mov    %eax,0x4(%esp)
-     e4b:	c7 04 24 2c 00 00 00 	movl   $0x2c,(%esp)
-     e52:	e8 00 00 00 00       	call   e57 <_Debug_WriteByteStreamToCsv+0x14c>
+     e52:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     e55:	89 44 24 04          	mov    %eax,0x4(%esp)
+     e59:	c7 04 24 2c 00 00 00 	movl   $0x2c,(%esp)
+     e60:	e8 00 00 00 00       	call   e65 <_Debug_WriteByteStreamToCsv+0x14c>
       for (j=0; j<inStream->len; j++)
-     e57:	83 45 ec 01          	addl   $0x1,-0x14(%ebp)
-     e5b:	8b 45 08             	mov    0x8(%ebp),%eax
-     e5e:	8b 40 04             	mov    0x4(%eax),%eax
-     e61:	3b 45 ec             	cmp    -0x14(%ebp),%eax
-     e64:	77 a9                	ja     e0f <_Debug_WriteByteStreamToCsv+0x104>
+     e65:	83 45 ec 01          	addl   $0x1,-0x14(%ebp)
+     e69:	8b 45 08             	mov    0x8(%ebp),%eax
+     e6c:	8b 40 04             	mov    0x4(%eax),%eax
+     e6f:	3b 45 ec             	cmp    -0x14(%ebp),%eax
+     e72:	77 a9                	ja     e1d <_Debug_WriteByteStreamToCsv+0x104>
         }
       }
       fclose(fid);
-     e66:	8b 45 f0             	mov    -0x10(%ebp),%eax
-     e69:	89 04 24             	mov    %eax,(%esp)
-     e6c:	e8 00 00 00 00       	call   e71 <_Debug_WriteByteStreamToCsv+0x166>
-     e71:	eb 07                	jmp    e7a <_Debug_WriteByteStreamToCsv+0x16f>
+     e74:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     e77:	89 04 24             	mov    %eax,(%esp)
+     e7a:	e8 00 00 00 00       	call   e7f <_Debug_WriteByteStreamToCsv+0x166>
+     e7f:	eb 07                	jmp    e88 <_Debug_WriteByteStreamToCsv+0x16f>
     }
   }
   else
   {
     retErr = ERR_INV_NULL_POINTER;
-     e73:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+     e81:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
   }
 
   return Error_HandleErr(retErr);
-     e7a:	8b 45 f4             	mov    -0xc(%ebp),%eax
-     e7d:	89 04 24             	mov    %eax,(%esp)
-     e80:	e8 00 00 00 00       	call   e85 <_Debug_WriteByteStreamToCsv+0x17a>
+     e88:	8b 45 f4             	mov    -0xc(%ebp),%eax
+     e8b:	89 04 24             	mov    %eax,(%esp)
+     e8e:	e8 00 00 00 00       	call   e93 <_Debug_WriteByteStreamToCsv+0x17a>
 }
-     e85:	c9                   	leave  
-     e86:	c3                   	ret    
+     e93:	c9                   	leave  
+     e94:	c3                   	ret    
 
-00000e87 <_Debug_WriteComplexStreamToCsv>:
+00000e95 <_Debug_WriteComplexStreamToCsv>:
  * @param[in] label label ID
  * 
  * @return error ID
  */
 error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label )
 {
-     e87:	55                   	push   %ebp
-     e88:	89 e5                	mov    %esp,%ebp
-     e8a:	83 ec 38             	sub    $0x38,%esp
+     e95:	55                   	push   %ebp
+     e96:	89 e5                	mov    %esp,%ebp
+     e98:	83 ec 38             	sub    $0x38,%esp
   Debug_SetWatermark((void *)Debug_WriteComplexStreamToCsv,WM_LEVEL_1);
-     e8d:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
-     e94:	00 
-     e95:	c7 04 24 87 0e 00 00 	movl   $0xe87,(%esp)
-     e9c:	e8 3b 01 00 00       	call   fdc <_Debug_SetWatermark>
+     e9b:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+     ea2:	00 
+     ea3:	c7 04 24 95 0e 00 00 	movl   $0xe95,(%esp)
+     eaa:	e8 3b 01 00 00       	call   fea <_Debug_SetWatermark>
 
   error_t retErr = ERR_NONE;
-     ea1:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+     eaf:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
   FILE * fid = NULL;
-     ea8:	c7 45 f0 00 00 00 00 	movl   $0x0,-0x10(%ebp)
+     eb6:	c7 45 f0 00 00 00 00 	movl   $0x0,-0x10(%ebp)
   ulen_t j;
   
   if (Memory_IsStreamValid(inStream,inStream->id))
-     eaf:	8b 45 08             	mov    0x8(%ebp),%eax
-     eb2:	8b 40 08             	mov    0x8(%eax),%eax
-     eb5:	89 44 24 04          	mov    %eax,0x4(%esp)
-     eb9:	8b 45 08             	mov    0x8(%ebp),%eax
-     ebc:	89 04 24             	mov    %eax,(%esp)
-     ebf:	e8 00 00 00 00       	call   ec4 <_Debug_WriteComplexStreamToCsv+0x3d>
-     ec4:	84 c0                	test   %al,%al
-     ec6:	0f 84 fc 00 00 00    	je     fc8 <_Debug_WriteComplexStreamToCsv+0x141>
+     ebd:	8b 45 08             	mov    0x8(%ebp),%eax
+     ec0:	8b 40 08             	mov    0x8(%eax),%eax
+     ec3:	89 44 24 04          	mov    %eax,0x4(%esp)
+     ec7:	8b 45 08             	mov    0x8(%ebp),%eax
+     eca:	89 04 24             	mov    %eax,(%esp)
+     ecd:	e8 00 00 00 00       	call   ed2 <_Debug_WriteComplexStreamToCsv+0x3d>
+     ed2:	84 c0                	test   %al,%al
+     ed4:	0f 84 fc 00 00 00    	je     fd6 <_Debug_WriteComplexStreamToCsv+0x141>
   {
     switch (label)
-     ecc:	8b 45 0c             	mov    0xc(%ebp),%eax
-     ecf:	83 f8 0c             	cmp    $0xc,%eax
-     ed2:	74 07                	je     edb <_Debug_WriteComplexStreamToCsv+0x54>
-     ed4:	83 f8 0d             	cmp    $0xd,%eax
-     ed7:	74 1b                	je     ef4 <_Debug_WriteComplexStreamToCsv+0x6d>
-     ed9:	eb 32                	jmp    f0d <_Debug_WriteComplexStreamToCsv+0x86>
+     eda:	8b 45 0c             	mov    0xc(%ebp),%eax
+     edd:	83 f8 0c             	cmp    $0xc,%eax
+     ee0:	74 07                	je     ee9 <_Debug_WriteComplexStreamToCsv+0x54>
+     ee2:	83 f8 0d             	cmp    $0xd,%eax
+     ee5:	74 1b                	je     f02 <_Debug_WriteComplexStreamToCsv+0x6d>
+     ee7:	eb 32                	jmp    f1b <_Debug_WriteComplexStreamToCsv+0x86>
     {
       case PID_TX_MAP:
         fid = fopen("txModSymbs.csv","w");
-     edb:	c7 44 24 04 8e 04 00 	movl   $0x48e,0x4(%esp)
-     ee2:	00 
-     ee3:	c7 04 24 d3 04 00 00 	movl   $0x4d3,(%esp)
-     eea:	e8 00 00 00 00       	call   eef <_Debug_WriteComplexStreamToCsv+0x68>
-     eef:	89 45 f0             	mov    %eax,-0x10(%ebp)
+     ee9:	c7 44 24 04 8e 04 00 	movl   $0x48e,0x4(%esp)
+     ef0:	00 
+     ef1:	c7 04 24 d3 04 00 00 	movl   $0x4d3,(%esp)
+     ef8:	e8 00 00 00 00       	call   efd <_Debug_WriteComplexStreamToCsv+0x68>
+     efd:	89 45 f0             	mov    %eax,-0x10(%ebp)
         break;
-     ef2:	eb 21                	jmp    f15 <_Debug_WriteComplexStreamToCsv+0x8e>
+     f00:	eb 21                	jmp    f23 <_Debug_WriteComplexStreamToCsv+0x8e>
 
       case PID_RX_MAP:
         fid = fopen("rxModSymbs.csv","w");
-     ef4:	c7 44 24 04 8e 04 00 	movl   $0x48e,0x4(%esp)
-     efb:	00 
-     efc:	c7 04 24 e2 04 00 00 	movl   $0x4e2,(%esp)
-     f03:	e8 00 00 00 00       	call   f08 <_Debug_WriteComplexStreamToCsv+0x81>
-     f08:	89 45 f0             	mov    %eax,-0x10(%ebp)
+     f02:	c7 44 24 04 8e 04 00 	movl   $0x48e,0x4(%esp)
+     f09:	00 
+     f0a:	c7 04 24 e2 04 00 00 	movl   $0x4e2,(%esp)
+     f11:	e8 00 00 00 00       	call   f16 <_Debug_WriteComplexStreamToCsv+0x81>
+     f16:	89 45 f0             	mov    %eax,-0x10(%ebp)
         break;
-     f0b:	eb 08                	jmp    f15 <_Debug_WriteComplexStreamToCsv+0x8e>
+     f19:	eb 08                	jmp    f23 <_Debug_WriteComplexStreamToCsv+0x8e>
 
       default:
         retErr = ERR_INV_PRINTID;
-     f0d:	c7 45 f4 03 00 00 00 	movl   $0x3,-0xc(%ebp)
+     f1b:	c7 45 f4 03 00 00 00 	movl   $0x3,-0xc(%ebp)
         break;
-     f14:	90                   	nop
+     f22:	90                   	nop
     }
 
     if ((ERR_NONE == retErr) && (NULL != fid))
-     f15:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
-     f19:	0f 85 b0 00 00 00    	jne    fcf <_Debug_WriteComplexStreamToCsv+0x148>
-     f1f:	83 7d f0 00          	cmpl   $0x0,-0x10(%ebp)
-     f23:	0f 84 a6 00 00 00    	je     fcf <_Debug_WriteComplexStreamToCsv+0x148>
+     f23:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
+     f27:	0f 85 b0 00 00 00    	jne    fdd <_Debug_WriteComplexStreamToCsv+0x148>
+     f2d:	83 7d f0 00          	cmpl   $0x0,-0x10(%ebp)
+     f31:	0f 84 a6 00 00 00    	je     fdd <_Debug_WriteComplexStreamToCsv+0x148>
     {
       fprintf(fid,"%u,",inStream->len);                                               /** write stream length as 1st element */
-     f29:	8b 45 08             	mov    0x8(%ebp),%eax
-     f2c:	8b 40 04             	mov    0x4(%eax),%eax
-     f2f:	89 44 24 08          	mov    %eax,0x8(%esp)
-     f33:	c7 44 24 04 cc 04 00 	movl   $0x4cc,0x4(%esp)
-     f3a:	00 
-     f3b:	8b 45 f0             	mov    -0x10(%ebp),%eax
-     f3e:	89 04 24             	mov    %eax,(%esp)
-     f41:	e8 00 00 00 00       	call   f46 <_Debug_WriteComplexStreamToCsv+0xbf>
+     f37:	8b 45 08             	mov    0x8(%ebp),%eax
+     f3a:	8b 40 04             	mov    0x4(%eax),%eax
+     f3d:	89 44 24 08          	mov    %eax,0x8(%esp)
+     f41:	c7 44 24 04 cc 04 00 	movl   $0x4cc,0x4(%esp)
+     f48:	00 
+     f49:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     f4c:	89 04 24             	mov    %eax,(%esp)
+     f4f:	e8 00 00 00 00       	call   f54 <_Debug_WriteComplexStreamToCsv+0xbf>
       for (j=0; j<inStream->len; j++)
-     f46:	c7 45 ec 00 00 00 00 	movl   $0x0,-0x14(%ebp)
-     f4d:	eb 61                	jmp    fb0 <_Debug_WriteComplexStreamToCsv+0x129>
+     f54:	c7 45 ec 00 00 00 00 	movl   $0x0,-0x14(%ebp)
+     f5b:	eb 61                	jmp    fbe <_Debug_WriteComplexStreamToCsv+0x129>
       {
         fprintf(fid,"%1.4f,%1.4f",inStream->pBuf[j].re,inStream->pBuf[j].im);
-     f4f:	8b 45 08             	mov    0x8(%ebp),%eax
-     f52:	8b 00                	mov    (%eax),%eax
-     f54:	8b 55 ec             	mov    -0x14(%ebp),%edx
-     f57:	c1 e2 03             	shl    $0x3,%edx
-     f5a:	01 d0                	add    %edx,%eax
-     f5c:	d9 40 04             	flds   0x4(%eax)
-     f5f:	8b 45 08             	mov    0x8(%ebp),%eax
-     f62:	8b 00                	mov    (%eax),%eax
-     f64:	8b 55 ec             	mov    -0x14(%ebp),%edx
-     f67:	c1 e2 03             	shl    $0x3,%edx
-     f6a:	01 d0                	add    %edx,%eax
-     f6c:	d9 00                	flds   (%eax)
-     f6e:	d9 c9                	fxch   %st(1)
-     f70:	dd 5c 24 10          	fstpl  0x10(%esp)
-     f74:	dd 5c 24 08          	fstpl  0x8(%esp)
-     f78:	c7 44 24 04 f1 04 00 	movl   $0x4f1,0x4(%esp)
-     f7f:	00 
-     f80:	8b 45 f0             	mov    -0x10(%ebp),%eax
-     f83:	89 04 24             	mov    %eax,(%esp)
-     f86:	e8 00 00 00 00       	call   f8b <_Debug_WriteComplexStreamToCsv+0x104>
+     f5d:	8b 45 08             	mov    0x8(%ebp),%eax
+     f60:	8b 00                	mov    (%eax),%eax
+     f62:	8b 55 ec             	mov    -0x14(%ebp),%edx
+     f65:	c1 e2 03             	shl    $0x3,%edx
+     f68:	01 d0                	add    %edx,%eax
+     f6a:	d9 40 04             	flds   0x4(%eax)
+     f6d:	8b 45 08             	mov    0x8(%ebp),%eax
+     f70:	8b 00                	mov    (%eax),%eax
+     f72:	8b 55 ec             	mov    -0x14(%ebp),%edx
+     f75:	c1 e2 03             	shl    $0x3,%edx
+     f78:	01 d0                	add    %edx,%eax
+     f7a:	d9 00                	flds   (%eax)
+     f7c:	d9 c9                	fxch   %st(1)
+     f7e:	dd 5c 24 10          	fstpl  0x10(%esp)
+     f82:	dd 5c 24 08          	fstpl  0x8(%esp)
+     f86:	c7 44 24 04 f1 04 00 	movl   $0x4f1,0x4(%esp)
+     f8d:	00 
+     f8e:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     f91:	89 04 24             	mov    %eax,(%esp)
+     f94:	e8 00 00 00 00       	call   f99 <_Debug_WriteComplexStreamToCsv+0x104>
         if (j < inStream->len-1)
-     f8b:	8b 45 08             	mov    0x8(%ebp),%eax
-     f8e:	8b 40 04             	mov    0x4(%eax),%eax
-     f91:	83 e8 01             	sub    $0x1,%eax
-     f94:	3b 45 ec             	cmp    -0x14(%ebp),%eax
-     f97:	76 13                	jbe    fac <_Debug_WriteComplexStreamToCsv+0x125>
+     f99:	8b 45 08             	mov    0x8(%ebp),%eax
+     f9c:	8b 40 04             	mov    0x4(%eax),%eax
+     f9f:	83 e8 01             	sub    $0x1,%eax
+     fa2:	3b 45 ec             	cmp    -0x14(%ebp),%eax
+     fa5:	76 13                	jbe    fba <_Debug_WriteComplexStreamToCsv+0x125>
         {
           fprintf(fid,",");
-     f99:	8b 45 f0             	mov    -0x10(%ebp),%eax
-     f9c:	89 44 24 04          	mov    %eax,0x4(%esp)
-     fa0:	c7 04 24 2c 00 00 00 	movl   $0x2c,(%esp)
-     fa7:	e8 00 00 00 00       	call   fac <_Debug_WriteComplexStreamToCsv+0x125>
+     fa7:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     faa:	89 44 24 04          	mov    %eax,0x4(%esp)
+     fae:	c7 04 24 2c 00 00 00 	movl   $0x2c,(%esp)
+     fb5:	e8 00 00 00 00       	call   fba <_Debug_WriteComplexStreamToCsv+0x125>
       for (j=0; j<inStream->len; j++)
-     fac:	83 45 ec 01          	addl   $0x1,-0x14(%ebp)
-     fb0:	8b 45 08             	mov    0x8(%ebp),%eax
-     fb3:	8b 40 04             	mov    0x4(%eax),%eax
-     fb6:	3b 45 ec             	cmp    -0x14(%ebp),%eax
-     fb9:	77 94                	ja     f4f <_Debug_WriteComplexStreamToCsv+0xc8>
+     fba:	83 45 ec 01          	addl   $0x1,-0x14(%ebp)
+     fbe:	8b 45 08             	mov    0x8(%ebp),%eax
+     fc1:	8b 40 04             	mov    0x4(%eax),%eax
+     fc4:	3b 45 ec             	cmp    -0x14(%ebp),%eax
+     fc7:	77 94                	ja     f5d <_Debug_WriteComplexStreamToCsv+0xc8>
         }
       }
       fclose(fid);
-     fbb:	8b 45 f0             	mov    -0x10(%ebp),%eax
-     fbe:	89 04 24             	mov    %eax,(%esp)
-     fc1:	e8 00 00 00 00       	call   fc6 <_Debug_WriteComplexStreamToCsv+0x13f>
-     fc6:	eb 07                	jmp    fcf <_Debug_WriteComplexStreamToCsv+0x148>
+     fc9:	8b 45 f0             	mov    -0x10(%ebp),%eax
+     fcc:	89 04 24             	mov    %eax,(%esp)
+     fcf:	e8 00 00 00 00       	call   fd4 <_Debug_WriteComplexStreamToCsv+0x13f>
+     fd4:	eb 07                	jmp    fdd <_Debug_WriteComplexStreamToCsv+0x148>
     }
   }
   else
   {
     retErr = ERR_INV_NULL_POINTER;
-     fc8:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+     fd6:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
   }
 
   return Error_HandleErr(retErr);
-     fcf:	8b 45 f4             	mov    -0xc(%ebp),%eax
-     fd2:	89 04 24             	mov    %eax,(%esp)
-     fd5:	e8 00 00 00 00       	call   fda <_Debug_WriteComplexStreamToCsv+0x153>
+     fdd:	8b 45 f4             	mov    -0xc(%ebp),%eax
+     fe0:	89 04 24             	mov    %eax,(%esp)
+     fe3:	e8 00 00 00 00       	call   fe8 <_Debug_WriteComplexStreamToCsv+0x153>
 }
-     fda:	c9                   	leave  
-     fdb:	c3                   	ret    
+     fe8:	c9                   	leave  
+     fe9:	c3                   	ret    
 
-00000fdc <_Debug_SetWatermark>:
+00000fea <_Debug_SetWatermark>:
  * @param[in] level watermark level
  * 
  * @return error ID
  */
 error_t Debug_SetWatermark( const void * funcAddr, const wm_level_t level )
 {
-     fdc:	55                   	push   %ebp
-     fdd:	89 e5                	mov    %esp,%ebp
-     fdf:	83 ec 28             	sub    $0x28,%esp
+     fea:	55                   	push   %ebp
+     feb:	89 e5                	mov    %esp,%ebp
+     fed:	83 ec 28             	sub    $0x28,%esp
   error_t retErr = ERR_NONE;
-     fe2:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+     ff0:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
   uint8_t j;
 
   if (level <WM_LEVEL_NUM)
-     fe9:	83 7d 0c 02          	cmpl   $0x2,0xc(%ebp)
-     fed:	77 3c                	ja     102b <_Debug_SetWatermark+0x4f>
+     ff7:	83 7d 0c 02          	cmpl   $0x2,0xc(%ebp)
+     ffb:	77 3c                	ja     1039 <_Debug_SetWatermark+0x4f>
   {
     gWatermarks[level] = ((watermark_t)funcAddr)&WATERMARK_MASK;
-     fef:	8b 45 08             	mov    0x8(%ebp),%eax
-     ff2:	0f b7 d0             	movzwl %ax,%edx
-     ff5:	8b 45 0c             	mov    0xc(%ebp),%eax
-     ff8:	89 14 85 00 00 00 00 	mov    %edx,0x0(,%eax,4)
+     ffd:	8b 45 08             	mov    0x8(%ebp),%eax
+    1000:	0f b7 d0             	movzwl %ax,%edx
+    1003:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1006:	89 14 85 00 00 00 00 	mov    %edx,0x0(,%eax,4)
 
     for (j=level+1; j<WM_LEVEL_NUM; j++)
-     fff:	8b 45 0c             	mov    0xc(%ebp),%eax
-    1002:	83 c0 01             	add    $0x1,%eax
-    1005:	88 45 f3             	mov    %al,-0xd(%ebp)
-    1008:	eb 19                	jmp    1023 <_Debug_SetWatermark+0x47>
+    100d:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1010:	83 c0 01             	add    $0x1,%eax
+    1013:	88 45 f3             	mov    %al,-0xd(%ebp)
+    1016:	eb 19                	jmp    1031 <_Debug_SetWatermark+0x47>
     {
       gWatermarks[j] = 0;                                                             /** reset lower level watermarks */
-    100a:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
-    100e:	c7 04 85 00 00 00 00 	movl   $0x0,0x0(,%eax,4)
-    1015:	00 00 00 00 
+    1018:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
+    101c:	c7 04 85 00 00 00 00 	movl   $0x0,0x0(,%eax,4)
+    1023:	00 00 00 00 
     for (j=level+1; j<WM_LEVEL_NUM; j++)
-    1019:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
-    101d:	83 c0 01             	add    $0x1,%eax
-    1020:	88 45 f3             	mov    %al,-0xd(%ebp)
-    1023:	80 7d f3 02          	cmpb   $0x2,-0xd(%ebp)
-    1027:	76 e1                	jbe    100a <_Debug_SetWatermark+0x2e>
-    1029:	eb 07                	jmp    1032 <_Debug_SetWatermark+0x56>
+    1027:	0f b6 45 f3          	movzbl -0xd(%ebp),%eax
+    102b:	83 c0 01             	add    $0x1,%eax
+    102e:	88 45 f3             	mov    %al,-0xd(%ebp)
+    1031:	80 7d f3 02          	cmpb   $0x2,-0xd(%ebp)
+    1035:	76 e1                	jbe    1018 <_Debug_SetWatermark+0x2e>
+    1037:	eb 07                	jmp    1040 <_Debug_SetWatermark+0x56>
     }
   }
   else
   {
     retErr = ERR_INV_WATERMARK_LEV;
-    102b:	c7 45 f4 11 00 00 00 	movl   $0x11,-0xc(%ebp)
+    1039:	c7 45 f4 11 00 00 00 	movl   $0x11,-0xc(%ebp)
   }
 
   return Error_HandleErr(retErr);
-    1032:	8b 45 f4             	mov    -0xc(%ebp),%eax
-    1035:	89 04 24             	mov    %eax,(%esp)
-    1038:	e8 00 00 00 00       	call   103d <_Debug_SetWatermark+0x61>
+    1040:	8b 45 f4             	mov    -0xc(%ebp),%eax
+    1043:	89 04 24             	mov    %eax,(%esp)
+    1046:	e8 00 00 00 00       	call   104b <_Debug_SetWatermark+0x61>
 }
-    103d:	c9                   	leave  
-    103e:	c3                   	ret    
+    104b:	c9                   	leave  
+    104c:	c3                   	ret    
 
-0000103f <_Debug_PrintWatermarks>:
+0000104d <_Debug_PrintWatermarks>:
  * @brief <i> Function for printing watermarks fo all levels. </i>
  * 
  * @return none
  */
 void Debug_PrintWatermarks( void )
 {
-    103f:	55                   	push   %ebp
-    1040:	89 e5                	mov    %esp,%ebp
-    1042:	83 ec 28             	sub    $0x28,%esp
+    104d:	55                   	push   %ebp
+    104e:	89 e5                	mov    %esp,%ebp
+    1050:	83 ec 28             	sub    $0x28,%esp
   uint8_t lev;
 
   for (lev=0; lev<WM_LEVEL_NUM; lev++)
-    1045:	c6 45 f7 00          	movb   $0x0,-0x9(%ebp)
-    1049:	eb 30                	jmp    107b <_Debug_PrintWatermarks+0x3c>
+    1053:	c6 45 f7 00          	movb   $0x0,-0x9(%ebp)
+    1057:	eb 30                	jmp    1089 <_Debug_PrintWatermarks+0x3c>
   {
     printf("    - Watermark Lv.%u = %X\n",lev+1,(unsigned int)gWatermarks[lev]);
-    104b:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
-    104f:	8b 04 85 00 00 00 00 	mov    0x0(,%eax,4),%eax
-    1056:	0f b6 55 f7          	movzbl -0x9(%ebp),%edx
-    105a:	83 c2 01             	add    $0x1,%edx
-    105d:	89 44 24 08          	mov    %eax,0x8(%esp)
-    1061:	89 54 24 04          	mov    %edx,0x4(%esp)
-    1065:	c7 04 24 fd 04 00 00 	movl   $0x4fd,(%esp)
-    106c:	e8 00 00 00 00       	call   1071 <_Debug_PrintWatermarks+0x32>
+    1059:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+    105d:	8b 04 85 00 00 00 00 	mov    0x0(,%eax,4),%eax
+    1064:	0f b6 55 f7          	movzbl -0x9(%ebp),%edx
+    1068:	83 c2 01             	add    $0x1,%edx
+    106b:	89 44 24 08          	mov    %eax,0x8(%esp)
+    106f:	89 54 24 04          	mov    %edx,0x4(%esp)
+    1073:	c7 04 24 fd 04 00 00 	movl   $0x4fd,(%esp)
+    107a:	e8 00 00 00 00       	call   107f <_Debug_PrintWatermarks+0x32>
   for (lev=0; lev<WM_LEVEL_NUM; lev++)
-    1071:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
-    1075:	83 c0 01             	add    $0x1,%eax
-    1078:	88 45 f7             	mov    %al,-0x9(%ebp)
-    107b:	80 7d f7 02          	cmpb   $0x2,-0x9(%ebp)
-    107f:	76 ca                	jbe    104b <_Debug_PrintWatermarks+0xc>
+    107f:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+    1083:	83 c0 01             	add    $0x1,%eax
+    1086:	88 45 f7             	mov    %al,-0x9(%ebp)
+    1089:	80 7d f7 02          	cmpb   $0x2,-0x9(%ebp)
+    108d:	76 ca                	jbe    1059 <_Debug_PrintWatermarks+0xc>
   }
 }
-    1081:	90                   	nop
-    1082:	c9                   	leave  
-    1083:	c3                   	ret    
+    108f:	90                   	nop
+    1090:	c9                   	leave  
+    1091:	c3                   	ret    
 
-00001084 <_Debug_SetTerminalAppearance>:
+00001092 <_Debug_SetTerminalAppearance>:
  * @param[in] style ANSI escape code for shell text style
  * 
  * @return none
  */
 void Debug_SetTerminalAppearance( ansi_text_color color, ansi_text_style style )
 {
-    1084:	55                   	push   %ebp
-    1085:	89 e5                	mov    %esp,%ebp
-    1087:	83 ec 18             	sub    $0x18,%esp
+    1092:	55                   	push   %ebp
+    1093:	89 e5                	mov    %esp,%ebp
+    1095:	83 ec 18             	sub    $0x18,%esp
   if (bShAppChgEnabled)
-    108a:	b8 00 00 00 00       	mov    $0x0,%eax
-    108f:	84 c0                	test   %al,%al
-    1091:	74 1a                	je     10ad <_Debug_SetTerminalAppearance+0x29>
+    1098:	b8 00 00 00 00       	mov    $0x0,%eax
+    109d:	84 c0                	test   %al,%al
+    109f:	74 1a                	je     10bb <_Debug_SetTerminalAppearance+0x29>
   {
     printf("\033[%u;%um",color,style);
-    1093:	8b 45 0c             	mov    0xc(%ebp),%eax
-    1096:	89 44 24 08          	mov    %eax,0x8(%esp)
-    109a:	8b 45 08             	mov    0x8(%ebp),%eax
-    109d:	89 44 24 04          	mov    %eax,0x4(%esp)
-    10a1:	c7 04 24 19 05 00 00 	movl   $0x519,(%esp)
-    10a8:	e8 00 00 00 00       	call   10ad <_Debug_SetTerminalAppearance+0x29>
+    10a1:	8b 45 0c             	mov    0xc(%ebp),%eax
+    10a4:	89 44 24 08          	mov    %eax,0x8(%esp)
+    10a8:	8b 45 08             	mov    0x8(%ebp),%eax
+    10ab:	89 44 24 04          	mov    %eax,0x4(%esp)
+    10af:	c7 04 24 19 05 00 00 	movl   $0x519,(%esp)
+    10b6:	e8 00 00 00 00       	call   10bb <_Debug_SetTerminalAppearance+0x29>
   }
 }
-    10ad:	90                   	nop
-    10ae:	c9                   	leave  
-    10af:	c3                   	ret    
+    10bb:	90                   	nop
+    10bc:	c9                   	leave  
+    10bd:	c3                   	ret    
 
-000010b0 <_Debug_ResetTerminalAppearance>:
+000010be <_Debug_ResetTerminalAppearance>:
  * @brief <i> Function for resetting terminal appearance. </i>
  * 
  * @return none
  */
 void Debug_ResetTerminalAppearance( void )
 {
-    10b0:	55                   	push   %ebp
-    10b1:	89 e5                	mov    %esp,%ebp
-    10b3:	83 ec 18             	sub    $0x18,%esp
+    10be:	55                   	push   %ebp
+    10bf:	89 e5                	mov    %esp,%ebp
+    10c1:	83 ec 18             	sub    $0x18,%esp
   if (bShAppChgEnabled)
-    10b6:	b8 00 00 00 00       	mov    $0x0,%eax
-    10bb:	84 c0                	test   %al,%al
-    10bd:	74 14                	je     10d3 <_Debug_ResetTerminalAppearance+0x23>
+    10c4:	b8 00 00 00 00       	mov    $0x0,%eax
+    10c9:	84 c0                	test   %al,%al
+    10cb:	74 14                	je     10e1 <_Debug_ResetTerminalAppearance+0x23>
   {
     printf("\033[%um",STYLE_RESET);
-    10bf:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
-    10c6:	00 
-    10c7:	c7 04 24 22 05 00 00 	movl   $0x522,(%esp)
-    10ce:	e8 00 00 00 00       	call   10d3 <_Debug_ResetTerminalAppearance+0x23>
+    10cd:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+    10d4:	00 
+    10d5:	c7 04 24 22 05 00 00 	movl   $0x522,(%esp)
+    10dc:	e8 00 00 00 00       	call   10e1 <_Debug_ResetTerminalAppearance+0x23>
   }
 }
-    10d3:	90                   	nop
-    10d4:	c9                   	leave  
-    10d5:	c3                   	ret    
+    10e1:	90                   	nop
+    10e2:	c9                   	leave  
+    10e3:	c3                   	ret    
 
-000010d6 <_IsOrgLenValid>:
+000010e4 <_IsOrgLenValid>:
  * @param lenBy : source buffer length [B]
  * 
  * @return validity outcome
  */
 static bool IsOrgLenValid( ulen_t orgLenBy, const debug_par_t * dbgParams )
 {
-    10d6:	55                   	push   %ebp
-    10d7:	89 e5                	mov    %esp,%ebp
-    10d9:	83 ec 28             	sub    $0x28,%esp
+    10e4:	55                   	push   %ebp
+    10e5:	89 e5                	mov    %esp,%ebp
+    10e7:	83 ec 28             	sub    $0x28,%esp
   Debug_SetWatermark((void *)IsOrgLenValid,WM_LEVEL_2);
-    10dc:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
-    10e3:	00 
-    10e4:	c7 04 24 d6 10 00 00 	movl   $0x10d6,(%esp)
-    10eb:	e8 ec fe ff ff       	call   fdc <_Debug_SetWatermark>
+    10ea:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+    10f1:	00 
+    10f2:	c7 04 24 e4 10 00 00 	movl   $0x10e4,(%esp)
+    10f9:	e8 ec fe ff ff       	call   fea <_Debug_SetWatermark>
 
   bool bRet = false;
-    10f0:	c6 45 f7 00          	movb   $0x0,-0x9(%ebp)
+    10fe:	c6 45 f7 00          	movb   $0x0,-0x9(%ebp)
   const ulen_t orgLenBi = BY2BI_LEN(orgLenBy);
-    10f4:	8b 45 08             	mov    0x8(%ebp),%eax
-    10f7:	c1 e0 03             	shl    $0x3,%eax
-    10fa:	89 45 f0             	mov    %eax,-0x10(%ebp)
+    1102:	8b 45 08             	mov    0x8(%ebp),%eax
+    1105:	c1 e0 03             	shl    $0x3,%eax
+    1108:	89 45 f0             	mov    %eax,-0x10(%ebp)
   const ulen_t rsLenBi = orgLenBi*dbgParams->rsPar.nSh/dbgParams->rsPar.kSh;              /** shortened reed-solomon encoded bit-length */
-    10fd:	8b 45 0c             	mov    0xc(%ebp),%eax
-    1100:	0f b6 40 15          	movzbl 0x15(%eax),%eax
-    1104:	0f b6 c0             	movzbl %al,%eax
-    1107:	0f af 45 f0          	imul   -0x10(%ebp),%eax
-    110b:	8b 55 0c             	mov    0xc(%ebp),%edx
-    110e:	0f b6 52 14          	movzbl 0x14(%edx),%edx
-    1112:	0f b6 ca             	movzbl %dl,%ecx
-    1115:	ba 00 00 00 00       	mov    $0x0,%edx
-    111a:	f7 f1                	div    %ecx
-    111c:	89 45 ec             	mov    %eax,-0x14(%ebp)
+    110b:	8b 45 0c             	mov    0xc(%ebp),%eax
+    110e:	0f b6 40 15          	movzbl 0x15(%eax),%eax
+    1112:	0f b6 c0             	movzbl %al,%eax
+    1115:	0f af 45 f0          	imul   -0x10(%ebp),%eax
+    1119:	8b 55 0c             	mov    0xc(%ebp),%edx
+    111c:	0f b6 52 14          	movzbl 0x14(%edx),%edx
+    1120:	0f b6 ca             	movzbl %dl,%ecx
+    1123:	ba 00 00 00 00       	mov    $0x0,%edx
+    1128:	f7 f1                	div    %ecx
+    112a:	89 45 ec             	mov    %eax,-0x14(%ebp)
   const ulen_t ccLenBi = (rsLenBi/(dbgParams->ccPar.cRate)*(1+dbgParams->ccPar.cRate));   /** punctured convolutional encoded bit-length */
-    111f:	8b 45 0c             	mov    0xc(%ebp),%eax
-    1122:	8b 48 28             	mov    0x28(%eax),%ecx
-    1125:	8b 45 ec             	mov    -0x14(%ebp),%eax
-    1128:	ba 00 00 00 00       	mov    $0x0,%edx
-    112d:	f7 f1                	div    %ecx
-    112f:	89 c2                	mov    %eax,%edx
-    1131:	8b 45 0c             	mov    0xc(%ebp),%eax
-    1134:	8b 40 28             	mov    0x28(%eax),%eax
-    1137:	83 c0 01             	add    $0x1,%eax
-    113a:	0f af c2             	imul   %edx,%eax
-    113d:	89 45 e8             	mov    %eax,-0x18(%ebp)
+    112d:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1130:	8b 48 28             	mov    0x28(%eax),%ecx
+    1133:	8b 45 ec             	mov    -0x14(%ebp),%eax
+    1136:	ba 00 00 00 00       	mov    $0x0,%edx
+    113b:	f7 f1                	div    %ecx
+    113d:	89 c2                	mov    %eax,%edx
+    113f:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1142:	8b 40 28             	mov    0x28(%eax),%eax
+    1145:	83 c0 01             	add    $0x1,%eax
+    1148:	0f af c2             	imul   %edx,%eax
+    114b:	89 45 e8             	mov    %eax,-0x18(%ebp)
 
   if ((orgLenBy > 0) &&                                                                   /** - origin message length shall be positive */
-    1140:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
-    1144:	74 63                	je     11a9 <_IsOrgLenValid+0xd3>
+    114e:	83 7d 08 00          	cmpl   $0x0,0x8(%ebp)
+    1152:	74 63                	je     11b7 <_IsOrgLenValid+0xd3>
       (0 == (orgLenBi%(dbgParams->rsPar.m*dbgParams->rsPar.kSh))) &&                      /** - reed-solomon encoder input stream bit-length shall be divisible by GF dimension times message size */
-    1146:	8b 45 0c             	mov    0xc(%ebp),%eax
-    1149:	8b 50 10             	mov    0x10(%eax),%edx
-    114c:	8b 45 0c             	mov    0xc(%ebp),%eax
-    114f:	0f b6 40 14          	movzbl 0x14(%eax),%eax
-    1153:	0f b6 c0             	movzbl %al,%eax
-    1156:	89 d1                	mov    %edx,%ecx
-    1158:	0f af c8             	imul   %eax,%ecx
-    115b:	8b 45 f0             	mov    -0x10(%ebp),%eax
-    115e:	ba 00 00 00 00       	mov    $0x0,%edx
-    1163:	f7 f1                	div    %ecx
-    1165:	89 d0                	mov    %edx,%eax
+    1154:	8b 45 0c             	mov    0xc(%ebp),%eax
+    1157:	8b 50 10             	mov    0x10(%eax),%edx
+    115a:	8b 45 0c             	mov    0xc(%ebp),%eax
+    115d:	0f b6 40 14          	movzbl 0x14(%eax),%eax
+    1161:	0f b6 c0             	movzbl %al,%eax
+    1164:	89 d1                	mov    %edx,%ecx
+    1166:	0f af c8             	imul   %eax,%ecx
+    1169:	8b 45 f0             	mov    -0x10(%ebp),%eax
+    116c:	ba 00 00 00 00       	mov    $0x0,%edx
+    1171:	f7 f1                	div    %ecx
+    1173:	89 d0                	mov    %edx,%eax
   if ((orgLenBy > 0) &&                                                                   /** - origin message length shall be positive */
-    1167:	85 c0                	test   %eax,%eax
-    1169:	75 3e                	jne    11a9 <_IsOrgLenValid+0xd3>
+    1175:	85 c0                	test   %eax,%eax
+    1177:	75 3e                	jne    11b7 <_IsOrgLenValid+0xd3>
       (0 == (rsLenBi%dbgParams->ccPar.cRate)) &&                                          /** - convolutional encoder input stream bit-length shall be divisible by code rate denominator */
-    116b:	8b 45 0c             	mov    0xc(%ebp),%eax
-    116e:	8b 48 28             	mov    0x28(%eax),%ecx
-    1171:	8b 45 ec             	mov    -0x14(%ebp),%eax
-    1174:	ba 00 00 00 00       	mov    $0x0,%edx
-    1179:	f7 f1                	div    %ecx
-    117b:	89 d0                	mov    %edx,%eax
+    1179:	8b 45 0c             	mov    0xc(%ebp),%eax
+    117c:	8b 48 28             	mov    0x28(%eax),%ecx
+    117f:	8b 45 ec             	mov    -0x14(%ebp),%eax
+    1182:	ba 00 00 00 00       	mov    $0x0,%edx
+    1187:	f7 f1                	div    %ecx
+    1189:	89 d0                	mov    %edx,%eax
       (0 == (orgLenBi%(dbgParams->rsPar.m*dbgParams->rsPar.kSh))) &&                      /** - reed-solomon encoder input stream bit-length shall be divisible by GF dimension times message size */
-    117d:	85 c0                	test   %eax,%eax
-    117f:	75 28                	jne    11a9 <_IsOrgLenValid+0xd3>
+    118b:	85 c0                	test   %eax,%eax
+    118d:	75 28                	jne    11b7 <_IsOrgLenValid+0xd3>
       (0 == (ccLenBi%NUM_BITS_PER_BYTE)) &&                                               /** - convolutional punctured bit length shall be a multiple of NUM_BITS_PER_BYTE */
-    1181:	8b 45 e8             	mov    -0x18(%ebp),%eax
-    1184:	83 e0 07             	and    $0x7,%eax
+    118f:	8b 45 e8             	mov    -0x18(%ebp),%eax
+    1192:	83 e0 07             	and    $0x7,%eax
       (0 == (rsLenBi%dbgParams->ccPar.cRate)) &&                                          /** - convolutional encoder input stream bit-length shall be divisible by code rate denominator */
-    1187:	85 c0                	test   %eax,%eax
-    1189:	75 1e                	jne    11a9 <_IsOrgLenValid+0xd3>
+    1195:	85 c0                	test   %eax,%eax
+    1197:	75 1e                	jne    11b7 <_IsOrgLenValid+0xd3>
       (0 == (ccLenBi%dbgParams->modPar.bps)))                                             /** - convolutional punctured bit length shall be a multiple of MOD_BPS */
-    118b:	8b 45 0c             	mov    0xc(%ebp),%eax
-    118e:	0f b6 40 3d          	movzbl 0x3d(%eax),%eax
-    1192:	0f b6 c8             	movzbl %al,%ecx
-    1195:	8b 45 e8             	mov    -0x18(%ebp),%eax
-    1198:	ba 00 00 00 00       	mov    $0x0,%edx
-    119d:	f7 f1                	div    %ecx
-    119f:	89 d0                	mov    %edx,%eax
+    1199:	8b 45 0c             	mov    0xc(%ebp),%eax
+    119c:	0f b6 40 3d          	movzbl 0x3d(%eax),%eax
+    11a0:	0f b6 c8             	movzbl %al,%ecx
+    11a3:	8b 45 e8             	mov    -0x18(%ebp),%eax
+    11a6:	ba 00 00 00 00       	mov    $0x0,%edx
+    11ab:	f7 f1                	div    %ecx
+    11ad:	89 d0                	mov    %edx,%eax
       (0 == (ccLenBi%NUM_BITS_PER_BYTE)) &&                                               /** - convolutional punctured bit length shall be a multiple of NUM_BITS_PER_BYTE */
-    11a1:	85 c0                	test   %eax,%eax
-    11a3:	75 04                	jne    11a9 <_IsOrgLenValid+0xd3>
+    11af:	85 c0                	test   %eax,%eax
+    11b1:	75 04                	jne    11b7 <_IsOrgLenValid+0xd3>
   {
     bRet = true;
-    11a5:	c6 45 f7 01          	movb   $0x1,-0x9(%ebp)
+    11b3:	c6 45 f7 01          	movb   $0x1,-0x9(%ebp)
   }
 
   return bRet;
-    11a9:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
+    11b7:	0f b6 45 f7          	movzbl -0x9(%ebp),%eax
 }
-    11ad:	c9                   	leave  
-    11ae:	c3                   	ret    
-    11af:	90                   	nop
+    11bb:	c9                   	leave  
+    11bc:	c3                   	ret    
+    11bd:	90                   	nop
+    11be:	90                   	nop
+    11bf:	90                   	nop

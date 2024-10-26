@@ -1924,7 +1924,8 @@ typedef enum
   PID_RX_MAP,
   PID_RX_LLR,
 
-  PID_NUM
+  PID_NUM,
+  PID_INVALID = 255
 } print_label_t;
 
 
@@ -1969,14 +1970,14 @@ typedef enum _ansi_text_style
   STYLE_FAST_BLINK = 6,
   STYLE_DOUBLE_UNDERLINE = 21,
 } ansi_text_style;
-# 147 "src\\debug.h"
+# 148 "src\\debug.h"
 error_t Debug_PrintParameters( uint32_t orgLen, const debug_par_t * pParams );
 error_t Debug_ListParameters( debug_par_t * ioParams, const scr_par_t * scrParam, const rs_par_t * rsParam, const itlv_par_t * itlvParam, const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam );
 error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed );
 error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
 error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
 error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
-error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams );
+error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams, uint32_t * pBitErr );
 error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label );
 error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label );
 error_t Debug_SetWatermark( const void * funcAddr, const wm_level_t level );

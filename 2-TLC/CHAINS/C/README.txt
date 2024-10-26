@@ -50,18 +50,6 @@
 // sistema makefile in modo che non sia obbligatorio cancellare ogni volta cartella di build (solo se esplicitato in comando), così più veloce a ricompilare!
 // aggiungi comando di solo target exe in makefile
 // write instruction about how to clean/compile/run
-// rifai funzionare utest build!
 // aggiungi qui note che adesso sono in fondo a "Makefile" file
 // prova a compilare con altri compilatori diversi da GCC (e.g. Clang)
 // try automatic build via jenkins
-/**
- * @file modulation.c
- * @author Filippo Valmori
- * @date 26/08/2024
- * @copyright Electrolux S.p.A.
- * @see Digital communications - Fundamentals and applications (Bernard Sklar, 2014)
- * @ingroup TLC_CHAIN
- * @brief Modulation library
- * 
- * Library containing modulation functions.
- */

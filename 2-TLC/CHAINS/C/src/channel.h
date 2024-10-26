@@ -77,5 +77,9 @@ error_t Channel_ListParameters( chan_par_t * ioParams );
 error_t Channel_BSC( const byte_stream_t * inStream, byte_stream_t *outStream, const chan_par_t * pParams );
 error_t Channel_AWGN( const complex_stream_t * inStream, complex_stream_t * outStream, const chan_par_t * pParams );
 
+#ifdef UTEST
+float Test_GetComplexSgnPower( const complex_stream_t * inStream );
+#endif
+
 
 #endif

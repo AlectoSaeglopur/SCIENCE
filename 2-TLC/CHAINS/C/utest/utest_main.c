@@ -16,7 +16,9 @@
 /****************/
 
 #include "..\src\system.h"
+#include "utest_channel.h"
 #include "utest_convolutional.h"
+#include "utest_debug.h"
 #include "utest_modulation.h"
 
 
@@ -25,7 +27,7 @@
 /*** PRIVATE PROTOTYPES ***/
 /**************************/
 
-static void print_divider( char * name );
+static void PrintDivider( const char * name );
 
 
 
@@ -33,12 +35,11 @@ static void print_divider( char * name );
 /*** UNITY FUNCTIONS ***/
 /***********************/
 
-/* "Setup" function: print a counter before each test result entry. */
 void setUp( void )
 {
 }
 
-/* "Teardown" function: do nothing. */
+
 void tearDown (void)
 {
 }
@@ -49,15 +50,14 @@ void tearDown (void)
 /*** PRIVATE FUNCTIONS ***/
 /*************************/
 
-/* Custom function used as test result divider */
-static void print_divider( char * name )
+static void PrintDivider( const char * name )
 {
   static uint8_t cnt = 0;
 
   if (cnt > 0)
   {
-    printf("----------\n");
-    printf("----------\n");
+    printf("---------------\n");
+    printf("---------------\n");
   }
   printf("\n>> LIBRARY # %d: %s\n",cnt++,name);
 }
@@ -70,11 +70,18 @@ static void print_divider( char * name )
 
 int main( void )
 {
-  print_divider("CONVOLUTIONAL");
-  UnitTest_Convolutional();
-  print_divider("MODULATION");
-  RunTestModulation();
+  PrintDivider("CHANNEL");
+  UnitTest_Channel();
 
-  //while (1){};                                                  // do NOT loop
+  PrintDivider("CONVOLUTIONAL");
+  UnitTest_Convolutional();
+
+  PrintDivider("DEBUG");
+  UnitTest_Debug();
+
+  PrintDivider("MODULATION");
+  UnitTest_Modulation();
+
+  //while (1){};                                          // do NOT loop
   return 0;
 }

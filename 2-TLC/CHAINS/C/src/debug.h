@@ -78,7 +78,8 @@ typedef enum
   PID_RX_MAP,                                               /** - rx mapped symbols print-id */
   PID_RX_LLR,                                               /** - rx demapped LLRs print-id */
   // keep NUM as final entry
-  PID_NUM
+  PID_NUM,
+  PID_INVALID = 255
 } print_label_t;
 
 
@@ -150,7 +151,7 @@ error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pS
 error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
 error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
 error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
-error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams );
+error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams, ulen_t * pBitErr );
 error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label );
 error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label );
 error_t Debug_SetWatermark( const void * funcAddr, const wm_level_t level );

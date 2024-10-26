@@ -1,21 +1,21 @@
 /**
- * @file utest_modulation.h
+ * @file utest_debug.h
  * @author Filippo Valmori
  * @date 26/08/2024
  * @copyright Electrolux S.p.A.
  * @ingroup UNIT_TEST
- * @brief Unit test modulation library header
+ * @brief Unit test debug library header
  */
 
 
-#ifndef UTEST_MODULATION_H
-#define	UTEST_MODULATION_H
+#ifndef UTEST_DEBUG_H
+#define	UTEST_DEBUG_H
 
 
 /*************************/
 /*** PUBLIC PROTOTYPES ***/
 /*************************/
 
-int UnitTest_Modulation(void);
+int UnitTest_Debug(void);
 
 #endif

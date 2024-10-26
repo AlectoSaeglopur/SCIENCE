@@ -15,17 +15,17 @@ BLD_FOLDER = $(addprefix $(BLD_PATH)\,$(ARG_NAME))
 # Compiler version
 CMP_VERS = gcc
 
-# Common source files used by both build types
-COM_FILES	= channel.c      	 	\
-          	convolutional.c   \
-          	crc.c             \
-          	debug.c           \
-          	error.c           \
-          	interleaving.c    \
-          	memory.c          \
-          	modulation.c      \
-          	reed_solomon.c    \
-          	scrambling.c
+# Common source files list (.c only)
+COM_FILES = channel.c         \
+            convolutional.c   \
+            crc.c             \
+            debug.c           \
+            error.c           \
+            interleaving.c    \
+            memory.c          \
+            modulation.c      \
+            reed_solomon.c    \
+            scrambling.c
 
 
 
@@ -36,7 +36,7 @@ COM_FILES	= channel.c      	 	\
 # Target-build name
 TRG_NAME = target
 
-# Target files list (.c only)
+# Target source files list (.c only)
 TRG_FIL = main.c          \
           $(COM_FILES)
 
@@ -50,9 +50,9 @@ TRG_LNK_FLG = -lm -Xlinker -Map=$(BLD_FOLDER)\lis\$(TRG_NAME).map
 CNV_TOL = objcopy
 
 # Conversion formats/extensions
-CNV_EXT = srec 	          \
-					ihex	          \
-					elf32-little
+CNV_EXT = srec            \
+          ihex            \
+          elf32-little
 
 # Info tool
 INF_TOL = objdump
@@ -66,19 +66,12 @@ INF_TOL = objdump
 # Unit-test build name
 UTS_NAME = utest
 
-
-
-# source files list for utest-build (.c only)
-#TST_FIL = \
-#					utest_extra.c         	\
-#          utest_convolutional.c   \
-#          utest_modulation.c      \
-#          utest_main.c            \
-#          $(COM_FILES)
-
-UTS_FILES = utest_convolutional.c		\
-						utest_main.c          	\
-            utest_modulation.c    	\
+# Unit-test source files list (.c only)
+UTS_FILES = utest_channel.c          \
+            utest_convolutional.c    \
+            utest_debug.c            \
+            utest_main.c             \
+            utest_modulation.c       \
             $(COM_FILES)
 
 # Unity files list

@@ -445,7 +445,7 @@ error_t Debug_PrintParameters( ulen_t orgLen, const debug_par_t * pParams )
  * 
  * @return error ID
  */
-error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams )
+error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams, ulen_t * pBitErr )
 {
   Debug_SetWatermark((void *)Debug_CheckWrongBits,WM_LEVEL_1);
 
@@ -482,9 +482,15 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
             curErrDist = 0;
           }
         }
+
         if (bitErrCnt < 2)
         {
           minErrDist = 0;
+        }
+
+        if (NULL != pBitErr)
+        {
+          *pBitErr = bitErrCnt;
         }
 
         switch (label)

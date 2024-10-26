@@ -34,6 +34,7 @@
 
 static void UnitTest_Modulation_ListParameters( void );
 static void UnitTest_GetGraySequence( void );
+static void UnitTest_IsQamBpsValid( void );
 
 
 
@@ -41,15 +42,15 @@ static void UnitTest_GetGraySequence( void );
 /*** PUBLIC FUNCTIONS ***/
 /************************/
 
-/* Main function invoked by umain.c containing all tests withi module. */
-int RunTestModulation(void)
+int UnitTest_Modulation(void)
 {
-    UNITY_BEGIN();                                                                      // always start the test sequence by invoking the BEGIN function
+    UNITY_BEGIN();
     
     RUN_TEST(UnitTest_Modulation_ListParameters);
     RUN_TEST(UnitTest_GetGraySequence);
+    RUN_TEST(UnitTest_IsQamBpsValid);
     
-    return UNITY_END();                                                                 // always finish the test sequence by invoking the END function
+    return UNITY_END();
 }
 
 
@@ -69,12 +70,21 @@ static void UnitTest_Modulation_ListParameters( void )
 
 static void UnitTest_GetGraySequence( void )
 {
-  const uint8_t Bps = 2;
-  const size_t Order = BPS2ORDER(Bps);
-  const mod_par_t params = {.order = Order, .bps = Bps};
+  const uint8_t bps = 2;
+  const size_t order = BPS2ORDER(bps);
+  const mod_par_t params = {.order = order, .bps = bps};
   const uint8_t expArray[] = {0,1,3,2};
-  byte_t * actArray = calloc(Order,sizeof(byte_t));
+  byte_t * actArray = calloc(order,sizeof(byte_t));
   Test_GetGraySequence(actArray,&params);
-  TEST_ASSERT_EQUAL_UINT8_ARRAY(expArray,actArray,Order);
+  TEST_ASSERT_EQUAL_UINT8_ARRAY(expArray,actArray,order);
   free(actArray);
+}
+
+
+static void UnitTest_IsQamBpsValid( void )
+{
+  TEST_ASSERT_FALSE(Test_IsQamBpsValid(1));
+  TEST_ASSERT_TRUE(Test_IsQamBpsValid(2));
+  TEST_ASSERT_FALSE(Test_IsQamBpsValid(3));
+  TEST_ASSERT_TRUE(Test_IsQamBpsValid(4));
 }

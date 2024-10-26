@@ -1187,7 +1187,7 @@ Ldebug_info0:
 	.byte	0x4
 	.long	0x71
 	.byte	0xa
-	.byte	0x55
+	.byte	0x56
 	.long	0x776
 	.uleb128 0xe
 	.ascii "WM_LEVEL_1\0"

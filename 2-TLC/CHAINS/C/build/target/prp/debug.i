@@ -1923,7 +1923,8 @@ typedef enum
   PID_RX_MAP,
   PID_RX_LLR,
 
-  PID_NUM
+  PID_NUM,
+  PID_INVALID = 255
 } print_label_t;
 
 
@@ -1968,14 +1969,14 @@ typedef enum _ansi_text_style
   STYLE_FAST_BLINK = 6,
   STYLE_DOUBLE_UNDERLINE = 21,
 } ansi_text_style;
-# 147 "src\\debug.h"
+# 148 "src\\debug.h"
 error_t Debug_PrintParameters( uint32_t orgLen, const debug_par_t * pParams );
 error_t Debug_ListParameters( debug_par_t * ioParams, const scr_par_t * scrParam, const rs_par_t * rsParam, const itlv_par_t * itlvParam, const cc_par_t * ccParam, const mod_par_t * modParam, const chan_par_t * chanParam );
 error_t Debug_GenerateRandomBytes( byte_stream_t * ioStream, const uint32_t * pSeed );
 error_t Debug_PrintByteStream( const byte_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
 error_t Debug_PrintFloatStream( const float_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
 error_t Debug_PrintComplexStream( const complex_stream_t * inStream, print_label_t label, const debug_par_t * pParams );
-error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams );
+error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams, uint32_t * pBitErr );
 error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label );
 error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label );
 error_t Debug_SetWatermark( const void * funcAddr, const wm_level_t level );
@@ -2395,7 +2396,7 @@ error_t Debug_PrintParameters( uint32_t orgLen, const debug_par_t * pParams )
   return Error_HandleErr(retErr);
 }
 # 448 "src\\debug.c"
-error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams )
+error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream_t * inStreamB, print_label_t label, const debug_par_t * pParams, uint32_t * pBitErr )
 {
   Debug_SetWatermark((void *)Debug_CheckWrongBits,WM_LEVEL_1);
 
@@ -2436,9 +2437,19 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
             curErrDist = 0;
           }
         }
+
         if (bitErrCnt < 2)
         {
           minErrDist = 0;
+        }
+
+        if (
+# 491 "src\\debug.c" 3 4
+           ((void *)0) 
+# 491 "src\\debug.c"
+                != pBitErr)
+        {
+          *pBitErr = bitErrCnt;
         }
 
         switch (label)
@@ -2489,16 +2500,16 @@ error_t Debug_CheckWrongBits( const byte_stream_t * inStreamA, const byte_stream
 
   return Error_HandleErr(retErr);
 }
-# 548 "src\\debug.c"
+# 554 "src\\debug.c"
 error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_t label )
 {
   Debug_SetWatermark((void *)Debug_WriteByteStreamToCsv,WM_LEVEL_1);
 
   error_t retErr = ERR_NONE;
   FILE * fid = 
-# 553 "src\\debug.c" 3 4
+# 559 "src\\debug.c" 3 4
               ((void *)0)
-# 553 "src\\debug.c"
+# 559 "src\\debug.c"
                   ;
   uint32_t j;
 
@@ -2528,9 +2539,9 @@ error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_
     }
 
     if ((ERR_NONE == retErr) && (
-# 581 "src\\debug.c" 3 4
+# 587 "src\\debug.c" 3 4
                                 ((void *)0) 
-# 581 "src\\debug.c"
+# 587 "src\\debug.c"
                                      != fid))
     {
       fprintf(fid,"%u,",inStream->len);
@@ -2552,16 +2563,16 @@ error_t Debug_WriteByteStreamToCsv( const byte_stream_t * inStream, print_label_
 
   return Error_HandleErr(retErr);
 }
-# 612 "src\\debug.c"
+# 618 "src\\debug.c"
 error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_label_t label )
 {
   Debug_SetWatermark((void *)Debug_WriteComplexStreamToCsv,WM_LEVEL_1);
 
   error_t retErr = ERR_NONE;
   FILE * fid = 
-# 617 "src\\debug.c" 3 4
+# 623 "src\\debug.c" 3 4
               ((void *)0)
-# 617 "src\\debug.c"
+# 623 "src\\debug.c"
                   ;
   uint32_t j;
 
@@ -2583,9 +2594,9 @@ error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_
     }
 
     if ((ERR_NONE == retErr) && (
-# 637 "src\\debug.c" 3 4
+# 643 "src\\debug.c" 3 4
                                 ((void *)0) 
-# 637 "src\\debug.c"
+# 643 "src\\debug.c"
                                      != fid))
     {
       fprintf(fid,"%u,",inStream->len);
@@ -2607,7 +2618,7 @@ error_t Debug_WriteComplexStreamToCsv( const complex_stream_t * inStream, print_
 
   return Error_HandleErr(retErr);
 }
-# 668 "src\\debug.c"
+# 674 "src\\debug.c"
 error_t Debug_SetWatermark( const void * funcAddr, const wm_level_t level )
 {
   error_t retErr = ERR_NONE;
@@ -2645,7 +2656,7 @@ void Debug_PrintWatermarks( void )
     printf("    - Watermark Lv.%u = %X\n",lev+1,(unsigned int)gWatermarks[lev]);
   }
 }
-# 715 "src\\debug.c"
+# 721 "src\\debug.c"
 void Debug_SetTerminalAppearance( ansi_text_color color, ansi_text_style style )
 {
   if (bShAppChgEnabled)
@@ -2667,23 +2678,23 @@ void Debug_ResetTerminalAppearance( void )
     printf("\033[%um",STYLE_RESET);
   }
 }
-# 750 "src\\debug.c"
+# 756 "src\\debug.c"
 static 
-# 750 "src\\debug.c" 3 4
+# 756 "src\\debug.c" 3 4
       _Bool 
-# 750 "src\\debug.c"
+# 756 "src\\debug.c"
            IsOrgLenValid( uint32_t orgLenBy, const debug_par_t * dbgParams )
 {
   Debug_SetWatermark((void *)IsOrgLenValid,WM_LEVEL_2);
 
   
-# 754 "src\\debug.c" 3 4
+# 760 "src\\debug.c" 3 4
  _Bool 
-# 754 "src\\debug.c"
+# 760 "src\\debug.c"
       bRet = 
-# 754 "src\\debug.c" 3 4
+# 760 "src\\debug.c" 3 4
              0
-# 754 "src\\debug.c"
+# 760 "src\\debug.c"
                   ;
   const uint32_t orgLenBi = ((orgLenBy)<<3u);
   const uint32_t rsLenBi = orgLenBi*dbgParams->rsPar.nSh/dbgParams->rsPar.kSh;
@@ -2696,9 +2707,9 @@ static
       (0 == (ccLenBi%dbgParams->modPar.bps)))
   {
     bRet = 
-# 765 "src\\debug.c" 3 4
+# 771 "src\\debug.c" 3 4
           1
-# 765 "src\\debug.c"
+# 771 "src\\debug.c"
               ;
   }
 

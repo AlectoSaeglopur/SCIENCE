@@ -20,28 +20,30 @@
 
 
 
-/** PROTOTYPES **/
+/**************************/
+/*** PRIVATE PROTOTYPES ***/
+/**************************/
 
 static void UnitTest_Convolutional_CountByteOnes( void );
 
 
 
-/** FUNCTIONS **/
+/************************/
+/*** PUBLIC FUNCTIONS ***/
+/************************/
 
-/* Main function invoked by umain.c containing all tests withi module. */
 int UnitTest_Convolutional(void)
 {
-    UNITY_BEGIN();                                                                      // always start the test sequence by invoking the BEGIN function
+    UNITY_BEGIN();
     
     RUN_TEST(UnitTest_Convolutional_CountByteOnes);
     
-    return UNITY_END();                                                                 // always finish the test sequence by invoking the END function
+    return UNITY_END();
 }
 
-/* Function to check "CountByteOnes" function */
+
 static void UnitTest_Convolutional_CountByteOnes( void )
 {
   TEST_ASSERT_EQUAL_UINT8(0, Test_CountByteOnes(0x00));
   TEST_ASSERT_EQUAL_UINT8(5, Test_CountByteOnes(0xAE));
 }
-

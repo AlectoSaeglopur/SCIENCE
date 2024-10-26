@@ -1,0 +1,7 @@
+{
+  "files.associations": {
+    "system.h": "c",
+    "channel.h": "c",
+    "utest_convolutional.h": "c"
+  }
+}

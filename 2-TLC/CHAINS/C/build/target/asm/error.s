@@ -391,7 +391,7 @@ Ldebug_info0:
 	.byte	0x4
 	.long	0x6f
 	.byte	0x6
-	.byte	0x5f
+	.byte	0x60
 	.long	0x65a
 	.uleb128 0xd
 	.ascii "COLOR_BLACK\0"
@@ -447,7 +447,7 @@ Ldebug_info0:
 	.byte	0x4
 	.long	0x6f
 	.byte	0x6
-	.byte	0x74
+	.byte	0x75
 	.long	0x6fa
 	.uleb128 0xd
 	.ascii "STYLE_RESET\0"

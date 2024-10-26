@@ -100,6 +100,7 @@ error_t Modulation_SoftDemapper( const complex_stream_t * inStream, float_stream
 
 #ifdef UTEST
 error_t Test_GetGraySequence( byte_t * ioBuffer, const mod_par_t * pParams );
+bool Test_IsQamBpsValid( uint8_t bps );
 #endif
 
 

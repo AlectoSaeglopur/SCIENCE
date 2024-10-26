@@ -239,3 +239,18 @@ static float GetComplexSgnPower( const complex_stream_t * inStream )
 
   return (energy/inStream->len);
 }
+
+
+
+/**********************/
+/*** TEST FUNCTIONS ***/
+/**********************/
+
+#ifdef UTEST
+
+float Test_GetComplexSgnPower( const complex_stream_t * inStream )
+{
+  return GetComplexSgnPower(inStream);
+}
+
+#endif

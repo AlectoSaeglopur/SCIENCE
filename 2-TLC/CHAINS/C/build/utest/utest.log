@@ -9,7 +9,9 @@ if not exist build\utest\obj mkdir build\utest\obj
 >> "utest"-build folder cleaned successfully!
 ------------------------------------------------
 Starting "utest"-build compilation...
+gcc -c utest\utest_channel.c -Wall -g -O0 -D UTEST -o build\utest\obj\utest_channel.o
 gcc -c utest\utest_convolutional.c -Wall -g -O0 -D UTEST -o build\utest\obj\utest_convolutional.o
+gcc -c utest\utest_debug.c -Wall -g -O0 -D UTEST -o build\utest\obj\utest_debug.o
 gcc -c utest\utest_main.c -Wall -g -O0 -D UTEST -o build\utest\obj\utest_main.o
 gcc -c utest\utest_modulation.c -Wall -g -O0 -D UTEST -o build\utest\obj\utest_modulation.o
 gcc -c src\channel.c -Wall -g -O0 -D UTEST -o build\utest\obj\channel.o
@@ -24,28 +26,47 @@ gcc -c src\reed_solomon.c -Wall -g -O0 -D UTEST -o build\utest\obj\reed_solomon.
 gcc -c src\scrambling.c -Wall -g -O0 -D UTEST -o build\utest\obj\scrambling.o
 gcc -c utest\unity\unity.c -Wall -g -O0 -D UTEST -o build\utest\obj\unity.o
 Starting "utest"-build linking...
-gcc build\utest\obj\utest_convolutional.o build\utest\obj\utest_main.o build\utest\obj\utest_modulation.o build\utest\obj\channel.o build\utest\obj\convolutional.o build\utest\obj\crc.o build\utest\obj\debug.o build\utest\obj\error.o build\utest\obj\interleaving.o build\utest\obj\memory.o build\utest\obj\modulation.o build\utest\obj\reed_solomon.o build\utest\obj\scrambling.o build\utest\obj\unity.o -Wall -g -O0 -D UTEST -lm -o build\utest\bin\utest.exe
+gcc build\utest\obj\utest_channel.o build\utest\obj\utest_convolutional.o build\utest\obj\utest_debug.o build\utest\obj\utest_main.o build\utest\obj\utest_modulation.o build\utest\obj\channel.o build\utest\obj\convolutional.o build\utest\obj\crc.o build\utest\obj\debug.o build\utest\obj\error.o build\utest\obj\interleaving.o build\utest\obj\memory.o build\utest\obj\modulation.o build\utest\obj\reed_solomon.o build\utest\obj\scrambling.o build\utest\obj\unity.o -Wall -g -O0 -D UTEST -lm -o build\utest\bin\utest.exe
 ------------------------------------------------
 >> "utest"-build compiled and linked successfully!
 ------------------------------------------------
 Launching "utest"-build output...
 build\utest\bin\utest.exe
 
->> LIBRARY # 0: CONVOLUTIONAL
-utest\utest_convolutional.c:36:UnitTest_Convolutional_CountByteOnes:PASS
+>> LIBRARY # 0: CHANNEL
+utest\utest_channel.c:39:UnitTest_GetComplexSgnPower:PASS
 
 -----------------------
 1 Tests 0 Failures 0 Ignored 
 OK
-----------
-----------
+---------------
+---------------
 
->> LIBRARY # 1: MODULATION
-utest\utest_modulation.c:49:UnitTest_Modulation_ListParameters:PASS
-utest\utest_modulation.c:50:UnitTest_GetGraySequence:PASS
+>> LIBRARY # 1: CONVOLUTIONAL
+utest\utest_convolutional.c:39:UnitTest_Convolutional_CountByteOnes:PASS
 
 -----------------------
-2 Tests 0 Failures 0 Ignored 
+1 Tests 0 Failures 0 Ignored 
+OK
+---------------
+---------------
+
+>> LIBRARY # 2: DEBUG
+utest\utest_debug.c:39:UnitTest_Debug_CheckWrongBits:PASS
+
+-----------------------
+1 Tests 0 Failures 0 Ignored 
+OK
+---------------
+---------------
+
+>> LIBRARY # 3: MODULATION
+utest\utest_modulation.c:49:UnitTest_Modulation_ListParameters:PASS
+utest\utest_modulation.c:50:UnitTest_GetGraySequence:PASS
+utest\utest_modulation.c:51:UnitTest_IsQamBpsValid:PASS
+
+-----------------------
+3 Tests 0 Failures 0 Ignored 
 OK
 ------------------------------------------------
 >> "utest"-build executed successfully!

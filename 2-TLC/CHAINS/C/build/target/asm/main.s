@@ -356,6 +356,7 @@ L3:
 	movl	%eax, (%esp)
 	call	_Crc_CalculateChecksum
 	.loc 1 184 0
+	movl	$0, 16(%esp)
 	movl	$_dgbParam, 12(%esp)
 	movl	$11, 8(%esp)
 	leal	96(%esp), %eax
@@ -364,6 +365,7 @@ L3:
 	movl	%eax, (%esp)
 	call	_Debug_CheckWrongBits
 	.loc 1 185 0
+	movl	$0, 16(%esp)
 	movl	$_dgbParam, 12(%esp)
 	movl	$7, 8(%esp)
 	leal	144(%esp), %eax
@@ -372,6 +374,7 @@ L3:
 	movl	%eax, (%esp)
 	call	_Debug_CheckWrongBits
 	.loc 1 186 0
+	movl	$0, 16(%esp)
 	movl	$_dgbParam, 12(%esp)
 	movl	$1, 8(%esp)
 	leal	216(%esp), %eax
@@ -380,6 +383,7 @@ L3:
 	movl	%eax, (%esp)
 	call	_Debug_CheckWrongBits
 	.loc 1 187 0
+	movl	$0, 16(%esp)
 	movl	$_dgbParam, 12(%esp)
 	movl	$3, 8(%esp)
 	leal	192(%esp), %eax
@@ -498,7 +502,7 @@ Letext0:
 	.file 15 "src/debug.h"
 	.section	.debug_info,"dr"
 Ldebug_info0:
-	.long	0x1039
+	.long	0x1047
 	.word	0x4
 	.secrel32	Ldebug_abbrev0
 	.byte	0x4
@@ -1466,7 +1470,7 @@ Ldebug_info0:
 	.long	0x6e
 	.byte	0xf
 	.byte	0x40
-	.long	0xc3c
+	.long	0xc4a
 	.uleb128 0xe
 	.ascii "PID_TX_ORG\0"
 	.byte	0
@@ -1515,14 +1519,17 @@ Ldebug_info0:
 	.uleb128 0xe
 	.ascii "PID_NUM\0"
 	.byte	0xf
+	.uleb128 0xe
+	.ascii "PID_INVALID\0"
+	.byte	0xff
 	.byte	0
 	.uleb128 0x12
 	.ascii "_ansi_text_color\0"
 	.byte	0x4
 	.long	0x6e
 	.byte	0xf
-	.byte	0x5f
-	.long	0xd66
+	.byte	0x60
+	.long	0xd74
 	.uleb128 0xe
 	.ascii "COLOR_BLACK\0"
 	.byte	0x1e
@@ -1577,8 +1584,8 @@ Ldebug_info0:
 	.byte	0x4
 	.long	0x6e
 	.byte	0xf
-	.byte	0x74
-	.long	0xe06
+	.byte	0x75
+	.long	0xe14
 	.uleb128 0xe
 	.ascii "STYLE_RESET\0"
 	.byte	0
