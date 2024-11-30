@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.5.6)  8 MAR 2024 22:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.5.6)  22 NOV 2024 14:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1644,16 +1644,19 @@ Package pdftex.def Info: Signature.jpg  used on input line 227.
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 10.12pt have occurred.
 
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `"CV-ENG (Filippo Valmori)".out' has not chan
 ged.
 (rerunfilecheck)             Checksum: B9C4375D088511B4C3FBAA720D5387DE;1073.
  ) 
 Here is how much of TeX's memory you used:
- 30775 strings out of 476047
- 565489 string characters out of 5794246
+ 30773 strings out of 476047
+ 565473 string characters out of 5794246
  1885242 words of memory out of 5000000
  50546 multiletter control sequences out of 15000+600000
- 534837 words of font info for 129 fonts, out of 8000000 for 9000
+ 534786 words of font info for 128 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  129i,12n,122p,1023b,470s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2023/texmf-dist/fonts/type1/public/fontawesome5/FontAwesome5Brand
@@ -1670,7 +1673,7 @@ ype1/public/amsfonts/cm/cmsl12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/publ
 ic/amsfonts/cm/cmsl9.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfont
 s/cm/cmti10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/newtx/txsys.pfb>
 
-Output written on "CV-ENG (Filippo Valmori).pdf" (3 pages, 310007 bytes).
+Output written on "CV-ENG (Filippo Valmori).pdf" (3 pages, 309954 bytes).
 PDF statistics:
  146 PDF objects out of 1000 (max. 8388607)
  107 compressed objects within 2 object streams
