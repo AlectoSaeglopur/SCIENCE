@@ -4,7 +4,7 @@
 from collections import namedtuple                                                                      # to create pseudo-structures as in C
 from numpy import inf, zeros
 from os import system                                                                                   # to call "clear" or "cls" shell functions
-from pandas import isna, read_excel                                                                     # requires "pip install pandas && pip install xlrd && pip install openpyxl"
+from pandas import isna, read_excel                                                                     # requires "pis install numpy && pip install pandas && pip install xlrd && pip install openpyxl"
 from random import randint                                                                              # to generate random values
 from re import search, finditer, IGNORECASE
 from sys import argv, platform                                                                          # to check current OS and terminal input arguments

@@ -99,5 +99,5 @@ for playlist_name, playlist_link in playlist_dict.items() :
 #    Or all at once with:
 #    - "python spotify_exporter.py all"
 
-# 2. The .cache file generated after executingthe script can be canceled with ho harm.
+# 2. The .cache file generated after executing the script can be canceled with ho harm.
     
