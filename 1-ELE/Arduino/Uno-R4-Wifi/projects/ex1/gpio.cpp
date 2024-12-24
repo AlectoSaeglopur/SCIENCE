@@ -16,7 +16,15 @@
 
 
 
-#define DIRECTION_MASK  ((uint32_t) (1 << 2))
+/***************/
+/*** DEFINES ***/
+/***************/
+
+#define PODR_MASK   (LSBIT_MASK_U32 << 0)           // set-level mask (R/W)
+#define PIDR_MASK   (LSBIT_MASK_U32 << 1)           // get-level mask (R)
+#define PDR_MASK    (LSBIT_MASK_U32 << 2)           // direction mask (R/W)
+#define ASEL_MASK   (LSBIT_MASK_U32 << 15)          // type mask (R/W)
+#define PRM_MASK    (LSBIT_MASK_U32 << 16)          // mode mask (R/W)
 
 
 
@@ -24,7 +32,14 @@
 /*** CONSTANTS ***/
 /*****************/
 
-static const uint32_t SECTORS_ADDRESS[SECTOR_IDX_NUM] = {LIST_OF_SECTORS(DEF_SECTOR_ADR)};
+static const gpio_number_t AVAILABLE_GPIOS[] = {LIST_OF_PINS(DEF_GPIO_NAME)};
+
+
+/**************************/
+/*** PRIVATE PROTOTYPES ***/
+/**************************/
+
+static bool IsPinNumberValid( gpio_number_t pinNum);
 
 
 
@@ -35,70 +50,55 @@ static const uint32_t SECTORS_ADDRESS[SECTOR_IDX_NUM] = {LIST_OF_SECTORS(DEF_SEC
 /**
  * @brief <i> Function for getting GPIO direction. </i>
  * 
- * @param[in] pinId GPIO identifier
+ * @param[in] pinNum GPIO number
  * 
  * @return GPIO direction
  */
-gpio_direction_t Gpio_GetPinDirection( gpio_id_t pinName )
+gpio_direction_t Gpio_GetPinDirection( gpio_number_t pinNum )
 {
-//  gpio_direction_t direction = GPIO_DIR_INVALID;
-//  uint8_t sectorIdx = pinId / SECTOR_DIVIDER;
-//  uint8_t pinIdx = pinId % SECTOR_DIVIDER;
-//
-//  if ((sectorIdx < SECTOR_IDX_NUM) && (pinIdx < NUM_PINS_PER_SECTOR))
-//  {
-//    if (0 == ((((R_PORT0_Type *)SECTORS_ADDRESS[sectorIdx])->PDR) & (LSBIT_MASK_U16<<pinIdx)))
-//    {
-//      direction = GPIO_DIR_INPUT;
-//    }
-//    else
-//    {
-//      direction = GPIO_DIR_OUTPUT;
-//    }
-//  }
-//
-//  return direction;
-
   gpio_direction_t pinDir = GPIO_DIR_INVALID;
   uint8_t sectIdx;
   uint8_t pinIdx;
   bool bRegVal;
 
-  if (true == IsPinIdValid(pinName))
+  if (true == IsPinNumberValid(pinNum))
   {
-    sectIdx = pinId / SECTOR_DIVIDER;
-    pinIdx = pinId % SECTOR_DIVIDER;
-    bRegVal = R_PFS->PORT[sectIdx].PIN[pinIdx].PmnPFS & DIRECTION_MASK;
+    sectIdx = pinNum / SECTOR_DIVIDER;
+    pinIdx = pinNum % SECTOR_DIVIDER;
+    bRegVal = R_PFS->PORT[sectIdx].PIN[pinIdx].PmnPFS & PDR_MASK;
     pinDir = bRegVal ? GPIO_DIR_OUTPUT : GPIO_DIR_INPUT;
   }
 
-  return direction;
+  return pinDir;
 }
 
 
 /**
  * @brief <i> Function for setting GPIO direction. </i>
  * 
- * @param[in] pinId GPIO identifier
+ * @param[in] pinNum GPIO number
  * @param[in] pinDir direction to set
  * 
  * @return none
  */
-void Gpio_SetPinDirection( gpio_id_t pinId, gpio_direction_t pinDir )
+void Gpio_SetPinDirection( gpio_number_t pinNum, gpio_direction_t pinDir )
 {
-  uint8_t sectorIdx = pinId / SECTOR_DIVIDER;
-  uint8_t pinIdx = pinId % SECTOR_DIVIDER;
+  uint8_t sectIdx;
+  uint8_t pinIdx;
 
-  if ((sectorIdx < SECTOR_IDX_NUM) && (pinIdx < NUM_PINS_PER_SECTOR))
+  if (true == IsPinNumberValid(pinNum))
   {
+    sectIdx = pinNum / SECTOR_DIVIDER;
+    pinIdx = pinNum % SECTOR_DIVIDER;
+
     switch (pinDir)
     {
       case GPIO_DIR_INPUT:
-        ((R_PORT0_Type *)SECTORS_ADDRESS[sectorIdx])->PDR &= ~(LSBIT_MASK_U16<<pinIdx);
+        R_PFS->PORT[sectIdx].PIN[pinIdx].PmnPFS &= (~PDR_MASK);
         break;
 
       case GPIO_DIR_OUTPUT:
-        ((R_PORT0_Type *)SECTORS_ADDRESS[sectorIdx])->PDR |= (LSBIT_MASK_U16<<pinIdx);
+        R_PFS->PORT[sectIdx].PIN[pinIdx].PmnPFS |= PDR_MASK;
         break;
 
       default:
@@ -112,55 +112,55 @@ void Gpio_SetPinDirection( gpio_id_t pinId, gpio_direction_t pinDir )
 /**
  * @brief <i> Function for getting digital GPIO level. </i>
  * 
- * @param[in] pinId GPIO identifier
+ * @param[in] pinNum GPIO number
  * 
  * @return GPIO level
  */
-gpio_level_t Gpio_GetPinLevel( gpio_id_t pinId )
+gpio_level_t Gpio_GetPinLevel( gpio_number_t pinNum )
 {
-  gpio_level_t level = GPIO_LEV_INVALID;
-  uint8_t sectorIdx = pinId / SECTOR_DIVIDER;
-  uint8_t pinIdx = pinId % SECTOR_DIVIDER;
+  gpio_level_t pinLev = GPIO_LEV_INVALID;
+  uint8_t sectIdx;
+  uint8_t pinIdx;
+  bool bRegVal;
 
-  if ((sectorIdx < SECTOR_IDX_NUM) && (pinIdx < NUM_PINS_PER_SECTOR))
+  if (true == IsPinNumberValid(pinNum))
   {
-    if (0 == ((((R_PORT0_Type *)SECTORS_ADDRESS[sectorIdx])->PIDR) & (LSBIT_MASK_U16<<pinIdx)))
-    {
-      level = GPIO_LEV_LOW;
-    }
-    else
-    {
-      level = GPIO_LEV_HIGH;
-    }
+    sectIdx = pinNum / SECTOR_DIVIDER;
+    pinIdx = pinNum % SECTOR_DIVIDER;
+    bRegVal = R_PFS->PORT[sectIdx].PIN[pinIdx].PmnPFS & PIDR_MASK;
+    pinLev = bRegVal ? GPIO_LEV_HIGH : GPIO_LEV_LOW;
   }
 
-  return level;
+  return pinLev;
 }
 
 
 /**
  * @brief <i> Function for setting digital GPIO level. </i>
  * 
- * @param[in] pinId GPIO identifier
+ * @param[in] pinNum GPIO number
  * @param[in] pinLev level to set
  * 
  * @return none
  */
-void Gpio_SetPinLevel( gpio_id_t pinId, gpio_level_t pinLev )
+void Gpio_SetPinLevel( gpio_number_t pinNum, gpio_level_t pinLev )
 {
-  uint8_t sectorIdx = pinId / SECTOR_DIVIDER;
-  uint8_t pinIdx = pinId % SECTOR_DIVIDER;
+  uint8_t sectIdx;
+  uint8_t pinIdx;
 
-  if ((sectorIdx < SECTOR_IDX_NUM) && (pinIdx < NUM_PINS_PER_SECTOR))
+  if (true == IsPinNumberValid(pinNum))
   {
+    sectIdx = pinNum / SECTOR_DIVIDER;
+    pinIdx = pinNum % SECTOR_DIVIDER;
+
     switch (pinLev)
     {
       case GPIO_LEV_LOW:
-        ((R_PORT0_Type *)SECTORS_ADDRESS[sectorIdx])->PODR &= ~(LSBIT_MASK_U16<<pinIdx);
+        R_PFS->PORT[sectIdx].PIN[pinIdx].PmnPFS &= (~PODR_MASK);
         break;
 
       case GPIO_LEV_HIGH:
-        ((R_PORT0_Type *)SECTORS_ADDRESS[sectorIdx])->PODR |= (LSBIT_MASK_U16<<pinIdx);
+        R_PFS->PORT[sectIdx].PIN[pinIdx].PmnPFS |= PODR_MASK;
         break;
 
       default:
@@ -174,22 +174,22 @@ void Gpio_SetPinLevel( gpio_id_t pinId, gpio_level_t pinLev )
 /**
  * @brief <i> Function for toggling digital GPIO level. </i>
  * 
- * @param[in] pinId GPIO identifier
+ * @param[in] pinNum GPIO number
  * 
  * @return none
  */
-void Gpio_ToggleDigitalPin( gpio_id_t pinId )
+void Gpio_ToggleDigitalPin( gpio_number_t pinNum )
 {
-  gpio_level_t pinLev = Gpio_GetPinLevel(pinId);
+  gpio_level_t pinLev = Gpio_GetPinLevel(pinNum);
 
   switch (pinLev)
   {
     case GPIO_LEV_LOW:
-      Gpio_SetPinLevel(pinId, GPIO_LEV_HIGH);
+      Gpio_SetPinLevel(pinNum, GPIO_LEV_HIGH);
       break;
 
     case GPIO_LEV_HIGH:
-      Gpio_SetPinLevel(pinId, GPIO_LEV_LOW);
+      Gpio_SetPinLevel(pinNum, GPIO_LEV_LOW);
       break;
 
     default:
@@ -200,27 +200,30 @@ void Gpio_ToggleDigitalPin( gpio_id_t pinId )
 
 
 
+/*************************/
+/*** PRIVATE FUNCTIONS ***/
+/*************************/
 
-gpio_type_t Gpio_GetPinType( gpio_id_t pinId )
+/**
+ * @brief <i> Function for checking if pin number is valid. </i>
+ * 
+ * @param[in] pinNum GPIO number
+ * 
+ * @return true if valid, false otherwise
+ */
+static bool IsPinNumberValid( gpio_number_t pinNum)
 {
-  gpio_type_t type = GPIO_TYP_INVALID;
-  uint8_t sectorIdx = pinId / SECTOR_DIVIDER;
-  uint8_t pinIdx = pinId % SECTOR_DIVIDER;
+  bool bRet = false;
+  uint16_t j;
 
-  char printStr[PRINT_BUFFER_SIZE];
+  for (j=0; j<NUM_ELEMENTS(AVAILABLE_GPIOS); j++)
+  {
+    if ( AVAILABLE_GPIOS[j] == pinNum)
+    {
+      bRet = true;
+      break;
+    }
+  }
 
-  
-  sprintf (printStr, "ID: %u | Sec: %u | Idx: %u", pinId, sectorIdx, pinIdx);
-  Serial.println (printStr);
-
-  
-  
-  sprintf (printStr, "#%u: 0x%X", pinId, R_PFS->PORT[sectorIdx].PIN[pinIdx].PmnPFS);
-  Serial.println (printStr);
-
-
-  R_PFS->PORT[0].PIN[12].PmnPFS |= 0x00000005;
-
-
-  return type;
+  return bRet;
 }

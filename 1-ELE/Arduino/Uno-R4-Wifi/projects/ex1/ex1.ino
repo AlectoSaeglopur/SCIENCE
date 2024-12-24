@@ -52,10 +52,6 @@ void loop()
 //  sprintf (printStr, "Cnt: %u | Dr: %u | Lv: %u\n", cnt, Gpio_GetPinDirection(GPIO_P213), Gpio_GetPinLevel(GPIO_P213));
 //  Serial.println (printStr);
 
-  Gpio_GetPinType(GPIO_P213);
-  Gpio_GetPinType(GPIO_P012);
-  Gpio_GetPinType(GPIO_P206);
-
 }
 
 

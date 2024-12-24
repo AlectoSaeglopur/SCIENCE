@@ -26,47 +26,52 @@ typedef enum
   SECTOR_IDX_NUM
 } sector_idx_t;
 
-#define DEF_SECTOR_ADR(num) R_PORT##num##_BASE
-
 
 
 // Pins definition
 #define LIST_OF_PINS(ENTRY)   \
-  ENTRY( 000 ),               \
-  ENTRY( 001 ),               \
-  ENTRY( 002 ),               \
-  ENTRY( 003 ),               \
-  ENTRY( 004 ),               \
-  ENTRY( 011 ),               \
-  ENTRY( 012 ),               \
-  ENTRY( 013 ),               \
-  ENTRY( 014 ),               \
-  ENTRY( 015 ),               \
-  ENTRY( 100 ),               \
-  ENTRY( 101 ),               \
-  ENTRY( 102 ),   /* P102_SPI0_RSPCK_GPT2_B_CAN0_RX >> D13/SCK */  \
-  ENTRY( 103 ),               \
-  ENTRY( 104 ),               \
-  ENTRY( 105 ),               \
-  ENTRY( 106 ),               \
-  ENTRY( 107 ),               \
-  ENTRY( 109 ),               \
-  ENTRY( 110 ),               \
-  ENTRY( 111 ),               \
-  ENTRY( 112 ),               \
-  ENTRY( 204 ),               \
-  ENTRY( 205 ),               \
-  ENTRY( 206 ),               \
-  ENTRY( 213 ),               \
-  ENTRY( 304 )
+  ENTRY( 000, 0 ),            \
+  ENTRY( 001, 1 ),            \
+  ENTRY( 002, 2 ),            \
+  ENTRY( 003, 3 ),            \
+  ENTRY( 004, 4  ),           \
+  ENTRY( 011, 11 ),           \
+  ENTRY( 012, 12 ),           \
+  ENTRY( 013, 13 ),           \
+  ENTRY( 014, 14 ),           \
+  ENTRY( 015, 15 ),           \
+  ENTRY( 100, 100 ),          \
+  ENTRY( 101, 101 ),          \
+  ENTRY( 102, 102 ),   /* P102_SPI0_RSPCK_GPT2_B_CAN0_RX >> D13/SCK */  \
+  ENTRY( 103, 103 ),          \
+  ENTRY( 104, 104 ),          \
+  ENTRY( 105, 105 ),          \
+  ENTRY( 106, 106 ),          \
+  ENTRY( 107, 107 ),          \
+  ENTRY( 109, 109 ),          \
+  ENTRY( 110, 110 ),          \
+  ENTRY( 111, 111 ),          \
+  ENTRY( 112, 112 ),          \
+  ENTRY( 201, 201 ),          \
+  ENTRY( 204, 204 ),          \
+  ENTRY( 205, 205 ),          \
+  ENTRY( 206, 206 ),          \
+  ENTRY( 212, 212 ),          \
+  ENTRY( 213, 213 ),          \
+  ENTRY( 301, 301 ),          \
+  ENTRY( 302, 302 ),          \
+  ENTRY( 303, 303 ),          \
+  ENTRY( 304, 304 )
 
 
-#define DEF_GPIO_ID(num) GPIO_P##num = num
+
+#define DEF_GPIO_ID(id, num) GPIO_P##id = num
+#define DEF_GPIO_NAME(id, ...) GPIO_P##id
 
 typedef enum
 {
   LIST_OF_PINS(DEF_GPIO_ID)
-} gpio_id_t;
+} gpio_number_t;
 
 
 #define SECTOR_DIVIDER    ((uint16_t) 100)
@@ -102,14 +107,14 @@ typedef enum
 /*** PUBLIC PROTOTYPES ***/
 /*************************/
 
-gpio_type_t Gpio_GetPinType( gpio_id_t pinId );
+gpio_type_t Gpio_GetPinType( gpio_number_t pinNum );
 
-gpio_direction_t Gpio_GetPinDirection( gpio_id_t pinId );
-void Gpio_SetPinDirection( gpio_id_t pinId, gpio_direction_t pinDir );
+gpio_direction_t Gpio_GetPinDirection( gpio_number_t pinNum );
+void Gpio_SetPinDirection( gpio_number_t pinNum, gpio_direction_t pinDir );
 
-gpio_level_t Gpio_GetPinLevel( gpio_id_t pinId );
-void Gpio_SetPinLevel( gpio_id_t pinId, gpio_level_t pinLev );
-void Gpio_ToggleDigitalPin( gpio_id_t pinId );
+gpio_level_t Gpio_GetPinLevel( gpio_number_t pinNum );
+void Gpio_SetPinLevel( gpio_number_t pinNum, gpio_level_t pinLev );
+void Gpio_ToggleDigitalPin( gpio_number_t pinNum );
 
 
 #endif

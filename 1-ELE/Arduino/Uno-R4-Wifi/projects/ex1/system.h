@@ -17,9 +17,11 @@
 //#include <math.h>                                           /** - import mathematical library (e.g. to use "sin/cos" and "log/exp" functions) */
 
 
+#define LSBIT_MASK_U8           ((uint8_t) 0x01)
+#define LSBIT_MASK_U16          ((uint16_t) 0x0001)
+#define LSBIT_MASK_U32          ((uint32_t) 0x00000001)
 
-
-#define LSBIT_MASK_U32           ((uint32_t) 0x00000001)
+#define NUM_ELEMENTS(x)         (sizeof(x)/sizeof(x[0]))
 
 
 #define PRINT_BUFFER_SIZE    50u
