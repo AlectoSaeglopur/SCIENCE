@@ -1,42 +1,55 @@
 
-#include "gpio.h"
+/****************/
+/*** INCLUDES ***/
+/****************/
 
+#include "led_matrix.h"
+#include "gpio.h"
 //#include "Arduino_LED_Matrix.h"
 
 
+
+/***************/
+/*** DEFINES ***/
+/***************/
+
 #define TOGGLE_TIME         500     // ms
+
+
+
+/************************/
+/*** GLOBAL VARIABLES ***/
+/************************/
 
 char printStr[PRINT_BUFFER_SIZE];
 
+
+/*****************/
+/*** FUNCTIONS ***/
+/*****************/
+
 void setup()
 {
-  Gpio_SetPinDirection(GPIO_BUILT_IN_LED, GPIO_DIR_OUTPUT);
+  // Initialize serial debug interface 
   Serial.begin(115200);
 
-//  Gpio_SetPinDirection(GPIO_P112, GPIO_DIR_OUTPUT);
-//  Gpio_SetPinLevel(GPIO_P112, GPIO_LEV_HIGH);
-//
-//  Gpio_SetPinDirection(GPIO_P304, GPIO_DIR_OUTPUT);
-//  Gpio_SetPinLevel(GPIO_P304, GPIO_LEV_LOW);
-
-///// 3 012
-///// 7 205 gnd 
-
-  Gpio_SetPinDirection(GPIO_P213, GPIO_DIR_OUTPUT);
-  Gpio_SetPinLevel(GPIO_P213, GPIO_LEV_HIGH);
-
-  Gpio_SetPinDirection(GPIO_P012, GPIO_DIR_OUTPUT);
-  Gpio_SetPinLevel(GPIO_P012, GPIO_LEV_HIGH);
-
-  Gpio_SetPinDirection(GPIO_P206, GPIO_DIR_OUTPUT);
-  Gpio_SetPinLevel(GPIO_P206, GPIO_LEV_HIGH);
-
-  Gpio_SetPinDirection(GPIO_P205, GPIO_DIR_OUTPUT);
-  Gpio_SetPinLevel(GPIO_P205, GPIO_LEV_LOW);
-
+  // Initialize built-in LED
+  Gpio_SetPinDirection(GPIO_BUILT_IN_LED, GPIO_DIR_OUTPUT);
   
+  // Initialize LED matrix
+  Gpio_SetPinDirection(LED_MATRIX_ROW_0, GPIO_DIR_OUTPUT);
+  Gpio_SetPinLevel(LED_MATRIX_ROW_0, GPIO_LEV_LOW);
 
+  Gpio_SetPinDirection(LED_MATRIX_ROW_1, GPIO_DIR_OUTPUT);
+  Gpio_SetPinLevel(LED_MATRIX_ROW_1, GPIO_LEV_HIGH);
+
+  Gpio_SetPinDirection(LED_MATRIX_ROW_2, GPIO_DIR_OUTPUT);
+  Gpio_SetPinLevel(LED_MATRIX_ROW_2, GPIO_LEV_HIGH);
+
+  Gpio_SetPinDirection(LED_MATRIX_ROW_3, GPIO_DIR_OUTPUT);
+  Gpio_SetPinLevel(LED_MATRIX_ROW_3, GPIO_LEV_HIGH);
 }
+
 
 void loop()
 {
@@ -55,8 +68,6 @@ void loop()
 }
 
 
-
-//aggiungere controllo su gpio write e toggle su direzione gpio (solo se OUTPUT!)
 
 // NB: delete everythin inside this to clean project:
 // C:\Users\Filippo\AppData\Local\arduino\sketches
