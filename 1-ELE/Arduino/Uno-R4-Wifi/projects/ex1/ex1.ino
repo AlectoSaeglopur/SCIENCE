@@ -13,7 +13,7 @@
 /*** DEFINES ***/
 /***************/
 
-#define TOGGLE_TIME         4     // ms
+#define TOGGLE_TIME         1     // ms
 
 
 
@@ -37,19 +37,20 @@ void setup()
   Gpio_SetPinDirection(GPIO_BUILT_IN_LED, GPIO_DIR_OUTPUT);
   
   // Initialize LED matrix
-  Gpio_SetPinDirection(LED_MATRIX_ROW_0, GPIO_DIR_OUTPUT);
-  Gpio_SetPinDirection(LED_MATRIX_ROW_1, GPIO_DIR_OUTPUT);
-
-  Gpio_SetPinLevel(LED_MATRIX_ROW_0, GPIO_LEV_LOW);
-  Gpio_SetPinLevel(LED_MATRIX_ROW_1, GPIO_LEV_HIGH);
+  LedMatrix_InitializePixels();
 }
 
 
 void loop()
 {
-  static uint8_t cnt = 0;
-
+  static uint8_t idx = 0;
+  LedMatrix_SetPixelLevel((led_matrix_pixel_t)idx, GPIO_LEV_HIGH);
   delay(TOGGLE_TIME);
+  idx = (idx+1)%LED_MATRIX_PIXEL_NUM;
+
+
+
+  
 //  Gpio_ToggleDigitalPin(GPIO_BUILT_IN_LED);
 
 //  Gpio_ToggleDigitalPin(LED_MATRIX_ROW_0);

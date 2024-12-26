@@ -15,12 +15,10 @@
 /*** DEFINES ***/
 /***************/
 
-#define GPIO_BUILT_IN_LED       GPIO_P102
-
 #define SECTOR_DIVIDER          ((uint16_t) 100)
 #define NUM_PINS_PER_SECTOR     ((uint16_t) 16)
 
-// Pins definition
+// List of MCU pins (name, value)
 #define LIST_OF_PINS(ENTRY)   \
   ENTRY( 000, 0 ),            \
   ENTRY( 001, 1 ),            \
@@ -57,6 +55,8 @@
 
 #define DEF_GPIO_ID(id, num) GPIO_P##id = num
 #define DEF_GPIO_NAME(id, ...) GPIO_P##id
+
+#define GPIO_BUILT_IN_LED       GPIO_P102
 
 
 
