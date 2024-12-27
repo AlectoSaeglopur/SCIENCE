@@ -41,18 +41,19 @@ static const led_pixel_t PIXELS_ARRAY[LED_MATRIX_PIXEL_NUM] = {LIST_OF_LED_MATRI
 /************************/
 
 /**
- * @brief <i> Function for initilizing LED matrix with all pixels off. </i>
+ * @brief <i> Function for initilizing LED matrix with pins as tristate. </i>
  * 
  * @return none
  */
 void LedMatrix_InitializePixels( void )
 {
-  uint8_t j;
+  uint8_t rowIdx;
+  gpio_number_t rowPin;
 
-  for (j=0; j<LED_MATRIX_ROW_NUM; j++)
+  for (rowIdx=0; rowIdx<LED_MATRIX_ROW_NUM; rowIdx++)
   {
-    Gpio_SetPinDirection((gpio_number_t)ROWS_ARRAY[j], GPIO_DIR_OUTPUT);
-    Gpio_SetPinLevel((gpio_number_t)ROWS_ARRAY[j], GPIO_LEV_LOW);
+    rowPin = (gpio_number_t)ROWS_ARRAY[rowIdx];
+    Gpio_SetPinDirection(rowPin, GPIO_DIR_INPUT);
   }
 }
 
@@ -65,13 +66,60 @@ void LedMatrix_InitializePixels( void )
  * 
  * @return none
  */
-void LedMatrix_SetPixelLevel( led_matrix_pixel_t pxIdx, gpio_level_t level )
+void LedMatrix_SwitchOnPixel( led_matrix_pixel_t pxIdx )
 {
+#if 0 // #1:generic implementation
+
+  uint8_t rowIdx;
+  gpio_number_t rowPin;
+
   if (pxIdx < LED_MATRIX_PIXEL_NUM)
   {
-    Gpio_SetPinLevel((gpio_number_t)PIXELS_ARRAY[pxIdx].cathode, GPIO_LEV_LOW);
-    Gpio_SetPinLevel((gpio_number_t)PIXELS_ARRAY[pxIdx].anode, level);
+    for (rowIdx=0; rowIdx<LED_MATRIX_ROW_NUM; rowIdx++)
+    {
+      rowPin = (gpio_number_t)ROWS_ARRAY[rowIdx];
+
+      if (rowPin == (gpio_number_t)PIXELS_ARRAY[pxIdx].cathode)
+      {
+        Gpio_SetPinDirection(rowPin, GPIO_DIR_OUTPUT);
+        Gpio_SetPinLevel(rowPin, GPIO_LEV_LOW);
+      }
+      else if (rowPin == (gpio_number_t)PIXELS_ARRAY[pxIdx].anode)
+      {
+        Gpio_SetPinDirection(rowPin, GPIO_DIR_OUTPUT);
+        Gpio_SetPinLevel(rowPin, GPIO_LEV_HIGH);
+      }
+      else
+      {
+        Gpio_SetPinDirection(rowPin, GPIO_DIR_INPUT);
+      }
+    }
   }
+
+#else // #2: more efficient implementation
+
+  static led_matrix_pixel_t prevPxIdx = LED_MATRIX_PIXEL_NUM;
+  gpio_number_t rowPin;
+
+  if ((pxIdx < LED_MATRIX_PIXEL_NUM) && (pxIdx != prevPxIdx))
+  {
+    // Switch off previous pixel
+    rowPin = (gpio_number_t)PIXELS_ARRAY[prevPxIdx].cathode;
+    Gpio_SetPinDirection(rowPin, GPIO_DIR_INPUT);
+    rowPin = (gpio_number_t)PIXELS_ARRAY[prevPxIdx].anode;
+    Gpio_SetPinDirection(rowPin, GPIO_DIR_INPUT);
+    // Switch on new pixel
+    rowPin = (gpio_number_t)PIXELS_ARRAY[pxIdx].cathode;
+    Gpio_SetPinDirection(rowPin, GPIO_DIR_OUTPUT);
+    Gpio_SetPinLevel(rowPin, GPIO_LEV_LOW);
+    rowPin = (gpio_number_t)PIXELS_ARRAY[pxIdx].anode;
+    Gpio_SetPinDirection(rowPin, GPIO_DIR_OUTPUT);
+    Gpio_SetPinLevel(rowPin, GPIO_LEV_HIGH);
+    // Update previous pixel
+    prevPxIdx = pxIdx;
+  }
+
+#endif
 }
 
 

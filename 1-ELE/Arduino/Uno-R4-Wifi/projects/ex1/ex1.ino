@@ -40,13 +40,22 @@ void setup()
   LedMatrix_InitializePixels();
 }
 
+#define PX_MIN (49-1)
+#define PX_MAX (78)
 
 void loop()
 {
+  
   static uint8_t idx = 0;
-  LedMatrix_SetPixelLevel((led_matrix_pixel_t)idx, GPIO_LEV_HIGH);
+  LedMatrix_SwitchOnPixel((led_matrix_pixel_t)idx);
   delay(TOGGLE_TIME);
-  idx = (idx+1)%LED_MATRIX_PIXEL_NUM;
+
+  idx++;
+  if (PX_MAX == idx)
+  {
+    idx = PX_MIN;
+  }
+
 
 
 
