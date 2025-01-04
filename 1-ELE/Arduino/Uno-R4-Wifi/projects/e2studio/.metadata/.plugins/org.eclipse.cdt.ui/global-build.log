@@ -1,0 +1,18 @@
+Extracting support files...
+00:26:01 **** Build of configuration Debug for project ex1 ****
+make -r -j4 all 
+Building file: ../src/hal_entry.c
+Building file: ../ra_gen/common_data.c
+Building file: ../ra_gen/main.c
+Building file: ../ra_gen/hal_data.c
+../src/hal_entry.c: In function 'hal_entry':
+../src/hal_entry.c:59:5: error: unknown type name 'timer_instance_t'; did you mean 'ioport_instance_t'?
+   59 |     timer_instance_t xx;
+      |     ^~~~~~~~~~~~~~~~
+      |     ioport_instance_t
+../src/hal_entry.c:59:22: warning: unused variable 'xx' [-Wunused-variable]
+   59 |     timer_instance_t xx;
+      |                      ^~
+make: *** [src/subdir.mk:25: src/hal_entry.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -r -j4 all" terminated with exit code 2. Build might be incomplete.
