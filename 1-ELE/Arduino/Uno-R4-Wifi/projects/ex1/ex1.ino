@@ -41,6 +41,11 @@ void setup()
   // Initialize LED matrix
   LedMatrix_InitializePixels();
   LedMatrix_InitializeTimer();
+
+  // sETUP CLOCK (CRETE FUNCTION, PLUS SETUP AS very 1st initialization function!!!!)
+  R_SYSTEM->SCKDIVCR_b.PCKD = 6;
+
+
 }
 
 #define PX_MIN (49-1)
@@ -59,8 +64,9 @@ void loop()
 //    idx = PX_MIN;
 //  }
 
-//  Debug_PrintRegistersGTP();
   delay(2000);
+  Debug_PrintClockRegs();
+//  Debug_PrintTimerRegs();
 
 //  Gpio_ToggleDigitalPin(LED_MATRIX_ROW_0);
 //  Gpio_ToggleDigitalPin(LED_MATRIX_ROW_1);

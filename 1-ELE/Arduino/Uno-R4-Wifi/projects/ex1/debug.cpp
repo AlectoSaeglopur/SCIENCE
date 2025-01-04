@@ -20,15 +20,26 @@
 /*** PUBLIC FUNCTIONS ***/
 /************************/
 
+
+void Debug_PrintClockRegs( void )
+{
+  static uint16_t cnt = 0;
+  Serial.print("\n >>> CLOCK REGS #");
+  Serial.println(cnt++, DEC);
+  PRINT_REGISTER(R_SYSTEM, SCKDIVCR);
+}
+
+
+
 /**
  * @brief <i> Function for printing GPT module registers. </i>
  * 
  * @return none
  */
-void Debug_PrintRegistersGTP( void )
+void Debug_PrintTimerRegs( void )
 {
   static uint16_t cnt = 0;
-  Serial.print("\n >>> GTP3 REGISTERS #");
+  Serial.print("\n >>> TIMER REGS #");
   Serial.println(cnt++, DEC);
   PRINT_REGISTER(R_GPT3, GTWP);
   PRINT_REGISTER(R_GPT3, GTPR);
