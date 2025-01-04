@@ -42,10 +42,22 @@ void setup()
   LedMatrix_InitializePixels();
   LedMatrix_InitializeTimer();
 
+
+
+
+#if 0
   // sETUP CLOCK (CRETE FUNCTION, PLUS SETUP AS very 1st initialization function!!!!)
+  
+  // Enable writing to clock registers
+  R_SYSTEM->PRCR = PRC_KEY | 0x0001;
+
+//  // Select middle-speed on-chip oscillator (8 MHz)
+//  R_SYSTEM->SCKSCR_b.CKSEL = 1;
+//  // Set clock divider to 64 for PCKD
   R_SYSTEM->SCKDIVCR_b.PCKD = 6;
-
-
+//  // Enable MOCO
+//  R_SYSTEM->MOCOCR_b.MCSTP = 0;
+#endif
 }
 
 #define PX_MIN (49-1)
