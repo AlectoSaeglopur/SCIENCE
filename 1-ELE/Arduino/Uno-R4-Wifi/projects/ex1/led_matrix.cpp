@@ -23,7 +23,7 @@
 static const led_matrix_row_pin_t ROWS_ARRAY[LED_MATRIX_ROW_NUM] = {LIST_OF_LED_MATRIX_ROWS(DEF_LED_MATRIX_ROW_PIN)};
 static const led_pixel_t PIXELS_ARRAY[LED_MATRIX_PIXEL_NUM] = {LIST_OF_LED_MATRIX_PIXELS(DEF_LED_MATRIX_PIXEL_MAP)};
 
-static const IRQn_Type IRQn_OVF3 = IRQn_Type(IRQ_EXC_NUMBER_OVF3);
+static const IRQn_Type IRQn_OVF0 = IRQn_Type(IRQ_EXC_NUMBER_OVF0);
 
 
 
@@ -31,7 +31,7 @@ static const IRQn_Type IRQn_OVF3 = IRQn_Type(IRQ_EXC_NUMBER_OVF3);
 /*** PRIVATE PROTOTYPES ***/
 /**************************/
 
-void ISR_GPT3_OVF( void );
+void ISR_GPT0_OVF( void );
 
 
 
@@ -123,45 +123,45 @@ void LedMatrix_SwitchOnPixel( led_matrix_pixel_t pxIdx )
 
 
 /**
- * @brief <i> Function for initializing 16-bit timer GPT3 for LED matrix switching. </i>
+ * @brief <i> Function for initializing 32-bit timer GPT0 for LED matrix switching. </i>
  * 
  * @return none
  */
 void LedMatrix_InitializeTimer( void )
 {
-  // Setup GPT3 overflow interrupt request
-  R_ICU->IELSR_b[IRQn_OVF3].IELS = ELC_EVENT_GPT3_COUNTER_OVERFLOW;
-  NVIC_SetVector(IRQn_OVF3, (uint32_t)ISR_GPT3_OVF);
-  NVIC_SetPriority(IRQn_OVF3, IRQ_PRIORITY_OVF3);
-  NVIC_EnableIRQ(IRQn_OVF3);
+  // Setup GPT0 overflow interrupt request
+  R_ICU->IELSR_b[IRQn_OVF0].IELS = ELC_EVENT_GPT0_COUNTER_OVERFLOW;
+  NVIC_SetVector(IRQn_OVF0, (uint32_t)ISR_GPT0_OVF);
+  NVIC_SetPriority(IRQn_OVF0, IRQ_PRIORITY_OVF0);
+  NVIC_EnableIRQ(IRQn_OVF0);
 
   // Enable GTP modules
   R_MSTP->MSTPCRD_b.MSTPD5 = 0;
   R_MSTP->MSTPCRD_b.MSTPD6 = 0;
 
   // Unlock timer registers writing
-  R_GPT3->GTWP = (uint32_t)((((uint16_t)PROTECTION_KEY)<<8) & 0xFFFE);
+  R_GPT0->GTWP = (uint32_t)((((uint16_t)PROTECTION_KEY)<<8) & 0xFFFE);
   // Enable software source counter start
-  R_GPT3->GTSSR_b.CSTRT = 1;
+  R_GPT0->GTSSR_b.CSTRT = 1;
   // Enable software source counter stop
-  R_GPT3->GTPSR_b.CSTOP = 1;
+  R_GPT0->GTPSR_b.CSTOP = 1;
   // Enable software source counter clear
-  R_GPT3->GTCSR_b.CCLR = 1;
+  R_GPT0->GTCSR_b.CCLR = 1;
   // Set saw-wave PWM mode
-  R_GPT3->GTCR_b.MD = 0;
+  R_GPT0->GTCR_b.MD = 0;
   // Set prescaler
-  R_GPT3->GTCR_b.TPCS = 5;   //>>> mismatch with documentation (expected value is right-shifted by 1)
+  R_GPT0->GTCR_b.TPCS = 0; //5;   //>>> mismatch with documentation (expected value is right-shifted by 1)
   // Set counting in up-direction
-  R_GPT3->GTUDDTYC_b.UD = 1;
+  R_GPT0->GTUDDTYC_b.UD = 1;
   // Set maximum counter value
-  R_GPT3->GTPR = 0x0000FADE;
+  R_GPT0->GTPR = 0x01000000;
   // Clear current counter value
-  R_GPT3->GTCNT = 0x00000000;      // alternatively: R_GPT3->GTCLR_b.CCLR0 = 1;
+  R_GPT0->GTCNT = 0x00000000;      // alternatively: R_GPT0->GTCLR_b.CCLR0 = 1;
   // Reset interrupt flag
-  R_GPT3->GTST_b.TCFPO = 0;  
+  R_GPT0->GTST_b.TCFPO = 0;  
   // Start timer
-  R_GPT3->GTSTR_b.CSTRT0 = 1;
-  R_GPT3->GTCR_b.CST = 1;
+  R_GPT0->GTSTR_b.CSTRT0 = 1;
+  R_GPT0->GTCR_b.CST = 1;
 }
 
 
@@ -170,26 +170,12 @@ void LedMatrix_InitializeTimer( void )
 /*** INTERRUPT SERVICE ROUTINES ***/
 /**********************************/
 
-void ISR_GPT3_OVF( void )
+void ISR_GPT0_OVF( void )
 {
   // Clear interrupt flag
-  R_ICU->IELSR_b[IRQn_OVF3].IR = 0;
+  R_ICU->IELSR_b[IRQn_OVF0].IR = 0;
   // Toggle built-in flag
   Gpio_ToggleDigitalPin(GPIO_BUILT_IN_LED);
-
-
-//  static uint16_t cnt = 0;
-//
-//  if (1000 == cnt)
-//  {
-//    cnt = 0;
-//    Serial.print("\n ISR #");
-//    Serial.println(cnt, DEC);
-//  }
-//  else
-//  {
-//    cnt++;
-//  }
 }
 
 

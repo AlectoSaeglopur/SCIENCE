@@ -32,9 +32,9 @@
 
 #define PRINT_BUFFER_SIZE       50u
 
-#define IRQ_PRIORITY_OVF3       12u                           /* - GPT3 overflow interrupt priority [NB: allowed priorities range between 0 (highest) and 15 (lowest)] */
+#define IRQ_PRIORITY_OVF0       12u                           /* - GPT0 overflow interrupt priority [NB: allowed priorities range between 0 (highest) and 15 (lowest)] */
 
-#define IRQ_EXC_NUMBER_OVF3     16u                           /* - GPT3 overflow interrupt exception numberpriority [NB: "16" is the 1st slot avaialble for custom interrupts (see Table 13.3)] */
+#define IRQ_EXC_NUMBER_OVF0     16u                           /* - GPT0 overflow interrupt exception numberpriority [NB: "16" is the 1st slot avaialble for custom interrupts (see Table 13.3)] */
 
 
 #endif

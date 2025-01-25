@@ -24,6 +24,9 @@
 
 char printStr[PRINT_BUFFER_SIZE];
 
+gpio_level_t LastLedLev;
+
+
 
 /*****************/
 /*** FUNCTIONS ***/
@@ -31,6 +34,29 @@ char printStr[PRINT_BUFFER_SIZE];
 
 void setup()
 {
+
+#if 0
+  // sETUP CLOCK (CRETE FUNCTION, PLUS SETUP AS very 1st initialization function!!!!)
+  
+  // Enable writing to clock registers
+  R_SYSTEM->PRCR = ((((uint16_t)PROTECTION_KEY) << 8) | 0x0001);
+
+//  // Select middle-speed on-chip oscillator (MOCO at 8 MHz)
+  R_SYSTEM->SCKSCR_b.CKSEL = 1;
+
+//  // Set clock divider to 64 for PCKD
+  R_SYSTEM->SCKDIVCR_b.PCKD = 6;
+
+//  // Enable MOCO
+//  R_SYSTEM->MOCOCR_b.MCSTP = 0;
+
+delay(100);
+#endif
+
+
+
+
+
   // Initialize serial debug interface 
   Serial.begin(115200);
 
@@ -43,21 +69,12 @@ void setup()
   LedMatrix_InitializeTimer();
 
 
+//  Debug_PrintClockRegs();
+//  Debug_PrintTimerRegs();
 
+LastLedLev = Gpio_GetPinLevel(GPIO_BUILT_IN_LED);
 
-#if 0
-  // sETUP CLOCK (CRETE FUNCTION, PLUS SETUP AS very 1st initialization function!!!!)
-  
-  // Enable writing to clock registers
-  R_SYSTEM->PRCR = PRC_KEY | 0x0001;
-
-//  // Select middle-speed on-chip oscillator (8 MHz)
-//  R_SYSTEM->SCKSCR_b.CKSEL = 1;
-//  // Set clock divider to 64 for PCKD
-  R_SYSTEM->SCKDIVCR_b.PCKD = 6;
-//  // Enable MOCO
-//  R_SYSTEM->MOCOCR_b.MCSTP = 0;
-#endif
+//Debug_PrintClockRegs();
 }
 
 #define PX_MIN (49-1)
@@ -76,9 +93,14 @@ void loop()
 //    idx = PX_MIN;
 //  }
 
-  delay(2000);
-  Debug_PrintClockRegs();
-//  Debug_PrintTimerRegs();
+  //delay(2000);
+  if (LastLedLev != Gpio_GetPinLevel(GPIO_BUILT_IN_LED))
+  {
+    LastLedLev = Gpio_GetPinLevel(GPIO_BUILT_IN_LED);
+    static uint16_t cnt = 0;
+    Serial.print("ISR #");
+    Serial.println(cnt++, DEC);
+  }
 
 //  Gpio_ToggleDigitalPin(LED_MATRIX_ROW_0);
 //  Gpio_ToggleDigitalPin(LED_MATRIX_ROW_1);
