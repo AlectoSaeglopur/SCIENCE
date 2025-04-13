@@ -13,18 +13,18 @@ from re import match
 from spotipy import Spotify                                                                 # requires "pip install spotipy"
 from spotipy.oauth2 import SpotifyClientCredentials
 from sys import argv
+from tabulate import tabulate                                                               # requires "pip install tabulate"
 
 
 
 ### CONSTANTS ###
 
-USER_NAME = 'filippo.valmori'                                                               # Spotify user ID
-CLIENT_ID = 'f19afe5942e54a58b97a0a6aa0ac2f63'                                              # Spotify developer client ID (see "export_spotify_to_csv.pdf") 
-CLIENT_SECRET ='d1c21a071d314ae9bcadc4fd5783bee4'                                           # Spotify developer client secret (see "export_spotify_to_csv.pdf") 
-fidx = "%4d"                                                                                # index print-format
-path = "H:/MUSIC/"                                                                          # output folder path (use '.' for current folder)
-csep = ' || '                                                                               # separation characters between fields (artist, album, etc)
-
+USER_NAME = 'filippo.valmori'                                                               # spotify user ID
+CLIENT_ID = 'f19afe5942e54a58b97a0a6aa0ac2f63'                                              # spotify developer client ID (see "export_spotify_to_csv.pdf") 
+CLIENT_SECRET ='d1c21a071d314ae9bcadc4fd5783bee4'                                           # spotify developer client secret (see "export_spotify_to_csv.pdf") 
+trunc_flag = True                                                                           # flag for truncating title/artist string if too long
+num_trunc_chars = 50                                                                        # threshold number of title/artist characters for truncation
+out_path = "H:/MUSIC/"                                                                      # output folder path where to save .log file (use '.' for current folder)
 
 
 ### FUNCTIONS ###
@@ -35,11 +35,11 @@ def get_playlist_link( argv ) :
         raise Exception("Invalid number of input arguments provided.")
     else :
         nldict = dict([ \
-                ('athena',"https://open.spotify.com/playlist/6PgP1gPFnN3Jk83kSsaCFE?si=cb2d99e5e2714e83"), \
-                ('ulysses',"https://open.spotify.com/playlist/2za8W48Yx9LvWKTO2dtenk?si=b83862898ecf4385"), \
-                ('phoenix',"https://open.spotify.com/playlist/2hmOHLiNa7kWFwF9088c0T?si=b399b9b999ea41bc"), \
-                ('tartaros',"https://open.spotify.com/playlist/0d3feOw4hmOBM2CxqeT3tT?si=5961409b97df4479"), \
-                ('map',"https://open.spotify.com/playlist/6t1HCTWFhwO5vTBGCCaXom?si=73ec4a65cd3b45e8"), \
+                ('1_athena',"https://open.spotify.com/playlist/6PgP1gPFnN3Jk83kSsaCFE?si=cb2d99e5e2714e83"), \
+                ('2_ulysses',"https://open.spotify.com/playlist/2za8W48Yx9LvWKTO2dtenk?si=b83862898ecf4385"), \
+                ('3_phoenix',"https://open.spotify.com/playlist/2hmOHLiNa7kWFwF9088c0T?si=b399b9b999ea41bc"), \
+                ('4_tartaros',"https://open.spotify.com/playlist/0d3feOw4hmOBM2CxqeT3tT?si=5961409b97df4479"), \
+                ('5_map',"https://open.spotify.com/playlist/6t1HCTWFhwO5vTBGCCaXom?si=73ec4a65cd3b45e8"), \
                 ])
         name = str(argv[1])
         if name == 'all' :
@@ -61,28 +61,52 @@ def get_playlist_tracks( username, playlist_id ):
     return tracks
 
 
+def truncate_string( in_string ) :
+  ''' Function to truncate string if too long. '''
+  len_string = len(in_string)
+  if trunc_flag == True and len_string > num_trunc_chars :
+    out_string = in_string[:num_trunc_chars] + "..."
+  else :
+    out_string = in_string
+  return out_string
+
+
 
 ### PROCESSING ###
 
-playlist_dict = get_playlist_link(argv)                                                     # retrieve playlists links from input argument
+# retrieve playlists links from input argument
+playlist_dict = get_playlist_link(argv)       
+# loop over each playlist requested by user                                              
 for playlist_name, playlist_link in playlist_dict.items() :
-    ccd = SpotifyClientCredentials(client_id=CLIENT_ID,client_secret=CLIENT_SECRET)         # authenticate session
-    session = Spotify(client_credentials_manager=ccd)                                       # create spotify session object
+    # authenticate session
+    ccd = SpotifyClientCredentials(client_id=CLIENT_ID,client_secret=CLIENT_SECRET)
+    # create spotify session object
+    session = Spotify(client_credentials_manager=ccd)
     if playlist_match := match(r"https://open.spotify.com/playlist/(.*)\?",playlist_link) :
-        playlist_uri = playlist_match.groups()[0]                                           # get playlist URI from link
+        # get playlist URI from link
+        playlist_uri = playlist_match.groups()[0]
     else :
         raise ValueError("Expected format: https://open.spotify.com/playlist/...")
-    tracklist = get_playlist_tracks(USER_NAME,playlist_link)                                # retrieve playlist tracklist
-    dt = datetime.now()                                                                     # get current time/date
-    fid = open(path+playlist_name+'.txt','w',encoding='utf-8')
-    fid.write(" >> Spotify's "+playlist_name.upper()+' @ '+dt.strftime("%d-%b-%Y %H:%M:%S")+' <<\n\n')
+    # retrieve playlist tracklist
+    tracklist = get_playlist_tracks(USER_NAME,playlist_link)
+    # get current time/date
+    date_time = datetime.now()
+    info_list = []
+    # retrieve fields for each track
     for j, track in enumerate(tracklist):
-        name = track["track"]["name"]
-        artist = ", ".join([artist["name"] for artist in track["track"]["artists"]])
-        album = track["track"]["album"]["name"]
-        year = track["track"]["album"]["release_date"]
-        fid.write(fidx%(j+1)+': '+name+csep+artist+csep+album+csep+year+'\n')
-    fid.close()
+        title = truncate_string(track["track"]["name"])
+        artist = truncate_string(", ".join([artist["name"] for artist in track["track"]["artists"]]))
+        album = truncate_string(track["track"]["album"]["name"])
+        year = truncate_string(track["track"]["album"]["release_date"])
+        info_list.append([j+1, title, artist, album, year])
+    # save playlist info in to .log file
+    with open(out_path + playlist_name + '.log', 'w', encoding='utf-8') as fid :
+      fid.write('\n>> Spotify "' + playlist_name.upper() + '" playlist: ' + str(j+1) + " tracks")
+      fid.write("\n>> Generation date/time: " + date_time.strftime("%d-%b-%Y @ %H:%M:%S") + '\n\n')
+      list_headers = ["Index", "Title", "Artist", "Album", "Year"]
+      list_text = tabulate(info_list, headers=list_headers, tablefmt="grid")
+      fid.write(list_text)
+    # print on terminal the playlist exporting outcome 
     print('\n >> Execution completed for "'+playlist_name.upper()+'" playlist:')
     print('    - '+str(j+1)+' files listed')
 
@@ -91,11 +115,11 @@ for playlist_name, playlist_link in playlist_dict.items() :
 ### NOTES ###
 
 # 1. Use the script by runnig:
-#    - "python spotify_exporter.py athena"
-#    - "python spotify_exporter.py ulysses"
-#    - "python spotify_exporter.py phoenix"
-#    - "python spotify_exporter.py tartaros"
-#    - "python spotify_exporter.py map"
+#    - "python spotify_exporter.py 1_athena"
+#    - "python spotify_exporter.py 2_ulysses"
+#    - "python spotify_exporter.py 3_phoenix"
+#    - "python spotify_exporter.py 4_tartaros"
+#    - "python spotify_exporter.py 5_map"
 #    Or all at once with:
 #    - "python spotify_exporter.py all"
 

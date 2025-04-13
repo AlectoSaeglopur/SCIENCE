@@ -1027,7 +1027,7 @@
 \end{itemize}
 \myparvspace
 
-\item[\mybulletlvA] Note that by default the \textit{git stash [push]} command stores:
+\item[\mybulletlvA] By default the \textit{git stash [push]} command stores:
 \begin{itemize}
   \item[\mybulletlvB] staged changes (i.e. the changes that have been added to your index);
   \item[\mybulletlvB] unstaged changes (i.e. changes made to files that are currently tracked by Git);
@@ -1042,7 +1042,7 @@ but does NOT store:
 \item[\mybulletlvA] The user is not limited to a single stash at a time, but can push multiple times to create multiple stash entries in sequence. By default, stash entries are identified simply with a \textit{WIP} (aka \textit{Work In Progress}) label linked to the branch-commit pair the stash entry was generated from. The \mycmd{git stash list} command can be used to list all stash entries currently stored within the stashing area. However, after a while it can be difficult to remember what each stash entry contains, because each of them is identified with a string like \textit{stash@\{0\}: WIP on bugfix\_123: 2e16987} or \textit{stash@\{4\}: WIP on develop: f955ab0}. To provide a clearer and more detailed tracking, it is recommended to include a description to each stash entry through the \textit{-m|save "<message>"} option, namely \mycmd{git stash -m|save "<message>"} (e.g. \textit{git stash -m "stashed changes on xyz.c" -u}).
 \myparvspace
 
-\item[\mybulletlvA] Note it is even possible to stash only specific modified files instead of them all. To do so, use \mycmd{git stash push <files-or-directories> -m "<message>"}.
+\item[\mybulletlvA] Note it is even possible to stash only specific modified files instead of them all. To do so, use \mycmd{git stash push <files-or-directories> -m "<message>"} (e.g. \textit{git stash push Source/Application -m "WIP on ticket 471"}).
 \myparvspace
 
 \item[\mybulletlvA] To retrieve info about a specific stash, use the \mycmd{git stash show stash@\{<num>\}} command and add the \textit{-p} option to display also all differences within modified files (e.g. \textit{git stash show -p stash@\{1\}}).
