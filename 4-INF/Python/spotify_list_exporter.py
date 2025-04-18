@@ -22,8 +22,7 @@ from tabulate import tabulate                                                   
 USER_NAME = 'filippo.valmori'                                                               # spotify user ID
 CLIENT_ID = 'f19afe5942e54a58b97a0a6aa0ac2f63'                                              # spotify developer client ID (see "export_spotify_to_csv.pdf") 
 CLIENT_SECRET ='d1c21a071d314ae9bcadc4fd5783bee4'                                           # spotify developer client secret (see "export_spotify_to_csv.pdf") 
-trunc_flag = True                                                                           # flag for truncating title/artist string if too long
-num_trunc_chars = 50                                                                        # threshold number of title/artist characters for truncation
+max_tab_width = 50                                                                          # threshold number of title/artist characters for truncation
 out_path = "H:/MUSIC/"                                                                      # output folder path where to save .log file (use '.' for current folder)
 
 
@@ -61,16 +60,6 @@ def get_playlist_tracks( username, playlist_id ):
     return tracks
 
 
-def truncate_string( in_string ) :
-  ''' Function to truncate string if too long. '''
-  len_string = len(in_string)
-  if trunc_flag == True and len_string > num_trunc_chars :
-    out_string = in_string[:num_trunc_chars] + "..."
-  else :
-    out_string = in_string
-  return out_string
-
-
 
 ### PROCESSING ###
 
@@ -94,17 +83,18 @@ for playlist_name, playlist_link in playlist_dict.items() :
     info_list = []
     # retrieve fields for each track
     for j, track in enumerate(tracklist):
-        title = truncate_string(track["track"]["name"])
-        artist = truncate_string(", ".join([artist["name"] for artist in track["track"]["artists"]]))
-        album = truncate_string(track["track"]["album"]["name"])
-        year = truncate_string(track["track"]["album"]["release_date"])
+        title = track["track"]["name"]
+        artist = ", ".join([artist["name"] for artist in track["track"]["artists"]])
+        album = track["track"]["album"]["name"]
+        year = track["track"]["album"]["release_date"]
         info_list.append([j+1, title, artist, album, year])
     # save playlist info in to .log file
     with open(out_path + playlist_name + '.log', 'w', encoding='utf-8') as fid :
       fid.write('\n>> Spotify "' + playlist_name.upper() + '" playlist: ' + str(j+1) + " tracks")
       fid.write("\n>> Generation date/time: " + date_time.strftime("%d-%b-%Y @ %H:%M:%S") + '\n\n')
       list_headers = ["Index", "Title", "Artist", "Album", "Year"]
-      list_text = tabulate(info_list, headers=list_headers, tablefmt="grid")
+      list_text = tabulate(info_list, headers=list_headers, tablefmt="grid",
+        maxcolwidths=[max_tab_width for _ in range(len(list_headers))])
       fid.write(list_text)
     # print on terminal the playlist exporting outcome 
     print('\n >> Execution completed for "'+playlist_name.upper()+'" playlist:')

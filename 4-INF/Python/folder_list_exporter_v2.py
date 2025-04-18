@@ -24,8 +24,7 @@ folder_path = "H:/MUSIC/flac/"                                                  
 included_ext = ['.mp3']                                                         # file extensions to be included (use ['.*'] for all extensions)
 excluded_ext = []                                                               # file extensions to be excluded (used only if "included_ext = ['.*']")
 recurs_flag = False                                                             # flag for recursively extending export to sub-folders
-trunc_flag = True                                                               # flag for truncating title/artist string if too long
-num_trunc_chars = 30                                                            # threshold number of title/artist characters for truncation
+max_tab_width = 50                                                              # maximum number of characters per tabulated column
 
 
 
@@ -55,25 +54,15 @@ def get_included_extensions( included_ext, recurs_flag ) :
   return included_ext
 
 
-def truncate_string( in_string ) :
-  ''' Function to truncate string if too long. '''
-  len_string = len(in_string)
-  if trunc_flag == True and len_string > num_trunc_chars :
-    out_string = in_string[:num_trunc_chars] + "..."
-  else :
-    out_string = in_string
-  return out_string
-
-
 def retrieve_elem_fields( string ) :
   ''' Fucntion to retrieve title, artist and year info from file name.'''
   idx_1st_delimiter = string.find("(")
   idx_2nd_delimiter = string[idx_1st_delimiter:].find(",") + idx_1st_delimiter
   idx_3rd_delimiter = string[idx_2nd_delimiter:].find(")") + idx_2nd_delimiter
   # retrieve title [substring from start to first "(" character]
-  title = truncate_string(string[:idx_1st_delimiter-1])
+  title = string[:idx_1st_delimiter-1]
   # retrieve artist [substring from first "(" character to next "," character]
-  artist = truncate_string(string[idx_1st_delimiter+1: idx_2nd_delimiter])
+  artist = string[idx_1st_delimiter+1: idx_2nd_delimiter]
   # retrieve year [substring from post-artist "," character to next ")" character]
   year = string[idx_2nd_delimiter+1: idx_3rd_delimiter]
   return title, artist, year
@@ -114,7 +103,8 @@ def get_exporting_stats( folder_path, included_ext, exts_cnt) :
 def log_results(folder_path, stats_text, elems_list) :
   ''' Function to sav exporting list and stats on.log file. '''
   elems_list_headers = ["Index", "Title", "Artist", "Year", "Extension"]
-  elems_list_text = tabulate(elems_list, headers=elems_list_headers, tablefmt="grid")
+  elems_list_text = tabulate(elems_list, headers=elems_list_headers,
+    tablefmt="grid", maxcolwidths=[max_tab_width for _ in range(len(elems_list_headers))])
   with open(folder_path + '_list.log', 'w', encoding='utf-8') as fid :
     fid.write(stats_text)
     fid.write(2*'\n')
