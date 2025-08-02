@@ -72,7 +72,7 @@ print(playlist_recap)
 # start playlist with predefined app (e.g. Windows Media Player)
 startfile(playlist_name)
 # delete playlist after launching
-if path.exists(playlist_name):
+if path.exists(playlist_name) :
   remove(playlist_name)
 
 

@@ -1,13 +1,25 @@
 
+:: disable echoing to terminal
 @echo off
 
 :: path to script
-set PYSCRIPT=H:\SCIENCE\4-INF\Python\playlist_launcher.py
+set PYSCRIPT=H:\SCIENCE\4-INF\Python\music_launcher.py
 
 :: script options
 set PYOPTIONS=--size 20
 
-:: open Git bash within current path
+:: set loop starting point
+:loop
+
+:: run python script with specific arguments
 python %PYSCRIPT% %PYOPTIONS%
 
-pause
+:: print message and pause execution
+echo ^>^> Press any key to generate a new playlist...
+pause >nul
+
+:: clear shell
+cls
+
+:: jump back to loop starting point
+goto loop
