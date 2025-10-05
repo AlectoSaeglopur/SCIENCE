@@ -1,9 +1,13 @@
+## EXTENSIONS TO IGNORE
 1-ELE/Altium/*.mp4
-2-TLC/GNUR/OOT/Web_Libraries/
 3-RF/CST/*.mp4
-3-RF/CST/*.mp4
-4-INF/Git/user#1_win_ssh_keys/
-4-INF/Git/user#2_lnx_ssh_keys/
+
+## FILES TO IGNORE
 _bibliography/BOOKS/ELE - Electronics/The art of electronics - The x chapters (Paul Horowitz, 2020).pdf
 _bibliography/BOOKS/DSP - Digital signal processing/Fundamentals of music processing (Meinhard Muller, 2021).pdf
 _bibliography/BOOKS/TLC - Telecommunications/Telecommunication breakdown - Concepts of communication transmitted via SDR (Richard Johnson, 2003).pdf
+
+## FOLDERS TO IGNORE
+2-TLC/GNUR/OOT/Web_Libraries/
+4-INF/Git/user#1_win_ssh_keys/
+4-INF/Git/user#2_lnx_ssh_keys/

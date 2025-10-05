@@ -3,8 +3,7 @@
 @echo off
 
 :: path to script
-set PYSCRIPT=H:\SCIENCE\4-INF\Python\music_launcher.py
-
+set PYSCRIPT=C:\Users\VKN\Documents\Science\4-INF\Python\music_launcher.py
 :: script options
 set PYOPTIONS=--size 20
 

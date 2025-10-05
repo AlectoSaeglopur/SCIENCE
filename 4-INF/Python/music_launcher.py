@@ -11,7 +11,7 @@ from sys import argv
 
 ### PARAMETERS ###
 
-path_to_songs = 'H:\\MUSIC\\'                             # absolute or relative path to songs folder
+path_to_songs = 'C:\\Users\\VKN\\Music\\'                 # absolute or relative path to songs folder
 songs_extens = '.mp3'                                     # songs extension to be filtered
 
 
