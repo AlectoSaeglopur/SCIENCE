@@ -27,7 +27,7 @@ size_type = "--size"                                            # type id for ra
 pattern_type = "--pattern"                                      # type id for string pattern playlist
 playlist_name = 'vkn_playlist.m3u'                              # name of temporary .m3u playlist
 expected_os = 'Linux'                                           # expected OS
-remove_delay = 0.2                                              # delay between playlist launch an removal
+remove_delay = 0.5                                              # delay between playlist launch an removal
 
 
 
@@ -35,7 +35,6 @@ remove_delay = 0.2                                              # delay between 
 
 # set variables and load additional libraries according to detected OS
 detected_os = system()
-print(detected_os)
 if detected_os == 'Linux' :
   path_to_songs = path_to_songs_lnx
   from subprocess import call
@@ -46,8 +45,9 @@ else :
   err_msg = 'Invalid OS detected: ' + detected_os
   raise Exception(err_msg)
 # retrieve playlist type from 1st terminal argument
-if len(argv)-1 < 2:
-  error_msg = "Invalid number of input arguments provided"
+num_args = len(argv) - 1
+if num_args < 2:
+  error_msg = 'Invalid number of input arguments provided: ' + str(num_args)
   raise Exception(error_msg)
 else :
   playlist_type = argv[1]
